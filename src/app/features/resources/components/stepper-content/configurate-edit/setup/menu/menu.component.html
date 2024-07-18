@@ -1,0 +1,268 @@
+<div class="save-btn d-flex justify-content-end align-items-center mb-3" *ngIf="resourceId">
+    <button *ngIf="resourceId"
+            (click)="saveResource()"
+            [disabled]="isSubmitLoading || !menuForm.valid"
+            matTooltip="{{menuForm.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+            class="btn-long btn-color-fill" type="button">
+        <ng-container *ngIf="isSubmitLoading===false">
+            <i class="fas fa-save"></i>
+            Salvează
+        </ng-container>
+        <ng-container *ngIf="isSubmitLoading === true">
+                      <span [style.display]="'block'" class="indicator-progress">
+                        Salvare...{{ " " }}
+                          <span
+                                  class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                      </span>
+        </ng-container>
+    </button>
+</div>
+
+<div id="rental-booking">
+
+    <div class="tab-section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Disponibilitate</h2>
+    </div>
+    <!--Content-->
+    <div class="section-content">
+        <!--        <p>Pentru acest tip de resursă nu avem Setup.</p>-->
+
+<!--        <div class="row mb-2">-->
+<!--            <mat-checkbox [(ngModel)]="hasFreeEntry" (ngModelChange)="setFreeEntry()">-->
+<!--                Intrarea este la liber-->
+<!--            </mat-checkbox>-->
+<!--        </div>-->
+        <div class="row mb-2">
+            <mat-checkbox [(ngModel)]="copyAllDays" (ngModelChange)="setFreeEntry()">
+                Copiaza la toate zilele
+            </mat-checkbox>
+        </div>
+
+        <label>Durata pana la a rezervarii</label>
+        <input placeholder="Minute" pInputText pKeyFilter="int" [(ngModel)]="orderDismissTime"/>
+
+        <div *ngIf="!hasFreeEntry" class="row">
+
+            <form [formGroup]="menuForm">
+                <mat-error *ngIf="menuForm.hasError('invalidInterval')">Trebuie să adăugați cel puțin un interval orar!</mat-error>
+                <div formArrayName="timetables" class="config-group p-0 mb-3">
+                    <mat-tab-group class="conf-tabs" animationDuration="0ms" mat-stretch-tabs="true" dynamicHeight
+                                   [selectedIndex]="tabIndex">
+                        <div *ngFor="let day of timetables().controls; let dayTabIndex=index">
+                            <mat-tab [formGroupName]="dayTabIndex" [label]="day.value.day | titlecase">
+                                <div class="tab-content">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <mat-form-field appearance="standard" class="w-100">
+                                                <mat-label>Numar de locuri disponibile</mat-label>
+                                                <input matInput placeholder="Numar de locuri disponibile" type="number"
+                                                       formControlName="maximumPeople"
+                                                       id="maximumPeople">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-12 col-md-6">
+                                            <mat-form-field appearance="standard" class="w-100">
+                                                <mat-label>Durata medie de rezervare [minute]</mat-label>
+                                                <input matInput placeholder="Durata medie de rezervare" type="number"
+                                                       formControlName="tableMinutesNumber"
+                                                       id="hoursNumber">
+                                                <mat-error
+                                                        *ngIf="day.get('tableMinutesNumber').hasError('invalidTimeRange')">
+                                                    Ora de final trebuie sa fie mai mare decat ora de inceput!
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 col-lg-4 d-flex align-items-center">
+                                            <mat-checkbox color="primary" formControlName="closed" id="closed">Inchis
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+
+
+                                    <div formArrayName="timetable">
+                                        <div *ngFor="let timetabl of timetable(dayTabIndex).controls ;let timetableIndex=index">
+                                            <div [formGroupName]="timetableIndex">
+
+                                                <!--                                                OLD VERSION-->
+                                                <!--                                                <div class="row">-->
+                                                <!--                                                    <div class="col-10 col-md-5">-->
+                                                <!--                                                        <mat-form-field appearance="standard" class="w-100">-->
+                                                <!--                                                            <mat-label>Ora de inceput</mat-label>-->
+                                                <!--                                                            <input matInput placeholder="Ora de inceput" type="time"-->
+                                                <!--                                                                   formControlName="startHour"-->
+                                                <!--                                                                   id="startTime"-->
+                                                <!--                                                                   pattern="[0-9]{2}:[0-9]{2}">-->
+                                                <!--                                                            <mat-error *ngIf="timetabl.get('startHour').hasError('invalidTimeRange')">Intervalul de timp trebuie sa fie mai mare decat durata medie de rezervare! </mat-error>-->
+
+                                                <!--                                                        </mat-form-field>-->
+                                                <!--                                                    </div>-->
+
+                                                <!--                                                    <div class="col-10 col-md-5">-->
+                                                <!--                                                        <mat-form-field appearance="standard" class="w-100">-->
+                                                <!--                                                            <mat-label>Ora de final</mat-label>-->
+                                                <!--                                                            <input matInput placeholder="Ora de final" type="time"-->
+                                                <!--                                                                   formControlName="endHour"-->
+                                                <!--                                                                   id="endTime"-->
+                                                <!--                                                                   pattern="[0-9]{2}:[0-9]{2}">-->
+                                                <!--                                                            <mat-error *ngIf="timetabl.get('endHour').hasError('invalidTime')">Ora de final trebuie sa fie mai mare decat ora de inceput!</mat-error>-->
+                                                <!--                                                            <mat-error *ngIf="timetabl.get('endHour').hasError('invalidTimeRange')">Intervalul de timp trebuie sa fie mai mare decat durata medie de rezervare! </mat-error>-->
+
+
+                                                <!--                                                        </mat-form-field>-->
+                                                <!--&lt;!&ndash;                                                        <ngx-mat-timepicker formControlName="endHour">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;                                                        </ngx-mat-timepicker>&ndash;&gt;-->
+
+                                                <!--                                                    </div>-->
+
+
+                                                <!--                                                    <div class="col-2">-->
+                                                <!--                                                        <div class="d-flex justify-content-center align-items-center h-100">-->
+                                                <!--                                                            <button class="btn-round btn-color-outline me-2"-->
+                                                <!--                                                                    type="button"-->
+                                                <!--                                                                    (click)="removeSlot(dayTabIndex,timetableIndex)"><i-->
+                                                <!--                                                                    class="fas fa-times"></i></button>-->
+                                                <!--                                                        </div>-->
+                                                <!--                                                    </div>-->
+                                                <!--                                                    <div class="col-12">-->
+                                                <!--                                                        <div *ngIf="timetabl.hasError('invalidTimeRange')">EROARE</div>-->
+                                                <!--                                                    </div>-->
+                                                <!--                                                </div>-->
+
+                                                <!--                                                NEW VERSION-->
+                                                <div class="row">
+                                                    <div class="col-10 col-lg-5">
+                                                        <div class="time-container w-100 d-flex justify-content-between align-items-center">
+                                                            <p class="label mb-0">Ora de inceput:</p>
+                                                            <ngx-mat-timepicker formControlName="startHour"
+                                                                                enableMeridian="true">
+                                                            </ngx-mat-timepicker>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-10 col-lg-5">
+                                                        <div class="time-container w-100 d-flex justify-content-between align-items-center">
+                                                            <p class="label mb-0">Ora de final:</p>
+                                                            <ngx-mat-timepicker formControlName="endHour"
+                                                                                enableMeridian="true">
+                                                            </ngx-mat-timepicker>
+                                                        </div>
+                                                        <mat-error
+                                                                *ngIf="timetabl.get('endHour').hasError('invalidTime')">
+                                                            Ora de final trebuie sa fie mai mare decat ora de inceput!
+                                                        </mat-error>
+                                                        <mat-error
+                                                                *ngIf="timetabl.get('endHour').hasError('invalidTimeRange')">
+                                                            Intervalul de timp trebuie sa fie mai mare decat durata
+                                                            medie de rezervare!
+                                                        </mat-error>
+                                                    </div>
+
+                                                    <div class="col-2">
+                                                        <div class="d-flex justify-content-center align-items-center h-100">
+                                                            <button class="btn-round btn-color-outline me-2"
+                                                                    type="button"
+                                                                    (click)="removeSlot(dayTabIndex,timetableIndex)"><i
+                                                                    class="fas fa-times"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="add-btn" (click)="addTimetable(dayTabIndex)">Adaugă un interval
+                                            de timp <i class="fas fa-plus"></i></button>
+                                    </div>
+
+
+                                </div>
+                            </mat-tab>
+
+                        </div>
+
+
+                    </mat-tab-group>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <div class="tab-section-title d-flex justify-content-between">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-info-circle"></i>
+            <h2>Meniu</h2>
+        </div>
+        <!--            <button class="btn-long btn-color-fill" (click)="addCategory()"><i class="fas fa-plus button-icon"></i>Adauga categorie</button>-->
+        <button class="btn-long btn-color-fill" (click)="openAddModal()"><i class="fas fa-plus button-icon"></i>Adauga
+            categorie
+        </button>
+    </div>
+
+    <div class="section-content">
+        <div class="row">
+
+            <div class="col-12">
+
+                <!--List Title-->
+                <div class="list-title">
+                    <h5 class="title">Listare categorii</h5>
+                </div>
+
+                <div class="list-content">
+                    <div *ngFor="let category of categList; let i=index">
+                        <div class="row">
+                            <div class="col-6 col-md-10">
+                                <h3>{{category.categoryName}}</h3>
+                                <p>Subcategorii: <span
+                                        *ngFor="let subcategory of category.subCategories; let last= last; let i= index">{{last ? subcategory.subCategoryName : subcategory.subCategoryName + ', '}}</span>
+                                </p>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <div class="h-100 d-flex justify-content-end align-items-center">
+                                    <button class="btn-round btn-color-outline me-2" (click)="openEditModal(category)">
+                                        <i class="fas fa-pen"></i></button>
+                                    <button class="btn-round btn-color-outline" (click)="openDeleteModal(category, i)">
+                                        <i class="fas fa-times"></i></button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--Stepper Controller-->
+    <div class="stepper-step-controller">
+        <!--Prev Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="prevStep()" [disabled]="!menuForm.valid"
+                    matTooltip="{{menuForm.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+            >
+                <i class="fas fa-arrow-left"></i>
+                Înapoi
+            </button>
+        </div>
+        <!--Next Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="nextStep()" [disabled]="!menuForm.valid"
+                    matTooltip="{{menuForm.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+            >
+                Urmatorul
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>

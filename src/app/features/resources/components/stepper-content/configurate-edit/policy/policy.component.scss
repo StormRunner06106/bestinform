@@ -1,0 +1,13 @@
+.stepper-step-controller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 25px 40px;
+
+  .next-step {
+    display: flex;
+    justify-content: center;
+  }
+
+}

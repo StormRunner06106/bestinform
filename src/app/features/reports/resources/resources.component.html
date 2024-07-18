@@ -1,0 +1,17 @@
+<div class="container-fluid client-general-box">
+    <div class="container">
+        <app-dashboard-header pageTitleOne="Rapoarte Resurse">
+        </app-dashboard-header>
+
+        <div *ngIf="(userRole === 'provider') || ((userRole === 'staff') && providerId)">
+            <app-sales-per-provider [providerId]="providerId" [userRole]="userRole" ></app-sales-per-provider>
+        </div>
+
+
+        <div *ngIf="((userRole === 'staff') && !providerId)">
+            <app-resources-reports></app-resources-reports>
+        </div>
+
+    </div>
+</div>
+

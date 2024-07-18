@@ -1,0 +1,84 @@
+<div class="container h-100 position-relative">
+    <button class="btn-close-modal btn-round btn-white-fill" type="button" mat-dialog-close="true">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div class="row h-100">
+        <div class="col-md-6 forgotten">
+            <div class="p-3">
+                <div class="logo">
+                    <img src="/assets/Logo-blue.svg" height="50px" alt="Logo">
+                </div>
+                <div class="title">
+                    <p class="title-text m-0">{{'TITLES.FORGOT-PASS' | translate}}</p>
+                    <p class="subtitle-text m-0">{{'TITLES.FORGOT-PASS-DIRECTIONS' | translate}}</p>
+                </div>
+                <div class="forgotten-body">
+                    <form [formGroup]="formPass">
+
+                        <mat-form-field appearance="legacy" class=" mb-14">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Email" formControlName="userEmail" required tabindex="1" id="emailInput">
+
+                            <mat-error *ngIf="formPass.controls.userEmail.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="formPass.get('userEmail').hasError('email')">{{'ERROR.EMAIL'|translate}}
+                            </mat-error>
+
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="emailSent" appearance="legacy" class="p-0 mb-14">
+                            <mat-label>{{'FIELD.RESET-CODE' | translate }}</mat-label>
+                            <input matInput placeholder="{{'FIELD.RESET-CODE' | translate }}" formControlName="userResetCode" required tabindex="2" id="resetCodeInput">
+
+
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="emailSent" appearance="legacy" class="p-0 mb-14">
+                            <mat-label>{{'FIELD.NEW-PASSWORD' | translate}}</mat-label>
+                            <input matInput placeholder="{{'FIELD.NEW-PASSWORD' | translate}}" formControlName="userPassword"  [type]="hide ? 'password' : 'text'" required tabindex="3" id="newPwdInput">
+
+                            <mat-error *ngIf="formPass.controls.userPassword.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="formPass.get('userPassword').hasError('requiredPass')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="formPass.get('userPassword').hasError('passMin')">{{'ERROR.PASS-MIN-LENGTH'|translate}}</mat-error>
+                            <mat-error *ngIf="formPass.get('userPassword').hasError('passMax')">{{'ERROR.PASS-MAX-LENGTH'|translate}}</mat-error>
+                            <mat-error *ngIf="formPass.get('userPassword').hasError('emptyFirst')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="formPass.get('userPassword').hasError('specialCharacter')">{{'ERROR.PASS-SPECIAL-CHAR'|translate}}</mat-error>
+                            <mat-error *ngIf="formPass.get('userPassword').hasError('number')">{{'ERROR.PASS-DIGIT'|translate}}</mat-error>
+                            <mat-error *ngIf="formPass.get('userPassword').hasError('upper')">{{'ERROR.PASS-UPPERCASE'|translate}}</mat-error>
+                            <mat-error *ngIf="formPass.get('userPassword').hasError('lower')">{{'ERROR.PASS-LOWERCASE'|translate}}</mat-error>
+                            <mat-error *ngIf="formPass.get('userPassword').hasError('whiteSpace')">{{'ERROR.PASS-WHITESPACE'|translate}}</mat-error>
+
+
+                            <button mat-icon-button matSuffix (click)="hide = !hide" type="button" class="text-muted">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+
+                        <div class="container-buttons d-inline-flex justify-content-between">
+                            <button class="btn-long btn-color-outline" mat-button [mat-dialog-close]="true" type="button"><i
+                                    class="fas fa-arrow-left mr-2"
+                            ></i>{{'BTN.CANCEL' | translate}}
+                            </button>
+                            <button *ngIf="!emailSent" class="btn-long btn-color-fill ml-2" type="button" (click)="onSendCodeClick()">{{'BTN.SUBMIT' | translate}}<i
+                                    class="fas fa-arrow-right" tabindex="4" id="sendCodeBtn"></i></button>
+                            <button *ngIf="emailSent" class="btn-long btn-color-fill ml-2" type="button" (click)="onResetPassword()">{{'BTN.SUBMIT' | translate}}<i
+                                    class="fas fa-arrow-right" tabindex="4" id="submitResetPwdBtn"></i></button>
+
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="image col-md-6">
+<!--            <img  src="./../../assets/images/login/provider_img.png" alt="" class="img-fluid"/>-->
+            <!--            <div class="close">-->
+            <!--                <button class="btn-round btn-white-fill"><i class="fas fa-times"></i></button>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</div>

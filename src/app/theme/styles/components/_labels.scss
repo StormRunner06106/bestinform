@@ -1,0 +1,290 @@
+.custom-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 400;
+    width: 120px;
+    height: 24px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    padding: 5px 15px;
+    letter-spacing: -0.05em;
+  
+    &.label-active {
+      background-color: $bkg-active-color;
+      color: $active-color;
+    }
+  
+    &.label-pending {
+      background-color: $bkg-pending-color;
+      color: $pending-color;
+    }
+  
+    &.label-inactive {
+      background-color: $bkg-inactive-color;
+      color: $inactive-color;
+    }
+  
+    &.label-draft {
+      background-color: $bkg-draft-color;
+      color: $draft-color;
+    }
+  
+    &.label-archived {
+      background-color: $bkg-archived-color;
+      color: $archived-color;
+    }
+  
+    &.label-inprogress {
+      background-color: $bkg-inprogress-color;
+      color: $inprogress-color;
+    }
+
+    &.label-refused {
+      background-color: $bkg-archived-color;
+      color: $archived-color;
+    }
+  }
+//chips design
+  .chips-label{
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    width: auto;
+    height: 32px;
+    // background: #34A853;
+    border-radius: 90px;
+    margin-right: 10px;
+  
+    i {
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.1px;
+      font-weight: 900;
+      font-size: 12px;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      padding: 2px;
+      margin-right: 10px;
+    }
+  
+    &:hover {
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+      transition: ease-in-out 0.3s;
+    }
+  
+    &:focus, &:active {
+      transition: 0s;
+      outline: none;
+    }
+  }
+
+  .chips-primary-label{
+    background: $primary-color,;
+    color: white;
+    border-color: transparent;
+  
+    span, i {
+      background-color: white;
+      color: $primary-color;
+    }
+  
+    &:hover {
+      background: rgba($primary-color, 0.8);
+    }
+  
+    &:focus, &:active {
+      background: rgba($primary-color, 0.8);
+    }
+  }
+  
+
+  //balance-provider, view-reservation status labels: nou, acceptat, respins, efectuat, anulat
+  .custom-provider-status-label {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 140%;
+    /* or 22px */
+
+    width: 112px;
+    height: 40px;
+
+
+    letter-spacing: -0.02em;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 9px 17px;
+    justify-content: center;
+    align-items: center;
+    
+  
+    &.label-new {
+      background-color:rgba(#FCCC3D, 0.2);
+      color: #FCCC3D!important;
+    }
+  
+    &.label-accepted {
+      background-color:rgba(#69C98C, 0.2);      
+      color: #69C98C!important;
+    }
+  
+    &.label-rejected {
+      background-color:rgba(#E6536C, 0.2); 
+      color: #E6536C!important;
+    }
+  
+    &.label-paid {
+      background-color:rgba(#2F9DF4, 0.2);      
+      color: #2F9DF4;
+    }
+  
+    &.label-canceled {
+      background-color:rgba(#858495, 0.2);      
+      color: #858495;
+    }
+  }
+
+  .reservation-validity-status-label{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 140%;
+    /* or 22px */
+
+    width: 112px;
+    height: 40px;
+
+
+    letter-spacing: -0.02em;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 9px 17px;
+    justify-content: center;
+    align-items: center;
+    
+  
+    &.label-new {
+      background-color:rgba(#FCCC3D, 0.2);
+      color: #FCCC3D!important;
+    }
+  
+    &.label-confirmed {
+      background-color:rgba(#69C98C, 0.2);      
+      color: #69C98C!important;
+    }
+  
+    &.label-refused {
+      background-color:rgba(#E6536C, 0.2); 
+      color: #E6536C!important;
+    }
+  
+    &.label-validated {
+      background-color:rgba(#2F9DF4, 0.2);      
+      color: #2F9DF4!important;
+    }
+
+    &.label-null {
+      background-color:rgba(#000000, 0.2);      
+      color: #000000!important;
+    }
+  }
+
+  .provider-status-label {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    // line-height: 140%;
+    /* or 22px */
+
+    // width: 112px;
+    height: 40px;
+
+
+    letter-spacing: -0.02em;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 9px 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  
+    &.label-new {
+      background-color:#2F9DF4;      
+      color: #FFF;
+    }
+
+    &.label-draft{
+      background-color:#FCCC3D;
+      color: #FFF!important;
+    }
+
+    &.label-pending{
+      background-color:#FCCC3D;
+      color: #FFF!important;
+    }
+  
+    &.label-active {
+      background-color:#69C98C;      
+      color: #FFF!important;
+    }
+  
+    &.label-archived {
+      background-color:#E6536C; 
+      color: #FFF!important;
+    }
+  
+    &.label-refused {
+      background-color:#000000;      
+      color: #FFF!important;
+    }
+  
+    &.label-inactive {
+      background-color:#858495;      
+      color: #FFF!important;
+    }
+  }
+
+  
+
+
+   //provider status labels: aprobat, respins, returnat
+   .custom-provider-transaction-status-label {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 140%;
+    /* or 22px */
+
+    width: 112px;
+    
+    letter-spacing: -0.02em;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 9px 17px;
+  
+    &.label-returned {
+      background-color:rgba(#858495, 0.2);
+      color: #858495;
+    }
+  
+    &.label-approved {
+      background-color:rgba(#69C98C, 0.2);      
+      color: #69C98C;
+    }
+  
+    &.label-rejected {
+      background-color:rgba(#E6536C, 0.2); 
+      color: #E6536C;
+    }
+    &.label-past {
+      background-color:rgba(#2F9DF4, 0.2);      
+      color: #2F9DF4;
+    }
+   }
+  

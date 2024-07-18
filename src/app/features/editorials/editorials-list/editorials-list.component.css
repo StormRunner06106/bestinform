@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+}
+
+.container {
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.table-container {
+  padding: 24px;
+  border-radius: 8px;
+  border: solid 1px transparent;
+}
+
+.card-header {
+  padding-top: 44.5px;
+  padding-bottom: 42.5px;
+  border-color: transparent;
+}
+
+.card.card-custom.custom-table.gutter-b {
+  border: none;
+}
+
+/*:host {
+    ::ng-deep .filters-inputs {
+      .mat-form-field-wrapper {
+        padding: 0;
+      }
+    }
+  }*/
+/*# sourceMappingURL=editorials-list.component.css.map */

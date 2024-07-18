@@ -1,0 +1,54 @@
+<div class="row align-items-center titleBar">
+    <div class="col-xxl-7 col-xl-6 page-titles-row">
+        <div class="d-flex flex-wrap">
+            <h2 [routerLink]="routeTitleOne" routerLinkActive="active-page-link" [ngClass]="(routeTitleTwo === undefined && routeTitleThree === undefined) ? 'active-page-link no-pointer': ''"
+                *ngIf="pageTitleOne">{{pageTitleOne}}</h2>
+                <h3 [routerLink]="routeTitleOne" routerLinkActive="active-page-link" [ngClass]="(routeTitleTwo === undefined && routeTitleThree === undefined) ? 'active-page-link no-pointer': ''"
+                *ngIf="pageSubTitleOne">{{pageSubTitleOne}}</h3>
+            <h2 [routerLink]="routeTitleTwo" routerLinkActive="active-page-link"
+                *ngIf="pageTitleTwo">{{pageTitleTwo}}</h2>
+            <h2 [routerLink]="routeTitleThree" routerLinkActive="active-page-link"
+                *ngIf="pageTitleThree">{{pageTitleThree}}</h2>
+        </div>
+
+    </div>
+
+    <div class="col-xxl-5 col-xl-6 page-buttons-row" style="margin-top: 20px;">
+        <div class="d-flex flex-wrap justify-content-xl-end gap-2">
+            <button id="btnBack" type="button" class="btn-long btn-color-outline" (click)="navigateToPreviousPage()" [routerLink]="buttonBackRoute" *ngIf="buttonBackRoute">
+                <i class="fas fa-arrow-left"></i>
+                {{ 'BTN.BACK' | translate}}
+            </button>
+            <button id="btnAdd" class="btn-long btn-color-fill ms-sm-2" type="button" [routerLink]="buttonAddRoute" *ngIf="buttonAddRoute">
+                <i class="fas fa-plus"></i>
+                {{ 'BTN.ADD' | translate }}
+            </button>
+            <button id="btnExtra" type="button" class="btn-long btn-color-fill ms-sm-2" (click)="handleExtraCall()" *ngIf="isExtraCallUsed && buttonExtraName">
+                <i class="fas fa-pen"></i>
+                {{buttonExtraName}}
+            </button>
+            <button id="btnBk" class="btn-long btn-color-outline" type="button" (click)="handleBackCall()" *ngIf="isBackCallUsed">
+                <i class="fas fa-arrow-left"></i>
+                <span *ngIf="!buttonBackName">
+                    {{ 'BTN.BACK' | translate }}
+                </span>
+                <span *ngIf="buttonBackName">
+                    {{buttonBackName}}
+                </span>
+            </button>
+            <button id="btnSave" class="btn-long btn-color-fill ms-sm-2" type="button" (click)="handleCall()" *ngIf="isCallUsed" [disabled]="buttonSaveDisabled">
+                <i class="fas fa-save"></i>
+                <span *ngIf="!buttonCallName">
+                    {{ 'BTN.SAVE' | translate }}
+                </span>
+                <span *ngIf="buttonCallName">
+                    {{buttonCallName}}
+                </span>
+            </button>
+
+
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,143 @@
+<div class="save-btn d-flex justify-content-end align-items-center mb-3" *ngIf="resourceId">
+    <button *ngIf="resourceId"
+            (click)="saveResource()"
+            [disabled]="isSubmitLoading || !form.valid"
+            matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+            class="btn-long btn-color-fill" type="button">
+        <ng-container *ngIf="isSubmitLoading===false">
+            <i class="fas fa-save"></i>
+            Salvează
+        </ng-container>
+        <ng-container *ngIf="isSubmitLoading === true">
+                      <span [style.display]="'block'" class="indicator-progress">
+                        Salvare...{{ " " }}
+                          <span
+                                  class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                      </span>
+        </ng-container>
+    </button>
+</div>
+
+<div id="policy-rental-booking">
+    <!--   <div class="tab-section-title">
+           <i class="fas fa-info-circle"></i>
+           <h2>Politici</h2>
+       </div>
+
+       <div class="section-content">
+
+       </div>-->
+
+    <div class="tab-section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Check-in / Check-out</h2>
+    </div>
+
+    <div class="section-content">
+
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="check-io w-100">
+                        <h3>Check-in</h3>
+                        <p class="mb-0">de la:</p>
+                        <mat-button-toggle-group class="group w-75" #groupCheckInF="matButtonToggleGroup"
+                                                 color="primary" formControlName="checkInStartHour"
+                                                 (change)="valueChange('checkInStartHour')">
+                            <!--                            (change)="setNull('checkInStartHourInput')"-->
+                            <mat-button-toggle class="btn-tog" value="12:00">12:00</mat-button-toggle>
+                            <mat-button-toggle class="btn-tog" value="13:00">13:00</mat-button-toggle>
+                            <mat-button-toggle class="btn-tog" value="14:00">14:00</mat-button-toggle>
+                        </mat-button-toggle-group>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Altul</mat-label>
+                            <input matInput type="time" formControlName="checkInStartHour"
+                                   (change)="valueChange('checkInStartHour')">
+                            <!--                            (change)="setNull('checkInStartHour')"-->
+                        </mat-form-field>
+                        <!--                        <p>{{groupCheckInF.value}}</p>-->
+
+                        <p class="mb-0">pana la:</p>
+                        <mat-button-toggle-group class="group w-75" #groupCheckInT="matButtonToggleGroup"
+                                                 color="primary" formControlName="checkInEndHour"
+                                                 (change)="valueChange('checkInEndHour')">
+                            <mat-button-toggle class="btn-tog" value="12:00">12:00</mat-button-toggle>
+                            <mat-button-toggle class="btn-tog" value="13:00">13:00</mat-button-toggle>
+                            <mat-button-toggle class="btn-tog" value="14:00">14:00</mat-button-toggle>
+                        </mat-button-toggle-group>
+
+                        <mat-form-field appearance="standard">
+                            <mat-label>Altul</mat-label>
+                            <input matInput type="time" formControlName="checkInEndHour"
+                                   (change)="valueChange('checkInEndHour')">
+                        </mat-form-field>
+                        <!--                        <p>{{groupCheckInT.value}}</p>-->
+                    </div>
+
+                </div>
+
+                <div class="col-12 col-lg-6">
+                    <div class="check-io w-100">
+                        <h3>Check-out</h3>
+                        <p class="mb-0">de la:</p>
+                        <mat-button-toggle-group class="group w-75" #groupCheckOutF="matButtonToggleGroup"
+                                                 color="primary" formControlName="checkOutStartHour"
+                                                 (change)="valueChange('checkOutStartHour')">
+                            <mat-button-toggle class="btn-tog" value="11:00">11:00</mat-button-toggle>
+                            <mat-button-toggle class="btn-tog" value="12:00">12:00</mat-button-toggle>
+                            <mat-button-toggle class="btn-tog" value="13:00">13:00</mat-button-toggle>
+                        </mat-button-toggle-group>
+
+                        <mat-form-field appearance="standard">
+                            <mat-label>Altul</mat-label>
+                            <input matInput type="time" formControlName="checkOutStartHour"
+                                   (change)="valueChange('checkOutStartHour')">
+                        </mat-form-field>
+                        <!--                        <p>{{groupCheckOutF.value}}</p>-->
+
+                        <p class="mb-0">pana la:</p>
+                        <mat-button-toggle-group class="group w-75" #groupCheckOutT="matButtonToggleGroup"
+                                                 color="primary" formControlName="checkOutEndHour"
+                                                 (change)="valueChange('checkOutEndHour')">
+                            <mat-button-toggle class="btn-tog" value="11:00">11:00</mat-button-toggle>
+                            <mat-button-toggle class="btn-tog" value="12:00">12:00</mat-button-toggle>
+                            <mat-button-toggle class="btn-tog" value="13:00">13:00</mat-button-toggle>
+                        </mat-button-toggle-group>
+
+
+                        <mat-form-field appearance="standard">
+                            <mat-label>Altul</mat-label>
+                            <input matInput type="time" formControlName="checkOutEndHour"
+                                   (change)="valueChange('checkOutEndHour')">
+                        </mat-form-field>
+                        <!--                        <p>{{groupCheckOutT.value}}</p>-->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <!--Stepper Controller-->
+    <div class="stepper-step-controller">
+        <!--Prev Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="prevStep()" [disabled]="!form.valid"
+                    matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+            >
+                <i class="fas fa-arrow-left"></i>
+                Înapoi
+            </button>
+        </div>
+        <!--Next Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="nextStep()" [disabled]="!form.valid"
+                    matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+            >
+                Urmatorul
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>

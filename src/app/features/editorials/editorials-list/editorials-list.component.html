@@ -1,0 +1,132 @@
+<div class="container-fluid">
+    <div class="container">
+        <app-dashboard-header pageTitleOne="{{'TITLES.EDITORIALS_LIST' | translate}}"
+        [buttonBackRoute]="'../../'"
+        [buttonAddRoute]="'../../editorials/add'">
+        </app-dashboard-header>
+    </div>
+    
+    <div class="container">
+
+        <!----Table---------------------------------------------------------------------------->
+        <div *ngIf="dataLoaded">
+            <div class="row filterRow">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <input matInput type="text" [formControl]="searchFilter" (keydown.enter)="filterData()" placeholder="Căutare">
+                </mat-form-field>
+            </div>
+
+            <div class="row tableContent">
+
+                <table class="editorals-table-class" mat-table matSort appMatTableResponsive [dataSource]="editorialsList" (matSortChange) = applyFilter($event)>
+
+                    <!--Number-->
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+                        <td mat-cell *matCellDef="let element; let i=index" attr.data-column-name="#"> {{ (i + 1) + pageSize * page}} </td>
+                    </ng-container>
+
+                    <!--Title-->
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'FIELD.TITLE'| translate}}</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'FIELD.TITLE'| translate}}" routerLink="/client/editorials/view/{{element.slug}}">{{element.title}} </td>
+                    </ng-container>
+
+                    <!--Authors-->
+                    <ng-container matColumnDef="authors">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'FIELD.AUTHOR'|translate}}</th>
+                        <td mat-cell  *matCellDef="let element" attr.data-column-name="{{'FIELD.AUTHOR'|translate}}"> {{element.username}}</td>
+                    </ng-container>
+
+                    <!--Category-->
+                    <ng-container matColumnDef="category">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'FIELD.CATEGORY'|translate}}</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'FIELD.CATEGORY'|translate}}"> {{element.category}}</td>
+                    </ng-container>
+
+
+
+                    <!--Create data-->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'FIELD.CREATION_DATE'|translate}}</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'FIELD.CREATION_DATE'|translate}}">{{element.date | date:'dd/MM/yyyy'}}</td>
+                    </ng-container>
+
+                    <!--Status-->
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'FIELD.STATUS'|translate}}</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'FIELD.STATUS'|translate}}">
+                            <span class="custom-label"
+                                [ngClass]="{'label-pending': element.status === 'În așteptare',
+                                'label-active': element.status === 'Active' ||  element.status === 'active',
+                                'label-pending': element.status === 'In progress' || element.status ==='pending_review',
+
+                                'label-inactive': element.status === 'Inactive' || element.status === 'inactive',
+                                'label-draft': element.status === 'Draft' || element.status === 'draft',
+                                'label-archived': element.status === 'Archived' || element.status === 'archived',
+                                'label-inprogress': element.status === 'Pending' || element.status === 'pending'}">
+                                <!-- {{element.status}} -->
+                                {{element.status === 'active' ? 'Active':
+                                element.status ==='pending_review' ? 'Pending' :
+                                element.status === 'inactive' ? 'Inactive':
+                                element.status === 'draft' ? 'Draft':
+                                element.status === 'archived'? 'Archived':
+                                'Pending'}}</span>
+                            <!-- {{element.status}} -->
+
+                        </td>
+                    </ng-container>
+
+                    <!--actions-->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef class="actions-class"> {{'FIELD.ACTIONS'|translate}}</th>
+                        <td mat-cell *matCellDef="let element; let i = index" data-column-name="Acțiuni">
+                            <div class=" d-flex actions-container py-2" >
+
+                                <!--View button-->
+                                <!--          <button class="btn-round btn-no-outline" routerLink="../../editorials/view/{{element.slug}}"  matTooltip="Vizualizează" id="viewEditorial_{{i}}">-->
+                                <!--            <i class="fas fa-file"></i>-->
+                                <!--          </button>-->
+
+                                <!--          Change status button-->
+                                <button class="btn-round btn-no-outline" matTooltip="Schimbă status" (click)="changeStatusModal(element.id, element.status)" id="changeEditorialStatus_{{i}}">
+                                    <i class="fas fa-toggle-on"></i>
+                                </button>
+
+                                <!--Edit button-->
+                                <button class="btn-round btn-no-outline" routerLink="../../editorials/edit/{{element.slug}}"  matTooltip="Editează" id="editEditorial_{{i}}">
+                                    <i class="fa fa-pen"></i>
+                                </button>
+
+                                <!--Delete button-->
+                                <button class="btn-round btn-no-outline" matTooltip="Șterge" id="deleteEditorial_{{i}}"
+                                        (click)="deleteEditorialModal(element.id, i)">
+
+                                    <i class="fas fa-trash"></i>
+                                </button>
+
+
+
+                            </div>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+
+                <!--Pagination-->
+                <mat-paginator
+                        [pageSizeOptions]="pageItems"
+                        [length]="totalElements"
+                        [pageSize]="pageSize"
+                        (page)="pageChanged($event)"
+                >
+                </mat-paginator>
+
+            </div>
+            <!-- Table container -->
+        </div>
+    </div>
+</div>

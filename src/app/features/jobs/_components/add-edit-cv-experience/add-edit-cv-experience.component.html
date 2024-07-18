@@ -1,0 +1,97 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>{{isEditMode ? ('JOBS.EDIT-EXPERIENCE' | translate) : ('JOBS.NEW-EXPERIENCE' | translate)}}</h2>
+        <button type="button" class="btn-round btn-color-fill" (click)="close()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+        <form [formGroup]="experienceForm">
+            <div class="row mb-3">
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.POSITION' | translate}}</mat-label>
+                        <input matInput placeholder="{{'JOBS.POSITION' | translate}}" formControlName="positionHeld">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.TYPE-OF-CONTRACT' | translate}}</mat-label>
+                        <mat-select formControlName="typeOfContract">
+                            <mat-option value="8">{{'JOBS.8H' | translate}}</mat-option>
+                            <mat-option value="6">{{'JOBS.6H' | translate}}</mat-option>
+                            <mat-option value="4">{{'JOBS.4H' | translate}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.COMPANY-NAME' | translate}}</mat-label>
+                        <input matInput placeholder="{{'JOBS.COMPANY-NAME' | translate}}" formControlName="companyName">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.LOCATION' | translate}}</mat-label>
+                        <input matInput placeholder="{{'JOBS.LOCATION' | translate}}" formControlName="location">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.STARTED-WORKING' | translate}}</mat-label>
+                        <input matInput [matDatepicker]="pickerStart" formControlName="jobStartDate">
+                        <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerStart></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.FINISHED-WORKING' | translate}}</mat-label>
+                        <input matInput [matDatepicker]="pickerEnd" formControlName="jobEndDate">
+                        <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerEnd></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.DESCRIPTION' | translate}}</mat-label>
+                        <textarea matInput placeholder="{{'JOBS.DESCRIPTION' | translate}}" formControlName="description"></textarea>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+
+        </form>
+
+
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill" (click)="confirm()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>

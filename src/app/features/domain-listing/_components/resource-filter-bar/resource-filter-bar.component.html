@@ -1,0 +1,279 @@
+<ngb-accordion *ngIf="resourceTypeData && !allFilterOptionsFalse" #acc="ngbAccordion"
+               [ngClass]="accIsOpen ? 'open-accordion' : 'closed-accordion'">
+    <ngb-panel id="ngb-panel">
+        <ng-template ngbPanelHeader>
+            <div class="accordion-header">
+                <div class="filter-list">
+
+                    <!--TODO: don't delete-->
+                    <div *ngIf="resourceTypeData?.filterOption?.location"
+                         class="filter-selector"
+                         [ngClass]="filterSelection.location ? 'active-filter' : null"
+                         (click)="toggleFilter('location')">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>{{ filterForm.value.location || 'All' }}</p>
+                    </div>
+
+                    <!--<div *ngIf="resourceTypeData?.filterOption.location"
+                         (click)="locationInput.select()"
+                         class="filter-selector">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text"
+                               class="location-filter-input"
+                               #locationInput
+                               [value]="filterForm.get('location').value"
+                               (input)="filterForm.get('location').setValue($event.target['value'])"
+                        >
+                    </div>-->
+
+                    <div *ngIf="resourceTypeData?.filterOption.dateAsDay
+                                || resourceTypeData?.filterOption.dateAsHour
+                                || resourceTypeData?.filterOption.dateInterval
+                                || resourceTypeData?.filterOption.hoursInterval"
+                         class="filter-selector"
+                         [ngClass]="filterSelection.date ? 'active-filter' : null"
+                         (click)="toggleFilter('date')">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p *ngIf="resourceTypeData?.filterOption.dateAsDay">
+                            {{ filterForm.controls.dateAsDay.value | date : 'dd-MM-YYYY' }}
+                        </p>
+                        <p *ngIf="resourceTypeData?.filterOption.dateAsHour">
+                            {{ filterForm.controls.dateAsHour.value | date : 'dd-MM-YYYY HH:mm' }}
+                        </p>
+                        <p *ngIf="resourceTypeData?.filterOption.dateInterval">
+                            {{ filterForm.controls.startDate.value | date : 'dd-MM-YYYY' }}
+                            - {{filterForm.controls.endDate.value | date : 'dd-MM-YYYY'}}
+                        </p>
+                        <p *ngIf="resourceTypeData?.filterOption.hoursInterval">
+                            {{ filterForm.controls.startHour.value | date : 'dd-MM-YYYY HH:mm' }}
+                            - {{ filterForm.controls.endHour.value | date : 'dd-MM-YYYY HH:mm' }}
+                        </p>
+                    </div>
+
+                    <div *ngIf="resourceTypeData?.filterOption.adultChildrenAndRoomNumber
+                                || resourceTypeData?.filterOption.adultChildrenNumber
+                                || resourceTypeData?.filterOption.adultNumber"
+                         class="filter-selector"
+                         [ngClass]="filterSelection.guests ? 'active-filter' : null"
+                         (click)="toggleFilter('guests')">
+                        <i class="fas fa-user-friends"></i>
+                        <p *ngIf="resourceTypeData?.filterOption.adultChildrenAndRoomNumber">
+                            {{ filterForm.controls.adultsNumber.value + filterForm.controls.childrenNumber.value }}
+                            <span>{{ "RESOURCE.RES-FILTERS.GUESTS" | translate }}</span>
+                        </p>
+                        <p *ngIf="resourceTypeData?.filterOption.adultChildrenNumber">
+                            {{ filterForm.controls.adultsNumber.value + filterForm.controls.childrenNumber.value }}
+                            <span>{{ "RESOURCE.RES-FILTERS.GUESTS" | translate }}</span>
+                        </p>
+                        <p *ngIf="resourceTypeData?.filterOption.adultNumber">
+                            {{ filterForm.controls.adultsNumber.value }}
+                            <span>{{ "RESOURCE.RES-FILTERS.GUESTS" | translate }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <button class="btn-search btn-color-fill" (click)="submitFilters()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </ng-template>
+
+        <ng-template ngbPanelContent>
+            <form [formGroup]="filterForm" (keyup.enter)="submitFilters()">
+                <ng-container *ngIf="filterSelection.location">
+                    <div class="container">
+                        <p class="panel-title">
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ "RESOURCE.RES-FILTERS.SELECT_DESTINATION" | translate }}
+                        </p>
+
+                        <p class="m-0">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Search city</mat-label>
+                                <input [(ngModel)]="cityToSearch" [ngModelOptions]="{standalone: true}"
+                                       (ngModelChange)="searchForCities()" matInput placeholder="Search city...">
+                                <mat-icon role="button" *ngIf="!cityToSearch" matSuffix>search</mat-icon>
+                                <mat-icon role="button" *ngIf="cityToSearch" matSuffix
+                                          (click)="
+                                            cityToSearch = null;
+                                            recommendedCities = null;
+                                            updateFormValue('location', currentUser?.city);
+                                            updateFormValue('geographicalCoordinates', currentUser?.currentGeographicalCoordinates)"
+                                >clear</mat-icon>
+                            </mat-form-field>
+                        </p>
+
+                        <div class="destinations-container">
+                            <div *ngFor="let city of recommendedCities | slice : 0 : 5"
+                                 (click)="updateFormValue('location', city.city);
+                                          updateFormValue('geographicalCoordinates', city.geographicalCoordinates)"
+                                 [tabindex]="0"
+                                 class="destination-element">
+                            <span class="destination-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+
+                                <p>{{ city.city }}, {{ city.country }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="filterSelection.date">
+                    <div class="container datepickers-container">
+                        <p class="panel-title">
+                            <i class="fas fa-calendar-alt"></i>
+                            {{ "RESOURCE.RES-FILTERS.SELECT_DATE" | translate }}
+                        </p>
+
+                        <div *ngIf="resourceTypeData?.filterOption?.dateAsDay"
+                             class="row">
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_DATE'|translate}}</mat-label>
+                                    <input formControlName="dateAsDay" matInput [min]="currentDay"
+                                           [matDatepicker]="dateAsDayPicker" (change)="toggleFilter('guests')">
+                                    <mat-datepicker-toggle matSuffix [for]="dateAsDayPicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #dateAsDayPicker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div *ngIf="resourceTypeData?.filterOption?.dateAsHour"
+                             class="row">
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_DATE_TIME'|translate}}</mat-label>
+                                    <input matInput [min]="currentDay" [ngxMatDatetimePicker]="dateAsHourPicker"
+                                           placeholder="Choose a date" formControlName="dateAsHour" (change)="toggleFilter('guests')">
+                                    <mat-datepicker-toggle matSuffix [for]="dateAsHourPicker"></mat-datepicker-toggle>
+                                    <ngx-mat-datetime-picker #dateAsHourPicker [stepMinute]="15">
+                                    </ngx-mat-datetime-picker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div *ngIf="resourceTypeData?.filterOption?.dateInterval"
+                             class="row">
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_START_DATE'|translate}}</mat-label>
+                                    <input formControlName="startDate" matInput [min]="currentDay"
+                                           [matDatepicker]="startDatePicker"
+                                           (dateChange)="startDateChanged($event, endDatePicker)">
+                                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #startDatePicker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_END_DATE'|translate}}</mat-label>
+                                    <input formControlName="endDate" matInput [min]="nextDay"
+                                           [matDatepicker]="endDatePicker">
+                                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #endDatePicker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div *ngIf="resourceTypeData?.filterOption?.hoursInterval"
+                             class="row">
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_START_TIME'|translate}}</mat-label>
+                                    <input matInput [min]="currentDay" [ngxMatDatetimePicker]="startHourPicker"
+                                           placeholder="Choose a date" formControlName="startHour"
+                                           (dateChange)="startHourChanged($event, endHourPicker)">
+                                    <mat-datepicker-toggle matSuffix [for]="startHourPicker"></mat-datepicker-toggle>
+                                    <ngx-mat-datetime-picker #startHourPicker>
+                                    </ngx-mat-datetime-picker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_END_TIME'|translate}}</mat-label>
+                                    <input matInput [min]="nextDay" [ngxMatDatetimePicker]="endHourPicker"
+                                           (dateChange)="endHourChanged($event)"
+                                           placeholder="Choose a date" formControlName="endHour">
+                                    <mat-datepicker-toggle matSuffix [for]="endHourPicker"></mat-datepicker-toggle>
+                                    <ngx-mat-datetime-picker #endHourPicker>
+                                    </ngx-mat-datetime-picker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="filterSelection.guests">
+                    <div class="container">
+                        <p class="panel-title">
+                            <i class="fas fa-users"></i>
+                            {{ "RESOURCE.RES-FILTERS.SELECT_GUESTS" | translate }}
+                        </p>
+
+                        <div class="row row-gap">
+                            <div *ngIf="resourceTypeData?.filterOption.adultNumber
+                                        || resourceTypeData?.filterOption.adultChildrenNumber
+                                        || resourceTypeData?.filterOption.adultChildrenAndRoomNumber"
+                                 class="col-12 col-lg-6">
+                                <div class="guests-selector">
+                                    <button [disabled]="filterForm.controls.adultsNumber.value === 1"
+                                            (click)="decreaseNrGuests('adultsNumber')">
+                                        <i class="fas fa-angle-left"></i>
+                                    </button>
+                                    <p>
+                                        {{ filterForm.controls.adultsNumber.value }}
+                                        {{ "RESOURCE.RES-FILTERS.NR_ADULTS" | translate }}
+                                    </p>
+                                    <button (click)="increaseNrGuests('adultsNumber')">
+                                        <i class="fas fa-angle-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div *ngIf="resourceTypeData?.filterOption.adultChildrenNumber
+                                        || resourceTypeData?.filterOption.adultChildrenAndRoomNumber"
+                                 class="col-12 col-lg-6">
+                                <div class="guests-selector">
+                                    <button [disabled]="filterForm.controls.childrenNumber.value === 0"
+                                            (click)="decreaseNrGuests('childrenNumber')">
+                                        <i class="fas fa-angle-left"></i>
+                                    </button>
+                                    <p>
+                                        {{ filterForm.controls.childrenNumber.value }}
+                                        {{ "RESOURCE.RES-FILTERS.NR_CHILDREN" | translate }}
+                                    </p>
+                                    <button (click)="increaseNrGuests('childrenNumber')">
+                                        <i class="fas fa-angle-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div *ngIf="resourceTypeData?.filterOption.adultChildrenAndRoomNumber"
+                                 class="col-12 col-lg-6">
+                                <div class="guests-selector">
+                                    <button [disabled]="filterForm.controls.roomsNumber.value === 1"
+                                            (click)="decreaseNrGuests('roomsNumber')">
+                                        <i class="fas fa-angle-left"></i>
+                                    </button>
+                                    <p>
+                                        {{ filterForm.controls.roomsNumber.value }}
+                                        {{ "RESOURCE.RES-FILTERS.NR_ROOMS" | translate }}
+                                    </p>
+                                    <button (click)="increaseNrGuests('roomsNumber')">
+                                        <i class="fas fa-angle-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </form>
+        </ng-template>
+
+    </ngb-panel>
+</ngb-accordion>
+
+

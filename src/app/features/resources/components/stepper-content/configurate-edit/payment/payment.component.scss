@@ -1,0 +1,121 @@
+@import "/src/app/theme/styles/components/colors";
+
+#payment {
+
+  .tab-section-title {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 16px 25px;
+    border-bottom: solid rgba(36, 57, 138, 0.1607843137) 1px;
+
+    i {
+      font-size: 32px;
+      color: #24398A;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #24398A;
+      margin-left: 10px;
+      margin-bottom: 0;
+    }
+  }
+
+  .section-title {
+    font-weight: 600;
+    font-size: 24px;
+    color: #24398A;
+  }
+
+  .section-content {
+    padding: 46px 100px;
+    background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), #FFFFFF;
+
+    .first-card, .second-card, .third-card{
+      background-color: var(--primary-background);
+      border: 1px solid rgba($primary-color, 0.16);
+      border-radius: 8px;
+      padding: 48px;
+      margin-bottom: 24px;
+    }
+
+    .first-card{
+
+      .info-text{
+        color:$primary-color;
+      }
+
+      .pair{
+        .icon-class{
+          border: 1px solid rgba($primary-color, 0.16);
+          border-radius: 90px;
+          color: $primary-color;
+          font-size: 40px;
+          width: 128px;
+          min-width: 128px;
+          height: 128px;
+        }
+
+
+
+        .icon-text{
+          color:$primary-color;
+          font-size: 12px
+        }
+      }
+
+    }
+
+    .second-card{
+      .percent{
+        color:$secondary-color;
+        font-size:48px;
+        font-weight: 700;
+        line-height: 50px;
+      }
+      p{
+        color: $primary-color;
+      }
+    }
+
+    .third-card{
+      p{
+        color: $primary-color;
+        font-weight: 300;
+      }
+      .icon-container{
+        width: 128px;
+        min-width: 128px;
+        height: 128px;
+
+        border: 1px solid rgba($primary-color, 0.16);
+        border-radius: 90px;
+
+        font-size: 40px;
+        font-weight: 900;
+        color: $primary-color;
+      }
+    }
+
+    .tab-content {
+      padding: 24px;
+    }
+  }
+}
+
+
+.stepper-step-controller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 25px 40px;
+
+  .next-step {
+    display: flex;
+    justify-content: center;
+  }
+
+}

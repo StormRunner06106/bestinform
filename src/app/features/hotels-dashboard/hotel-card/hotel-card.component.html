@@ -1,0 +1,84 @@
+<div class="hotel-card-container">
+  <div class="hotel-info-container p-3">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <div class="hotel-title">{{ hotel?.name ?? "" }}</div>
+
+        <div
+          class="hotel-star-container"
+          title="{{ hotel?.hotelStars }} Stars Hotel"
+        >
+          <div style="margin-right: 5px">{{ hotel?.hotelStars ?? 0 }}</div>
+          <i class="bi bi-star"></i>
+        </div>
+      </div>
+
+      <div class="rating-container">
+        <div style="margin-right: 10px; font-size: 16px; color: #4257EE">
+          Rating
+        </div>
+        <div class="rating-block">{{ hotel?.rating ?? 0 }}+</div>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center">
+      <i class="bi bi-geo-alt" style="margin-right: 5px"></i>
+
+      <span class="s16">{{ country }}</span>
+    </div>
+
+    <div class="parent-truncate">
+      <div class="child-truncate s12">
+        {{hotel?.address + ", "}} la {{ hotel?.distanceFromGeoPoint ?? 0 }} de centru
+      </div>
+    </div>
+
+    <div class="d-flex" style="margin-top: 30px">
+      <button
+        class="btn-reserve"
+        pButton
+        (click)="navigateToRouteWithSelectedTab()"
+      >
+        <div class="fw-bold">Rezerva Acum</div>
+      </button>
+
+      <div class="d-flex flex-column">
+        <div class="parent-truncate" title="{{ hotel?.roomType }}">
+          <div class="child-truncate s16">
+            Disponibil de la <span class="fw-bold">{{ (totalPrice) + " " + hotel?.hotelSearchRequest?.currency }}</span>
+          </div>
+        </div>
+
+        <div class="parent-truncate" title="{{ hotel?.roomType }}">
+          <div class="child-truncate s14">
+            ({{ (hotel?.roomType ?? "" + " ") + (" " + guestsTotal + (guestsTotal > 1 ? " Persoane " : " Persoana ")) + (daysBetween + (daysBetween > 1 ? " Nopti" : " Noapte")) +
+          (" " + hotel.hotelSearchRequest.guests.length + (hotel.hotelSearchRequest.guests.length > 1 ? " Camere" : " Camera"))}})
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hotel-image-container">
+    <ng-container *ngIf="hotel?.images?.length || hotel?.hotelsImages?.length">
+        <div
+        class="hotel-star-container"
+        title="{{ hotel?.hotelStars }} Stars Hotel"
+      >
+        <div style="margin-right: 5px">{{ hotel?.hotelStars ?? 0 }}</div>
+        <i class="bi bi-star"></i>
+      </div>
+      <img
+        class="hotel-image"
+        ngSrc="{{ hotel?.featuredImage }}"
+        width="320"
+        height="208"
+        alt="hotel img"
+      />
+    </ng-container>
+
+    <ng-container *ngIf="!hotel?.images?.length && !hotel?.hotelsImages?.length">
+      <div class="no-image">No Image</div>
+    </ng-container>
+  </div>
+</div>

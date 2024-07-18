@@ -1,0 +1,184 @@
+<div class="additional-information-container">
+  <div *ngIf="showDetail; else showListing">
+    <p-card
+      header="{{ header | translate }}" class="card-header-container"
+    >
+      <ng-template pTemplate="body" class="additional-body">
+        <div class="additional-body">
+          <ng-container *ngIf="selectedItem === 'restaurants'">
+            <div class="infomration-div">
+              <span>
+                <mat-icon class="restaurant-icon" svgIcon="custom-icon"></mat-icon>
+                <span class="info-description">
+                  {{ "RESTAURANTS.SPECIFIC" | translate }}
+                </span>
+              </span>
+
+              <span class="info-specific">{{ specific }}</span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedItem === 'hotels'">
+            <div class="infomration-div">
+              <span>
+                <i class="bi bi-building mr-1" style="font-size: 1rem"></i>
+                <span class="info-description"> Alte informatii </span>
+              </span>
+
+              <span [innerHTML]="metapolicyExtraInfo ?? 'N/A'"></span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedItem === 'restaurants'">
+            <div class="infomration-div clauze-div">
+              <span
+                ><i class="pi pi-info-circle" style="font-size: 1rem"></i>
+
+                <span class="info-description">
+                  {{
+                    "RESTAURANTS.CALUSES_AND_RESERVATION_CONDITIONS" | translate
+                  }}
+                </span>
+              </span>
+
+              <div >
+                Ridicare Rezervare: {{ orderDismissTime }}min
+                <p-progressBar
+                  [value]="calculateDismissTimeBar()"
+                  [showValue]="false"
+                ></p-progressBar>
+              </div>
+
+              <div >
+                {{ "RESTAURANTS.AVG_DURATION" | translate }} :
+                {{avgTime}} minute
+                <p-progressBar
+                  [value]="calculateAvgTimeBar()"
+                  [showValue]="false"
+                ></p-progressBar>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedItem === 'hotels'">
+            <div class="infomration-div clauze-div">
+              <span>
+                <i class="pi pi-info-circle" style="font-size: 1rem"></i>
+
+                <span class="info-description">
+                  Clauze si conditii pentru check-in
+                </span>
+              </span>
+
+              <div *ngIf="checkIn">
+                Check-in: {{ checkIn | slice: 0 : -3 }}
+
+                <div class="check-in-progress">
+                  <p-progressBar
+                    [value]="calculateElapsedTime(checkIn, true)"
+                    [showValue]="false"
+                  ></p-progressBar>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between">
+                  <div style="font-size: 10px">00:00</div>
+                  <div style="font-size: 10px">23:59</div>
+                </div>
+              </div>
+
+              <div *ngIf="checkOut">
+                Check-out: {{ checkOut | slice: 0 : -3 }}
+
+                <p-progressBar
+                  [value]="calculateElapsedTime(checkOut, false)"
+                  [showValue]="false"
+                ></p-progressBar>
+
+                <div class="d-flex align-items-center justify-content-between">
+                  <div style="font-size: 10px">00:00</div>
+                  <div style="font-size: 10px">23:59</div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedItem === 'restaurants'">
+            <div class="infomration-div">
+              <span>
+                <i class="pi pi-map-marker" style="font-size: 1rem"></i>
+                <span class="info-description">
+                  {{ "RESTAURANTS.OWNER_ADDRESS" | translate }}
+                </span>
+              </span>
+              <span>{{ address }}</span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedItem === 'restaurants'">
+            <div class="infomration-div">
+              <span>
+                <span class="info-description">
+                  Nota medie de plata incepand cu {{avgPrice || 0}} ----
+                </span>
+              </span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedItem === 'hotels'">
+            <div class="infomration-div">
+              <span>
+                <i class="pi pi-map-marker" style="font-size: 1rem"></i>
+                <span class="info-description">
+                  {{ "RESTAURANTS.LOCATION_ADDRESS" | translate }}
+                </span>
+              </span>
+              <span>{{ address }}</span>
+            </div>
+          </ng-container>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <p-button
+          label="{{ 'RESTAURANTS.RESERVE_NOW' | translate }}"
+          (onClick)="buttonClicked()"
+        ></p-button>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <ng-template #showListing>
+    <p-card header="{{ header | translate }}" [style]="{ width: '100%' }">
+      <ng-template pTemplate="body" class="additional-body padding-40">
+        <div class="additional-body">
+          <div class="infomration-div">
+            <span style="display: flex ;gap: 5px;"><mat-icon>restaurant</mat-icon>{{ restaurantName }}</span>
+          </div>
+
+          <div class="infomration-div">
+            <span style="display: flex ;gap: 5px;"><mat-icon>calendar_today</mat-icon>{{ selectedDate }} </span>
+          </div>
+
+          <div class="infomration-div">
+            <span style="display: flex ;gap: 5px;"><mat-icon>schedule</mat-icon>{{ selectedHour }} </span>
+          </div>
+
+          <div class="infomration-div">
+            <span style="display: flex ;gap: 5px;"
+              ><mat-icon>group</mat-icon> {{ adults }}
+              {{ "RESTAURANTS.ADULTS" | translate }}, {{ children }}
+              {{ "RESTAURANTS.CHILDREN" | translate }}
+            </span>
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
+
+<!--    <div class="total-price">-->
+<!--      <span class="total-price-number">Pret total</span>-->
+<!--      <span-->
+<!--        ><span>{{reservationPolicy}} {{getCurrencySymbol(currency)}}</span>-->
+<!--      </span>-->
+<!--    </div>-->
+  </ng-template>
+</div>

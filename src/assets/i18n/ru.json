@@ -1,0 +1,53 @@
+{   
+  "LOGIN": "Войти", 
+  "LOGOUT": "Выйти", 
+  "REGISTER": "Регистрация",
+  "ACCOUNT": "Аккаунт",
+  "SUBMIT_PROPERTY": "Добавить недвижимость",
+  "MENU": "Меню",
+  "MY_PROPERTIES": "Мои недвижимость",
+  "FAVORITES": "Избранное",
+  "COMPARE": "Сравнить",
+  "EDIT_PROFILE": "Редактировать профиль",
+  "LOCK_SCREEN": "Экран блокировки",
+  "HELP": "Помощь",
+  "NAV": {  
+    "HOME": "Главная", 
+    "PROPERTIES": "Недвижимость", 
+    "PAGES": "Страницы", 
+    "AGENTS": "Aгенты",
+    "AGENT": "Aгент",   
+    "FAQS": "Faqs",
+    "PRICING": "Ценообразование",
+    "TERMS_CONDITIONS": "Условия и положения",
+    "LANDING": "Landing", 
+    "404_PAGE": "404 Page",
+    "OTHERS": "Другие",
+    "EXTERNAL_LINK": "Ссылка",
+    "MENU_ITEM": "Menu Item",
+    "CONTACT": "Kонтакт",
+    "ABOUT_US": "O нас",
+    "ADMIN": "Aдмин"
+  }, 
+  "BTN": {
+    "ADD": "Добавить",
+    "SAVE": "Сохранить",
+    "SUBMIT": "Отправить",
+    "CANCEL": "Отмена",
+    "UPLOAD": "Загрузить",
+    "REMOVE": "Удалить",
+    "YES": "Да",
+    "NO": "Нет",
+    "OK": "OK",
+    "CLEAR": "Очистить",
+    "ADVANCED": "Расширенный поиск",
+    "HIDE": "Cкрывать"
+  },
+  "MESSAGE": {
+    "SURE_DELETE": "Вы уверены, что хотите удалить?",
+    "FILE_SIZE": "Размер файла не может превышать {{param}} кб."
+  },
+  "FIELD": { 
+    "NAME": "Имя" 
+  }
+}

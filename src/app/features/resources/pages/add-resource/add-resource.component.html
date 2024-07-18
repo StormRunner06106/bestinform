@@ -1,0 +1,161 @@
+<!-- <div *ngIf="isProviderAccepted===false">
+    <p>Nu aveti permisiiunea să adăugți resurse. Luați legătura cu providerul</p>
+</div> -->
+<!-- <div *ngIf="isProviderAccepted===true"> -->
+<!--Steps-->
+<app-stepper-title-list *ngIf="(stepperStage === 'Configure/Edit' && dataLoaded) || stepperStage=== 'Add'"/>
+
+
+<div [ngSwitch]="stepperStage">
+
+    <!--Add Resource-->
+    <app-add-new-template *ngSwitchCase="'Add'"/>
+
+
+    <!--Add/Edit Details-->
+    <div class="configure-edit-layout" *ngSwitchCase="'Configure/Edit'">
+
+        <!--Page Title-->
+        <div class="page-title">
+            <h1 *ngIf="!providerData">
+                {{!resourceId ? 'Adaugă resursă' : 'Editează resursa - ' + resourceName}}
+            </h1>
+            <h1 *ngIf="providerData">{{'Adaugă resursă pentru ' + providerData?.companyName + ' (' + providerData?.cui + ')'}}</h1>
+
+
+            <button *ngIf="!resourceId" class="btn-long btn-color-outline" (click)="exitResource()">
+                <i class="fas fa-arrow-left"></i>
+                Anulare
+            </button>
+            <button *ngIf="resourceId" class="btn-long btn-hidden" [disabled]="true">
+            </button>
+
+
+            <!--            <button  *ngIf="resourceId"-->
+            <!--                    (click)="saveResource()"-->
+            <!--                    [disabled]="isSubmitLoading"-->
+            <!--                    class="btn-long btn-color-fill" type="button">-->
+            <!--                <ng-container *ngIf="isSubmitLoading===false">-->
+            <!--                    <i class="fas fa-save"></i>-->
+            <!--                    Salvează-->
+            <!--                </ng-container>-->
+            <!--                <ng-container *ngIf="isSubmitLoading === true">-->
+            <!--                      <span [style.display]="'block'" class="indicator-progress">-->
+            <!--                        Salvare...{{ " " }}-->
+            <!--                          <span-->
+            <!--                                  class="spinner-border spinner-border-sm align-middle ms-2"-->
+            <!--                          ></span>-->
+            <!--                      </span>-->
+            <!--                </ng-container>-->
+            <!--            </button>-->
+
+            <!--            <button *ngIf="resourceId" class="btn-long btn-color-fill" (click)="seeWhere()">BUTON PT STEP</button>-->
+
+        </div>
+
+        <div [ngSwitch]="step" *ngIf="dataLoaded">
+
+            <!--Generals Information -- STEP -->
+            <div *ngSwitchCase="0">
+                <app-general-informations [resourceType]="resourceType"/>
+            </div>
+
+            <!--Facility -- STEP -->
+            <div *ngSwitchCase="1">
+                <app-facilities/>
+            </div>
+
+            <!--Setup -- STEP -->
+            <div *ngSwitchCase="2">
+                <div [ngSwitch]="resourceType">
+                    <div *ngSwitchCase="'rentalBooking'">
+                        <app-rental-booking/>
+                    </div>
+                    <div *ngSwitchCase="'noBooking'">
+                        <app-no-booking/>
+                    </div>
+                    <div *ngSwitchCase="'ticketBooking'">
+                        <app-ticket-booking/>
+                    </div>
+                    <div *ngSwitchCase="'serviceBookingTimeSlots'">
+                        <app-service-booking-time-slots/>
+                    </div>
+                    <div *ngSwitchCase="'productsList'">
+                        <app-products-list/>
+                    </div>
+                    <div *ngSwitchCase="'carBooking'">
+                        <app-car-booking/>
+                    </div>
+                    <div *ngSwitchCase="'culturalBooking'">
+                        <app-cultural-booking/>
+                    </div>
+                    <div *ngSwitchCase="'menu'">
+                        <app-menu/>
+                    </div>
+                    <div *ngSwitchCase="'externalUrl'">
+                        <app-external-url/>
+                    </div>
+                    <div *ngSwitchCase="'applyToJob'">
+                        <app-apply-job/>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="3">
+                <app-cultural-related-res/>
+            </div>
+
+            <!--Policy -- STEP -->
+            <div *ngSwitchCase="4">
+                <div [ngSwitch]="resourceType">
+                    <!--                    <app-policy/>-->
+                    <div *ngSwitchCase="'rentalBooking'">
+                        <app-policy-rental-booking/>
+                    </div>
+                    <div *ngSwitchCase="'noBooking'">
+                        <app-no-policy/>
+                    </div>
+                    <div *ngSwitchCase="'ticketBooking'">
+                        <app-no-policy/>
+                    </div>
+                    <div *ngSwitchCase="'serviceBookingTimeSlots'">
+                        <app-no-policy/>
+                    </div>
+                    <div *ngSwitchCase="'productsList'">
+                        <app-no-policy/>
+                    </div>
+                    <div *ngSwitchCase="'carBooking'">
+                        <app-no-policy/>
+                    </div>
+                    <div *ngSwitchCase="'culturalBooking'">
+                        <app-policy-cultural-booking/>
+                    </div>
+                    <div *ngSwitchCase="'menu'">
+                        <app-restaurant-policy/>
+                    </div>
+                    <div *ngSwitchCase="'externalUrl'">
+                        <app-no-policy/>
+                    </div>
+                    <div *ngSwitchCase="'applyToJob'">
+                        <app-apply-job/>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Gallery -- STEP -->
+            <div *ngSwitchCase="5">
+                <app-gallery/>
+            </div>
+
+            <!--Payment -- STEP -->
+            <div *ngSwitchCase="6">
+                <app-payment/>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- </div> -->
+
+

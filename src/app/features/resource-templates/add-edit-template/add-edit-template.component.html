@@ -1,0 +1,480 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="
+                            {{ isEditMode
+                            ? ('TEMPLATES.EDIT' | translate) + templateData?.name
+                            : ('TEMPLATES.ADD' | translate) }}"
+                          [buttonBackRoute]="isEditMode ? '../../../templates/list' : '../../templates/list'"
+                          (buttonCall)="submitForm()">
+    </app-dashboard-header>
+
+    <div class="template-ae card mb-5">
+        <div class="card-header">
+
+        </div>
+        <div class="card-body">
+            <form [formGroup]="templateForm" id="templateForm">
+                <!--        (ngSubmit)="submitEvent()"-->
+                <div class="container">
+                    <p class="form-title">{{'TEMPLATES.GENERAL-INFO' | translate}}</p>
+                    <p class="description">*Adăugați numele si alegeți tipul resursei pentru șablonul construit.</p>
+
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{'TEMPLATES.NAME' | translate}}</mat-label>
+                                <input matInput placeholder="{{'TEMPLATES.NAME' | translate}}" formControlName="name"
+                                       id="nameInput">
+                                <i class="fas fa-times-circle" *ngIf="templateForm.get('name').value"
+                                   (click)="clearFormControl('name')" matSuffix></i>
+
+                                <!--Error Msg-->
+                                <mat-error *ngIf="templateForm.controls.name.hasError('required')">Acest camp este
+                                    obligatoriu
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+
+                        <!--TODO De refacut - Apar erori in consola datorita form inputului. Inainte era doar STRING si acum e ARRAY de stringuri-->
+                        <!--Resource Type-->
+                        <div class="col-12" *ngIf="resourceTypes && checkboxDisabledStates">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{'TEMPLATES.RES-TYPE' | translate}}</mat-label>
+                                <mat-select  formControlName="resourceTypeIds"
+                                             id="resourceTypeInput"
+                                             multiple>
+                                    <mat-option *ngFor="let resType of resourceTypes; let i =index;"
+                                                [value]="resType.id"
+                                                [disabled]="checkboxDisabledStates[resType.id]">
+                                                {{resType.nameRo}}
+                                            </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+                    </div>
+
+                    <p class="form-title">{{'TEMPLATES.TEMPLATE-MODULES' | translate}}</p>
+                    <p class="description mb-0">*Șablonul resursei se va crea în funcție de modulele selectate mai jos.</p>
+                    <p class="error-msg" *ngIf="templateForm.hasError('minimumBooking')">Choose one booking type!</p>
+                    <p class="error-msg" *ngIf="templateForm.hasError('multipleBooking')">You are not allowed to choose more than one booking type!</p>
+
+                    <div class="template-modules">
+                        <div class="row">
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele unde este necesară specificarea locației.">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="geoLocationSwitch">{{'TEMPLATES.GEO-LOCATION' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" [checked]="true" formControlName="geographicalCoordinates"
+                                           id="geoLocationSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele unde se fac rezervări la o anumită oră aleasă de client (ex. restaurant).">
+                                <label  class="custom-control-label d-flex align-items-center"
+                                       for="bookingTimeSwitch">{{'TEMPLATES.BOOKING-TIME' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="serviceBookingTimePicker"
+                                           id="bookingTimeSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele cu disponibilitate într-un anumit interval orar.">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="timetableSwitch">{{'TEMPLATES.TIMETABLE' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="timetable" id="timetableSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele ale căror rezervări se achizitionează pe baza de bilete. (ex. Zoo)">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="ticketBookingSwitch">{{'TEMPLATES.TICKET-BOOKING' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="ticketBooking"
+                                           id="ticketBookingSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                             <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele ale căror rezervări se achizitionează pe baza de bilete numerotate. (ex. Piese de teatru)">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="culturalBookingSwitch">{{'TEMPLATES.CULTURAL-BOOKING' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="culturalBooking"
+                                           id="culturalBookingSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele unde se fac rezervări pentru un anumit interval orar setat de către provider (ex. Teren de tenis, Sedinta Psihoterapie, etc.)">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="bookingTimeSlotsSwitch">{{'TEMPLATES.BOOKING-TIME-SLOTS' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="serviceBookingTimeSlots"
+                                           id="bookingTimeSlotsSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele care oferă acces la închirieri auto.">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="carBookingSwitch">{{'TEMPLATES.CAR-BOOKING' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="carBooking" id="carBookingSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele cărora li se pot asocia alte resurse. (ex. restaurant, vila, motel etc.)">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="relatedResourcesSwitch">{{'TEMPLATES.RELATED-RESOURCES' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="relatedResources"
+                                           id="relatedResourcesSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele care permit rezervări. (ex. hotel, motel, vila)">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="rentalBookingSwitch">{{'TEMPLATES.RENTAL-BOOKING' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="rentalBooking"
+                                           id="rentalBookingSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele care oferă o listă de produse. (ex. cursuri de achizitionat, resurse din categoria Fitness&Nutrition)">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="productListSwitch">{{'TEMPLATES.PRODUCT-LIST' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="productsList"
+                                           id="productListSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele care permit candidarea la job-uri.(ex. job-uri)">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="applyToJob">Aplicare Job</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="applyToJob"
+                                           id="applyToJob">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <!-- <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="additionalServicesSwitch">{{'TEMPLATES.ADDITIONAL-SERVICES' | translate}}</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="additionalServices"
+                                           id="additionalServicesSwitch">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div> -->
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele la care nu se fac rezervări prin intermediul acestui site. Vom direcționa clienții spre un url extern.">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="externalUrl">URL Extern</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="externalUrl"
+                                           id="externalUrl">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between" matTooltip="Potrivit pentru resursele care nu necesită rezervări. (ex. monumente, mănăstiri)">
+                                <label class="custom-control-label d-flex align-items-center"
+                                       for="noBooking">Fără rezervări</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked formControlName="noBooking"
+                                           id="noBooking">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <p class="form-title">Configurator</p>
+                    <p class="description">*Configurarea șablonului se va face pentru fiecare specificație in parte(ex. Generale, Despre, etc.), adăugând categoria, iar in funcție de aceasta, se vor selecta proprietățile specifice.</p>
+
+                    <div formArrayName="attributes" class="templates-configurator config-group">
+                        <mat-tab-group class="conf-tabs" animationDuration="0ms" mat-stretch-tabs="true" dynamicHeight
+                                       [selectedIndex]="tabIndex" (selectedTabChange)="changeTab($event)">
+
+
+                            <div *ngFor="let attributeTab of attributes().controls; let attrTabIndex=index">
+
+                                <!--Tab Name-->
+                                <mat-tab [formGroupName]="attrTabIndex" [label]="attributeTab.value.tabName === 'general_info' ? ('EVENTS.GENERAL-INFO' | translate) : (attributeTab.value.tabName ==='about' ? ('JOBS.ABOUT' | translate) : (attributeTab.value.tabName === 'contact' ? 'Contact' : ('EVENTS.FACILITIES' | translate)))">
+
+                                    <div class="attributes-tab-body">
+
+                                        <!-- Category Btn-->
+                                        <button type="button" class="btn-long btn-color-fill"
+                                                matTooltip="Selectați o categorie de proprietăți" (click)="openModal(addCategory); verifyTabCategories(attrTabIndex);">
+                                            Categorie
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+
+                                        <!--List Selected Categories -->
+                                        <div formArrayName="tabAttributes">
+                                            <div class="mt-5"
+                                                 *ngFor="let tabAttribute of tabAttributes(tabIndex).controls; let tabAttributeIndex=index">
+
+                                                <!--Category Info-->
+                                                <span class="category-name mb-3">{{tabAttribute.value.categoryName}}</span>
+
+                                                <!--Attributes-->
+                                                <div class="row">
+                                                    <!--Selected Attributes List-->
+                                                    <div class="col-lg-4 col-md-6 col-12"
+                                                         *ngFor="let attribute of tabAttribute.value.categoryAttributes; let attributeIndex=index ">
+
+
+                                                        <div class="attribute-container">
+
+                                                            <span>{{attribute.name}}</span>
+
+                                                            <button type="button" class="remove-attribute-btn"
+                                                                    (click)="removeCategoryAttribute(attrTabIndex,tabAttributeIndex,attributeIndex)">
+                                                                <i class="fas fa-times"></i>
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                    <!--Add Attributes-->
+                                                    <div class="col-lg-4 col-md-6 col-12">
+                                                        <button matTooltip="Selectați proprietățile din categoria aleasă" type="button" class="add-attribute-btn"
+                                                                (click)="openModal(addProperty); verifyCategAttr(tabAttribute.value.categoryId, attrTabIndex)">
+                                                            <span class="me-3 d-inline-block">Adauga proprietate</span>
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <!--Modal ADD Property-->
+                                                <ng-template #addProperty let-d="dismiss">
+                                                    <div class="modal-card card">
+                                                        <div class="card-header border-0">
+                                                            <h3 class="m-0">Selectare proprietati
+                                                            </h3>
+                                                        </div>
+
+                                                        <div class="card-body">
+                                                            <p>Selecteaza proprietatile din lista de mai jos:</p>
+
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Proprietati</mat-label>
+                                                                <mat-select multiple appearance="outline"
+                                                                            [compareWith]="compareSelectedAttributesObjects"
+                                                                            [(value)]="selectedAttributes">
+                                                                    <mat-option *ngFor="let attribute of attributesList"
+                                                                                [value]="attribute">{{attribute.name}}</mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+<!--                                                            <div class="d-flex justify-content-between flex-row">-->
+<!--                                                                <a class="text-clickable" (click)="selectAll()">Alege-->
+<!--                                                                    tot</a>-->
+<!--                                                                <a class="text-clickable">Sterge tot</a>-->
+<!--                                                            </div>-->
+
+                                                        </div>
+
+                                                        <div class="card-footer border-0">
+                                                            <div class="row">
+                                                                <div class="col-12 col-sm-6">
+                                                                    <button type="button"
+                                                                            class="btn-auto btn-color-outline w-100"
+                                                                            (click)="closeModal()">
+                                                                        <i class="fas fa-times"></i>
+                                                                        {{ 'BTN.CANCEL' | translate}}
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="col-12 col-sm-6">
+                                                                    <button type="button"
+                                                                            class="btn-auto btn-color-fill w-100"
+                                                                            (click)="confirmAttributes(tabAttribute.value.categoryId)">
+                                                                        <i class="fas fa-check"></i>
+                                                                        {{ 'BTN.CONFIRM' | translate}}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+
+                                            </div>
+                                        </div>
+
+                                        <!--Modal ADD CATEGORY-->
+                                        <ng-template #addCategory let-d="dismiss">
+                                            <div class="modal-card card">
+                                                <div class="card-header border-0">
+                                                    <h3 class="m-0">Selectare categorii proprietati
+                                                    </h3>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <p>Selecteaza categoriile de proprietati din lista de mai jos:</p>
+
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Categorii</mat-label>
+                                                        <mat-select multiple appearance="outline"
+                                                                    [compareWith]="compareSelectedCategoriesObjects"
+                                                                    [(value)]="selectedCategories">
+                                                            <mat-option *ngFor="let category of attributeCategoryList"
+                                                                        [value]="category">{{category.categoryName}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                    <!--SelectAll && Clear Buttons-->
+<!--                                                    <div class="d-flex justify-content-between flex-row">-->
+<!--                                                        <a class="text-clickable" (click)="selectAll()">Alege tot</a>-->
+<!--                                                        <a class="text-clickable">Sterge tot</a>-->
+<!--                                                    </div>-->
+
+                                                </div>
+
+                                                <div class="card-footer border-0">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6">
+                                                            <button type="button"
+                                                                    class="btn-auto btn-color-outline w-100"
+                                                                    id="btnModalCategoryDismissAdd"
+                                                                    (click)="closeModal()">
+                                                                <i class="fas fa-times"></i>
+                                                                {{ 'BTN.CANCEL' | translate}}
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6">
+                                                            <button type="button" class="btn-auto btn-color-fill w-100"
+                                                                    id="id-btn-confirm-add-category"
+                                                                    (click)="confirmCategories()">
+                                                                <i class="fas fa-check"></i>
+                                                                {{ 'BTN.CONFIRM' | translate}}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                </mat-tab>
+                            </div>
+                        </mat-tab-group>
+                    </div>
+
+
+                    <p class="form-title">Setări de listare</p>
+                    <p class="description">*Setarea listării va configura modul în care resursele vor fi afișate în listă, si detaliile specifice care vor fi vizibile in cardul ales.</p>
+                    <div formGroupName="listingSetting" class="mb-4">
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Tipul cardului</mat-label>
+                                    <mat-select (ngModel)="customValue" (ngModelChange)="onCustomCardSelect($event)" formControlName="cardType" id="cardType">
+                                        <mat-option value="default">Default</mat-option>
+                                        <mat-option value="event">Event</mat-option>
+                                        <mat-option value="editorial">Editorial</mat-option>
+                                        <mat-option value="culture">Culture</mat-option>
+                                        <mat-option value="custom">Custom</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+    
+                            <div *ngIf="showAttributField===true" class="col-12 col-lg-6">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Atribute</mat-label>
+                                    <mat-select formControlName="attributes" id="attributes" multiple>
+                                        <div *ngFor="let tab of templateForm.get('attributes').value">
+                                            <mat-optgroup *ngFor="let category of tab.tabAttributes"
+                                                          [label]="category.categoryName">
+                                                <mat-option *ngFor="let attr of category.categoryAttributes"
+                                                            [value]="attr.id">{{attr.name}}</mat-option>
+                                            </mat-optgroup>
+                                        </div>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12 col-lg-6" >
+                                <div class="d-flex justify-content-between">
+                                    <label matTooltip="Arată review-uri" class="custom-control-label d-flex align-items-center"
+                                           for="reviews">Reviews</label>
+                                    <label matTooltip="Arată review-uri" class="switch">
+                                        <input type="checkbox" [checked]="true" id="reviews" formControlName="reviews">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="col-12 col-lg-6" >
+                                <div class="d-flex justify-content-between">
+                                    <label matTooltip="Arată locația" class="custom-control-label d-flex align-items-center"
+                                           for="location">Location</label>
+                                    <label matTooltip="Arată locația" class="switch">
+                                        <input type="checkbox" [checked]="true" id="location" formControlName="location">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+    
+                            </div>
+                        </div>
+                        
+                    </div>
+
+<!--                    <p class="form-title">{{'TEMPLATES.VOUCHER' | translate}}</p>-->
+<!--                    <div class="row voucher">-->
+<!--                        <div class="col-12 col-lg-6 col-xl-4 d-flex justify-content-between">-->
+<!--                            <label class="custom-control-label d-flex align-items-center"-->
+<!--                                   for="generateQRCodeSwitch">{{'TEMPLATES.GENERATE-QR' | translate}}</label>-->
+<!--                            <label class="switch">-->
+<!--                                <input type="checkbox" checked id="generateQRCodeSwitch">-->
+<!--                                <span class="slider round"></span>-->
+<!--                            </label>-->
+<!--                        </div>-->
+
+<!--                        <div class="col-md-12">-->
+<!--                            <mat-form-field appearance="standard">-->
+<!--                                <mat-label>{{'TEMPLATES.QR-TITLE' | translate}}</mat-label>-->
+<!--                                <input matInput placeholder="{{'TEMPLATES.QR-TITLE' | translate}}"-->
+<!--                                       id="titleQR">-->
+<!--                                &lt;!&ndash;                            <i class="fas fa-times-circle" type="button" *ngIf="templateForm.get('titleQR').value"&ndash;&gt;-->
+<!--                                &lt;!&ndash;                               (click)="clearFormControl('titleQR')" style="color:#24398A" matSuffix></i>&ndash;&gt;-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
+
+<!--                        <div class="col-md-12">-->
+<!--                            <mat-form-field appearance="standard">-->
+<!--                                <mat-label>{{'TEMPLATES.QR-DESCRIPTION' | translate}}</mat-label>-->
+<!--                                <input matInput placeholder="{{'TEMPLATES.QR-DESCRIPTION' | translate}}"-->
+<!--                                       id="descriptionQR">-->
+<!--                                &lt;!&ndash;                            <i class="fas fa-times-circle" type="button" *ngIf="templateForm.get('descriptionQR').value"&ndash;&gt;-->
+<!--                                &lt;!&ndash;                               (click)="clearFormControl('descriptionQR')" style="color:#24398A" matSuffix></i>&ndash;&gt;-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="d-flex flex-column">
+
+    <div class="background-container">
+        <img [src]="cvSettings?.image?.filePath" alt="category-background-image">
+    </div>
+
+    <div class="title-container">
+
+        <h1 class="text-center m-0">
+           {{myCv ? ('JOBS.MY-CV' | translate) : ('JOBS.CANDIDATE-CV' | translate) }}
+        </h1>
+
+
+        <div class="header-cv">
+            <div class="container">
+                <div class="user-data d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="user d-flex justify-content-start align-items-center">
+                        <img [src]="currentCv?.avatar?.filePath" class="avatar me-3">
+                        <div class="user-text">
+                            <p class="user-name mb-0">{{currentCv?.name}}</p>
+                            <p class="function mb-0">{{currentCv?.email}}</p>
+                        </div>
+                    </div>
+                    <button *ngIf="!myCv" class="btn-long btn-white-fill" [disabled]="!currentCv?.pdfCv" matTooltip="{{currentCv?.pdfCv ? '' : 'This user does not have a CV uploaded'}}" (click)="downloadCv()"><i class="fas fa-download"></i>{{'JOBS.DOWNLOAD_CV' | translate}}</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="content-container">
+        <div class="cv-content container">
+            <div class="cv-section">
+                <p class="cv-section-title">Contact</p>
+
+                <p class="cv-section-subtitle"><i class="fas fa-home me-2"></i>{{'EVENTS.ADDRESS' | translate}}: <span>{{currentCv?.address}}</span></p>
+                <p class="cv-section-subtitle"><i class="fas fa-phone-alt me-2"></i>{{'USER.TELEPHONE' | translate}}: <span>{{currentCv?.telephone}}</span></p>
+                <p class="cv-section-subtitle"><i class="fas fa-envelope me-2"></i>Email: <span>{{currentCv?.email}}</span></p>
+                <p class="cv-section-subtitle"><i class="fab fa-linkedin me-2"></i>LinkedIn: <span>{{currentCv?.linkedin}}</span></p>
+            </div>
+
+            <div class="cv-section">
+                <p class="summary-title">{{'JOBS.SUMMARY' | translate}}</p>
+                <p class="summary">{{currentCv?.description}}</p>
+            </div>
+
+            <div class="cv-section">
+                <p class="cv-section-title">{{'JOBS.EXPERIENCE' | translate}}</p>
+                <div class="container" *ngIf="currentCv?.experience?.length > 0">
+                    <div class="row" *ngFor="let exp of currentCv?.experience">
+                        <div class="col-4 col-lg-2">
+                            <p class="cv-section-subtitle">{{exp?.jobEndDate | date : "MMMM, yyyy"}}</p>
+                            <div class="separator"></div>
+                            <p class="mb-0">{{exp?.jobStartDate | date : "MMMM, yyyy"}}</p>
+                        </div>
+                        <div class="col-8 col-lg-10 experience-content">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                <p class="cv-section-title mb-0">{{exp?.positionHeld}} - <span class="summary-title">{{exp?.companyName}}</span></p>
+                                <p class="mb-0">{{exp?.location}}</p>
+                            </div>
+                            <div class="description-section" *ngIf="exp?.description!==''">
+                                <p [ngClass]="readMore ? 'experience-desc mb-0' : 'mb-0'">{{exp?.description}}</p>
+                                <p class="more mb-0" (click)="changeReadMore()">{{'JOBS.READ-MORE' | translate}} <i class="{{readMore ? 'fas fa-chevron-down' : 'fas fa-chevron-up'}}"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mb-0" *ngIf="currentCv?.experience?.length === 0 || !currentCv?.experience" >No experience registered</p>
+            </div>
+
+            <div class="cv-section">
+                <p class="cv-section-title">{{'JOBS.EDUCATION' | translate}}</p>
+                <div class="container" *ngIf="currentCv?.education?.length > 0">
+                    <div class="row" *ngFor="let education of currentCv?.education">
+                        <div class="col-4 col-lg-2">
+                            <p class="cv-section-subtitle">{{education?.endDate | date : "MMMM, yyyy"}}</p>
+                            <div class="separator"></div>
+                            <p class="mb-0">{{education?.startDate | date : "MMMM, yyyy"}}</p>
+                        </div>
+                        <div class="col-8 col-lg-10 experience-content">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                <p class="cv-section-title mb-0">{{education?.group}} - <span class="summary-title">{{education?.schoolName}}</span></p>
+                                <p class="mb-0">{{education?.location}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mb-0" *ngIf="currentCv?.education?.length === 0 || !currentCv?.education">No education registered</p>
+            </div>
+
+<!--            <div class="cv-section">-->
+<!--                <p class="cv-section-title">SKILLS</p>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+
+</div>

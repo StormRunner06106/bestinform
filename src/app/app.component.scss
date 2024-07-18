@@ -1,0 +1,82 @@
+::ng-deep {
+    .arrow {
+      background-color: white;
+      color: #515478a6;
+      border: unset;
+  }
+  .arrow:enabled:focus {
+      outline: 0 none;
+      outline-offset: 0;
+      box-shadow: unset;
+      border-color: unset;
+      background: white;
+      color: #515478;
+  }
+  .arrow:enabled:hover {
+      outline: 0 none;
+      outline-offset: 0;
+      box-shadow: unset;
+      border-color: unset;
+      background: white;
+      color: #515478;
+  
+  }
+  p-inputNumber .p-inputtext:enabled:focus {
+      border: unset;
+      box-shadow: unset;
+  }
+  p-inputNumber .p-inputtext {
+      border: unset;
+      text-align: center;
+      width: 52px;
+  }
+  .p-inputnumber-button {
+    width: 10px!important;
+  }
+  .p-overlaypanel .p-overlaypanel-content {
+    padding: 0
+  }
+  p-selectbutton {
+    .p-buttonset {
+      display: grid;
+      padding: 16px;
+      grid-template-rows: auto auto;
+      grid-template-columns: auto auto;
+      gap: 8px;
+      .p-highlight {
+        background: #A0ADD3!important;
+        border: 1px solid #4257EE!important;
+        border-radius: 4px;
+      }
+      .p-button {
+        border-radius: 4px;
+        background: #ECECF2;
+        border: 1px solid #D5D6E2;
+        .p-button.p-highlight:hover {
+          background: #A0ADD3!important;
+          border: 1px solid #4257EE!important;
+          border-radius: 4px;
+        }
+        .p-button-label {
+          color: #393A53;
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+      .p-button.p-highlight:hover {
+        background: #A0ADD3!important;
+        border: 1px solid #4257EE!important;
+        .p-button-label {
+          color: #4257EE!important;
+          font-size: 12px!important;
+          font-weight: 400!important;
+        }
+      }
+      .p-button:focus {
+        box-shadow: none!important;
+    }
+  }
+  }
+}
+
+  

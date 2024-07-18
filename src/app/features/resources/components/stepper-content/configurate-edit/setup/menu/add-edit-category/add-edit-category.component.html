@@ -1,0 +1,187 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>Adăugare categorie</h2>
+        <button type="button" (click)="close()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+        <form [formGroup]="menu">
+            <div class="row mb-5">
+
+                <div class="col-12">
+                    <div class="d-flex justify-content-between">
+                        <mat-form-field class="w-50" appearance="standard">
+                            <mat-label>Denumirea categoriei</mat-label>
+                            <input matInput formControlName="categoryName" placeholder="Denumirea categoriei">
+                        </mat-form-field>
+
+                        <button class="btn-long btn-color-fill" (click)="addSubcategory()" type="button"
+                                (keydown.enter)="onKeyDown($event)" (keydown.space)="onKeyDown($event)"
+                        ><i
+                                class="fas fa-plus me-2"></i>Adauga subcategorie
+                        </button>
+                    </div>
+
+                    <div formArrayName="subCategories">
+                        <div *ngFor="let subcategory of subCategories().controls ;let subcategoryIndex=index">
+                            <div [formGroupName]="subcategoryIndex">
+                                <div class="product-item position-relative">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <mat-form-field appearance="standard" class="w-100">
+                                                <mat-label>Denumirea subcategoriei</mat-label>
+                                                <input matInput placeholder="Denumirea subcategoriei"
+                                                       formControlName="subCategoryName">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="scroll-window" formArrayName="subCategoryItems">
+                                            <div *ngFor="let item of subCategoryItems(subcategoryIndex).controls; let itemIndex= index">
+                                                <div [formGroupName]="itemIndex">
+                                                    <div class="subcategory-item ">
+                                                        <div class="item position-relative">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <mat-form-field appearance="standard" class="w-100">
+                                                                        <mat-label>Denumirea produsului</mat-label>
+                                                                        <input matInput
+                                                                               placeholder="Denumirea produsului"
+                                                                               formControlName="name">
+                                                                        <mat-error *ngIf="item.get('name').invalid">Acest camp trebuie completat!</mat-error>
+                                                                    </mat-form-field>
+                                                                </div>
+
+
+                                                                <div class="col-12 col-md-6">
+                                                                    <mat-form-field appearance="standard" class="w-100">
+                                                                        <mat-label>Pret [Euro]</mat-label>
+                                                                        <input matInput placeholder="Pretul produsului"
+                                                                               type="text"
+                                                                               formControlName="price">
+                                                                        <mat-error *ngIf="item.get('price').invalid">Valoarea introdusa trebuie sa fie un numar mai mare ca 0!</mat-error>
+                                                                    </mat-form-field>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-6">
+                                                                    <mat-form-field appearance="standard" class="w-100">
+                                                                        <mat-label>Greutate [grame]</mat-label>
+                                                                        <input matInput
+                                                                               placeholder="Greutatea produsului"
+                                                                               type="text"
+                                                                               formControlName="weight">
+                                                                        <mat-error *ngIf="item.get('weight').invalid">Valoarea introdusa trebuie sa fie un numar mai mare ca 0!</mat-error>
+                                                                    </mat-form-field>
+                                                                </div>
+
+
+                                                                <div class="col-12">
+                                                                    <mat-form-field appearance="standard" class="w-100">
+                                                                        <mat-label>Ingrediente</mat-label>
+                                                                        <input matInput placeholder="Ingrediente"
+                                                                               formControlName="ingredients">
+                                                                    </mat-form-field>
+                                                                </div>
+
+                                                                <div class="col-12">
+                                                                    <mat-form-field appearance="standard" class="w-100">
+                                                                        <mat-label>Alergeni</mat-label>
+                                                                        <input matInput placeholder="Alergeni"
+                                                                               formControlName="allergens">
+                                                                    </mat-form-field>
+                                                                </div>
+
+                                                                <div class="col-12">
+                                                                    <mat-form-field appearance="standard" class="w-100">
+                                                                        <mat-label>Informatii nutritionale</mat-label>
+                                                                        <input matInput
+                                                                               placeholder="Informatii nutritionale"
+                                                                               formControlName="nutritionalFacts">
+                                                                    </mat-form-field>
+                                                                </div>
+
+                                                                <div class="col-12">
+                                                                        <input type="file"
+                                                                               accept="image/*"
+                                                                               hidden
+                                                                               #add_image
+                                                                               id="galleryInput"
+                                                                               (change)="onThumbnailChange($event,subcategoryIndex, itemIndex)"
+                                                                        />
+
+                                                                        <button class="btn-long btn-color-fill" (click)="add_image.click()">
+                                                                            <i class="fas fa-image mr-1"></i>
+                                                                            Image
+                                                                        </button>
+
+                                                                    <ng-container *ngIf="getThumbnailPreview(itemIndex)">
+                                                                        <img [src]="getThumbnailPreview(itemIndex)"
+                                                                             style="border-radius: 16px; margin-left: 20px; object-fit: cover"
+                                                                             width="150"
+                                                                             height="100"
+                                                                             class="thumbnail-preview"
+                                                                             alt="menu img"
+                                                                        />
+                                                                    </ng-container>
+                                                                </div>
+                                                            </div>
+
+                                                            <button class="remove-btn position-absolute"
+                                                                    (click)="removeItem(subcategoryIndex, itemIndex)"
+                                                                    matTooltip="Sterge produs">
+                                                                <i class="fas fa-times"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <button class="add-btn" type="button" (click)="addItem(subcategoryIndex)"
+                                                    (keydown.enter)="onKeyDown($event)" (keydown.space)="onKeyDown($event)"
+                                                    matTooltip="Sterge subcategorie"><i
+                                                    class="fas fa-plus me-2"></i>Adauga produs
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                    <button class="remove-btn position-absolute"
+                                            (click)="removeSubcategory(subcategoryIndex)" matTooltip="Sterge subcategorie"><i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill" (click)="confirm()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>
+

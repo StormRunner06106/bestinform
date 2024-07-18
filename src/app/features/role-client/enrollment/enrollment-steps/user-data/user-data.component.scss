@@ -1,0 +1,77 @@
+@import "/src/app/theme/styles/components/colors";
+
+.content {
+  text-align: center;
+  align-self: center;
+
+  p.upper {
+    font-size: 16px;
+    color: var(--primary-background);
+  }
+
+  h1 {
+    color: $secondary-color;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 48px;
+  }
+
+  .user-data{
+    .personal-data{
+      text-align: start;
+      color: var(--primary-background);
+      font-size: 24px;
+      font-weight: 400;
+    }
+    .custom-field{
+      ::ng-deep.mat-form-field-label{
+        /*change color of label*/
+        color: $background-primary!important;
+      }
+
+      ::ng-deep.mat-form-field-underline {
+        /*change color of underline*/
+        background-color: $background-primary !important;
+      }
+
+      ::ng-deep.mat-form-field-ripple {
+        /*change color of underline when focused*/
+        background-color: $background-primary !important;
+      }
+
+      ::ng-deep.mat-select-value-text {
+        /*change color of underline when focused*/
+        color: $background-primary !important;
+      }
+
+      ::ng-deep.mat-form-field-infix {
+        /*change color of underline when focused*/
+        color: $background-primary !important;
+      }
+      ::ng-deep.mat-select-arrow {
+        /*change color of underline when focused*/
+        color: $background-primary !important;
+      }
+
+      ::ng-deep.mat-mdc-icon-button{
+        /*change color of underline when focused*/
+        color: $background-primary !important;
+      }
+    }
+  }
+
+
+  .footer-btns{
+    button{
+      margin-bottom: 60px;
+      border: none;
+      background: transparent;
+      color: var(--primary-background);
+      font-size: 24px;
+    }
+
+    i.fas {
+      line-height: unset;
+    }
+  }
+}

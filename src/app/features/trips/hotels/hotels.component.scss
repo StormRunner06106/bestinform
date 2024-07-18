@@ -1,0 +1,5 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+::ng-deep .mat-paginator-page-size {
+  display: none!important;
+}

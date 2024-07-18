@@ -1,0 +1,143 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+$seat-size-px: 30px;
+
+.cultural-room-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: fit-content;
+  gap: 16px;
+}
+
+.stage {
+  display: flex;
+  min-width: calc(3 * $seat-size-px + 8px);
+  margin-left: auto;
+  margin-right: calc($seat-size-px + 4px);
+  align-items: center;
+  justify-content: center;
+  height: $seat-size-px;
+  border: 2px solid $title;
+  border-radius: 8px;
+
+  p {
+    color: $title;
+    margin-bottom: 0;
+    font-size: $seat-size-px * 0.6;
+  }
+}
+
+.booking-zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  //align-items: flex-start;
+  //justify-content: flex-start;
+  gap: 4px;
+
+  & > p {
+    margin-bottom: 0;
+  }
+}
+
+.booking-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.seat {
+  height: $seat-size-px;
+  width: $seat-size-px;
+  border: 2px solid;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+
+  &:first-child {
+    margin-left: auto;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  &.booked {
+    border-color: $title;
+    background-color: $archived-color;
+    color: $title;
+    cursor: not-allowed;
+  }
+
+  &.booked-with-reservation {
+    border-color: $title;
+    background-color: $title;
+    color: white;
+    cursor: not-allowed;
+  }
+
+  &.available {
+    border-color: $title;
+    background-color: $active-color;
+    color: $title;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &.selected {
+    border-color: $title;
+    background-color: rgb(35, 92, 19);
+    color: $title;
+    opacity: 1;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &.empty {
+    border-color: $inactive-color;
+    background-color: $inactive-color;
+    color: $inactive-color;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &.on-edit {
+    cursor: pointer;
+    pointer-events: auto;
+  }
+}
+
+.seat-change-menu {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  background-color: white;
+  color: $title;
+  border: 2px solid #4257EE;
+  border-radius: 8px;
+  z-index: 1;
+  cursor: default;
+  padding: 10px 20px;
+  width: 150px;
+}
+
+.seat:hover > .seat-change-menu {
+  display: block;
+}
+
+.not-allowed {
+  cursor: not-allowed !important;
+}

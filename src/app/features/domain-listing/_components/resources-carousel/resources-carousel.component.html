@@ -1,0 +1,24 @@
+<div *ngIf="resourceTemplate && resourcesList?.length > 0 && currentUser && resourcesLoaded">
+    <h1 class="best-events-title">
+        {{ "RESOURCE.BEST_FOR" | translate }}
+        <span>
+            {{ currentUser?.firstName + ' ' + currentUser?.lastName }}
+            <i class="fas fa-heart"></i>
+        </span>
+    </h1>
+
+    <owl-carousel-o [options]="customOptions">
+        <ng-container *ngFor = "let resource of resourcesList">
+            <ng-template carouselSlide [width]="240">
+                <app-resource-card-with-template
+                        [routerLink]="['view', resource.id]"
+                        [state]="resource"
+                        [cardType]="'short'"
+                        [resourceTypeName]="currentLanguage === 'ro' ? resourceType.nameRo : resourceType.nameEn"
+                        [resourceData]="resource"
+                        [resourceTemplate]="resourceTemplate">
+                </app-resource-card-with-template>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</div>

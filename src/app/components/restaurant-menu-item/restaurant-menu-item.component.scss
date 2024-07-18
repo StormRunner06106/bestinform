@@ -1,0 +1,45 @@
+.menu-main {
+    display: flex;
+    flex-wrap: wrap; /* Enable wrapping for flex items */
+    gap: 20px;
+    align-items: flex-start; /* Change to flex-start to prevent stretching */
+}
+
+.menu-content {
+    flex: 1; /* Allow the content to expand */
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Reduce the gap between items to 5px */
+    justify-content: flex-start; /* This will align content to the top */
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.content {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.cost {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.menu-image {
+    position: relative; /* Set the position to relative for absolute positioning of the child img */
+    width: 128px; /* Set a fixed width */
+    height: 128px; /* Ensure the height is the same as the width for a square */
+    overflow: hidden; /* Hide anything that goes outside the bounds */
+}
+
+.menu-image img {
+    position: absolute; /* Absolute positioning */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This will cover the entire area of the container */
+}

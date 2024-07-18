@@ -1,0 +1,81 @@
+<div class="container">
+    <h1 class="best-events-title">
+        {{ "EVENTS.BEST_FOR" | translate }}
+        <span>
+            {{ currentUser.firstName + ' ' + currentUser.lastName }}
+        </span>
+    </h1>
+
+    <span class="yellow-divider"></span>
+
+    <!-- <p class="location-description">
+        {{ "EVENTS.RESERVE_LOCATION" | translate }}
+        <span>
+            Cluj-Napoca, Cluj County.
+        </span>
+    </p> -->
+
+    <div class="filters d-flex align-items-center justify-content-between">
+        <div class="buttons d-flex align-items-center justify-content-start gap-1 flex-wrap mb-4">
+            <div *ngFor="let category of categoryList">
+                <button class="btn-auto btn-color-outline" (click)="sendCategoryType(category.id)">
+                    {{currentLanguage==='ro' ? category?.nameRo : category?.nameEn}}
+                    <img class="category-icon" src="{{category?.icon?.filePath}}">
+                </button>
+            </div>
+            <button class="btn-auto btn-color-outline" (click)="sendCategoryType(undefined)">
+                {{currentLanguage==='ro' ? 'Toate' : 'All'}}
+                <i class="fas fa-globe-europe"></i>
+            </button>
+            
+            <!-- <button class="btn-auto btn-color-outline">
+                Concerte
+                <i class="fas fa-microphone"></i>
+            </button>
+
+            <button class="btn-auto btn-color-outline">
+                Party
+                <i class="fas fa-glass-martini"></i>
+            </button>
+
+            <button class="btn-auto btn-color-outline">
+                Cultura
+                <i class="fas fa-paint-brush"></i>
+            </button>
+
+            <button class="btn-auto btn-color-outline">
+                Sport
+                <i class="fas fa-futbol"></i>
+            </button>
+
+            <button class="btn-auto btn-color-outline">
+                Familie
+                <i class="fas fa-home"></i>
+            </button>
+
+            <button class="btn-auto btn-color-outline">
+                Altele
+                <i class="fas fa-icons"></i>
+            </button> -->
+        </div>
+
+        <!-- <div class="location-dropdown">
+            <mat-form-field appearance="outline">
+                <mat-label>Location</mat-label>
+                <mat-select>
+                    <mat-option [value]="'Bucharest'">Bucharest</mat-option>
+                    <mat-option [value]="'Galati'">Galati</mat-option>
+                </mat-select>
+                <mat-icon matPrefix>location_on</mat-icon>
+            </mat-form-field>
+        </div> -->
+    </div>
+
+    <owl-carousel-o [options]="customOptions" (dragging)="isDragging = $event.dragging">
+        <ng-container *ngFor = "let event of eventsList">
+            <ng-template carouselSlide>
+                <app-resource-card [resource]="event"  [owlRouterLink]="['/client/events/view/' + event.slug]" [stopLink]="isDragging"></app-resource-card>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</div>

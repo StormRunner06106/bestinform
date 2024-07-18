@@ -1,0 +1,109 @@
+<div class="tickets-wrapper">
+    <div class="tickets-main">
+        <div class="tickets-pagination mb-5">
+            <div class="d-flex align-items-center">
+                <div class="circle" [class.active]="stepSelected >= 1" [class.completed]="stepSelected > 1">1</div>
+                <div class="line" [class.colored]="stepSelected >= 2"></div>
+                <div class="circle" [class.active]="stepSelected >= 2" [class.completed]="stepSelected > 2">2</div>
+                <div class="line" [class.colored]="stepSelected >= 3"></div>
+                <div class="circle" [class.active]="stepSelected >= 3" [class.completed]="stepSelected > 3">3</div>
+            </div>
+        </div>
+        <h2 class="mb-3">Selectati Reprezentatia</h2>
+        <div *ngIf="stepSelected === 1">
+            <div class="ticket-info d-flex justify-content-between mb-3" [class.active]="currentTicket === 'ticket1'" id="ticket1" (click)="currentTicket = 'ticket1'">
+                <div class="date-price d-flex flex-column">
+                    <div class="mb-1 d-flex align-items-center"><i class="pi pi-calendar left"></i><div class="alignment-fix">08 Martie</div></div>
+                    <div class="time mb-1 d-flex align-items-center"><i class="pi pi-clock left"></i><div class="alignment-fix">18:30</div></div>
+                    <div class="mb-1">de la <span>25RON/pers</span></div>
+                </div>
+                <div class="ticket-address d-flex flex-column">
+                    <div class="ticket-address-top">TNB - Sala “Ion Caramitru”</div>
+                    <div class="ticket-address-bottom">TNB, Bd. Nicolae Bălcescu nr. 2, sector 1, Bucuresti</div>
+                </div>
+                <div class="tickets-availability d-flex align-items-center justify-content-center">
+                    <div class="availability-card"><i></i>Locuri disponibile</div>
+                </div>
+            </div>
+            <div class="ticket-info d-flex justify-content-between mb-3" [class.active]="currentTicket === 'ticket2'" id="ticket2" (click)="currentTicket = 'ticket2'">
+                <div class="date-price d-flex flex-column">
+                    <div class="mb-1 d-flex align-items-center"><i class="pi pi-calendar left"></i><div class="alignment-fix">08 Martie</div></div>
+                    <div class="time mb-1 d-flex align-items-center"><i class="pi pi-clock left"></i><div class="alignment-fix">18:30</div></div>
+                    <div class="mb-1">de la <span>25RON/pers</span></div>
+                </div>
+                <div class="ticket-address d-flex flex-column">
+                    <div class="ticket-address-top">TNB - Sala “Ion Caramitru”</div>
+                    <div class="ticket-address-bottom">TNB, Bd. Nicolae Bălcescu nr. 2, sector 1, Bucuresti</div>
+                </div>
+                <div class="tickets-availability d-flex align-items-center justify-content-center">
+                    <div class="availability-card"><i></i>Locuri disponibile</div>
+                </div>
+            </div>
+            <div class="ticket-info d-flex justify-content-between mb-3" [class.active]="currentTicket === 'ticket3'" id="ticket3" (click)="currentTicket = 'ticket3'">
+                <div class="date-price d-flex flex-column">
+                    <div class="mb-1 d-flex align-items-center"><i class="pi pi-calendar left"></i><div class="alignment-fix">08 Martie</div></div>
+                    <div class="time mb-1 d-flex align-items-center"><i class="pi pi-clock left"></i><div class="alignment-fix">18:30</div></div>
+                    <div class="mb-1">de la <span>25RON/pers</span></div>
+                </div>
+                <div class="ticket-address d-flex flex-column">
+                    <div class="ticket-address-top">TNB - Sala “Ion Caramitru”</div>
+                    <div class="ticket-address-bottom">TNB, Bd. Nicolae Bălcescu nr. 2, sector 1, Bucuresti</div>
+                </div>
+                <div class="tickets-availability d-flex align-items-center justify-content-center">
+                    <div class="availability-card not-available"><i></i>Indisponibil</div>
+                </div>
+            </div>
+            <div class="ticket-info d-flex justify-content-between mb-3" [class.active]="currentTicket === 'ticket4'" id="ticket4" (click)="currentTicket = 'ticket4'">
+                <div class="date-price d-flex flex-column">
+                    <div class="mb-1 d-flex align-items-center"><i class="pi pi-calendar left"></i><div class="alignment-fix">08 Martie</div></div>
+                    <div class="time mb-1 d-flex align-items-center"><i class="pi pi-clock left"></i><div class="alignment-fix">18:30</div></div>
+                    <div class="mb-1">de la <span>25RON/pers</span></div>
+                </div>
+                <div class="ticket-address d-flex flex-column">
+                    <div class="ticket-address-top">TNB - Sala “Ion Caramitru”</div>
+                    <div class="ticket-address-bottom">TNB, Bd. Nicolae Bălcescu nr. 2, sector 1, Bucuresti</div>
+                </div>
+                <div class="tickets-unavailable-till">
+                    <div>in vinzare de</div>
+                    <div>Marti, 11 Aprilie 10:00</div>
+                </div>
+            </div>
+            <div class="ticket-info d-flex justify-content-between mb-3" [class.active]="currentTicket === 'ticket5'" id="ticket5" (click)="currentTicket = 'ticket5'">
+                <div class="date-price d-flex flex-column">
+                    <div class="mb-1 d-flex align-items-center"><i class="pi pi-calendar left"></i><div class="alignment-fix">08 Martie</div></div>
+                    <div class="time mb-1 d-flex align-items-center"><i class="pi pi-clock left"></i><div class="alignment-fix">18:30</div></div>
+                    <div class="mb-1">de la <span>25RON/pers</span></div>
+                </div>
+                <div class="ticket-address d-flex flex-column">
+                    <div class="ticket-address-top">TNB - Sala “Ion Caramitru”</div>
+                    <div class="ticket-address-bottom">TNB, Bd. Nicolae Bălcescu nr. 2, sector 1, Bucuresti</div>
+                </div>
+                <div class="tickets-unavailable-till">
+                    <div>in vinzare de</div>
+                    <div>Marti, 11 Aprilie 10:00</div>
+                </div>
+            </div>
+            <div class="ticket-info d-flex justify-content-between mb-3" [class.active]="currentTicket === 'ticket6'" id="ticket6" (click)="currentTicket = 'ticket6'">
+                <div class="date-price d-flex flex-column">
+                    <div class="mb-1 d-flex align-items-center"><i class="pi pi-calendar left"></i><div class="alignment-fix">08 Martie</div></div>
+                    <div class="time mb-1 d-flex align-items-center"><i class="pi pi-clock left"></i><div class="alignment-fix">18:30</div></div>
+                    <div class="mb-1">de la <span>25RON/pers</span></div>
+                </div>
+                <div class="ticket-address d-flex flex-column">
+                    <div class="ticket-address-top">TNB - Sala “Ion Caramitru”</div>
+                    <div class="ticket-address-bottom">TNB, Bd. Nicolae Bălcescu nr. 2, sector 1, Bucuresti</div>
+                </div>
+                <div class="tickets-unavailable-till">
+                    <div>in vinzare de</div>
+                    <div>Marti, 11 Aprilie 10:00</div>
+                </div>
+            </div>
+        </div>
+        <div class="forward-button" (click)="nextStep()">Inainte <div class="arrow right"></div></div>
+<!--        <div class="d-flex justify-content-around">-->
+<!--&lt;!&ndash;            <div class="forward-button" (click)="nextStep()">Inainte <div class="arrow right"></div></div>&ndash;&gt;-->
+<!--            <div class="button back-button" ><div class="arrow right"></div>Inapoi</div>-->
+<!--            <div class="button forward-button" (click)="nextStep()">Inainte <div class="arrow right"></div></div>-->
+<!--        </div>-->
+    </div>
+</div>

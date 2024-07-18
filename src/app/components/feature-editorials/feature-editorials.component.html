@@ -1,0 +1,21 @@
+<div class="component-image">
+    <p class="component-image__title">Destinatii Populare</p>
+</div>
+<app-tiles-view
+        [editorialsList]="editorialsList$ | async"
+        [categoriesList]="categories$ | async"
+        [totalEditorials]="totalEditorials$ | async"
+        [amountOfPages]="amountOfPages$ | async"
+        [numberOfElements]="numberOfElements$ | async"
+        [pageFiltersSubject]="pageFiltersSubject"
+        [isMobile]="isMobile()"
+        [searchForm]="searchForm"
+        [selectedCategory]="currentCategorySubject | async"
+        (filterEditorialsByCategoryId)="filterEditorialsByCategoryId($event)"
+        (changePagination)="changePagination($event)"
+>
+
+</app-tiles-view>
+
+
+

@@ -1,0 +1,165 @@
+<div class="container">
+
+    <app-dashboard-header pageTitleOne="{{'GENERAL.MY-PROFILE' | translate}}"
+                          [buttonBackRoute]="'..'"
+                          (buttonCall)="onSaveClick()">
+    </app-dashboard-header>
+
+    <div class="my-profile-card card">
+        <div class="card-header border-0">
+
+        </div>
+
+        <div class="card-body">
+            <div class="avatar-data d-flex flex-wrap">
+                <div class="avatar">
+                    <div class="row">
+                        <img src="{{imgPath}}" alt="Profile image">
+                        <div class="data col d-flex flex-column justify-content-center">
+                            <p class="directions mb-0">{{user?.firstName + " " + user?.lastName}}</p>
+                            <p class="format mb-0">{{'USER.SUPPORT-FORMAT' | translate}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-btns d-flex align-items-center">
+                    <button class="btn-long btn-color-outline me-2" (click)="onDeleteAvatar()" id="deleteAvatarBtn"><i class="fas fa-times"></i>{{'BTN.CLEAR' | translate}}
+                    </button>
+
+                    <input type="file" hidden accept=".jpg,.png,.jpeg" #avatar (change)="uploadAvatar($event)">
+                    <button class="btn-long btn-color-fill" (click)="avatar.click()" id="changeProfilePicBtn"><i
+                        class="fas fa-pen"></i>{{'BTN.CHANGE' | translate}}</button>
+                </div>
+            </div>
+
+            <div class="avatar-data padding-correction">
+                <p class="title">{{'TITLES.PERSONAL-DATA' | translate }}</p>
+
+
+                <div class="container-form">
+                    <form [formGroup]="clientAccountForm">
+                        <div class="row">
+                            <mat-form-field class="col-md-6 col-sm-6" appearance="standard">
+                                <mat-label>{{'USER.LASTNAME' | translate}}</mat-label>
+                                <input matInput placeholder="{{'USER.LASTNAME' | translate}}" formControlName="lastName" id="lastName">
+                                <mat-error *ngIf="clientAccountForm.get('lastName').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+                                <i class="fas fa-times-circle" type="button" *ngIf="clientAccountForm.get('lastName').value"
+                                   (click)="clearFormControl('lastName')" matSuffix></i>
+                            </mat-form-field>
+
+                            <mat-form-field class="col-md-6  col-sm-6" appearance="standard">
+                                <mat-label>{{'USER.FIRSTNAME' | translate}}</mat-label>
+                                <input matInput placeholder="{{'USER.FIRSTNAME' | translate}}" formControlName="firstName" id="firstName">
+                                <mat-error *ngIf="clientAccountForm.get('firstName').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+                                <i class="fas fa-times-circle" type="button" *ngIf="clientAccountForm.get('firstName').value"
+                                   (click)="clearFormControl('firstName')" matSuffix></i>
+                            </mat-form-field>
+
+                            <mat-form-field class="col-md-12  col-sm-12" appearance="standard">
+                                <mat-label>Email</mat-label>
+                                <input matInput placeholder="Email" formControlName="email" id="email">
+                            </mat-form-field>
+
+                            <mat-form-field class="col-sm-12" appearance="standard">
+                                <mat-label>{{'USER.BIRTHDAY' | translate}}</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="birthdate" id="birthdate" [max]="today">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            <!--<mat-form-field class="col-md-3  col-sm-3" appearance="standard">
+                                <mat-label>Type</mat-label>
+                                <mat-select>
+                                    <mat-option value="public"><i
+                                            class="fas fa-globe-europe mr-2"></i>{{'FIELD.PUBLIC' | translate}}</mat-option>
+                                    <mat-option value="private"><i
+                                            class="fas fa-lock mr-2"></i>{{'FIELD.PRIVATE' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>-->
+
+                            <mat-form-field class="col-sm-12" appearance="standard">
+                                <mat-label>{{'USER.PHONE' | translate}}</mat-label>
+                                <input matInput placeholder="{{'USER.PHONE' | translate}}" formControlName="telephone" id="telephone" type="text">
+                                <mat-icon matSuffix>phone</mat-icon>
+                                <mat-error *ngIf="clientAccountForm.get('telephone').hasError('pattern')">Please enter only numeric characters.</mat-error>
+                            </mat-form-field>
+
+                            <!--<mat-form-field class="col-md-3  col-sm-3" appearance="standard" >
+                                <mat-label>Type</mat-label>
+                                <mat-select>
+                                    <mat-option value="public"><i
+                                            class="fas fa-globe-europe mr-2"></i>{{'FIELD.PUBLIC' | translate}}</mat-option>
+                                    <mat-option value="private"><i
+                                            class="fas fa-lock mr-2"></i>{{'FIELD.PRIVATE' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>-->
+
+                            <mat-form-field class="col-sm-12" appearance="standard">
+                                <mat-label>{{'USER.GENDER' | translate}}</mat-label>
+                                <mat-select formControlName="gender" id="gender">
+                                    <mat-option value="male" id="male">{{'USER.MALE' | translate}}</mat-option>
+                                    <mat-option value="female" id="female">{{'USER.FEMALE' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!--<mat-form-field class="col-md-3  col-sm-3" appearance="standard">
+                                <mat-label>Type</mat-label>
+                                <mat-select>
+                                    <mat-option value="public"><i
+                                            class="fas fa-globe-europe mr-2"></i>{{'FIELD.PUBLIC' | translate}}</mat-option>
+                                    <mat-option value="private"><i
+                                            class="fas fa-lock mr-2"></i>{{'FIELD.PRIVATE' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>-->
+
+                            <mat-form-field class="col-sm-12" appearance="standard" *ngIf="isClient">
+                                <mat-label>{{'USER.DESCRIPTION' | translate}}</mat-label>
+                                <textarea formControlName="description" matInput id="descriptionEditClient"
+                                          cdkTextareaAutosize
+                                          cdkAutosizeMinRows="1"
+                                          cdkAutosizeMaxRows="20"></textarea>
+                                <button *ngIf="clientAccountForm.get('description').value" (click)="clientAccountForm.get('description').patchValue('')"
+                                        id="btnClearDescriptionEditClient" type="button" mat-icon-button matSuffix>
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <!--to do-->
+
+                            <p>
+                                <mat-form-field class="col-sm-12" appearance="standard">
+                                    <mat-label>Search city</mat-label>
+                                    <input formControlName="city" [(ngModel)]="cityToSearch"
+                                           (ngModelChange)="searchForCities()" matInput placeholder="Search city...">
+                                    <mat-icon role="button" *ngIf="!cityToSearch" matSuffix>search</mat-icon>
+                                    <mat-icon role="button" *ngIf="cityToSearch" matSuffix
+                                              (click)="cityToSearch = null;
+                                                       recommendedCities = null;
+                                                       clearFormControl('city');
+                                                       clearFormControl('currentGeographicalCoordinates');
+                                                       clearFormControl('country');"
+                                    >clear</mat-icon>
+                                </mat-form-field>
+                            </p>
+
+                            <div [ngClass]="hideCitySuggestion ? 'destinations-container-hidden' : 'destinations-container'">
+                                <div *ngFor="let city of recommendedCities | slice : 0 : 5"
+                                     (click)="updateFormValue('city', city.city);
+                                     updateFormValue('currentGeographicalCoordinates', city.geographicalCoordinates);
+                                     updateFormValue('country', city.country)"
+                                     class="destination-element">
+                                                <span class="destination-icon">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                </span>
+
+                                    <p>{{ city.city }}, {{ city.country }}</p>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

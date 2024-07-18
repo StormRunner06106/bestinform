@@ -1,0 +1,53 @@
+<!--Add Resource-->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" *ngIf="step > 0"><a (click)="goToStep(0)">{{domain}}</a></li>
+        <li class="breadcrumb-item" *ngIf="step > 1"><a (click)="goToStep(1)">{{category}}</a></li>
+        <li class="breadcrumb-item" *ngIf="step > 2"><a (click)="goToStep(2)">{{resourceType}}</a></li>
+    </ol>
+</nav>
+<form [formGroup]="templateForm">
+
+    <!--Page Title-->
+    <div class="page-title">
+        <h1 *ngIf="!providerData">Adaugă resursă</h1>
+        <h1 *ngIf="providerData">{{'Adaugă resursă pentru '+ providerData?.companyName +' ('+providerData?.cui+')'}}</h1>
+        <button class="btn-long btn-color-outline" (click)="checkIfFirstStep()">
+            <i class="fas fa-arrow-left"></i>
+            Înapoi
+        </button>
+    </div>
+
+    <!--Stepper Card Title-->
+    <div class="stepper-card-title">
+        <h2>
+            Alege {{step === 0 ? 'domeniul' : (step === 1 ? 'categoria resursei' : step === 2 ? 'tipul resursei' : null)}}</h2>
+
+    </div>
+
+    <!--Stepper Content-->
+    <div class="stepper-card-content" *ngIf="dataLoaded">
+
+        <!--Radio Button-->
+        <app-resource-radio-option
+                *ngFor="let option of optionsList"
+                [iconPath]="option.icon !== null ? option.icon.filePath : null"
+                [optionName]="option.nameEn"
+                [optionId]="option.id"
+                [initialValue]="step === 0 ? templateForm.get('domain') : (step === 1 ? templateForm.get('categoryId') : step === 2 ? templateForm.get('resourceTypeId') : null)"
+        />
+
+    </div>
+
+    <div class="d-flex justify-content-center my-6">
+        <!--Next Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" (click)="nextStep(); dataForAddStage()">
+                Urmatorul pas
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+</form>
+

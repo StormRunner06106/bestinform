@@ -1,0 +1,17 @@
+@import "../../../../theme/styles/components/colors";
+
+.experiences-container {
+  padding-bottom: 96px;
+  padding-top: 96px;
+  background:linear-gradient(0deg, rgba($background-secondary, 0.9), rgba($background-secondary, 0.9)), url("../../../../../assets/images/others/inspire.jpg");
+
+  .container{
+    .p-title{
+      font-size:32px;
+      font-weight: 700;
+      span{
+        color:$primary-color;
+      }
+    }
+  }
+}

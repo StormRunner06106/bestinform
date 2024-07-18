@@ -1,0 +1,167 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.background-container {
+  width: 100%;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(0deg, rgba($title, 0.48), rgba($title, 0.48));
+  }
+
+  img {
+    height: auto;
+    max-height: 560px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+}
+
+.content-container {
+  background-color: var(--primary-background);
+  padding-top: 48px;
+  padding-bottom: 48px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  row-gap: 64px;
+
+  .job-title {
+    text-align: center;
+  }
+
+  .cv-completion {
+    border: 1px solid rgba(36, 57, 138, 0.16);
+    border-radius: 8px;
+    padding: 20px;
+
+    p {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .cv-completion {
+    .progress {
+      width: 96px;
+      height: 96px;
+      border-radius: 100%;
+      border: 8px solid $secondary-color;
+      background-color: var(--primary-background);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .cv-category-completion {
+      p {
+        color: $primary-color;
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      i {
+        font-size: 16px;
+        font-weight: 900;
+        line-height: unset;
+      }
+
+      i.fa-times {
+        color: $dislike-color;
+      }
+
+      i.fa-check {
+        color: $like-color;
+      }
+    }
+  }
+
+  .user-avatar {
+    height: 85% !important;
+    border: 1px solid rgba(36, 57, 138, 0.16);
+    border-radius: 8px;
+    padding: 20px;
+
+    .avatar-img {
+      width: 120px;
+      aspect-ratio: 1/1;
+      max-height: 120px;
+      max-width: 120px;
+      border-radius: 100%;
+      filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.08));
+      object-fit: cover;
+    }
+
+    .avatar-btns {
+      gap: 8px;
+
+      .btn-long {
+        width: 50% !important;
+        min-width: 10px !important;
+      }
+    }
+
+  }
+
+  .upload-resume {
+    background: rgba(36, 57, 138, 0.04);
+    border: 1px solid rgba(36, 57, 138, 0.16);
+    border-radius: 8px;
+    padding: 20px;
+
+    i.fa-file {
+      color: $primary-color;
+      font-size: 36px;
+      line-height: unset;
+    }
+  }
+
+  .section-cv {
+    margin-bottom: 24px;
+
+    .title-section {
+      margin-bottom: 36px;
+      position: relative;
+      font-size: 24px;
+      font-weight: 600;
+
+      &:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 160px;
+        //margin: 0 auto;
+        height: 2px;
+        background-color: $secondary-color;
+      }
+    }
+
+    .card-list{
+
+    }
+
+    .add-btn {
+      border-radius: 8px;
+      border: 1px dotted rgba(36, 57, 138, 0.16);
+      background-color: transparent;
+      width: 100%;
+      padding: 15px 0;
+      color: rgba(36, 57, 138, 0.16);
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+  }
+
+
+}

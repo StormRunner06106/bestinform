@@ -1,0 +1,51 @@
+@import "/src/app/theme/styles/components/colors";
+
+.card-flight {
+  width: 100%;
+  border: 1px solid rgba($primary-color, 0.2);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+
+  .info {
+    width: 75%;
+    padding: 10px;
+
+    h4 {
+      font-size: 16px !important;
+    }
+  }
+
+  .price, .menu {
+    background-color: $primary-color;
+    color: $background-primary;
+  }
+
+  .price {
+    border-right: 2px dotted $background-primary;
+    width: 200px;
+    min-width: 200px;
+    @media only screen and (max-width: 768px){
+      width: 100px;
+      min-width: 100px;
+      padding: 0 8px;
+    }
+  }
+
+  .menu {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 100px;
+    min-width: 100px;
+    @media only screen and (max-width: 768px){
+      width: 50px;
+      min-width: 50px;
+      padding: 0 8px;
+    }
+  }
+}
+
+
+.cursor-pointer{
+  cursor: pointer;
+}

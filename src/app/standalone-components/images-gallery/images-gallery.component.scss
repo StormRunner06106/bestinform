@@ -1,0 +1,50 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.gallery-container {
+  border-radius: 10px;
+  overflow: hidden;
+
+  .row {
+    row-gap: 24px;
+  }
+
+  .img-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover img {
+      transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      transition: all 0.3s ease-out;
+      object-fit: cover;
+    }
+
+    .remaining-images {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-background);
+      font-size: 48px;
+    }
+  }
+
+  .tall-container {
+    height: 384px;
+  }
+
+  .short-container {
+    height: 192px;
+  }
+}

@@ -1,0 +1,28 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.car-rentals-header{
+  background: url("../../../../../assets/images/others/images-client/car-rentals-header.png") center no-repeat;
+  background-size: cover;
+  height:768px;
+}
+
+.content-container{
+  background-color: $background-primary;
+  padding: 48px 0;
+
+  h4{
+    font-weight: 700;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #231F20;
+  }
+
+  .img-col img{
+    object-fit: cover;
+    border-radius: 8px;
+    width: 100%;
+
+  }
+}

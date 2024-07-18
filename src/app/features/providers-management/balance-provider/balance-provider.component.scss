@@ -1,0 +1,493 @@
+@import "/src/app/theme/styles/components/colors";
+@import "src/app/theme/styles/components/_colors.scss";
+//header container
+.provider-header-container{
+    background-color: var(--primary-background);
+    border: 1px solid rgba(36, 57, 138, 0.16);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}
+
+//white container for table
+.table_container{
+    background-color: var(--primary-background);
+    border: 1px solid rgba(36, 57, 138, 0.16);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+
+}
+
+.positive-amount{
+    color: rgba(52, 168, 83, 1);
+    display: flex;
+    justify-content: flex-end;
+    padding-right:50%;
+}
+.negative-amount{
+    color: rgba(234, 67, 53, 1);
+    display: flex;
+    justify-content: flex-end;
+    padding-right:50%;
+
+}
+
+//general content container
+.view-provider-container{
+    border: 1px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.web-header{
+    h2{
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 42px;
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        color: $primary-color;
+        margin-right: 10px;
+    }
+}
+
+
+//general content container
+.view-provider-container{
+    .balance-class{
+        h2{
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 140%;
+            /* identical to box height, or 45px */
+
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.02em;
+
+            color: $primary-color;
+        }
+    }
+
+    p.align-self-baseline.currency-class{
+        font-weight: 300;
+        font-size: 10px!important;
+        line-height: 12px;
+    }
+
+    .inside_view_container{
+        background-color: var(--primary-background);
+        border: 1px solid rgba(36, 57, 138, 0.16);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+        border-radius: 8px;
+
+        div.balance-class{
+            flex-wrap: wrap;
+            column-gap: 24px;
+        }
+
+        h4{
+            color: $paragraph;
+            font-weight: 700;
+            font-size: 48px;
+            line-height: 56px;
+            display: flex;
+            align-items: center;
+
+        }
+
+        h6{
+            color: $primary-color;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 19px;
+            /* identical to box height */
+
+            display: flex;
+            align-items: center;
+            text-align: center;
+
+            i{
+                margin-right: 10px;
+            }
+        }
+
+        p{
+            color: $paragraph;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 140%;
+            /* or 22px */
+
+            display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+        //the currency (ron) rom big prices
+        .big-currency-class{
+            font-weight: 500!important;
+            font-size: 20px!important;
+            line-height: 23px!important;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+    }
+
+
+
+.recent-transaction-container{
+    //recent transactions
+.recent-transactions-label{
+    border:1px solid var(--secondary-background);
+    border-radius: 30px;
+    padding:8px;
+    margin-top: 10px;
+
+    .transaction-date{
+      p{
+
+        color: #4257EE;
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 14px;
+      /* identical to box height */
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+      }
+      p.number{
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 19px;
+        /* identical to box height */
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin:2px
+      }
+    }
+
+
+
+    h5.amount{
+      color:red;
+      font-weight: 300;
+      font-size: 20px;
+      line-height: 140%;
+      /* identical to box height, or 28px */
+
+      display: flex;
+      align-items: center;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+    p{
+      font-weight: 300;
+      font-size: 10px;
+      line-height: 12px;
+      /* identical to box height */
+
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+  }
+}
+
+.transaction-history-container{
+
+    .date-rectangle{
+        background-color: rgba($primary-color, 0.08);
+        padding: 6px 12px;
+        border-radius: 8px;
+        p{
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 16px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: $primary-color;
+            margin-bottom: 0px;
+
+            i{
+                margin-left:10px;
+            }
+        }
+    }
+
+    .blue-percent-rectangle{
+        border-radius: 4px;
+        background-color:$primary-color;
+        height: 24px;
+         p{
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 19px;
+            /* identical to box height */
+
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color:white;
+
+            i{
+                padding-right:5px;
+            }
+         }
+        }
+    }
+}
+
+
+//resources-class-----------------------------------
+.resources-class{
+    h2{
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 140%;
+        /* identical to box height, or 45px */
+
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+
+        color: $primary-color;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    h4{
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 140%;
+        /* identical to box height, or 34px */
+
+        display: flex;
+        align-items: center;
+        text-align: right;
+        letter-spacing: -0.02em;
+        color: $paragraph;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis!important;
+    }
+
+    h4.price-resource-class{
+        color: $primary-color;
+    }
+
+    p{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+        /* or 22px */
+
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        color:rgba($paragraph,0.5);
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis!important;
+    }
+
+    .resource-card{
+        //width:  90%;
+        height: 475px;
+
+        background: #FFFFFF;
+        border: 1px solid rgba(36, 57, 138, 0.16);
+        border-radius: 8px;
+        padding:25px;
+
+        /* Inside auto layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin-bottom: 24px;
+
+        p i{
+            margin-right: 5px;
+        }
+
+        .title-n-location{
+            min-height:65px
+        }
+
+        //img
+        .resource-img{
+            height:320px;
+        }
+    }
+    .resources-cards-row{
+            display:flex;
+            // flex-wrap: wrap;
+            column-gap: 24px;
+            // overflow-wrap: break-word;
+        }
+}
+
+//Payment request
+.payment-request-class{
+    h2{
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 140%;
+        /* identical to box height, or 45px */
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        color: $primary-color;
+    }
+
+    h4{
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 140%;
+        /* identical to box height, or 34px */
+        display: flex;
+        align-items: center;
+        text-align: right;
+        letter-spacing: -0.02em;
+        color: $paragraph;
+    }
+
+    p{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+        /* or 22px */
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        color:rgba($paragraph,0.5);
+
+    }
+}
+
+.resources-class img {
+    width: 140px !important;
+    object-fit: cover;
+}
+
+
+@media only screen and (min-width:320px) and (max-width: 480px){
+    .mobile-header{
+        display: block;
+        background-color: var(--primary-background);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    }
+    .web-header{
+        display: none;
+    }
+
+    .provider-header-container .px-10{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .container.provider-header-container{
+        background: white;
+        margin-top:20px!important;
+    }
+
+    //no margin/padding for container-fluid
+    .client-general-box{
+        padding:0px;
+    }
+
+    .provider-header-container{
+        background-color: transparent;
+        border: none;
+        box-shadow:none;
+        border-radius: 0px;
+    }
+
+
+}
+
+@media only screen and (min-width:481px) and (max-width: 768px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+
+    .provider-header-container .px-10{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    //applied jobs
+    .applied-jobs-card-class{
+        img{
+           display: none;
+        }
+    }
+
+}
+
+@media only screen and (min-width:769px) and (max-width: 1023px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+
+    .provider-header-container .px-10{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    //big number
+    .inside_view_container{
+        h4{
+            font-size: 24px!important;
+            display: flex;
+            align-items: left;
+        }
+
+        h6{
+            text-align: left!important;
+        }
+
+    }
+}
+
+@media only screen and (min-width:1024px) and (max-width: 1200px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+
+    //big number
+    .inside_view_container{
+        h4{
+            font-size: 40px!important;
+            display: flex;
+            align-items: left;
+        }
+
+        h6{
+            text-align: left!important;
+        }
+
+    }
+}
+
+@media only screen and (min-width:1200px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+
+}

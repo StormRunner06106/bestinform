@@ -1,0 +1,57 @@
+.mat-icon.material-icons {
+  color: #E6E7E8;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.publish-class .row.pb-4 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.publish-class #mat-expansion-panel-header-0 {
+  border-bottom: solid 1px #E6E7E8;
+  border-bottom-left-radius: 0%;
+  border-bottom-right-radius: 0%;
+}
+
+.publish-class .btn-long {
+  width: auto !important;
+  min-width: 170px !important;
+}
+
+.tags-class .mat-icon.material-icons.mat-icon-no-color {
+  color: #4257EE;
+}
+
+#mat-expansion-panel-header-1 {
+  border-bottom: solid 1px #E6E7E8;
+  border-bottom-left-radius: 0%;
+  border-bottom-right-radius: 0%;
+}
+
+img.featured-image-class {
+  max-width: 325px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.widget-title-font {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.paragraph-font {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 20px;
+}
+/*# sourceMappingURL=add-edit-editorial.component.css.map */

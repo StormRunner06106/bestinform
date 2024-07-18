@@ -1,0 +1,84 @@
+.container {
+  width: 1440px;
+  height: 840px;
+}
+
+.container .register {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.container .register .logo {
+  width: 100%;
+  margin: auto;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+.container .register .title {
+  margin-bottom: 48px;
+}
+
+.container .register .title .title-text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #24398A;
+}
+
+.container .register .title .subtitle-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #231F20;
+}
+
+.container .register .register-body {
+  padding: 20px 0 20px 0;
+}
+
+.container .register .register-body form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  margin: auto;
+}
+
+.container .register .register-body form .mat-form-field {
+  width: 100%;
+}
+
+.container .register .register-body form .container-buttons {
+  margin-top: 48px;
+  width: 100%;
+}
+
+.container .register .register-body form .container-buttons button {
+  width: 95%;
+}
+
+@media (max-width: 1200px) {
+  .container .image {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    width: 320px;
+  }
+  .container .register {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .container .image {
+    display: none;
+  }
+}
+/*# sourceMappingURL=register.component.css.map */

@@ -1,0 +1,53 @@
+{   
+  "LOGIN": "Einloggen", 
+  "LOGOUT": "Ausloggen", 
+  "REGISTER": "Registrieren",
+  "ACCOUNT": "Konto",
+  "SUBMIT_PROPERTY": "Eigentum einreichen",
+  "MENU": "Speisekarte",
+  "MY_PROPERTIES": "Meine Eigenschaften",
+  "FAVORITES": "Favoriten",
+  "COMPARE": "Vergleichen Sie",
+  "EDIT_PROFILE": "Profil bearbeiten",
+  "LOCK_SCREEN": "Bildschirm sperren",
+  "HELP": "Hilfe",
+  "NAV": {  
+    "HOME": "Zuhause", 
+    "PROPERTIES": "Eigenschaften", 
+    "PAGES": "Seiten", 
+    "AGENTS": "Agenten",
+    "AGENT": "Agent",  
+    "FAQS": "Faqs",
+    "PRICING": "Preisgestaltung",
+    "TERMS_CONDITIONS": "Geschäftsbedingungen",
+    "LANDING": "Landing", 
+    "404_PAGE": "404 Page",
+    "OTHERS": "Others",
+    "EXTERNAL_LINK": "Externer Link",
+    "MENU_ITEM": "Menu Item",
+    "CONTACT": "Kontakt",
+    "ABOUT_US": "Über",
+    "ADMIN": "Admin"
+  }, 
+  "BTN": {
+    "ADD": "Hinzufügen",
+    "SAVE": "Speichern",
+    "SUBMIT": "Einreichen",
+    "CANCEL": "Stornieren",
+    "UPLOAD": "Hochladen",
+    "REMOVE": "Entfernen",
+    "YES": "Ja",
+    "NO": "Nein",
+    "OK": "in Ordnung",
+    "CLEAR": "Klar",
+    "ADVANCED": "Erweiterte Suche",
+    "HIDE": "Ausblenden"
+  },
+  "MESSAGE": {
+    "SURE_DELETE": "Sind Sie sicher, dass Sie löschen möchten?",
+    "FILE_SIZE": "Die Dateigröße darf {{param}} kb nicht überschreiten."
+  },
+  "FIELD": { 
+    "NAME": "Name" 
+  }
+}

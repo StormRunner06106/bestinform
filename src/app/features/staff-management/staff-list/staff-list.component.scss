@@ -1,0 +1,51 @@
+@import "/src/app/theme/styles/components/colors";
+
+.page-header {
+  margin-top: 64px;
+  margin-bottom: 40px;
+  row-gap: 1rem;
+
+  h2 {
+    margin: 0;
+    color: $primary-color;
+    font-weight: 700;
+  }
+
+  div {
+    row-gap: 1rem;
+  }
+}
+
+.card > div {
+  background-color: var(--primary-background);
+}
+
+.card {
+  margin-bottom: 1rem;
+
+  .card-header {
+    padding-top: 50px;
+  }
+
+  .card-body {
+
+    .row {
+      row-gap: 1.5rem;
+    }
+  }
+
+  .card-footer {
+
+    p {
+      margin: 0;
+      color: $primary-color;
+      font-weight: 400;
+      font-size: 16px;
+    }
+  }
+}
+
+mat-icon{
+  color: rgba($primary-color, 0.24);
+  cursor: pointer;
+}

@@ -1,0 +1,89 @@
+.container .forgotten .logo {
+  width: 100%;
+  margin: auto;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+.container .forgotten .title {
+  margin-bottom: 48px;
+}
+
+.container .forgotten .title .title-text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #24398A;
+}
+
+.container .forgotten .title .subtitle-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #231F20;
+}
+
+.container .forgotten .forgotten-body {
+  padding: 20px 0 20px 0;
+}
+
+.container .forgotten .forgotten-body form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  margin: auto;
+}
+
+.container .forgotten .forgotten-body form .mat-form-field {
+  width: 100%;
+}
+
+.container .forgotten .forgotten-body form .container-buttons {
+  margin-top: 290px;
+  width: 100%;
+}
+
+.container .forgotten .forgotten-body form .container-buttons button {
+  width: 95%;
+}
+
+@media (max-width: 1200px) {
+  .container .image {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    width: 320px;
+  }
+  .container .forgotten {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .container .image {
+    display: none;
+  }
+}
+
+.mat-button-toggle-checked {
+  background-color: #24398A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF;
+}
+
+.image {
+  background: url("../../../../assets/images/login/provider_img.png") center bottom;
+}
+
+.mat-button {
+  border: 1px solid #24398A;
+  border-radius: 100px !important;
+}
+/*# sourceMappingURL=forgotten-pass.component.css.map */

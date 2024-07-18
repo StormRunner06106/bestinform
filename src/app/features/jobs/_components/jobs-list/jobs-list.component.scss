@@ -1,0 +1,36 @@
+@import '/src/app/theme/styles/components/colors';
+.resource-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sort-filter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .btn-long{
+    margin-top: -19px;
+  }
+}
+
+.resource-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  padding: 24px 0;
+}
+
+.no-data-class{
+  margin-bottom:200px;
+
+  img{
+    width: 80px;
+    height: 80px;
+  }
+
+  h4{
+    color:$paragraph;
+  }
+
+}

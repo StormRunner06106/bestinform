@@ -1,0 +1,55 @@
+@import "../../theme/styles/components/colors";
+
+.background-container {
+  width: 100%;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    //background: linear-gradient(0deg, rgba($title, 0.48), rgba($title, 0.48));
+    //backdrop-filter: blur(2px);
+    //-webkit-backdrop-filter: blur(2px);
+  }
+
+  img {
+    height: auto;
+    max-height: 560px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .category-title {
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--primary-background);
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    line-height: 140%;
+    margin-bottom: 0;
+    z-index: 1;
+  }
+}
+
+.content-container {
+  background-color: var(--primary-background);
+  padding-top: 48px;
+  padding-bottom: 48px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  row-gap: 64px;
+}
+
+.categories-container {
+  .row {
+    row-gap: 24px;
+  }
+}

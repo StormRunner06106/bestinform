@@ -1,0 +1,101 @@
+<div class="container-apply">
+    <div class="row">
+        <div class="col-12 col-lg-6 user-data">
+            <div class="container-user">
+                <div class="logo d-flex flex-column">
+                    <img src="assets/Logo-blue.svg" class="mb-5">
+                    <h4>{{'JOBS.APPLY-TO-JOB' | translate}}</h4>
+                    <p class="mb-4">{{'JOBS.APPLY-INFO' | translate}}</p>
+
+                    <p class="mb-0"><b>{{'JOBS.PROFILE-DETAILS' | translate}}</b></p>
+                    <form [formGroup]="userForm">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>{{'USER.FIRSTNAME' | translate}}</mat-label>
+                            <input matInput formControlName="firstName">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>{{'USER.LASTNAME' | translate}}</mat-label>
+                            <input matInput formControlName="lastName">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>{{'USER.PHONE' | translate}}</mat-label>
+                            <input matInput formControlName="telephone">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>{{'USER.COUNTRY' | translate}}</mat-label>
+                            <input matInput formControlName="country">
+                        </mat-form-field>
+
+                        <div class="d-flex justify-content-center">
+                            <button class="btn-long btn-color-outline w-75"><i class="fas fa-arrow-left me-2"></i>{{'BTN.CANCEL' | translate}}
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6 cv-data">
+            <div class="container-cv d-flex flex-column">
+                <div class="cv-completion">
+                    <div class="d-flex justify-content-sm-between align-items-center flex-wrap justify-content-center">
+                        <h1>{{'JOBS.CV-STATUS' | translate}}</h1>
+                        <div class="progress mb-2">70%</div>
+                    </div>
+
+                    <div class="sections">
+                        <p class="directions">{{'JOBS.CV-DIR' | translate}}</p>
+
+                        <div class="cv-category-completion d-flex justify-content-between">
+                            <p>{{'TITLES.PROFILE-IMG' | translate}}</p>
+                            <i class="fas fa-check" *ngIf="currentCv?.avatar?.filePath"></i>
+                            <i class="fas fa-times" *ngIf="!currentCv?.avatar?.filePath"></i>
+                        </div>
+
+                        <div class="cv-category-completion d-flex justify-content-between">
+                            <p>{{'JOBS.SUMMARY' | translate}}</p>
+                            <i class="fas fa-check" *ngIf="currentCv?.description"></i>
+                            <i class="fas fa-times"
+                               *ngIf="!currentCv?.description"></i>
+                        </div>
+                        <div class="cv-category-completion d-flex justify-content-between">
+                            <p>Contact</p>
+                            <i class="fas fa-check" *ngIf="currentCv?.email"></i>
+                            <i class="fas fa-times" *ngIf="!currentCv?.email"></i>
+                        </div>
+                        <div class="cv-category-completion d-flex justify-content-between">
+                            <p>{{'JOBS.EXPERIENCE' | translate}}</p>
+                            <i class="fas fa-check" *ngIf="currentCv?.experience?.length > 0"></i>
+                            <i class="fas fa-times" *ngIf="currentCv?.experience?.length === 0"></i>
+                        </div>
+                        <div class="cv-category-completion d-flex justify-content-between">
+                            <p>{{'JOBS.EDUCATION' | translate}}</p>
+                            <i class="fas fa-check" *ngIf="currentCv?.education?.length > 0"></i>
+                            <i class="fas fa-times" *ngIf="currentCv?.education?.length === 0"></i>
+                        </div>
+                        <div class="cv-category-completion d-flex justify-content-between">
+                            <p>{{'JOBS.CERTIFICATION' | translate}}</p>
+                            <i class="fas fa-check" *ngIf="currentCv?.certificationsAndDegrees?.length > 0"></i>
+                            <i class="fas fa-times" *ngIf="currentCv?.certificationsAndDegrees?.length === 0"></i>
+                        </div>
+
+                        <button class="btn-long btn-color-fill w-100" (click)="navigateToCv()">{{'JOBS.COMPLETE-CV' | translate}}<i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn-long btn-color-fill w-75" (click)="applyToJob()"><i class="fas fa-check me-2"></i>{{'JOBS.APPLY-NOW' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

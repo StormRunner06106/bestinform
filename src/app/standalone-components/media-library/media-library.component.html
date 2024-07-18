@@ -1,0 +1,292 @@
+<div class="container">
+    <div class="page-header d-flex justify-content-center justify-content-sm-between align-items-center flex-wrap">
+        <h2>
+            Librarie media
+        </h2>
+
+        <div class="d-flex justify-content-center justify-content-lg-between align-items-center flex-wrap">
+            <label for="fileUpload">
+              <span class="btn-long btn-color-fill">
+                <i class="fas fa-plus"></i>
+               Adaugă media
+              </span>
+            </label>
+            <input class="d-none" type="file" name="fileUpload" id="fileUpload"
+                   accept=".png, .jpg, .jpeg, .jfif, .gif, .mp4, .MPG, .mov, .AVI, .VOB"
+                   onclick="value = null"
+                   (change)="onImgChanged($event)"/>
+        </div>
+    </div>
+
+    <div class="form-container mb-5">
+        <div class="row flex-wrap">
+            <div class="col-12 col-md-5">
+                    <mat-form-field  class="w-100" >
+                        <mat-label>Cautare</mat-label>
+                        <input matInput placeholder="Cautare"  (keyup.enter)="getMediaList()" type="text" [formControl]="searchMediaFilter">
+                    </mat-form-field>
+            </div>
+            <div class="col-12 col-md-5">
+                <mat-form-field class="w-100" >
+                    <mat-label>Categorie</mat-label>
+                    <mat-select [formControl]="categoryMediaFilter" (selectionChange)="getMediaList()">
+                        <mat-option [value]="null"> -</mat-option>
+                        <mat-option value="image">Images</mat-option>
+                        <mat-option value="pdf">Pdf</mat-option>
+                        <mat-option value="document">Documente</mat-option>
+                        <mat-option value="video">Video</mat-option>
+                        <mat-option value="other ">Altele</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-2">
+                <button class="btn-long btn-color-fill w-100 w-md-25" (click)="getMediaList()">
+                    <i class="fas fa-filter"></i>
+                    Filter
+                </button>
+            </div>
+
+        </div>
+
+        <!-- <div class="loader" *ngIf="isLoading===true">
+          <div class="spinner"></div>
+        </div> -->
+        <ng-container *ngIf="isLoading === true">
+          <span [style.display]="'block'" clas="indicator-progress">
+             Se incarcă fișierul..{{ " " }}
+              <!--<span
+                      class="spinner-border spinner-border-sm align-middle ms-2"
+              ></span> -->
+              <div class="loader" *ngIf="isLoading===true">
+                <div class="spinner"></div>
+              </div>
+          </span>
+        </ng-container>
+
+        <div class="row" *ngIf="allMedia && isLoading===false">
+            <div class="col-md-12 row">
+              <div *ngFor="let media of filteredMedia" class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 thumbNailContainer">
+                <div *ngIf="media.category === 'image'; else notImage " class="thumbnailImageWraper">
+
+                  <img class="mediaThumbnail" src="{{media?.path}}" alt="{{media?.alternativeName}}">
+                  <div class="overlayImageHover" (click)="imgPreviewModal(previewModal, media); ">
+                    <button (click)="$event.stopPropagation(); openDeleteModal(deleteModal, media)" class="delete-btn btn-round btn-color-fill"><i class="fas fa-trash-alt"></i></button>
+                    <button (click)="$event.stopPropagation(); openEditModal(content, media)" class="edit-btn btn-round btn-color-fill"><i class="fas fa-pen"></i></button>
+                  </div>
+                </div>
+
+                <ng-template #notImage>
+                  <div class="thumbnailImageWraper">
+                    <!--icon &title-->
+                    <div class="mediaThumbnail d-flex flex-column justify-content-center">
+                      <i *ngIf="media.category!=='video'" class="fas fa-file my-auto mx-auto"></i>
+                      <i *ngIf="media.category==='video'" class="fas fa-video my-auto mx-auto"></i>
+                      <div class="mediaThumbnailTitle mb-0">
+                        <p>{{media.name}}</p>
+                      </div>
+                    </div>
+                    <!--overlay and buttons-->
+                    <div class="overlayImageHover">
+                      <button (click)="openDeleteModal(deleteModal, media)" class="delete-btn btn-round btn-color-fill"><i class="fas fa-trash-alt"></i></button>
+                      <button (click)="openEditModal(content, media)" class="edit-btn btn-round btn-color-fill"><i class="fas fa-pen"></i></button>
+                    </div>
+
+                  </div>
+                </ng-template>
+              </div>
+              <mat-paginator #paginator [pageSize]="size" [length]="allMedia" [pageIndex]="pageIndex"
+                             [pageSizeOptions]="[18, 24, 48, 96]"
+                             (page)="pageEvent = getServerData($event)"></mat-paginator>
+            </div>
+          </div>
+
+          <!-- <div *ngIf="loader===true" class="d-flex flex-column justify-content-center align-items-center" >
+            <i class="fad fa-spinner-third fa-spin"></i>
+            <p>Se incarcă fisierul.</p>
+          </div> -->
+
+
+    </div>
+
+</div>
+
+<!--Editeaza imagine-->
+<ng-template #content let-modal>
+  <!--header-->
+  <div class="modal-header">
+    <h4 class="modal-title">Editează media</h4>
+      <span aria-hidden="true" (click)="modal.dismiss('Cross click')"><i class="fas fa-times"></i></span>
+  </div>
+<!--body-->
+<div class="row p-4">
+  <!--img-->
+<div class="col-6">
+  <div class="editThumbnail">
+    <img  *ngIf="mediaCategory === 'image'" class="editThumbnail" src="{{mediaPath}}" alt="{{mediaAlternativeName}}">
+    <i *ngIf="mediaCategory === 'video'" class="fas fa-video h-100 d-flex justify-content-center align-items-center"></i>
+    <i *ngIf="mediaCategory !== 'video' && mediaCategory !== 'image'" class="fas fa-file h-100 d-flex justify-content-center align-items-center"></i>
+  </div>
+</div>
+<!--form-->
+<div class="col-6">
+  <form [formGroup]="mediaForm">
+    <mat-form-field  class="w-100" >
+      <mat-label>Nume</mat-label>
+      <input matInput type="text" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field  class="w-100" >
+      <mat-label>Nume alternativ</mat-label>
+      <input matInput type="text" formControlName="alternativeName">
+    </mat-form-field>
+
+    <mat-form-field class="w-100" >
+      <mat-label>Categorie</mat-label>
+      <mat-select formControlName="category">
+          <mat-option value="">-</mat-option>
+          <mat-option value="image">Images</mat-option>
+          <mat-option value="pdf">Pdf</mat-option>
+          <mat-option value="document">Documente</mat-option>
+          <mat-option value="video">Video</mat-option>
+          <mat-option value="other">Altele</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+    <button
+      (click)="deleteMedia(mediaId)"
+      class="btn-long btn-color-fill"
+      type="submit"
+    >
+        <i class="fas fa-trash-alt"></i>
+        Stergere
+    </button>
+  </form>
+</div>
+</div>
+<!--end body-->
+<!--footer-->
+<div class="d-flex justify-content-end">
+  <div class="d-flex justify-content-between align-items-center flex-wrap p-2">
+    <button  class="btn-long btn-color-outline mr-2" (click)="modal.dismiss('Cross click')">
+        <i class="fas fa-arrow-times"></i>
+        Anulare
+    </button>
+
+    <button class="btn-long btn-color-fill ms-2" type="submit" (click)="editMedia(mediaId)">
+      <i class="fas fa-check"></i>
+        Confirma
+    </button>
+</div>
+</div>
+</ng-template>
+
+
+
+<!--Adauga fisier-->
+<ng-template #addFile let-modal>
+  <!--header-->
+  <div class="modal-header">
+    <h4 class="modal-title">Adaugă media</h4>
+      <span aria-hidden="true" (click)="modal.dismiss('Cross click')"><i class="fas fa-times"></i></span>
+  </div>
+<!--body-->
+<div class="row p-4">
+  <!--img-->
+<div class="col-6">
+  <div class="editThumbnail">
+      <input #fileInput hidden type="file" (change)="onImgChanged($event)">
+          <div class="w-100">
+              <img class="editThumbnail" src='{{urlfeaturedImg}}' (click)="fileInput.click()">
+          </div>
+  </div>
+</div>
+<!--form-->
+<div class="col-6">
+  <form [formGroup]="mediaForm">
+    <mat-form-field  class="w-100" >
+      <mat-label>Nume</mat-label>
+      <input matInput type="text" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field  class="w-100" >
+      <mat-label>Nume alternativ</mat-label>
+      <input matInput type="text" formControlName="alternativeName">
+    </mat-form-field>
+
+    <mat-form-field class="w-100" >
+      <mat-label>Categorie</mat-label>
+      <mat-select formControlName="category">
+          <mat-option value="">-</mat-option>
+          <mat-option value="image">Imagine</mat-option>
+          <mat-option value="pdf">Pdf</mat-option>
+          <mat-option value="document">Document</mat-option>
+          <mat-option value="video">Video</mat-option>
+          <mat-option value="other">Altele</mat-option>
+      </mat-select>
+  </mat-form-field>
+  </form>
+</div>
+</div>
+<!--end body-->
+<!--footer-->
+<div class="d-flex justify-content-end">
+  <div class="d-flex justify-content-between align-items-center flex-wrap p-2">
+    <button  class="btn-long btn-color-outline mr-2" (click)="modal.dismiss('Cross click')">
+        <i class="fas fa-arrow-times"></i>
+        Anulare
+    </button>
+
+    <button class="btn-long btn-color-fill ms-2" type="submit" (click)="addMedia()">
+      <i class="fas fa-check"></i>
+        Confirma
+    </button>
+</div>
+</div>
+</ng-template>
+
+
+<!--Delete modal-->
+
+<ng-template #deleteModal let-modal>
+ <!--header-->
+  <div class="modal-header">
+     <h4 class="modal-title">Sterge media</h4>
+  </div>
+  <!--body-->
+  <div class="p-4">
+    <p>Acțiunea de stergere media este permanentă și complet irevocabilă.
+      Doriti sa continuati?</p>
+  </div>
+  <!--footer-->
+<div class="d-flex justify-content-center p-2">
+  <div class="d-flex justify-content-between align-items-center flex-wrap p-2">
+      <button  class="btn-long btn-color-outline mr-2" (click)="modal.dismiss('Cross click')">
+        <i class="fas fa-arrow-times"></i>
+        Anulare
+      </button>
+
+      <button class="btn-long btn-color-fill ms-2" type="submit" (click)="deleteMedia(mediaId)">
+      <i class="fas fa-check"></i>
+        Confirma
+      </button>
+    </div>
+</div>
+</ng-template>
+
+<!--End delete modal-->
+
+
+<!--Preview Image modal-->
+
+<ng-template #previewModal let-modal>
+  <!--header-->
+   <div class="modal-header">
+      <h4 class="modal-title">{{mediaAlternativeName}}</h4>
+   </div>
+   <!--body-->
+   <div class="p-4">
+     <img src="{{mediaPath}}" class="preview-img">
+   </div>
+ </ng-template>
+
+ <!--Preview image modal-->

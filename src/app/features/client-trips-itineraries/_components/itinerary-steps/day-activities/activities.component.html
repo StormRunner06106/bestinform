@@ -1,0 +1,147 @@
+<div *ngIf="newItinerary" class="card step-card">
+    <div class="card-header">
+        <span class="step-name">{{ dayActivities ? 'Step IV' : 'Step V' }}</span>
+        <span class="step-separator">-</span>
+        <span class="step-category">{{ dayActivities ? 'Day Activities' : 'Evening Activities' }}</span>
+    </div>
+    <div class="card-body d-flex flex-column">
+        <div class="row align-items-center step-card-title">
+            <div class="col">
+                <p class="step-title">Attractions & experiences</p>
+            </div>
+            <div class="col text-right step-details">
+                <p>{{ newItinerary.resources[0].startDate }} - {{ newItinerary.resources[newItinerary.resources.length - 1].endDate }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="item">
+                    <ng-container *ngFor="let resourceGroup of newItinerary.resources[destinationIndex]?.[activityTypeRecommended]">
+                        <ng-container *ngFor="let item of resourceGroup.items">
+                            <p class="item-title">
+                                {{ (item.date === dayState && resourceGroup.resourceId === selectedResources[destinationIndex]?.[dayState]) ? resourceGroup.resourceName : null }}
+                            </p>
+                            <p class="item-resource overflow-ellipsis mb-0">
+                                {{ (item.date === dayState && resourceGroup.resourceId === selectedResources[destinationIndex]?.[dayState]) ? resourceGroup.resourceTypeName : null }}
+                            </p>
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="!selectedResources[destinationIndex]?.[dayState]">
+                        <p class="item-title">
+                            Unassigned
+                        </p>
+                        <p class="item-resource overflow-ellipsis mb-0 opacity-0">
+
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="row time-period mt-auto">
+            <div class="col time-period-type">
+                <span>Day</span>
+            </div>
+            <div class="col d-flex align-items-center justify-content-end time-period-number">
+                <div *ngFor="let day of days; let index = index"
+                     [ngClass]="day === dayState ? 'selected' : null"
+                     (click)="setDayState(day)"
+                     class="day-box">
+                    <span>{{ index + 1 }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="resourcesExistByDay?.[dayState]; else noAvailableResourcesForLocation"
+         class="card-footer"
+         (click)="openModal(editResources)">
+        <a>View more</a>
+    </div>
+
+    <ng-template #noAvailableResourcesForLocation>
+        <div class="card-footer pe-none">
+            <p class="m-0 text-white">
+                No available activities for the current day
+            </p>
+        </div>
+    </ng-template>
+
+</div>
+
+<ng-template #editResources let-c="close" let-d="dismiss">
+    <div mat-dialog-content>
+        <h2 class="step-title pb-4">{{ dayActivities ? 'Step IV' : 'Step V' }}</h2>
+
+        <ng-container *ngIf="activitiesResources?.[destinationIndex]?.length > 0; else noResourcesFound">
+            <ul ngbNav #nav="ngbNav" [activeId]="dayState" class="nav-pills mb-4">
+                <ng-container *ngFor="let dayResourcesGroup of activitiesResources?.[destinationIndex]; let dayGroupIndex = index">
+                    <li [ngbNavItem]="dayResourcesGroup?.date">
+                        <a ngbNavLink>Day {{ daysDictionary[dayResourcesGroup?.date] + 1 }}</a>
+                        <ng-template ngbNavContent>
+                            <h3 class="step-category">{{ dayActivities ? 'Recommended day activities' : 'Recommended evening activities' }}</h3>
+                            <p class="mb-3">Choose the best way to get to your destinations by adding your favourite routes and type of transportation.</p>
+                            <ul ngbNav #actTypeNav="ngbNav" [activeId]="dayResourcesGroup?.resources[0]?.resourceTypeName" class="nav-pills">
+                                <ng-container *ngFor="let resourceType of dayResourcesGroup?.resources">
+                                    <li [ngbNavItem]="resourceType?.resourceTypeName">
+                                        <a ngbNavLink>{{ resourceType?.resourceTypeName }}</a>
+                                        <ng-template ngbNavContent>
+                                            <div class="res-container">
+                                                <ng-container *ngIf="resourceType?.resources?.length > 0; else noResourcesForSelectedType">
+                                                    <div class="res-item" *ngFor="let res of resourceType?.resources; index as i" (click)="openResourceModal(res, dayResourcesGroup?.date)">
+                                                        <div class="res-item-image">
+                                                            <img [src]="res?.featuredImage?.filePath" alt=""/>
+                                                        </div>
+                                                        <div class="res-item-content">
+                                                            <div class="res-main-info d-flex align-items-center justify-content-between">
+                                                                <span class="res-title">{{res.title}}</span>
+                                                                <span class="res-review">{{res.proReviewsPercentage}}%
+                                                                <i class="fa fa-smile"></i>
+                                                            </span>
+                                                            </div>
+                                                            <div class="res-address">
+                                                                <span>{{res.address}}</span>
+                                                                <span>{{res.city}}</span>
+                                                                <span>{{res.country}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="res-check">
+                                                            <i *ngIf="temporarySelectedResources[destinationIndex]?.[dayResourcesGroup?.date] === res.id" class="fa fa-check"></i>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+
+                                                <ng-template #noResourcesForSelectedType>
+                                                    <h3 class="mt-4 mb-4 mb-0 text-center">
+                                                        No activities found for this type
+                                                    </h3>
+                                                </ng-template>
+                                            </div>
+                                        </ng-template>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                            <div [ngbNavOutlet]="actTypeNav" class="mt-2"></div>
+
+                        </ng-template>
+                    </li>
+                </ng-container>
+            </ul>
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </ng-container>
+
+        <ng-template #noResourcesFound>
+            <p class="mt-4 mb-0 text-center">
+                No activities found for this day
+            </p>
+        </ng-template>
+
+        <div class="row buttons-row">
+            <div class="col">
+                <button class="btn-auto btn-color-outline w-100" matDialogClose>Anulare</button>
+            </div>
+            <div class="col">
+                <button class="btn-auto btn-color-fill w-100" [matDialogClose]="temporaryModalItinerary">Check options</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

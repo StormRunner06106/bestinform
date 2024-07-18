@@ -1,0 +1,346 @@
+<!--Title bar-->
+<div>
+    <div class="container" *ngIf="!providerPageId">
+        <app-dashboard-header pageTitleOne="{{ 'RESERVATIONS.LIST' | translate}}{{paramTripId ? ' - trip' : ''}}"
+                              [buttonBackRoute]="isProvider ? '/private/provider/resources/my-list'
+                              : isStaff ? (paramTripId ? '../../trips/list' : paramEventId ? '../../events/list' : '../../resources/list')
+                              : isAdmin ? (paramTripId ? '../../trips/list' : paramEventId ? '../../events/list' : '../../resources/list')
+                              : '/'"
+                              (buttonExtraCall)="!noRes ? changeDisp() : null" [buttonExtraName]="!noRes ? 'Modifică disponibilitate': null"
+        >
+        </app-dashboard-header>
+    </div>
+
+    <div *ngIf="!noRes" class="container">
+
+        <div class="row filterRow justify-content-start">
+            <div class="col-12 col-lg-7">
+                <div class="row">
+                <!--Reservation name filter-->
+                    <!-- <div class="col-md-4">
+                        <mat-form-field appearance="standard" *ngIf="paramResourceId === undefined" (keyup.enter)="applyFilter()">
+                            <mat-label>{{'FIELD.RESOURCE-NAME' | translate}}</mat-label>
+                            <input id="inputFilterByName" matInput [(ngModel)]=filterName #inputTitle>
+                            <mat-icon matSuffix (click)="clearfilterName()">highlight_off</mat-icon>
+                        </mat-form-field>
+                    </div> -->
+                    <!--Country filter-->
+                    <!-- <div class="col-md-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>{{'FIELD.COUNTRY' | translate}}</mat-label>
+                            <input id="inputFilterByCountry" matInput [(ngModel)] = filterCountry #inputCountry>
+                            <mat-select [(ngModel)]=filterCountry (selectionChange)="applyFilter()">
+                                <mat-option value="Romania">Romania</mat-option>
+                                <mat-option value="Rusia">Rusia</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    <!--City filter-->
+                    <!-- <div class="col-md-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>{{'FIELD.CITY' | translate}}</mat-label>
+                            <input id="inputFilterByCity" matInput [(ngModel)] = filterCity  #inputCity>
+                            <mat-select [(ngModel)]=filterCity (selectionChange)="applyFilter()">
+                                <mat-option value="Bucuresti">Bucuresti</mat-option>
+                                <mat-option value="Brasov">Brasov</mat-option>
+                                <mat-option value="Galati">Galati</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+
+
+                    <div *ngIf="!paramTripId" class="col-4">
+                        <mat-form-field appearance="standard" >
+                            <mat-label>Resursă</mat-label>
+                            <mat-select (selectionChange)="resourceChanged()" [(value)]=filterResource id="inputFilterByResource" #inputResource>
+                                <mat-option *ngFor="let res of resourcesList" [value]="res.id">{{res.title}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-4">
+                        <!--Start date filter-->
+                        <mat-form-field appearance="standard">
+                            <mat-label>{{'FIELD.START-DATE' | translate}}</mat-label>
+                            <input matInput [(ngModel)]=filterStartDate [matDatepicker]="dataPickerStart">
+                            <mat-hint>DD/MM/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="dataPickerStart"></mat-datepicker-toggle>
+                            <mat-datepicker #dataPickerStart></mat-datepicker>
+                        </mat-form-field>
+                        <mat-error *ngIf="!startDateIntervalValid">{{'MESSAGE.COMPLETE-RANGE' | translate}}</mat-error>
+                    </div>
+                    <div class="col-4">
+                        <!--Finish date filter-->
+                        <mat-form-field appearance="standard">
+                            <mat-label>{{'FIELD.END-DATE' | translate}}</mat-label>
+                            <input id="inputFilterByEndDate" matInput [(ngModel)]=filterEndDate
+                                   [matDatepicker]="dataPickerFinish">
+                            <mat-hint>DD/MM/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="dataPickerFinish"></mat-datepicker-toggle>
+                            <mat-datepicker #dataPickerFinish></mat-datepicker>
+
+                        </mat-form-field>
+                        <mat-error *ngIf="!endDateIntervalValid">{{'MESSAGE.COMPLETE-RANGE' | translate}}</mat-error>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 d-flex align-items-center justify-content-end gap-2">
+                <!-- Refresh filters -->
+                <button type="button" class="btn-round btn-color-outline" id="clearFilterBtn" (click)="clearFields()"><i
+                        class="fas fa-sync"></i></button>
+
+                <!-- Advenced filter -->
+                <!-- <button type="button" class="btn-long btn-color-outline" id="advancedFilterBtn" (click)="advancedClick()"><i
+                        [ngClass]="isAdvanced ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>{{'BTN.ADVANCED-FILTER' | translate}}
+                </button> -->
+
+                <!--Filter-->
+                <button type="button" class="btn-long btn-color-fill" (click)="applyFilter($event)"
+                        id="filterBtn">{{'BTN.FILTER' | translate}}</button>
+            </div>
+            <!-- Advenced filters -->
+            <div [ngClass]="{'d-none': !isAdvanced}">
+                <div class="advanced-filter-first row">
+                    <!-- <div class="col-4">
+                        <mat-form-field appearance="standard">
+                            <mat-label>{{'FIELD.DOMAIN' | translate}}</mat-label>
+                            <mat-select [(ngModel)]=filterDomain (selectionChange)="applyFilter()">
+                                <mat-option value="63bfcca765dc3f3863af755c">Travel & Entertainment</mat-option>
+                                <mat-option value="63bfda2765dc3f3863af755f">Healthcare</mat-option>
+                                <mat-option value="63bfda7e65dc3f3863af7560">Culture&Art</mat-option>
+                                <mat-option value="63bfda9365dc3f3863af7561">Education</mat-option>
+                                <mat-option value="63bfdaaa65dc3f3863af7562">Jobs&Market</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    <!--Start date filter-->
+                    <!-- <div class="col-4">
+                        <mat-form-field appearance="standard">
+                            <mat-label>{{'FIELD.START-DATE' | translate}}</mat-label>
+                            <input matInput [(ngModel)]=filterStartDate [matDatepicker]="dataPickerStart">
+                            <mat-hint>DD/MM/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="dataPickerStart"></mat-datepicker-toggle>
+                            <mat-datepicker #dataPickerStart></mat-datepicker>
+                        </mat-form-field>
+
+                    </div> -->
+                    <!--Finish date filter-->
+                    <!-- <div class="col-4">
+                        <mat-form-field appearance="standard">
+                            <mat-label>{{'FIELD.END-DATE' | translate}}</mat-label>
+                            <input id="inputFilterByEndDate" matInput [(ngModel)]=filterEndDate
+                                   [matDatepicker]="dataPickerFinish">
+                            <mat-hint>DD/MM/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="dataPickerFinish"></mat-datepicker-toggle>
+                            <mat-datepicker #dataPickerFinish></mat-datepicker>
+                        </mat-form-field>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row tableContent" *ngIf="loadedData">
+
+            <table mat-table matSort appMatTableResponsive [dataSource]="reservationsList" class="w-100"
+                   (matSortChange)=applyFilter($event)>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
+                    <td data-column-name="#" mat-cell
+                        *matCellDef="let row; let i = index;"  [ngClass]="!row.markedAsRead ? 'highlight-row' : ''"> {{ (i + 1) + pageSize * pageNumber }} </td>
+                </ng-container>
+
+                <!--Reservation number column-->
+                <ng-container matColumnDef="reservationNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header
+                    > {{"RESERVATION.RESERVATION-NUMBER" | translate}} </th>
+                    <td attr.data-column-name='{{"RESERVATION.RESERVATION-NUMBER" | translate}}' mat-cell
+                        *matCellDef="let row" routerLink="{{paramTripId ? ('../../reservations/view-trip-reservation/' + row.id) : ('../../reservations/view/'+ row.id)}}"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''"><span
+                            class="title-link">{{row.reservationNumber}}</span></td>
+                </ng-container>
+
+                <!--TO DO: de verificat linkul daca duce bine-->
+                <!-- Resource Name column -->
+                <ng-container matColumnDef="resourceName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{paramTripId ? "Trip name" : ("RESERVATION.RESOURCE-NAME" | translate)}} </th>
+                    <td attr.data-column-name='{{paramTripId ? "Trip name" : ("RESERVATION.RESOURCE-NAME" | translate)}}' mat-cell *matCellDef="let row"
+                        routerLink="/../resources/view/{{row.resourceId}}"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''"><span
+                            class="title-name">{{row.name}}</span></td>
+                </ng-container>
+
+                <!--Check-in column-->
+                <ng-container matColumnDef="checkIn">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"RESERVATION.CHECK-IN" | translate}} </th>
+                    <td attr.data-column-name='{{"RESERVATION.CHECK-IN" | translate}}' mat-cell
+                        *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''">{{row.checkIn | date: "dd/MMM/yyyy"}}</td>
+                </ng-container>
+
+                <!--Check-out column-->
+                <ng-container matColumnDef="checkOut">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"RESERVATION.CHECK-OUT" | translate}} </th>
+                    <td attr.data-column-name='{{"RESERVATION.CHECK-IN" | translate}}' mat-cell
+                        *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''"> {{row.checkOut | date: "dd/MMM/yyyy"}}</td>
+                </ng-container>
+
+                <!--Nights column-->
+                <ng-container matColumnDef="nights">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"RESERVATION.NIGHTS" | translate}} </th>
+                    <td attr.data-column-name='{{"RESERVATION.NIGHTS" | translate}}' mat-cell
+                        *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''"><span class="d-flex justify-content-end me-3">{{ calculateNrNights(row.checkIn,row.checkOut) }} </span></td>
+                </ng-container>
+
+                <!--Booked Rooms column-->
+                <ng-container matColumnDef="bookedRooms">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"RESOURCE.ROOMS" | translate}} </th>
+                    <td attr.data-column-name='{{"RESOURCE.ROOMS" | translate}}' mat-cell
+                        *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''"><span class="d-flex justify-content-end me-3">{{ calculateNrRooms(row?.rentalBooking?.items) }}</span></td>
+                </ng-container>
+
+                <!--Numbers of persons (restaurnts) column-->
+                <ng-container matColumnDef="nrPersons">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCE.RES-FILTERS.PERSONS' | translate}}</th>
+                    <td attr.data-column-name='Numar persoane' mat-cell
+                        *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''">{{ row?.reservationTimePicker?.adults}} {{'RESERVATION.ADULTS' | translate}},  {{row?.reservationTimePicker?.children}} {{'RESERVATION.CHILDREN' | translate}}</td>
+                </ng-container>
+
+                <!--Date and hour (restaurnats) column-->
+                <ng-container matColumnDef="restaurantDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"RESERVATION.DATE" | translate}} </th>
+                    <td attr.data-column-name='{{"RESERVATION.DATE" | translate}}' mat-cell
+                        *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''">{{row?.reservationTimePicker?.time | date: "dd/MMM/yyyy HH:mm"}}
+                    </td>
+                </ng-container>
+
+                <!--Guest column-->
+                <ng-container matColumnDef="guest">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"RESERVATION.GUEST" | translate}} </th>
+                    <td attr.data-column-name='{{"RESERVATION.GUEST" | translate}}' mat-cell *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''"><span
+                            class="title-name"
+                           >{{row.userId}}</span></td>
+                </ng-container>
+
+                <!--TO DO: de verificate ce alte date mai trebuie puse, si conditii in functie de ce trebuie afisat-->
+                <!--Check-in column-->
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"RESERVATION.DATE" | translate}} </th>
+                    <td attr.data-column-name='{{"RESERVATION.DATE" | translate}}' mat-cell
+                        *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''">{{row.checkIn | date: "d/M/yyyy HH:mm"}}
+                        - {{row.checkOut | date: "d/M/yyyy HH:mm"}}</td>
+                </ng-container>
+
+                <!--Booked-on column-->
+                <ng-container matColumnDef="bookedOn">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"RESERVATION.BOOKED-ON" | translate}} </th>
+                    <td attr.data-column-name='{{"RESERVATION.BOOKED-ON" | translate}}' mat-cell
+                        *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''">{{row.date | date: "d/M/yyyy HH:mm"}}</td>
+                </ng-container>
+
+                <!--Total payment column-->
+                <ng-container matColumnDef="totalPayment">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"RESERVATION.TOTAL-PAYMENT" | translate}} </th>
+                    <td attr.data-column-name='{{"RESERVATION.TOTAL-PAYMENT" | translate}}' mat-cell *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''">
+                        <span class="total-price d-flex justify-content-end me-3">{{(currency !== null) && (currency === 'EUR') ? '€': currency}} {{row.totalPrice | number: '1.0-2'}}</span></td>
+                </ng-container>
+
+                <!--Status column-->
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Time Status</th>
+                    <td data-column-name='Time Status' mat-cell *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''">
+                    <span class="custom-label"
+                          [ngClass]="{
+                    'label-active' : row.status === 'active',
+                    'label-pending' : row.status === 'past',
+                    'label-archived' : row.status === 'canceled'
+                    }">
+                        <span [ngSwitch]="row.status">
+                           <span *ngSwitchCase="'active'">Activ</span>
+                           <span *ngSwitchCase="'past'">Trecut</span>
+                           <span *ngSwitchCase="'canceled'">Anulat</span>
+                       </span>
+                    </span></td>
+                </ng-container>
+
+                <!--Status column-->
+                <ng-container matColumnDef="validityStatus">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Booking Status</th>
+                    <td data-column-name='Booking Status' mat-cell *matCellDef="let row"
+                        [ngClass]="!row.markedAsRead ? 'highlight-row' : ''">
+                    <span class="custom-label"
+                          [ngClass]="{
+                    'label-pending' : row.validityStatus === 'new',
+                    'label-active' : row.validityStatus === 'confirmed',
+                    'label-refused' : row.validityStatus === 'refused',
+                    'label-draft' : row.validityStatus === 'valid',
+                    'label-archived' : row.validityStatus === 'canceled'
+
+                }">
+                       <span [ngSwitch]="row.validityStatus">
+                           <span *ngSwitchCase="'new'">Inițiat</span>
+                           <span *ngSwitchCase="'confirmed'">Confirmat</span>
+                           <span *ngSwitchCase="'refused'">Refuzat</span>
+                           <span *ngSwitchCase="'valid'">Validat</span>
+                           <span *ngSwitchCase="'canceled'">Anulat</span>
+                       </span>
+                    </span></td>
+                </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions" >
+                <th mat-header-cell *matHeaderCellDef class="actions-class"> {{'RESOURCES.ACTIONS' | translate}}</th>
+                <td mat-cell *matCellDef="let row; let i = index;"
+                    [ngClass]="!row.markedAsRead ? 'highlight-row' : ''">
+                    <div class="d-flex actions-container">
+                        <!--View-->
+                        <button class="btn-round btn-no-outline"
+                                matTooltip="Vizualizează rezervarea"
+                                [routerLink]="paramTripId ? '../../reservations/view-trip-reservation/'+row.id : '../../reservations/view/'+row.id">
+                                <i class="fas fa-eye"></i>
+                        </button>
+
+
+                    </div>
+                </td>
+            </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="newDisplayedReservationsColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: newDisplayedReservationsColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">{{'PROVIDER.NO_DATA'|translate}}</td>
+                </tr>
+            </table>
+
+            <!--Pagination-->
+            <mat-paginator
+                    [pageSizeOptions]="pageSizeArray"
+                    [length]="totalElements"
+                    [pageSize]="pageSize"
+                    (page)="pageChanged($event)">
+            </mat-paginator>
+        </div>
+    </div>
+    <div *ngIf="noRes" class="container card">
+        <div class="card-body">
+            <h6>Momentan nu aveți nicio resursă pentru care să primiți rezervări.</h6>
+        </div>
+    </div>
+</div>

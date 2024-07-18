@@ -1,0 +1,36 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.cv-card {
+  height: 155px;
+  max-height: 155px;
+  margin-bottom: 10px;
+  background-color: var(--primary-background);
+  border-radius: 8px;
+  border: none;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.08));
+
+  .card-body {
+    p{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      /* autoprefixer: ignore next */
+      -webkit-box-orient: vertical;
+    }
+    .info {
+      p {
+        font-size: 16px;
+      }
+
+      .title {
+        font-weight: 600;
+        color: $primary-color;
+      }
+
+      .extra {
+        opacity: 0.8;
+      }
+    }
+  }
+}

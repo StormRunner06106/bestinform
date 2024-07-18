@@ -1,0 +1,34 @@
+@import "../../../../theme/styles/components/colors";
+
+.locations-container{
+  background-color: var(--primary-background);
+  padding:24px 0;
+
+  .p-title{
+    font-size:32px;
+    font-weight: 700;
+  }
+
+  .divider{
+    margin-top:24px;
+    margin-bottom:24px;
+    background-color:$secondary-color;
+    height: 2px;
+    width: 100px;
+  }
+
+  .description{
+    color:$paragraph;
+  }
+
+  .container .card-custom{
+    @media(max-width: 1400px){
+      margin-right:20px;
+    }
+
+    @media(max-width:576px){
+      margin-right: 0;
+      align-items: center;
+    }
+  }
+}

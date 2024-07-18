@@ -1,0 +1,31 @@
+<div>
+
+    <p>{{"RESERVATION.NAME" | translate}}</p>
+    <h4>{{reservationData?.name}}</h4>
+
+    <p>{{"RESERVATION.TOTAL-PRICE" | translate}}</p>
+    <h4>{{reservationData?.totalPrice}} {{reservationData.currency}}</h4>
+
+    <p>{{"RESERVATION.QUANTITY" | translate}}</p>
+    <h4>{{reservationData?.reservationTimeSlot?.itemsNumber}}</h4>
+
+    <p>{{"RESERVATION.START-DATE" | translate}}</p>
+    <h4>{{reservationData?.checkIn | date: 'dd/MM/YYYY HH:mm'}}</h4>
+
+    <p>{{"RESERVATION.END-DATE" | translate}}</p>
+    <h4>{{reservationData?.checkOut | date: 'dd/MM/YYYY HH:mm'}}</h4>
+
+    <!-- *ngFor="let timeSlot of reservationData" -->
+
+    <!-- <p>{{"RESERVATION.START-DATE" | translate}}</p>
+    <h4>{{timeSlot.time.start | date: 'dd/MM/YYYY HH:mm'}}</h4>
+
+    <p>{{"RESERVATION.END-DATE" | translate}}</p>
+    <h4>{{timeSlot.time.start | date: 'dd/MM/YYYY HH:mm'}}</h4> -->
+
+</div>
+<!-- <div *ngIf="reservation.serviceBookingTimeSlots.specialRequest.trim() !== ''"> -->
+<div>
+    <h3>Cerințe speciale</h3>
+    <p>{{reservation?.serviceBookingTimeSlots ? reservation?.serviceBookingTimeSlots?.specialRequest : ("RESERVATIONS.NO_SPECIAL_REQUESTS" | translate)}}</p>
+</div>

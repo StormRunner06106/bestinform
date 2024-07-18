@@ -1,0 +1,19 @@
+<div class="card cv-card">
+    <div class="card-body d-flex justify-content-between">
+        <div class="info w-100">
+            <div class="top d-flex justify-content-between align-items-center">
+                <p class="title mb-0" >{{displayObject?.title}}</p>
+                <button class="btn-round btn-no-outline" [matMenuTriggerFor]="menu"><i class="fas fa-ellipsis-v"></i></button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="openEditModal(givenData)">Editeaza</button>
+                    <button mat-menu-item (click)="openDeleteModal(givenData,type)">Sterge</button>
+                </mat-menu>
+            </div>
+
+            <p class="subtitle mb-0" >{{displayObject?.subtitle}}</p>
+            <p class="extra mb-0" >{{(displayObject?.startDate | date : 'dd.MM.yyyy')+' - '+(displayObject?.endDate | date : 'dd.MM.yyyy')}}</p>
+            <p class="extra mb-0" >{{displayObject?.location}}</p>
+        </div>
+
+    </div>
+</div>

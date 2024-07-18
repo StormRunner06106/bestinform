@@ -1,0 +1,26 @@
+<div *ngFor="let product of products; let i = index;" >
+    <!-- <p>{{"RESERVATION.PRODUCT-ID" | translate}}</p> -->
+    <!-- <h4>{{product.}}</h4> -->
+    <h4>{{i+1}}. Detalii produs</h4>
+    <p>Nume produs:</p>
+    <h4>{{product?.name}} </h4>
+
+    <p>Preț:</p>
+    <h4>{{product?.price}} </h4>
+
+    <p>Descriere produs:</p>
+    <h4>{{product?.description}} </h4>
+
+    <button  class="btn-auto btn-color-fill" (click)="downloadProduct(product)" *ngIf="product.attachment">
+        Vezi Atașament
+        <i class="fa fa-file"></i>
+    </button>
+
+
+</div>
+<!-- <div *ngIf="productList.specialRequest.trim() !== ''"> -->
+<div class="mt-3">
+    <h3>Cerințe speciale</h3>
+    <p>{{productList?.specialRequest !== 'string' ? productList?.specialRequest : productList?.specialRequest==='string' ? ("RESERVATIONS.NO_SPECIAL_REQUESTS" | translate):("RESERVATIONS.NO_SPECIAL_REQUESTS" | translate) }}</p>
+</div>
+

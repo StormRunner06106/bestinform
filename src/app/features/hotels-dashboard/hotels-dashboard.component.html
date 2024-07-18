@@ -1,0 +1,161 @@
+<div class="hotels-dashboard-container">
+  <div class="container-margins">
+    <div class="content-container max-width-wrapper">
+      <div class="filters">
+        <div class="listing-maps">
+          <div class="maps-rest">
+            <div class="map-container" *ngIf="!loading">
+              <google-map class="map"
+                          [ngClass]="{'loading-map': loadingMap}"
+                          #googleMap
+                          height="300px"
+                          width="100%"
+                          [className]="'map-template'"
+                          [options]="googlemapOptions"
+                          [center]="center"
+                          [zoom]="zoom"
+                          (mapClick)="moveMap($event)"
+                          (mapMousemove)="move($event)">
+                <map-marker-clusterer [imagePath]="'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'">
+                  <map-marker
+                          *ngFor="let markerPosition of markerPositions"
+                          [position]="markerPosition"
+                          [options]="markerPosition['activeIcon'] ? markerPosition.options : inactiveMarker">
+                  </map-marker>
+                </map-marker-clusterer>
+
+              </google-map>
+
+              <div class="overlay"></div>
+              <button (click)="openModal(mapsModalTemplate)" class="show-on-map-button" [disabled]="loadingMap" [ngClass]="{'loading-button' : loadingMap}">
+                <span>Arata pe harta</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <p-skeleton width="100%" height="300px" *ngIf="loading"></p-skeleton>
+
+        <app-listing-filter *ngIf="!loading"
+                            class="listing-filter"
+                            [hotelFilters]="true"
+                            (applyHotelFilters)="applyHotelFilters($event)"
+                            [filterData]="filterData"
+        ></app-listing-filter>
+      </div>
+
+      <div class="width-100">
+        <ng-container *ngIf="loading">
+          <div
+                  *ngFor="let skelet of [].constructor(7); let i = index"
+                  class="border-round border-1 surface-border surface-card"
+                  style="padding-bottom: 15px"
+          >
+            <p-skeleton width="100%" height="200px"></p-skeleton>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!loading">
+          <app-hotels-overview
+                  [hotelListResponse]="hotelListResponse"
+                  [allHotelsCount]="allHotelsCount"
+                  [city]="city"
+                  [country]="country"
+                  (triggerSort)="applySort($event)"
+                  [searchName]="searchName"
+                  [filterData]="filterData"
+                  (triggerSearchName)="applySearchName($event)"
+          ></app-hotels-overview>
+
+          <ng-container *ngIf="hotelListResponse?.totalPages > 1">
+            <div
+                    class="paginator d-flex justify-content-between align-items-center"
+            >
+              <div class="text-secondary">
+                Showing {{currentSearchHotelsCount < 20 ? 1 : (hotelListResponse.size * hotelListResponse.number + 1)}} to {{hotelListResponse.size * hotelListResponse.number + hotelListResponse.numberOfElements}} of {{ currentSearchHotelsCount }} entries
+              </div>
+
+              <p-paginator
+                      [rows]="hotelListResponse.size"
+                      [first]="hotelListResponse.number * hotelListResponse.size"
+                      [totalRecords]="currentSearchHotelsCount"
+                      [pageLinkSize]="3"
+                      (onPageChange)="onPageChange($event)"
+              >
+                <ng-template pTemplate="paginatorleft">
+                  <!-- This template is for customizing the left side of the paginator -->
+                </ng-template>
+                <ng-template pTemplate="paginatorright">
+                  <!-- This template is for customizing the right side of the paginator -->
+                  <a
+                          *ngIf="hotelListResponse.number !== 0"
+                          class="p-paginator-last p-paginator-element p-link"
+                          (click)="onPageChange({ page: 0 })"
+                  >&#8810;&#8810;</a
+                  >
+                  <a
+                          *ngIf="
+                    hotelListResponse.number !==
+                    hotelListResponse.totalPages - 1
+                  "
+                          class="p-paginator-next p-paginator-element p-link"
+                          (click)="
+                    onPageChange({ page: hotelListResponse.totalPages - 1 })
+                  "
+                  >&#8811;&#8811;</a
+                  >
+                </ng-template>
+              </p-paginator>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #mapsModalTemplate>
+  <div class="maps-modal-container">
+    <div style="text-align: right; margin-right: 15px;">
+      <div class="close-button" (click)="closeModal()">
+        <mat-icon>close</mat-icon>
+      </div>
+    </div>
+    <google-map width="80vw"
+                height="90vh"
+                [options]="googlemapOptions"
+                [center]="center"
+                (mapClick)="isMarkerClicked = false"
+                [zoom]="zoom">
+      <map-marker-clusterer [imagePath]="'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'">
+        <map-marker *ngFor="let markerPosition of markerPositions"
+                    [position]="markerPosition"
+                    [options]="markerPosition['activeIcon'] ? markerPosition.options : inactiveMarker"
+                    (mapClick)="getLocationDetails(markerPosition, $event)"
+        ></map-marker>
+      </map-marker-clusterer>
+
+      <ng-container *ngIf="isMarkerClicked">
+        <app-hotel-card class="wrapper" [hotel]="markerData" [city]="city" [country]="country" (routeChanged)="routeChanged($event)"></app-hotel-card>
+        <!--        <div class="wrapper">-->
+        <!--          <div class="background-image" [style.backgroundImage]="'url(' + markerData.featuredImage + ')'"></div>-->
+
+        <!--          <div class="location-info">-->
+        <!--            <div class="location-name">-->
+        <!--              <p class="name">{{ markerData.name }}</p>-->
+        <!--              <div class="rating">-->
+        <!--                <span class="rating-text">Rating</span>-->
+        <!--                <span class="rating-score">{{ markerData?.rating ? markerData?.rating : 0 }}</span>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--            <div class="location-details">-->
+        <!--              <i class="pi pi-map-marker"></i>-->
+        <!--              {{ markerData?.country }} {{ markerData?.city }}-->
+        <!--            </div>-->
+
+        <!--          </div>-->
+        <!--        </div>-->
+      </ng-container>
+
+    </google-map>
+  </div>
+</ng-template>

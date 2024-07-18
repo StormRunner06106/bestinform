@@ -1,0 +1,201 @@
+/* giveaway-form.component.scss */
+
+.mat-checkbox-layout {
+  white-space: normal!important;
+}
+.giveaway-form-container {
+  padding: 0 2rem 2rem 2rem;
+  background-color: white; // Adjust the background color as needed
+
+  h2 {
+    color: #4257EE;
+    font-family: "Montserrat", Helvetica, sans-serif;
+    font-size: 4rem;
+    text-align: center;
+  }
+
+  .giveaway-header {
+    color: #4257EE;
+    font-size: 26px;
+  }
+
+  .width {
+    width: 100%;
+  }
+
+  .label {
+    font-family: "Montserrat", Helvetica, sans-serif;
+    font-size: 14px;
+    color: rgba(1, 5, 20, 0.8)
+
+  }
+
+
+  .mat-checkbox-label {
+    white-space: normal;
+  }
+  .mat-checkbox-layout {
+    white-space: normal!important;
+  }
+
+  .mat-form-field-flex {
+    border-bottom: 1px solid #010514;
+  }
+
+  .white-space {
+    white-space: normal;
+  }
+  .example-margin {
+    font-family: "Roboto", Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #010514;
+    white-space: normal;
+
+  }
+
+  .mat-checkbox-inner-container {
+    height: 18px;
+  }
+
+
+  .text-hero {
+    font-family: "Roboto", Helvetica, sans-serif;
+    font-size: 30px;
+    line-height: 150%;
+    font-weight:200;
+    color: #4257EE;
+    text-align: center;
+  }
+
+  .container-header {
+    display: flex; flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-field,
+  .checkbox-field {
+    margin-bottom: 1rem;
+    display: flex; flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+    align-items:flex-start;
+    justify-content: flex-start;
+    label {
+      display: block;
+      margin-bottom: .5rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: .5rem;
+      //border: 1px solid grey; // Adjust the border as needed
+    }
+
+
+
+
+
+
+    input[type="checkbox"] {
+      margin-right: .5rem;
+    }
+    .checkbox-label {
+      display: flex; flex-wrap: wrap; // Use flexbox for checkbox label alignment
+      align-items: center; // Center items vertically
+      input[type="checkbox"] {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .button-container {
+    display: flex; flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 30px;
+  }
+
+  .submit-button {
+    border-radius: 100px;
+    background-color: #4257EE;
+
+    ::ng-deep .p-button {
+      width: 100%;
+      border-radius: 100px;
+    }
+  }
+}
+
+.password-tooltip {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1;
+}
+
+input[type="password"]:hover + .password-tooltip {
+  display: block;
+}
+
+.custom-error-message {
+  color: #f44336; /* Adjust the color to match your design */
+  font-size: 0.75rem;
+  margin-top: 5px;
+}
+
+.required-description {
+  opacity: 0.5;
+  font-size: 1.5rem;
+}
+
+::ng-deep .checkbox-field .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #4257EE!important;
+}
+::ng-deep p-dialog {
+  .p-dialog-header {
+    display: none;
+  }
+  .p-dialog .p-dialog-content {
+    padding: 0;
+    border-radius: 50px;
+  }
+
+  .p-dialog {
+    border-radius: 50px!important;
+  }
+
+  .close-button {
+    position: absolute;
+    right: 2rem;
+    top: 1.5rem;
+  }
+  .p-dialog .p-dialog-content:last-of-type {
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
+  .modal-button {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 20px;
+  }
+}
+
+::ng-deep .giveaway-form-container .large  .mat-form-field-label .label {
+  font-size: 1.5rem;
+}
+::ng-deep .giveaway-form-container .small  .mat-form-field-label .label {
+  font-size: 1rem;
+}
+

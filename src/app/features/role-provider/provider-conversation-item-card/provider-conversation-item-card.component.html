@@ -1,0 +1,69 @@
+<div class="container">
+<!--    <div class="d-flex flex-wrap justify-content-between align-items-center py-3">-->
+<!--        <h4 class="my-2">Listă mesaje</h4>-->
+<!--&lt;!&ndash;        <button class="btn-long btn-color-fill ms-sm-2" type="button">&ndash;&gt;-->
+<!--&lt;!&ndash;            <i class="fas fa-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;            Începe conversație&ndash;&gt;-->
+<!--&lt;!&ndash;        </button>&ndash;&gt;-->
+<!--    </div>-->
+
+        <div *ngFor="let conversation of listConversation" >
+
+            <div *ngFor="let participant of conversation.participants">
+
+                <!-- reservation -->
+                <div routerLink="/private/provider/inbox/{{conversation.id}}" *ngIf="category === 'reservation'">
+                    <!-- <div *ngFor="let participant of conversation.participants"> -->
+                    <div *ngIf="participant?.userId !== currentUser" class="conv-item-card w-100 d-flex justify-content-between align-items-center p-2 my-3">
+                        <div class="d-flex justify-content-between align-items-center gap-2 first-half-conv-item">
+                            <img src="{{ participant?.avatar ? participant?.avatar?.filePath : '../../../../../../../assets/images/others/user.jpg' }}">
+                            <div class="d-flex flex-column align-items-start justify-content-center">
+                                <h4>{{participant?.userName}}</h4>
+                                <p *ngIf="conversation?.lastMessage === null">Incepeti o conversatie!</p>
+                                <p *ngIf="conversation?.lastMessage !== null">{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center second-half-conv-item">
+                            <p>{{conversation?.lastMessage?.date | date: 'EEEE, HH:mm'}}2/03/2022</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Pagination-->
+        <mat-paginator *ngIf="category === 'reservation'"
+        [pageSizeOptions]="pageItems"
+        [length]="totalConversations"
+        [pageSize]="pageSize"
+        (page)="pageChanged($event)"
+        ></mat-paginator>
+
+
+
+
+    <div *ngFor="let conversation of listBestinformConversation" >
+        <!-- bestinform Support -->
+        <div routerLink="/private/provider/inbox/{{conversation.id}}" *ngIf="category === 'bestinformSupport'" class="conv-item-card w-100 d-flex justify-content-between align-items-center p-2 my-3">
+                <div class="d-flex justify-content-between align-items-center gap-2 first-half-conv-item">
+                    <img src="{{conversation?.featuredImage ? conversation?.featuredImage?.filePath : '../../../../../../../assets/images/others/user.jpg' }}">
+                    <div class="d-flex flex-column align-items-start justify-content-center">
+                        <h4>{{conversation?.name}}</h4>
+                        <p *ngIf="conversation?.lastMessage === null">Incepeti o conversatie!</p>
+                        <p *ngIf="conversation?.lastMessage !== null">{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center second-half-conv-item">
+                    <p>{{conversation?.lastMessage?.date | date: 'EEEE, HH:mm'}}2/03/2022</p>
+                </div>
+        </div>
+    </div>
+    <!--Pagination-->
+    <mat-paginator
+    *ngIf="category === 'bestinformSupport'"
+    [pageSizeOptions]="pageItems"
+    [length]="totalBestinformConversations"
+    [pageSize]="pageSize"
+    (page)="pageChanged($event)"
+    ></mat-paginator>
+</div>

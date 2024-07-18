@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="container modal-content">
+        <!--Header-->
+        <div class="modal-header">
+            <h4 class="modal-title">{{'EDITORIALS.DELETE-TITLE' | translate}}</h4>
+            <i class="fas fa-times" (click)="closeModal()"></i>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+            <span class="modal-body-text">{{'EDITORIALS.DELETE-DIRECTIONS' | translate}}</span>
+        </div>
+
+        <!--Info card blue-->
+        <div class="blue-card">
+            <div class="modal-blue-container p-2">
+                <h4>#{{number + 1}} {{editorialTitle}}</h4>
+<!--                <p *ngFor="let author of editorialAuthors">{{author}}</p>-->
+                <p>{{user}}</p>
+            </div>
+        </div>
+        <!--Footer-->
+        <div class="p-3">
+            <div class="row gap-2 gap-xl-0">
+                <div class="col-12 col-xl-6">
+                    <button type="button" class="btn-long btn-color-outline w-100"
+                            (click)="closeModal()">
+                        <i class="fas fa-times"></i>
+                        {{ 'BTN.CANCEL' | translate}}
+                        <!-- <ng-container *ngIf="isDeleteLoading === true">
+                          <span
+                            class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                        </ng-container>   -->
+                    </button>
+                </div>
+
+                <div class="col-12 col-xl-6">
+                    <button type="button" class="btn-long btn-color-fill w-100" id="confirmDelete"
+                            (click)="confirmAction()">
+                        <i class="fas fa-check"></i>
+                        {{ 'BTN.CONFIRM' | translate}}
+                        <!-- <ng-container *ngIf="isDeleteLoading === true">
+                          <span
+                            class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                        </ng-container>   -->
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

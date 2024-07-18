@@ -1,0 +1,88 @@
+<div class="background-white">
+    <div class="editorials-container max-width-wrapper">
+        <div class="editorials-container__category-filters">
+            <p class="editorials-container__category-filters__title">Categorii</p>
+            <ng-container *ngFor="let category of categoriesList">
+                <p [ngClass]="{ 'active': selectedCategory === category }"
+                   (click)="selectCategory(category)"
+                   class="editorials-container__category-filters__category-titles">{{category.name }}</p>
+            </ng-container>
+
+        </div>
+
+
+        <div class="parent-container">
+            <form class="form-container" [formGroup]="searchForm">
+                <input class="search-bar-container"
+                       type="text"
+                       pInputText
+                       formControlName="editorialsSearchControl"
+                       [placeholder]="'Cauta in Editoriale...'"
+                />
+            </form>
+
+
+            <div class="container">
+
+                <ng-container *ngIf="editorialsList.length; else emptyMessageTpl">
+                    <ng-container *ngFor="let editorial of editorialsList">
+
+                        <div class="child" (click)="redirectById(editorial)">
+                            <div [ngStyle]="{'background-image': 'url(&quot;' + editorial.featuredImage + '&quot;)'}" class="image">
+                                <div class="category-title" *ngIf="editorial.categoryName">
+                                    {{editorial.categoryName}}
+                                </div>
+                            </div>
+                            <div class="description">
+                                <span class="tsss1">{{editorial.title}}</span>
+                                <br>
+                                <p class="tsss">{{editorial.shortDescription}}</p>
+                                <span class="redirection-text">Citeste Editorial</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+                <ng-template #emptyMessageTpl>
+                    <p style="padding: 35px">Nici o informatie disponibila</p>
+                </ng-template>
+            </div>
+
+            <div class="bottom-container">
+                <ng-container *ngIf="!isMobile">
+                    <div>
+                        Se afișează {{numberOfElements}} din {{totalEditorials}} de intrări
+                    </div>
+                </ng-container>
+
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a (click)="selectPage('first')" class="page-link" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <ng-container *ngFor="let page of pagesArray">
+                            <li class="page-item" [ngClass]="{'active': currentPage === page}">
+                                <a class="page-link" (click)="selectPage(page)">{{page}}</a>
+                            </li>
+                        </ng-container>
+                        <li class="page-item">
+                            <a (click)="selectPage('last')" class="page-link" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>

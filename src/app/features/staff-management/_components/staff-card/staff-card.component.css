@@ -1,0 +1,93 @@
+.modal-card.card > div {
+  background-color: #FFFFFF;
+}
+
+.card-staff.card > div {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(36, 57, 138, 0.04)), to(rgba(36, 57, 138, 0.04))), #FFFFFF;
+  background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), #FFFFFF;
+}
+
+.card-staff.card {
+  border: 1px solid rgba(36, 57, 138, 0.16);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-staff.card .card-body {
+  gap: 1rem;
+}
+
+.card-staff.card .card-body .img-container {
+  position: relative;
+}
+
+.card-staff.card .card-body .img-container img {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 100%;
+}
+
+.card-staff.card .card-body .img-container button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #FFFFFF;
+}
+
+.card-staff.card .card-body .img-container button i {
+  font-size: 10px;
+}
+
+.card-staff.card .card-body div {
+  letter-spacing: -0.02em;
+  line-height: 140%;
+  color: #24398A;
+}
+
+.card-staff.card .card-body div h3 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 140%;
+  margin-bottom: 4px;
+}
+
+.card-staff.card .card-body div p {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 140%;
+  margin-bottom: 5px;
+}
+
+.card-staff.card .card-footer .row {
+  row-gap: 1rem;
+}
+
+.modal-card.card {
+  padding: 1.5rem;
+}
+
+.modal-card.card .card-header h3 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #24398A;
+}
+
+.modal-card.card .card-body > p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  color: #231F20;
+}
+
+.modal-card.card .card-body .card-staff {
+  border: 1px solid #24398A;
+}
+
+.modal-card.card .card-footer .row {
+  row-gap: 1rem;
+}
+/*# sourceMappingURL=staff-card.component.css.map */

@@ -1,0 +1,60 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="{{'TITLES.DOMAINS-LIST' | translate}}"></app-dashboard-header>
+<div class="domains-list">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="travel">
+                <div class="img-gradient">
+                    <img [src]="travelImgPath" alt="{{'RESOURCE.DOMAIN.TRAVEL_ENTERTAINMENT' | translate}}" class="w-100 h-100 img-fluid">
+                </div>
+                <button type="button" routerLink="../{{travelId}}" class="btn-round btn-white-fill" id="btn-navigate-to-travel&entertainment"><i class="fas fa-pen"></i></button>
+                <p class="domain-title mb-0">{{'RESOURCE.DOMAIN.TRAVEL_ENTERTAINMENT' | translate}}</p>
+                <p class="domain-subtitle d-inline-flex justify-content-start mb-0"><span class="me-2">{{travelCategories}} {{'GENERAL.CATEGORIES' | translate}}</span> <span>{{travelResTypes}} {{'GENERAL.RES-TYPES' | translate}}</span></p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="health">
+                <div class="img-gradient">
+                    <img [src]="healthImgPath" alt="{{'RESOURCE.DOMAIN.HEALTHCARE' | translate}}" class="w-100 h-100 img-fluid">
+                </div>
+                <button type="button" routerLink="../{{healthId}}" class="btn-round btn-white-fill"><i class="fas fa-pen"></i></button>
+                <p class="domain-title mb-0">{{'RESOURCE.DOMAIN.HEALTHCARE' | translate}}</p>
+                <p class="domain-subtitle d-inline-flex justify-content-start mb-0"><span class="me-2">{{healthCategories}} {{'GENERAL.CATEGORIES' | translate}}</span> <span>{{healthResTypes}} {{'GENERAL.RES-TYPES' | translate}}</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-xl-4">
+            <div class="culture">
+                <div class="img-gradient">
+                    <img [src]="cultureImgPath" alt="{{'RESOURCE.DOMAIN.CULTURE' | translate}}" class="w-100 h-100 img-fluid">
+                </div>
+                <button type="button" routerLink="../{{cultureId}}" class="btn-round btn-white-fill" id="btn-navigate-to-"><i class="fas fa-pen"></i></button>
+                <p class="domain-title mb-0">{{'RESOURCE.DOMAIN.CULTURE_ART' | translate}}</p>
+                <p class="domain-subtitle d-inline-flex justify-content-start mb-0"><span class="me-2">{{cultureCategories}} {{'GENERAL.CATEGORIES' | translate}}</span> <span>{{cultureResTypes}} {{'GENERAL.RES-TYPES' | translate}}</span></p>
+            </div>
+        </div>
+        <div class="col-12 col-xl-4">
+            <div class="education">
+                <div class="img-gradient">
+                    <img [src]="educationImgPath" alt="{{'RESOURCE.DOMAIN.EDUCATION' | translate}}" class="w-100 h-100 img-fluid">
+                </div>
+                <button type="button" routerLink="../{{educationId}}" class="btn-round btn-white-fill"><i class="fas fa-pen"></i></button>
+                <p class="domain-title mb-0">{{'RESOURCE.DOMAIN.EDUCATION' | translate}}</p>
+                <p class="domain-subtitle d-inline-flex justify-content-start mb-0"><span class="me-2">{{educationCategories}} {{'GENERAL.CATEGORIES' | translate}}</span> <span>{{educationResTypes}} {{'GENERAL.RES-TYPES' | translate}}</span></p>
+            </div>
+        </div>
+        <div class="col-12 col-xl-4">
+            <div class="jobs">
+                <div class="img-gradient">
+                    <img [src]="jobsImgPath" alt="{{'RESOURCE.DOMAIN.JOBS' | translate}}" class="w-100 h-100 img-fluid">
+                </div>
+                <button type="button" routerLink="../{{jobsId}}" class="btn-round btn-white-fill"><i class="fas fa-pen"></i></button>
+                <p class="domain-title mb-0">{{'RESOURCE.DOMAIN.JOBS' | translate}}</p>
+                <p class="domain-subtitle d-inline-flex justify-content-start mb-0"><span class="me-2">{{jobsCategories}} {{'GENERAL.CATEGORIES' | translate}}</span> <span>{{jobsResTypes}} {{'GENERAL.RES-TYPES' | translate}}</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

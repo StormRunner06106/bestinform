@@ -1,0 +1,102 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.booking-section-title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  color: $paragraph;
+}
+
+.product-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-card {
+  border: 1px solid rgba($primary-color, 0.24);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.img-container {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  height: 150px;
+
+  img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .favorite-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba($title, 0.08);
+    border: 1px solid var(--primary-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      font-size: 14px;
+      color: var(--primary-background);
+    }
+  }
+}
+
+.top-half {
+  padding: 10px;
+  p {
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: $primary-color;
+    margin-bottom: 0;
+  }
+}
+
+.bottom-half {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 10px;
+
+  button {
+    flex-grow: 2;
+    border-radius: unset;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    flex-grow: 1;
+    text-align: end;
+    margin-bottom: 0;
+    color: $active-color;
+    font-weight: 700;
+    font-size: 20px;
+
+    i {
+      font-size: 16px;
+      color: $inactive-color;
+    }
+  }
+}

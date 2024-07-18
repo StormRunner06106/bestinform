@@ -1,0 +1,178 @@
+<div class="container mb-5">
+    <app-dashboard-header pageTitleOne="Listă thread-uri"
+                          [buttonBackRoute]="'../../dashboard'">
+    </app-dashboard-header>
+    <div class="custom-table gutter-b">
+
+        <!----Table---------------------------------------------------------------------------->
+        <div *ngIf="dataLoaded">
+            <div class="row filterRow">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <input matInput type="text" [formControl]="searchFilter" (keyup.enter)="filterData()" placeholder="Căutare">
+                </mat-form-field>
+            </div>
+
+            <div class="row tableContent">
+
+                <table class="editorals-table-class" mat-table matSort appMatTableResponsive [dataSource]="dataList" (matSortChange) = applyFilter($event)>
+
+                    <!--id-->
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
+                        <td mat-cell *matCellDef="let element; let i = index;" attr.data-column-name="#"> {{ (i + 1) + pageSize * (page)}} </td>
+                    </ng-container>
+
+                    <!--Title-->
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'FIELD.TITLE'| translate}}</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'FIELD.TITLE'| translate}}"> {{element.title}} </td>
+                    </ng-container>
+
+                    <!--Authors-->
+                    <ng-container matColumnDef="authors">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'FIELD.AUTHOR'|translate}}</th>
+                        <td mat-cell  *matCellDef="let element" attr.data-column-name="{{'FIELD.AUTHOR'|translate}}"> {{element.userName}}</td>
+                    </ng-container>
+
+                    <!--Category-->
+                    <ng-container matColumnDef="category">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'FIELD.CATEGORY'|translate}}</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'FIELD.CATEGORY'|translate}}">
+                            <span *ngIf="element.category === 'fitness'">Fitness</span>
+                            <span *ngIf="element.category === 'nutrition'">Nutriție</span>
+                            <span *ngIf="element.category === 'medical'">Medical</span>
+                        </td>
+                    </ng-container>
+
+
+                    <!--Create data-->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'FIELD.CREATION_DATE'|translate}}</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'FIELD.CREATION_DATE'|translate}}">{{element.date | date:'dd/MM/yyyy'}}</td>
+                    </ng-container>
+
+
+                    <!--comments-->
+                    <ng-container matColumnDef="comments">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'THREAD.COMMENTS'|translate}}</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'THREAD.COMMENTS'|translate}}"> 
+                            <span class="justify-content-end d-flex me-5">{{element.replies}}</span>
+                        </td>
+                    </ng-container>
+
+                    <!--Status column-->
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                        <td attr.data-column-name="Status" mat-cell *matCellDef="let element">
+                                    <span class="custom-label"
+                                        [ngClass]="{
+                                    'label-active' : element.status === 'active',
+                                    'label-pending' : element.status === 'pending_review',
+                                    'label-archived' : element.status === 'archived'
+
+                                }">
+                                        <span [ngSwitch]="element.status">
+                                        <span *ngSwitchCase="'active'">Activ</span>
+                                        <span *ngSwitchCase="'pending_review'">Pending</span>
+                                        <span *ngSwitchCase="'archived'">Arhivat</span>
+
+                                        </span>
+                                    </span>
+                        </td>
+                    </ng-container>
+
+                    <!--actions-->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef class="actions-class"> {{'FIELD.ACTIONS'|translate}}</th>
+                        <td mat-cell *matCellDef="let element; let i = index" data-column-name="Acțiuni">
+                            <div class=" d-flex actions-container py-2" >
+
+                                <!--Edit button-->
+                                <button class="btn-round btn-no-outline" 
+                                [routerLink]="'../../forum/threads/edit/'+element.id" 
+                                matTooltip="Editează" 
+                                id="editEditorial_{{i}}">
+                                    <i class="fa fa-pen"></i>
+                                </button>
+
+                                <!--Change status button-->
+                                <button class="btn-round btn-no-outline"
+                                matTooltip="Schimbă status"
+                                (click)="openModal(changeStatusModal, element.status)">
+                                    <i class="fas fa-toggle-on"></i>
+
+                                </button>
+
+                                <!--Change status Modal-->
+                                <ng-template #changeStatusModal let-c="close" let-d="dismiss">
+                                    <div class="modal-card card">
+                                        <div class="card-header border-0">
+                                            <h3 class="m-0">
+                                                {{"THREAD.CHANGE_STATUS" | translate}}
+                                            </h3>
+                                        </div>
+
+                                        <div class="card-body">
+
+                                            <div class="card-event card">
+                                                <div class="card-body d-flex justify-content-center align-items-start flex-column">
+                                                    <h3>#{{ (i + 1) + pageSize * (page) }} {{element.title}}</h3>
+                                                    <!--                                        <p class="m-0">{{userData?.firstName+' '+userData?.lastName}}</p>-->
+                                                    <mat-form-field appearance="outline" class="w-100">
+                                                        <mat-label>{{"THREAD.CHANGE_STATUS" | translate}}</mat-label>
+                                                        <mat-select [(ngModel)]="statusInput">
+                                                            <mat-option value="active">Active</mat-option>
+                                                            <mat-option value="pending_review">Pending review</mat-option>
+                                                            <mat-option value="archived">Archived</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="card-footer border-0">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6">
+                                                    <button class="btn-auto btn-color-outline w-100"
+                                                            (click)="closeModal()">
+                                                        <i class="fas fa-times"></i>
+                                                        {{ 'BTN.CANCEL' | translate}}
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-12 col-sm-6">
+                                                    <button class="btn-auto btn-color-fill w-100"
+                                                            (click)="changeStatus(element.id, statusInput )">
+                                                        <i class="fas fa-check"></i>
+                                                        {{ 'BTN.CONFIRM' | translate}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+
+                            </div>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+
+                <!--Pagination-->
+                <mat-paginator
+                        [pageSizeOptions]="pageItems"
+                        [length]="totalElements"
+                        [pageSize]="pageSize"
+                        (page)="pageChanged($event)"
+                >
+                </mat-paginator>
+
+            </div>
+            <!-- Table container -->
+        </div>
+    </div>
+</div>

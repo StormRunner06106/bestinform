@@ -1,0 +1,105 @@
+@import "../../../../theme/styles/components/colors";
+
+.modal-card.card > div {
+  background-color: var(--primary-background);
+}
+
+.card-staff.card > div {
+  background: linear-gradient(0deg, rgba($primary-color, 0.04), rgba($primary-color, 0.04)), var(--primary-background);
+}
+
+.card-staff.card {
+  border: 1px solid rgba($primary-color, 0.16);
+  border-radius: 8px;
+  overflow: hidden;
+
+  .card-body {
+    gap: 1rem;
+
+    .img-container {
+      position: relative;
+
+      img {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 100%;
+        object-fit: cover;
+      }
+
+      button {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--primary-background);
+
+        i {
+          font-size: 10px;
+        }
+      }
+
+    }
+
+    div {
+      letter-spacing: -0.02em;
+      line-height: 140%;
+      color: $primary-color;
+
+      h3 {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 140%;
+        margin-bottom: 4px;
+      }
+
+      p {
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 140%;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .card-footer {
+
+    .row {
+      row-gap: 1rem;
+    }
+  }
+}
+
+.modal-card.card {
+  padding: 1.5rem;
+
+  .card-header {
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: $primary-color;
+    }
+  }
+
+  .card-body {
+    & > p {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: $paragraph;
+    }
+
+    .card-staff {
+      border: 1px solid $primary-color ;
+    }
+  }
+
+  .card-footer {
+
+    .row {
+      row-gap: 1rem;
+    }
+  }
+}

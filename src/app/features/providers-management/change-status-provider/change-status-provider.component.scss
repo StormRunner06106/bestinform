@@ -1,0 +1,115 @@
+@import "/src/app/theme/styles/components/colors";
+@import "/src/app/theme/styles/components/buttons";
+@import "/src/app/theme/styles/components/fonts";
+@import "src/assets/fonts/font-awesome/css/all.css";
+
+// .modal-content{
+//     max-width:720px;
+//     border-radius: 8px;
+//     padding: 32px 52px;
+//     display: flex;
+//     justify-content: center;
+// }
+
+.container{
+  padding: 32px 52px;
+  border: none;
+}
+
+p{
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  color:$paragraph;
+  opacity: .6;
+}
+
+.btn-long{
+  min-width: 274px;
+}
+
+@media screen and (min-width:1020px){
+  .container.modal-content{
+    // min-width: 720px;
+    border: none;
+  }
+  // .container-fluid{
+  //   min-width: 725px;
+  // }
+}
+
+.modal-header{
+    border: none;
+    max-width: 615.95px;
+
+    h4.modal-title{
+    color: $primary-color!important;
+    font-size: 24px;
+      font-weight: 600;
+      color:$paragraph;
+      line-height: 33.6px;
+      text-align:left;
+    }
+}
+.modal-body {
+    max-width: 615.95px;
+
+    .modal-body-text {
+      font-size: 16px;
+      font-weight: 400;
+      color:$paragraph;
+      line-height: 22.4px;
+      text-align:left;
+    }
+  }
+
+
+
+.modal-footer{
+
+    max-width: 615.95px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    border: none;
+
+    // .button-wrapper{
+    //     justify-content:space-evenly;
+    //     max-width: 615.95px;
+    //     flex-wrap: wrap;
+    // }
+
+    button.btn-long{
+        align-items: center;
+        max-width: 303px!important;
+        height: 50px;
+        margin:0px;
+    }
+}
+
+//Material input style
+//input outline color
+// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+//   color: transparent!important;
+//    opacity: 0.5!important;
+// }
+
+//mat-input carent color
+::ng-deep .mat-select-arrow-wrapper.ng-tns-c244-13{
+  color: $primary-color!important;
+}
+//Material input style
+//input outline color
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: $primary-color!important;
+  opacity: 0.5!important;
+}
+
+// mat-input carent color
+::ng-deep .mat-select-arrow-wrapper.ng-tns-c244-13{
+  color: $primary-color!important;
+}
+
+.mat-error{
+  color:red;
+}

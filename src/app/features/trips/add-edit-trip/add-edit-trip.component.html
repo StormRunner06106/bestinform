@@ -1,0 +1,512 @@
+<div class="container mb-5">
+    <app-dashboard-header  [pageTitleOne]="isEditMode ? 'Editare trip' : 'Adăugare trip'"
+                          [buttonBackRoute]="!isEditMode ? '../list' : '../../list' "
+                          (buttonCall)="submitEvent()" [buttonCallName]="'Salvează'">
+    </app-dashboard-header>
+    <div [formGroup]="addEditTripForm" id="eventForm" (ngSubmit)="submitEvent()" class="card custom-table gutter-b">
+
+        <!--Informatii generale-->
+        <div class="d-flex justify-content-between align-items-baseline gap-2 ">
+            <h3>Informații generale</h3>
+            <mat-form-field  *ngIf="isEditMode" appearance="standard" class="w-25">
+                <mat-label>Schimbă status</mat-label>
+                <mat-select [formControl]="statusForm" (selectionChange)="changeTripStatus($event.value)">
+                    <mat-option value="active">Active</mat-option>
+                    <mat-option value="pending_review">Pending review</mat-option>
+                    <mat-option value="inactive">Inactive</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="info-card">
+            <!--country name-->
+                <div class="col-12">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Denumire</mat-label>
+                            <input formControlName="name" matInput placeholder="Denumire">
+                            <mat-icon *ngIf="addEditTripForm.get('name').value"
+                                      (click)="addEditTripForm.get('name').setValue('')"
+                                      role="button" matSuffix>clear</mat-icon>
+                            <mat-error *ngIf="addEditTripForm.get('name').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                </div>
+                <div class="d-flex justify-content-between gap-2">
+                    <!--country-->
+                    <div class="col-6">
+                        <mat-form-field matTooltip="Dacă țara dorită nu se află in listă, accesați Configurator/ Locații trips/ Adaugă, pentru a crea o noua țară. " appearance="standard">
+                            <mat-label>Țara de origine</mat-label>
+                            <mat-select formControlName="countryId" >
+                                <mat-option (onSelectionChange)="getLocationListByCountryId($event)" *ngFor="let country of countriesList" [value]="country.id">
+                                    {{country.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="addEditTripForm.get('countryId').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                    <!--location-->
+                    <div class="col-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Destinația</mat-label>
+                                <mat-select formControlName="locationId">
+                                    <mat-option *ngFor="let location of locationsList" [value]="location.id "> {{location.name}}
+                                    </mat-option>
+                                </mat-select>
+                            <mat-error *ngIf="addEditTripForm.get('locationId').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+            </div>
+            <!-- Perioada disponibilitate -->
+            <div class="d-flex justify-content-between gap-2">
+                <div class="col-6">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Începe:</mat-label>
+                        <input formControlName="startDate" matInput
+                               [matDatepicker]="startDate">
+                        <mat-datepicker-toggle matSuffix
+                                               [for]="startDate"></mat-datepicker-toggle>
+                        <mat-datepicker #startDate></mat-datepicker>
+                        <mat-error *ngIf="addEditTripForm.get('startDate').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Se termină:</mat-label>
+                        <input
+                        [min]="addEditTripForm.get('startDate').value"
+                        formControlName="endDate" matInput
+                               [matDatepicker]="endDate">
+                        <mat-datepicker-toggle matSuffix
+                                               [for]="endDate"></mat-datepicker-toggle>
+                        <mat-datepicker #endDate></mat-datepicker>
+                        <mat-error *ngIf="addEditTripForm.get('endDate').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--Description-->
+            <div class="col-12">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Descriere</mat-label>
+                        <textarea formControlName="description"
+                                  placeholder="Prezentare destinație"
+                                  matInput
+                                  cdkTextareaAutosize
+                                  cdkAutosizeMinRows="1"
+                                  cdkAutosizeMaxRows="20"
+                        ></textarea>
+                        <mat-icon *ngIf="addEditTripForm.get('description').value"
+                                  (click)="addEditTripForm.get('description').setValue('')"
+                                  role="button" matSuffix>clear</mat-icon>
+                    </mat-form-field>
+
+                <mat-form-field appearance="standard" class="w-100">
+                    <mat-label>Preț/persoană</mat-label>
+                    <input matInput placeholder="Preț/persoană"
+                           formControlName="estimatedPrice">
+                </mat-form-field>
+            </div>
+
+            <!--Gallery-->
+
+            <div class="galery-card">
+                <div class="header">
+                    <h4>Galerie foto</h4>
+                </div>
+                <div class="content">
+                    <!--Featured Image--------------------------------------------------->
+                    <h4>
+                        Imagine reprezentativă
+                    </h4>
+                    <div class="col-12 upload-image-col">
+
+                    <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                    <button *ngIf="!addEditTripForm.get('featuredImage').value?.filePath"
+                            class="thumbnail-button
+                                   d-flex flex-column align-items-center justify-content-center"
+                            type="button"
+                            (click)="openMedia(featuredImageModal)"
+                            id="btnChangeItineraryFeaturedImg">
+                        <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}} <span>1400 x 1400px</span>
+                    </button>
+
+                    <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                    <div *ngIf="addEditTripForm.get('featuredImage').value?.filePath" class="img-thumbnail">
+                        <img class="img-fluid w-100"
+                             [src]="addEditTripForm.get('featuredImage').value?.filePath" alt="thumbnail">
+                        <button
+                                (click)="addEditTripForm.get('featuredImage').setValue(null)"
+                                type="button"
+                                id="btnRemoveItineraryFeaturedImg"
+                                class="btn-thumbnail position-absolute">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <ng-template #featuredImageModal let-modal>
+                    <app-choose-media [category]="'image'"
+                                      [multipleSelect]="false"
+                                      [for]="'trip-featuredImg'"
+                                      [modalRef]="modal"></app-choose-media>
+                </ng-template>
+                    <!--Gallery list general info----------------------------------------->
+
+                    <h4>
+                        Gallery
+                    </h4>
+
+                    <div class="d-flex justify-content-start gap-2 flex-wrap flex-lg-norwrap">
+                        <div class="col-12 col-lg-3 ">
+                            <button (click)="openMedia(imagesModal)"
+                                    class="btn-add-images
+                                           d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                            >
+                                <i class="far fa-image"></i>
+                                <p>
+                                    Insert images here
+                                </p>
+                            </button>
+                        </div>
+
+                        <ng-container *ngIf="addEditTripForm.get('images').value as images">
+                            <div class="col-12 col-lg-3"
+                                 *ngFor="let image of images; let index = index">
+                                <div class="gallery-image-container d-flex">
+                                    <img [src]="image.filePath" alt="gallery image">
+                                    <button class="btn-thumbnail position-absolute"
+                                            type="button"
+                                            (click)="removeImage(index)"
+                                    >
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-container>
+
+
+                        <ng-template #imagesModal let-modal>
+                            <app-choose-media [category]="'image'"
+                                              [multipleSelect]="true"
+                                              [modalRef]="modal"></app-choose-media>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div><!--End Gallery-->
+        <!--End Informatii generale-->
+
+
+         <!--Cazare-->
+        <h3>Cazare</h3>
+        <div class="info-card">
+
+            <!--Offer Package-->
+            <div>
+                <mat-form-field appearance="standard">
+                    <mat-label>Ofertă pachet</mat-label>
+                    <textarea formControlName="offerPackage"
+                              placeholder="Descriere ofertă"
+                              matInput
+                              cdkTextareaAutosize
+                              cdkAutosizeMinRows="1"
+                              cdkAutosizeMaxRows="20"
+                    ></textarea>
+                    <mat-icon *ngIf="addEditTripForm.get('offerPackage').value"
+                              (click)="addEditTripForm.get('offerPackage').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                </mat-form-field>
+
+             </div>
+
+            <!--accommodation type-->
+            <div class="d-flex justify-content-between">
+                <mat-form-field appearance="standard" class="w-100">
+                    <mat-label>Tip cazare</mat-label>
+                        <mat-select formControlName="accommodationType">
+                        <mat-option value="Hotel">Hotel</mat-option>
+                        <mat-option value="Resort">Resort</mat-option>
+                        <mat-option value="Apart-Hotel">Hotel</mat-option>
+                        <mat-option value="Motel">Motel</mat-option>
+                        <mat-option value="Vila">Vila</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div formGroupName="hotelList">
+                <div class="d-flex justify-content-between gap-2 flex-wrap flex-lg-nowrap">
+                    <!--hotel Name-->
+                    <mat-form-field appearance="standard">
+                        <mat-label>Denumire cazare</mat-label>
+                        <input matInput formControlName="hotelName" placeholder="Denumire hotel">
+                        <mat-error *ngIf="addEditTripForm.get('hotelList.hotelName').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                    </mat-form-field>
+
+                    <!--star Rating-->
+                    <mat-form-field appearance="standard">
+                        <mat-label>Numar stele</mat-label>
+                        <mat-select formControlName="starRating">
+                            <mat-option [value]="1">1 stea</mat-option>
+                            <mat-option [value]="2">2 stele</mat-option>
+                            <mat-option [value]="3">3 stele</mat-option>
+                            <mat-option [value]="4">4 stele</mat-option>
+                            <mat-option [value]="5">5 stele</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+            </div>
+
+            <div>
+                <!--Hotel address-->
+                <mat-form-field appearance="standard">
+                    <mat-label>Adresa hotel</mat-label>
+                    <input matInput formControlName="hotelAddress" placeholder="Adresa">
+                    <mat-error *ngIf="addEditTripForm.get('hotelList.hotelAddress').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                </mat-form-field>
+            </div>
+            <!--Add room button-->
+            <div class="d-flex justify-content-end">
+                <button class="btn-long btn-color-fill" (click)="addItem()"><i class="fas fa-plus me-2"></i>Adauga cameră</button>
+            </div>
+
+                <!-- Camere-->
+                <div formArrayName="rooms">
+                    <div *ngFor="let item of rooms.controls; let itemIndex=index">
+                        <div [formGroupName]="itemIndex">
+                            <hr *ngIf="itemIndex > 0"/>
+                            <div class="d-flex justify-content-between mt-3">
+                                <h5>Cameră</h5>
+                                <button class="remove-btn btn-round btn-no-outline" (click)="removeItem(itemIndex)"><i class="fas fa-times"></i></button>
+                            </div>
+
+
+                            <div class="room-item position-relative">
+                                <!--Persoane si capacitate camere-->
+                                <div class="d-flex justify-content-between gap-2">
+                                    <mat-form-field appearance="standard" class="w-50">
+                                        <mat-label>Denumirea cameră</mat-label>
+                                        <input matInput placeholder="Denumire cameră"
+                                            formControlName="name">
+
+                                    </mat-form-field>
+                                    <mat-form-field appearance="standard" class="w-50">
+                                        <mat-label>Capacitate persoane</mat-label>
+                                        <input matInput placeholder="Capacitate persoane"
+                                            formControlName="people">
+                                    </mat-form-field>
+                                </div>
+
+                                <!--tip paturi si numar paturi-->
+                                <div class="d-flex justify-content-between gap-2" formGroupName="bedType">
+                                    <mat-form-field appearance="standard" class="w-50">
+                                        <mat-label>Tip pat</mat-label>
+                                            <mat-select formControlName="type">
+                                            <mat-option [value]="'Single'">
+                                                Single
+                                            </mat-option>
+                                            <mat-option [value]="'Double'">
+                                                Double
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="standard" class="w-50">
+                                        <mat-label>Număr paturi</mat-label>
+                                        <input matInput placeholder="Numar Paturi"
+                                            formControlName="quantity">
+                                    </mat-form-field>
+                                </div>
+
+                                <!--disponibilitate si pret-->
+                                <div class="d-flex justify-content-between gap-2">
+                                    <mat-form-field appearance="standard" class="w-50">
+                                        <mat-label>Disponibilitate</mat-label>
+                                        <input matInput placeholder="Numar camere disponibile"
+                                            formControlName="available">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="standard" class="w-50">
+                                        <mat-label>Preț</mat-label>
+                                        <input matInput placeholder="Preț"
+                                            formControlName="price">
+                                    </mat-form-field>
+                                </div>
+
+                                 <div class="content">
+                                    <!--Featured Image--------------------------------------------------->
+                                    <h4>
+                                        Imagine reprezentativă
+                                    </h4>
+                                    <div class="col-12 upload-image-col">
+
+                                    <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                                    <button *ngIf="!item.value?.image"
+                                            class="thumbnail-button
+                                                   d-flex flex-column align-items-center justify-content-center"
+                                            type="button"
+                                            (click)="openMedia(itemImgModal)"
+                                            >
+                                        <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}} <span>1400 x 1400px</span>
+                                    </button>
+
+                                    <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                                    <div *ngIf="item.get('image').value?.filePath" class="img-thumbnail">
+                                        <img class="img-fluid w-100"
+                                             [src]="item.get('image').value?.filePath" alt="thumbnail">
+                                        <button
+                                                (click)="item.get('image').setValue(null)"
+                                                type="button"
+                                                class="btn-thumbnail position-absolute">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                 <ng-template #itemImgModal let-modal>
+                                    <app-choose-media [category]="'image'"
+                                                      [multipleSelect]="false"
+                                                      [for]="'roomFeaturedImg-' + itemIndex"
+                                                      [modalRef]="modal"></app-choose-media>
+                                </ng-template>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        </div><!-- End Cazare-->
+
+         <!--Transport-->
+         <h3>Transport</h3>
+         <div class="info-card transport">
+
+            <!--Metoda de transport-->
+            <div class="col-12">
+                <mat-form-field appearance="standard">
+                    <mat-label>Metoda de transport</mat-label>
+                    <mat-select formControlName="transportType" >
+                        <mat-option [value]="'Avion'">
+                            Avion
+                        </mat-option>
+                        <mat-option [value]="'Tren'">
+                            Tren
+                        </mat-option>
+                        <mat-option [value]="'Masina'">
+                            Masina
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <h4>Plecare</h4>
+                <!--Metoda de transport-->
+                <div class="col-12" formGroupName="departure">
+                    <!--Locatie-->
+                    <div class="col-12" >
+                        <mat-form-field appearance="standard">
+                            <mat-label>Locație</mat-label>
+                            <input formControlName="location" matInput placeholder="Locație">
+                            <mat-icon *ngIf="addEditTripForm.get('departure.location').value"
+                                      (click)="addEditTripForm.get('departure.location').setValue(null)"
+                                      role="button" matSuffix>clear</mat-icon>
+                            <mat-error *ngIf="addEditTripForm.get('departure.location').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- Ore plecari /sosiri-->
+                    <div class="d-flex justify-content-between gap-2">
+                        <div class="col-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Oră plecare</mat-label>
+                                <!-- <input formControlName="start" type="time" matInput name="week" min="09:00" max="18:00" /> -->
+
+                                <input
+                                matInput [ngxMatDatetimePicker]="startHourPicker"
+                                           placeholder="Choose a date" formControlName="start">
+                                    <mat-datepicker-toggle matSuffix [for]="startHourPicker"></mat-datepicker-toggle>
+                                    <ngx-mat-datetime-picker #startHourPicker>
+                                    </ngx-mat-datetime-picker>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="col-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Oră sosire</mat-label>
+                                <!-- <input  formControlName="end" type="time" matInput name="week" min="09:00" max="18:00" /> -->
+
+                                <input
+                                [min]="addEditTripForm.get('departure.start').value"
+                                 matInput [ngxMatDatetimePicker]="endHourPicker"
+                                 placeholder="Choose a date" formControlName="end">
+                                    <mat-datepicker-toggle matSuffix [for]="endHourPicker"></mat-datepicker-toggle>
+                                    <ngx-mat-datetime-picker #endHourPicker>
+                                    </ngx-mat-datetime-picker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                 <h4>Retur</h4>
+                 <!--sosire-->
+                <div class="col-12" formGroupName="arrival">
+                    <!--Locatie-->
+                    <div class="col-12">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Locație</mat-label>
+                            <input formControlName="location" matInput placeholder="Locație">
+                            <mat-icon *ngIf="addEditTripForm.get('arrival.location').value"
+                                      (click)="addEditTripForm.get('arrival.location').setValue('')"
+                                      role="button" matSuffix>clear</mat-icon>
+                            <mat-error *ngIf="addEditTripForm.get('arrival.location').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- Ore plecari /sosiri-->
+                    <div class="d-flex justify-content-between gap-2">
+                        <div class="col-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Oră plecare</mat-label>
+                                <input matInput  [ngxMatDatetimePicker]="arrivalStartHourPicker"
+                                           placeholder="Choose a date" formControlName="start">
+                                    <mat-datepicker-toggle matSuffix [for]="arrivalStartHourPicker"></mat-datepicker-toggle>
+                                    <ngx-mat-datetime-picker #arrivalStartHourPicker>
+                                    </ngx-mat-datetime-picker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Oră sosire</mat-label>
+                                <input
+                                [min]="addEditTripForm.get('arrival.start').value"
+                                matInput  [ngxMatDatetimePicker]="arrivalEndHourPicker"
+                                           placeholder="Choose a date" formControlName="end">
+                                    <mat-datepicker-toggle matSuffix [for]="arrivalEndHourPicker"></mat-datepicker-toggle>
+                                    <ngx-mat-datetime-picker #arrivalEndHourPicker>
+                                    </ngx-mat-datetime-picker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+             </div>
+
+        </div><!-- End Transport-->
+
+
+        <!--Recomandari-->
+        <h3>Recomandări turistice</h3>
+        <div class="info-card">
+            <div class="col-12">
+                <mat-form-field appearance="standard">
+                    <mat-label>Recomandări</mat-label>
+                    <input formControlName="recommendation" matInput placeholder="Recomandări turistice">
+                    <mat-icon *ngIf="addEditTripForm.get('recommendation').value"
+                              (click)="addEditTripForm.get('recommendation').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                    <mat-error *ngIf="addEditTripForm.get('recommendation').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</div>

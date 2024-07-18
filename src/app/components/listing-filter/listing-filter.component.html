@@ -1,0 +1,516 @@
+<ng-container *ngIf="hotelFilters">
+  <p-accordion [multiple]="true">
+<!--    <p-accordionTab header="Language Spoken" [selected]="true">-->
+<!--      <ng-template pTemplate="content">-->
+<!--        <div class="filter-tab">-->
+<!--          <ng-container *ngFor="let option of hotelSearchParams.language">-->
+<!--            <p-checkbox-->
+<!--              name="groupname"-->
+<!--              value="{{ option.value }}"-->
+<!--              label="{{ option.title }}"-->
+<!--              [(ngModel)]="option.selected"-->
+<!--              (onChange)="languageChange($event)"-->
+<!--            ></p-checkbox>-->
+<!--          </ng-container>-->
+<!--        </div>-->
+<!--      </ng-template>-->
+<!--    </p-accordionTab>-->
+
+    <p-accordionTab header="Hotel facilities" [selected]="false">
+      <ng-template pTemplate="content">
+        <div class="filter-tab">
+          <ng-container
+            *ngFor="let option of hotelSearchParams.hotelFacilities"
+          >
+            <p-checkbox
+              name="groupname"
+              value="{{ option.title }}"
+              label="{{ option.title }}"
+              [(ngModel)]="option.selected"
+              (ngModelChange)="changeStarValue($event, option)"
+              (onChange)="hotelsFiltersChange()"
+            ></p-checkbox>
+          </ng-container>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+
+<!--    <p-accordionTab header="Hotel type" [selected]="false">-->
+<!--      <ng-template pTemplate="content">-->
+<!--        <div class="filter-tab">-->
+<!--          <ng-container *ngFor="let option of hotelSearchParams.propertyTypes">-->
+<!--            <p-checkbox-->
+<!--              name="groupname"-->
+<!--              value="{{ option.title }}"-->
+<!--              label="{{ option.title }}"-->
+<!--              [(ngModel)]="option.selected"-->
+<!--              (onChange)="hotelsFiltersChange()"-->
+<!--            ></p-checkbox>-->
+<!--          </ng-container>-->
+<!--        </div>-->
+<!--      </ng-template>-->
+<!--    </p-accordionTab>-->
+
+<!--    <p-accordionTab header="Thematic" [selected]="false">-->
+<!--      <ng-template pTemplate="content">-->
+<!--        <div class="filter-tab">-->
+<!--          <ng-container *ngFor="let option of hotelSearchParams.propertyThemes">-->
+<!--            <p-checkbox-->
+<!--              name="groupname"-->
+<!--              value="{{ option.title }}"-->
+<!--              label="{{ option.title }}"-->
+<!--              [(ngModel)]="option.selected"-->
+<!--              (onChange)="hotelsFiltersChange()"-->
+<!--            ></p-checkbox>-->
+<!--          </ng-container>-->
+<!--        </div>-->
+<!--      </ng-template>-->
+<!--    </p-accordionTab>-->
+
+<!--    <p-accordionTab header="Bed types" [selected]="false">-->
+<!--      <ng-template pTemplate="content">-->
+<!--        <div class="filter-tab">-->
+<!--          <ng-container *ngFor="let option of hotelSearchParams.bedTypes">-->
+<!--            <p-checkbox-->
+<!--              name="groupname"-->
+<!--              value="{{ option.title }}"-->
+<!--              label="{{ option.title }}"-->
+<!--              [(ngModel)]="option.selected"-->
+<!--              (onChange)="hotelsFiltersChange()"-->
+<!--            ></p-checkbox>-->
+<!--          </ng-container>-->
+<!--        </div>-->
+<!--      </ng-template>-->
+<!--    </p-accordionTab>-->
+
+<!--    <p-accordionTab header="Food Services" [selected]="false">-->
+<!--      <ng-template pTemplate="content">-->
+<!--        <div class="filter-tab">-->
+<!--          <ng-container *ngFor="let option of hotelSearchParams.mealOptions">-->
+<!--            <p-checkbox-->
+<!--              name="groupname"-->
+<!--              value="{{ option.title }}"-->
+<!--              label="{{ option.title }}"-->
+<!--              [(ngModel)]="option.selected"-->
+<!--              (onChange)="hotelsFiltersChange()"-->
+<!--            ></p-checkbox>-->
+<!--          </ng-container>-->
+<!--        </div>-->
+<!--      </ng-template>-->
+<!--    </p-accordionTab>-->
+
+    <!--    <p-accordionTab header="Wheelchair Accesibility" [selected]="false">-->
+    <!--      <ng-template pTemplate="content">-->
+    <!--        <div class="filter-tab">-->
+    <!--          <ng-container *ngFor="let option of languageOptions">-->
+    <!--            <p-checkbox-->
+    <!--              name="groupname"-->
+    <!--              value="{{ option.value }}"-->
+    <!--              label="{{ option.title }}"-->
+    <!--              [(ngModel)]="option.selected"-->
+    <!--              (onChange)="hotelsFiltersChange()"-->
+    <!--            ></p-checkbox>-->
+    <!--          </ng-container>-->
+    <!--        </div>-->
+    <!--      </ng-template>-->
+    <!--    </p-accordionTab>-->
+
+    <!--    <p-accordionTab header="Entertaining Activities" [selected]="false">-->
+    <!--      <ng-template pTemplate="content">-->
+    <!--        <div class="filter-tab">-->
+    <!--          <ng-container *ngFor="let option of languageOptions">-->
+    <!--            <p-checkbox-->
+    <!--              name="groupname"-->
+    <!--              value="{{ option.value }}"-->
+    <!--              label="{{ option.title }}"-->
+    <!--              [(ngModel)]="option.selected"-->
+    <!--              (onChange)="hotelsFiltersChange()"-->
+    <!--            ></p-checkbox>-->
+    <!--          </ng-container>-->
+    <!--        </div>-->
+    <!--      </ng-template>-->
+    <!--    </p-accordionTab>-->
+
+    <!--    <p-accordionTab header="Pool" [selected]="false">-->
+    <!--      <ng-template pTemplate="content">-->
+    <!--        <div class="filter-tab">-->
+    <!--          <ng-container *ngFor="let option of languageOptions">-->
+    <!--            <p-checkbox-->
+    <!--              name="groupname"-->
+    <!--              value="{{ option.value }}"-->
+    <!--              label="{{ option.title }}"-->
+    <!--              [(ngModel)]="option.selected"-->
+    <!--              (onChange)="hotelsFiltersChange()"-->
+    <!--            ></p-checkbox>-->
+    <!--          </ng-container>-->
+    <!--        </div>-->
+    <!--      </ng-template>-->
+    <!--    </p-accordionTab>-->
+
+    <p-accordionTab header="Stars" [selected]="false" #stars>
+      <ng-template pTemplate="content">
+        <div class="filter-tab">
+          <ng-container *ngFor="let option of hotelSearchParams.starsOptions">
+            <div class="d-flex">
+              <p-checkbox
+                style="margin-right: 10px"
+                name="groupname"
+                value="{{ option.title }}"
+                [(ngModel)]="option.selected"
+                (ngModelChange)="changeStarValue($event, option)"
+                (onChange)="hotelsFiltersChange($event)"
+              ></p-checkbox>
+
+              <ng-container *ngFor="let star of getStarArray(option.title)">
+                <img src="assets/icons/start.svg"/>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+
+    <div class="d-flex flex-column p-125 mt-3">
+      <div class="fw-bolder">Pret per camera / noapte: {{priceMin + " - " + (price ?? '') + " " + (filterData.currency ?? '')}}</div>
+      <div class="d-flex justify-content-between w-100 mt-3">
+        <div class="s12 fw-bold">0 EUR</div>
+        <div class="s12 fw-bold">2000 EUR</div>
+      </div>
+      <mat-slider
+              [max]="2000"
+              [min]="1"
+              [step]="1"
+              discrete
+              (change)="hotelsFiltersChange()"
+              aria-labelledby="example-name-label">
+        <input [value]="priceMin" (valueChange)="minPriceChanged($event)" matSliderStartThumb name="minPrice">
+        <input [value]="price" (valueChange)="maxPriceChanged($event)" matSliderEndThumb name="price">
+      </mat-slider>
+    </div>
+
+
+    <!--    <p-accordionTab header="Cleaning Services" [selected]="false">-->
+    <!--      <ng-template pTemplate="content">-->
+    <!--        <div class="filter-tab">-->
+    <!--          <ng-container *ngFor="let option of languageOptions">-->
+    <!--            <p-checkbox-->
+    <!--              name="groupname"-->
+    <!--              value="{{ option.value }}"-->
+    <!--              label="{{ option.title }}"-->
+    <!--              [(ngModel)]="option.selected"-->
+    <!--              (onChange)="hotelsFiltersChange()"-->
+    <!--            ></p-checkbox>-->
+    <!--          </ng-container>-->
+    <!--        </div>-->
+    <!--      </ng-template>-->
+    <!--    </p-accordionTab>-->
+
+    <!--    <p-accordionTab header="Reception Services" [selected]="false">-->
+    <!--      <ng-template pTemplate="content">-->
+    <!--        <div class="filter-tab">-->
+    <!--          <ng-container *ngFor="let option of languageOptions">-->
+    <!--            <p-checkbox-->
+    <!--              name="groupname"-->
+    <!--              value="{{ option.value }}"-->
+    <!--              label="{{ option.title }}"-->
+    <!--              [(ngModel)]="option.selected"-->
+    <!--              (onChange)="hotelsFiltersChange()"-->
+    <!--            ></p-checkbox>-->
+    <!--          </ng-container>-->
+    <!--        </div>-->
+    <!--      </ng-template>-->
+    <!--    </p-accordionTab>-->
+  </p-accordion>
+</ng-container>
+
+<ng-container *ngIf="!hotelFilters">
+  <p-accordion [multiple]="true">
+    <!-- Category: Restaurants, Bars, Bistro -->
+    <p-accordionTab
+      header="{{ 'RESTAURANTS.CATEGORIES' | translate }}"
+      [selected]="true"
+    >
+      <ng-template pTemplate="content">
+        <div class="filter-tab">
+          <p-checkbox
+            name="groupname"
+            value="restaurants"
+            label="Restaurante"
+            [(ngModel)]="restaurants"
+            (onChange)="onFilterChange()"
+          ></p-checkbox>
+          <p-checkbox
+            name="groupname"
+            value="bars"
+            label="Bar/Cluburi"
+            [(ngModel)]="bars"
+            (onChange)="onFilterChange()"
+          ></p-checkbox>
+          <p-checkbox
+            name="groupname"
+            value="bistro"
+            label="Bistro/Cafe"
+            [(ngModel)]="bistro"
+            (onChange)="onFilterChange()"
+          ></p-checkbox>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+
+    <!-- <p-accordionTab header='{{"RESTAURANTS.CITY" | translate}}'>
+          <ng-template pTemplate="content">
+            <div class="filter-tab
+              ">
+              <p-checkbox name="city" value="iasi" label="Iași" [(ngModel)]="selectedCities" (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="cluj" label="Cluj" [(ngModel)]="selectedCities" (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="bucuresti" label="București" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="timisoara" label="Timișoara" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="constanta" label="Constanța" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="brasov" label="Brașov" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="sibiu" label="Sibiu" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="oradea" label="Oradea" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="arad" label="Arad" [(ngModel)]="selectedCities" (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="galati" label="Galați" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="craiova" label="Craiova" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="ploiesti" label="Ploiești" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="bacau" label="Bacău" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="pitesti" label="Pitești" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="targumures" label="Târgu Mureș" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="suceava" label="Suceava" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="baia-mare" label="Baia Mare" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="buzau" label="Buzău" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="ramnicu-valcea" label="Râmnicu Vâlcea" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="targoviste" label="Târgoviște" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="slobozia" label="Slobozia" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="focsani" label="Focșani" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="bistrita" label="Bistrița" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="tulcea" label="Tulcea" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="resita" label="Reșița" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="alba-iulia" label="Alba Iulia" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+              <p-checkbox name="city" value="sibiu" label="Sibiu" [(ngModel)]="selectedCities"
+                (onChange)="onFilterChange()"></p-checkbox>
+
+            </div>
+          </ng-template>
+        </p-accordionTab> -->
+
+    <!-- Rating: 1-5 -->
+    <p-accordionTab header="{{ 'RESTAURANTS.RATING' | translate }}">
+      <span class="range-title"
+        >Rating: {{ rating / 20 ? rating / 20 : "" }}</span
+      >
+      <p-slider
+        [(ngModel)]="rating"
+        [step]="20"
+        (mouseup)="onFilterChange()"
+      ></p-slider>
+      <div class="range">
+        <span class="range-text">0</span>
+        <span class="range-text">5</span>
+      </div>
+    </p-accordionTab>
+
+    <!-- Currency: EUR, LEI, USD -->
+    <p-accordionTab header="{{ 'RESTAURANTS.CURRENCY' | translate }}">
+      <ng-template pTemplate="content">
+        <div class="filter-tab">
+          <p-checkbox
+            name="currency"
+            value="EUR"
+            label="EUR"
+            [(ngModel)]="currency"
+            (onChange)="onFilterChange()"
+          ></p-checkbox>
+          <p-checkbox
+            name="currency"
+            value="LEI"
+            label="LEI"
+            [(ngModel)]="currency"
+            (onChange)="onFilterChange()"
+          ></p-checkbox>
+          <p-checkbox
+            name="currency"
+            value="USD"
+            label="USD"
+            [(ngModel)]="currency"
+            (onChange)="onFilterChange()"
+          ></p-checkbox>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+
+    <!-- Avarage Price -->
+    <p-accordionTab header="{{ 'RESTAURANTS.AVARAGE_PRICE' | translate }}">
+      <span class="range-title"
+        >Avg. Price: {{ avgPriceRangeValues.join(" - ") }}</span
+      >
+      <div class="card flex justify-content-center">
+        <p-slider
+          [(ngModel)]="avgPriceRangeValues"
+          [step]="50"
+          (mouseup)="onFilterChange()"
+          [min]="0"
+          [max]="10000"
+          [range]="true"
+        ></p-slider>
+      </div>
+      <div class="range">
+        <span class="range-text">Avg Min 0</span>
+        <span class="range-text">Avg Max 10000</span>
+      </div>
+    </p-accordionTab>
+
+    <!-- Rating: 1-5 -->
+    <p-accordionTab header="{{ 'RESTAURANTS.VIEWS' | translate }}">
+      <span class="range-title">Min Reviews: {{ reviews }}</span>
+      <p-slider
+        [(ngModel)]="reviews"
+        [step]="10"
+        (mouseup)="onFilterChange()"
+        [min]="0"
+        [max]="200"
+      ></p-slider>
+      <div class="range">
+        <span class="range-text">Min 0</span>
+        <span class="range-text">Peste 200</span>
+      </div>
+    </p-accordionTab>
+
+    <!-- Payment Methods -->
+    <p-accordionTab header="{{ 'RESTAURANTS.PAYMENT_METHOD' | translate }}">
+      <ng-template pTemplate="content">
+        <div class="filter-tab">
+          <p-checkbox
+            name="paymentMethod"
+            value="Cash"
+            label="Numerar"
+            [(ngModel)]="paymentOptions"
+            (onChange)="onFilterChange()"
+          ></p-checkbox>
+          <p-checkbox
+            name="paymentMethod"
+            value="Credit Card"
+            label="Card"
+            [(ngModel)]="paymentOptions"
+            (onChange)="onFilterChange()"
+          ></p-checkbox>
+          <p-checkbox
+            name="paymentMethod"
+            value="Online"
+            label="Plata Online"
+            [(ngModel)]="paymentOptions"
+            (onChange)="onFilterChange()"
+          ></p-checkbox>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+
+    <!-- Specific -->
+    <p-accordionTab header="{{ 'RESTAURANTS.SPECIFIC' | translate }}">
+      <ng-template pTemplate="content">
+        <div class="filter-tab-row">
+          <span class="p-input-icon-right">
+            <i
+              class="pi pi-undo custom-icon-click"
+              (click)="specific = ''; onFilterChange()"
+            ></i>
+            <input type="text" pInputText [(ngModel)]="specific" />
+          </span>
+          <p-button label="Apply" (onClick)="onFilterChange()"></p-button>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+
+    <!-- Facilities -->
+    <p-accordionTab header="{{ 'RESTAURANTS.FACILITIES' | translate }}">
+      <ng-template pTemplate="content">
+        <div class="filter-tab-row">
+          <div class="card p-fluid">
+            <p-chips
+              [(ngModel)]="facilities"
+              [max]="max"
+              (onAdd)="onFilterChange()"
+              (onRemove)="onFilterChange()"
+              placeholder="Maximum 5 items"
+            ></p-chips>
+          </div>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+
+    <!-- Tags -->
+    <p-accordionTab header="{{ 'RESTAURANTS.TAGS' | translate }}">
+      <ng-template pTemplate="content">
+        <div class="filter-tab-row">
+          <div class="card p-fluid">
+            <p-chips
+              [(ngModel)]="tags"
+              [max]="max"
+              placeholder="Maximum 5 items"
+              (onAdd)="onFilterChange()"
+              (onRemove)="onFilterChange()"
+            ></p-chips>
+          </div>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+
+    <!-- Menu Item Name -->
+    <p-accordionTab header="{{ 'RESTAURANTS.MENU_ITEM_NAME' | translate }}">
+      <ng-template pTemplate="content">
+        <div class="filter-tab-row">
+          <span class="p-input-icon-right">
+            <i
+              class="pi pi-undo custom-icon-click"
+              (click)="menuItemName = ''; onFilterChange()"
+            ></i>
+            <input type="text" pInputText [(ngModel)]="menuItemName" />
+          </span>
+          <p-button label="Apply" (onClick)="onFilterChange()"></p-button>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+
+    <!-- Dietary Preferences -->
+    <p-accordionTab
+      header="{{ 'RESTAURANTS.DIETARY_PREFERENCES' | translate }}"
+    >
+      <ng-template pTemplate="content">
+        <div class="filter-tab-row">
+          <div class="card p-fluid">
+            <p-chips
+              [(ngModel)]="dietaryPreferences"
+              [max]="max"
+              (onAdd)="onFilterChange()"
+              (onRemove)="onFilterChange()"
+              placeholder="Maximum 5 items"
+            ></p-chips>
+          </div>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+  </p-accordion>
+</ng-container>

@@ -1,0 +1,40 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.background-container {
+  width: 100%;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(0deg, rgba($title, 0.24), rgba($title, 0.24));
+  }
+
+  img {
+    height: auto;
+    max-height: 560px;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.content-container {
+  background-color: var(--primary-background);
+  padding: 48px 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  row-gap: 64px;
+
+  .title-shared{
+    font-size: 36px;
+    font-weight: 700;
+    color: $primary-color;
+    text-align: center;
+  }
+
+}

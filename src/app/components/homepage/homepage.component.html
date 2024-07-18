@@ -1,0 +1,335 @@
+<app-search-section [isBiggerThan981]="true"></app-search-section>
+<div class="homepage">
+  <!-- <div class="slider1">
+        <app-card-slider
+          [sliderCards]="destinations"
+          [size]="'big'"
+          [isTitle]="true"
+          [hasButton]="true"
+          [title]="'Destinatii Populare'"
+          (onBtnClick)="handleGoToEditorials()"
+        ></app-card-slider>
+      </div> -->
+
+  <div class="activities-title">
+    <h1>Activitati in Bucuresti</h1>
+  </div>
+
+  <div class="events-container slider1">
+    <ng-container *ngIf="!isMobile; else mobileSliders">
+      <div class="first-col">
+        <div class="places-lists">
+          <app-places-row
+            title="Experiente culinare"
+            [places]="places | slice : 0 : 3"
+          >
+          </app-places-row>
+          <app-places-row
+            title="Cultura si aventura"
+            [places]="places | slice : 3 : 6"
+          >
+          </app-places-row>
+
+          <span class="p-input-icon-left search">
+            <div style="height: 53px"></div>
+            <!-- <i class="pi pi-search"></i>
+                <input type="text" placeholder="Exploreaza hoteluri, restaurante, atractii si multe altele..." pInputText /> -->
+          </span>
+        </div>
+
+        <!-- <div class="first-container">
+        <app-card-slider
+          [sliderCards]="recommendedActivities"
+          [size]="'big'"
+          [isTitle]="true"
+          [hasButton]="true"
+          [title]="'Activitati Recomandate'"
+        ></app-card-slider>
+      </div>
+      <div class="second-container">
+        <app-card-slider
+          [sliderCards]="destinations"
+          [size]="'big'"
+          [isTitle]="true"
+          [hasButton]="true"
+          [title]="'Activitati in preajma ta'"
+        ></app-card-slider>
+      </div> -->
+      </div>
+      <div class="second-col">
+        <div class="events-wrapper">
+          <app-event-card-list
+            title="Evenimente"
+            [events]="events | slice : 0 : 4"
+          ></app-event-card-list>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #mobileSliders>
+      <div class="mobile-sliders">
+        <div class="mobile-slider-1">
+          <div class="mobile-title">
+            <h3>Experiente culinare</h3>
+            <i class="fas fa-chevron-right"></i>
+          </div>
+
+          <p-carousel
+            [value]="places | slice : 0 : 3"
+            [numVisible]="2.5"
+            [numScroll]="0.5"
+            [showIndicators]="false"
+            [showNavigators]="false"
+            [orientation]="orientation"
+            [responsiveOptions]="[
+              {
+                breakpoint: '490px',
+                numVisible: 1.5,
+                numScroll: 0.5
+              },
+              {
+                breakpoint: '320px',
+                numVisible: 1.25,
+                numScroll: 0.5
+              }
+            ]"
+            contentClass="places-mobile-slider-content"
+            styleClass="places-mobile-slider-class"
+            verticalViewPortHeight="276px"
+          >
+            <ng-template let-place pTemplate="item">
+              <app-place-card [place]="place"></app-place-card>
+            </ng-template>
+          </p-carousel>
+        </div>
+
+        <div class="mobile-slider-2">
+          <div class="mobile-title">
+            <h3>Cultura si aventura</h3>
+            <i class="fas fa-chevron-right"></i>
+          </div>
+
+          <p-carousel
+            [value]="places | slice : 3 : 6"
+            [numVisible]="2.5"
+            [numScroll]="0.5"
+            [showIndicators]="false"
+            [showNavigators]="false"
+            [orientation]="orientation"
+            [responsiveOptions]="[
+              {
+                breakpoint: '490px',
+                numVisible: 1.5,
+                numScroll: 0.5
+              },
+              {
+                breakpoint: '320px',
+                numVisible: 1.25,
+                numScroll: 0.5
+              }
+            ]"
+            verticalViewPortHeight="276px"
+          >
+            <ng-template let-place pTemplate="item">
+              <app-place-card [place]="place"></app-place-card>
+            </ng-template>
+          </p-carousel>
+        </div>
+
+        <div class="mobile-slider-3">
+          <div class="mobile-title">
+            <h3>Evenimente</h3>
+            <i class="fas fa-chevron-right"></i>
+          </div>
+
+          <p-carousel
+            [value]="events | slice : 0 : 4"
+            [numVisible]="2"
+            [numScroll]="0.5"
+            [showIndicators]="false"
+            [showNavigators]="false"
+            [orientation]="orientation"
+            [responsiveOptions]="[
+              {
+                breakpoint: '491px',
+                numVisible: 1.5,
+                numScroll: 0.5
+              }
+            ]"
+            verticalViewPortHeight="276px"
+          >
+            <ng-template let-event pTemplate="item">
+              <app-event-card-mobile [event]="event"></app-event-card-mobile>
+            </ng-template>
+          </p-carousel>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- <div class="slider2">
+    <app-card-slider
+      [sliderCards]="hotels"
+      [size]="'big'"
+      [isTitle]="true"
+      [hotels]="true"
+      [title]="'Hoteluri Recomandate'"
+      [hasButton]="true"
+    ></app-card-slider>
+  </div> -->
+  <div class="slider3">
+    <div class="ai-blocks">
+      <div
+        class="editorials-tile-row d-flex justify-content-between w-100 holiday-container"
+      >
+        <div class="editorials-title-text">
+          <h3 class="color-green">Holiday package offers</h3>
+          <i class="fas fa-chevron-right hide-if-dt"></i>
+        </div>
+        <div class="editorials-button-top hide-if-mobile bg-color-green">
+          <p-button label="Vezi mai multe" styleClass="p-button"></p-button>
+        </div>
+      </div>
+      <div class="holiday-gap">
+        <p-carousel
+          [value]="holidays"
+          [numVisible]="visibilityOptions.numVisible"
+          [numScroll]="visibilityOptions.numScroll"
+          [responsiveOptions]="responsiveOptions"
+          [showIndicators]="false"
+          [showNavigators]="false"
+          [orientation]="orientation"
+          verticalViewPortHeight="805px"
+        >
+          <ng-template let-holiday pTemplate="holiday">
+            <div class="holiday-item">
+              <app-holiday-card [holiday]="holiday"> </app-holiday-card>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+      <!-- <app-ai-card [event]="aiItems[0]"></app-ai-card>
+      <app-ai-card [event]="aiItems[1]"></app-ai-card> -->
+    </div>
+  </div>
+
+  <!--  <div class="slider4">-->
+  <!--    <app-two-column-container-->
+  <!--      [leftColumnWidth]="'50%'"-->
+  <!--      [rightColumnWidth]="'50%'"-->
+  <!--      [rightTitle]="'Shared experiences with friends'"-->
+  <!--      [rightSubtitle]="-->
+  <!--        'Select the activity, adventure or sports, book the property, create the session and share it with other Bestinform users!'-->
+  <!--      "-->
+  <!--      [leftBackgroundImage]="'../assets/images/others/landing/pool.png'"-->
+  <!--      [rightBackgroundImage]="''"-->
+  <!--      [buttonText]="'Start Now'"-->
+  <!--      [buttonColor]="'#4257EE'"-->
+  <!--      [buttonPosition]="'right'"-->
+  <!--      (onBtnClick)="handleGoToStart()"-->
+  <!--    ></app-two-column-container>-->
+  <!--  </div>-->
+  <!--  <div class="slider4">-->
+  <!--    &lt;!&ndash; <app-card-slider-->
+  <!--      [sliderCards]="vacations"-->
+  <!--      [size]="'big'"-->
+  <!--      [isTitle]="true"-->
+  <!--      [title]="'Top oferte de vacanta'"-->
+  <!--    ></app-card-slider> &ndash;&gt;-->
+  <!--  </div>-->
+  <!--  <div class="slider4">-->
+  <!--    &lt;!&ndash; <app-two-column-container-->
+  <!--      [leftColumnWidth]="'50%'"-->
+  <!--      [rightColumnWidth]="'50%'"-->
+  <!--      [leftTitle]="'Plan your Trip!'"-->
+  <!--      [leftSubtitle]="-->
+  <!--        'Book the flight, select your favorite room, reserve your table at best restaurants and much more with Bestinform AI !'-->
+  <!--      "-->
+  <!--      [rightBackgroundImage]="'../assets/images/others/landing/skiing.png'"-->
+  <!--      [buttonText]="'Plan Now'"-->
+  <!--      [buttonColor]="'#F8CC50'"-->
+  <!--      [textColor]="'#4257EE'"-->
+  <!--      [buttonPosition]="'left'"-->
+  <!--      [reverseColumns]="true"-->
+  <!--      (onBtnClick)="handleGoToPlan()"-->
+  <!--    ></app-two-column-container> &ndash;&gt;-->
+  <!--  </div>-->
+  <div class="editorials-slider">
+    <div class="editorials-container">
+      <div class="max-width-wrapper">
+        <div class="editorials-tile-row d-flex justify-content-between">
+          <h3>Editoriale</h3>
+          <p-button
+            label="Vezi mai multe"
+            class="editorials-button"
+            styleClass="p-button-outlined"
+            (click)="handleGoToEditorials()"
+          ></p-button>
+        </div>
+        <p-carousel
+          [value]="destinations"
+          [numVisible]="visibilityOptions.numVisible"
+          [numScroll]="visibilityOptions.numScroll"
+          [responsiveOptions]="responsiveOptions"
+          [showIndicators]="false"
+          [orientation]="orientation"
+          verticalViewPortHeight="805px"
+        >
+          <ng-template let-card pTemplate="card">
+            <div
+              class="editorials-card-wrapper"
+              (click)="redirectBySlug(card?.slug)"
+            >
+              <div class="editorial-card d-flex flex-column">
+                <div
+                  class="editorial-img"
+                  [style.background-image]="
+                    'url(&quot;' + card?.imageUrl + '&quot;)'
+                  "
+                >
+                  <div class="editorial-category">{{ card?.category }}</div>
+                </div>
+                <div class="editorial-info">
+                  <!--                <h3>Titlu Editorial</h3>-->
+                  <!--                <p>Lorem ipsum dolor sit amet consectetur. Convallis quisque non ipsum aliquam aliquet blandit magnis.</p>                -->
+                  <h3>{{ card?.cardText?.title }}</h3>
+                  <p>{{ card?.cardText?.description }}</p>
+                  <div class="editorial-link d-flex">
+                    Citeste Editorial
+                    <div class="arrow right"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+  </div>
+  <div class="slider4" *ngIf="popularDestinations?.length">
+    <div class="margin-centered editorials-block-mobile">
+      <div class="destinations d-flex flex-column justify-content-around">
+        <div class="editorials-tile-row d-flex justify-content-between">
+          <div class="editorials-title-text">
+            <h3>Destinatii populare</h3>
+            <i class="fas fa-chevron-right hide-if-dt"></i>
+          </div>
+          <div class="editorials-button-top hide-if-mobile">
+            <p-button
+              label="Vezi mai multe"
+              styleClass="p-button-outlined "
+              (click)="handleGoToEditorials('64198991f6f1ab5b0e46b61a')"
+            ></p-button>
+          </div>
+        </div>
+        <app-card-slider
+          [sliderCards]="popularDestinations"
+          [size]="'big'"
+          [isTitle]="true"
+          (selected)="redirectBySlug($event.slug)"
+        ></app-card-slider>
+      </div>
+    </div>
+  </div>
+  <app-footer-new></app-footer-new>
+</div>

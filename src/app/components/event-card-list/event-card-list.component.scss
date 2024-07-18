@@ -1,0 +1,54 @@
+:host ::ng-deep{
+    .p-button-yellow {
+        background-color: #f8cc50;
+        color: #4257EE;
+        box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+        border: unset;
+        width: 100%;
+      }
+      .p-button-yellow:enabled:focus {
+        background: hsla(233, 83%, 60%, 1);
+        border-color: hsla(233, 83%, 60%, 1);
+      }
+      .p-button-yellow:enabled:hover {
+        background: hsla(233, 83%, 60%, 1);
+        border-color: hsla(233, 83%, 60%, 1);
+      }
+      .button-wrapper {
+        padding: 0px 10px;
+        width: 100%;
+      }
+}
+.events-block,
+.events-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.events-block {
+  gap: 33px;
+}
+.events-content {
+  gap: 12px;
+  app-event-card {
+    width: 100%;
+  }
+}
+.events-title {
+    padding-bottom: 12px;
+  h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0;
+  }
+}
+.button-wrapper {
+  width: 100%;
+  .p-button {
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+}

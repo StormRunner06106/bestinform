@@ -1,0 +1,868 @@
+<!-- TO DO: de modificat clasa de la status, sa aiba label -->
+<div class="container content_container" *ngIf="reservation">
+
+    <!--Booking section PROVIDER-->
+    <div id="htmlData" #htmlData>
+        <div class="reservation-container-image" [ngStyle]="{'background-image': 'url(' + featuredImage + ')'}"></div>
+        <div
+                *ngIf="
+       ( userRole.includes('ROLE_PROVIDER') ||
+        userRole.includes('ROLE_STAFF') ||
+        userRole.includes('ROLE_SUPER_ADMIN')) && !isFlight
+      "
+                class="header-title-section d-flex justify-content-between align-items-center"
+        >
+            <h3>
+                {{ "RESERVATION.BOOKING-NR" | translate }}
+                {{ reservation?.reservationNumber}}
+            </h3>
+            <!-- <img src="../../../../../assets/images/others/images-client/hardcoded_qr.png" height="60px" width="60px"/>  -->
+            <ngx-qrcode
+                    [elementType]="elementType"
+                    [value]="value"
+                    cssClass="aclass"
+                    errorCorrectionLevel="L"
+            >
+            </ngx-qrcode>
+            <!-- <ngx-qrcode-styling [config]="config"></ngx-qrcode-styling> -->
+        </div>
+
+        <!--Booking section CLIENT and status active-->
+        <div
+                *ngIf="userRole.includes('ROLE_CLIENT') && reservation?.status !== 'past' && !isFlight"
+                class="header-title-section d-flex justify-content-between align-items-center"
+        >
+            <h3>
+                {{ "RESERVATION.BOOKING-NR" | translate }}
+                {{ reservation?.reservationNumber }}
+            </h3>
+            <!-- <img src="../../../../../assets/images/others/images-client/hardcoded_qr.png" height="60px" width="60px"/> -->
+            <!-- <ngx-qrcode-styling [config]="config"></ngx-qrcode-styling> -->
+            <ngx-qrcode
+                    [elementType]="elementType"
+                    [value]="value"
+                    cssClass="aclass"
+                    errorCorrectionLevel="L"
+            >
+            </ngx-qrcode>
+        </div>
+
+        <!--Booking section CLIENT and status past-->
+        <div
+                *ngIf="userRole.includes('ROLE_CLIENT') && reservation?.status === 'past' && !isFlight"
+                class="header-title-section d-flex justify-content-between align-items-center"
+        >
+            <h3>
+                {{ "RESERVATION.BOOKING-NR" | translate }}
+                {{ reservation?.reservationNumber }}
+            </h3>
+            <!-- <img src="../../../../../assets/images/others/images-client/hardcoded_qr.png" height="60px" width="60px"/> -->
+            <!-- <ngx-qrcode-styling [config]="config"></ngx-qrcode-styling> -->
+            <ngx-qrcode
+                    [elementType]="elementType"
+                    [value]="value"
+                    cssClass="aclass"
+                    errorCorrectionLevel="L"
+            >
+            </ngx-qrcode>
+        </div>
+
+        <!--    Booking section CLIENT for FLIGHT-->
+        <div
+                *ngIf="userRole.includes('ROLE_CLIENT') && isFlight"
+                class="header-title-section d-flex justify-content-between align-items-center flex-wrap gap-2"
+        >
+            <h3>
+                {{ "RESERVATION.BOOKING-NR" | translate }}
+                {{ reservation?.amadeusReservationNumber }}
+            </h3>
+            <!-- <img src="../../../../../assets/images/others/images-client/hardcoded_qr.png" height="60px" width="60px"/> -->
+            <!-- <ngx-qrcode-styling [config]="config"></ngx-qrcode-styling> -->
+<!--            <ngx-qrcode-->
+<!--                    [elementType]="elementType"-->
+<!--                    [value]="value"-->
+<!--                    cssClass="aclass"-->
+<!--                    errorCorrectionLevel="L"-->
+<!--            >-->
+<!--            </ngx-qrcode>-->
+        </div>
+
+        <!--ADMIN/STAFF for FLIGHT-->
+        <div
+                *ngIf="(userRole.includes('ROLE_STAFF') || userRole.includes('ROLE_SUPER_ADMIN')) && isFlight"
+                class="header-title-section d-flex justify-content-between align-items-center flex-wrap gap-2"
+        >
+            <h3>
+                {{ "RESERVATION.BOOKING-NR" | translate }}
+                {{ reservation?.amadeusReservationNumber }}
+            </h3>
+            <!-- <img src="../../../../../assets/images/others/images-client/hardcoded_qr.png" height="60px" width="60px"/> -->
+            <!-- <ngx-qrcode-styling [config]="config"></ngx-qrcode-styling> -->
+<!--            <ngx-qrcode-->
+<!--                    [elementType]="elementType"-->
+<!--                    [value]="value"-->
+<!--                    cssClass="aclass"-->
+<!--                    errorCorrectionLevel="L"-->
+<!--            >-->
+<!--            </ngx-qrcode>-->
+        </div>
+
+        <!--Modifica rezervare provider-->
+        <div data-html2canvas-ignore>
+            <!--ignore for screenshot-->
+
+            <div
+                    *ngIf="
+          userRole.includes('ROLE_PROVIDER') ||
+          userRole.includes('ROLE_STAFF') ||
+          userRole.includes('ROLE_SUPER_ADMIN')
+        "
+                    class="middle-content-section d-flex justify-content-between align-items-center flex-wrap"
+            >
+                <!--de modificat cu variabile-->
+                <div>
+                    <h3>{{ "RESERVATION.RESERVATION-CHANGE" | translate }}</h3>
+                    <p class="d-flex flex-wrap">
+                        {{ "RESERVATION.LAST-UPDATED" | translate }}
+                        <span>{{ reservation?.date | date : "dd/MM/YYYY HH:mm" }}</span>
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between gap-2 flex-wrap">
+                    <button
+                            class="btn-long btn-color-outline"
+                            *ngIf="reservation?.paymentStatus === 'paid'"
+                            (click)="downloadBill()"
+                    >
+                        <i class="fas fa-file"></i>Descarcă factura
+                    </button>
+
+                    <ng-container *ngIf="reservation?.status === 'active'">
+                        <button
+                                class="btn-long btn-color-outline"
+                                (click)="cancelReservationModal(reservation.id)"
+                        >
+                            <i class="fas fa-times"></i>
+                            {{ "RESERVATION.CANCEL-RESERVATION" | translate }}
+                        </button>
+                        <button
+                                *ngIf="
+                (reservation.bookingType === 'menu' ||
+                  (reservation.bookingType === 'rentalBooking' &&
+                    reservationIsModifiable)) &&
+                resource
+              "
+                                (click)="openEditReservationModal()"
+                                class="btn-long btn-color-fill"
+                        >
+                            <i class="fas fa-pen"></i>
+                            {{ "RESERVATION.EDIT-RESERVATION" | translate }}
+                        </button>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div
+                    *ngIf="userRole.includes('ROLE_CLIENT')"
+                    class="middle-content-section d-flex justify-content-between align-items-center flex-wrap"
+            >
+                <!--de modificat cu variabile-->
+                <div>
+                    <h3>{{ "RESERVATION.RESERVATION-CHANGE" | translate }}</h3>
+                    <p class="d-flex flex-wrap">
+                        {{ "RESERVATION.LAST-UPDATED" | translate }}
+                        <span>{{ reservation?.date | date : "dd/MM/YYYY HH:mm" }}</span>
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between gap-2">
+                    <button
+                            class="btn-long btn-color-outline"
+                            *ngIf="reservation?.paymentStatus === 'paid'"
+                            (click)="downloadBill()"
+                    >
+                        <i class="fas fa-file"></i>Descarcă factura
+                    </button>
+
+                    <ng-container *ngIf="reservation?.status === 'active'">
+                        <button
+                                class="btn-long btn-color-outline"
+                                (click)="cancelReservationModal(reservation.id)"
+                        >
+                            <i class="fas fa-times"></i>
+                            {{ "RESERVATION.CANCEL-RESERVATION" | translate }}
+                        </button>
+
+                        <button
+                                *ngIf="
+                ((reservation.bookingType === 'menu' &&
+                  reservationIsModifiable) ||
+                  (reservation.bookingType === 'rentalBooking' &&
+                    reservationIsModifiable)) &&
+                resource
+              "
+                                (click)="openEditReservationModal()"
+                                class="btn-long btn-color-fill"
+                        >
+                            <i class="fas fa-pen"></i>
+                            {{ "RESERVATION.EDIT-RESERVATION" | translate }}
+                        </button>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!--Add rating as a client-->
+            <div
+                    *ngIf="
+          userRole.includes('ROLE_CLIENT') && reservation?.status === 'past'
+        "
+                    class="middle-content-section d-flex justify-content-between align-items-center"
+            >
+                <!--de modificat cu variabile-->
+                <div class="col-md-6">
+                    <h3>{{ "RESERVATION.ADD-RATING-TITLE" | translate }}</h3>
+                    <p>{{ "RESERVATION.ADD-RATING-TEXT" | translate }}</p>
+                </div>
+                <div class="d-flex justify-content-center gap-2 col-md-6">
+                    <button
+                            [disabled]="isDisabled"
+                            (click)="rateExperience(reservation?.id, true)"
+                            class="btn-long btn-like-fill"
+                    >
+                        <i class="fas fa-thumbs-up"></i>Like
+                    </button>
+                    <button
+                            [disabled]="isDisabled"
+                            (click)="rateExperience(reservation?.id, false)"
+                            class="btn-long btn-dislike-fill"
+                    >
+                        <i class="fas fa-thumbs-down"></i>Dislike
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div
+                    class="d-flex justify-content-between align-items-center flex-wrap mb-4"
+            >
+                <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                    <h2 class="me-3">Informatii rezervare</h2>
+                    <p>
+            <span *ngIf="!isFlight"
+                  class="reservation-validity-status-label"
+                  [ngClass]="{
+                'label-new': reservation?.validityStatus === 'new',
+                'label-confirmed': reservation?.validityStatus === 'confirmed',
+                'label-refused': reservation?.validityStatus === 'refused',
+                'label-validated': reservation?.validityStatus === 'valid',
+                'label-null': reservation?.validityStatus === null
+              }"
+            >{{
+                reservation?.validityStatus === "new"
+                    ? "New"
+                    : reservation?.validityStatus === "confirmed"
+                        ? "Confirmed"
+                        : reservation?.validityStatus === "refused"
+                            ? "Refused"
+                            : reservation?.validityStatus === "valid"
+                                ? "Validated"
+                                : "Unknown"
+                }}</span
+            >
+                    </p>
+                    <!--Confirm button-->
+                    <button
+                            *ngIf="
+              reservation?.validityStatus === 'new' &&
+              !userRole.includes('ROLE_CLIENT')
+            "
+                            class="btn-round btn-white-outline"
+                            matTooltip="Confirmă"
+                            (click)="changeValidityStatus('confirmed', reservation.id)"
+                    >
+                        <i class="fas fa-check"></i>
+                    </button>
+
+                    <!--Reject button-->
+                    <button
+                            *ngIf="
+              (reservation?.validityStatus === 'new' &&
+                !userRole.includes('ROLE_CLIENT')) ||
+              (reservation?.validityStatus === 'valid' &&
+                !userRole.includes('ROLE_CLIENT'))
+            "
+                            class="btn-round btn-white-outline"
+                            matTooltip="Refuză"
+                            (click)="changeValidityStatus('refused', reservation.id)"
+                    >
+                        <i class="fas fa-ban"></i>
+                    </button>
+
+                    <!--Validate button-->
+                    <button
+                            *ngIf="
+              reservation?.validityStatus === 'confirmed' &&
+              !userRole.includes('ROLE_CLIENT')
+            "
+                            class="btn-round btn-white-outline"
+                            matTooltip="Validează"
+                            (click)="changeValidityStatus('valid', reservation.id)"
+                    >
+                        <i class="fas fa-check-double"></i>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between gap-2 mb-2">
+                    <p>
+            <span
+                    class="custom-provider-status-label"
+                    [ngClass]="{
+                'label-accepted': reservation?.paymentStatus === 'paid',
+                'label-new': reservation?.paymentStatus === 'waiting',
+                'label-rejected':
+                  reservation?.paymentStatus === 'unpaid' ||
+                  reservation?.paymentStatus === null
+              }"
+            >{{
+                reservation?.paymentStatus === "paid"
+                    ? "Paid"
+                    : reservation?.status === "waiting"
+                        ? "Waiting payment"
+                        : "Unpaid"
+                }}</span
+            >
+                    </p>
+                    <p>
+            <span *ngIf="!isFlight"
+                  class="custom-provider-status-label"
+                  [ngClass]="{
+                'label-accepted': reservation?.status === 'active',
+                'label-new': reservation?.status === 'past',
+                'label-rejected': reservation?.status === 'canceled'
+              }"
+            >{{
+                reservation?.status === "active"
+                    ? "Active"
+                    : reservation?.status === "past"
+                        ? "Past"
+                        : "Cancelled"
+                }}</span
+            >
+                    </p>
+                </div>
+            </div>
+            <!-- coloane -->
+            <div
+                    class="d-flex justify-content-between gap-2 flex-wrap flex-md-nowrap"
+            >
+                <div class="col-md-4" *ngIf="!isFlight">
+                    <h3>{{ "RESERVATION.RESERVATION-FOR" | translate }}:</h3>
+                    <!-- serviceBookingTimeSlots -->
+                    <div *ngIf="reservation?.bookingType === 'serviceBookingTimeSlots'">
+                        <app-service-booking-time-slots
+                                [reservation]="reservation"
+                        ></app-service-booking-time-slots>
+                    </div>
+                    <!-- rentalBooking -->
+                    <div *ngIf="reservation?.bookingType === 'rentalBooking'">
+                        <app-rental-booking
+                                [reservation]="reservation"
+                        ></app-rental-booking>
+                    </div>
+
+                    <!-- productsList -->
+                    <div *ngIf="reservation?.bookingType === 'productsList'">
+                        <app-products-list [reservation]="reservation"></app-products-list>
+                    </div>
+                    <!-- de verificat daca e carRent sau carBooking -->
+                    <!--carBooking-->
+                    <div *ngIf="reservation?.bookingType === 'carBooking'">
+                        <app-car-booking [reservation]="reservation"></app-car-booking>
+                    </div>
+
+                    <!-- culturalBooking -->
+                    <div *ngIf="reservation?.bookingType === 'culturalBooking'">
+                        <app-cultural-booking
+                                [reservation]="reservation"
+                        ></app-cultural-booking>
+                    </div>
+
+                    <!-- culturalBooking -->
+                    <div *ngIf="reservation?.bookingType === 'ticketBooking'">
+                        <app-ticket-booking
+                                [reservation]="reservation"
+                        ></app-ticket-booking>
+                    </div>
+
+                    <!-- culturalBooking -->
+                    <div *ngIf="reservation?.bookingType === 'menu'">
+                        <app-menu [reservation]="reservation"></app-menu>
+                    </div>
+
+                    <!-- externalURL -->
+                    <!-- noBooking -->
+                    <!-- custom -->
+
+                    <!-- noBooking -->
+                    <!-- to do: de verificat cand si ce facem la no booking -->
+                    <!-- <div *ngIf="reservation?.bookingType === 'noBooking'" >
+                                  <app-no-booking [reservation]="reservation"></app-no-booking>
+                              </div> -->
+                </div>
+                <div class="col-md-4" *ngIf="isFlight">
+                    <h3>{{ "RESERVATION.RESERVATION-FOR" | translate }}:</h3>
+                    <!--                    Daca zborul este cu retur-->
+                    <div *ngIf="reservation.flightOffer.itineraries.length > 1">
+                        <div *ngFor="let itinerary of reservation.flightOffer.itineraries; let indexItinerary = index">
+                            <!--                            daca itinerariul curent are mai multe segmente => zbor cu escala-->
+                            <div *ngIf="itinerary.segments.length > 1 ">
+                                <div *ngFor="let segment of itinerary.segments; let indexSegment = index">
+                                    <div *ngIf="indexSegment === 0 && indexItinerary === 0">
+                                        <h4>{{(itinerary.segments[0].originLocation.cityNameRo || itinerary.segments[0].originLocation.cityNameEn) + ' - ' + (itinerary.segments[itinerary.segments.length - 1].destinationLocation.cityNameRo || itinerary.segments[itinerary.segments.length - 1].destinationLocation.cityNameEn)}}</h4>
+                                        <p>Data tur:</p>
+                                        <h4>{{itinerary.segments[0].departure.dateTime | date:'dd MMMM yyyy, HH:mm'}}</h4>
+                                        <p>Data retur:</p>
+                                        <h4>{{reservation.flightOffer.itineraries[reservation.flightOffer.itineraries.length - 1].segments[0].departure.dateTime | date:'dd MMMM yyyy, HH:mm'}}</h4>
+                                        <p>Tip zbor:</p>
+                                        <h4>Zbor cu escala</h4>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!--                            itinerariul are zbor direct-->
+                            <div *ngIf="itinerary.segments.length === 1 && indexItinerary === 0">
+                                <h4>{{(itinerary.segments[0].originLocation.cityNameRo || itinerary.segments[0].originLocation.cityNameEn) + ' - ' + (itinerary.segments[0].destinationLocation.cityNameRo || itinerary.segments[0].destinationLocation.cityNameEn)}}</h4>
+                                <p>Data tur:</p>
+                                <h4>{{itinerary.segments[0].departure.dateTime | date:'dd MMMM yyyy, HH:mm'}}</h4>
+                                <p>Data retur:</p>
+                                <h4>{{reservation.flightOffer.itineraries[reservation.flightOffer.itineraries.length - 1].segments[0].departure.dateTime | date:'dd MMMM yyyy, HH:mm'}}</h4>
+                                <p>Tip zbor:</p>
+                                <h4>Zbor direct</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    Daca zborul este doar dus; lungimea e 1, deci nu mai parcurgem array ul-->
+                    <div *ngIf="reservation.flightOffer.itineraries.length === 1">
+                        <!--                        Daca itinerariul are mai multe segmente => zbor cu escala-->
+                        <div *ngIf="reservation.flightOffer.itineraries[0].segments.length > 1 ">
+                            <div *ngFor="let segment of reservation.flightOffer.itineraries[0].segments; let segmentIndex = index">
+                                <div *ngIf="segmentIndex === 0">
+                                    <h4>{{(reservation.flightOffer.itineraries[0].segments[0].originLocation.cityNameRo || reservation.flightOffer.itineraries[0].segments[0].originLocation.cityNameEn) + ' - ' + (reservation.flightOffer.itineraries[0].segments[reservation.flightOffer.itineraries[0].segments.length - 1].destinationLocation.cityNameRo || reservation.flightOffer.itineraries[reservation.flightOffer.itineraries[0].segments.length - 1].segments[0].destinationLocation.cityNameEn)}}</h4>
+                                    <p>Data:</p>
+                                    <h4>{{reservation.flightOffer.itineraries[0].segments[0].departure.dateTime | date:'dd MMMM yyyy, HH:mm'}}</h4>
+                                    <p>Tip zbor:</p>
+                                    <h4>Zbor cu escala</h4>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!--                        Daca itinerariul are un singur segment => zbor direct-->
+                        <div *ngIf="reservation.flightOffer.itineraries[0].segments.length === 1">
+                            <div>
+                                <h4>{{(reservation.flightOffer.itineraries[0].segments[0].originLocation.cityNameRo || reservation.flightOffer.itineraries[0].segments[0].originLocation.cityNameEn) + ' - ' + (reservation.flightOffer.itineraries[0].segments[reservation.flightOffer.itineraries[0].segments.length - 1].destinationLocation.cityNameRo || reservation.flightOffer.itineraries[reservation.flightOffer.itineraries[0].segments.length - 1].segments[0].destinationLocation.cityNameEn)}}</h4>
+                                <p>Data:</p>
+                                <h4>{{reservation.flightOffer.itineraries[0].segments[0].departure.dateTime | date:'dd MMMM yyyy, HH:mm'}}</h4>
+                                <p>Tip zbor:</p>
+                                <h4>Zbor direct</h4>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <p>Pret:</p>
+                    <h4>{{reservation.flightOffer.totalPrice + ' ' + reservation.flightOffer.currency}}</h4>
+
+                </div>
+                <!-- client date -->
+                <div class="col-md-4">
+                    <h3>Detalii client:</h3>
+
+                    <p>{{ "RESERVATION.NAME" | translate }}</p>
+                    <h4>{{ reservation?.reservationTimePicker.customerName }}</h4>
+
+                    <p>{{ "RESERVATION.PHONE" | translate }}</p>
+                    <h4>{{ reservation?.reservationTimePicker?.['contactNumber'] }}</h4>
+
+                    <p>{{ "RESERVATION.EMAIL" | translate }}</p>
+                    <h6>{{ reservation?.reservationTimePicker.customerEmail }}</h6>
+                </div>
+                <div class="col-md-4">
+                    <h3>{{ "RESERVATION.OTHER-DETAILS" | translate }}:</h3>
+
+                    <!-- <p>Commissionable amount:</p>
+                              <h4>0 RON</h4>
+
+                              <p>Commission:</p>
+                              <h4>0 RON</h4> -->
+
+                    <p>{{ "RESERVATION.CHANNEL" | translate }}:</p>
+                    <h4>bestinform.eu</h4>
+
+                    <p>{{ "RESERVATION.BOOKING-NUMBER" | translate }}:</p>
+                    <h6>{{ reservation?.reservationNumber || reservation?.amadeusReservationNumber}}</h6>
+
+                    <p>{{ "RESERVATION.DATE-RECIVED" | translate }}</p>
+                    <h4>{{ reservation?.date | date : "dd/MMM/y" }}</h4>
+
+                    <p>{{ "RESERVATION.PAYMENT-STATUS" | translate }}</p>
+                    <h4><span>Handled by</span> bestinform.eu</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- serviceBookingTimeSlots -->
+    <div
+            *ngIf="
+      userRole.includes('ROLE_PROVIDER') &&
+      reservation?.bookingType === 'serviceBookingTimeSlots'
+    "
+    >
+        <div class="header-title-section">
+            <h3>Trimite un mesaj</h3>
+        </div>
+
+        <div
+                class="content-section d-flex justify-content-between align-items-baseline"
+        >
+            <mat-form-field appearance="legacy" class="w-75">
+                <input
+                        matInput
+                        type="text"
+                        [formControl]="messageToSend"
+                        placeholder="Scrie un mesaj"
+                />
+            </mat-form-field>
+            <div class="w-25 d-flex justify-content-end align-items-center">
+                <button class="btn-long btn-color-outline" (click)="sendEmail()">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--Booking details section-->
+    <ng-container *ngIf="!reservation?.bookingType === 'menu'">
+    <div class="header-title-section">
+        <h3>{{ "RESERVATION.BOOKING-DETAILS" | translate }}</h3>
+    </div>
+
+    <div class="content-section" *ngIf="!isFlight">
+        <div class="booking-details-img mb-2">
+            <img
+                    src="{{
+          resource?.featuredImage
+            ? resource?.featuredImage?.filePath
+            : defaultImagePath
+        }}"
+            />
+        </div>
+        <h3 class="mb-2">{{ resource?.title }}</h3>
+        <!-- rental booking -->
+        <div
+                class="d-flex justify-content-between align-items-center mb-2 flex-wrap"
+                *ngIf="reservation?.rentalBooking"
+        >
+            <p class="d-flex align-items-baseline flex-wrap">
+                <span><i class="fas fa-sign-in-alt"></i>Check-in:</span>
+                {{ reservation?.checkIn | date : "dd/MM/YYYY HH:mm" }}
+            </p>
+            <p
+                    class="d-flex align-items-baseline flex-wrap"
+                    *ngIf="reservation?.checkOut"
+            >
+                <span><i class="fas fa-sign-out-alt"></i>Check-out:</span>
+                {{ reservation?.checkOut | date : "dd/MM/YYYY HH:mm" }}
+            </p>
+        </div>
+
+        <div
+                class="d-flex justify-content-between align-items-center mb-2 flex-wrap"
+                *ngIf="reservation?.reservationTimePicker"
+        >
+            <p class="d-flex align-items-baseline flex-wrap">
+                <span><i class="fas fa-sign-in-alt"></i>Dată început:</span>
+                {{ formatReservationTime(reservation?.reservationTimePicker?.time) | date: 'dd/MM/YYYY HH:mm' }}
+            </p>
+            <p
+                    class="d-flex align-items-baseline flex-wrap"
+                    *ngIf="reservation?.checkOut"
+            >
+        <span>
+            <i class="fas fa-sign-out-alt"></i>Dată sfârsit (estimativ):
+        </span>
+                {{ reservation?.checkOut | date : "dd/MM/YYYY HH:mm" }}
+            </p>
+
+        </div>
+
+        <div
+                class="d-flex justify-content-between align-items-center mb-2 flex-wrap"
+                *ngIf="reservation?.reservationTimeSlot"
+        >
+            <p class="d-flex align-items-baseline flex-wrap">
+                <span><i class="fas fa-sign-in-alt"></i>Dată început:</span>
+                {{ reservation?.checkIn | date : "dd/MM/YYYY HH:mm" }}
+            </p>
+            <p
+                    class="d-flex align-items-baseline flex-wrap"
+                    *ngIf="reservation?.checkOut"
+            >
+                <span><i class="fas fa-sign-out-alt"></i>Dată sfârsit:</span>
+                {{ reservation?.checkOut | date : "dd/MM/YYYY HH:mm" }}
+            </p>
+        </div>
+
+        <!--ticket booking -->
+        <div
+                class="d-flex justify-content-between align-items-center mb-2"
+                *ngIf="reservation?.ticketBooking"
+        >
+            <p class="d-flex align-items-baseline flex-wrap">
+        <span
+        ><i class="fas fa-sign-in-alt"></i
+        >{{ "RESERVATION.START-DATE" | translate }}:</span
+        >
+                {{ reservation?.ticketBooking?.date | date : "dd/MMM/y" }}
+            </p>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">{{ "RESERVATION.TOTAL-PAYMENT" | translate }}:</h4>
+            <h3 class="total-price-info">
+        <span *ngIf="reservation?.valueLoyaltyPoints > 0"
+        ><del
+        >€
+            {{
+            reservation?.totalPrice + reservation?.valueLoyaltyPoints
+                | number : "1.0-2"
+            }}</del
+        ></span
+        >
+                € {{ reservation?.totalPrice | number : "1.0-2" }}
+                <i
+                        class="far fa-question-circle"
+                        *ngIf="reservation?.valueLoyaltyPoints > 0"
+                        matTooltip="Reducere datorată punctelor de loialitate"
+                        matTooltipPosition="above"
+                ></i>
+            </h3>
+        </div>
+    </div>
+
+    <div class="content-section" *ngIf="isFlight">
+        <div class="row">
+
+            <!--            <div class="col-12 col-md-6">-->
+            <!--                <h4 class="mb-0">Informatii bagaje</h4>-->
+            <!--                <div *ngFor="let passanger of reservation.travelers">-->
+            <!--                    <h6 class="m-0 py-3">Pasager {{passanger.id}}</h6>-->
+            <!--                    <div class="d-flex flex-column" *ngFor="let baggage of reservation.flightOffer.baggageAllowance">-->
+            <!--                        <div *ngIf="baggage.travelerIds?.length > 0 && baggage.travelerIds.includes((passanger.id))">-->
+            <!--                            <div class="d-flex justify-content-between">-->
+            <!--                                <div>{{baggage.quantity + ' x bagaj '}}</div>-->
+            <!--                                <div class="ticket-green">{{baggage.price.amount + ' ' + baggage.price.currencyCode}}</div>-->
+            <!--                            </div>-->
+            <!--                            <div class="d-flex justify-content-between" *ngIf="baggage.weight && baggage.weightUnit">-->
+            <!--                                <div>Greutatea:</div>-->
+            <!--                                <div>{{baggage.weight + ' ' + baggage.weightUnit}}</div>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <div class="col-12">
+                <h4 class="mb-0">Informatii pasageri</h4>
+                <div class="row border-bottom">
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3" *ngFor="let traveler of reservation.travelers">
+                        <div>
+                            <h4 class="m-0 py-4">Pasager {{traveler.id}}</h4>
+                            <div>
+                                <p>Nume:</p>
+                                <h5 class="small-font-size">{{traveler.firstName}}</h5>
+                            </div>
+                            <div>
+                                <p>Prenume:</p>
+                                <h5 class="small-font-size">{{traveler.lastName}}</h5>
+
+                            </div>
+                            <div>
+                                <p>Data nasterii:</p>
+                                <h5 class="small-font-size">{{traveler.dateOfBirth}}</h5>
+
+                            </div>
+                            <div>
+                                <p> Nationalitate:</p>
+                                <h5 class="small-font-size">{{traveler.documents[0].nationality}}</h5>
+
+                            </div>
+                            <div *ngIf="traveler.phones.length">
+                                <p>{{ traveler.phones[0].deviceTypeEnum | titlecase }}: </p>
+                                <h5 class="small-font-size">{{ traveler.phones[0].phoneNumber }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 col-md-6">
+                <h4 class="mb-0 mt-2">Informatii zbor</h4>
+                <div *ngFor="let flight of reservation.flightOffer.itineraries; let indexItin = index"
+                     class="for d-flex py-4 px-3"
+                     [ngClass]="(indexItin < reservation.flightOffer.itineraries.length-1 ) ? ' border-bottom border-2' : ''">
+                    <div class="right w-100">
+                        <div class="py-2" *ngFor="let segment of flight.segments; let i = index"
+                             [ngClass]="(i < flight.segments.length-1 ) ? ' border-bottom' : ''">
+                            <div class="d-flex justify-content-between">
+                                <div class="h5 m-0 pb-1">{{segment.company}}</div>
+                                <div><i class="far fa-clock"></i><b> {{segment.duration | flightDuration}}
+                                    , </b><span
+                                        class="ticket-blue">{{flight.direct ? 'Zbor direct' : 'Escala'}}</span>
+                                </div>
+                            </div>
+                            <div class="m-0">
+                                <small>Flight Number: </small> <b>{{segment.number}}</b>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="h5 m-0 pb-1">{{segment.originLocation.cityNameEn}}</div>
+                                <div class="h5 m-0 pb-1">{{segment.destinationLocation.cityNameEn}}</div>
+                            </div>
+                            <div class="d-flex justify-content-between pb-1">
+                                <div class="small-airport-name">{{segment.originLocation.airports[0].airportNameRo || segment.originLocation.airports[0].airportNameEn}}
+                                    ({{segment.originLocation.airports[0].airportCode}})
+                                </div>
+                                <div class="small-airport-name text-right">{{segment.destinationLocation.airports[0].airportNameRo || segment.destinationLocation.airports[0].airportNameEn}}
+                                    ({{segment.destinationLocation.airports[0].airportCode}})
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between pb-1">
+                                <div class="ticket-blue h6 m-0">{{segment.departure.dateTime | date: 'HH:mm'}}</div>
+                                <div class="ticket-blue h6 m-0">{{segment.arrival.dateTime | date: 'HH:mm'}}</div>
+                            </div>
+                            <div class="h6 m-0">
+                                <!-- <i *ngIf="data.arrival" class="fas fa-plane-arrival"></i>
+                                <i *ngIf="data.departure" class="fas fa-plane-departure"></i> -->
+                                <i class="fas fa-plane-departure"></i>
+                                <b> Plecare - </b><span
+                                    class="ticket-blue">{{segment.departure.dateTime | date:'dd MMMM yyyy'}}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </ng-container>
+
+    <!--Payment details section-->
+    <div class="header-title-section">
+        <h3>{{ "RESERVATION.PAYMENT-DETAILS" | translate }}</h3>
+    </div>
+
+    <div class="content-section">
+        <div *ngIf="reservation?.paymentStatus !== 'paid'">
+            <h4 class="d-flex align-items-baseline">
+                <i class="fas fa-info-circle"></i
+                >{{ "RESERVATION.INFO-MSG" | translate }}
+            </h4>
+            <p>{{ "RESERVATION.CANCELLATION-MSG" | translate }}</p>
+        </div>
+        <h4
+                class="d-flex align-items-baseline"
+                *ngIf="reservation?.paymentStatus === 'paid'"
+        >
+            <i class="fas fa-info-circle"></i>Rezervare plătită online
+        </h4>
+
+        <div
+                class="d-flex justify-content-between align-items-center"
+                *ngIf="reservation?.paidAmount || reservation?.valueLoyaltyPoints"
+        >
+            <h4 class="mb-0">Suma plătită:</h4>
+            <h3 class="total-price-info">
+                € {{ reservation?.paidAmount | number : "1.0-2" }}
+            </h3>
+        </div>
+
+        <div
+                class="d-flex justify-content-between align-items-center mb-2"
+                *ngIf="reservation?.paidAmount || reservation?.valueLoyaltyPoints"
+        >
+            <h4 class="mb-0">Rest de plată:</h4>
+            <h3 class="total-price-info">
+                €
+                {{
+                reservation?.totalPrice - reservation?.paidAmount | number : "1.0-2"
+                }}
+            </h3>
+        </div>
+
+        <div class="flight-tickets d-flex flex-column gap-2" *ngIf="isFlight && reservation?.paymentStatus === 'paid'">
+            <div *ngFor="let ticket of flightTickets" class="ticket border rounded p-3">
+                <div class="d-flex flex-column gap-2">
+                    <div class="d-flex justify-content-between flex-wrap gap-2">
+                        <h5 class="mb-0">Tichetul nr. {{ticket.documentNumber}}</h5>
+                        <h5 class="mb-0">Tipul tichetului: <span class="text-#4257EE">{{' ' +ticket?.ticketType}}</span></h5>
+                    </div>
+                    <div *ngFor="let traveler of reservation.travelers">
+                        <h5 class="mb-0" *ngIf="traveler.id === ticket.travelerId">Pasager: <span class="text-#4257EE" >{{traveler.firstName + ' ' + traveler.lastName}}</span> </h5>
+                    </div>
+                    
+                    <div class="d-flex justify-content-start ">
+                        <h5 class="me-2">Ruta:</h5>
+                        <div *ngFor="let ticketSegmentId of ticket.segmentIds; let iTicket=index;">
+                            <div *ngFor="let itinerary of reservation.flightOffer.itineraries; let iItinerary=index;">
+                                <div *ngFor="let flightData of itinerary.segments; let iFlight=index;">
+                                    <h5 class="mb-0" *ngIf="(ticketSegmentId-1) === iFlight">
+                                        <span class="text-#4257EE" >{{ flightData.originLocation.cityNameEn + ' - '+ flightData.destinationLocation.cityNameEn}}</span> 
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Conversation  section-->
+    <div
+            *ngIf="
+      (userRole.includes('ROLE_PROVIDER') || userRole.includes('ROLE_CLIENT')) && !isFlight && !reservation?.bookingType === 'menu'
+    "
+    >
+        <div id="resConversationId" class="header-title-section">
+            <h3 class="d-flex flex-wrap">
+                <i class="far fa-comments"></i
+                >{{ "RESERVATION.CONVERSATION-WITH" | translate }}
+                <span
+                >{{
+                    userRole.includes("ROLE_PROVIDER")
+                        ? client?.firstName + " " + client?.lastName
+                        : userRole.includes("ROLE_CLIENT")
+                            ? provider?.firstName + " " + provider?.lastName
+                            : client?.firstName + " " + client?.lastName
+                    }}
+                    ({{
+                    userRole.includes("ROLE_PROVIDER")
+                        ? ("RESERVATION.GUEST" | translate)
+                        : userRole.includes("ROLE_CLIENT")
+                            ? "PROVIDER"
+                            : ("RESERVATION.GUEST" | translate)
+                    }})</span
+                >
+            </h3>
+        </div>
+
+        <div class="content-section" *ngIf="reservation">
+            <app-conversation
+                    [conversationID]="reservation?.conversationId"
+            ></app-conversation>
+        </div>
+    </div>
+</div>

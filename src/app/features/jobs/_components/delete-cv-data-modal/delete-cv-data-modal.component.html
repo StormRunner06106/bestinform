@@ -1,0 +1,45 @@
+<div class="dialog-container d-flex justify-content-center align-items-center flex-column">
+
+    <!--Header-->
+    <div class="dialog-header d-flex justify-content-center align-items-center flex-column">
+        <h2 *ngIf="data.type === 'experience'">Esti sigur că vrei să ștergi experiența? </h2>
+        <h2 *ngIf="data.type === 'education'">Esti sigur că vrei să ștergi educația? </h2>
+        <h2 *ngIf="data.type === 'certification'">Esti sigur că vrei să ștergi certificatul? </h2>
+<!--        <p>Acțiunea de stergere este permanentă și complet irevocabilă.</p>-->
+        <div class="row">
+
+            <!--Name-->
+            <div class="col-12">
+                <h4 class="section-title">Pozitia: <span>{{data.givenData?.positionHeld}}</span></h4>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!--Body-->
+<!--    <mat-dialog-content class="dialog-content">-->
+
+
+
+
+<!--    </mat-dialog-content>-->
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline w-100" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill w-100" (click)="deleteData()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>
+

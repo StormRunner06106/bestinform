@@ -1,0 +1,27 @@
+<div class="card ticket-card" class="{{list ? 'card-list' : 'full-card'}}">
+    <div class="card-header">
+        <h4>{{ticketData?.name}}</h4>
+    </div>
+    <div class="card-body d-flex justify-content-between">
+        <div class="info">
+            <p class="mb-0"><span>Denumire: </span> {{ticketData?.name}}</p>
+            <p class="mb-0"><span>Descriere: </span> {{ticketData?.description}}</p>
+            <p *ngIf="ticketData?.limit" class="mb-0"><span>Nr. tickete disponibile: </span> {{ticketData?.ticketsLimit}}</p>
+            <p *ngIf="ticketData?.hasSeat" class="mb-0"><span>Numar de bilete: </span> {{ticketData?.ticketsForBooking.length}}</p>
+        </div>
+        <div class="d-flex justify-content-between flex-row gap-2">
+            <div class="price px-2 d-flex flex-column align-items-center justify-content-center mb-2">
+                <p class="details mb-0">Pret obisnuit</p>
+                <p class="sum mb-0">{{ticketData?.regularPrice}}</p>
+                <p class="details mb-0">EUR/Persoana</p>
+            </div>
+
+            <div class="price px-2 d-flex flex-column align-items-center justify-content-center">
+                <p class="details mb-0">Pret pentru weekend</p>
+                <p class="sum mb-0">{{ticketData?.weekendPrice}}</p>
+                <p class="details mb-0">EUR/Persoana</p>
+            </div>
+        </div>
+
+    </div>
+</div>

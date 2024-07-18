@@ -1,0 +1,160 @@
+/* giveaway-form.component.scss */
+
+.mat-checkbox-layout {
+  white-space: normal!important;
+}
+.giveaway-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white; // Adjust the background color as needed
+  
+    h2 {
+      color: #010514;
+      font-family: "Montserrat", Helvetica, sans-serif;
+      font-size: 40px;
+      text-align: center;
+    }
+
+    .width {
+      width: 100%;
+    }
+
+    .label {
+      font-family: "Montserrat", Helvetica, sans-serif;
+      font-size: 14px;
+      color: rgba(1, 5, 20, 0.8)
+
+    }
+    
+
+    .mat-checkbox-label {
+      white-space: normal;
+    }
+    .mat-checkbox-layout {
+      white-space: normal!important;
+    }
+
+    .mat-form-field-flex {
+      border-bottom: 1px solid #010514;
+    }
+
+.white-space {
+  white-space: normal;
+
+}
+    .example-margin {
+      font-family: "Roboto", Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #010514;
+      white-space: normal;
+
+    }
+
+    .mat-checkbox-inner-container {
+      height: 18px;
+    }
+
+
+    .text-hero {
+      font-family: "Roboto", Helvetica, sans-serif;
+      font-size: 24px;
+      line-height: 150%;
+      font-weight:200;
+      color: rgba(1, 5, 20, 0.8);
+      text-align: center;
+      padding-bottom: 100px;
+    }
+
+    .container-header {
+      display: flex; flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-field,
+    .checkbox-field {
+      margin-bottom: 1rem;
+      display: flex; flex-wrap: wrap;
+      flex-direction: column;
+      gap: 10px;
+      align-items:flex-start;
+      justify-content: flex-start;
+            label {
+        display: block;
+        margin-bottom: .5rem;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: .5rem;
+        //border: 1px solid grey; // Adjust the border as needed
+      }
+
+
+
+
+
+  
+      input[type="checkbox"] {
+        margin-right: .5rem;
+      }
+      .checkbox-label {
+        display: flex; flex-wrap: wrap; // Use flexbox for checkbox label alignment
+        align-items: center; // Center items vertically
+        input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+    }
+    }
+
+    .button-container {
+      display: flex; flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding-top: 30px;
+    }
+  
+    .submit-button {
+      width: 150px;
+      border-radius: 4px;
+      padding: 0.75rem;
+      background-color: hsla(233, 83%, 60%, 1); // Adjust the background color as needed
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem; // Add margin to separate it from other fields
+    }
+
+
+  }
+
+  @media (max-width: 1032px) {
+
+    .text-hero {
+      padding-bottom: 40px!important;
+    }
+  }
+
+.password-tooltip {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1;
+}
+
+input[type="password"]:hover + .password-tooltip {
+  display: block;
+}
+
+.custom-error-message {
+  color: #f44336; /* Adjust the color to match your design */
+  font-size: 0.75rem;
+  margin-top: 5px;
+}

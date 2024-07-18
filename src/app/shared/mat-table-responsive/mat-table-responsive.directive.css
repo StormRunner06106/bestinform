@@ -1,0 +1,82 @@
+@media (max-width: 768px) {
+    .mat-table[appMatTableResponsive] .mat-header-row {
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+      height: auto;
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: none;
+    }
+    .mat-table[appMatTableResponsive] .mat-header-row th.mat-header-cell {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      padding: 1rem 0.5rem;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+    }
+    .mat-table[appMatTableResponsive] .mat-header-row th.mat-header-cell > .mat-sort-header-container {
+      padding-left: 15px;
+    }
+    .mat-table[appMatTableResponsive] .mat-header-row th.mat-header-cell:not([mat-sort-header]), .mat-table[appMatTableResponsive] .mat-header-row th.mat-header-cell.mat-sort-header-disabled, .mat-table[appMatTableResponsive] .mat-header-row th.mat-header-cell.mat-column-actions {
+      display: none;
+    }
+    .mat-table[appMatTableResponsive] .mat-row {
+      display: block;
+      height: auto;
+      margin-top: 50px;
+    }
+    .mat-table[appMatTableResponsive] .mat-row td.mat-cell:not(.mat-column-actions) {
+      display: -ms-grid;
+      display: grid;
+      -ms-grid-columns: 50% 50%;
+          grid-template-columns: 50% 50%;
+      padding: 0.5rem;
+      text-align: right;
+      word-break: break-word;
+    }
+    .mat-table[appMatTableResponsive] .mat-row td.mat-cell:not(.mat-column-actions) > * {
+      -ms-grid-column: 2;
+      grid-column: 2;
+    }
+    .mat-table[appMatTableResponsive] .mat-row td.mat-cell:not(.mat-column-actions):before {
+      content: attr(data-column-name);
+      text-align: left;
+    }
+    .mat-table[appMatTableResponsive] .mat-row td.mat-column-actions {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      padding: 0 0.5rem;
+    }
+    .mat-table[appMatTableResponsive] .mat-row td.mat-column-actions > button {
+      margin: 0.5rem 0;
+    }
+    .mat-table[appMatTableResponsive] .mat-row td.mat-column-status {
+      display: -webkit-box !important;
+      display: -ms-flexbox !important;
+      display: flex !important;
+      -webkit-box-pack: justify !important;
+          -ms-flex-pack: justify !important;
+              justify-content: space-between !important;
+    }
+    .mat-table[appMatTableResponsive] .mat-row:last-of-type td:last-of-type {
+      border: none;
+    }
+    .mat-card .mat-table[matTableResponsive],
+    .mat-expansion-panel .mat-table[matTableResponsive] {
+      border: 0.5rem solid #fafafa;
+    }
+  }
+   /* sourceMappingURL=mat-table-responsive.directive.css.map */

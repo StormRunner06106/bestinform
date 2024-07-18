@@ -1,0 +1,18 @@
+<div class="container-data d-flex flex-column justify-content-center align-items-center">
+    <div class="icon d-flex justify-content-center align-items-center mb-4">
+        <i *ngIf="create" class="far fa-smile"></i>
+        <i *ngIf="!create" class="far fa-frown"></i>
+    </div>
+    <div *ngIf="create" class="w-75 d-flex flex-column justify-content-center align-items-center">
+        <h1>{{'SHARED-EXPERIENCES.CREATE-SUCCESS' | translate}}</h1>
+        <p>{{'SHARED-EXPERIENCES.CREATE-SUCCESS-INFO' | translate}}</p>
+        <button *ngIf="sharedExperienceSlug" (click)="closeModal()" class="btn-color-fill btn-long" routerLink="../lobby/{{sharedExperienceSlug}}">{{'SHARED-EXPERIENCES.GO-TO-LOBBY' | translate}}<i class="fas fa-arrow-right"></i></button>
+    </div>
+
+    <div *ngIf="!create" class="w-75 d-flex flex-column justify-content-center align-items-center">
+        <h1>{{'SHARED-EXPERIENCES.DELETE-SUCCESS' | translate}}</h1>
+        <p>{{'SHARED-EXPERIENCES.DELETE-SUCCESS-INFO' | translate}}</p>
+        <button class="btn-color-fill btn-long" routerLink="../../list" (click)="closeModal()">{{'BTN.CONTINUE' | translate}}<i class="fas fa-arrow-right"></i></button>
+    </div>
+
+</div>

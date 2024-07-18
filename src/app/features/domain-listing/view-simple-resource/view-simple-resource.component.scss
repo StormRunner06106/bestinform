@@ -1,0 +1,223 @@
+// @import "src/app/theme/styles/components/_colors.scss";
+
+// .background-container {
+//   width: 100%;
+//   position: relative;
+
+//   &:after {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     height: 100%;
+//     width: 100%;
+//     background: linear-gradient(0deg, rgba($title, 0.24), rgba($title, 0.24));
+//     //backdrop-filter: blur(2px);
+//   }
+
+//   img {
+//     height: auto;
+//     max-height: 560px;
+//     width: 100%;
+//     object-fit: cover;
+//   }
+// }
+
+// .content-container {
+//   background-color: var(--primary-background);
+//   padding-top: 48px;
+//   padding-bottom: 48px;
+//   display: flex;
+//   flex: 1;
+//   flex-direction: column;
+//   row-gap: 64px;
+
+//   .container:first-child {
+//     margin-bottom: -64px;
+//   }
+// }
+
+// .resource-title-bar {
+//   display: flex;
+//   flex-wrap: wrap;
+//   align-items: center;
+//   //justify-content: space-between;
+
+//   a {
+//     text-decoration: none;
+//     &:hover {
+//       color: var(--primary-background);
+//     }
+//   }
+
+//   .resource-title {
+//     margin-bottom: 0;
+//     color: $primary-color;
+//     font-size: clamp( 1.25rem , 2vw + 1rem , 2.5rem);
+//   }
+// }
+
+// .favorite-btn {
+//   /*position: absolute;
+//   top: 12px;
+//   right: 12px;*/
+//   width: 50px;
+//   height: 50px;
+//   border-radius: 100%;
+//   /*display: flex;
+//   align-items: center;
+//   justify-content: center;*/
+
+//   i {
+//     font-size: 14px;
+//     color: var(--primary-background);
+//   }
+
+//   &.active {
+//     background: radial-gradient(100% 787.93% at 0% 100%, rgba(0, 178, 255, 0.32) 0%, rgba(0, 178, 255, 0) 100%), #24398A;
+//     border: 1px solid $primary-color;
+//     transition: background 300ms ease-in-out, border 300ms ease-in-out;
+//   }
+
+//   &.inactive {
+//     background: rgba($title, 0.08);
+//     border: 1px solid var(--primary-background);
+//   }
+
+//   &.inactive:hover {
+//     background: rgba($primary-color, 0.16);
+//     border-color: $primary-color;
+
+//     i {
+//       color: $secondary-color;
+//     }
+//   }
+// }
+
+// .resource-subtitle {
+//   display: flex;
+//   align-items: center;
+//   justify-content: flex-start;
+//   font-size: 24px;
+//   line-height: 140%;
+
+//   .attributes-list {
+//     span {
+//       color: $paragraph;
+//       font-weight: 400;
+//     }
+//   }
+
+//   .dollars {
+//     span {
+//       font-weight: 700;
+//       letter-spacing: -2px;
+//     }
+
+//     &:before {
+//       content: ',';
+//       color: $paragraph;
+//       margin-left: 2px;
+//       margin-right: 5px;
+//     }
+//   }
+
+//   .percentage {
+//     display: flex;
+//     justify-content: flex-end;
+//     align-items: center;
+//     color: $primary-color;
+//     font-weight: 500;
+//     line-height: 140%;
+
+//     i {
+//       font-weight: 400;
+//       margin-left: 8px;
+//       line-height: 140%;
+//     }
+
+//     //&:before {
+//     //  content: ',';
+//     //  color: $paragraph;
+//     //  margin-left: 2px;
+//     //  margin-right: 5px;
+//     //  font-weight: 400;
+//     //}
+//   }
+
+// }
+
+// .bold-dollar {
+//   color: $primary-color;
+// }
+
+// .normal-dollar {
+//   color: $inactive-color;
+// }
+
+// .itinerary-modal {
+//   padding: 50px 48px 0 48px;
+
+//   .btn-close-modal {
+//     position: absolute;
+//     top: 8px;
+//     right: 8px;
+//     height: 40px;
+//     width: 40px;
+//     z-index: 5;
+//   }
+
+//   .background-container {
+//     border-radius: 8px;
+//     overflow: hidden;
+//   }
+// }
+
+:host ::ng-deep {
+  .pi {
+    color: hsla(233, 83%, 60%, 1);
+  }
+}
+
+
+.description-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 45px;
+}
+
+.hours-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.text {
+  font-weight: 800;
+  color: hsla(233, 83%, 60%, 1);
+}
+
+.schedule {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 32px;
+  width: 30%;
+  box-shadow: 0px 8px 16px 0px #0000000A;
+  border: 1px solid #D5D6E2
+}
+
+.description {
+  width: 100%;
+}
+
+app-search-section::ng-deep {
+  app-main-search {
+    display: none;
+  }
+}

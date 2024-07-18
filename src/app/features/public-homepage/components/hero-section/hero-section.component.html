@@ -1,0 +1,26 @@
+<div class="header-image-wrapper" [class.fullscreen]="fullscreen">
+    <div class="header-container">
+        <div class="bg"></div>
+        <div class="mask"></div>
+
+        <div class="header-image-content d-flex align-items-end">
+            <div class="container">
+                <div class="headerTitleDescContent" >
+                    <div class="row mt-4">
+                        <h1 *ngIf="title" class="title">{{title}}</h1>
+                    </div>
+                    <div class="row mt-4 width-public-hp">
+                        <p *ngIf="desc" class="desc">{{desc}}</p>
+                    </div>
+                    <div class="row mt-4 header-button">
+                        <div class="col-2">
+                            <button class="btn-long btn-white-fill" *ngIf="!userConnected" (click)="openAuthModal()">{{buttonText}} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            <button class="btn-long btn-white-fill" *ngIf="userConnected" [routerLink]="redirectUrl">{{buttonText}} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

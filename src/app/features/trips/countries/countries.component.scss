@@ -1,0 +1,62 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.row-gap-24 {
+  row-gap: 24px;
+}
+
+.country-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+  overflow: hidden;
+  isolation: isolate;
+
+  &:before {
+    content: '';
+    background: linear-gradient(266.69deg, rgba(36, 57, 138, 0) 0%, $primary-color 100%);
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  p {
+    margin: 0;
+    position: absolute;
+    bottom: 16px;
+    left: 24px;
+    color: var(--primary-background);
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 140%;
+    z-index: 1;
+  }
+
+  .open-modal {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    z-index: 1;
+
+    &:hover {
+      background: rgba($primary-color, 0.5);
+    }
+  }
+}
+
+.custom-card {
+  background: var(--primary-background);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 24px;
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+}

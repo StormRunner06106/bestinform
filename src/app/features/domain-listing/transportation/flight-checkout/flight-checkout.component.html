@@ -1,0 +1,738 @@
+<div class="airplane-tickets-header">
+</div>
+<div class="content-container" *ngIf="finalFlightOffer$ | async as finalFlightOffer">
+
+    <div class="checking-container">
+        <div class="checkout-wrapper col-9">
+            <p-card class="w-100 d-flex flex-column">
+                <div class="s24 fw-bolder mt-3">Sumar de calatorie</div>
+                <div class="s20 fw-bold mt-3">
+                    <span>{{flightData.away.departure.city}}</span>
+                    <img src="assets/icons/arrow-right.svg">
+                    <span>{{flightData.away.arrival.city}}</span>
+                    <span *ngIf="!flightData.returnFlight" class="s16 bst-grey-85 fw-normal ms-3">(dus)</span>
+                    <span *ngIf="flightData.returnFlight" class="s16 bst-grey-85 fw-normal ms-3">(dus-intors)</span>
+                </div>
+                <div class="s16 fw-normal d-flex flex-row mt-3 bst-black">
+                    <img src="assets/images/others/calendar_black.svg">
+                    <span class="ms-3">Data plecare: {{flightData.away.departureTime | date : 'EEEE, d MMMM' : '' : 'ro-RO'}}
+                    ora locala {{flightData.away.departureTime | date : 'HH:mm' : '' : 'ro-RO'}}</span>
+                </div>
+                <div class="s16 fw-normal d-flex flex-row align-items-center mt-3 bst-black" *ngIf="flightData.returnFlight">
+                    <img src="assets/images/others/calendar_black.svg">
+                    <span class="ms-3">Data intoarcere: {{flightData.returnFlight.departureTime | date : 'EEEE, d MMMM' : '' : 'ro-RO'}}
+                        ora locala {{flightData.returnFlight.departureTime | date : 'HH:mm' : '' : 'ro-RO'}}</span>
+                </div>
+                <div class="s16 fw-normal d-flex flex-row align-items-center mt-3 bst-black">
+                    <img src="assets/icons/ticket_black.svg">
+                    <span class="ms-3">{{travelersDescription}}</span>
+                </div>
+            </p-card>
+            <p-card class="w-100">
+                <div class="checkout-card-info">
+                    <div class="checkout-card-top d-flex flex-column">
+                        <div class="s24 fw-bold">Plecare</div>
+                        <div class="d-flex flex-row align-items-center justify-content-between">
+                            <div class="s20 fw-bold">
+                                <span>{{flightData.away.departure.city}}</span>
+                                <img src="assets/icons/arrow-right.svg">
+                                <span *ngIf="!flightData.away.layover">{{flightData.away.arrival.city}}</span>
+                                <span *ngIf="flightData.away.layover">{{flightData.away.layoverDetails.airport.city}}</span>
+                            </div>
+                            <div class="itinerary-plane">
+                                <div class="plane-info">
+                                    <div class="plane-info-company">
+                                        <div class="plane-info-company-logo">
+                                            <img class="company-logo"
+                                                 [src]="airCompaniesLibrary[flightData.away.carrierCode]">
+                                        </div>
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div>
+                                        {{flightData.away.carrierCode + flightData.away.number}}
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div class="plane-info-model">
+                                        <img src="assets/icons/plane.svg">
+                                        {{aircraftsLibrary[flightData.away.aircraft] || flightData.away.aircraft}}
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div>
+                                        <div class="itinerary-duration d-flex flex-row align-items-center gap-4px">
+                                            <div>Durata zbor</div>
+                                            <img src="assets/icons/clock-2.svg"/>
+                                            <div>{{flightData.away.duration}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-between mt-5">
+                            <div class="checkout-departure">
+                                <div class="checkout-city">
+                                    {{flightData.away.departure.city + " • "}} {{flightData.away.departureTime | date : 'EEE d MMMM':'':'ro-RO'}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    {{flightData.away.departure.airport_name + "  (" + flightData.away.departure.airport_code + ")"}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    Decolare ora locala {{flightData.away.departureTime | date : 'HH:mm' : '' : 'ro-RO'}}
+                                </div>
+                            </div>
+                            <div class="checkout-departure d-flex flex-column align-items-end" *ngIf="flightData.away.layover">
+                                <div class="checkout-city">
+                                    {{flightData.away.layoverDetails.airport.city + " • "}} {{flightData.away.layoverDetails.arrivalTime | date : 'EEE d MMMM':'':'ro-RO'}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    {{flightData.away.layoverDetails.airport.airport_name + "  (" + flightData.away.layoverDetails.airport.airport_code + ")"}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    Aterizare ora locala {{flightData.away.layoverDetails.arrivalTime | date : 'HH:mm' : '' : 'ro-RO'}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layover-wrapper mt-3" *ngIf="flightData.away.layover">
+                            <div class="layover-image"><img src="assets/icons/escalation.svg"></div>
+                            <div>
+                                <div class="layover-title">Escala</div>
+                                <div class="layover-text">Escala
+                                    in {{flightData.away.layoverDetails.airport.airport_name}}
+                                    ({{calculateInterval(flightData.away.layoverDetails.arrivalTime, flightData.away.layoverDetails.departureTime)}})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-between mt-5" *ngIf="flightData.away.layover">
+                            <div class="s20 fw-bold">
+                                <span>{{flightData.away.layoverDetails.airport.city}}</span>
+                                <img src="assets/icons/arrow-right.svg">
+                                <span>{{flightData.away.arrival.city}}</span>
+                            </div>
+                            <div class="itinerary-plane">
+                                <div class="plane-info">
+                                    <div class="plane-info-company">
+                                        <div class="plane-info-company-logo">
+                                            <img class="company-logo"
+                                                 [src]="airCompaniesLibrary[flightData.away.layoverDetails.carrierCode]">
+                                        </div>
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div>
+                                        {{flightData.away.layoverDetails.carrierCode + flightData.away.layoverDetails.number}}
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div class="plane-info-model">
+                                        <img src="assets/icons/plane.svg">
+                                        {{aircraftsLibrary[flightData.away.layoverDetails.aircraft] || flightData.away.layoverDetails.aircraft}}
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div>
+                                        <div class="itinerary-duration d-flex flex-row align-items-center gap-4px">
+                                            <div>Durata zbor</div>
+                                            <img src="assets/icons/clock-2.svg"/>
+                                            <div>{{flightData.away.layoverDetails.duration}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex flex-row justify-content-between mt-5">
+                            <div class="checkout-departure" *ngIf="flightData.away.layover">
+                                <div class="checkout-city">
+                                    {{flightData.away.layoverDetails.airport.city + " • "}} {{flightData.away.layoverDetails.departureTime | date : 'EEE d MMMM':'':'ro-RO'}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    {{flightData.away.layoverDetails.airport.airport_name + "  (" + flightData.away.layoverDetails.airport.airport_code + ")"}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    Decolare ora locala {{flightData.away.layoverDetails.departureTime | date : 'HH:mm' : '' : 'ro-RO'}}
+                                </div>
+                            </div>
+                            <div class="checkout-departure d-flex flex-column align-items-end" *ngIf="flightData.away.layover">
+                                <div class="checkout-city">
+                                    {{flightData.away.arrival.city + " • "}} {{flightData.away.arrivalTime | date : 'EEE d MMMM':'':'ro-RO'}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    {{flightData.away.arrival.airport_name + "  (" + flightData.away.arrival.airport_code + ")"}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    Aterizare ora locala {{flightData.away.arrivalTime | date : 'HH:mm' : '' : 'ro-RO'}}
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+            </p-card>
+            <p-card class="w-100">
+                <div class="checkout-card-info">
+                    <div class="checkout-card-top d-flex flex-column">
+                        <div class="s24 fw-bold">Intoarcere</div>
+                        <div class="d-flex flex-row align-items-center justify-content-between">
+                            <div class="s20 fw-bold">
+                                <span>{{flightData.returnFlight.departure.city}}</span>
+                                <img src="assets/icons/arrow-right.svg">
+                                <span *ngIf="!flightData.returnFlight.layover">{{flightData.returnFlight.arrival.city}}</span>
+                                <span *ngIf="flightData.returnFlight.layover">{{flightData.returnFlight.layoverDetails.airport.city}}</span>
+                            </div>
+                            <div class="itinerary-plane">
+                                <div class="plane-info">
+                                    <div class="plane-info-company">
+                                        <div class="plane-info-company-logo">
+                                            <img class="company-logo"
+                                                 [src]="airCompaniesLibrary[flightData.returnFlight.carrierCode]">
+                                        </div>
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div>
+                                        {{flightData.returnFlight.carrierCode + flightData.returnFlight.number}}
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div class="plane-info-model">
+                                        <img src="assets/icons/plane.svg">
+                                        {{aircraftsLibrary[flightData.returnFlight.aircraft] || flightData.returnFlight.aircraft}}
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div>
+                                        <div class="itinerary-duration d-flex flex-row align-items-center gap-4px">
+                                            <div>Durata zbor</div>
+                                            <img src="assets/icons/clock-2.svg"/>
+                                            <div>{{flightData.returnFlight.duration}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-between mt-5">
+                            <div class="checkout-departure">
+                                <div class="checkout-city">
+                                    {{flightData.returnFlight.departure.city + " • "}} {{flightData.returnFlight.departureTime | date : 'EEE d MMMM':'':'ro-RO'}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    {{flightData.returnFlight.departure.airport_name + "  (" + flightData.returnFlight.departure.airport_code + ")"}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    Decolare ora locala {{flightData.returnFlight.departureTime | date : 'HH:mm' : '' : 'ro-RO'}}
+                                </div>
+                            </div>
+                            <div class="checkout-departure d-flex flex-column align-items-end" *ngIf="flightData.returnFlight.layover">
+                                <div class="checkout-city">
+                                    {{flightData.returnFlight.layoverDetails.airport.city + " • "}} {{flightData.returnFlight.layoverDetails.arrivalTime | date : 'EEE d MMMM':'':'ro-RO'}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    {{flightData.returnFlight.layoverDetails.airport.airport_name + "  (" + flightData.returnFlight.layoverDetails.airport.airport_code + ")"}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    Aterizare ora locala {{flightData.returnFlight.layoverDetails.arrivalTime | date : 'HH:mm' : '' : 'ro-RO'}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layover-wrapper mt-3" *ngIf="flightData.returnFlight.layover">
+                            <div class="layover-image"><img src="assets/icons/escalation.svg"></div>
+                            <div>
+                                <div class="layover-title">Escala</div>
+                                <div class="layover-text">Escala
+                                    in {{flightData.returnFlight.layoverDetails.airport.airport_name}}
+                                    ({{calculateInterval(flightData.returnFlight.layoverDetails.arrivalTime, flightData.returnFlight.layoverDetails.departureTime)}})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-between mt-5" *ngIf="flightData.returnFlight.layover">
+                            <div class="s20 fw-bold">
+                                <span>{{flightData.returnFlight.layoverDetails.airport.city}}</span>
+                                <img src="assets/icons/arrow-right.svg">
+                                <span>{{flightData.returnFlight.arrival.city}}</span>
+                            </div>
+                            <div class="itinerary-plane">
+                                <div class="plane-info">
+                                    <div class="plane-info-company">
+                                        <div class="plane-info-company-logo">
+                                            <img class="company-logo"
+                                                 [src]="airCompaniesLibrary[flightData.returnFlight.layoverDetails.carrierCode]">
+                                        </div>
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div>
+                                        {{flightData.returnFlight.layoverDetails.carrierCode + flightData.returnFlight.layoverDetails.number}}
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div class="plane-info-model">
+                                        <img src="assets/icons/plane.svg">
+                                        {{aircraftsLibrary[flightData.returnFlight.layoverDetails.aircraft] || flightData.returnFlight.layoverDetails.aircraft}}
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div>
+                                        <div class="itinerary-duration d-flex flex-row align-items-center gap-4px">
+                                            <div>Durata zbor</div>
+                                            <img src="assets/icons/clock-2.svg"/>
+                                            <div>{{flightData.returnFlight.layoverDetails.duration}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex flex-row justify-content-between mt-5">
+                            <div class="checkout-departure" *ngIf="flightData.returnFlight.layover">
+                                <div class="checkout-city">
+                                    {{flightData.returnFlight.layoverDetails.airport.city + " • "}} {{flightData.returnFlight.layoverDetails.departureTime | date : 'EEE d MMMM':'':'ro-RO'}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    {{flightData.returnFlight.layoverDetails.airport.airport_name + "  (" + flightData.returnFlight.layoverDetails.airport.airport_code + ")"}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    Decolare ora locala {{flightData.returnFlight.layoverDetails.departureTime | date : 'HH:mm' : '' : 'ro-RO'}}
+                                </div>
+                            </div>
+                            <div class="checkout-departure d-flex flex-column align-items-end" *ngIf="flightData.away.layover">
+                                <div class="checkout-city">
+                                    {{flightData.returnFlight.arrival.city + " • "}} {{flightData.returnFlight.arrivalTime | date : 'EEE d MMMM':'':'ro-RO'}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    {{flightData.returnFlight.arrival.airport_name + "  (" + flightData.returnFlight.arrival.airport_code + ")"}}
+                                </div>
+
+                                <div class="checkout-airport">
+                                    Aterizare ora locala {{flightData.returnFlight.arrivalTime | date : 'HH:mm' : '' : 'ro-RO'}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p-card>
+
+
+            <p-card class="w-100">
+                <div class="d-flex flex-column ms-3 me-3">
+                    <div class="info-title">
+                        <div class="info-title-text">Informatii pasageri</div>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <div class="col-4" *ngFor="let traveler of finalFlightOffer.travelers; index as i">
+                            <div class="d-flex flex-column passager"
+                                 [ngStyle]="{'border-right': i < finalFlightOffer.travelers.length - 1 ? '1px solid black' : 'none'}"
+                                 [ngClass]="{'ps-5' : i > 0}">
+                                <div>Pasager  {{i + 1}}</div>
+                                <div>Nume:  {{traveler.lastName}}</div>
+                                <div>Prenume:  {{traveler.firstName}}</div>
+                                <div>Data Nasterii:  {{traveler.dateOfBirth}}</div>
+                                <div>Nationalitate:  {{traveler.countryCode}}</div>
+                                <div>Tip Document:  {{traveler.documents[0].documentTypeEnum}}</div>
+                                <div>Nr. Document:  {{traveler.documents[0].documentNumber}}</div>
+                                <div>Data expirare document:  {{traveler.documents[0].documentExpiryDate}}</div>
+                                <div>Tara emitere document:  {{traveler.documents[0].documentIssuanceCountry}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </p-card>
+
+            <form [formGroup]="contactVerificationForm" class="w-100">
+                <p-card class="w-100">
+
+                    <div class="d-flex flex-column ms-3 me-3">
+                        <div class="info-title">
+                            Confirmare Date de Contact
+                        </div>
+                        <div class="d-flex flex-row" style="gap: 32px">
+                            <mat-form-field appearance="outline" class="col-6">
+                                <mat-label>Nume Utilizator</mat-label>
+                                <input formControlName="contactEmail" matInput>
+                                <mat-error *ngIf="contactVerificationForm.controls.contactEmail.errors?.required">
+                                    {{ 'ERROR.REQUIRED' | translate }}
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="col-6">
+                                <mat-label>Numar Telefon</mat-label>
+                                <input formControlName="contactPhone" matInput>
+                                <mat-error *ngIf="contactVerificationForm.controls.contactPhone.errors?.required">
+                                    {{ 'ERROR.REQUIRED' | translate }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </p-card>
+            </form>
+            <div class="w-100 d-flex justify-content-between">
+                <p-button label="Inapoi" icon="pi pi-angle-left" class="btn-secondary bst-gold" (click)="goBack()"></p-button>
+                <p-button label="Plateste rezervarea Rezervare" icon="pi pi-angle-right" iconPos="right"
+                          class="btn-primary" (click)="createFlightOrder()"></p-button>
+            </div>
+        </div>
+
+<!--        <div class="d-flex flex-column col-3">-->
+<!--            <p-card class="show-price">-->
+<!--                <h6 class="fw-bold ms-4 me-4 mt-4">Detalii Plata</h6>-->
+<!--                <div *ngFor="let travelerPricing of finalFlightOffer.confirmedFlightOffer.travelerPricings; let i = index"-->
+<!--                     class="mt-3">-->
+<!--                    <div class="d-flex align-items-center justify-content-between ms-4 me-4">-->
+<!--                        <div class="fw-bold">Pasager {{i + 1}}</div>-->
+<!--                        <div class="fw-bold">{{travelerPricing.price.total + ' ' + travelerPricing.currency}}</div>-->
+<!--                    </div>-->
+<!--                    <div class="bags ms-4 me-4">-->
+<!--                        <div class="included-bags">-->
+<!--                            <div class="width">-->
+<!--                                <div class="d-flex flex-row align-items-center mt-3">-->
+<!--                                    <img class="bag-icon" src="assets/icons/luggage.svg">-->
+<!--                                    <span class="bags-text ms-3"-->
+<!--                                          *ngIf="travelerPricing.fareDetailsBySegment[0].includedCheckedBags.quantity > 0">-->
+<!--                                            {{ travelerPricing.fareDetailsBySegment[0].includedCheckedBags.quantity + 'x bagaje incluse' +-->
+<!--                                    (travelerPricing.fareDetailsBySegment[0].includedCheckedBags.weight ?-->
+<!--                                        ' de ' + travelerPricing.fareDetailsBySegment[0].includedCheckedBags.weight :-->
+<!--                                        "") +-->
+<!--                                    (travelerPricing.fareDetailsBySegment[0].includedCheckedBags.weightUnit ?-->
+<!--                                        travelerPricing.fareDetailsBySegment[0].includedCheckedBags.weightUnit :-->
+<!--                                        "")}}-->
+<!--                                        </span>-->
+<!--                                    <span class="bags-text ms-3"-->
+<!--                                          *ngIf="travelerPricing.fareDetailsBySegment[0].includedCheckedBags.quantity === 0">-->
+<!--                                            0x Bagaje incluse-->
+<!--                                        </span>-->
+<!--                                </div>-->
+
+<!--                            </div>-->
+<!--                            <span class="bags-text"-->
+<!--                                  *ngIf="travelerPricing.fareDetailsBySegment[0].includedCheckedBags.quantity > 0">{{"0 " + travelerPricing.currency}}</span>-->
+<!--                            <div *ngIf="travelers && travelers[i].offer === 1">-->
+<!--                                <div class="d-flex flex-row align-items-center mt-3">-->
+<!--                                    <img class="bag-icon" src="assets/icons/backpack.svg">-->
+<!--                                    <div class="bags-text ms-3">1x Bagaj Personal</div>-->
+<!--                                </div>-->
+<!--                                <div class="d-flex flex-row align-items-center mt-3">-->
+<!--                                    <img class="bag-icon" src="assets/icons/travel_bag.svg">-->
+<!--                                    <div class="bags-text ms-3">1x Bagaj Cabina</div>-->
+<!--                                </div>-->
+<!--                                <div class="d-flex flex-row align-items-center mt-3">-->
+<!--                                    <img class="bag-icon" src="assets/icons/luggage.svg">-->
+<!--                                    <div class="bags-text ms-3">1x Bagaj Check-in</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div *ngIf="travelers && travelers[i].offer === 2">-->
+<!--                                <div class="d-flex flex-row align-items-center mt-3">-->
+<!--                                    <img class="bag-icon" src="assets/icons/backpack.svg">-->
+<!--                                    <div class="bags-text ms-3">2x Bagaj Personal</div>-->
+<!--                                </div>-->
+<!--                                <div class="d-flex flex-row align-items-center mt-3">-->
+<!--                                    <img class="bag-icon" src="assets/icons/travel_bag.svg">-->
+<!--                                    <div class="bags-text ms-3">2x Bagaj Cabina</div>-->
+<!--                                </div>-->
+<!--                                <div class="d-flex flex-row align-items-center mt-3">-->
+<!--                                    <img class="bag-icon" src="assets/icons/luggage.svg">-->
+<!--                                    <div class="bags-text ms-3">2x Bagaj Check-in</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <mat-divider class="mt-3"></mat-divider>-->
+<!--                    <div class="d-flex align-items-center justify-content-between ms-4 me-4 mt-3 mb-3 tax">-->
+<!--                        <div>Taxe suplimentare <img class="bag-icon" src="assets/icons/info-gray.svg" pTooltip="Taxa de serviciu acopera costurile de procesare și asigura o experienta de rezervare sigura și eficienta. " tooltipPosition="top"> </div>-->
+<!--                        <div>{{finalFlightOffer.confirmedFlightOffer.travelersServiceTax + ' ' + finalFlightOffer.confirmedFlightOffer.currency}}</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="passenger-price total">-->
+<!--                    <div class="passenger-text">Pret Total</div>-->
+<!--                    <div class="final">{{(finalFlightOffer.confirmedFlightOffer.totalPrice + finalFlightOffer.confirmedFlightOffer.travelersServiceTax) + ' ' + finalFlightOffer.confirmedFlightOffer.currency}}</div>-->
+<!--                </div>-->
+<!--            </p-card>-->
+
+<!--        </div>-->
+        <div class="flight-details col-3">
+            <div class="details">
+                <h3>Detalii Plata</h3>
+                <div class="bags-container">
+                    <div class="passenger-details"
+                         *ngFor="let travelerPricing of selectedOffer?.travelerPricings; let i = index">
+                        <div class="fw-bold bst-blue s20">Bilet {{i + 1}}</div>
+                        <div class="passenger-price">
+                            <span class="passenger-text">Pasager {{getTravelerType(travelerPricing.travelerType)}}</span>
+                            <span class="passenger-text">{{travelersMap[travelerPricing.travelerId][0].travelerPrice.total + ' ' + travelersMap[travelerPricing.travelerId][0].travelerPrice.currency}}</span>
+                        </div>
+                        <div *ngIf="baggageWithOffer && baggageWithOffer[travelerPricing.travelerId]">
+                            <span class="d-flex align-items-center flex-row" *ngIf="baggageWithOffer[travelerPricing.travelerId] && baggageWithOffer[travelerPricing.travelerId]['personal']">
+                                    <img [src]="baggageWithOffer[travelerPricing.travelerId]['personal'].icon">
+                                    <span class="ms-3 mt-2">{{getBaggageDescription(travelerPricing.travelerId,'personal')}}</span>
+                                </span>
+                            <span class="d-flex align-items-center flex-row" *ngIf="baggageWithOffer[travelerPricing.travelerId] && baggageWithOffer[travelerPricing.travelerId]['carryOn']">
+                                    <img [src]="baggageWithOffer[travelerPricing.travelerId]['carryOn'].icon">
+                                    <span class="ms-3 mt-2">{{getBaggageDescription(travelerPricing.travelerId, 'carryOn')}}</span>
+                                </span>
+                            <span class="d-flex align-items-center flex-row" *ngIf="baggageWithOffer[travelerPricing.travelerId] && baggageWithOffer[travelerPricing.travelerId]['checkIn']">
+                                    <img [src]="baggageWithOffer[travelerPricing.travelerId]['checkIn'].icon">
+                                    <span class="ms-3 mt-2">{{getBaggageDescription(travelerPricing.travelerId, 'checkIn')}}</span>
+                            </span>
+                        </div>
+
+
+                        <!--                            <div class="bags">-->
+                        <!--                                <div class="offers-amenities">-->
+                        <!--                                    <ng-container>-->
+                        <!--                                        <ng-container-->
+                        <!--                                                *ngFor="let amenity of selectedPackage.travelerPricings[0].fareDetailsBySegment[0].amenities">-->
+                        <!--                                            <div class="amenity-row">-->
+                        <!--                                                <img style="width: 16px;" [src]="getAmenityIcon(amenity.amenityType)">-->
+                        <!--                                                <span class="amenity-description">{{amenity.description}}</span>-->
+                        <!--                                            </div>-->
+                        <!--                                        </ng-container>-->
+                        <!--                                    </ng-container>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                    </div>
+                </div>
+                <div *ngIf="assistance" class="d-flex fw-bold s20 w-100">
+                    <span>Asistenta</span><span [class]="selectedOffer.extraOffer.class">&nbsp;{{selectedOffer.extraOffer.type}}</span>
+                    <span class="d-flex w-100 justify-content-end">{{selectedOffer.extraOffer.price * travelers.length}} EUR</span>
+                </div>
+                <span class="passenger-text tax w-100">Taxa de serviciu {{selectedOffer.travelersServiceTax}} EUR <img
+                        class="bag-icon" src="assets/icons/info-gray.svg"
+                        pTooltip="Taxa de serviciu acopera costurile de procesare și asigura o experienta de rezervare sigura și eficienta. "
+                        tooltipPosition="top">
+                        </span>
+
+                <div class="passenger-price total">
+                    <span class="passenger-text">Pret total</span>
+                    <span class="final">{{totalPrice + " " + currency}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--        <ng-container *ngIf="finalFlightOffer$ | async as finalFlightOffer">-->
+    <!--            <div class="row">-->
+    <!--                <div class="col-lg-4 mb-6">-->
+    <!--                    <ng-container *ngIf="finalFlightOffer.confirmedFlightOffer">-->
+    <!--                        <div class="card-radius-top-no">-->
+    <!--                            <div *ngFor="let flight of finalFlightOffer.confirmedFlightOffer.itineraries"-->
+    <!--                                 class="for d-flex py-4 px-3 border-bottom">-->
+    <!--                                <img src="../../../../../assets/404.png" alt="Company Photo" class="img-width left">-->
+    <!--                                <div class="right w-100">-->
+    <!--                                    <div class="py-2" *ngFor="let segment of flight.segments; let i = index" [ngClass]="(i < flight.segments.length-1 ) ? ' border-bottom' : ''">-->
+    <!--                                        <div class="d-flex justify-content-between">-->
+    <!--                                            <div class="h5 m-0 pb-1">{{segment.company}}</div>-->
+    <!--                                            <div><i class="far fa-clock"></i><b> {{segment.duration | flightDuration}}-->
+    <!--                                                , </b><span-->
+    <!--                                                    class="ticket-blue">{{flight.direct ? 'Zbor direct' : 'Escala'}}</span>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                        <div class="m-0">-->
+    <!--                                            <small>Flight Number: </small> <b>{{segment.number}}</b>-->
+    <!--                                        </div>-->
+    <!--                                        <div class="d-flex justify-content-between">-->
+    <!--                                            <div class="h5 m-0 pb-1">{{segment.originLocation.cityNameEn}}</div>-->
+    <!--                                            <div class="h5 m-0 pb-1">{{segment.destinationLocation.cityNameEn}}</div>-->
+    <!--                                        </div>-->
+    <!--                                        <div class="d-flex justify-content-between pb-1">-->
+    <!--                                            <div class="small-airport-name">{{segment.originLocation.airports[0].airportNameRo || segment.originLocation.airports[0].airportNameEn}} ({{segment.originLocation.airports[0].airportCode}})</div>-->
+    <!--                                            <div class="small-airport-name text-right">{{segment.destinationLocation.airports[0].airportNameRo || segment.destinationLocation.airports[0].airportNameEn}} ({{segment.destinationLocation.airports[0].airportCode}})</div>-->
+    <!--                                        </div>-->
+    <!--                                        <div class="d-flex justify-content-between pb-1">-->
+    <!--                                            <div class="ticket-blue h6 m-0">{{segment.departure.dateTime | date: 'HH:mm'}}</div>-->
+    <!--                                            <div class="ticket-blue h6 m-0">{{segment.arrival.dateTime | date: 'HH:mm'}}</div>-->
+    <!--                                        </div>-->
+    <!--                                        <div class="h6 m-0">-->
+    <!--                                            &lt;!&ndash; <i *ngIf="data.arrival" class="fas fa-plane-arrival"></i>-->
+    <!--                                            <i *ngIf="data.departure" class="fas fa-plane-departure"></i> &ndash;&gt;-->
+    <!--                                            <i class="fas fa-plane-departure"></i>-->
+    <!--                                            <b> Plecare - </b><span-->
+    <!--                                                class="ticket-blue">{{segment.departure.dateTime | date:'dd MMMM yyyy'}}</span>-->
+    <!--                                        </div>-->
+
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                        <div class="card-radius-bottom-no d-flex justify-content-center">-->
+    <!--                            <h2 class="m-0 py-3">{{finalFlightOffer.travelers?.length}} x Bilet = {{ticketsPrice + ' ' + ticketsCurrency}}<span class="ticket-green"></span></h2>-->
+    <!--                        </div>-->
+    <!--                    </ng-container>-->
+    <!--                </div>-->
+
+    <!--                <div class="col-lg-4 mb-6">-->
+    <!--                    <ng-container *ngIf="finalFlightOffer.travelers.length">-->
+    <!--                        <div class="card-radius-top d-flex justify-content-center">-->
+    <!--                            <h2 class="m-0 py-3">Informatii calatori</h2>-->
+    <!--                        </div>-->
+    <!--                        <div class="card-radius-bottom-no px-4">-->
+    <!--                            <div *ngFor="let traveler of finalFlightOffer.travelers">-->
+    <!--                                <h6 class="m-0 py-3">Pasager {{traveler.id}}</h6>-->
+    <!--                                <div class="d-flex flex-column">-->
+    <!--                                    <div>-->
+    <!--                                        Nume: {{traveler.firstName}}-->
+    <!--                                    </div>-->
+    <!--                                    <div>-->
+    <!--                                        Prenume: {{traveler.lastName}}-->
+    <!--                                    </div>-->
+    <!--                                    <div>-->
+    <!--                                        Data nasterii: {{traveler.dateOfBirth}}-->
+    <!--                                    </div>-->
+    <!--                                    <div>-->
+    <!--                                        Nationalitate: {{traveler.documents[0].nationality}}-->
+    <!--                                    </div>-->
+    <!--                                    <div *ngIf="traveler.phones.length">-->
+    <!--                                        {{ traveler.phones[0].deviceTypeEnum | titlecase }}-->
+    <!--                                        : {{ traveler.phones[0].phoneNumber }}-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </ng-container>-->
+    <!--                </div>-->
+
+    <!--                <div class="col-lg-4 mb-6">-->
+    <!--                    <div class="card-radius-top d-flex justify-content-center">-->
+    <!--                        <h2 class="m-0 py-3">Bagaje selectate</h2>-->
+    <!--                    </div>-->
+    <!--                    <div class="card-radius-none px-4">-->
+    <!--                        <div *ngFor="let passanger of finalFlightOffer.travelers">-->
+    <!--                            <h6 class="m-0 py-3">Pasager {{passanger.id}}</h6>-->
+    <!--                            <div class="d-flex flex-column"  *ngFor="let baggage of finalFlightOffer.baggageAllowance">-->
+    <!--                                <div  *ngIf="baggage.travelerIds?.length > 0 && baggage.travelerIds.includes((passanger.id))">-->
+    <!--                                    <div class="d-flex justify-content-between">-->
+    <!--                                        <div>{{baggage.quantity + ' x bagaj '}}</div>-->
+    <!--                                        <div class="ticket-green">{{baggage.price.amount * priceOfBaggageByItineraries(finalFlightOffer.confirmedFlightOffer.itineraries, baggage)+ ' ' + baggage.price.currencyCode}}</div>-->
+    <!--                                    </div>-->
+    <!--                                    <div class="d-flex justify-content-between" *ngIf="baggage.weight && baggage.weightUnit">-->
+    <!--                                        <div>Greutatea: </div>-->
+    <!--                                        <div>{{baggage.weight + ' ' + baggage.weightUnit}}</div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                    <div class="card-radius-bottom d-flex justify-content-center">-->
+    <!--                        <h2 class="m-0 py-3">Total = <span class="ticket-green">{{baggagePrice + ' ' + (currency || 'EUR')}}</span></h2>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+
+    <!--            <div class="row">-->
+    <!--                <div class="col-lg-6 mb-6">-->
+    <!--                    <div class="card-radius-top d-flex justify-content-center">-->
+    <!--                        <h2 class="m-0 py-3">Confima datele de contact</h2>-->
+    <!--                    </div>-->
+    <!--                    <div class="card-radius-bottom-no d-flex flex-column py-4 px-3">-->
+    <!--                        <div class="h6">Bine ai revenit</div>-->
+    <!--                        <h6> Nume utilizator </h6>-->
+
+    <!--                        <form [formGroup]="contactVerificationForm">-->
+    <!--                            <mat-form-field class="w-100" appearance="outline">-->
+    <!--                                <mat-label>Email</mat-label>-->
+    <!--                                <input type="email" matInput formControlName="contactEmail"-->
+    <!--                                       placeholder="Ex. pat@example.com">-->
+    <!--                                <mat-error-->
+    <!--                                        *ngIf="contactVerificationForm.controls.contactEmail.hasError('email') && !contactVerificationForm.controls.contactEmail.hasError('required')">-->
+    <!--                                    Please enter a valid email address-->
+    <!--                                </mat-error>-->
+    <!--                                <mat-error *ngIf="contactVerificationForm.controls.contactEmail.hasError('required')">-->
+    <!--                                    Email is <strong>required</strong>-->
+    <!--                                </mat-error>-->
+    <!--                            </mat-form-field>-->
+    <!--                            <mat-form-field class="w-100" appearance="outline">-->
+    <!--                                <mat-label>Phone number</mat-label>-->
+    <!--                                <input type="number" matInput formControlName="contactPhone" placeholder="0712121212">-->
+    <!--                                <mat-error *ngIf="contactVerificationForm.controls.contactPhone.hasError('required')">-->
+    <!--                                    Phone number is <strong>required</strong>-->
+    <!--                                </mat-error>-->
+    <!--                            </mat-form-field>-->
+    <!--                        </form>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="col-lg-6 mb-6">-->
+    <!--                    <div class="card-radius-top d-flex justify-content-center">-->
+    <!--                        <h2 class="m-0 py-3">Grand Total</h2>-->
+    <!--                    </div>-->
+    <!--                    <div class="card-radius-none px-4">-->
+    <!--                        <div *ngFor="let passanger of finalFlightOffer.travelers">-->
+    <!--                            <h6 class="m-0 py-3">Pasager {{passanger.id}}</h6>-->
+    <!--                            <div class="d-flex flex-column">-->
+    <!--                                <div class="d-flex justify-content-between">-->
+    <!--                                    <div>Bilet</div>-->
+    <!--                                    <div class="ticket-green">{{getPriceById(finalFlightOffer.confirmedFlightOffer.travelerPricings, passanger.id)}}</div>-->
+    <!--                                </div>-->
+    <!--                                <div class="d-flex justify-content-between">-->
+    <!--                                    <div>Bagaj de mana</div>-->
+    <!--                                    <div class="ticket-blue">incl. in pret</div>-->
+    <!--                                </div>-->
+    <!--                                <div class="d-flex flex-column"  *ngFor="let baggage of finalFlightOffer.baggageAllowance">-->
+    <!--                                    <div  *ngIf="baggage.travelerIds?.length > 0 && baggage.travelerIds.includes((passanger.id))">-->
+    <!--                                        <div class="d-flex justify-content-between">-->
+    <!--                                            <div>{{baggage.quantity + ' x bagaj '}}</div>-->
+    <!--                                            <div class="ticket-green">{{baggage.price.amount * priceOfBaggageByItineraries(finalFlightOffer.confirmedFlightOffer.itineraries, baggage) + ' ' + baggage.price.currencyCode}}</div>-->
+    <!--                                        </div>-->
+    <!--                                        <div class="d-flex justify-content-between" *ngIf="baggage.weight && baggage.weightUnit">-->
+    <!--                                            <div>Greutatea: </div>-->
+    <!--                                            <div>{{baggage.weight + ' ' + baggage.weightUnit}}</div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                        <div class="fees d-flex justify-content-between">-->
+    <!--                            <p>Taxe suplimentare</p>-->
+    <!--                            <p class="ticket-green">{{finalFlightOffer.confirmedFlightOffer.totalPrice - (ticketsPrice + baggagePrice) + ' ' + finalFlightOffer.confirmedFlightOffer.currency}}</p>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                    <div class="card-radius-bottom d-flex justify-content-center">-->
+    <!--                        <h2 class="m-0 py-3">Total = <span-->
+    <!--                                class="ticket-green">{{ finalFlightOffer.confirmedFlightOffer.totalPrice + ' ' + finalFlightOffer.confirmedFlightOffer.currency }}</span>-->
+    <!--                        </h2>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+
+    <!--            <button type="button" class="btn-auto btn-color-fill w-100" (click)="createFlightOrder(finalFlightOffer)" [disabled]="isSubmitLoading">-->
+    <!--                <ng-container *ngIf="isSubmitLoading===false">-->
+    <!--                    Finalizează-->
+    <!--                </ng-container>-->
+    <!--                <ng-container *ngIf="isSubmitLoading === true">-->
+    <!--                      <span [style.display]="'block'" class="indicator-progress">-->
+    <!--                        Finalizare...{{ " " }}-->
+    <!--                          <span-->
+    <!--                                  class="spinner-border spinner-border-sm align-middle ms-2"-->
+    <!--                          ></span>-->
+    <!--                      </span>-->
+    <!--                </ng-container>-->
+    <!--            </button>-->
+    <!--        </ng-container>-->
+
+</div>

@@ -1,0 +1,318 @@
+
+
+<div *ngIf="user" class="header container-fluid px-0">
+    <div class="version-alert" *ngIf="mode === 'dev'">
+        <span>Acum folositi versiunea de
+            <span *ngIf="mode === 'dev'">DEZVOLTARE</span>
+<!--            <span *ngIf="mode === 'prod'">PRODUCȚIE</span>-->
+            a aplicatiei.</span>
+    </div>
+    <div class="container main-header" [ngClass]="mode === 'dev' ? 'dev-padding': 'prod-padding'">
+        <div class="row justify-content-between align-items-center">
+
+            <!--           LOGO-->
+            <!-- <a class="logo col"
+               [routerLink]="isAdmin ? '/private/admin/dashboard'
+               : isStaff ? '/private/staff/dashboard'
+               : isProvider ? '/private/provider/dashboard'
+               : isClient? '/client/domain' : '/' ">
+                <img src="\assets\images\logos\logo-bestinform-blue.png" alt="header-logo">
+            </a> -->
+            
+
+            <a class="logo col" [routerLink]="isAdmin ? '/private/admin/dashboard'
+            : isStaff ? '/private/staff/dashboard'
+            : isProvider ? '/private/provider/dashboard'
+            : isClient? '/client/domain' : '/'" >
+            <img src="\assets\Logo-blue.svg" alt="header-logo">
+
+            </a>
+
+            <!--            ABOUT USER - NOTIFICATIONS - MENU-->
+            <div class="user col">
+                <div class="row d-flex justify-content-end">
+                    <div class="col-1 d-flex align-items-center justify-content-center" *ngIf="isClient" matTooltip="Alege domeniul">
+                        <app-domains-selector></app-domains-selector>
+                    </div>
+
+                    <button [matMenuTriggerFor]="notifMenu" #notifMenuTrigger="matMenuTrigger" matTooltip="Vezi notificări"
+                            class="notifcation col-1 d-flex align-items-center justify-content-center"
+                            id="privateNotificationMenuTrigger"><i class="fas fa-bell">
+                        <i class="fas fa-circle" *ngIf="unreadMessages !== 0"></i></i></button>
+
+                    <button [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger" matTooltip="Profilul meu"
+                            class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 col-sm-10 col-6 d-flex justify-content-end px-0"
+                            id="privateMenuTrigger">
+                        <!--            <mat-icon class="mat-icon-sm">person</mat-icon>-->
+                        <!--            <span Show="false" Show.gt-sm class="mx-1 uppercase">{{ 'ACCOUNT' | translate }}</span>-->
+                        <div class="d-flex user-info align-items-center">
+                            <div class="name-container">
+                                <p class="welcome m-0">{{"ENROLLMENT.WELCOME-BACK" | translate}},</p>
+                                <p class="username m-0" *ngIf="!isProvider">{{(name?.length > 13) ? (name | slice:0:13) + "..." : name}}</p>
+                                <p class="username m-0" *ngIf="isProvider">{{user.companyName?.length > 13 ?  (user.companyName | slice:0:13) + "..." : user.companyName }}</p>
+
+                            </div>
+                            <img [src]="imgPath" alt="user-image">
+                            <!--                <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>-->
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </button>
+                </div>
+
+            </div>
+
+            <!--            NOTIFICATIONS MENU-->
+            <mat-menu #notifMenu="matMenu" [overlapTrigger]="false" xPosition="before"
+                      class="notif-menu asd py-0 my-0 ph-dropdown-inner">
+
+                <span (mouseleave)="notifMenuTrigger.closeMenu()">
+
+                    <!-- <div class="containerNotificationHeader d-flex align-items-baseline justify-content-between">
+                        <h6 class="top-bottom">{{unreadMessages}} notifications unread</h6>
+                        <a class="top-bottom d-flex justify-content-end align-items-center" (click)="markAllNotificationAsRead()">
+                            <i class="fas fa-check-double me-2"></i>Mark as read
+                        </a>
+                    </div> -->
+                    <!-- <a class="top-bottom d-flex justify-content-end align-items-center" (click)="markAllNotificationAsRead()">
+                            <i class="fas fa-check-double me-2"></i>Mark as read
+                    </a> -->
+
+                    <!-- <div class="divider my-2"></div> -->
+
+                    <!--nou-->
+
+                    <div class="header-notifications d-flex justify-content-between align-item-center">
+                        <h5>{{unreadMessages}} notifications unread</h5>
+                        <h6 (click)="markAllNotificationAsRead()"><i class="fas fa-check-double"></i> Mark as read</h6>
+                    </div>
+
+                    <div class="all-notifications" *ngIf="notificationsList.length > 0">
+                        <div *ngFor="let notification of notificationsList"
+                             (click)="goToNotificationObject(notification)"
+                             class="notification-single-card"
+                             [ngClass]="{'read-bkg' : notification.read === true,
+                                         'unread-bkg' : notification.read === false}" >
+                            <div class="d-flex justify-content-between">
+                                <!--notification data-->
+                                <div class="d-flex justify-content-start align-item-center">
+                                    <img class="icon-notif" src="{{notification?.icon?.filePath}}">
+                                    <!-- <i class="fas fa-check icon-notif"></i> -->
+
+                                    <div>
+                                        <p class="message-notif"> {{notification?.message}}</p>
+                                        <p class="time-notif">{{notification?.date | date: 'EEEE, d MMMM, HH:mm'}}</p>
+                                    </div>
+                                </div>
+                                <!--check notif as read-->
+                                <div *ngIf="notification?.read === false" class="check-notif"
+                                matTooltip="Mark as read" (click)="markNotificationAsRead(notification.id); $event.stopPropagation()">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--nou-->
+
+                    <!-- the last 3 notifications -->
+                    <!-- <div *ngFor="let notification of notificationsList">
+                        <div (click)="markNotificationAsRead(notification.id)" [ngClass]="{'read-notification notif d-flex-inline justify-content-between m-0 px-1': (notification.read === true), 'unread-notification notif d-flex-inline justify-content-between m-0 px-1': (notification.read === false)}" mat-menu-item   >
+
+                             <span class="col-8">{{(notification?.subject).length > 55 ? ((notification?.subject | slice:0:55) + "..." ): notification?.subject}}
+                                 <div class="d-flex flex-row">
+
+                                     <span class="date">{{notification?.date | date: 'dd-MM-y'}}</span>
+                                 </div>
+                             </span>
+                             <img class="col-3" src={{notification?.icon?.filePath}}>
+                            </div>
+                    </div> -->
+
+
+                    <!-- <a mat-menu-item class="notif d-flex-inline justify-content-between m-0 px-1"
+                       routerLink="">
+                        <i class="notif-dot fas fa-circle  col-1"></i>
+                        <span class="col-8">{{("Esti gata de o noua aventura alaturi de noi? Incrie-te!").length > 55 ? ("Esti gata de o noua aventura alaturi de noi? Incrie-te!" | slice:0:55) + "..." : "Esti gata de o noua aventura alaturi de noi? Incrie-te!"}}
+                            <div class="d-flex flex-row">
+                                <span class="name">Jane Doe<i class="divider-dot fas fa-circle mx-2"></i></span>
+                                <span class="date">22-02-2022</span>
+                            </div>
+                        </span>
+                        <img class="col-3" src="../../../assets/images/others/user.jpg">
+                </a> -->
+                    <div *ngIf="notificationsList.length === 0">
+                        <p class="py-2 px-4">There are no notifications at the moment</p>
+                    </div>
+                    <div class="divider my-2"></div>
+
+
+                    <a class="top-bottom d-flex justify-content-start"
+                    [routerLink]="isAdmin ? '/private/admin/all-notifications'
+                    : isStaff ? '/private/staff/all-notifications'
+                    : isProvider ? '/private/provider/all-notifications'
+                    : isClient? '/client/dashboard/all-notifications' : '/' ">
+                        <span>
+                            Vezi toate notificarile <i class="fas fa-chevron-right ms-2"></i>
+                        </span>
+                    </a>
+
+
+                </span>
+            </mat-menu>
+
+            <!--            USER MENU-->
+            <mat-menu #userMenu="matMenu" [overlapTrigger]="false" xPosition="before"
+                      class="user-menu px-3 py-1 ph-dropdown-inner">
+            <span (mouseleave)="userMenuTrigger.closeMenu()">
+
+                <!--<a mat-menu-item class="menu-item d-flex justify-content-between align-items-center my-1 px-2"
+                   routerLink="">
+                    <span><i class="fas fa-home me-2"></i>{{ 'HOME' | translate }}</span>
+                </a>-->
+
+                <!--<a mat-menu-item class="menu-item d-flex justify-content-between align-items-center my-1 px-2">
+                    <span><i class="fas fa-bell me-2"></i>{{ 'NOTIFICATIONS' | translate }}</span>
+                    <span class="label d-flex align-items-center flex-row px-2">400</span>
+                </a>-->
+
+                <a mat-menu-item
+                   class="menu-item d-flex justify-content-between align-items-center my-1 px-2"
+                   routerLink="/client/dashboard/inbox"
+                   *ngIf="isClient">
+                    <span><i class="fas fa-inbox me-2"></i>Inbox</span>
+                    <!-- <span class="label d-flex align-items-center flex-row px-2">12</span> -->
+                </a>
+
+                <a mat-menu-item
+                class="menu-item d-flex justify-content-between align-items-center my-1 px-2"
+                routerLink="/private/provider/inbox"
+                *ngIf="isProvider">
+                 <span><i class="fas fa-inbox me-2"></i>Inbox</span>
+                 <!-- <span class="label d-flex align-items-center flex-row px-2">12</span> -->
+                 </a>
+
+                <a mat-menu-item
+                class="menu-item d-flex justify-content-between align-items-center my-1 px-2"
+                routerLink="/private/staff/inbox"
+                *ngIf="isStaff">
+                <span><i class="fas fa-inbox me-2"></i>Inbox</span>
+                <!-- <span class="label d-flex align-items-center flex-row px-2">12</span> -->
+                </a>
+
+                <a mat-menu-item
+                class="menu-item d-flex justify-content-between align-items-center my-1 px-2"
+                routerLink="/private/admin/inbox"
+                *ngIf="isAdmin">
+                <span><i class="fas fa-inbox me-2"></i>Inbox</span>
+                <!-- <span class="label d-flex align-items-center flex-row px-2">12</span> -->
+                </a>
+
+                <a *ngIf="isAdmin" mat-menu-item
+                   class="menu-item d-flex justify-content-between align-items-center my-1 px-2" id="toStaffManagement"
+                   routerLink="/private/admin/manage-staff">
+                    <span><i class="fas fa-user-cog me-2"></i>Staff Management</span>
+                </a>
+
+                <a *ngIf="isAdmin" mat-menu-item
+                   class="menu-item d-flex justify-content-between align-items-center my-1 px-2" id="toHistoryLog"
+                   routerLink="/private/admin/logs/list">
+                    <span><i class="fas fa-history me-2"></i>History Log</span>
+                </a>
+
+                <!--<a *ngIf="isStaff" mat-menu-item
+                   class="menu-item d-flex justify-content-between align-items-center my-1 px-2 " routerLink="">
+                    <span><i class="fas fa-comment-dots me-2"></i>{{'MESSAGES' | translate}}</span>
+                    <span class="label d-flex align-items-center flex-row px-2">400</span>
+                </a>-->
+
+                <!--<a mat-menu-item class="menu-item d-flex justify-content-between align-items-center my-1 px-2"
+                   routerLink=""
+                   *ngIf="isClient"
+                >
+                    <span><i class="fas fa-store me-2"></i>{{ 'ACTIVITIES' | translate }}</span>
+                </a>-->
+
+                <!--<a mat-menu-item class="menu-item d-flex justify-content-between align-items-center my-1 px-2 "
+                   routerLink=""
+                   *ngIf="isClient"
+                >
+                    <span><i class="fas fa-coins me-2"></i>{{'LOYALTY-POINTS' | translate}}</span>
+                </a>-->
+
+                <a mat-menu-item class="menu-item d-flex justify-content-between align-items-center my-1 px-2 " routerLink="/client/dashboard/my-bookings"
+                   *ngIf="isClient"
+                >
+                    <span><i class="fas fa-list me-2"></i>{{'MY_BOOKINS' | translate}}</span>
+                </a>
+
+                <a mat-menu-item class="menu-item d-flex justify-content-between align-items-center my-1 px-2 "
+                   [routerLink]="'/client/dashboard/profile'" [queryParams]="{tab: 'favorites'}"
+                   *ngIf="isClient"
+                >
+                    <span><i class="fas fa-star me-2"></i>{{'FAVOURITES'| translate}}</span>
+                </a>
+
+                <a mat-menu-item class="menu-item d-flex justify-content-between align-items-center my-1 px-2 "
+                   routerLink="/client/dashboard/payment"
+                   *ngIf="isClient"
+                >
+                    <span><i class="fas fa-wallet me-2"></i>{{'PAYMENT-METHOD' | translate}}</span>
+                </a>
+
+                <div class="divider my-2"></div>
+
+                <!--<a mat-menu-item class="menu-item d-flex justify-content-between align-items-center my-1 px-2"
+                   *ngIf="isClient"
+                   routerLink="">
+                    <span><i class="fas fa-cog me-2"></i>{{'SETTINGS' | translate}}</span>
+                </a>-->
+
+                <!--<a *ngIf="isStaff" mat-menu-item
+                   class="menu-item d-flex justify-content-between align-items-center my-1 px-2"
+                   routerLink="/dashboard/account/change-password" id="toChangePassword">
+                    <span> <i class="fas fa-user-lock me-2"></i>{{'CHANGE_PASSWORD' | translate}}</span>
+                </a>-->
+
+
+
+                <a mat-menu-item *ngIf="isClient || isStaff || isProvider"
+                   class="menu-item d-flex justify-content-between align-items-center my-1 px-2" id="toEditProfile"
+                   [routerLink]="isClient ? '/client/dashboard/profile'
+                                : isStaff ? '/private/staff/account'
+                                : isProvider ? '/private/provider/account' : ''">
+                    <span><i class="fas fa-user me-2"></i>{{'GENERAL.MY-ACCOUNT' | translate}}</span>
+                </a>
+
+                <a mat-menu-item *ngIf="isClient || isStaff || isProvider"
+                   class="menu-item d-flex justify-content-between align-items-center my-1 px-2" id="toChangePassword"
+                   [routerLink]="isClient ? '/client/dashboard/change-password'
+                                : isStaff ? '/private/staff/change-password'
+                                : isProvider ? '/private/provider/change-password' : ''">
+                    <span><i class="fas fa-lock me-2"></i>{{'CHANGE_PASSWORD' | translate}}</span>
+                </a>
+
+                <a mat-menu-item *ngIf="isClient"
+                   class="menu-item d-flex justify-content-between align-items-center my-1 px-2" id="toEditAccount" routerLink="/client/dashboard/settings">
+                    <span><i class="fas fa-cog me-2"></i>{{'SETTINGS' | translate}}</span>
+                </a>
+
+                <a mat-menu-item *ngIf="isProvider"
+                   class="menu-item d-flex justify-content-between align-items-center my-1 px-2" id="toEditProviderSettings" routerLink="/private/provider/settings">
+                    <span><i class="fas fa-cog me-2"></i>{{'SETTINGS' | translate}}</span>
+                </a>
+
+                 <a mat-menu-item class="menu-item d-flex justify-content-between align-items-center my-1 px-2"
+                    (click)="authService.logout()">
+
+<!--                    <span>{{ 'LOGOUT' | translate }}</span>-->
+                    <span> <i class="fas fa-sign-out-alt me-2"></i>{{'LOGOUT' | translate}}</span>
+                </a>
+
+            </span>
+            </mat-menu>
+        </div>
+    </div>
+
+
+
+</div>

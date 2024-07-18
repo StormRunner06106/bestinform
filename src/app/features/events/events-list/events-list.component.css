@@ -1,0 +1,44 @@
+.page-header {
+  margin-top: 64px;
+  margin-bottom: 40px;
+  row-gap: 1rem;
+}
+
+.page-header h2 {
+  margin: 0;
+  color: #24398A;
+  font-weight: 700;
+}
+
+.page-header div {
+  row-gap: 1rem;
+}
+
+.card > div {
+  background-color: #FFFFFF;
+}
+
+.card {
+  margin-bottom: 1rem;
+}
+
+.card .card-body .row {
+  row-gap: 1.5rem;
+}
+
+.card .card-footer p {
+  margin: 0;
+  color: #24398A;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+/*# sourceMappingURL=events-list.component.css.map */

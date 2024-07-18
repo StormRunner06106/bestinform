@@ -1,0 +1,392 @@
+<ng-container *ngIf="resourceData && resourceTypeData">
+    <ul ngbNav #nav="ngbNav" [activeId]="activeTabId" (activeIdChange)="activeTabHasChanged($event)" [animation]="true"
+        [destroyOnHide]="false" class="nav-pills">
+        <li *ngIf="resourceGeneralInfo || resourceFacilities" [ngbNavItem]="1">
+            <a ngbNavLink>
+                {{ "RESOURCE.ABOUT_IT" | translate }}
+            </a>
+            <ng-template ngbNavContent>
+
+                <div class="about-tab">
+                    <div class="date-time-group d-flex gap-5" *ngIf="resourceData?.bookingType === 'culturalBooking' || (resourceData?.bookingType === 'ticketBooking' && resourceData?.categoryId === eventCategoryId)">
+                        <p class="mb-0"><i class="far fa-calendar-alt me-2"></i>Data: <span>{{resourceData.startDate | date:'dd MMMM yyyy'}}</span></p>
+                        <p class="mb-0" *ngIf="resourceData"><i class="far fa-clock me-2"></i>Ora: <span>{{resourceData.startDate | date:'HH:mm'}}</span></p>
+                    </div>
+
+                    <div class="info-group">
+                        <h4>Descriere</h4>
+                        <p>{{resourceData.description}}</p>
+                    </div>
+
+                    <ng-container *ngIf="resourceAbout">
+                        <div *ngFor="let attribute of resourceAbout.tabAttributes"
+                             class="info-group"
+                             [ngClass]="attribute.attributeValue && attribute.attributeValue !== 'false' && attribute.attributeValue !== 'true' ? '' : 'd-none'">
+                            <div *ngIf="attribute.attributeValue">
+                                <h4>
+                                    {{ attribute.attributeName }}
+                                </h4>
+
+                                <p>
+                                    {{ attribute.attributeValue }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="resourceGeneralInfo">
+                        <div *ngFor="let attribute of resourceGeneralInfo.tabAttributes"
+                             class="info-group"
+                             [ngClass]="attribute.attributeValue && attribute.attributeValue !== 'false' && attribute.attributeValue !== 'true' ? '' : 'd-none'">
+                            <div *ngIf="attribute.attributeValue && attribute.attributeValue !== 'false' && attribute.attributeValue !== 'true'">
+                                <h4>
+                                    {{ attribute.attributeName }}
+                                </h4>
+
+                                <p>
+                                    {{ attribute.attributeValue }}
+                                </p>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <div *ngIf="resourceGeneralInfo" class="other-attr flex-wrap">
+                        <div *ngFor="let attribute of resourceGeneralInfo.tabAttributes"
+                             class="info-group"
+                             [ngClass]="attribute.attributeValue && attribute.attributeValue === 'true' ? '' : 'd-none'">
+                            <ng-container *ngIf="(attribute.attributeValue | lowercase ) === 'true'">
+                                <img #attributeImg [src]="attribute.attributeIconPath"
+                                     (error)="attributeImg.hidden = true"
+                                     alt="icon {{attribute.attributeName | lowercase}}">
+                                <p>
+                                    {{ attribute.attributeName }}
+                                </p>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div *ngIf="resourceFacilities && hasFacilitiesTrue"
+                         class="info-group">
+                        <h4>
+                            {{ "RESOURCE.FACILITIES" | translate }}
+                        </h4>
+                        <div class="icon-text-container d-flex align-items-center flex-wrap">
+                            <div *ngFor="let attribute of resourceFacilities.tabAttributes" class="icon-text-group">
+                                <ng-container *ngIf="(attribute.attributeValue | lowercase ) === 'true'">
+                                    <img #attributeImg [src]="attribute.attributeIconPath"
+                                         (error)="attributeImg.hidden = true"
+                                         alt="icon {{attribute.attributeName | lowercase}}">
+
+                                    <p class="pe-2">
+                                        {{ attribute.attributeName }}
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-template>
+        </li>
+        <li *ngIf="resourceData.bookingType !== 'externalUrl' && resourceData.bookingType !== 'noBooking'"
+            [ngbNavItem]="2">
+            <a ngbNavLink *ngIf="resourceData.bookingType === 'rentalBooking'">
+                {{ "RESOURCE.ROOMS" | translate }}
+            </a>
+            <a ngbNavLink *ngIf="resourceData.bookingType === 'ticketBooking'">
+                {{ "RESOURCE.TICKETS" | translate }}
+            </a>
+            <a ngbNavLink *ngIf="resourceData.bookingType === 'culturalBooking'">
+                {{ "RESOURCE.TICKETS" | translate }}
+            </a>
+            <a ngbNavLink *ngIf="resourceData.bookingType === 'serviceBookingTimeSlots'">
+                {{ "RESOURCE.RESERVATIONS" | translate }}
+            </a>
+            <a ngbNavLink *ngIf="resourceData.bookingType === 'productsList'">
+                {{ "RESOURCE.BUY_NOW" | translate }}
+            </a>
+            <a ngbNavLink *ngIf="resourceData.bookingType === 'menu'">
+                {{ "RESOURCE.MENU" | translate }}
+            </a>
+            <ng-template ngbNavContent>
+                <div class="booking-type-tab">
+                    <ng-container *ngIf="!isItineraryModal && resourceData.bookingType !== 'culturalBooking'">
+                        <form [formGroup]="filterForm" (ngSubmit)="applyFilters()"
+                              *ngIf="resourceData.bookingType !== 'menu'">
+                            <div class="row">
+
+                                <ng-container
+                                        *ngIf="resourceTypeData?.filterOption?.dateAsDay && resourceData?.bookingType !== 'ticketBooking'">
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_DATE'|translate}}</mat-label>
+                                            <input formControlName="dateAsDay" matInput [min]="currentDay"
+                                                   [matDatepicker]="dateAsDayPicker">
+                                            <mat-datepicker-toggle matSuffix
+                                                                   [for]="dateAsDayPicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #dateAsDayPicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container
+                                        *ngIf="resourceData?.categoryId === eventCategoryId">
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_DATE'|translate}}</mat-label>
+                                            <input formControlName="dateAsDay" matInput [min]="resourceData?.startDate"
+                                                   [max]="resourceData?.endDate"
+                                                   [matDatepicker]="dateAsDayPicker">
+                                            <mat-datepicker-toggle matSuffix
+                                                                   [for]="dateAsDayPicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #dateAsDayPicker></mat-datepicker>
+                                            <mat-error *ngIf="filterForm.get('dateAsDay').invalid">Data aleasa este
+                                                invalida!
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="resourceTypeData?.filterOption?.dateAsHour">
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_DATE_TIME'|translate}}</mat-label>
+                                            <input matInput [min]="currentDay" [ngxMatDatetimePicker]="dateAsHourPicker"
+                                                   placeholder="Choose a date" formControlName="dateAsHour">
+                                            <mat-datepicker-toggle matSuffix
+                                                                   [for]="dateAsHourPicker"></mat-datepicker-toggle>
+                                            <ngx-mat-datetime-picker #dateAsHourPicker>
+                                            </ngx-mat-datetime-picker>
+                                        </mat-form-field>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="resourceTypeData?.filterOption?.dateInterval">
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_START_DATE'|translate}}</mat-label>
+                                            <!--daca apare o eroare la datepicker, sa stiti ca e legata strict de webstorm si functioneaza cum trebuie-->
+                                            <input formControlName="startDate" matInput [min]="currentDay"
+                                                   [matDatepicker]="startDatePicker"
+                                                   (dateChange)="startDateChanged($event, endDatePicker)">
+                                            <mat-error
+                                                    *ngIf="filterForm.get('startDate').hasError('startDateIsHigher')">
+                                                Start date can't be higher than end date
+                                            </mat-error>
+                                            <mat-datepicker-toggle matSuffix
+                                                                   [for]="startDatePicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #startDatePicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_END_DATE'|translate}}</mat-label>
+                                            <input formControlName="endDate" matInput [min]="nextDay"
+                                                   [matDatepicker]="endDatePicker">
+                                            <mat-datepicker-toggle matSuffix
+                                                                   [for]="endDatePicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #endDatePicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="resourceTypeData?.filterOption?.hoursInterval">
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_START_TIME'|translate}}</mat-label>
+                                            <input matInput [min]="currentDay" [ngxMatDatetimePicker]="startHourPicker"
+                                                   placeholder="Choose a date" formControlName="startHour"
+                                                   (dateChange)="startHourChanged($event, endHourPicker)">
+                                            <mat-datepicker-toggle matSuffix
+                                                                   [for]="startHourPicker"></mat-datepicker-toggle>
+                                            <ngx-mat-datetime-picker #startHourPicker>
+                                            </ngx-mat-datetime-picker>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_END_TIME'|translate}}</mat-label>
+                                            <input matInput [min]="nextDay" [ngxMatDatetimePicker]="endHourPicker"
+                                                   placeholder="Choose a date" formControlName="endHour"
+                                                   (dateChange)="endHourChanged($event)">
+                                            <mat-datepicker-toggle matSuffix
+                                                                   [for]="endHourPicker"></mat-datepicker-toggle>
+                                            <ngx-mat-datetime-picker #endHourPicker>
+                                            </ngx-mat-datetime-picker>
+                                        </mat-form-field>
+                                    </div>
+                                </ng-container>
+
+                                <div class="col-12">
+                                    <div class="guests-container">
+                                        <ng-container *ngIf="resourceTypeData?.filterOption?.adultNumber
+                                            || resourceTypeData?.filterOption?.adultChildrenNumber
+                                            || resourceTypeData?.filterOption?.adultChildrenAndRoomNumber">
+                                            <div class="guests-selector">
+                                                <button [disabled]="filterForm.controls.adultsNumber.value === 1"
+                                                        (click)="decreaseNrGuests('adultsNumber')"
+                                                        type="button"
+                                                >
+                                                    <i class="fas fa-angle-left"></i>
+                                                </button>
+                                                <p>
+                                                    {{ filterForm.controls.adultsNumber.value }}
+                                                    {{ "RESOURCE.RES-FILTERS.NR_ADULTS" | translate }}
+                                                </p>
+                                                <button (click)="increaseNrGuests('adultsNumber')" type="button">
+                                                    <i class="fas fa-angle-right"></i>
+                                                </button>
+                                            </div>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="resourceTypeData?.filterOption?.adultChildrenNumber
+                                            || resourceTypeData?.filterOption?.adultChildrenAndRoomNumber">
+                                            <div class="guests-selector">
+                                                <button [disabled]="filterForm.controls.childrenNumber.value === 0"
+                                                        (click)="decreaseNrGuests('childrenNumber')"
+                                                        type="button"
+                                                >
+                                                    <i class="fas fa-angle-left"></i>
+                                                </button>
+                                                <p>
+                                                    {{ filterForm.controls.childrenNumber.value }}
+                                                    {{ "RESOURCE.RES-FILTERS.NR_CHILDREN" | translate }}
+                                                </p>
+                                                <button (click)="increaseNrGuests('childrenNumber')" type="button">
+                                                    <i class="fas fa-angle-right"></i>
+                                                </button>
+                                            </div>
+                                        </ng-container>
+
+                                        <ng-container
+                                                *ngIf="resourceTypeData?.filterOption?.adultChildrenAndRoomNumber">
+                                            <div class="guests-selector">
+                                                <button [disabled]="filterForm.controls.roomsNumber.value === 1"
+                                                        (click)="decreaseNrGuests('roomsNumber')" type="button">
+                                                    <i class="fas fa-angle-left"></i>
+                                                </button>
+                                                <p>
+                                                    {{ filterForm.controls.roomsNumber.value }}
+                                                    {{ "RESOURCE.RES-FILTERS.NR_ROOMS" | translate }}
+                                                </p>
+                                                <button (click)="increaseNrGuests('roomsNumber')" type="button">
+                                                    <i class="fas fa-angle-right"></i>
+                                                </button>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <button *ngIf="!allFilterOptionsFalse" type="submit"
+                                            class="btn-auto btn-color-fill w-100 mt-4">
+                                        Search
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </ng-container>
+
+                    <ng-container *ngIf="resourceData.bookingType === 'rentalBooking'">
+                        <app-rooms-list></app-rooms-list>
+                    </ng-container>
+
+                    <ng-container *ngIf="resourceData.bookingType === 'ticketBooking'">
+                        <app-tickets-list></app-tickets-list>
+                    </ng-container>
+
+                    <ng-container *ngIf="resourceData.bookingType === 'culturalBooking'">
+                        <app-seat-selection></app-seat-selection>
+                    </ng-container>
+
+                    <ng-container *ngIf="resourceData.bookingType === 'serviceBookingTimeSlots'">
+                        <app-time-slots-list></app-time-slots-list>
+                    </ng-container>
+
+                    <ng-container *ngIf="resourceData.bookingType === 'productsList'">
+                        <app-products-list></app-products-list>
+                    </ng-container>
+
+                    <ng-container *ngIf="resourceData.bookingType === 'menu'">
+                        <app-menu></app-menu>
+                    </ng-container>
+
+                </div>
+            </ng-template>
+        </li>
+        <!-- && !(relatedResource?.categoryId === eventCategoryId)" -->
+        <li *ngIf="(resourceData?.relatedResources?.length > 0) && (resourceData?.categoryId !== eventCategoryId) && (resourceData?.bookingType !== 'culturalBooking' && resourceData?.bookingType !== 'ticketBooking')" [ngbNavItem]="3">
+            <a ngbNavLink>
+                {{ "RESOURCE.EVENTS" | translate }}
+            </a>
+            <ng-template ngbNavContent>
+                <div class="related-resources-tab">
+                    <div class="row">
+                        <div *ngFor="let relatedResource of (relatedResourcesObs$ | async)?.content"
+                             class="col-12 col-lg-6">
+
+                            <div class="related-resource-card" routerLink="/client/domain/{{relatedResource?.domain}}/category/{{relatedResource?.categoryId}}/resource-type/{{relatedResource?.resourceTypeId}}/view/{{relatedResource?.id}}">
+                                <div class="img-container">
+                                    <img [src]="relatedResource?.featuredImage?.filePath"
+                                         alt="image {{relatedResource?.title}}">
+                                </div>
+
+                                <div class="card-text">
+                                    <h4>
+                                        {{ relatedResource?.title }}
+                                    </h4>
+
+                                    <p>
+                                        {{ relatedResource?.description }}
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </li>
+        <li *ngIf="resourceData.bookingType === 'menu' && resourceData.bookingTimePickerId" [ngbNavItem]="4">
+            <a ngbNavLink>
+                {{ "RESOURCE.RESERVATIONS" | translate }}
+            </a>
+            <ng-template ngbNavContent>
+                <div class="booking-type-tab">
+                    <form *ngIf="!isItineraryModal" [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+                        <div class="row">
+                            <ng-container *ngIf="resourceTypeData?.filterOption?.dateAsHour">
+                                <div class="col-12 col-lg-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>{{'RESOURCE.RES-FILTERS.SELECT_DATE_TIME'|translate}}</mat-label>
+                                        <input matInput [min]="currentDay" [ngxMatDatetimePicker]="dateAsHourPicker"
+                                               placeholder="Choose a date" formControlName="dateAsHour">
+                                        <mat-datepicker-toggle matSuffix
+                                                               [for]="dateAsHourPicker"></mat-datepicker-toggle>
+                                        <ngx-mat-datetime-picker #dateAsHourPicker [stepMinute]="15">
+                                        </ngx-mat-datetime-picker>
+                                    </mat-form-field>
+                                </div>
+                            </ng-container>
+
+                            <div class="col-12">
+                                <button type="submit"
+                                        class="btn-auto btn-color-fill w-100 mt-4">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <app-picker-items></app-picker-items>
+                </div>
+            </ng-template>
+        </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav"></div>
+</ng-container>

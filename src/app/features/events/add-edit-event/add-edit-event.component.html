@@ -1,0 +1,1006 @@
+<div class="container">
+  <app-dashboard-header
+    pageTitleOne="{{
+      isEditMode
+        ? ('EVENTS.EDIT' | translate)
+        : providerData
+        ? ('EVENTS.ADD' | translate) +
+          ' pentru ' +
+          providerData?.companyName +
+          ' (' +
+          providerData?.cui +
+          ')'
+        : ('EVENTS.ADD' | translate)
+    }}"
+    [buttonBackRoute]="
+      isEditMode ? '../../../events/list' : '../../events/list'
+    "
+    (buttonCall)="submitEvent()"
+  >
+  </app-dashboard-header>
+  <div class="form-container mb-5">
+    <form [formGroup]="eventForm" id="eventForm" (ngSubmit)="submitEvent()">
+      <div class="accordion-container">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="fas fa-info-circle"></i>
+                General
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <h3 class="panel-title">
+              {{ "EVENTS.GENERAL-INFO" | translate }}
+            </h3>
+
+            <div class="row mb-5">
+              <div class="col-12 col-lg-6">
+                <mat-form-field appearance="standard">
+                  <mat-label>{{ "EVENTS.TITLE" | translate }}</mat-label>
+                  <input
+                    formControlName="title"
+                    matInput
+                    type="text"
+                    id="titleInput"
+                    (change)="createSlug(eventForm.value.title)"
+                  />
+                  <i
+                    class="fas fa-times-circle clear-form"
+                    *ngIf="eventForm.get('title').value"
+                    (click)="clearFormControl('title')"
+                    id="btnEventClearTitle"
+                    type="button"
+                    matSuffix
+                  ></i>
+                  <mat-error>{{ "ERROR.REQUIRED" | translate }}</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-12 col-lg-6">
+                <mat-form-field appearance="standard">
+                  <mat-label>{{ "EVENTS.EXTENSION" | translate }}</mat-label>
+                  <input
+                    formControlName="slug"
+                    matInput
+                    type="text"
+                    id="slugInput"
+                  />
+                  <i
+                    class="fas fa-times-circle clear-form"
+                    *ngIf="eventForm.get('title').value"
+                    (click)="clearFormControl('title')"
+                    id="btnEventClearSlug"
+                    type="button"
+                    matSuffix
+                  ></i>
+                  <mat-error>{{ "ERROR.REQUIRED" | translate }}</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-12 col-lg-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Data de început</mat-label>
+                  <input
+                    matInput
+                    [min]="currentDay"
+                    [ngxMatDatetimePicker]="startPicker"
+                    placeholder="Choose a date"
+                    formControlName="startDate"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="startPicker"
+                  ></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #startPicker [stepMinute]="15">
+                  </ngx-mat-datetime-picker>
+                </mat-form-field>
+              </div>
+
+              <div class="col-12 col-lg-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Data de final</mat-label>
+                  <input
+                    matInput
+                    [min]="currentDay"
+                    [ngxMatDatetimePicker]="endPicker"
+                    placeholder="Choose a date"
+                    formControlName="endDate"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="endPicker"
+                  ></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #endPicker [stepMinute]="15">
+                  </ngx-mat-datetime-picker>
+                </mat-form-field>
+              </div>
+
+              <div class="col-12">
+                <mat-form-field appearance="standard">
+                  <mat-label>{{
+                    "EVENTS.SHORT-DESCRIPTION" | translate
+                  }}</mat-label>
+                  <input
+                    formControlName="shortDescription"
+                    matInput
+                    id="shortDescInput"
+                  />
+
+                  <mat-error>{{ "ERROR.REQUIRED" | translate }}</mat-error>
+                  <!--TODO: cum ramane cu short description-->
+                  <i
+                    class="fas fa-times-circle clear-form"
+                    *ngIf="eventForm.get('shortDescription').value"
+                    (click)="clearFormControl('shortDescription')"
+                    id="btnEventClearShortDescription"
+                    type="button"
+                    matSuffix
+                  ></i>
+                </mat-form-field>
+              </div>
+
+              <div class="col-12">
+                <mat-form-field appearance="standard">
+                  <mat-label>{{ "EVENTS.DESCRIPTION" | translate }}</mat-label>
+                  <textarea
+                    formControlName="description"
+                    matInput
+                    id="descriptionInput"
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5"
+                  ></textarea>
+                  <mat-error>{{ "ERROR.REQUIRED" | translate }}</mat-error>
+                  <i
+                    class="fas fa-times-circle clear-form"
+                    *ngIf="eventForm.get('description').value"
+                    (click)="clearFormControl('description')"
+                    id="btnEventClearDescription"
+                    type="button"
+                    matSuffix
+                  ></i>
+                </mat-form-field>
+              </div>
+
+              <div class="col-12">
+                <mat-form-field appearance="standard">
+                  <mat-label>{{ "EVENTS.EVENT-TYPE" | translate }}</mat-label>
+                  <mat-select
+                    formControlName="resourceTypeId"
+                    (selectionChange)="selectedResourceType($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let resType of resourceTypes"
+                      [value]="resType.id"
+                      >{{
+                        currentLanguage === "ro"
+                          ? resType.nameRo
+                          : resType.nameEn
+                      }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <form [formGroup]="form">
+                <div class="row" *ngFor="let tab of tabs">
+                  <h3
+                    class="panel-title"
+                    *ngIf="
+                      tab.tabName === 'general_info' ||
+                      tab.tabName === 'facilities' ||
+                      tab.tabName === 'contact' ||
+                      tab.tabName === 'about'
+                    "
+                  >
+                    {{
+                      tab.tabName === "general_info"
+                        ? ("EVENTS.GENERAL-INFO" | translate)
+                        : tab.tabName === "facilities"
+                        ? ("EVENTS.FACILITIES" | translate)
+                        : tab.tabName === "contact"
+                        ? "Contact"
+                        : "About"
+                    }}
+                  </h3>
+
+                  <div class="row" *ngFor="let attribute of tab.tabAttributes">
+                    <app-dynamic-inputs
+                      [control]="form.get(attribute.name)"
+                      [inputFormData]="attribute"
+                      [className]="columnSize(attribute.size)"
+                      [ngClass]="
+                        !tripsAndItineraries.includes(attribute.categoryId)
+                          ? ''
+                          : 'd-none'
+                      "
+                    ></app-dynamic-inputs>
+                  </div>
+
+                  <div *ngIf="tab.tabName === 'general_info'">
+                    <div
+                      *ngFor="let category of tripsItinObj | keyvalue"
+                      class="row"
+                    >
+                      <div [ngSwitch]="category.key">
+                        <h5 *ngSwitchCase="'journeyThemeCategoryId'">
+                          Journey Theme
+                        </h5>
+                        <h5 *ngSwitchCase="'typeOfDestinationCategoryId'">
+                          Type Of Destination
+                        </h5>
+                        <h5 *ngSwitchCase="'typeOfJourneyCategoryId'">
+                          Type of Journey
+                        </h5>
+                      </div>
+
+                      <div
+                        *ngFor="let inputForm of tab.tabAttributes"
+                        [className]="columnSize(inputForm.size)"
+                        [ngClass]="
+                          category.value === inputForm.categoryId
+                            ? 'col-md-6'
+                            : 'd-none'
+                        "
+                      >
+                        <app-dynamic-inputs
+                          [control]="form.get(inputForm.name)"
+                          [inputFormData]="inputForm"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <!--                            <h3 class="panel-title">-->
+              <!--                                {{'EVENTS.BENEFITS'|translate}}-->
+              <!--                            </h3>-->
+
+              <!--                            <div class="row">-->
+              <!--                                <div class="col-12">-->
+              <!--                                    <mat-form-field appearance="standard">-->
+              <!--                                        <mat-label> {{'EVENTS.BENEFITS'|translate}}</mat-label>-->
+              <!--                                        <mat-chip-list #benefitsList aria-label="Benefits selection">-->
+              <!--                                            <mat-chip-->
+              <!--                                                    *ngFor="let benefit of benefits; let i = index"-->
+              <!--                                                    (removed)="removeBenefit(benefit)">-->
+              <!--                                                {{benefit}}-->
+              <!--                                                <button id="btnRemoveChip-{{i}}" matChipRemove>-->
+              <!--                                                    <mat-icon>cancel</mat-icon>-->
+              <!--                                                </button>-->
+              <!--                                            </mat-chip>-->
+
+              <!--                                            &lt;!&ndash; <input-->
+              <!--                                                    id="benefitsInput"-->
+              <!--                                                    #benefitInput-->
+              <!--                                                    [formControl]="benefitCtrl"-->
+              <!--                                                    [matAutocomplete]="auto"-->
+              <!--                                                    [matChipInputFor]="benefitsList"-->
+              <!--                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"-->
+              <!--                                                    (matChipInputTokenEnd)="addBenefit($event)"> &ndash;&gt;-->
+              <!--                                            <input-->
+              <!--                                                    id="benefitsInput"-->
+              <!--                                                    [formControl]="benefitCtrl"-->
+              <!--                                                    [matAutocomplete]="auto"-->
+              <!--                                                    [matChipInputFor]="benefitsList"-->
+              <!--                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"-->
+              <!--                                                    (matChipInputTokenEnd)="addBenefit($event)"-->
+              <!--                                            >-->
+              <!--                                        </mat-chip-list>-->
+              <!--                                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">-->
+              <!--                                            <mat-option *ngFor="let benefit of filteredBenefits | async"-->
+              <!--                                                        [value]="benefit" id="{{benefit}}">-->
+              <!--                                                {{benefit}}-->
+              <!--                                            </mat-option>-->
+              <!--                                        </mat-autocomplete>-->
+              <!--                                    </mat-form-field>-->
+              <!--                                </div>-->
+              <!--                            </div>-->
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="fas fa-info-circle"></i>
+                {{ "EVENTS.THUMBNAIL-GALLERY" | translate }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <h3 class="panel-title">
+              {{ "EVENTS.UPLOAD-IMAGES" | translate }}
+            </h3>
+
+            <p class="panel-subtitle">
+              {{ "EVENTS.THUMBNAIL" | translate }}
+            </p>
+
+            <div class="image-container mb-5">
+              <input
+                type="file"
+                hidden
+                accept="image/*"
+                #thumbnail
+                id="thumbnailInput"
+                (change)="onThumbnailChange($event)"
+              />
+              <div
+                *ngIf="!thumbnail.value && !thumbnailUrl?.filePath"
+                class="no-image"
+                attr.translatedContent="{{
+                  'GENERAL.INSERT_IMAGE' | translate
+                }}"
+                (click)="thumbnail.click()"
+              ></div>
+
+              <img
+                *ngIf="thumbnail.value || thumbnailUrl?.filePath"
+                class="img-fluid w-100 featured-image"
+                [src]="thumbnailUrl.filePath"
+                alt="thumbnail"
+              />
+              <button
+                *ngIf="thumbnail.value || thumbnailUrl?.filePath"
+                (click)="removeThumbnail(); thumbnail.value = ''"
+                type="button"
+                id="btnRemoveFeaturedImage"
+                class="btn-thumbnail"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <p class="panel-subtitle">Gallery</p>
+
+            <div class="row gallery-container">
+              <div class="col-12 col-lg-6">
+                <div class="image-container">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    #add_image
+                    id="galleryInput"
+                    (change)="onImageChange($event, add_image)"
+                  />
+                  <div
+                    class="no-image"
+                    attr.translatedContent="{{
+                      'GENERAL.INSERT_IMAGE' | translate
+                    }}"
+                    (click)="add_image.click()"
+                  ></div>
+                </div>
+              </div>
+
+              <div
+                *ngFor="let image of galleryUrls; let i = index"
+                class="col-6 col-lg-2"
+              >
+                <div class="image-container">
+                  <img
+                    class="img-fluid gallery-img"
+                    [src]="image.filePath"
+                    alt="image-{{ i }}"
+                  />
+                  <button
+                    (click)="removeImage(i)"
+                    id="btnRemoveGalleryImage-{{ i }}"
+                    type="button"
+                    class="btn-gallery"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="fas fa-info-circle"></i>
+                {{ "EVENTS.LOCATION" | translate }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <h3 class="panel-title">
+              {{ "EVENTS.MAP" | translate }}
+            </h3>
+
+            <div class="row">
+              <div class="col-12">
+                <mat-form-field appearance="standard" class="w-100">
+                  <mat-label>{{ "EVENTS.ADDRESS" | translate }}</mat-label>
+                  <input matInput formControlName="address" />
+                </mat-form-field>
+              </div>
+
+              <!--                            SE TRANSFORMA IN SELECT-->
+              <div class="col-12 col-md-6">
+                <mat-form-field appearance="standard" class="w-100">
+                  <mat-label>{{ "EVENTS.COUNTRY" | translate }}</mat-label>
+                  <mat-select
+                    formControlName="country"
+                    (selectionChange)="getCities($event)"
+                  >
+                    <mat-option
+                      *ngFor="let country of countries"
+                      [value]="country"
+                    >
+                      {{ country }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <!--                            SE TRANSFORMA IN SELECT-->
+              <div class="col-12 col-md-6">
+                <mat-form-field appearance="standard" class="w-100">
+                  <mat-label>{{ "EVENTS.CITY" | translate }}</mat-label>
+                  <mat-select
+                    formControlName="city"
+                    (selectionChange)="getCoordinates($event)"
+                  >
+                    <mat-option *ngFor="let city of cities" [value]="city.name">
+                      {{ city.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div *ngIf="template?.geographicalCoordinates">
+              <form [formGroup]="geographicalCoordinates">
+                <div class="row">
+                  <div class="col-12">MAP</div>
+                  <div class="col-12 col-md-6">
+                    <mat-form-field appearance="standard" class="w-100">
+                      <mat-label>{{ "EVENTS.LATITUDE" | translate }}</mat-label>
+                      <input matInput formControlName="latitude" />
+                      <i class="fas fa-compass clear-form" matSuffix></i>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <mat-form-field appearance="standard" class="w-100">
+                      <mat-label>{{
+                        "EVENTS.LONGITUDE" | translate
+                      }}</mat-label>
+                      <input matInput formControlName="longitude" />
+                      <i class="fas fa-compass clear-form" matSuffix></i>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="fas fa-info-circle"></i>
+                Ticketing
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <!--                        <h3 class="panel-title">-->
+            <!--                            General Information-->
+            <!--                        </h3>-->
+
+            <!--                        <div class="row">-->
+            <!--                            <div class="col-12">-->
+            <!--                                <mat-form-field appearance="standard" class="w-100">-->
+            <!--                                    <mat-label>{{'EVENTS.ADDRESS' | translate}}</mat-label>-->
+            <!--                                    <input matInput formControlName="address">-->
+            <!--                                    <i class="fas fa-times-circle clear-form" *ngIf="eventForm.get('title').value"-->
+            <!--                                       (click)="clearFormControl('title')"-->
+            <!--                                       id="btnEventClearTicketName"-->
+            <!--                                       type="button" matSuffix></i>-->
+            <!--                                </mat-form-field>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+
+            <div class="row">
+              <!--Title Section-->
+              <div class="col-12 mb-3">
+                <h2 class="section-title">Tipuri de bilete</h2>
+              </div>
+
+              <div class="col-12">
+                <!--List Title-->
+                <div class="list-title">
+                  <h5 class="title">Listare bilete</h5>
+                </div>
+
+                <!--List Content-->
+                <div class="list-content">
+                  <div class="row">
+                    <div
+                      class="ticket-list col-12 col-md-4 col-lg-3"
+                      *ngFor="let ticket of ticketList; let i = index"
+                    >
+                      <div class="ticket d-flex justify-content-center">
+                        <app-event-ticket-preview
+                          class="w-100"
+                          [ticketData]="ticket"
+                        ></app-event-ticket-preview>
+                        <div
+                          class="actions d-flex flex-column align-items-start"
+                        >
+                          <button
+                            class="btn-delete"
+                            type="button"
+                            (click)="openDeleteModal(ticket, i)"
+                          >
+                            <i class="fas fa-times"></i>
+                          </button>
+                          <button
+                            class="btn-edit"
+                            type="button"
+                            (click)="openEditModal(ticket)"
+                          >
+                            <i class="fas fa-pen"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button
+                        class="add-btn"
+                        (click)="openAddModal()"
+                        type="button"
+                      >
+                        Adăugare
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="fas fa-info-circle"></i>
+                Resurse asociate
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <h3 class="panel-title mb-3" *ngIf="resToBeAdded.length > 0">
+              Resurse asociate evenimentului:
+              <span class="related-resource" *ngFor="let res of resToBeAdded">{{
+                res?.title
+              }}</span>
+            </h3>
+
+            <h3 class="panel-title mb-3">Alege din resursele urmatoare:</h3>
+
+            <div class="container mb-3">
+              <div class="row filteRow">
+                <mat-form-field appearance="standard">
+                  <mat-label>Cauta</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="filterTitleChoose"
+                    (keydown.enter)="applyFilter()"
+                  />
+                  <i
+                    class="fas fa-times-circle clear-form"
+                    *ngIf="eventForm.get('filterTitleChoose').value"
+                    (click)="
+                      clearFormControl('filterTitleChoose'); applyFilter()
+                    "
+                    id="btnEventClearSearchBar"
+                    type="button"
+                    matSuffix
+                  ></i>
+                </mat-form-field>
+              </div>
+
+              <div class="row tableContent">
+                <!--Table start-->
+                <table
+                  mat-table
+                  matSort
+                  appMatTableResponsive
+                  [dataSource]="dataSourceChoose"
+                  class="w-100"
+                >
+                  <!-- Resource Name Column -->
+                  <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ "RESOURCES.NAME" | translate }}
+                    </th>
+                    <td
+                      attr.attr.data-column-name="{{
+                        'RESOURCES.NAME' | translate
+                      }}"
+                      mat-cell
+                      *matCellDef="let row"
+                    >
+                      <i
+                        class="fas fa-users shared"
+                        *ngIf="row.sharedExperience"
+                      ></i>
+                      {{ row.title }}
+                    </td>
+                  </ng-container>
+
+                  <!-- toress column -->
+                  <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ "RESOURCES.LOCATION" | translate }}
+                    </th>
+                    <td
+                      attr.data-column-name="{{
+                        'RESOURCES.LOCATION' | translate
+                      }}"
+                      mat-cell
+                      *matCellDef="let row"
+                    >
+                      {{ row.address }} {{ row.city }}
+                    </td>
+                  </ng-container>
+
+                  <!--Category column-->
+                  <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ "RESOURCES.CATEGORY" | translate }}
+                    </th>
+                    <td
+                      attr.data-column-name="{{
+                        'RESOURCES.CATEGORY' | translate
+                      }}"
+                      mat-cell
+                      *matCellDef="let row"
+                    >
+                      {{ row.resourceCategoryName }}
+                    </td>
+                  </ng-container>
+
+                  <!--Purchase column-->
+                  <ng-container matColumnDef="purchase">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ "RESOURCES.PURCHASE" | translate }}
+                    </th>
+                    <td
+                      attr.data-column-name="{{
+                        'RESOURCES.PURCHASE' | translate
+                      }}"
+                      mat-cell
+                      *matCellDef="let row"
+                    >
+                      <span class="d-flex justify-content-end me-3">{{
+                        row.totalBookingNumber
+                      }}</span>
+                    </td>
+                  </ng-container>
+
+                  <!--Status column-->
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{ "RESOURCES.STATUS" | translate }}
+                    </th>
+                    <td
+                      attr.data-column-name="{{
+                        'RESOURCES.STATUS' | translate
+                      }}"
+                      mat-cell
+                      *matCellDef="let row"
+                    >
+                      <span
+                        class="custom-label"
+                        [ngClass]="{
+                          'label-pending': row.status === 'pending_review',
+                          'label-active': row.status === 'active',
+                          'label-inactive': row.status === 'inactive'
+                        }"
+                      >
+                        <span [ngSwitch]="row.status">
+                          <span *ngSwitchCase="'pending_review'"
+                            >În așteptare</span
+                          >
+                          <span *ngSwitchCase="'active'">Activ</span>
+                          <span *ngSwitchCase="'inactive'">Inactiv</span>
+                        </span>
+                      </span>
+                    </td>
+                  </ng-container>
+
+                  <!-- Actions Column -->
+                  <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="actions-class">
+                      {{ "RESOURCES.ACTIONS" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let row; let i = index">
+                      <div class="d-flex actions-container">
+                        <!--Add-->
+                        <button
+                          *ngIf="resToBeAdded[0]?.id !== row.id"
+                          [disabled]="resToBeAdded.length > 0"
+                          class="btn-round btn-no-outline"
+                          type="button"
+                          matTooltip="Adauga resursa"
+                          (click)="addToRelatedRes(row)"
+                        >
+                          <i class="fas fa-plus"></i>
+                        </button>
+
+                        <!--Remove related resource-->
+                        <button
+                          *ngIf="resToBeAdded[0]?.id === row.id"
+                          class="btn-round btn-no-outline"
+                          type="button"
+                          matTooltip="Elimina resursa"
+                          (click)="removeRelatedResource()"
+                        >
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+
+                      <!--                                            &lt;!&ndash;Modal Delete Resource&ndash;&gt;-->
+                      <!--                                            <ng-template #deleteResourceModal let-c="close" let-d="dismiss">-->
+                      <!--                                                <div class="modal-card card">-->
+                      <!--                                                    <div class="card-header border-0">-->
+                      <!--                                                        <h3 class="m-0">-->
+                      <!--                                                            Ștergere resursă-->
+                      <!--                                                        </h3>-->
+                      <!--                                                    </div>-->
+
+                      <!--                                                    <div class="card-body">-->
+                      <!--                                                        <p>{{ 'TEMPLATES.DELETE-WARNING' | translate}}</p>-->
+
+                      <!--                                                        <div class="card-event card">-->
+                      <!--                                                            <div class="card-body d-flex justify-content-center align-items-start flex-column">-->
+                      <!--                                                                <h3>#{{ (i + 1) + pageSize * (pageNumber) }} {{row.title}}</h3>-->
+                      <!--                                                                &lt;!&ndash;                                        <p class="m-0">{{userData?.firstName+' '+userData?.lastName}}</p>&ndash;&gt;-->
+                      <!--                                                            </div>-->
+                      <!--                                                        </div>-->
+
+                      <!--                                                    </div>-->
+
+                      <!--                                                    <div class="card-footer border-0">-->
+                      <!--                                                        <div class="row">-->
+                      <!--                                                            <div class="col-12 col-sm-6">-->
+                      <!--                                                                <button class="btn-auto btn-color-outline w-100"-->
+                      <!--                                                                        id="btnModalEventDismissDelete-{{i}}"-->
+                      <!--                                                                        (click)="closeModal()">-->
+                      <!--                                                                    <i class="fas fa-times"></i>-->
+                      <!--                                                                    {{ 'BTN.CANCEL' | translate}}-->
+                      <!--                                                                </button>-->
+                      <!--                                                            </div>-->
+
+                      <!--                                                            <div class="col-12 col-sm-6">-->
+                      <!--                                                                <button class="btn-auto btn-color-fill w-100"-->
+                      <!--                                                                        id="btnModalTemplateConfirmDelete-{{i}}"-->
+                      <!--                                                                        (click)="deleteResource(row.id)">-->
+                      <!--                                                                    <i class="fas fa-check"></i>-->
+                      <!--                                                                    {{ 'BTN.CONFIRM' | translate}}-->
+                      <!--                                                                </button>-->
+                      <!--                                                            </div>-->
+                      <!--                                                        </div>-->
+                      <!--                                                    </div>-->
+                      <!--                                                </div>-->
+                      <!--                                            </ng-template>-->
+                    </td>
+                  </ng-container>
+
+                  <tr
+                    mat-header-row
+                    *matHeaderRowDef="displayedResourcesColumns"
+                  ></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedResourcesColumns"
+                  ></tr>
+
+                  <!-- Row shown when there is no matching data. -->
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">
+                      {{ "PROVIDER.NO_DATA" | translate }}
+                    </td>
+                  </tr>
+                </table>
+
+                <!--Pagination-->
+                <mat-paginator
+                  [pageSizeOptions]="pageSizeArray"
+                  [length]="totalElements"
+                  [pageSize]="pageSizeChoose"
+                  (page)="pageChanged($event)"
+                >
+                </mat-paginator>
+              </div>
+            </div>
+
+            <!--                        <div class="container mb-3">-->
+            <!--                            <div class="row tableContent">-->
+            <!--                                &lt;!&ndash;Table start&ndash;&gt;-->
+            <!--                                <table mat-table matSort appMatTableResponsive [dataSource]="dataSourceRelated"-->
+            <!--                                       class="w-100">-->
+
+            <!--                                    &lt;!&ndash; Resource Name Column &ndash;&gt;-->
+            <!--                                    <ng-container matColumnDef="title">-->
+            <!--                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.NAME' | translate}} </th>-->
+            <!--                                        <td attr.attr.data-column-name="{{'RESOURCES.NAME' | translate}}" mat-cell *matCellDef="let row">-->
+            <!--                                            <i class="fas fa-users shared" *ngIf="row.sharedExperience"></i>-->
+            <!--                                            {{row.title}}-->
+            <!--                                        </td>-->
+            <!--                                    </ng-container>-->
+
+            <!--                                    &lt;!&ndash; Address column &ndash;&gt;-->
+            <!--                                    <ng-container matColumnDef="address">-->
+            <!--                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.LOCATION' | translate}} </th>-->
+            <!--                                        <td attr.data-column-name="{{'RESOURCES.LOCATION' | translate}}" mat-cell-->
+            <!--                                            *matCellDef="let row"> {{row.address}} {{row.city}} </td>-->
+            <!--                                    </ng-container>-->
+
+            <!--                                    &lt;!&ndash;Category column&ndash;&gt;-->
+            <!--                                    <ng-container matColumnDef="category">-->
+            <!--                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.CATEGORY' | translate}} </th>-->
+            <!--                                        <td attr.data-column-name="{{'RESOURCES.CATEGORY' | translate}}" mat-cell-->
+            <!--                                            *matCellDef="let row">{{row.resourceCategoryName}}</td>-->
+            <!--                                    </ng-container>-->
+
+            <!--                                    &lt;!&ndash;Purchase column&ndash;&gt;-->
+            <!--                                    <ng-container matColumnDef="purchase">-->
+            <!--                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.PURCHASE' | translate}} </th>-->
+            <!--                                        <td attr.data-column-name="{{'RESOURCES.PURCHASE' | translate}}" mat-cell *matCellDef="let row"><span-->
+            <!--                                                class="d-flex justify-content-end me-3">{{row.totalBookingNumber}}</span></td>-->
+            <!--                                    </ng-container>-->
+
+            <!--                                    &lt;!&ndash;Status column&ndash;&gt;-->
+            <!--                                    <ng-container matColumnDef="status">-->
+            <!--                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.STATUS' | translate}} </th>-->
+            <!--                                        <td attr.data-column-name="{{'RESOURCES.STATUS' | translate}}" mat-cell *matCellDef="let row">-->
+            <!--                            <span class="custom-label"-->
+            <!--                                  [ngClass]="{-->
+            <!--                            'label-pending' : row.status === 'pending_review',-->
+            <!--                            'label-active' : row.status === 'active',-->
+            <!--                            'label-inactive' : row.status === 'inactive'-->
+            <!--                        }">-->
+            <!--                                <span [ngSwitch]="row.status">-->
+            <!--                                   <span *ngSwitchCase="'pending_review'">În așteptare</span>-->
+            <!--                                   <span *ngSwitchCase="'active'">Activ</span>-->
+            <!--                                   <span *ngSwitchCase="'inactive'">Inactiv</span>-->
+            <!--                                </span>-->
+            <!--                            </span>-->
+            <!--                                        </td>-->
+            <!--                                    </ng-container>-->
+
+            <!--                                    &lt;!&ndash; Actions Column &ndash;&gt;-->
+            <!--                                    <ng-container matColumnDef="actions">-->
+            <!--                                        <th mat-header-cell *matHeaderCellDef class="actions-class"> {{'RESOURCES.ACTIONS' | translate}}</th>-->
+            <!--                                        <td mat-cell *matCellDef="let row; let i = index;">-->
+            <!--                                            <div class="d-flex actions-container">-->
+
+            <!--                                                &lt;!&ndash;Add&ndash;&gt;-->
+            <!--                                                <button class="btn-round btn-no-outline"-->
+            <!--                                                        matTooltip="Sterge resursa"-->
+            <!--                                                        type="button"-->
+            <!--                                                (click)="removeResource(row.id)">-->
+            <!--                                                    <i class="fas fa-times"></i>-->
+            <!--                                                </button>-->
+            <!--                                            </div>-->
+
+            <!--                                            &lt;!&ndash;                                            &lt;!&ndash;Modal Delete Resource&ndash;&gt;&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                            <ng-template #deleteResourceModal let-c="close" let-d="dismiss">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                <div class="modal-card card">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                    <div class="card-header border-0">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                        <h3 class="m-0">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                            Ștergere resursă&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                        </h3>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                    </div>&ndash;&gt;-->
+
+            <!--                                            &lt;!&ndash;                                                    <div class="card-body">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                        <p>{{ 'TEMPLATES.DELETE-WARNING' | translate}}</p>&ndash;&gt;-->
+
+            <!--                                            &lt;!&ndash;                                                        <div class="card-event card">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                            <div class="card-body d-flex justify-content-center align-items-start flex-column">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                <h3>#{{ (i + 1) + pageSize * (pageNumber) }} {{row.title}}</h3>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                &lt;!&ndash;                                        <p class="m-0">{{userData?.firstName+' '+userData?.lastName}}</p>&ndash;&gt;&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                            </div>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                        </div>&ndash;&gt;-->
+
+            <!--                                            &lt;!&ndash;                                                    </div>&ndash;&gt;-->
+
+            <!--                                            &lt;!&ndash;                                                    <div class="card-footer border-0">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                        <div class="row">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                            <div class="col-12 col-sm-6">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                <button class="btn-auto btn-color-outline w-100"&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                        id="btnModalEventDismissDelete-{{i}}"&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                        (click)="closeModal()">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                    <i class="fas fa-times"></i>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                    {{ 'BTN.CANCEL' | translate}}&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                </button>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                            </div>&ndash;&gt;-->
+
+            <!--                                            &lt;!&ndash;                                                            <div class="col-12 col-sm-6">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                <button class="btn-auto btn-color-fill w-100"&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                        id="btnModalTemplateConfirmDelete-{{i}}"&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                        (click)="deleteResource(row.id)">&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                    <i class="fas fa-check"></i>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                    {{ 'BTN.CONFIRM' | translate}}&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                                </button>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                            </div>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                        </div>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                    </div>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                                </div>&ndash;&gt;-->
+            <!--                                            &lt;!&ndash;                                            </ng-template>&ndash;&gt;-->
+
+            <!--                                        </td>-->
+            <!--                                    </ng-container>-->
+
+            <!--                                    <tr mat-header-row *matHeaderRowDef="displayedResourcesColumns"></tr>-->
+            <!--                                    <tr mat-row *matRowDef="let row; columns: displayedResourcesColumns;"></tr>-->
+
+            <!--                                    &lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;-->
+            <!--                                    <tr class="mat-row" *matNoDataRow>-->
+
+            <!--                                        <td class="mat-cell" colspan="4">{{'PROVIDER.NO_DATA'|translate}}</td>-->
+            <!--                                    </tr>-->
+            <!--                                </table>-->
+
+            <!--                                &lt;!&ndash;Pagination&ndash;&gt;-->
+            <!--                                <mat-paginator-->
+            <!--                                        [pageSizeOptions]="pageSizeArray"-->
+            <!--                                        [length]="totalElementsRelated"-->
+            <!--                                        [pageSize]="pageSizeRelated"-->
+            <!--                                        (page)="pageChangedForRelatedRes($event)" >-->
+            <!--                                </mat-paginator>-->
+
+            <!--                            </div>-->
+            <!--                        </div>-->
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+      <div
+        class="footer-container d-flex flex-wrap justify-content-center justify-content-xl-between align-items-center"
+      >
+        <div class="d-flex gap-2">
+          <mat-checkbox
+            [checked]="userAcceptedTerms"
+            id="termsCheckbox"
+          ></mat-checkbox>
+          <p>
+            Am citit și sunt de acord cu
+            <a href="/content/privacy-policy" target="_blank"
+              >Politica de Confidențialitate</a
+            >
+            a site-ului bestinform.eu.
+          </p>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button
+            type="button"
+            class="btn-auto btn-color-outline w-50"
+            id="cancel-event-form"
+            [routerLink]="isEditMode ? '../../list' : '../../events/list'"
+          >
+            <i class="fas fa-times"></i>
+            {{ "BTN.CANCEL" | translate }}
+          </button>
+
+          <button
+            type="button"
+            class="btn-auto btn-color-fill w-50"
+            id="submit-event-form"
+            id="submitEvent"
+            (click)="submitEvent()"
+          >
+            {{ "BTN.SUBMIT" | translate }}
+            <i class="fa fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

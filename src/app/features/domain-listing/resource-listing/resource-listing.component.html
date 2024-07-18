@@ -1,0 +1,247 @@
+<div class="d-flex flex-column">
+  <app-search-section [isBiggerThan981]="true"></app-search-section>
+
+  <ng-container *ngIf="isMobile">
+    <div appScrolledTo #scrolledToElement="appScrolledTo">
+    </div>
+    <div class="mobile-search-bar"
+      [class.scrolled]="scrolledToElement.reached"
+      [class.unscrolled]="scrolledToElement.passed"
+    >
+
+      <div class="mobile-bar-container">
+        <ng-container *ngIf="!showSearchInput; else inputContainer">
+          <p class="mobile-bar-items" (click)="showSearchInput = !showSearchInput">
+            <mat-icon class="restaurant-icon" svgIcon="zoom-icon"></mat-icon>
+            Search
+          </p>
+
+          <p (click)="sortItems({sortBy: 'rating', dir: 'ASC'})" class="mobile-bar-items">
+            <mat-icon class="restaurant-icon" svgIcon="sort-icon"></mat-icon>
+            Sort
+          </p>
+
+          <p (click)="showFilters = !showFilters" class="mobile-bar-items">
+            <mat-icon class="restaurant-icon" svgIcon="filter-icon"></mat-icon>
+            Filter
+          </p>
+
+          <p (click)="openMapsModal(mapsModalTemplate)" class="mobile-bar-items">
+            <mat-icon class="restaurant-icon" svgIcon="map-icon"></mat-icon>
+            Map
+          </p>
+        </ng-container>
+
+        <ng-template #inputContainer>
+          <form class="search-form-component" [formGroup]="searchForm">
+            <input
+                    style="width: 100%"
+                    type="text"
+                    pInputText
+                    formControlName="searchControl"
+                    [placeholder]="'Cauta...'"
+            />
+            <mat-icon (click)="closeFilters(); showSearchInput = !showSearchInput">close</mat-icon>
+          </form>
+
+        </ng-template>
+
+      </div>
+    </div>
+  </ng-container>
+
+
+
+
+  <!--  <div *ngIf="isMobile()">-->
+  <!--    <p-card>-->
+  <!--      <p-selectButton-->
+  <!--        [options]="stateOptions"-->
+  <!--        [(ngModel)]="value"-->
+  <!--        optionLabel="label"-->
+  <!--        optionValue="value"-->
+  <!--        class="menu-filter-items"-->
+  <!--      >-->
+  <!--        <ng-template let-item pTemplate>-->
+  <!--          <div (click)="openModal(item.type)">-->
+  <!--            <span style="padding-right: 5px">{{ item.label }}</span-->
+  <!--            ><i [class]="item.icon"></i>-->
+  <!--          </div>-->
+  <!--        </ng-template>-->
+  <!--      </p-selectButton>-->
+  <!--    </p-card>-->
+
+  <!--    <app-modal-->
+  <!--      [isVisible]="modalVisible"-->
+  <!--      (closeModal)="closedModal($event)"-->
+  <!--      [type]="selectedType"-->
+  <!--      [title]="'Cauta Restaurant'"-->
+  <!--    ></app-modal>-->
+  <!--  </div>-->
+
+  <ng-container *ngIf="selected === 'restaurants'">
+    <div class="padding-wrapper background-white">
+      <div class="content-container max-width-wrapper" [ngStyle]="{display: !showFilters ? 'flex' : 'none'}">
+        <!-- <div class="container">
+                    <app-resources-carousel></app-resources-carousel>
+                </div>             -->
+        <div class="filters">
+          <div class="listing-maps">
+            <google-map
+                    height="30vh"
+                    [options]="googlemapOptions"
+                    width="100%"
+                    [center]="center"
+                    [zoom]="zoom"
+                    (mapClick)="moveMap($event)"
+                    (mapMousemove)="move($event)"
+            >
+              <map-marker
+                      *ngFor="let markerPosition of markerPositions"
+                      [position]="markerPosition"
+                      [options]="markerOptions"
+              ></map-marker>
+            </google-map>
+            <button (click)="openMapsModal(mapsModalTemplate)" class="show-on-map-button">
+              <span>Arata pe harta</span>
+            </button>
+          </div>
+
+          <app-listing-filter [ngStyle]="{display: showFilters || !isMobile ? 'block' : 'none'}" class="listing-filter"></app-listing-filter>
+
+          <app-sidebar-filters
+                  (filtersSubmitted)="scrollResourcesListIntoView()"
+          ></app-sidebar-filters>
+        </div>
+
+
+
+        <!-- <div class="col-12 col-lg-9" #resourcesList> -->
+
+        <app-listing [listType]="selected"></app-listing>
+        <!-- </div> -->
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="selected === 'events'">
+    <div class="padding-wrapper">
+      <div class="d-flex flex-column mb-4 max-width-wrapper">
+        <div class="m-auto filter-container">
+          <h1 class="mb-4">Spectacole in <span>Bucuresti</span></h1>
+          <h2 class="mb-4">Calendarul spectacolelor</h2>
+          <div class="d-flex event-date-filters mb-4">
+            <div class="event-filter" [class.active]="(daysFilter | async) === 1" (click)="selectPeriodFilter(1)"><div><img src="assets/icons/film.svg" width="15" height="15" alt="">Ruleaza acum</div></div>
+            <div class="event-filter" [class.active]="(daysFilter | async) === 2" (click)="selectPeriodFilter(2)"><div><img src="assets/icons/film.svg" width="15" height="15" alt="">In Weekend</div></div>
+            <div class="event-filter" [class.active]="(daysFilter | async) === 3" (click)="selectPeriodFilter(3)"><div><img src="assets/icons/film.svg" width="15" height="15" alt="">Saptamana viitoare</div></div>
+            <div class="event-filter" [class.active]="(daysFilter | async) === 4" (click)="selectPeriodFilter(4)"><div><img src="assets/icons/film.svg" width="15" height="15" alt="">Luna aceasta</div></div>
+            <div class="event-filter" [class.active]="(daysFilter | async) === 5" (click)="selectPeriodFilter(5)"><div><img src="assets/icons/film.svg" width="15" height="15" alt="">Urmeaza</div></div>
+          </div>
+          <h2 class="mb-4">Categorii</h2>
+          <div class="d-flex event-category-filters mb-4">
+            <div class="event-filter" *ngFor="let category of calegoriesList; let i = index" [class.active]="(categoryFilter | async) === i" (click)="categoryFilter.next(i)"><div><img [src]="getCategoryIcon((categoryFilter | async), i)" width="15" height="15" alt="">{{category.title}}</div></div>
+          </div>
+          <div class="d-flex search-container">
+            <div class="p-input-icon-left input-field w-100">
+              <i class="pi pi-search left"></i>
+              <input
+                      pInputText
+                      type="text"
+                      placeholder="Cauta Evenimente..."
+                      #autocomplete
+                      id="autocomplete"
+                      class="input-field ps-5 input-bg-contrast w-100"
+                      (change)="searchByString($event)"
+              />
+            </div>
+            <p-dropdown
+                    [options]="['Date (asc)', 'Date (desc)', 'Price (asc)', 'Price (desc)']"
+                    placeholder="Sort by"
+                    (onChange)="selectSort($event)"
+            ></p-dropdown>
+          </div>
+        </div>
+        <div class="d-flex events-cards-container mb-2">
+          <div *ngFor="let event of filteredEvents; index as i" class="event-card d-flex flex-column justify-content-between" [style.background-image]="getEventImgUrl(event)" (click)="navigateToEventDetails(event)">
+            <div class="backdrop d-flex flex-column justify-content-between">
+              <div class="d-flex">
+                <!--                  <svg class="d-none" src="assets/icons/calendar-icon.svg" width="21.6" height="24" viewBox="0 0 24 26"></svg>-->
+                <div class="event-card-text position-relative d-flex"><i class="pi pi-calendar left"><span>{{getDay(event)}}</span></i><span class="month">{{getMonth(event)}}</span></div>
+              </div>
+              <div class="d-flex flex-column">
+                <h3>{{event?.title}}</h3>
+                <div class="d-flex justify-content-between">
+                  <div class="sub-text-1"><i class="pi pi-map-marker left"></i>{{event?.venue?.name}}</div>
+                  <div class="sub-text-2">de la <span class="bold-text">25RON/pers</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between"><div class="entries d-flex align-items-center">Showing {{filteredEvents.length ? 1 : 0}} to {{filteredEvents.length}} of {{filteredEvents.length}} entries</div>
+          <!--        <p-paginator [rows]="10" [totalRecords]="100"></p-paginator>-->
+        </div>
+      </div>
+      <div class="d-flex flex-column centered mb-2" *ngIf="eventsExpanded">
+        <div class="events-title mb-4">Spectacole de teatru in Bucuresti</div>
+        <div class="d-flex search-container">
+          <div class="p-input-icon-left input-field w-100">
+            <i class="pi pi-search left"></i>
+            <input
+                    pInputText
+                    type="text"
+                    placeholder="Cauta Evenimente..."
+                    class="input-field ps-5 input-bg-contrast w-100"
+                    (change)="searchByString($event)"
+            />
+          </div>
+          <p-dropdown
+                  [options]="['sdgsdg', 'egesg']"
+                  placeholder="Sort by"
+          ></p-dropdown>
+        </div>
+        <div class="d-flex events-cards-container mb-2">
+        </div>
+        <div class="d-flex justify-content-between"><div class="entries d-flex align-items-center">Showing 1 to {{filteredEvents.length}} of {{filteredEvents.length}} entries</div>
+          <!--        <p-paginator [rows]="10" [totalRecords]="100" [first]="1"></p-paginator>-->
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container>
+    <app-listing-filter [ngStyle]="{display: isMobile && showFilters ? 'block' : 'none'}" class="listing-filter"></app-listing-filter>
+  </ng-container>
+
+  <ng-container *ngIf="selected === 'hotels'">
+    <app-hotels-dashboard></app-hotels-dashboard>
+  </ng-container>
+</div>
+
+<p-dialog
+  header="{{ 'RESTAURANTS.CATEGORIES' | translate }}"
+  [(visible)]="dialogVisible"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="flex flex-column gap-3">
+    <div *ngFor="let option of options" class="field-checkbox">
+      <p-radioButton
+        [inputId]="option.key"
+        name="category"
+        [value]="option"
+        [(ngModel)]="selectedOption"
+      ></p-radioButton>
+      <label [for]="option.key" class="ml-2">{{ option.name }}</label>
+    </div>
+  </div>
+</p-dialog>
+
+<ng-template #mapsModalTemplate>
+  <app-maps-modal
+          [wasClosed]="wasClosedSubject"
+          [restaurantModalFilters]="restaurantModalFilters"
+          [initialData]="markerPositions">
+  </app-maps-modal>
+</ng-template>

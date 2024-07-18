@@ -1,0 +1,46 @@
+<!--Title bar-->
+<div class="container-fluid">
+
+    <div  class="container" >
+        <app-dashboard-header pageTitleOne="Inbox"
+                              [buttonBackRoute]="'/private/provider/dashboard'">
+        </app-dashboard-header>
+    </div>
+
+    <!-- Tabs -->
+    <div  class="container inbox-container ">
+        <ul class="nav nav-tabs" id="inboxTab" role="tablist">
+            <!-- Booking Support -->
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="booking-support-tab" data-bs-toggle="tab" data-bs-target="#bookingSupport" type="button" role="tab" aria-controls="bookingSupport" aria-selected="false">Rezervări</button>
+            </li>
+
+            <!-- Bestinform Support -->
+            <li class="nav-item" role="presentation" >
+                <button class="nav-link d-flex align-items-center justify-content-between" id="bestinform-support-tab" data-bs-toggle="tab" data-bs-target="#bestinformSupport" type="button" role="tab" aria-controls="bestinformSupport" aria-selected="false">Bestinform Support
+                    <button class="btn-long btn-color-fill" type="button" (click)="initSupport()"  [disabled]="loading">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </button>
+
+            </li>
+
+          </ul>
+
+
+        <!-- Content of tabs -->
+        <div class="tab-content" id="myTabContent">
+            <!-- Content booking suport -->
+            <div class="tab-pane fade show active" id="bookingSupport" role="tabpanel" aria-labelledby="booking-support-tab">
+             <app-provider-conversation-item-card [category]="'reservation'" [currentUser]="currentUserId"></app-provider-conversation-item-card>
+
+            </div>
+
+            <!-- Content bestinform suport -->
+            <div class="tab-pane fade" id="bestinformSupport" role="tabpanel" aria-labelledby="bestinform-support-tab">
+              <app-provider-conversation-item-card [category]="'bestinformSupport'" [currentUser]="currentUserId"></app-provider-conversation-item-card>
+            </div>
+        </div>
+
+    </div>
+</div>

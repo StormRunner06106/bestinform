@@ -1,0 +1,52 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.sidebar-container {
+  gap: 24px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.filters-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba($primary-color, 0.16);
+  border-radius: 8px;
+  overflow: hidden;
+
+  .mat-radio-button {
+    display: block;
+  }
+}
+
+:host ::ng-deep .filters-container {
+  .mat-expansion-panel-spacing {
+    margin: 0;
+  }
+
+  .mat-expansion-panel {
+    box-shadow: none !important;
+  }
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 24px;
+
+  .btn-reset {
+    background: $dislike-color;
+
+    &:hover {
+      background: rgba($dislike-color, 0.72)
+    }
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+

@@ -1,0 +1,118 @@
+<div
+  class="slider-wrapper"
+  [ngClass]="{'slider-wrapper-search-hotels': inputType === 'hotels' && listingCards}"
+  [ngStyle]="listingPage ? { 'padding-top': '24px' } : {}"
+>
+  <div
+    class="slider-container"
+    [ngClass]="{'slider-container-hotels': inputType === 'hotels' && extra && extra.room, 'slider-container-search-hotels' : inputType === 'hotels' && listingCards, eventSlider: events}"
+    [ngStyle]="listingPage ? { 'padding-bottom': '0px' } : {}"
+  >
+    <div
+      *ngIf="isTitle"
+      [ngClass]="{ eventTitle: events }"
+      class="title-container"
+    >
+      <h3 class="h3-#4257EE">{{ title }}</h3>
+      <ng-container *ngIf="hasButton">
+        <p-button
+          (click)="redirectByType()"
+          label="Vezi mai multe"
+          styleClass="p-button-outlined"
+        ></p-button>
+      </ng-container>
+    </div>
+    <p-carousel *ngIf="inputType !== 'hotel' && inputType !== 'restaurants' && sliderCards"
+      [value]="sliderCards"
+      [numVisible]="visibilityOptions.numVisible"
+      [numScroll]="visibilityOptions.numScroll"
+      [responsiveOptions]="responsiveOptions"
+      [showIndicators]="false"
+      [orientation]="orientation"
+      [showNavigators]="!isMobile"
+      verticalViewPortHeight="805px"
+      class="hotel-carousel"
+                [ngClass]="{'no-padding': inputType === 'hotels' && extra && extra.room, 'carousel-width-40' : extra && extra.room && extra.room.rates.length === 1, 'carousel-2-elements' : extra && extra.room && extra.room.rates.length === 2}"
+      [contentClass]="isEventsTrue ? 'events-true' : ''"
+    >
+      <ng-template let-card pTemplate="card">
+        <div *ngIf="inputType === 'hotels' && extra && extra.room; else restaurantTemplate" class="h-100">
+          <div class="d-flex flex-column height-60 card-text">
+            <div class="mb-1 s24 ms-1 me-1 color-black fw-bolder">Optiunea {{extra.room.rates.indexOf(card) + 1}}</div>
+            <div class="s16 ms-1 me-1 color-primary">{{extra.mealsHawkDict.get(card.meal).ro}}</div>
+            <span *ngIf="card.payment_options.payment_types[0].cancellation_penalties.noCancellation" class="s16 me-2 ms-1 me-1 color-primary">Fara policita de anulare</span>
+            <div *ngIf="!card.payment_options.payment_types[0].cancellation_penalties.noCancellation && card.payment_options.payment_types[0].cancellation_penalties.free_cancellation_before" class="s14 ms-1 me-1 color-primary d-flex">Anulare gratuita inainte de: <div class="s14 fw-bold d-flex align-items-end">{{" " + card.payment_options.payment_types[0].cancellation_penalties.free_cancellation_before_parsed}}</div></div>
+            <div *ngIf="!card.payment_options.payment_types[0].cancellation_penalties.noCancellation && !card.payment_options.payment_types[0].cancellation_penalties.free_cancellation_before" class="s14 ms-1 me-1 color-primary text-wrap">
+              <div class="d-flex flex-column">
+
+                <div *ngFor="let policy of card.payment_options.payment_types[0].cancellation_penalties.policies">
+                  <div class="s14 color-primary d-flex" *ngIf="policy.start_at && policy.start_at.length > 0">{{policy.amount_charge}} {{card.payment_options.payment_types[0].currency_code}} De la: <div class="s14 fw-bold d-flex align-items-end">{{" " + policy.start_at_parsed}}</div></div>
+                  <div class="s14 color-primary d-flex" *ngIf="policy.end_at && policy.end_at.length > 0">{{policy.amount_charge}} {{card.payment_options.payment_types[0].currency_code}} Pana la: <div class="s14 fw-bold d-flex align-items-end">{{" " + policy.end_at_parsed}}</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="s16 ms-1 me-1 color-primary">Plata cu cardul</div>
+
+          </div>
+          <div class="d-flex height-40 flex-column mt-1">
+            <div class="hotel-carousel-background ps-5 pe-5 pt-1">
+              <div class="s16 color-black fw-bolder">Tarif <span class="color-primary">{{card.payment_options.payment_types[0].amount + " " + card.payment_options.payment_types[0].currency_code}}</span></div>
+              <div class="s14 color-white fw-bolder">{{card.payment_options.payment_types[0].tax_data.cityTax ? "Taxe la locatie: " + card.payment_options.payment_types[0].tax_data.cityTax : "Fara taxe la locatie" }}</div>
+            </div>
+            <div class="w-100 d-flex justify-content-center mt-2">
+              <button pButton
+                      class="rezerva col-10"
+                      label="Rezerva"
+                      (click)="showReservation(extra.room, card)"
+              ></button>
+            </div>
+          </div>
+
+        </div>
+        <ng-template #restaurantTemplate>
+          <app-image-card
+                  (click)="!card.disabled && selectCard(card)"
+                  class="image-card"
+                  [size]="size"
+                  [card]="card"
+                  [events]="events"
+                  [disableCarouselAnimation]="disableCarouselAnimation"
+                  [isSelected]="isSelected(card)"
+                  [inputType]="inputType"
+                  [listingPage]="listingPage"
+                  [disableHover]="card.disabled || disableHover"
+                  [locked]="card.disabled"
+          ></app-image-card>
+        </ng-template>
+
+      </ng-template>
+    </p-carousel>
+    <div *ngIf="inputType === 'hotels' && listingCards">
+      <div class="d-flex flex-row gap-2">
+        <div *ngFor="let card of hotelsCards; index as i" [ngClass]="{'col-4': true, 'card-selected': card.selected}">
+          <mat-card class="w-100" (click)="selectedHotelCard(i)">
+            <div class="text-align-center s18">{{card.cardText.title}}</div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="inputType === 'restaurants' && listingCards">
+      <div class="d-flex flex-row gap-2">
+        <div *ngFor="let card of sliderCards; index as i" [ngClass]="{'col-4': true, 'card-selected': card.selected}">
+          <mat-card class="w-100" (click)="selectedRestaurantCard(i)">
+            <div class="text-align-center s18">{{card.cardText.title}}</div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="hasBottomButton">
+    <div class="button-wrapper">
+      <p-button
+        label="Vezi mai multe evenimente"
+        styleClass="p-button-yellow"
+      ></p-button>
+    </div>
+  </ng-container>
+</div>

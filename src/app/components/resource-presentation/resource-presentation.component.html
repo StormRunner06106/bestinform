@@ -1,0 +1,624 @@
+<div class="padding-wrapper resourse-presentation-wrap">
+  <div class="single-restaurant max-width-wrapper" id="presentation-block">
+    <ng-container *ngIf="!loading">
+      <div class="restaurant-row" *ngIf="selectedMenu === 'Prezentare'">
+        <ng-container *ngIf="isBiggerThan981 && imageUrls?.length">
+          <div class="image-grid-rest">
+            <app-image-grid
+              [selected]="selected"
+              [isBiggerThan981]="isBiggerThan981"
+              [images]="imageUrls"
+              [carouselImages]="carouselImages"
+            ></app-image-grid>
+          </div>
+        </ng-container>
+
+        <div class="information-part1">
+          <ng-container
+            *ngTemplateOutlet="
+              mapContainerTemplate;
+              context: { extraData: { height: '220px' } }
+            "
+          ></ng-container>
+          <div>
+            <app-additional-information
+              [selectedItem]="selected"
+              [header]="'RESTAURANTS.ADDITIONAL_INFO'"
+              [orderDismissTime]="resourceDetails?.orderDismissTime"
+              [specific]="resourceDetails?.specific"
+              [reservationPolicy]="resourceDetails?.reservationPolicy"
+              [currency]="resourceDetails?.currency"
+              [avgPrice]="resourceDetails?.avgPrice"
+              [address]="resourceDetails?.address"
+              [rating]="resourceDetails?.rating"
+              [currentTimetable]="resourceDetails?.currentTimetable"
+              [showDetail]="true"
+              [checkIn]="resourceDetails?.check_in_time"
+              [checkOut]="resourceDetails?.check_out_time"
+              [metapolicyExtraInfo]="resourceDetails?.metapolicy_extra_info"
+              [avgTime]="resourceDetails?.currentTimetable?.avgTime"
+              (buttonClick)="buttonClicked($event)"
+            ></app-additional-information>
+          </div>
+        </div>
+      </div>
+
+      <div class="restaurant-row" *ngIf="selectedMenu === 'Meniu'">
+        <div class="image-grid-rest">
+          <app-restaurant-menu
+            [menu]="resourceDetails?.menus"
+          ></app-restaurant-menu>
+        </div>
+
+        <div class="information-part1">
+          <ng-container
+            *ngTemplateOutlet="
+              mapContainerTemplate;
+              context: { extraData: { height: '250px' } }
+            "
+          ></ng-container>
+          <div>
+            <app-additional-information
+              [selectedItem]="selected"
+              [header]="'RESTAURANTS.ADDITIONAL_INFO'"
+              [reservationPolicy]="resourceDetails?.reservationPolicy"
+              [currency]="resourceDetails?.currency"
+              [specific]="resourceDetails?.specific"
+              [address]="resourceDetails?.address"
+              [showDetail]="true"
+              (buttonClick)="buttonClicked($event)"
+            ></app-additional-information>
+          </div>
+        </div>
+      </div>
+
+      <div class="restaurant-row" *ngIf="selectedMenu === 'Rezervari'">
+        <ng-container *ngIf="selected === 'restaurants'">
+          <div class="image-grid-rest">
+            <app-resource-reservation
+              [restId]="resourceDetails?._id"
+              [availablePlaces]="resourceDetails?.availablePlaces"
+              [disableForm]="!resourceDetails?.available"
+              [buttonHidden]="true"
+              [preventNavigation]="!!bookingFee"
+              [submitObservable]="submitReservationObservable"
+              (sessionId)="startStripeSession($event)"
+            ></app-resource-reservation>
+            <p-card>
+              <ng-template pTemplate="content">
+                <h3 class="additional-info-title">Informatii importante de rezervare</h3>
+                <div class="additional-info" *ngIf="bookingFee">Pentru acest restaurant este necesara plata unui depozit de garantare a rezervarii in valoare de :</div>
+                <div class="additional-info-warning" *ngIf="bookingFee">*Contravaloarea depozitului va fi dedusǎ în totalitate din nota de platǎ la restaurant.</div>
+                <div class="additional-info-label" *ngIf="bookingFee">Valoare depozit de garantare rezervare = {{bookingFee}} Lei</div>
+                <div class="additional-info-label" *ngIf="!bookingFee">Vei obtine un discount de 5% din nota de platǎ pentru acest restaurant</div>
+                <p-button
+                        label="Rezerva Acum"
+                        (onClick)="submitReservation()"
+                        class="reservation-button"
+                        *ngIf="!sessionId"
+                ></p-button>
+              </ng-template>
+            </p-card>
+          </div>
+
+          <div class="information-part1">
+            <div>
+              <app-additional-information
+                [specific]="resourceDetails?.specific"
+                [reservationPolicy]="resourceDetails?.reservationPolicy"
+                [currency]="resourceDetails?.currency"
+                [address]="resourceDetails?.address"
+                [restaurantName]="resourceDetails?.name"
+                [header]="'RESTAURANTS.RESERVATION_DETAILS'"
+                [showDetail]="false"
+              ></app-additional-information>
+            </div>
+
+            <div class="maps-rest">
+              <p-card>
+                <ng-template pTemplate="body" class="additional-body">
+                  <div>
+                    <p class="flex">
+                      <mat-icon>location_on</mat-icon
+                      >{{ "RESTAURANTS.OWNER_ADDRESS" | translate }}
+                    </p>
+                    <p>{{ resourceDetails?.address }}</p>
+                  </div>
+                  <ng-container
+                    *ngTemplateOutlet="
+                      mapContainerTemplate;
+                      context: { extraData: { height: '250px' } }
+                    "
+                  ></ng-container>
+                </ng-template>
+              </p-card>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="selected === 'hotels'">
+          <div class="image-grid-rest">
+            <app-hotel-reservation-form></app-hotel-reservation-form>
+            <!--          <app-resource-reservation-->
+            <!--            [restId]="resourceDetails?.id"-->
+            <!--            [availablePlaces]="resourceDetails?.availablePlaces"-->
+            <!--            [disableForm]="resourceDetails?.available"-->
+            <!--          ></app-resource-reservation>-->
+          </div>
+
+          <div class="information-part1">
+            <!--          <div>-->
+            <!--            <app-additional-information-->
+            <!--              [specific]="resourceDetails?.specific"-->
+            <!--              [address]="resourceDetails?.address"-->
+            <!--              [restaurantName]="resourceDetails?.name"-->
+            <!--              [header]="'RESTAURANTS.RESERVATION_DETAILS'"-->
+            <!--              [showDetail]="false"-->
+            <!--            ></app-additional-information>-->
+            <!--          </div>-->
+
+            <!--          <div class="maps-rest">-->
+            <!--            <p-card>-->
+            <!--              <ng-template pTemplate="body" class="additional-body">-->
+            <!--                <div>-->
+            <!--                  <p class="flex">-->
+            <!--                    <mat-icon>location_on</mat-icon-->
+            <!--                    >{{ "RESTAURANTS.OWNER_ADDRESS" | translate }}-->
+            <!--                  </p>-->
+            <!--                  <p>{{ resourceDetails?.address }}</p>-->
+            <!--                </div>-->
+            <!--                <google-map-->
+            <!--                  height="25vh"-->
+            <!--                  [options]="googlemapOptions"-->
+            <!--                  width="100%"-->
+            <!--                  [center]="center"-->
+            <!--                  [zoom]="zoom"-->
+            <!--                  (mapClick)="moveMap($event)"-->
+            <!--                  (mapMousemove)="move($event)"-->
+            <!--                >-->
+            <!--                  <map-marker-->
+            <!--                    *ngFor="let markerPosition of markerPositions"-->
+            <!--                    [position]="markerPosition"-->
+            <!--                    [options]="markerOptions"-->
+            <!--                  ></map-marker>-->
+            <!--                </google-map>-->
+            <!--              </ng-template>-->
+            <!--            </p-card>-->
+            <!--          </div>-->
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="information-part2" *ngIf="selectedMenu === 'Prezentare'">
+        <ng-container
+          *ngIf="selected === 'hotels' || selected === 'restaurants'"
+        >
+          <div
+            [ngStyle]="{
+              width:
+                selected === 'restaurants' && isBiggerThan981
+                  ? 'calc(100% - 250px)'
+                  : '100%'
+            }"
+            class="width-100"
+          >
+            <app-information-card
+              [selected]="selected"
+              [description]="description"
+              [hotelDescription]="hotelDescription"
+              (buttonClick)="buttonClicked($event)"
+              [title]="'RESTAURANTS.DESCRIPTION'"
+            ></app-information-card>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="selected === 'restaurants'">
+          <div
+            class="program-container"
+            [ngClass]="{
+              'clear-width-100': isSmallScreen(),
+              'fixed-width': !isSmallScreen()
+            }"
+          >
+            <app-information-card
+              [selected]="selected"
+              [showButton]="true"
+              [labelText]="'RESTAURANTS.RESERVE_NOW'"
+              [title]="'RESTAURANTS.PROGRAM'"
+              [itemsTitle]="programTitle"
+              [items]="programs"
+              (buttonClick)="buttonClicked($event)"
+            ></app-information-card>
+          </div>
+
+          <!-- <div class="service-recommended">
+            <h2>Produse si servicii recomandate de Bestinform</h2>
+
+            <div class="service-card">
+
+              <p-card header="Serviciu 1">
+                <p>
+                  Descriere Lorem ipsum dolor sit amet consectetur. Purus
+                  euismod sagittis praesent facilisi mauris. Eu non egestas mi
+                  platea viverra metus. Quis blandit nascetur aliquam lorem
+                  lacus ut suspendisse tempor neque.
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button
+                    class="rec-button"
+                      label="{{ 'RESTAURANTS.RESERVE_NOW' | translate }}"
+                      (onClick)="buttonClicked()"
+                    ></p-button>
+                  </ng-template>
+              </p-card>
+            </div>
+
+            <div class="service-card">
+                
+                <p-card header="Serviciu 1">
+                  <p>
+                    Descriere Lorem ipsum dolor sit amet consectetur. Purus
+                    euismod sagittis praesent facilisi mauris. Eu non egestas mi
+                    platea viverra metus. Quis blandit nascetur aliquam lorem
+                    lacus ut suspendisse tempor neque.
+                  </p>
+                  <ng-template pTemplate="footer">
+                    <p-button
+                    class="rec-button"
+                      label="{{ 'RESTAURANTS.RESERVE_NOW' | translate }}"
+                      (onClick)="buttonClicked()"
+                    ></p-button>
+                  </ng-template>
+                </p-card>
+              </div>
+          </div> -->
+        </ng-container>
+      </div>
+
+      <div
+        class="information-part3"
+        *ngIf="selectedMenu === 'Prezentare' && resourceDetails?.services"
+      >
+        <ng-container *ngIf="selected === 'restaurants'">
+          <!-- <h3 class="description-header">
+                        Produse si servicii recomandate de Bestinform
+                    </h3> -->
+
+          <!-- Check if services length is greater than 3 to decide whether to use carousel or not -->
+          <ng-container
+            *ngIf="resourceDetails?.services.length > 3; else noCarousel"
+          >
+            <p-carousel
+              [showNavigators]="true"
+              [showIndicators]="false"
+              [value]="resourceDetails?.services"
+              [numVisible]="isMobile() ? 1 : 3"
+              [numScroll]="1"
+              [circular]="true"
+            >
+              <ng-template let-service let-i="index" pTemplate="item">
+                <ng-container *ngIf="!isMobile(); else mobileServiceContainer">
+                  <div class="service-item-carousel">
+                    <p class="service-item__title-container">
+                      {{ service.title }}
+                    </p>
+                    <p class="service-item__description-container">
+                      {{ service.description }}
+                    </p>
+                  </div>
+                </ng-container>
+                <ng-template #mobileServiceContainer>
+                  <div class="mobile-item-carousel">
+                    <p class="service-item__title-container">
+                      {{ service.title }}
+                    </p>
+                    <p class="service-item__description-container">
+                      {{ service.description }}
+                    </p>
+                  </div>
+                </ng-template>
+              </ng-template>
+            </p-carousel>
+          </ng-container>
+
+          <!-- If services length is not greater than 3, display them normally -->
+          <ng-template #noCarousel>
+            <div class="services-container">
+              <ng-container *ngFor="let service of resourceDetails?.services">
+                <div class="service-item">
+                  <p class="service-item__title-container">
+                    {{ service.title }}
+                  </p>
+                  <p class="service-item__description-container">
+                    {{ service.description }}
+                  </p>
+                </div>
+              </ng-container>
+            </div>
+          </ng-template>
+        </ng-container>
+      </div>
+
+      <div class="" *ngIf="selectedMenu === 'Prezentare'">
+        <!--      <ng-container *ngIf="selected === 'hotels'">-->
+        <!--        <h3 class="description-header">Restaurante in apropiere</h3>-->
+        <!--        <app-card-slider-->
+        <!--          [sliderCards]="restaurantCards"-->
+        <!--          [hotelsRestaurants]="true"-->
+        <!--          [events]="true"-->
+        <!--          [isTitle]="true"-->
+        <!--        >-->
+        <!--        </app-card-slider>-->
+        <!--      </ng-container>-->
+
+        <ng-container *ngIf="selected === 'restaurants'">
+          <ng-container *ngIf="isTransportationTitleVisible">
+            <h3 class="description-header">Informatii conexe</h3>
+            <app-info-category
+              [selected]="selected"
+              [infoCategories]="infoCategories"
+            ></app-info-category>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="selected === 'hotels'">
+          <h3 class="description-header">Dotari</h3>
+          <app-info-category
+            [selected]="selected"
+            [infoCategories]="shortAmenityGroups"
+            [shortInfo]="true"
+          ></app-info-category>
+        </ng-container>
+      </div>
+
+      <ng-container *ngIf="selectedMenu === 'Facilitati  '">
+        <h3 class="description-header">Dotari</h3>
+
+        <app-info-category
+          [selected]="selected"
+          [infoCategories]="resourceDetails.amenity_groups"
+        ></app-info-category>
+      </ng-container>
+
+      <ng-container *ngIf="selectedMenu === 'Camere'">
+        <!-- A. Tache -->
+        <app-apartments-details
+          *ngIf="!displayHotelReservation"
+          [selectedSearchParams]="hotelSearchParams"
+          [hotelDetails]="hotelFullInfo"
+          (reservation)="showResevation($event)"
+        ></app-apartments-details>
+        <app-hotel-reservation-form
+          *ngIf="displayHotelReservation"
+          [roomDetails]="roomDetails"
+          (backButtonEmitter)="backButtonEmitted()"
+        >
+        </app-hotel-reservation-form>
+      </ng-container>
+
+<!--      <div class="important-info custom-accordion-container">-->
+<!--        <h3 class="description-header">-->
+<!--          {{ "RESTAURANTS.IMPORTANT_INFORMATION" | translate }}-->
+<!--        </h3>-->
+
+<!--        <div class="accordion-container">-->
+<!--          <p-accordion [activeIndex]="0">-->
+<!--            <p-accordionTab-->
+<!--              header="{{ 'RESTAURANTS.POLITICS' | translate }}"-->
+<!--              class="accordion-item second-accordion-item"-->
+<!--            >-->
+<!--              <ng-container *ngIf="selected === 'restaurants'">-->
+<!--                <p class="accordion-description-paragraph">-->
+<!--                  {{ resourceDetails?.modificationPolicy }}-->
+<!--                </p>-->
+<!--              </ng-container>-->
+
+<!--              <ng-container *ngIf="selected === 'hotels'">-->
+<!--                <p class="accordion-description-paragraph">-->
+<!--                  <ng-container *ngIf="resourceDetails?.policy_struct?.length">-->
+<!--                    <ng-container-->
+<!--                      *ngFor="let policy of resourceDetails.policy_struct"-->
+<!--                    >-->
+<!--                      <div style="font-weight: 600">-->
+<!--                        {{ policy.title }}-->
+<!--                      </div>-->
+
+<!--                      <ng-container *ngFor="let paragraph of policy.paragraphs">-->
+<!--                        <p [innerHTML]="paragraph"></p>-->
+<!--                      </ng-container>-->
+<!--                    </ng-container>-->
+<!--                  </ng-container>-->
+
+<!--                  <ng-container *ngIf="!resourceDetails?.policy_struct?.length">-->
+<!--                    <div class="">N/A</div>-->
+<!--                  </ng-container>-->
+<!--                </p>-->
+<!--              </ng-container>-->
+<!--            </p-accordionTab>-->
+
+<!--            <p-accordionTab-->
+<!--              header="{{ 'RESTAURANTS.PAYMENT' | translate }}"-->
+<!--              class="accordion-item bordered-accordion-tab"-->
+<!--            >-->
+<!--              <p class="accordion-description-paragraph">-->
+<!--                <ng-container *ngIf="selected === 'restaurants'">-->
+<!--                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem-->
+<!--                  accusantium doloremque laudantium, totam rem aperiam, eaque-->
+<!--                  ipsa quae ab illo inventore veritatis et quasi architecto-->
+<!--                  beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem-->
+<!--                  quia voluptas sit aspernatur aut odit aut fugit, sed quia-->
+<!--                  consequuntur magni dolores eos qui ratione voluptatem sequi-->
+<!--                  nesciunt. Consectetur, adipisci velit, sed quia non numquam-->
+<!--                  eius modi.-->
+<!--                </ng-container>-->
+
+<!--                <ng-container *ngIf="selected === 'hotels'">-->
+<!--                  <p class="accordion-description-paragraph">-->
+<!--                    <ng-container-->
+<!--                      *ngIf="resourceDetails?.payment_methods?.length"-->
+<!--                    >-->
+<!--                      <div class="d-flex flex-wrap">-->
+<!--                        <ng-container-->
+<!--                          *ngFor="-->
+<!--                            let payment of resourceDetails.payment_methods;-->
+<!--                            let last = last-->
+<!--                          "-->
+<!--                        >-->
+<!--                          <div style="font-weight: 600; margin-right: 8px">-->
+<!--                            {{ payment.replace("_", " ")-->
+<!--                            }}{{ !last ? "," : "" }}-->
+<!--                          </div>-->
+<!--                        </ng-container>-->
+<!--                      </div>-->
+<!--                    </ng-container>-->
+
+<!--                    <ng-container-->
+<!--                      *ngIf="!resourceDetails?.payment_methods?.length"-->
+<!--                    >-->
+<!--                      <div class="">N/A</div>-->
+<!--                    </ng-container>-->
+<!--                  </p>-->
+<!--                </ng-container>-->
+<!--              </p>-->
+<!--            </p-accordionTab>-->
+<!--            <p-accordionTab-->
+<!--              header="{{ 'RESTAURANTS.ADDITIONAL_INFO' | translate }}"-->
+<!--              class="accordion-item"-->
+<!--            >-->
+<!--              <ng-container *ngIf="selected === 'restaurants'">-->
+<!--                <p class="accordion-description-paragraph">-->
+<!--                  {{ resourceDetails?.additionalInfo ?? "N/A" }}-->
+<!--                </p>-->
+<!--              </ng-container>-->
+
+<!--              <ng-container *ngIf="selected === 'hotels'">-->
+<!--                <p class="accordion-description-paragraph">-->
+<!--                  <ng-container-->
+<!--                    *ngIf="resourceDetails?.description_struct?.length"-->
+<!--                  >-->
+<!--                    <ng-container-->
+<!--                      *ngFor="let descrip of resourceDetails.description_struct"-->
+<!--                    >-->
+<!--                      <div style="font-weight: 600">-->
+<!--                        {{ descrip.title }}-->
+<!--                      </div>-->
+
+<!--                      <ng-container-->
+<!--                        *ngFor="let paragraph of descrip.paragraphs"-->
+<!--                      >-->
+<!--                        <p>{{ paragraph }}</p>-->
+<!--                      </ng-container>-->
+<!--                    </ng-container>-->
+<!--                  </ng-container>-->
+
+<!--                  <ng-container-->
+<!--                    *ngIf="!resourceDetails?.description_struct?.length"-->
+<!--                  >-->
+<!--                    <div class="">N/A</div>-->
+<!--                  </ng-container>-->
+<!--                </p>-->
+<!--              </ng-container>-->
+<!--            </p-accordionTab>-->
+<!--          </p-accordion>-->
+<!--        </div>-->
+<!--      </div>-->
+    </ng-container>
+    <p-card *ngIf="sessionId">
+      <ng-template pTemplate="content">
+        <app-stripe-payment [sessionId]="sessionId"></app-stripe-payment>
+      </ng-template>
+    </p-card>
+  </div>
+</div>
+
+<ng-template #mapContainerTemplate let-extraData="extraData">
+  <div class="maps-rest">
+    <div
+      class="map-container"
+      [ngStyle]="{ height: extraData && extraData.height }"
+    >
+      <google-map
+        class="map"
+        height="{{ !extraData ? '300px' : extraData.height }}"
+        width="100%"
+        [className]="'map-template'"
+        [options]="googlemapOptions"
+        [center]="center"
+        [zoom]="zoom"
+        (mapClick)="moveMap($event)"
+        (mapMousemove)="move($event)"
+      >
+        <map-marker
+          *ngFor="let markerPosition of markerPositions"
+          [position]="markerPosition"
+          [options]="markerPosition.options"
+          (mapClick)="getLocationDetails(markerPosition, $event)"
+        ></map-marker>
+      </google-map>
+      <div class="overlay"></div>
+      <button (click)="openModal(mapsModalTemplate)" class="show-on-map-button">
+        <span>Arata pe harta</span>
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #mapsModalTemplate>
+  <div class="maps-modal-container">
+    <div style="text-align: right; margin-right: 15px">
+      <div class="close-button" (click)="closeModal()">
+        <mat-icon>close</mat-icon>
+      </div>
+    </div>
+    <google-map
+      width="80vw"
+      height="90vh"
+      [options]="googlemapOptions"
+      [center]="center"
+      (mapClick)="isMarkerClicked = false"
+      [zoom]="zoom"
+    >
+      <map-marker
+        *ngFor="let markerPosition of markerPositions"
+        [position]="markerPosition"
+        [options]="
+          markerPosition['activeIcon'] ? markerOptions : inactiveMarker
+        "
+        (mapClick)="getLocationDetails(markerPosition, $event)"
+      ></map-marker>
+
+      <ng-container *ngIf="isMarkerClicked">
+        <div class="wrapper">
+          <div
+            class="background-image"
+            [style.backgroundImage]="'url(' + markerData.featuredImage + ')'"
+          ></div>
+
+          <div class="location-info">
+            <div class="location-name">
+              <p class="name">{{ markerData.name }}</p>
+              <div class="rating">
+                <span class="rating-text">Rating</span>
+                <span class="rating-score">{{
+                  markerData?.rating ? markerData?.rating : 0
+                }}</span>
+              </div>
+            </div>
+            <div class="location-details">
+              <i class="pi pi-map-marker"></i>
+              {{ markerData?.country }} {{ markerData?.city }}
+            </div>
+
+            <div class="location-details" style="align-items: end">
+              <mat-icon
+                class="restaurant-icon"
+                svgIcon="custom-icon"
+              ></mat-icon>
+              {{ markerData?.specific }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </google-map>
+  </div>
+</ng-template>

@@ -1,0 +1,11 @@
+<div class="activity-card d-flex flex-wrap flex-md-nowrap flex-column flex-md-row">
+    <div class="img-container">
+        <img [src]="resource?.featuredImage?.filePath" alt="resource picture">
+    </div>
+
+    <div class="resource-info d-flex justify-content-between flex-column">
+        <h3>{{resource?.title}}</h3>
+        <p class="mb-1">{{currentLanguage === 'ro' ? resType?.nameRo : resType?.nameEn}}</p>
+        <p class="mb-1"><i class="me-2 fas fa-map-marker-alt"></i>{{resource?.address+', '+ resource?.city+', '+resource?.country}}</p>
+    </div>
+</div>

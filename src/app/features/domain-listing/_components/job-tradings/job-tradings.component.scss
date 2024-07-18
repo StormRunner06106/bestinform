@@ -1,0 +1,41 @@
+@import "../../../../theme/styles/components/colors";
+
+
+.jobs-section {
+  width: 100%;
+  padding-bottom: 96px;
+  padding-top: 96px;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("../../../../../assets/images/others/jobs.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .container{
+    .p-title{
+      font-size:32px;
+      font-weight: 700;
+    }
+
+    .description{
+      font-size:16px;
+      font-weight: 400;
+    }
+
+
+  }
+  .job{
+    border:1px solid $title;
+    border-radius: 100px;
+    padding:15px 24px;
+  }
+
+  .more{
+    background-color: var(--primary-background);
+    color:$title;
+    border-radius: 8px;
+    border:1px solid var(--primary-background);
+    font-size:16px;
+    font-weight: 600;
+    padding:12px 48px;
+    box-shadow: 5px 10px 5px rgba($title,0.1) ;
+  }
+}

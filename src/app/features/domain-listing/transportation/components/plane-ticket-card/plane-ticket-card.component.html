@@ -1,0 +1,145 @@
+<!-- <div class="general-ticket-card">
+    <div class="bkg-white itinerary-row px-4" *ngFor="let itinerary of flight.itineraries; let i = index">
+        <span class="indirect-flight-label" *ngIf="!flight?.itineraries?.[i].direct">Zbor cu escală ({{flight?.itineraries?.[i].segments.length - 1}})</span>
+        <span class="direct-flight-label" *ngIf="flight?.itineraries?.[i].direct">Zbor direct</span>
+        <div *ngFor="let segment of itinerary.segments" class="flight-row">
+            <div  class="row align-items-center justify-space-between justify-content-between ">
+                <div class="col-md-5 text-left">
+                    <span>{{segment.departure.dateTime | date: 'd/M/yyyy, h:mm a' }}</span>
+                    <h4>{{segment.departure.iataCode}}</h4>
+                </div>
+
+                <div class="d-flex flex-column align-items-center middle-col col-md-2">
+                    <span>{{segment.company}}</span>
+                    <span>
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                    <span>{{segment.duration | flightDuration}}</span>
+
+                </div>
+
+                <div class="col-md-5 text-right">
+                    <span>{{segment.arrival.dateTime | date: 'd/M/yyyy, h:mm a' }}</span>
+                    <h4>{{segment.arrival.iataCode}}</h4>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div *ngIf="!hideFooter" class="bkg-last-line d-flex justify-content-md-end align-items-center flex-column flex-md-row">
+        <h4 class="d-flex align-items-center"> {{flight?.totalPrice}} {{flight?.currency}} <span><i class="far fa-question-circle"></i></span></h4>
+        <button (click)="bookNowClicked.emit()" type="button" class="btn-long btn-color-fill">Book now</button>
+    </div>
+</div> -->
+
+<div class="ticket-container">
+    <div class="plane-ticket">
+        <div class="ticket" *ngFor="let itinerary of flight.itineraries; let isLast = last">
+            <div class="date-details">
+                <span class="date-text">{{ itinerary.segments[0].departure.dateTime | date:'EEE d MMMM':'':'ro-RO' }} <img src="../../../../../../assets/icons/Ellipse.svg"> {{ flight.itineraries.length > 1 && isLast ? 'Intoarcere' : 'Plecare' }}</span>
+                <!-- <span class="date-text">Aterizare</span> -->
+            </div>
+            <div class="flight-info">
+                <div class="d-flex flight-info-block flex-row w-100">
+                    <div class="d-flex flex-column flight-info-left">
+                        <div class="d-flex flex-row align-items-bottom">
+                            <div class="ticket-city">{{getCity(itinerary.segments[0].departure.iataCode)}}</div>
+                            <div class="ticket-dash"></div>
+                        </div>
+                        <div class="ticket-airport">{{getAirportName(itinerary.segments[0].departure.iataCode)}} ({{itinerary.segments[0].departure.iataCode}})</div>
+                        <!-- <div class="ticket-airport">{{itinerary.segments[0].company}}</div> -->
+
+                    </div>
+
+                    <div class="ticket-logo d-flex justify-content-center align-items-baseline">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="d-flex justify-content-end">
+                                    <div class="logo-company me-2 ms-2">
+                                        <img [src]="airCompaniesLibrary[itinerary.segments[0].carrierCode]">
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-start">
+                                    <div *ngIf="itinerary.segments.length === 1">
+                                        <p-chip label="Direct" styleClass="mr-2 direct-chip"></p-chip>
+                                    </div>
+                                    <div *ngIf="itinerary.segments.length > 1">
+                                        <p-chip [label]="itinerary.segments.length - 1 + ' stop'" styleClass="mr-2 stop-chip"
+                                                [pTooltip]="calculateDurationFromItinerary(itinerary) + ' escala pe ' + getAirportName(itinerary.segments[0].arrival.iataCode)"></p-chip>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end" *ngIf="itinerary.segments.length > 1">
+                                    <div class="logo-company ms-2">
+                                        <img [src]="airCompaniesLibrary[itinerary.segments[itinerary.segments.length - 1].carrierCode]">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-column flight-info-right">
+                        <div class="d-flex flex-row align-items-bottom">
+                            <div class="ticket-dash"></div>
+                            <div class="text-align-end ticket-city">{{getCity(itinerary.segments[itinerary.segments.length - 1].arrival.iataCode)}}</div>
+                        </div>
+                        <div class="text-align-end ticket-airport">{{getAirportName(itinerary.segments[itinerary.segments.length - 1].arrival.iataCode)}} ({{itinerary.segments[itinerary.segments.length - 1].arrival.iataCode}})</div>
+                        <!-- <div class="text-align-end ticket-airport">{{itinerary.segments[itinerary.segments.length - 1].company}}</div> -->
+                    </div>
+                </div>
+
+
+                <!--                <div class="provider">-->
+                <!--                    <div class="logo-container">-->
+                <!--                        <img class="company-logo" src="../../../../../../assets/images/others/planes/logo.svg">-->
+                <!--                    </div>-->
+                <!--                    <div class="duration">-->
+                <!--                        <span class="hours">{{itinerary.segments[0].departure.dateTime | date:'HH:mm':''}} - {{itinerary.segments[itinerary.segments.length - 1].arrival.dateTime | date:'HH:mm':''}}</span>-->
+                <!--                        <span class="date-text company">{{itinerary.segments[0].company}}</span>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--                <div *ngIf="itinerary.segments.length > 1">-->
+                <!--                    <p-chip [label]="itinerary.segments.length - 1 + ' stop'" styleClass="mr-2 stop-chip" -->
+                <!--                    [pTooltip]="calculateDuration(itinerary.segments[0].arrival.dateTime, itinerary.segments[itinerary.segments.length - 1].departure.dateTime) + ' layover in ' + getAirportName(itinerary.segments[0].arrival.iataCode)"></p-chip>-->
+                <!--                </div>-->
+                <!--                <div *ngIf="itinerary.segments.length === 1">-->
+                <!--                    <p-chip label="Direct" styleClass="mr-2 direct-chip"></p-chip>-->
+                <!--                </div>-->
+                <!--                <div class="flight-details">-->
+                <!--                    <span class="hours"-->
+                <!--                    [pTooltip]="getAirportName(itinerary.segments[0].departure.iataCode) + ' - ' + getAirportName(itinerary.segments[itinerary.segments.length - 1].arrival.iataCode)"-->
+                <!--                    >{{itinerary.segments[0].departure.iataCode}} - {{itinerary.segments[itinerary.segments.length - 1].arrival.iataCode}}</span>-->
+                <!--                    &lt;!&ndash; <span class="translated-airports"></span> &ndash;&gt;-->
+                <!--                    <span class="time">{{ calculateDuration(itinerary.segments[0].departure.dateTime, itinerary.segments[itinerary.segments.length - 1].arrival.dateTime) }}</span>-->
+                <!--                </div>-->
+            </div>
+            <div class="date-times">
+                <div class="mt-3 ticket-airport">
+                    {{itinerary.segments[0].departure.dateTime | date:'HH:mm':''}}
+                </div>
+                <div class="text-align-center ticket-airport mt-2 d-flex align-items-center">
+                    <img src="assets/icons/clock-2.svg"/>
+                    <div class="ms-2">{{ calculateDurationFromItinerary(itinerary) }}</div>
+                </div>
+                <div class="mt-3 text-align-end ticket-airport">
+                    {{itinerary.segments[itinerary.segments.length - 1].arrival.dateTime | date:'HH:mm':''}}
+                </div>
+            </div>
+            <hr *ngIf="!isLast" class="itinerary-divider">
+        </div>
+    </div>
+    <div class="book-section">
+        <div class="available-seats">
+            <div class="d-flex flex-column">
+                <span class="free-seats">{{flight.numberOfBookableSeats || flight.travelerPricings.length}} locuri la acest pret</span>
+            </div>
+            <div class="d-flex flex-column">
+                <div class="other">{{flight.totalPrice + ' ' + flight.price.currency}}</div>
+                <!-- <span class="service-tax mt-3">Taxa de serviciu pentru {{flight.travelerPricings.length > 1 ? flight.travelerPricings.length + " pasageri " : flight.travelerPricings.length + " pasager "}}: {{flight.travelersServiceTax + ' ' +flight.currency}}</span> -->
+            </div>
+            <button pButton class="cautare" label="Rezerva Acum" (click)="bookNowClicked.emit()"></button>
+        </div>
+    </div>
+</div>
+

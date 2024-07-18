@@ -1,0 +1,78 @@
+<div class="card">
+    <div class="card-header d-flex justify-content-lg-between align-items-center flex-wrap justify-content-center gap-2">
+        <h3 class="title mb-0 d-flex">{{'MEDIA.CHOOSE-MEDIA' | translate}}</h3>
+        <div class="d-flex gap-2 flex-wrap justify-content-center">
+            <button class="btn-color-outline btn-long me-lg-2" (click)="modalRef.dismiss()"><i
+                    class="fas fa-arrow-left"></i>{{'BTN.BACK' | translate}}</button>
+            <label class="btn-color-fill btn-long" role="button" for="fileUpload"><i class="fas fa-plus"></i>{{'BTN.ADD-MEDIA' | translate}}</label>
+            <input class="d-none" type="file" name="fileUpload" id="fileUpload"
+                   accept=".png, .jpg, .jpeg, .jfif, .gif, .mp4, .MPG, .mov, .AVI, .VOB"
+                   (change)="onImgChange($event)"/>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <form [formGroup]="mediaForm">
+                <div class="row mb-2">
+                    <div class="col-12 col-lg-4">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>{{'GENERAL.SEARCH' | translate}}</mat-label>
+                            <input matInput placeholder="{{'GENERAL.SEARCH' | translate}}" type="text" formControlName="name">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>{{'MEDIA.CATEGORY' | translate}}</mat-label>
+                            <mat-select formControlName="category">
+                                <mat-option [value]="null">-</mat-option>
+                                <mat-option value="image">{{'MEDIA.IMG' | translate}}</mat-option>
+                                <mat-option value="pdf">PDF</mat-option>
+                                <mat-option value="document">Document</mat-option>
+                                <mat-option value="video">Video</mat-option>
+                                <mat-option value="other ">{{'MEDIA.OTHER' | translate}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <button class="btn-long btn-color-fill w-100" type="button" (click)="getMedia()">
+                            <i class="fas fa-filter"></i>
+                            {{'BTN.FILTER' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="row gy-3">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 media-container" *ngFor="let media of mediaList; let i=index">
+                    <div *ngIf="media.category === 'image'" class="media-container-wrapper">
+                        <input name="media" class="thumbnailInput d-none"
+                               type="{{multipleSelect ? 'checkbox' : 'radio'}}" [id]="i"
+                               [checked]="checkForSelection(media)"
+                               (change)="onSelectMedia($event, media)">
+                        <label class="media-label w-100" [for]="i">
+                            <img src="{{media.path}}" class="w-100 h-100 img-fluid">
+                        </label>
+                    </div>
+
+                    <div *ngIf="media.category === 'video'" class="media-container-wrapper video-frame">
+                        <input name="media" class="thumbnailInput d-none"
+                               type="{{multipleSelect ? 'checkbox' : 'radio'}}" [id]="i"
+                               [checked]="checkForSelection(media)"
+                               (change)="onSelectMedia($event, media)">
+                        <label class="media-label w-100" [for]="i">
+                            <i class="fas fa-video h-75 d-flex align-items-center flex-column justify-content-center"></i>
+                            <p class="mb-0 w-100 line-clamp h-25">{{media.name}}</p>
+                        </label>
+                    </div>
+                </div>
+
+                <mat-paginator [length]="paginationInfo?.totalElements"
+                               [pageSize]="pageSize"
+                               [pageSizeOptions]="pageSizeArray"
+                               (page)="pageChange($event)">
+                </mat-paginator>
+
+            </div>
+        </div>
+    </div>
+
+</div>

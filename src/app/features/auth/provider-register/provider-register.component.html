@@ -1,0 +1,193 @@
+<div class="container h-100 position-relative">
+    <button class="btn-close-modal btn-round btn-white-fill" type="button" [mat-dialog-close]="true">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div class="row d-flex justify-content-between h-100">
+        <div class="col-md-6 register">
+            <div class="p-3">
+                <div class="logo">
+                    <img src="/assets/Logo-blue.svg" height="50px" alt="Logo">
+                </div>
+                <div class="title">
+                    <p class="title-text m-0">{{ 'TITLES.REGISTER-PROVIDER' | translate }}</p>
+                    <p class="subtitle-text m-0">{{'TITLES.REGISTER-DIRECTIONS' | translate}}</p>
+                </div>
+                <div class="register-body">
+                    <form [formGroup]="registerForm">
+
+                        <div>
+                            <h5>{{ 'TITLES.ACCOUNT-INFO' | translate }}</h5>
+                            <!--First name-->
+                            <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                <mat-label>{{'USER.LASTNAME' | translate}}</mat-label>
+                                <input matInput placeholder="{{'USER.LASTNAME' | translate}}" formControlName="lastName" tabindex="1">
+                                <mat-error *ngIf="registerForm.controls.lastName.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.controls.lastName.hasError('whitespace')">Campul nu poate conține doar spații goale.</mat-error>
+
+                            </mat-form-field>
+                            <!--Last name-->
+                            <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                <mat-label>{{'USER.FIRSTNAME' | translate}}</mat-label>
+                                <input matInput placeholder="{{'USER.FIRSTNAME' | translate}}" formControlName="firstName" tabindex="2">
+                                <mat-error *ngIf="registerForm.controls.firstName.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.controls.lastName.hasError('whitespace')">Campul nu poate conține doar spații goale.</mat-error>
+
+                            </mat-form-field>
+
+
+                            <!--Email-->
+                            <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                <mat-label>Email</mat-label>
+                                <input matInput placeholder="Email" formControlName="email" required tabindex="3">
+
+                                <mat-error *ngIf="registerForm.controls.email.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('email').hasError('email')">{{'ERROR.EMAIL'|translate}}
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!--Password-->
+                            <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                <mat-label>{{'FIELD.PASSWORD' | translate}}</mat-label>
+                                <input matInput placeholder="{{'FIELD.PASSWORD' | translate}}" formControlName="password"
+                                       [type]="hide ? 'password' : 'text'" required tabindex="4">
+
+                                <mat-error *ngIf="registerForm.controls.password.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('password').hasError('requiredPass')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('password').hasError('passMin')">{{'ERROR.PASS-MIN-LENGTH'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('password').hasError('passMax')">{{'ERROR.PASS-MAX-LENGTH'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('password').hasError('emptyFirst')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('password').hasError('specialCharacter')">{{'ERROR.PASS-SPECIAL-CHAR'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('password').hasError('number')">{{'ERROR.PASS-DIGIT'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('password').hasError('upper')">{{'ERROR.PASS-UPPERCASE'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('password').hasError('lower')">{{'ERROR.PASS-LOWERCASE'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('password').hasError('whiteSpace')">{{'ERROR.PASS-WHITESPACE'|translate}}</mat-error>
+
+                                <button mat-icon-button matSuffix (click)="hide = !hide" type="button" class="text-muted">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+
+                            <!--Password-->
+                            <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                <mat-label>{{'FIELD.CONFIRM-PASSWORD' | translate}}</mat-label>
+                                <input matInput placeholder="{{'FIELD.CONFIRM-PASSWORD' | translate}}" formControlName="confPassword"
+                                       [type]="hideCurrent ? 'password' : 'text'" required tabindex="5">
+
+                                <button mat-icon-button matSuffix (click)="hideCurrent = !hideCurrent" type="button"
+                                        class="text-muted">
+                                    <mat-icon>{{hideCurrent ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+
+                                <mat-error *ngIf="registerForm.get('confPassword').hasError('requiredConf')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('confPassword').hasError('passInvalid')">{{'ERROR.SAME-PASS-REQ'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.get('confPassword').hasError('emptySecond')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="mt-4">
+                            <h5>{{'TITLES.COMPANY-DETAILS'|translate}}</h5>
+
+                            <!--Company name-->
+                            <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                <mat-label>{{'USER.COMPANY-NAME' | translate}}</mat-label>
+                                <input matInput placeholder="{{'USER.COMPANY-NAME' | translate}}" formControlName="companyName" tabindex="6">
+                                <mat-error *ngIf="registerForm.controls.companyName.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            </mat-form-field>
+
+
+                            <!--Telephone-->
+                            <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                <mat-label>{{'USER.TELEPHONE' | translate}}</mat-label>
+                                <input matInput placeholder="{{'USER.TELEPHONE' | translate}}" formControlName="telephone" tabindex="7">
+                                <mat-error *ngIf="registerForm.controls.telephone.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                <mat-error *ngIf="registerForm.controls.telephone.errors?.telephoneFormat">Numar de telefon invalid</mat-error>
+                            </mat-form-field>
+
+                            <!--Fax-->
+                            <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                <mat-label>{{'USER.FAX' | translate}}</mat-label>
+                                <input matInput placeholder="{{'USER.FAX' | translate}}" formControlName="fax" tabindex="8">
+                            </mat-form-field>
+
+                            <!--CUI-->
+                            <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                <mat-label>{{'USER.CUI' | translate}}</mat-label>
+                                <input matInput placeholder="{{'USER.CUI' | translate}}" formControlName="cui" tabindex="9">
+                                <mat-error *ngIf="registerForm.controls.cui.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            </mat-form-field>
+
+                            <!-- J -->
+                            <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                <mat-label>{{'USER.J' | translate}}</mat-label>
+                                <input matInput placeholder="{{'USER.J' | translate}}" formControlName="j" tabindex="10">
+                                <mat-error *ngIf="registerForm.controls.j.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            </mat-form-field>
+
+
+
+                            <div formGroupName="billingAddress">
+                                <mat-form-field appearance="legacy" class="p-0 mb-14">
+                                    <mat-label>{{('USER.OFFICE-ADDRESS' | translate)}}</mat-label>
+                                    <input matInput formControlName="address" tabindex="12">
+                                    <mat-error *ngIf="registerForm.get('billingAddress.address').hasError('required')">
+                                        {{"ERROR.REQUIRED" | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <!--City and County-->
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <mat-label>{{'USER.COUNTRY' | translate}}</mat-label>
+                                    <mat-select formControlName="country" (selectionChange)="getCities($event)">
+                                        <mat-option *ngFor="let country of countries" [value]="country">
+                                            {{country}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <mat-label>{{'USER.CITY' | translate}}</mat-label>
+                                    <mat-select formControlName="city">
+                                        <mat-option *ngFor="let city of cities" [value]="city.name">
+                                            {{city.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+
+                            <mat-checkbox formControlName="termsAndCond" class="mt-3">{{ 'GIVEAWAY.READ_CONSENT' | translate}} <a href="/content/terms-and-conditions" target="_blank">{{ 'GIVEAWAY.CONFIDENTIALITY_TERMS' | translate}}</a> {{'GIVEAWAY.AND_WITH' | translate}}
+                                <a href="/content/privacy-policy" target="_blank">{{ ('GIVEAWAY.TERMS_CONDITIONS' | translate) + '.'}}</a></mat-checkbox>
+                        </div>
+
+
+
+                    <div class="d-flex reg-buttons
+                                align-items-center
+                                justify-content-center justify-content-sm-between
+                                flex-wrap gap-4">
+                        <button class="col btn-long btn-white-fill ml-2" mat-button [mat-dialog-close]="true" type="button" ><i
+                                class="fas fa-arrow-left"></i> {{'BTN.CANCEL' | translate}}
+                        </button>
+                        <button class="col btn-long btn-color-fill ml-2" type="button" (click)="onSendClick()" [disabled]="!registerForm.controls.termsAndCond.value">{{'BTN.SUBMIT' | translate}} <i
+                            class="fas fa-arrow-right" tabindex="16"></i></button>
+                    </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="image col-md-6">
+<!--            <img *ngIf="isClient" src="./../../assets/images/login/provider_img.png ">-->
+<!--            <img *ngIf="!isClient" src="../../../../assets/images/login/provider_image.png">-->
+            <!--            <div class="close">-->
+            <!--                <button class="btn-round btn-white-fill"><i class="fas fa-times"></i></button>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="room-card">
+    <div class="img-container" (click)="openRoomModal()">
+        <img [src]="room?.featuredImage?.filePath" alt="room image">
+    </div>
+
+    <div class="info-container">
+        <p class="room-name">
+            {{ room.name }}
+        </p>
+
+        <div class="room-size">
+            Fits: {{ room.maximumAdultPeople }} x <i class="fas fa-user"></i>
+            |
+            <ng-container *ngFor="let bed of room?.bedType">
+                <span *ngIf="bed.quantity > 0">
+                    {{ bed.quantity }} x {{ bed.type }}
+                </span>
+
+            </ng-container>
+        </div>
+
+        <p *ngIf="!recommendation" class="price-for">
+            Price for
+        </p>
+
+        <div *ngIf="!recommendation" class="d-flex justify-content-between">
+            <p *ngIf="totalNights" class="bold-blue-text">
+                {{ totalNights }} Nights
+            </p>
+
+            <p *ngIf="!totalNights" class="bold-blue-text">
+                1 Night
+            </p>
+
+            <p *ngIf="room.totalPrice" class="bold-blue-text">
+                € {{ room.totalPrice }}
+            </p>
+
+            <p *ngIf="!totalNights && room.price" class="bold-blue-text">
+                € {{ room.price.regularPrice < room.price.weekendPrice ? room.price.regularPrice : room.price.weekendPrice }}
+            </p>
+        </div>
+
+        <div *ngIf="!recommendation" class="guests-selector">
+            <button [disabled]="filterForm.controls.roomsNumber.value === 0 || !room.totalPrice"
+                    type="button"
+                    (click)="decreaseNrRooms('roomsNumber')">
+                <i class="fas fa-angle-left"></i>
+            </button>
+            <p>
+                {{ filterForm.controls.roomsNumber.value }}
+                {{ "RESOURCE.RES-FILTERS.NR_ROOMS" | translate }}
+            </p>
+            <button [disabled]="!room.totalPrice"
+                    type="button"
+                    (click)="increaseNrRooms('roomsNumber')">
+                <i class="fas fa-angle-right"></i>
+            </button>
+        </div>
+    </div>
+</div>

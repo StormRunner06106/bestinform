@@ -1,0 +1,87 @@
+<div class="row filterRow">
+    <div class="col-12 col-lg-9">
+        <div class="row">
+            <div class="col-3">
+                <mat-form-field appearance="standard">
+                    <mat-label>Tip raport</mat-label>
+                    <mat-select [(ngModel)]=filterReportType>
+                        <mat-option [value]="option.value"
+                                    *ngFor="let option of reportTypes">{{ option.viewValue }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field appearance="standard">
+                    <mat-label>Frecvență rezultate</mat-label>
+                    <mat-select [(ngModel)]=filterTime>
+                        <mat-option [value]="option.value"
+                                    *ngFor="let option of timePeriods">{{ option.viewValue }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <!--Start date filter-->
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'FIELD.START-DATE' | translate}}</mat-label>
+                    <input matInput [(ngModel)]=filterStartDate [matDatepicker]="dataPickerStart">
+                    <mat-hint>DD.MM.YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="dataPickerStart"></mat-datepicker-toggle>
+                    <mat-datepicker #dataPickerStart></mat-datepicker>
+                </mat-form-field>
+                <mat-error *ngIf="((filterEndDate < filterStartDate) && (filterStartDate !== '' && filterEndDate !== ''))">Data de început nu poate fi mai mare decât data de final.</mat-error>
+                <mat-error *ngIf="((filterStartDate === '' && filterEndDate !== ''))">Trebuie să completați ambele date, sau niciuna.</mat-error>
+            </div>
+            <div class="col-3">
+                <!--Finish date filter-->
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'FIELD.END-DATE' | translate}}</mat-label>
+                    <input id="inputFilterByEndDate" matInput [(ngModel)]=filterEndDate
+                           [matDatepicker]="dataPickerFinish">
+                    <mat-hint>DD.MM.YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="dataPickerFinish"></mat-datepicker-toggle>
+                    <mat-datepicker #dataPickerFinish></mat-datepicker>
+
+                </mat-form-field>
+                <mat-error *ngIf="((filterEndDate < filterStartDate) && (filterStartDate !== '' && filterEndDate !== ''))">Data de final nu poate fi mai mică decât data de început.</mat-error>
+                <mat-error *ngIf="(filterStartDate !== '' && filterEndDate === '')">Trebuie să completați ambele date, sau niciuna.</mat-error>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-12 col-lg-3 d-flex align-items-center justify-content-end gap-2">
+        <button type="button" class="btn-round btn-color-outline" id="clearFilterBtn" (click)="clearFields()"><i
+                class="fas fa-sync"></i></button>
+        <button type="button" class="btn-long btn-color-fill" [disabled]="(filterEndDate < filterStartDate) || (filterStartDate === '' && filterEndDate !== '')"
+                (click)="applyFilter()">{{'BTN.FILTER' | translate}}
+            <i class="fas fa-filter"></i></button>
+    </div>
+</div>
+<div class="row tableContent">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-6">
+                <iframe width="100%" height="870px" [src]="urlSafe | safe"></iframe>
+                <!-- <iframe width="100%" height="870px" [src]="urlSafe"></iframe> -->
+
+            </div>
+            <div class="col-md-6">
+                <p class="mt-2">Raportul prezintă
+                    <strong *ngIf="actualFilter.filterType === 'cancel-clients'">clienții care au anulat consumarea de resurse împreună cu resursele respective</strong>
+                    <span *ngIf="actualFilter.filterStartDate !== ''"> din intervalul </span>
+                    <strong *ngIf="actualFilter.filterStartDate !== ''">{{actualFilter.filterStartDate | date: 'dd.MM.yyyy'}}
+                        - {{actualFilter.filterEndDate | date: 'dd.MM.yyyy'}}</strong> și este afișat cu frecvență
+                    <strong *ngIf="actualFilter.filterTime === 'Daily'">zilnică</strong>
+                    <strong *ngIf="actualFilter.filterTime === 'Monthly'">lunară</strong>
+                    <strong *ngIf="actualFilter.filterTime === 'Annually'">anuală</strong>.
+                </p>
+                <a type="button" class="btn-long btn-color-fill"
+                   [href]="urlToDownload | safe">
+                   <!-- <a type="button" class="btn-long btn-color-fill"
+                   [href]="urlToDownload"> -->
+                   Descarcă
+                    PDF
+                    <i class="fas fa-file-pdf"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+.filter-tickets-container {
+  border: 1px solid rgba(35, 31, 32, 0.23);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  background: white;
+}
+
+mat-radio-group,
+.hour-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+:host ::ng-deep {
+  .hour-radio-group {
+    .mdc-form-field > label {
+      font-size: 16px;
+      padding-left: 0;
+    }
+  }
+  .content-container{
+    .mat-tab-header{
+      border-radius: 7px;
+    }
+  }
+}
+
+.hour-selection {
+  gap: 9px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-tickets-container {
+  h4 {
+    font-weight: bolder;
+    font-size: 18px;
+    color: #231f20;
+    margin-top: 24px;
+  }
+
+  label.mat-checkbox-layout {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 160%;
+  }
+}
+
+//A. Tache de pus peste tot
+::ng-deep .mat-mdc-radio-checked .mdc-radio__background * {
+  border-color: #4257ee !important;
+}
+::ng-deep .mat-mdc-radio-button .mat-ripple-element * {
+  background-color: #4257ee;
+}
+::ng-deep .mat-mdc-radio-button .mat-radio-ripple {
+  .mat-ripple-element {
+    background-color: #4257ee;
+  }
+}
+::ng-deep .mat-mdc-slider {
+  .mdc-slider__track--active_fill {
+    border-color: #4257ee !important;
+  }
+  .mdc-slider__thumb-knob {
+    background-color: #4257ee;
+    border-color: #4257ee;
+  }
+}
+::ng-deep .mat-mdc-slider .mdc-slider__thumb-knob {
+  background-color: #4257ee !important;
+  border-color: #4257ee !important;
+}
+::ng-deep .mat-mdc-form-field.mat-focused {
+  .mdc-notched-outline__leading {
+    border-color: #4257ee !important;
+  }
+  .mdc-notched-outline__notch {
+    border-color: #4257ee !important;
+    .mdc-floating-label mat-label {
+      color: #4257ee !important;
+    }
+  }
+  .mdc-notched-outline__trailing {
+    border-color: #4257ee !important;
+  }
+}
+.text-color {
+  color: #4257ee;
+}
+::ng-deep
+  .mat-primary
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled)
+  .mdc-list-item__primary-text {
+  color: #4257ee;
+}
+::ng-deep .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
+::ng-deep
+  .mat-mdc-progress-spinner
+  .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: #4257ee !important;
+}

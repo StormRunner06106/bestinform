@@ -1,0 +1,414 @@
+<!--mobile title bar-->
+<!--<div class="page-header mobile-header py-3 d-flex align-items-center">
+
+    <div class="d-flex justify-content-center justify-content-lg-between align-items-center flex-wrap">
+            <i class="fas fa-arrow-left d-flex px-3" routerLink="/private/clients"></i>
+    </div>
+    <h2 class="d-flex m-auto">My profile</h2>
+</div>-->
+
+<!--Title bar-->
+<div class="container">
+    <!--<div class="container py-4 px-0 web-header">
+        <div class="page-header d-flex justify-content-between align-items-center flex-wrap">
+            <h2>My profile</h2>
+
+            <div class="d-flex justify-content-center justify-content-lg-between align-items-center flex-wrap">
+                <button id="btnBackHeaderViewClient" class="btn-long btn-color-outline mr-2" routerLink="/dashboard/clients/">
+                    <i class="fas fa-arrow-left"></i>
+                    {{ 'BTN.BACK' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>-->
+
+
+    <app-client-profile></app-client-profile>
+    <div class="my-4 px-5 py-3 my-profile-container" *ngIf="isClient">
+        <mat-tab-group mat-stretch-tabs="false" class="remove-border-bottom" dynamicHeight [selectedIndex]="selectedOuterTab">
+            <mat-tab label="Activity center" >
+                <mat-tab-group dynamicHeight mat-align-tabs="start" [selectedIndex]="selectedChildOuterTab">
+                    <!--My experiences card------------------------------------------>
+                    <mat-tab label="My experiences">
+                        <div class="d-flex justify-content-start gap-2 flex-wrap">
+                            <div *ngFor="let experience of experiencesList">
+                                <div class="my-2 experiences-card-class d-flex justify-content-start">
+                                    <div class="my-exp-details col-6 col-sm-6 col-md-7 col-lg-8 p-2 d-flex align-items-start flex-column justify-content-center">
+                                        <h4 [routerLink]="'/client/dashboard/my-booking/view/' + experience.id">{{experience.name}}</h4>
+                                        <p>{{experience.checkIn | date:'d MMM y'}} - {{experience.checkOut | date:'d MMM y'}}</p>
+                                        <p>{{experience.city}}, {{experience.country}}</p>
+                                    </div>
+                                    <div class="my-exp-price d-flex col-4 col-sm-3 col-md-3 col-lg-3 align-items-center p-3">
+                                        <div  class="col-lg-9 ">
+                                            <h4>{{experience.totalPrice | number: '1.0-2'}} {{experience.currency}}</h4>
+                                            <p>Completed</p>
+                                        </div>
+                                    </div>
+                                    <div class="my-exp-options d-flex col-2 col-sm-3 col-md-2 col-lg-1 align-items-center justify-content-center px-0 py-3" [matMenuTriggerFor]="experiencesMenu">
+                                        <div  class="col-lg-3 d-flex justify-content-center">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </div>
+                                    </div>
+                                    <mat-menu #experiencesMenu="matMenu">
+                                        <button mat-menu-item routerLink="../inbox/{{experience.conversationId}}" >
+                                            <i class="fas fa-comment-alt"></i>
+                                          Contact provider
+                                        </button>
+                                        <!-- <button mat-menu-item>
+                                            <i class="fas fa-times"></i>
+                                            Remove
+                                        </button> -->
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                        <!--See more-->
+                        <div class="d-flex justify-content-end align-items-center">
+                            <p><a routerLink="../../dashboard/my-bookings">Vezi mai mult <i class="fas fa-arrow-right"></i></a></p>
+                        </div>
+                    </mat-tab>
+                     <!--End My experiences card------------------------------------------>
+
+                    <mat-tab label="Itinerariile mele">
+                        <div class="d-flex justify-content-start gap-2 flex-wrap">
+                            <div *ngFor="let experience of itinerariesList">
+                                <div class="my-2 experiences-card-class d-flex justify-content-start" *ngIf="experience.resources !== null && experience.resources.length > 0">
+                                    <div class="my-exp-details col-6 col-sm-6 col-md-7 col-lg-8 p-2 d-flex align-items-start flex-column justify-content-center">
+                                        <h4 *ngIf="experience.name; else elseBlock">{{experience.name}}</h4>
+                                        <ng-template #elseBlock><h4>Fără nume generat</h4></ng-template>
+
+                                        <p>{{experience.resources[0]?.startDate | date:'d MMM y'}} - {{experience.resources[0]?.endDate | date:'d MMM y'}}</p>
+                                            <p>{{experience.resources[0]?.city}} {{experience.resources[0]?.country}}</p>
+
+                                    </div>
+                                    <div class="my-exp-price d-flex col-4 col-sm-3 col-md-3 col-lg-3 align-items-center p-3">
+                                        <div  class="col-lg-9 ">
+                                            <h4>{{(experience.accommodationPrice
+                                            + experience.dayActivityPrice
+                                            + experience.eatAndDrinkPrice
+                                            + experience.eveningActivityPrice
+                                            + experience.transportPrice) | number: '1.0-2'}} {{experience.currency}}</h4>
+<!--                                            <p>Completed</p>-->
+                                        </div>
+                                    </div>
+                                    <div class="my-exp-options d-flex col-2 col-sm-3 col-md-2 col-lg-1 align-items-center justify-content-center px-0 py-3" [matMenuTriggerFor]="experiencesMenu">
+                                        <div  class="col-lg-3 d-flex justify-content-center">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </div>
+                                    </div>
+                                    <mat-menu #experiencesMenu="matMenu">
+                                        <button mat-menu-item routerLink="../itinerary-bookings/{{experience.id}}" >
+                                            <i class="fas fa-eye"></i>
+                                            View Itinerary
+                                        </button>
+
+                                        <button mat-menu-item (click)="downloadBill(experience?.bill?.series, experience?.bill?.number)">
+                                            <i class="fas fa-file"></i>
+                                            Descarcă factura
+                                        </button>
+                                        <!-- <button mat-menu-item>
+                                            <i class="fas fa-times"></i>
+                                            Remove
+                                        </button> -->
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                        <!--See more-->
+<!--                        <div class="d-flex justify-content-end align-items-center">-->
+<!--                            <p><a routerLink="../../dashboard/my-bookings">Vezi mai mult <i class="fas fa-arrow-right"></i></a></p>-->
+<!--                        </div>-->
+                    </mat-tab>
+
+
+                    <!--Shared Experiences tab/card----------------------------------------------->
+                    <mat-tab label="Shared experiences">
+                        <div class="row g-2 py-2 ">
+<!--                        <div class="d-flex justify-content-between gap-2 flex-wrap">-->
+                            <div *ngFor="let sharedExperience of sharedExperiencesList" class="col-12 col-md-6 col-lg-4">
+                                <div class="shared-exp-card w-100 d-flex flex-row">
+                                    <div class="info d-flex flex-column align-items-start justify-content-center">
+                                        <p class="name mb-0">{{sharedExperience.name}}</p>
+                                        <div class="row">
+                                            <div class="col-12 col-md-7">
+                                                <div class="d-flex flex-column">
+                                                    <p>Place: <span>{{sharedExperience.place}}</span></p>
+                                                    <p>Date: <span>{{(sharedExperience.startDate | date:'d MMM yyyy')+' - '+(sharedExperience.endDate | date:'d MMM yyyy')}}</span></p>
+                                                    <p>Starting at: <span>{{sharedExperience.startHour ? sharedExperience.startHour : '-'}}</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-5">
+                                                <div class="d-flex flex-column align-items-start align-items-md-end">
+                                                    <p>Status: <span>{{sharedExperience.status ? sharedExperience.status : '-'}}</span></p>
+                                                    <p><i class="fas fa-map-marker-alt me-2"></i> <span>{{sharedExperience.city+', '+ sharedExperience.country}}</span></p>
+                                                    <p>Ending at: <span>{{sharedExperience.endHour ? sharedExperience.endHour : '-'}}</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="menu-button d-flex justify-content-center align-items-center" [matMenuTriggerFor]="sharedExperiencesMenu">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </div>
+                                </div>
+
+                                <mat-menu #sharedExperiencesMenu="matMenu">
+                                    <button mat-menu-item  routerLink="../inbox/{{sharedExperience.conversationId}}">
+                                        <i class="fas fa-comment-alt"></i>
+                                    Contact provider
+                                    </button>
+                                    <!-- <button mat-menu-item>
+                                        <i class="fas fa-times"></i>
+                                        Remove
+                                    </button> -->
+                                </mat-menu>
+                                </div>
+                            </div>
+
+                            <!--Pagination-->
+                            <mat-paginator
+                            [pageSizeOptions]="pageSizeArray"
+                            [length]="totalSharedExperiences"
+                            [pageSize]="pageSize"
+                            (page)="pageChanged($event)"
+                            >
+                            </mat-paginator>
+                    </mat-tab>
+                    <!--End shared experiences tab/card-->
+
+                    <!--Applied Jobs tab/card-->
+                    <mat-tab label="Applied Jobs">
+                        <!--applied Jobs-->
+                        <div class="row g-2 py-2 ">
+                        <!--loop with jobs-->
+                        <div *ngFor="let job of jobsList" class="col-12 col-md-6 col-lg-4">
+                            <div class="applied-jobs-card-class d-flex justify-content-between align-items-center my-2">
+                                <!--img col-->
+                                <div class="d-flex justify-content-center align-self-stretch">
+                                    <img src="{{job?.featuredImage?.filePath}}">
+                                </div>
+                                <!--text col-->
+                                <div class="applied-jobs-details p-2 d-flex flex-column">
+                                    <div class="d-flex flex-column align-items-start">
+                                        <h4>{{job.name}}</h4>
+                                        <!-- <h5>Job Full-Time</h5> -->
+                                    </div>
+                                    <div class="d-flex flex-column align-items-end">
+                                        <h5><span><i class="fa fa-map-marker" aria-hidden="true"></i>
+                                        </span>{{job.city}}, {{job.country}}</h5>
+                                        <p class="green"><span><i class="fas fa-check-double"></i></span>Applied on {{job.date | date: 'dd.MM.y'}}</p>
+                                    </div>
+
+                                </div>
+                                <!--date col-->
+                                <!-- <div class="col-4 col-sm-4 col-md-3 col-lg-3 col-xl-3 d-flex justify-content-end align-self-end p-2">
+                                </div> -->
+                                <div class="menu-button-jobs d-flex justify-content-center align-items-center" [matMenuTriggerFor]="applyJobMenu">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </div>
+                            </div>
+                            <mat-menu #applyJobMenu="matMenu">
+                                <button mat-menu-item  routerLink="../inbox/{{job.conversationId}}">
+                                    <i class="fas fa-comment-alt"></i>
+                                Contact provider
+                                </button>
+                                <!-- <button mat-menu-item>
+                                    <i class="fas fa-times"></i>
+                                    Remove
+                                </button> -->
+                            </mat-menu>
+                        </div>
+
+                        </div>
+
+
+
+                        <!--Pagination-->
+                        <mat-paginator
+                        [pageSizeOptions]="pageSizeArray"
+                        [length]="totalAppliedJobs"
+                        [pageSize]="pageSize"
+                        (page)="pageChanged($event)"
+                        >
+                        </mat-paginator>
+                    </mat-tab>
+                    <!--Applied Jobs tab/card-->
+
+                    <!--My courses Jobs tab/card-->
+                    <mat-tab label="My courses">
+                        <div class="row g-2 py-2 ">
+
+                            <div *ngFor="let course of coursesList" class="col-12 col-md-6 col-lg-4">
+
+                                <div class="courses-class d-flex justify-content-between align-items-center my-2">
+                                    <!--img col-->
+                                    <div class="d-flex justify-content-center align-self-stretch">
+                                        <img src="{{course?.featuredImage === null ? '../../../../../../assets/images/others/inspire.jpg' : course?.featuredImage?.filePath}}">
+                                    </div>
+                                    <!--text col-->
+                                    <div class="cours-details p-2 d-flex flex-column">
+                                        <div class="d-flex flex-column align-items-start mb-2">
+                                            <h4>{{course?.name}}</h4>
+                                            <!-- <h4>Object-Oriented Programming</h4> -->
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex flex-column align-items-start justify-content-center">
+                                                <!-- <p>Duration: <span>45 min</span></p>
+                                                <p>Starts at: <span>16:30</span></p> -->
+                                            </div>
+                                            <div class="d-flex flex-column align-items-end justify-content-center">
+                                                <p><i class="fas fa-globe"></i> Online</p>
+                                                <p>Date: <span>{{course?.date | date: "dd.MM.y"}}</span></p>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <!--date col-->
+                                    <div class="menu-button-courses d-flex justify-content-center align-items-center" [matMenuTriggerFor]="coursesMenu">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </div>
+                                </div>
+
+                                <mat-menu #coursesMenu="matMenu">
+                                    <button mat-menu-item routerLink="../inbox/{{course.conversationId}}">
+                                        <i class="fas fa-comment-alt"></i>
+                                    Contact provider
+                                    </button>
+                                    <button mat-menu-item routerLink="../my-booking/view/{{course.id}}">
+                                        <i class="fas fa-eye"></i>
+                                        View
+                                    </button>
+                                </mat-menu>
+                            </div>
+                        </div>
+
+
+
+                         <!--Pagination-->
+                         <mat-paginator
+                         [pageSizeOptions]="pageSizeArray"
+                         [length]="totalMyCourses"
+                         [pageSize]="pageSize"
+                         (page)="pageChanged($event)"
+                         >
+                         </mat-paginator>
+                    </mat-tab>
+                    <!--End My courses Jobs tab/card-->
+                </mat-tab-group>
+            </mat-tab>
+
+            <!--Favorites tab-->
+            <mat-tab label="Favorites">
+                    <ng-template matTabContent>
+                        <div class="mt-3 fav-client">
+                        <owl-carousel-o [options]="customOptions">
+                            <ng-container *ngFor = "let resource of resourcesList">
+                                <ng-template carouselSlide>
+                                    <app-favorite-resource-card [resource]="resource" [favorite]="true"></app-favorite-resource-card>
+                                </ng-template>
+                            </ng-container>
+                        </owl-carousel-o>
+                        </div>
+                    </ng-template>
+            </mat-tab>
+
+            <!--Loialty Points-->
+            <mat-tab label="Loialty Points">
+                <div class="loialty-points-card my-2">
+                    <div class="d-flex align-items-center">
+                        <img src="../../../../assets/images/others/loialty-points.png">
+                        <h4>You've got <span> {{clientInfo?.loyaltyPoints}} </span> points!</h4>
+                    </div>
+                    <div class=" loialty-rectangle my-2 px-2">
+                        <h5>Here are ways to spend them:</h5>
+                        <ul>
+                            <li>Free nights at more than 7,000 Hotels, Resorts and Events.
+                            <li>Special events and experiences through Bestinform's Trips & Experiences.</li>
+                            <li>Redeeming for gift cards or gear, with our travel partners and more.</li>
+                        </ul>
+                    </div>
+                </div>
+            </mat-tab>
+             <!--End Loialty Points tab/card-->
+
+            <!--Friends tab--------------------------------------------------------------------------->
+           <mat-tab label="Friends">
+               <mat-tab-group dynamicHeight mat-align-tabs="start">
+                   <!-- My Friends tab -->
+                   <mat-tab label="My friends">
+                       <div class="firends-card d-flex align-items-center my-2"  *ngFor="let friend of accFriendList">
+                          <!-- img col -->
+                           <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 d-flex justify-content-center p-2">
+                               <!-- <img src="../../../../assets/images/others/user.jpg"> -->
+                               <img [src]=friend?.avatar?.filePath>
+                            </div>
+                           <!-- text col -->
+                           <div class="col-8 col-sm-8 col-md-9 col-lg-9 col-xl-10 p-2">
+                               <h4>{{friend?.lastName}} {{friend?.firstName[0]}}.</h4>
+                                <p>{{friend?.email}}</p>
+
+                           </div>
+                          <!-- dots col -->
+                           <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 d-flex align-items-center justify-content-center px-0 py-3" [matMenuTriggerFor]="friendsMenu">
+                                   <i class="fas fa-ellipsis-v"></i>
+                           </div>
+                           <mat-menu #friendsMenu="matMenu">
+                               <button mat-menu-item>
+                                   <i class="fas fa-comment-alt"></i>
+                                 Send a message
+                               </button>
+                               <button mat-menu-item (click)="deleteFriend(friend?.id)">
+                                   <i class="fas fa-user-times"></i>
+                                   Remove friend
+                               </button>
+                             </mat-menu>
+                       </div>
+                   </mat-tab>
+                  <!-- End my Friends -->
+
+                   <!--Friends request tab-->
+                   <mat-tab>
+                       <ng-template mat-tab-label>
+                           Friend Requests
+                           <div class="friends-notification px-2 mx-2">{{lengthRequests}}</div>
+                         </ng-template>
+                       <div class="firends-card d-flex align-items-center my-2" *ngFor="let friendRequest of pendingFriendList">
+                           <!--img col-->
+                           <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 d-flex justify-content-center p-2">
+                            <img src={{friendRequest.avatar?.filePath}}>
+                        </div>
+                           <!--text col-->
+                           <div class="col-8 col-sm-8 col-md-9 col-lg-9 col-xl-10 p-2">
+                               <h4>{{friendRequest.lastName}} {{friendRequest.firstName[0]}}.</h4>
+                               <p>{{friendRequest.email}}</p>
+
+                           </div>
+                           <!--dots col-->
+                           <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 d-flex align-items-center justify-content-center px-0 py-3" [matMenuTriggerFor]="friendRequestMenu">
+                                   <i class="fas fa-ellipsis-v"></i>
+                           </div>
+                           <mat-menu #friendRequestMenu="matMenu">
+                               <button mat-menu-item (click)="acceptFriendRequest(friendRequest.id)">
+                               <i class="fas fa-user-check"></i>
+                                 Accept request
+                               </button>
+                               <button mat-menu-item (click)="rejectFriendRequest(friendRequest.id)">
+                                   <i class="fas fa-user-times"></i>
+                                  Decline Request
+                               </button>
+                             </mat-menu>
+                       </div>
+                   </mat-tab>
+                   <!--End Friends Request-->
+               </mat-tab-group>
+           </mat-tab>
+            <!--End Friends tab-->
+          </mat-tab-group>
+
+    </div>
+
+</div>
+
+
+

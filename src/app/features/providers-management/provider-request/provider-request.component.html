@@ -1,0 +1,87 @@
+<!-- <div class="container-fluid"> -->
+    <div class="container">
+
+        <!--Header-->
+        <div class="m-header">
+            <div class="row modal-title align-items-center">
+                <h4 class="col-10">{{'PROVIDER.PROVIDER_REQUEST' | translate}}</h4>
+             <i class="fas fa-times col-2" (click)="closeModal()"></i>
+            </div>
+            <div class="row">
+                <p>{{'PROVIDER.MESSAGE.PROVIDER_REQUEST_WARNING' | translate}}</p>
+            </div>
+      </div>
+        <!--Body-->
+        <div class="modal-body blue-card mb-4">
+          <div class="row">
+            <h3>{{name}}</h3>
+            <h4>{{'PROVIDER.CUI' | translate}} {{cui}}</h4>
+          </div>
+
+          <div class="row d-flex flex-wrap ">
+            <h4 class="col-md-6">{{'PROVIDER.REQUEST_DATE' | translate}}</h4>
+            <p class="col-md-6 d-flex justify-content-end">{{ dateRequest | date:"dd MMM YYYY" }}</p>
+          </div>
+
+          <div class="row d-flex flex-wrap">
+             <div class="col-md-6">
+                <h4>{{'PROVIDER.EMAIL' | translate}}</h4>
+                <p>{{email}}</p>
+             </div>
+             <div class="col-md-6">
+                <h4 class="d-flex justify-content-end">{{'PROVIDER.TELEPHONE' | translate}}</h4>
+                <p class="d-flex justify-content-end">{{telephone}}</p>
+             </div>
+          </div>
+
+        </div>
+
+        <!-- reason -->
+
+<!--        <div class="row py-4">-->
+<!--        <form [formGroup]="formReason">-->
+<!--        <mat-form-field class="example-full-width w-100" appearance="outline">-->
+<!--            <mat-label>{{'PROVIDER.REASON' | translate}}</mat-label>-->
+<!--            <textarea matInput placeholder="Motivati alegerea facuta." formControlName="reason"></textarea>-->
+<!--            </mat-form-field>-->
+<!--        </form>-->
+<!--        </div>-->
+
+
+        <!--  Footer-->
+        <div class="footer">
+            <div class="row gap-2 gap-xl-0">
+                <div class="col-12 col-xl-6">
+                    <button type="button" class="btn-long btn-color-outline w-100"
+                            (click)="declineRequest()">
+                        <i class="fas fa-times"></i>
+                        {{ 'PROVIDER.DECLINE' | translate}}
+                        <!-- <ng-container *ngIf="isStatusChangeLoading === true">
+                            [disabled]="isStatusChangeLoading"
+                            <span
+                            class="spinner-border spinner-border-sm align-middle ms-2"
+                            ></span>
+                        </ng-container> -->
+                    </button>
+                </div>
+
+
+                <div class="col-12 col-xl-6">
+                    <button type="button" class="btn-long btn-color-fill w-100"
+                            (click)="approveRequest()" >
+                        {{ 'BTN.CONFIRM' | translate}}
+                        <i class="fa fa-check"></i>
+
+                        <!-- <ng-container *ngIf="isStatusChangeLoading === true">
+                            [disabled]="isStatusChangeLoading"
+                            <span
+                            class="spinner-border spinner-border-sm align-middle ms-2"
+                            ></span>
+                        </ng-container> -->
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->

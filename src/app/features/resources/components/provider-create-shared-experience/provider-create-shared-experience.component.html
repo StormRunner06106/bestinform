@@ -1,0 +1,107 @@
+<div class="dialog-container d-flex flex-column justify-content-between h-100 p-4">
+
+    <div class="dialog-header">
+        <h2 class="text-center">{{'SHARED-EXPERIENCES.CREATE' | translate}}</h2>
+    </div>
+
+    <div class="dialog-body">
+        <div class="container">
+            <div class="modal-content-time d-flex flex-column justify-content-between">
+                <!--            <p *ngIf="showErrorMsg" class="error-msg">Alegeti categoria, ziua si ora pentru experienta-->
+                <!--                dumneavoastra!</p>-->
+
+                <div class="content-body">
+                    <p class="subtitle"><i class="fas fa-icons me-2"></i>Selectati o categorie</p>
+                    <div class="choose-activity d-flex flex-wrap mb-3">
+                        <div *ngFor="let activity of timeslotsArray">
+                            <div>
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" hidden
+                                       id="flexRadioDefault-{{activity.id}}">
+                                <label class="form-check-label activity" for="flexRadioDefault-{{activity.id}}"
+                                       (click)="bookingTimeslotChanged(activity.id)"
+                                       [ngClass]="bookingTimeslotId === activity.id ? 'selected-btn' : ''">
+                                    {{activity.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="bookingTimeslotId">
+                        <p class="subtitle"><i class="fas fa-calendar-alt me-2"></i> Selectati data</p>
+
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Selectati data</mat-label>
+                            <input matInput [min]="today" [matDatepicker]="picker" [(ngModel)]="date"
+                                   (ngModelChange)="dateChanged()">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+
+                        <p><i class="fas fa-clock me-2"></i> Selectati ora</p>
+                        <div *ngIf="chosenResourceTimeslots.length > 0" class="timeslots-container mb-3">
+                            <mat-radio-group
+                                    aria-label="Select a time slot" color="primary" [(ngModel)]="slotChosen">
+                                <div *ngFor="let slot of chosenResourceTimeslots" class="time-slot">
+                                    <mat-radio-button [value]="slot" [labelPosition]="'after'">
+                                        {{ slot.startHour }} - {{slot.endHour}}
+                                    </mat-radio-button>
+                                </div>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="no-slots mb-3" *ngIf="chosenResourceTimeslots.length === 0">
+                            <p>Nu exista sloturi</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <form [formGroup]="sharedExperienceForm" *ngIf="slotChosen">
+                <p class="section-title"><i class="me-2 fas fa-pen"></i> Details</p>
+
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{'SHARED-EXPERIENCES.EXPERIENCE-NAME' | translate}}</mat-label>
+                    <input matInput formControlName="name"
+                           placeholder="{{'SHARED-EXPERIENCES.EXPERIENCE-NAME' | translate}}" required>
+                    <mat-error
+                            *ngIf="sharedExperienceForm.controls.name.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="'whitespace'">{{'ERROR.PASS-WHITESPACE' | translate}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{'USER.DESCRIPTION' | translate}}</mat-label>
+                    <textarea matInput formControlName="description" rows="2"
+                              placeholder="{{'USER.DESCRIPTION' | translate}}"></textarea>
+                </mat-form-field>
+
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <mat-checkbox color="primary" formControlName="hasParticipantsLimit">Are limita de participanti</mat-checkbox>
+                    </div>
+                    <div class="col-12 col-md-8" *ngIf="sharedExperienceForm.get('hasParticipantsLimit').value">
+                        <mat-form-field appearance="legacy" class="w-100">
+                            <mat-label>{{'SHARED-EXPERIENCES.MAX-GUESTS' | translate}}</mat-label>
+                            <input type="number"
+                                   pattern="[0-9]*"
+                                   inputmode="numeric"
+                                   min="0"
+                                   title="Non-negative integral number"
+                                   placeholder="0"
+                                   matInput formControlName="participantsMaxNumber" #guestsNumber>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="dialog-footer d-flex justify-content-between align-items-center">
+        <button class="btn-long btn-color-outline" (click)="close()">Cancel</button>
+        <button class="btn-long btn-color-fill" (click)="save()">Confirm</button>
+    </div>
+</div>

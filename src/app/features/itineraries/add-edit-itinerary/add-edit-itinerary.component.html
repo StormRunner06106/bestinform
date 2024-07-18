@@ -1,0 +1,338 @@
+<!--suppress TypeScriptUnresolvedVariable -->
+<div class="container">
+    <app-dashboard-header
+            [pageTitleOne]="isEditMode ? 'Editare itinerariu' : 'Adaugare itinerariu'"
+            [buttonBackRoute]="isEditMode ? '../../list' : '../list'"
+            (buttonCall)="submitItinerary()"
+    >
+    </app-dashboard-header>
+
+    <div class="custom-card mb-4">
+        <form [formGroup]="itineraryForm" (ngSubmit)="submitItinerary()">
+            <div class="row">
+
+                <h2>
+                    Informatii generale
+                </h2>
+
+                <!--itinerary name-->
+                <div class="col-12 col-lg-6">
+                    <p>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Nume itinerariu</mat-label>
+                            <input formControlName="name" matInput placeholder="Nume itinerariu">
+                            <mat-icon *ngIf="itineraryForm.get('name').value"
+                                      (click)="itineraryForm.get('name').setValue(null)"
+                                      role="button" matSuffix>clear</mat-icon>
+                            <mat-error *ngIf="itineraryForm.get('name').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+
+                <!--itinerary description-->
+                <div class="col-12">
+                    <p>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Descriere itinerariu</mat-label>
+                            <textarea formControlName="description"
+                                      placeholder="Descriere itinerariu"
+                                      matInput
+                                      cdkTextareaAutosize
+                                      cdkAutosizeMinRows="1"
+                                      cdkAutosizeMaxRows="20"
+                            ></textarea>
+                            <mat-icon *ngIf="itineraryForm.get('description').value"
+                                      (click)="itineraryForm.get('description').setValue(null)"
+                                      role="button" matSuffix>clear</mat-icon>
+                            <mat-error *ngIf="itineraryForm.get('description').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+
+
+                <h2>
+                    Galerie
+                </h2>
+
+                <!--itinerary featured image-->
+                <div class="col-12 upload-image-col">
+
+                    <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                    <button *ngIf="!itineraryForm.get('featuredImage').value?.filePath"
+                            class="thumbnail-button
+                                   d-flex flex-column align-items-center justify-content-center"
+                            type="button"
+                            (click)="openMedia(featuredImageModal)"
+                            id="btnChangeItineraryFeaturedImg">
+                        <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}} <span>1400 x 1400px</span>
+                    </button>
+
+                    <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                    <div *ngIf="itineraryForm.get('featuredImage').value?.filePath" class="img-thumbnail">
+                        <img class="img-fluid w-100"
+                             [src]="itineraryForm.get('featuredImage').value?.filePath" alt="thumbnail">
+                        <button
+                                (click)="itineraryForm.get('featuredImage').setValue(null)"
+                                type="button"
+                                id="btnRemoveItineraryFeaturedImg"
+                                class="btn-thumbnail position-absolute">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <ng-template #featuredImageModal let-modal>
+                    <app-choose-media [category]="'image'"
+                                      [multipleSelect]="false"
+                                      [for]="'itinerary-featuredImg'"
+                                      [modalRef]="modal"></app-choose-media>
+                </ng-template>
+
+
+                <!--itinerary images-->
+                <div class="col-12 col-lg-3">
+                    <button (click)="openMedia(imagesModal)"
+                            class="btn-add-images
+                                   d-flex flex-column align-items-center justify-content-center"
+                            type="button"
+                    >
+                        <i class="far fa-image"></i>
+                        <p>
+                            Insert images here
+                        </p>
+                    </button>
+                </div>
+
+                <ng-container *ngIf="itineraryForm.get('images').value as images">
+                    <div class="col-12 col-lg-3"
+                         *ngFor="let image of images; let index = index"
+                    >
+                        <div class="gallery-image-container">
+                            <img [src]="image.filePath" alt="gallery image">
+                            <button class="btn-thumbnail position-absolute"
+                                    type="button"
+                                    (click)="removeImage(index)"
+                            >
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+
+
+                <ng-template #imagesModal let-modal>
+                    <app-choose-media [category]="'image'"
+                                      [multipleSelect]="true"
+                                      [modalRef]="modal"></app-choose-media>
+                </ng-template>
+
+                <h2>
+                    Informatii calatorie
+                </h2>
+
+                <!--itinerary journey theme-->
+                <div class="col-12 col-lg-6">
+                    <ng-container *ngIf="journeyThemeAttributes">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Journey theme</mat-label>
+                            <mat-select formControlName="journeyThemeId">
+                                <mat-option *ngFor="let attribute of journeyThemeAttributes" [value]="attribute.id">
+                                    {{ attribute.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="itineraryForm.get('journeyThemeId').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+
+                <!--itinerary type of destination-->
+                <div class="col-12 col-lg-6">
+                    <ng-container *ngIf="typeOfDestinationAttributes">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Type of destination</mat-label>
+                            <mat-select formControlName="typeOfDestinationId">
+                                <mat-option *ngFor="let attribute of typeOfDestinationAttributes" [value]="attribute.id">
+                                    {{ attribute.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="itineraryForm.get('typeOfDestinationId').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+
+                <!--itinerary type of journey-->
+                <div class="col-12 col-lg-6">
+                    <ng-container *ngIf="typeOfJourneyAttributes">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Type of journey</mat-label>
+                            <mat-select formControlName="typeOfJourneyId">
+                                <mat-option *ngFor="let attribute of typeOfJourneyAttributes" [value]="attribute.id">
+                                    {{ attribute.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="itineraryForm.get('typeOfJourneyId').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+
+
+                <h2>
+                    Activitati
+                </h2>
+
+
+                <ng-container *ngIf="(rentalBookingResourceTypes$ | async) as rentalBookingResourceTypes">
+                    <!--itinerary accommodation-->
+                    <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Accommodation</mat-label>
+                                <mat-select formControlName="accommodationResourceTypes" multiple>
+                                    <mat-option *ngFor="let resourceType of rentalBookingResourceTypes" [value]="resourceType.id">
+                                        {{ resourceType.nameEn }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="itineraryForm.get('accommodationResourceTypes').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            </mat-form-field>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="(menuResourceTypes$ | async) as menuResourceTypes">
+                    <!--itinerary eat and drinks-->
+                    <div class="col-12 col-lg-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Eat and drinks</mat-label>
+                            <mat-select formControlName="eatAndDrinksResourceTypes" multiple>
+                                <mat-option *ngFor="let resourceType of menuResourceTypes" [value]="resourceType.id">
+                                    {{ resourceType.nameEn }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="itineraryForm.get('eatAndDrinksResourceTypes').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="(ticketBookingResourceTypes$ | async) as ticketBookingResourceTypes">
+                    <!--itinerary day activity-->
+                    <div class="col-12 col-lg-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Day activity</mat-label>
+                            <mat-select formControlName="dayActivityResourceTypes" multiple>
+                                <mat-option *ngFor="let resourceType of ticketBookingResourceTypes" [value]="resourceType.id">
+                                    {{ resourceType.nameEn }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="itineraryForm.get('dayActivityResourceTypes').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!--itinerary evening activity-->
+                    <div class="col-12 col-lg-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Evening activity</mat-label>
+                            <mat-select formControlName="eveningActivityResourceTypes" multiple>
+                                <mat-option *ngFor="let resourceType of ticketBookingResourceTypes" [value]="resourceType.id">
+                                    {{ resourceType.nameEn }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="itineraryForm.get('eveningActivityResourceTypes').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+
+
+                <h2>
+                    Altele
+                </h2>
+
+                <ng-container [formArrayName]="'resources'">
+                    <ng-container *ngFor="let resource of itineraryForm.get('resources')?.controls; let i = index" [formGroupName]="i">
+                        <!--country-->
+                        <div class="col-12 col-lg-6">
+                            <p>
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Country</mat-label>
+                                    <mat-select formControlName="country" (selectionChange)="getCities($event)">
+                                        <mat-option *ngFor="let country of countries" [value]="country">
+                                            {{country}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-icon *ngIf="itineraryForm.get('resources')?.controls[i].get('country').value"
+                                              (click)="itineraryForm.get('resources')?.controls[i].get('country').setValue(null)"
+                                              role="button" matSuffix>clear</mat-icon>
+                                    <mat-error *ngIf="itineraryForm.get('resources')?.controls[i].get('country').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                </mat-form-field>
+                            </p>
+                        </div>
+
+                        <!--city-->
+                        <div class="col-12 col-lg-6">
+                            <p>
+                                <mat-form-field appearance="standard">
+                                    <mat-label>City</mat-label>
+                                    <mat-select formControlName="city" (selectionChange)="getCoordinates($event.value)">
+                                        <mat-option *ngFor="let city of cities" [value]="city.name" >
+                                            {{city.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-icon *ngIf="itineraryForm.get('resources')?.controls[i].get('city').value"
+                                              (click)="itineraryForm.get('resources')?.controls[i].get('city').setValue(null)"
+                                              role="button" matSuffix>clear</mat-icon>
+                                    <mat-error *ngIf="itineraryForm.get('resources')?.controls[i].get('city').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                </mat-form-field>
+                            </p>
+                        </div>
+                        <ng-container [formGroupName]="'geographicalCoordinates'">
+                        <div class="col-12 col-lg-6">
+                            <p>
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Latitude</mat-label>
+                                    <input formControlName="latitude" matInput>
+                                    <mat-icon *ngIf="itineraryForm.get('resources.0.geographicalCoordinates.latitude').value"
+                                              (click)="itineraryForm.get('resources.0.geographicalCoordinates.latitude').setValue(null)"
+                                              role="button" matSuffix>clear</mat-icon>
+                                    <mat-error *ngIf="itineraryForm.get('resources.0.geographicalCoordinates.latitude').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+
+                                </mat-form-field>
+                            </p>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <p>
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Longitude</mat-label>
+                                    <input formControlName="longitude" matInput>
+                                    <mat-icon *ngIf="itineraryForm.get('resources.0.geographicalCoordinates.longitude').value"
+                                              (click)="itineraryForm.get('resources.0.geographicalCoordinates.longitude').setValue(null)"
+                                              role="button" matSuffix>clear</mat-icon>
+                                    <mat-error *ngIf="itineraryForm.get('resources.0.geographicalCoordinates.longitude').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                </mat-form-field>
+                            </p>
+                        </div>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+
+                <!--itinerary recommendation-->
+                <div class="col-12">
+                    <p>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Recommendation</mat-label>
+                            <textarea formControlName="recommendation"
+                                      placeholder="Recommendation"
+                                      matInput
+                                      cdkTextareaAutosize
+                                      cdkAutosizeMinRows="1"
+                                      cdkAutosizeMaxRows="20"
+                            ></textarea>
+                            <mat-icon *ngIf="itineraryForm.get('recommendation').value"
+                                      (click)="itineraryForm.get('recommendation').setValue(null)"
+                                      role="button" matSuffix>clear</mat-icon>
+                            <mat-error *ngIf="itineraryForm.get('recommendation').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</div>

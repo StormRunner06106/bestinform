@@ -1,0 +1,79 @@
+/* If you're using .css file */
+.modal {
+  position: fixed;
+  top: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(100%); /* Start hidden below the screen */
+  background: white;
+  display: none; /* Hide by default */
+  
+}
+
+.custom-modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure the container takes up the full height */
+}
+.custom-modal-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 5%;
+  padding-left: 3%;
+  padding-right: 3%;
+
+}
+
+.modal.is-visible {
+  transform: translateY(0); /* Slide into view */
+  display: block; /* Show the modal */
+}
+
+:host ::ng-deep .p-carousel .p-carousel-content .p-carousel-prev, .p-carousel .p-carousel-content .p-carousel-next{
+    display: none !important;
+}
+
+:host ::ng-deep {
+  .p-input-icon-left > .p-inputtext {
+    width: 100%;
+  }
+}
+.p-input-icon-left{
+  width: 100%;
+}
+
+
+.restaurant-list {
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+}
+
+.restaurant-item {
+  font-weight: bold;
+  color: #4257EE;
+  cursor: pointer; /* Change the cursor to indicate the items are clickable */
+  padding: 5px 0; /* Add some padding for each item */
+}
+
+.separator-line {
+  height: 1px;
+  background-color: #ccc; /* Light grey color for the separator line */
+  margin: 5px 0; /* Space out the lines from the text */
+}
+
+.custom-modal-body{
+  padding: 5%;
+
+}
+
+#googleMapContainer {
+  height: 100%;
+  width: 100%;
+}

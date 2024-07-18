@@ -1,0 +1,123 @@
+<div class="w-100 mt-4">
+    <div class="image-container">
+        <input type="file"
+               hidden
+               accept="image/*"
+               #thumbnail
+               id="thumbnailInput"
+               (change)="onCoverImgChange($event)"
+               >
+        <div *ngIf="!thumbnail.value && !coverClientUrl?.filePath" class="no-image"
+             attr.translatedContent = "{{ 'GENERAL.INSERT_IMAGE' | translate}}"
+             (click)="thumbnail.click()"></div>
+
+        <img *ngIf="thumbnail.value || coverClientUrl?.filePath" class="img-fluid w-100 cover-img"
+             src={{coverClientUrl?.filePath}} alt="thumbnail">
+        <button *ngIf="thumbnail.value || coverClientUrl?.filePath"
+                (click)="thumbnail.click()"
+                type="button"
+                id="btnRemoveFeaturedImage"
+                class="btn-thumbnail">
+                <i class="fas fa-pen"></i>
+        </button>
+    </div>
+</div>
+<!--px-10 ca imaginea de profil sa fie pana in capat, adaugam paddingul abia de aici, iar in componenta principala, punem padding dupa prima componenta adaugata(dupa app-client-profile)-->
+        <!---------------------Rectangle-------------------------->
+<div class="d-flex align-items-center justify-content-between
+            py-2 px-4 px-md-5
+            profile-rectangle">
+
+    <div class="d-flex gap-2 gap-md-4">
+        <img class="img-fluid profile-picture"
+             src="{{avatarClientUrl?.filePath ? avatarClientUrl?.filePath : '/assets/images/others/user.jpg'}}">
+            <!-- <img src="../../../../../assets/images/others/banner-default-min.jpg"> -->
+
+        <div class="d-none  d-sm-flex flex-column justify-content-center
+                    user-information">
+            <h2>{{currentUserData?.firstName + ' ' +currentUserData?.lastName}}</h2>
+            <p>{{currentUserData?.email}}</p>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center">
+            <button class="btn-auto btn-color-fill d-none d-sm-flex" [matMenuTriggerFor]="settingsMenu">
+                <i class="fas fa-pen" aria-hidden="false"></i>
+                {{ "GENERAL.EDIT" | translate}}
+            </button>
+
+            <button class="btn-round btn-color-fill d-flex d-sm-none" [matMenuTriggerFor]="settingsMenu">
+                <i class="fas fa-pen" aria-hidden="false"></i>
+            </button>
+
+        <mat-menu #settingsMenu="matMenu">
+            <input type="file"
+            hidden
+            accept="image/*"
+            #avatarChange
+            id="avatarChange"
+            (change)="onAvatarChange($event)"
+            >
+            <button mat-menu-item
+            (click)="avatarChange.click()">
+                <i class="fas fa-camera"></i>
+              Edit Avatar
+            </button>
+            <button mat-menu-item
+            (click)="thumbnail.click()">
+                <i class="fas fa-image"></i>
+              Edit Cover
+            </button>
+            <button mat-menu-item routerLink="../my-account">
+                <i class="fas fa-user"></i>
+                Edit Profile
+            </button>
+            <button mat-menu-item routerLink="../change-password">
+                <i class="fas fa-shield-alt"></i>
+                Change Password
+            </button>
+            <button mat-menu-item routerLink="../delete-account">
+                <i class="fas fa-times"></i>
+                Delete Account
+            </button>
+          </mat-menu>
+    </div>
+</div>
+
+
+<!---------------------Intro-------------------------->
+<div class="d-flex flex-column
+            gap-4
+            intro-class my-profile-container">
+
+    <div class="d-flex align-items-center justify-content-between">
+        <h2 class="m-0">Intro</h2>
+
+        <div class="d-flex gap-4">
+            <p *ngIf="currentUserData?.county && currentUserData?.city" class="m-0">
+            <span>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+            </span>
+                {{currentUserData.county + ", " + currentUserData.city}}
+            </p>
+
+            <p *ngIf="currentUserData?.registrationDate" class="m-0">
+                <span><i class="far fa-calendar"></i></span>
+                {{ "GENERAL.JOINED" | translate }}
+                {{ currentUserData.registrationDate | date : 'MMM YYYY' }}
+            </p>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-start">
+        <p *ngIf="!currentUserData?.description" class="intro-add-details m-0">
+            <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+            {{ "GENERAL.ABOUT_YOURSELF" | translate }}
+        </p>
+
+        <p *ngIf="currentUserData?.description" class="m-0 text-break">
+            {{ currentUserData.description }}
+        </p>
+    </div>
+
+</div>

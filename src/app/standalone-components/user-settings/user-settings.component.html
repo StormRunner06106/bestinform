@@ -1,0 +1,74 @@
+<div class="container-fluid client-general-box mb-5">
+    <div  class="container" >
+        <app-dashboard-header pageTitleOne="{{'SETTINGS' | translate}}"
+                              (buttonCall)="submit()"
+                              buttonBackRoute="default">
+        </app-dashboard-header>
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="py-3">
+                                {{'GENERAL-SETTINGS' | translate}}
+                            </h4>
+                            <div class="px-3">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <mat-label>{{"GENERAL.LANGUAGE" | translate}}</mat-label>
+                                    <mat-select formControlName="language">
+                                        <mat-option value="ro">{{"GENERAL.RO" | translate}}</mat-option>
+                                        <mat-option value="en">{{"GENERAL.EN" | translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <mat-label>{{"GENERAL.DISTANCE-UNIT" | translate}}</mat-label>
+                                    <mat-select formControlName="distanceUnitMeasure">
+                                        <mat-option value="km">km</mat-option>
+                                        <mat-option value="miles">mile</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <mat-label>{{"GENERAL.TEMP-UNIT" | translate}}</mat-label>
+                                    <mat-select formControlName="temperatureUnitMeasure">
+                                        <mat-option value="celsius">Celsius</mat-option>
+                                        <mat-option value="fahrenheit">Fahrenheit</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <mat-label>{{"GENERAL.CURRENCY" | translate}}</mat-label>
+                                    <mat-select formControlName="currency">
+                                        <mat-option value="EUR">EURO €</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="legacy" class="w-100" *ngIf="currentUser?.roles.includes('ROLE_CLIENT')">
+                                    <mat-label>{{"GENERAL.EXP-PART" | translate}}</mat-label>
+                                    <mat-select formControlName="enableSharedResource">
+                                        <mat-option [value]="false">NU</mat-option>
+                                        <mat-option [value]="true">DA</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <mat-label>Color Mode</mat-label>
+                                    <mat-select formControlName="colorMode">
+                                        <mat-option [value]="'light'">Day</mat-option>
+                                        <mat-option [value]="'dark'">Night</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="py-3">{{'APP-SETTINGS' | translate}}
+                            </h4>
+                            <div class="px-3">
+                                <mat-slide-toggle formControlName="enablePushNotifications" class="w-100" *ngIf="currentUser?.roles.includes('ROLE_CLIENT')">{{"GENERAL.PUSH-NOT" | translate}}</mat-slide-toggle>
+<!--                                <mat-slide-toggle formControlName="enableLocation" class="w-100" *ngIf="currentUser?.roles.includes('ROLE_CLIENT')">{{"GENERAL.DETECT-LOCATION" | translate}}</mat-slide-toggle>-->
+<!--                                <mat-slide-toggle formControlName="acceptTermsAndConditions" class="w-100">{{"GENERAL.TERMS-COND" | translate}}</mat-slide-toggle>-->
+<!--                                <mat-slide-toggle formControlName="twoFactorAuthentication" class="w-100">{{"GENERAL.2FA" | translate}}</mat-slide-toggle>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<label class="form-option" [ngClass]="{'option-selected': radioInput.checked , 'option-disabled': disabled}">
+    <!--Image-->
+    <img ngSrc="{{(iconPath === null || iconPath.length === 0 || iconPath === 'string') ? 'https://via.placeholder.com/113' : iconPath}}"
+         class="radio-img" width="114" height="114" alt="Icon">
+
+    <!--Title-->
+    <h4 class="radio-title">{{optionName}}</h4>
+
+    <!--Hidden Input-->
+    <input type="radio" name="radio" [value]="optionId" [formControl]="initialValue" #radioInput/>
+
+</label>

@@ -1,0 +1,62 @@
+<div class="landing">
+    <header>
+        <img src="assets/images/countdown-landing/main-logo.svg" alt="Logo-ul meu" class="logo">
+<!--        <button class="header-button">Conecteazǎ-te</button>-->
+    </header>
+    <div class="img-overlay">
+        <div class="additional-overlay">
+            <p class="text-center">Viața este despre experiențe, trăiește-le alǎturi de Bestinform</p>
+        </div>
+        <div class="overlay-content">
+            <p class="launch-text text-center" style="text-align: center;">Lansarea oficialǎ va avea loc în :</p>
+            <span class="text-center d-block" *ngIf="!finished && started">{{days + " Zile " + hours + " Ore " + minutes + " Minute " + seconds + " Secunde "}}</span>
+            <span class="text-center d-block" *ngIf="finished">EXPIRAT</span>
+        </div>
+    </div>
+<!--    <div class="fixed-button-container">-->
+<!--        <button class="fixed-button">Înscrie-te acum</button>-->
+<!--    </div>-->
+    <div class="footer">
+        <div class="footer-top">
+            <div class="contact-info">
+                <p class="p-padding">
+                    <img src="assets/images/countdown-landing/mail.svg" alt="Email" class="contact-icon"> contact@bestinform.eu
+
+                    <img src="assets/images/countdown-landing/phone-call.svg" alt="Telefon" class="contact-icon"> +40 722.670.826
+                </p>
+            </div>
+            <div class="contact-social-container">
+                <div class="social-buttons">
+                    <a href="https://www.instagram.com/bestinform.eu/" target="_blank" class="social-button"><img src="assets/images/countdown-landing/Instagram.svg" alt="Instagram" class="social-icon"></a>
+                    <a href="https://www.facebook.com/bestinformeu/" target="_blank" class="social-button"><img src="assets/images/countdown-landing/Facebook.svg" alt="Facebook" class="social-icon"></a>
+                    <a href="https://www.tiktok.com/@bestinform" target="_blank" class="social-button"><img src="assets/images/countdown-landing/Tiktok.svg" alt="Tiktok" class="social-icon"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-logo-container">
+                <img src="assets/images/countdown-landing/Text.svg" alt="Logo-ul meu" class="footer-logo">
+            </div>
+            <nav class="footer-nav">
+                <a href="https://www.bestinform.eu/content/privacy-policy" target="_blank">Politica de confidențialitate</a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script>
+    var countdownDate = new Date("June 1, 2024 00:00:00").getTime();
+    var countdownInterval = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countdownDate - now;
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("countdown").innerHTML = days + " Zile " + hours + " Ore " + minutes + " Minute " + seconds + " Secunde ";
+        if (distance < 0) {
+            clearInterval(countdownInterval);
+            document.getElementById("countdown").innerHTML = "EXPIRAT";
+        }
+    }, 1000);
+</script>

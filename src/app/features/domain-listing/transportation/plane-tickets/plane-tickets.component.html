@@ -1,0 +1,250 @@
+
+<app-search-section [isBiggerThan981]="true"></app-search-section>
+
+<div class="content-container">
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center my-4">
+            <h2>{{'TRANSPORT.PLANE_TICKET' | translate}}</h2>
+        </div>
+        <div class="row d-flex">
+            <!--form col-->
+            <div class="form-container col-lg-6">
+
+                <mat-button-toggle-group class="ticket-type-group w-100" aria-label="Airline tickets"  value="oneWay">
+                    <mat-button-toggle class="w-50" (change)="changeTab($event.value)" value="oneWay">One way</mat-button-toggle>
+                    <mat-button-toggle class="w-50" (change)="changeTab($event.value)" value="roundTrips">Round trips</mat-button-toggle>
+                </mat-button-toggle-group>
+
+                <div class="filter-list">
+
+                <form [formGroup]="airplaneTicketForm" class="my-4">
+                    <!-- Departure Airport -->
+                    <h4><i class="fas fa-plane"></i> {{"TRANSPORT.SET-DEP-AIRPORT" | translate}}</h4>
+                    <!-- <mat-form-field>
+                        <mat-label>{{"TRANSPORT.DEP-AIRPORT" | translate}}</mat-label>
+                        <input matInput placeholder="Departure Airport" formControlName="departureAirport" >
+                            <i matSuffix class="fas fa-plane-departure"></i>
+                        <mat-error *ngIf="airplaneTicketForm.controls.departureAirport.hasError('required')">
+                            {{"ERROR.REQUIRED" | translate}}
+                        </mat-error>
+                    </mat-form-field> -->
+
+                    <mat-form-field>
+                        <mat-label>{{"TRANSPORT.DEP-AIRPORT" | translate}}</mat-label>
+                        <input matInput
+                        placeholder="Departure Airport"
+                               formControlName="departureAirport"
+                            (ngModelChange)="getCityCodeDeparture()">
+                            <i matSuffix class="fas fa-plane-departure"></i>
+                        <mat-error *ngIf="airplaneTicketForm.controls.departureAirport.hasError('required') && airplaneTicketForm.controls.departureAirport.touched">
+                            {{"ERROR.REQUIRED" | translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+
+
+                    <div class="destinations-container">
+                        <ng-container *ngFor="let city of recommendedDepartureAirport">
+                            <div (click)="updateFormValue('departureAirport', city?.cityCode)"
+                                 class="destination-element">
+                            <span class="destination-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                                <p>{{ city.cityNameRo | titlecase }} - Toate Aeroporturile ({{ city.cityCode }})</p>
+                            </div>
+
+                            <ng-container *ngFor="let airport of city.airports">
+                                <div (click)="updateFormValue('departureAirport', airport?.airportCode)"
+                                     [ngStyle]="{'padding-left': '50px'}"
+                                     class="destination-element">
+                                    <span class="destination-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                    <p>{{ airport.airportCode}} - {{airport?.airportNameRo}} ({{airport?.cityNameRo}}, {{airport?.country}})</p>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+
+                    <!-- Arrival Airport -->
+                    <h4><i class="fas fa-plane"></i> {{"TRANSPORT.SET-ARRIVAL-AIRPORT" | translate}}</h4>
+<!--                    <mat-form-field>-->
+<!--                        <mat-label>{{"TRANSPORT.ARRIVAL-AIRPORT" | translate}}</mat-label>-->
+<!--                        <input matInput placeholder="Arrival Airport" formControlName="arrivalAirport">-->
+<!--                        <i matSuffix class="fas fa-plane-arrival"></i>-->
+<!--                        <mat-error *ngIf="airplaneTicketForm.controls.departureAirport.hasError('required')">-->
+<!--                            {{"ERROR.REQUIRED" | translate}}-->
+<!--                        </mat-error>-->
+<!--                    </mat-form-field>-->
+
+                    <mat-form-field>
+                        <mat-label>{{"TRANSPORT.ARRIVAL-AIRPORT" | translate}}</mat-label>
+                        <input matInput
+                               placeholder="Arrival Airport"
+                               formControlName="arrivalAirport"
+                               (ngModelChange)="getCityCodeArrival()">
+                        <i matSuffix class="fas fa-plane-arrival"></i>
+                        <mat-error *ngIf="airplaneTicketForm.controls.arrivalAirport.hasError('required') && airplaneTicketForm.controls.arrivalAirport.touched">
+                            {{"ERROR.REQUIRED" | translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+
+                    <div class="destinations-container" >
+                        <ng-container *ngFor="let city of recommendedArrivalAirport">
+                            <div (click)="updateFormValue('arrivalAirport', city?.cityCode)"
+                                 class="destination-element">
+                            <span class="destination-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                                <p>{{ city.cityNameRo | titlecase }} - Toate Aeroporturile ({{ city.cityCode }})</p>
+                            </div>
+
+                            <ng-container *ngFor="let airport of city.airports">
+                                <div (click)="updateFormValue('arrivalAirport', airport?.airportCode)"
+                                     [ngStyle]="{'padding-left': '50px'}"
+                                     class="destination-element">
+                                    <span class="destination-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                    <p>{{ airport.airportCode}} - {{airport?.airportNameRo}} ({{airport?.cityNameRo}}, {{airport?.country}})</p>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+
+
+
+
+                    <!--Departure date-->
+                    <h4><i class="fas fa-calendar-alt"></i>{{"TRANSPORT.SELECT-DATES" | translate}}</h4>
+
+                    <mat-form-field *ngIf="!roundTrip" class="mb-2">
+                        <mat-label>{{"TRANSPORT.DEPARTURE-DATE" | translate}}</mat-label>
+                        <input [min]="minDate" formControlName="departureDate" matInput [matDatepicker]="pickerDepartureDate">
+                        <mat-datepicker-toggle matSuffix [for]="pickerDepartureDate">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #pickerDepartureDate></mat-datepicker>
+                        <mat-error *ngIf="airplaneTicketForm.controls.departureDate.hasError('required')">
+                            {{"ERROR.REQUIRED" | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="airplaneTicketForm.controls.departureDate.hasError('min')">
+                            {{"ERROR.PAST-DATE" | translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!--Return date-->
+                    <mat-form-field *ngIf="roundTrip" class="mb-2">
+                        <mat-label>{{"TRANSPORT.DEPARTURE-DATE" | translate}} - {{"TRANSPORT.RETURN-DATE-PLANE" | translate}}</mat-label>
+                        <mat-date-range-input [rangePicker]="pickerTurReturnDate" [min]="minDate">
+                            <input matStartDate formControlName="departureDate" placeholder="Start date">
+                            <input matEndDate formControlName="returnDate" placeholder="End date">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="pickerTurReturnDate">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-date-range-picker #pickerTurReturnDate></mat-date-range-picker>
+                        <mat-error *ngIf="airplaneTicketForm.controls.returnDate.hasError('required')">
+                            {{"ERROR.REQUIRED" | translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!--Set travel class-->
+                    <h4><i class="fas fa-star"></i>{{"TRANSPORT.SET-CLASS" | translate}}</h4>
+
+                    <mat-button-toggle-group class="travel-class-group gap-2" formControlName="travelClass">
+                        <mat-button-toggle value="ECONOMY">Economy</mat-button-toggle>
+                        <mat-button-toggle value="PREMIUM_ECONOMY">Economy +</mat-button-toggle>
+                        <mat-button-toggle value="BUSINESS">Business</mat-button-toggle>
+                        <mat-button-toggle value="FIRST">First</mat-button-toggle>
+                    </mat-button-toggle-group>
+                    <!-- <mat-error *ngIf="(airplaneTicketForm.get('travelClass').value === '') && (airplaneTicketForm.get('travelClass').touched)">
+                        Acest camp este obligatoriu.
+                    </mat-error> -->
+                    <mat-error *ngIf="travelClass">
+                        {{"ERROR.REQUIRED" | translate}}
+                    </mat-error>
+
+                    <!--Select passengers-->
+                    <!--adults-->
+                    <h4><i class="fas fa-users"></i> {{"TRANSPORT.SELECT-PASSENGERS" | translate}}</h4>
+
+                    <div class="noPassengers">
+                        <button class="btnPassangers " (click)="decrementNumberOfPeople('passengersAdults')"><i class="fas fa-chevron-left"></i></button>
+                        <p>
+                            {{airplaneTicketForm.get('passengersAdults').value === null ? 0 : airplaneTicketForm.get('passengersAdults').value}} {{"RESERVATION.ADULTS"| translate}}
+                        </p>
+                        <button class="btnPassangers" (click)="incrementNumberOfPeople('passengersAdults')"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <mat-error *ngIf="airplaneTicketForm.controls.passengersAdults.hasError('min')">
+                        {{"ERROR.REQUIRED" | translate}}
+                    </mat-error>
+
+                    <div class="noPassengers">
+                        <button class="btnPassangers " (click)="decrementNumberOfPeople('passengersYoung')"><i class="fas fa-chevron-left"></i></button>
+                        <p>
+                            {{airplaneTicketForm.get('passengersYoung').value === null ? 0 : airplaneTicketForm.get('passengersYoung').value}} {{"RESERVATION.TEENAGERS"| translate}}
+                        </p>
+                        <button class="btnPassangers" (click)="incrementNumberOfPeople('passengersYoung')"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <mat-error *ngIf="airplaneTicketForm.controls.passengersYoung.hasError('min')">
+                        {{"ERROR.REQUIRED" | translate}}
+                    </mat-error>
+
+                    <div class="noPassengers">
+                        <button class="btnPassangers" (click)="decrementNumberOfPeople('passengersChildren')"><i class="fas fa-chevron-left"></i></button>
+                        <p>
+                            {{airplaneTicketForm.get('passengersChildren').value === null ? 0 : airplaneTicketForm.get('passengersChildren').value}} {{"RESERVATION.CHILDREN"| translate}}
+                        </p>
+                        <button class="btnPassangers" (click)="incrementNumberOfPeople('passengersChildren')"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <mat-error *ngIf="airplaneTicketForm.controls.passengersChildren.hasError('min')">
+                        {{"ERROR.REQUIRED" | translate}}
+                    </mat-error>
+
+                    <div class="noPassengers">
+                        <button class="btnPassangers " (click)="decrementNumberOfPeople('passengersHeldInfants')"><i class="fas fa-chevron-left"></i></button>
+                        <p>
+                            {{airplaneTicketForm.get('passengersHeldInfants').value === null ? 0 : airplaneTicketForm.get('passengersHeldInfants').value}} {{"RESERVATION.INFANTS"| translate}}
+                        </p>
+                        <button class="btnPassangers" (click)="incrementNumberOfPeople('passengersHeldInfants')"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <mat-error *ngIf="airplaneTicketForm.controls.passengersHeldInfants.hasError('min')">
+                        {{"ERROR.REQUIRED" | translate}}
+                    </mat-error>
+
+                    <mat-error *ngIf="(airplaneTicketForm.get('passengersChildren').value === 0 || airplaneTicketForm.get('passengersChildren').value === null) && (airplaneTicketForm.get('passengersAdults').value === 0 || airplaneTicketForm.get('passengersAdults').value === null) ">
+                        {{"ERROR.PASSENGERS-NUMBER" | translate}}
+                    </mat-error>
+                    <!--submit Button roundTrip form-->
+                    <div *ngIf="roundTrip">
+                        <button type="button" class="btn-long btn-color-fill w-100"
+                        (click)="checkAvilability()" >
+                        <i class="fas fa-search"></i>
+                        {{"TRANSPORT.CHECK-AVAILABILITY" | translate}}
+                        </button>
+                    </div>
+
+                    <!--submit Button oneWay from-->
+                    <div *ngIf="!roundTrip">
+                        <button type="button" class="btn-long btn-color-fill w-100"
+                        (click)="checkAvilability()" >
+                        <i class="fas fa-search"></i>
+                        {{"TRANSPORT.CHECK-AVAILABILITY" | translate}}
+                        </button>
+                    </div>
+
+                </form>
+
+
+
+
+            </div>
+
+            <!--Image col-->
+            <div class="img-container col-lg-6">
+            </div>
+        </div>
+    </div>
+</div>

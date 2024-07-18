@@ -1,0 +1,92 @@
+<div class="apartments-details-container">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="apartments-title color-black">
+        Disponibilitate pentru perioada selectata, {{daysRequested > 1 ? daysRequested + " nopti" : daysRequested + " noapte"}} /
+        {{(guests > 1 ? guests + " oaspeti" : guests + " oaspete") + (rooms > 1 ? " / " + rooms + " camere" : "")}}
+      </h3>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 20px; margin-bottom: 30px">
+    <div class="col-6 col-lg-3 rooms-dropdown">
+      <p-dropdown [options]="beddingOptions" (onChange)="filtersChanged($event, filterTypes.BEDDING_TYPE)" optionLabel="description" [showClear]="true" placeholder="Paturi"></p-dropdown>
+    </div>
+
+    <div class="col-6 col-lg-3 rooms-dropdown">
+      <p-dropdown [options]="mealsList" (onChange)="filtersChanged($event, filterTypes.MEALS)" optionLabel="description" [showClear]="true" placeholder="Mese"></p-dropdown>
+    </div>
+
+    <div class="col-6 col-lg-3 rooms-dropdown">
+      <p-dropdown [options]="cancellationList" (onChange)="filtersChanged($event, $event.value ? ($event.value.name === cancellationTypes.WITHOUT ? filterTypes.PAYED_CANCELLATION : filterTypes.FREE_CANCELLATION) : null)" optionLabel="description" [showClear]="true" placeholder="Anulare"></p-dropdown>
+    </div>
+
+    <div class="col-6 col-lg-3 rooms-dropdown">
+      <p-dropdown [options]="paymentOptions" (onChange)="paymentOptionChanged($event)" optionLabel="description" [showClear]="true" placeholder="Plata"></p-dropdown>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!loading">
+    <ng-container *ngFor="let room of roomGroups; index as i">
+      <p-card class="room-group mt-5">
+        <div class="room-card">
+          <div class="size-adjust width-40">
+            <img [src]="room.images[0]" class="w-100 h-100 room-image-main-radius" (click)="openGalleria(room)">
+            <div class="action-overlay">
+              <span class="images-text">+{{room.images.length - 1}} imagini</span>
+            </div>
+          </div>
+          <div *ngIf="display">
+            <p-galleria
+                    [(value)]="shownImages"
+                    [showItemNavigators]="true"
+                    [(visible)]="display"
+                    [fullScreen]="display"
+                    (activeIndexChange)="updateCurrentImageIndex($event)"
+                    [containerClass]="galleriaClass(room)"
+            >
+              <ng-template pTemplate="item" let-item>
+                <img
+                        class="gallery-image"
+                        (click)="display = !display"
+                        [src]="item"
+                        (error)="handleImageError($event, item)"
+                />
+              </ng-template>
+            </p-galleria>
+
+            <div class="image-counter">{{ currentImageIndex + 1 }}/{{ totalImages }}</div>
+          </div>
+          <div class="width-60">
+            <div class="d-flex flex-column h-100 width adjust-padding">
+              <div class="room-amenities">
+                <div class="s20">{{room.name}}</div>
+                <div class="s16">{{room.name_struct.beddingTypeDescription ? room.name_struct.beddingTypeDescription : room.name}}</div>
+              <div class="d-flex flex-row amenities">
+                <div *ngFor="let roomAmenity of room.roomAmenitiesDetails">
+                  <div class="custom-chip d-flex flex-row me-2">
+                    <div class="material-symbols-outlined" *ngIf="roomAmenity.iconSource === iconSource.MATERIAL">{{roomAmenity.icon}}</div>
+                    <img [src]="roomAmenity.icon" height="24" width="24" *ngIf="roomAmenity.iconSource === iconSource.OWN">
+                    <div class="room-amenity-description">{{roomAmenity.description}}</div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="d-flex flex-row h-100 room-option-details pt-3">
+                <app-card-slider
+                        class="w-100"
+                        [extra]="{room: room, mealsHawkDict: mealsHawkDict}"
+                        [sliderCards]="room.rates"
+                        [size]="'small'"
+                        [inputType]="'hotels'"
+                        (buttonEmitter)="showReservation($event)"
+                ></app-card-slider>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-card>
+    </ng-container>
+  </div>
+</div>
+

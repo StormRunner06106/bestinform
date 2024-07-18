@@ -1,0 +1,28 @@
+<div class="experience" routerLink="../view/{{experience.slug}}">
+    <img [src]="experience.featuredImage?.filePath" alt="{{experience?.name}}">
+    <div class="top-bar d-flex justify-content-between align-items-center">
+<!--        <div class="members d-flex">-->
+<!--            <div class="users-joined d-flex justify-content-center align-items-center">-->
+<!--                <p class="mb-0">{{experience.participants?.length}}<i class="ms-1 fas fa-user"></i></p>-->
+<!--            </div>-->
+<!--            <div class="user" *ngFor="let user of usersJoined; let i=index">-->
+<!--                    <img *ngIf="i === 0" class="first-avatar" [src]="user">-->
+<!--                    <img *ngIf="i === 1" class="second-avatar" [src]="user">-->
+<!--                    <img *ngIf="i === 2" class="third-avatar" [src]="user">-->
+<!--            </div>-->
+<!--        </div>-->
+        <button>
+            <i class="far fa-star"></i>
+        </button>
+    </div>
+    <div class="text-background">
+        <div class="row w-100">
+            <div class="top-row d-flex justify-content-between">
+                <h2>{{experience?.name}}</h2>
+                <p *ngIf="experience?.resourceType" class="label-categ">{{experience?.resourceType}}</p>
+            </div>
+            <p class="timetable">Starts: <span>{{experience?.startHour}} {{experience?.startDate | date: 'z d MMMM, y'}}</span></p>
+            <p><i class="fas fa-map-marker-alt me-2"></i>{{experience?.place+', '+experience?.city+', '+experience?.country}}</p>
+        </div>
+    </div>
+</div>

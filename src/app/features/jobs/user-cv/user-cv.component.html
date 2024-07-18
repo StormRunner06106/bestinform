@@ -1,0 +1,275 @@
+<div class="d-flex flex-column">
+
+    <div class="background-container">
+        <img [src]="myCvImagePath" alt="category-background-image">
+    </div>
+
+    <div class="content-container">
+        <div class="container">
+            <h1 class="job-title mb-4">My CV</h1>
+            <div class="row mb-4">
+                <div class="col-12 col-lg-8">
+                    <div class="cv-completion mb-4 mb-lg-0">
+                        <div class="row">
+                            <div class="d-flex justify-content-sm-between align-items-center flex-wrap justify-content-center">
+                                <h1>Complete your CV</h1>
+                                <div class="progress mb-2">{{percentageDisplay}}%</div>
+                            </div>
+
+                            <div class="col-12">
+                                <p>Your CV is not complete yet, here’s why: </p>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="cv-category-completion d-flex justify-content-between">
+                                    <p>Profile image</p>
+                                    <i class="fas fa-check" *ngIf="avatarCvUrl?.filePath"></i>
+                                    <i class="fas fa-times" *ngIf="!avatarCvUrl?.filePath"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="cv-category-completion d-flex justify-content-between">
+                                    <p>Summary</p>
+                                    <i class="fas fa-check" *ngIf="cvForm.get('description').value!==''"></i>
+                                    <i class="fas fa-times"
+                                       *ngIf="cvForm.get('description').value===''||!cvForm.get('description').value"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="cv-category-completion d-flex justify-content-between">
+                                    <p>Contact</p>
+                                    <i class="fas fa-check" *ngIf="contactCheck"></i>
+                                    <i class="fas fa-times" *ngIf="!contactCheck"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="cv-category-completion d-flex justify-content-between">
+                                    <p>Work Experience</p>
+                                    <i class="fas fa-check" *ngIf="experienceList.length > 0"></i>
+                                    <i class="fas fa-times" *ngIf="experienceList.length === 0"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="cv-category-completion d-flex justify-content-between">
+                                    <p>Education</p>
+                                    <i class="fas fa-check" *ngIf="educationList.length > 0"></i>
+                                    <i class="fas fa-times" *ngIf="educationList.length === 0"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="cv-category-completion d-flex justify-content-between">
+                                    <p>Certifications</p>
+                                    <i class="fas fa-check" *ngIf="certificationList.length > 0"></i>
+                                    <i class="fas fa-times" *ngIf="certificationList.length === 0"></i>
+                                </div>
+                            </div>
+<!--                            <div class="col-12 col-lg-6">-->
+<!--                                <div class="cv-category-completion d-flex justify-content-between">-->
+<!--                                    <p>Skills</p>-->
+<!--                                    <i class="fas fa-check"></i>-->
+<!--                                    <i class="fas fa-times"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="user-avatar">
+                        <div class="profile-image d-flex justify-content-center mb-2">
+                            <img [src]="avatarCvUrl?.filePath ? avatarCvUrl?.filePath : '../../../../assets/images/others/user.jpg'"
+                                 alt="dada" class="avatar-img">
+                        </div>
+                        <div class="avatar-text d-flex flex-column justify-content-between align-items-center">
+                            <h4>Modifică avatar</h4>
+                            <p>Formate suportate: .jpeg, .png, .jpg</p>
+                        </div>
+                        <div class="avatar-btns d-flex justify-content-between align-items-center">
+                            <button class="btn-long btn-white-fill" type="button" (click)="deleteCvAvatar()"><i
+                                    class="fas fa-times"></i>Șterge
+                            </button>
+                            <button class="btn-long btn-color-fill" type="button" (click)="avatarChange.click()"><i
+                                    class="fas fa-pen"></i>Schimbă
+                            </button>
+                            <input type="file"
+                                   hidden
+                                   accept="image/*"
+                                   #avatarChange
+                                   id="avatarChange"
+                                   (change)="uploadAvatar($event)"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="upload-resume d-flex justify-content-between align-items-center">
+                        <div class="left-side d-flex justify-content-start">
+                            <i class="far fa-file me-2"></i>
+                            <div class="resume-text d-flex flex-column justify-content-center">
+                                <h5 class="mb-0">Upload Resume</h5>
+                                <p class="mb-0">Formate suportate: .pdf</p>
+                            </div>
+
+                        </div>
+                        <div *ngIf="userCvUrl?.filePath" class="existing-file d-flex justify-content-end align-items-center">
+                            <p class="mb-0">{{userCvUrl?.fileName}}</p>
+                            <button class="btn-round btn-no-outline" (click)="deleteCvFile()"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <button class="btn-long btn-color-fill" (click)="uploadCv.click()" *ngIf="!userCvUrl?.filePath"><i class="fas fa-upload me-2"></i>Încarcă CV</button>
+                        <input type="file"
+                               hidden
+                               accept="file/*"
+                               #uploadCv
+                               id="uploadFile"
+                               (change)="uploadCvFile($event)"
+                        >
+                    </div>
+                </div>
+            </div>
+
+
+            <form [formGroup]="cvForm">
+                <div class="section-cv">
+                    <p class="title-section">Summary</p>
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput formControlName="description"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="section-cv">
+                    <p class="title-section">Contact</p>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Address</mat-label>
+                                <input matInput formControlName="address">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Phone</mat-label>
+                                <input matInput formControlName="telephone">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="email">
+                                <mat-error *ngIf="cvForm.get('email').hasError('email')">Acest email nu este valid!</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>LinkedIn</mat-label>
+                                <input matInput formControlName="linkedin">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="section-cv">
+                    <p class="title-section">Experience</p>
+                    <div class="row">
+
+                        <div class="card-list col-12 col-md-4 col-lg-3"
+                             *ngFor="let experience of experienceList; let i=index">
+                            <app-cv-card [isExperience]="true" [givenData]="experience"></app-cv-card>
+                        </div>
+                        <div class="col-12">
+                            <button class="add-btn" (click)="openAddExperienceModal()" type="button">
+                                Adăugare
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="section-cv">
+                    <p class="title-section">Education</p>
+                    <div class="row">
+
+                        <div class="card-list col-12 col-md-4 col-lg-3"
+                             *ngFor="let education of educationList; let i=index">
+                            <app-cv-card [isEducation]="true" [givenData]="education"></app-cv-card>
+                        </div>
+                        <div class="col-12">
+                            <button class="add-btn" (click)="openAddEducationModal()" type="button">
+                                Adăugare
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-cv">
+                    <p class="title-section">Certifications</p>
+                    <div class="row">
+
+                        <div class="card-list col-12 col-md-4 col-lg-3"
+                             *ngFor="let certification of certificationList; let i=index">
+                            <app-cv-card [isCertification]="true" [givenData]="certification"></app-cv-card>
+                        </div>
+                        <div class="col-12">
+                            <button class="add-btn" (click)="openAddCertificationModal()" type="button">
+                                Adăugare
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+<!--                <div class="section-cv">-->
+<!--                    <p class="title-section">Skills</p>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-12">-->
+<!--&lt;!&ndash;                            <mat-form-field class="w-100">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <mat-label>Language Skills</mat-label>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                <mat-chip-grid #chipGrid aria-label="Enter fruits">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                    <mat-chip-row *ngFor="let  of fruits"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                                  (removed)="remove(fruit)"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                                  [editable]="true"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                                  (edited)="edit(fruit, $event)"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                                  [aria-description]="'press enter to edit ' + fruit.name">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                        {{fruit.name}}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                        <button matChipRemove [attr.aria-label]="'remove ' + fruit.name">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                            <mat-icon>cancel</mat-icon>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                        </button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                    </mat-chip-row>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                    <input placeholder="New fruit..."&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                           [matChipInputFor]="chipGrid"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                           [matChipInputAddOnBlur]="addOnBlur"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                           (matChipInputTokenEnd)="add($event)"/>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                </mat-chip-grid>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                            </mat-form-field>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+
+                <div class="submit-section d-flex flex-column">
+                    <mat-checkbox class="mb-2" formControlName="isPublic" color="primary">Accept vizibilitatea CV-ului pentru angajatori.</mat-checkbox>
+                    <mat-checkbox class="mb-2" formControlName="accept" color="primary">Accept termenii si conditiile impuse de Bestinform pentru prelucrarea si modificarea datelor cu caracter personal.</mat-checkbox>
+                    <mat-error *ngIf="cvForm.get('accept').hasError('required')">Acest camp trebuie bifat!</mat-error>
+                    <button class="btn-long btn-color-fill w-100" (click)="submitForm()"><i class="fas fa-save me-2"></i>Salveaza</button>
+                </div>
+            </form>
+
+
+        </div>
+
+    </div>
+</div>

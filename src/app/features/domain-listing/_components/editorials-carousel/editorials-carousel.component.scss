@@ -1,0 +1,48 @@
+@import "../../../../theme/styles/components/colors";
+
+.best-events-title {
+  margin-bottom: 6px;
+  color: $title;
+
+  span {
+    color: $primary-color;
+  }
+}
+
+.yellow-divider {
+  display: block;
+  width: 100px;
+  height: 0px;
+  border: 2px solid $pending-color;
+  margin-bottom: 12px;
+}
+
+.location-description {
+  margin-bottom: 12px;
+
+  p, span {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+  }
+
+  span {
+    color: $primary-color;
+  }
+}
+
+.filters {
+  margin-bottom: 12px;
+}
+
+img.category-icon{
+  height: 15px;
+  width:auto;
+}
+
+.btn-color-outline {
+  &:focus {
+    background: rgba($primary-color, 24%);
+  }
+}
+

@@ -1,0 +1,31 @@
+<div class="d-flex flex-column">
+
+    <div *ngIf="systemSetting?.tripOptions?.holidayOffer?.image?.filePath as imgPath" class="background-container">
+        <img [src]="imgPath" alt="category-background-image">
+    </div>
+
+    <div class="content-container">
+
+        <div *ngIf="countries" class="container categories-container">
+
+            <h1 class="text-center">
+                {{"ITINERARIES.COUNTRY-SELECT" | translate}}
+            </h1>
+
+            <div class="row">
+                <ng-container *ngFor="let country of countries">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <app-category-card [imgPath]="country?.image?.filePath"
+                                           [nameRo]="country?.name"
+                                           [nameEn]="country?.name"
+                                           [height]="320"
+                                           (click)="selectCountry(country)"
+                                           ></app-category-card>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+
+</div>

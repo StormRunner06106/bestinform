@@ -1,0 +1,117 @@
+.container .login .logo {
+  display: inline-block;
+  align-items: center;
+  gap: 10px;
+  width: auto; /* Adjust if needed */
+  margin: auto;
+  margin-top: 48px;
+}
+
+
+.container .login .login-body {
+  padding: 20px 0 20px 0;
+  margin-top: 56px;
+}
+
+.container .login .login-body form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  margin: auto;
+}
+
+.container .login .login-body form .mat-form-field {
+  width: 100%;
+}
+
+.container .login .login-body form .row .mat-checkbox, .container .login .login-body form .row a {
+  width: 50%;
+  padding: 0;
+}
+
+.container .login .login-body form .row a {
+  text-align: right;
+}
+
+.container .login .login-body .text-center {
+  width: 100%;
+}
+
+.container .login .login-body .text-center button {
+  width: 100%;
+}
+
+.container .login .login-body .container-hr {
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container .login .login-body .container-hr hr {
+  margin-top: 1rem;
+  border: 0;
+  border-top: 1px solid #231F20;
+  height: 0;
+}
+
+.container .login .login-body .container-hr p {
+  text-align: center;
+  color: #231F20;
+}
+
+.container .login .login-body .container-btn button {
+  -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.08), 0px 2px 4px rgba(0, 0, 0, 0.16);
+          box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.08), 0px 2px 4px rgba(0, 0, 0, 0.16);
+  margin-bottom: 16px;
+  color: #231F20;
+}
+
+.container .login .login-body .container-btn button i {
+  color: #231F20;
+  font-size: 16px;
+}
+
+.container .login .login-body .register {
+  max-width: 100%;
+  margin-top: 100px !important;
+  margin: auto;
+}
+
+.container .login .login-body .register p, .container .login .login-body .register a {
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .container .image {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    width: 320px;
+  }
+  .container .login {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .container .image {
+    display: none;
+  }
+}
+
+.image {
+  background: url("../../../../assets/images/login/Image.png") center bottom;
+}
+
+
+/*# sourceMappingURL=login.component.css.map */

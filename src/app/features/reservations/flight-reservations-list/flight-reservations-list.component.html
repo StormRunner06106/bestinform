@@ -1,0 +1,143 @@
+<div class="container">
+    <div class="row">
+        <app-dashboard-header pageTitleOne="Lista zboruri rezervate"
+                              [buttonBackRoute]="isStaff ? '/private/staff' : '/private/admin/dashboard'"></app-dashboard-header>
+    </div>
+</div>
+
+<div class="container mb-4">
+
+    <!--content-->
+    <div class="row tableContent">
+        <!--Table start-->
+        <table mat-table matSort appMatTableResponsive [dataSource]="dataSource"
+               class="w-100">
+
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
+                <td data-column-name="#" mat-cell
+                    *matCellDef="let row; let i = index;">  {{ (pageNumber) * pageSize + i + 1 }} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="route">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Ruta</th>
+                <td data-column-name="Plecare de la" mat-cell
+                    *matCellDef="let row" [routerLink]="'../view-flight/' + row.id" class="clickable-name">
+                    {{(row.flightOffer.itineraries[0].segments[0].originLocation.cityNameRo || row.flightOffer.itineraries[0].segments[0].originLocation.cityNameEn) + ' - ' + (row.flightOffer.itineraries[0].segments.length > 1 ? (row.flightOffer.itineraries[0].segments[row.flightOffer.itineraries[0].segments.length - 1].destinationLocation.cityNameRo || row.flightOffer.itineraries[0].segments[row.flightOffer.itineraries[0].segments.length - 1].destinationLocation.cityNameEn) : (row.flightOffer.itineraries[0].segments[0].destinationLocation.cityNameRo || row.flightOffer.itineraries[0].segments[0].destinationLocation.cityNameEn))}}</td>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="dateDeparture">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Data plecare</th>
+                <td data-column-name="Pachet activ" mat-cell
+                    *matCellDef="let row"> {{row.flightOffer.itineraries[0].segments[0].departure.dateTime | date:'dd MMM yyyy, HH:mm'}}</td>
+            </ng-container>
+
+            <!--Status column-->
+            <ng-container matColumnDef="dateReturn">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Data intoarcere</th>
+                <td data-column-name="Status" mat-cell *matCellDef="let row">
+                    <span *ngIf="row.flightOffer.itineraries.length > 1">{{row.flightOffer.itineraries[1].segments[0].departure.dateTime | date:'dd MMM yyyy, HH:mm'}}</span>
+                    <span *ngIf="row.flightOffer.itineraries.length === 1">-</span>
+                </td>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="flightType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipul zborului</th>
+                <td data-column-name="approvedStatus" mat-cell
+                    *matCellDef="let row"> {{row.flightOffer.itineraries[0].segments.length > 1 ? 'Zbor cu escala' : 'Zbor direct'}}
+                </td>
+            </ng-container>
+
+            <!--actions-->
+            <!--            <ng-container matColumnDef="actions">-->
+            <!--                <th mat-header-cell *matHeaderCellDef class="actions-class"> {{'FIELD.ACTIONS'|translate}}</th>-->
+            <!--                <td mat-cell *matCellDef="let element; let i = index" data-column-name="Acțiuni">-->
+            <!--                    <div class=" d-flex actions-container py-2" >-->
+
+            <!--                        &lt;!&ndash;Change status button&ndash;&gt;-->
+            <!--                        <button class="btn-round btn-no-outline" matTooltip="Schimbă status" (click)="openModal(changeStatusModal, element.status)" id="changeEditorialStatus_{{i}}">-->
+            <!--                            <i class="fas fa-toggle-on"></i>-->
+            <!--                        </button>-->
+
+            <!--                        &lt;!&ndash;changeStatus modal&ndash;&gt;-->
+            <!--                        <ng-template #changeStatusModal let-c="close" let-d="dismiss">-->
+            <!--                            <div class="modal-card card p-4">-->
+            <!--                                <div class="card-header border-0">-->
+            <!--                                    <h3 class="m-0">-->
+            <!--                                        Schimbă statusul clientului-->
+            <!--                                    </h3>-->
+            <!--                                </div>-->
+
+            <!--                                &lt;!&ndash; <div class="card-body"> &ndash;&gt;-->
+
+            <!--                                &lt;!&ndash; <div class=""> &ndash;&gt;-->
+            <!--                                <div class="d-flex justify-content-center align-items-start flex-column">-->
+            <!--                                    &lt;!&ndash; <h3>#{{ (i + 1) + pageSize * (page) }} </h3> &ndash;&gt;-->
+            <!--                                    &lt;!&ndash;                                        <p class="m-0">{{userData?.firstName+' '+userData?.lastName}}</p>&ndash;&gt;-->
+            <!--                                    <mat-form-field appearance="outline" class="w-100">-->
+            <!--                                        <mat-label>{{"THREAD.CHANGE_STATUS" | translate}}</mat-label>-->
+            <!--                                        <mat-select [(ngModel)]="statusInput">-->
+            <!--                                            <mat-option [value]="true">Activ</mat-option>-->
+            <!--                                            <mat-option [value]="false">Inactiv</mat-option>-->
+            <!--                                        </mat-select>-->
+            <!--                                    </mat-form-field>-->
+            <!--                                </div>-->
+            <!--                                &lt;!&ndash; </div> &ndash;&gt;-->
+
+            <!--                                &lt;!&ndash; </div> &ndash;&gt;-->
+
+            <!--                                <div class="border-0">-->
+            <!--                                    <div class="row">-->
+            <!--                                        <div class="col-12 col-sm-6">-->
+            <!--                                            <button class="btn-auto btn-color-outline w-100"-->
+            <!--                                                    (click)="closeModal()">-->
+            <!--                                                <i class="fas fa-times"></i>-->
+            <!--                                                {{ 'BTN.CANCEL' | translate}}-->
+            <!--                                            </button>-->
+            <!--                                        </div>-->
+
+            <!--                                        <div class="col-12 col-sm-6">-->
+            <!--                                            <button class="btn-auto btn-color-fill w-100"-->
+            <!--                                                    (click)="changeStatus(element.id, statusInput)">-->
+            <!--                                                <i class="fas fa-check"></i>-->
+            <!--                                                {{ 'BTN.CONFIRM' | translate}}-->
+            <!--                                            </button>-->
+            <!--                                        </div>-->
+            <!--                                    </div>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </ng-template>-->
+
+            <!--                    </div>-->
+            <!--                </td>-->
+
+            <!--            </ng-container>-->
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+
+                <td class="mat-cell" colspan="4">{{'PROVIDER.NO_DATA'|translate}}</td>
+            </tr>
+        </table>
+
+        <!--Pagination-->
+        <mat-paginator
+                [pageSizeOptions]="pageSizeArray"
+                [length]="totalElements"
+                [pageSize]="pageSize"
+                (page)="pageChanged($event)">
+        </mat-paginator>
+
+    </div>
+
+
+</div>

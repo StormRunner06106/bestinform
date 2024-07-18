@@ -1,0 +1,64 @@
+<div class="dialog-container p-4">
+    <div class="view-container">
+        <h1 class="mb-4">{{currentExperience?.name}}</h1>
+
+        <div class="container">
+            <app-shared-experiences-info *ngIf="currentExperience"
+                                         [experience]="currentExperience"
+                                         [showMenu]="true"
+            ></app-shared-experiences-info>
+
+            <div class="lobby">
+                <div class="lobby-title d-flex justify-content-between align-items-center">
+                    <h4>Lobby</h4>
+                    <button class="chat-button"
+                            (click)="dialogRef.close()"
+                            [routerLink]="'/client/dashboard/inbox/'+currentExperience?.conversationId"><i
+                            class="fas fa-comments me-2"></i>Chat
+                    </button>
+                </div>
+
+                <div class="lobby-host">
+                    <div class="pending" *ngIf="arrayPending?.length > 0">
+                        <p> Pending Participants</p>
+                        <div class="pending-participants" *ngFor="let pendingParticipant of arrayPending">
+                            <app-display-user [userId]="pendingParticipant?.userId" [isAdmin]="false"
+                                              [showMenu]="true" [menuType]="'pending'"
+                                              [experienceId]="currentExperience?.id"
+                                              (refreshPage)="getSharedExperience()"></app-display-user>
+                        </div>
+                    </div>
+
+                    <div class="participants" *ngIf="arrayParticipants?.length > 0">
+                        <p>Event Participants</p>
+                        <div class="guests" *ngFor="let participant of arrayParticipants">
+                            <app-display-user [userId]="participant?.userId" [isAdmin]="false" [showMenu]="true"
+                                              [menuType]="'participant'"
+                                              [experienceId]="currentExperience?.id"
+                                              (refreshPage)="getSharedExperience()"></app-display-user>
+                        </div>
+                    </div>
+
+                </div>
+
+<!--                <div *ngIf="!isHost" class="lobby-guest">-->
+<!--                    <p class="mb-0">Initiated by</p>-->
+<!--                    <div class="creator">-->
+<!--                        <app-display-user *ngIf="currentExperience" [userId]="currentExperience.userId"-->
+<!--                                          [isAdmin]="!isHost" [showMenu]="false"></app-display-user>-->
+
+<!--                    </div>-->
+<!--                    <div class="participants" *ngIf="arrayParticipants?.length > 0">-->
+<!--                        <p>Event Participants</p>-->
+<!--                        <div class="guests" *ngFor="let participant of arrayParticipants">-->
+<!--                            <app-display-user [userId]="participant?.userId" [isAdmin]="false"-->
+<!--                                              [showMenu]="false"></app-display-user>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+            </div>
+
+        </div>
+    </div>
+</div>

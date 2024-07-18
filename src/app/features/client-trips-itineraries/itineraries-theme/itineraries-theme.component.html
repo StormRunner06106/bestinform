@@ -1,0 +1,358 @@
+<ng-container *ngIf="(allData$ | async) as allData">
+    <div class="d-flex flex-column">
+
+        <div class="background-container">
+            <img [src]="allData.systemSettings?.tripOptions?.itinerary?.image?.filePath" alt="itinerary-background-image">
+        </div>
+
+        <div class="content-container">
+            <div class="container">
+
+                <h1 class="text-center">
+                    {{"ITINERARIES.SELECT-THEME" | translate}}
+                </h1>
+
+                <ngb-accordion class="outer-accordion-container" [closeOthers]="true" [destroyOnHide]="false">
+                    <ng-container *ngFor="let journeyTheme of allData.journeyThemes; let innerAccIndex = index">
+                        <ngb-panel *ngIf="!(isManualItinerary && journeyTheme?.roadTrip)">
+                            <ng-template ngbPanelHeader let-opened="opened">
+                                <button ngbPanelToggle
+                                        (click)="selectJourneyTheme(journeyTheme, innerAccIndex)"
+                                        type="button"
+                                        class="outer-accordion-header">
+                                    <app-category-card [imgPath]="journeyTheme?.icon?.filePath"
+                                                       [nameRo]="journeyTheme?.name"
+                                                       [nameEn]="journeyTheme?.name"
+                                                       [height]="200"
+                                                       [selected]="opened"
+                                    ></app-category-card>
+                                </button>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+
+                                <ngb-accordion #innerAccordion class="inner-accordion-container" [closeOthers]="true" [destroyOnHide]="false">
+                                    <ngb-panel>
+                                        <ng-template ngbPanelHeader let-opened="opened">
+                                            <button ngbPanelToggle
+                                                    type="button"
+                                                    [ngClass]="formBtnClicked && !selectedDestinationType ? 'panel-warning' : null"
+                                                    class="panel-header-step">
+                                                <span> {{"ITINERARIES.STEP" | translate}} I</span>
+                                                <p>{{"ITINERARIES.SELECT-DESTINATION-TYPE" | translate}}</p>
+                                                <i class="fas fa-exclamation-circle"></i>
+                                            </button>
+                                        </ng-template>
+                                        <ng-template ngbPanelContent>
+
+                                            <mat-radio-group [(ngModel)]="selectedDestinationType"
+                                                             class="custom-itinerary-radio-group">
+                                                <mat-radio-button *ngFor="let destinationType of allData.typesOfDestination" [value]="destinationType">
+                                                    <app-category-card [imgPath]="destinationType?.icon?.filePath"
+                                                                       [nameRo]="destinationType?.name"
+                                                                       [nameEn]="destinationType?.name"
+                                                                       [height]="100"
+                                                                       [selected]="selectedDestinationType?.id === destinationType.id"
+                                                    ></app-category-card>
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+
+                                        </ng-template>
+                                    </ngb-panel>
+
+                                    <ngb-panel>
+                                        <ng-template ngbPanelHeader let-opened="opened">
+                                            <button ngbPanelToggle
+                                                    type="button"
+                                                    [ngClass]="formBtnClicked && !selectedJourneyType ? 'panel-warning' : null"
+                                                    class="panel-header-step">
+                                                <span>{{"ITINERARIES.STEP" | translate}} II</span>
+                                                <p>{{"ITINERARIES.SELECT-JOURNEY-TYPE" | translate}}</p>
+                                                <i class="fas fa-exclamation-circle"></i>
+                                            </button>
+                                        </ng-template>
+                                        <ng-template ngbPanelContent>
+
+                                            <mat-radio-group [(ngModel)]="selectedJourneyType"
+                                                             class="custom-itinerary-radio-group">
+                                                <mat-radio-button *ngFor="let journeyType of allData.typesOfJourney" [value]="journeyType">
+                                                    <app-category-card [imgPath]="journeyType?.icon?.filePath"
+                                                                       [nameRo]="journeyType?.name"
+                                                                       [nameEn]="journeyType?.name"
+                                                                       [height]="100"
+                                                                       [selected]="selectedJourneyType?.id === journeyType.id"
+                                                    ></app-category-card>
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+
+                                        </ng-template>
+                                    </ngb-panel>
+
+                                    <ngb-panel>
+                                        <ng-template ngbPanelHeader let-opened="opened">
+                                            <button ngbPanelToggle
+                                                    type="button"
+                                                    [ngClass]="formBtnClicked && extraInfo.invalid ? 'panel-warning' : null"
+                                                    class="panel-header-step">
+                                                <span>{{"ITINERARIES.STEP" | translate}} III</span>
+                                                <p>{{"ITINERARIES.SELECT-JOURNEY-DETAILS" | translate}}</p>
+                                                <i class="fas fa-exclamation-circle"></i>
+                                            </button>
+                                        </ng-template>
+                                        <ng-template ngbPanelContent>
+
+                                            <div class="container py-3">
+                                                <form [formGroup]="extraInfo">
+                                                    <div class="row row-gap-24">
+
+                                                        <div class="col-12">
+                                                            <div class="guests-container">
+
+                                                                <div class="guests-selector">
+                                                                    <button [disabled]="extraInfo.controls.adultsNumber.value === 1"
+                                                                            (click)="decreaseNrGuests('adultsNumber')"
+                                                                            type="button"
+                                                                    >
+                                                                        <i class="fas fa-angle-left"></i>
+                                                                    </button>
+                                                                    <p>
+                                                                        {{ extraInfo.controls.adultsNumber.value }}
+                                                                        {{ "RESOURCE.RES-FILTERS.NR_ADULTS" | translate }}
+                                                                    </p>
+                                                                    <button (click)="increaseNrGuests('adultsNumber')" type="button">
+                                                                        <i class="fas fa-angle-right"></i>
+                                                                    </button>
+                                                                </div>
+
+
+                                                                <div class="guests-selector">
+                                                                    <button [disabled]="extraInfo.controls.childrenNumber.value === 0"
+                                                                            (click)="decreaseNrGuests('childrenNumber')"
+                                                                            type="button"
+                                                                    >
+                                                                        <i class="fas fa-angle-left"></i>
+                                                                    </button>
+                                                                    <p>
+                                                                        {{ extraInfo.controls.childrenNumber.value }}
+                                                                        {{ "RESOURCE.RES-FILTERS.NR_CHILDREN" | translate }}
+                                                                    </p>
+                                                                    <button (click)="increaseNrGuests('childrenNumber')" type="button">
+                                                                        <i class="fas fa-angle-right"></i>
+                                                                    </button>
+                                                                </div>
+
+
+                                                                <div class="guests-selector">
+                                                                    <button [disabled]="extraInfo.controls.roomsNumber.value === 1"
+                                                                            (click)="decreaseNrGuests('roomsNumber')" type="button">
+                                                                        <i class="fas fa-angle-left"></i>
+                                                                    </button>
+                                                                    <p>
+                                                                        {{ extraInfo.controls.roomsNumber.value }}
+                                                                        {{ "RESOURCE.RES-FILTERS.NR_ROOMS" | translate }}
+                                                                    </p>
+                                                                    <button (click)="increaseNrGuests('roomsNumber')" type="button">
+                                                                        <i class="fas fa-angle-right"></i>
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-lg-4">
+                                                            <div class="hour-container">
+                                                                <p>{{"ITINERARIES.BREAKFAST-HOUR" | translate}}:</p>
+                                                                <mat-radio-group formControlName="breakfastHour">
+                                                                    <mat-radio-button value="08:00">08:00</mat-radio-button>
+                                                                    <mat-radio-button value="09:00">09:00</mat-radio-button>
+                                                                    <mat-radio-button value="10:00">10:00</mat-radio-button>
+                                                                </mat-radio-group>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-lg-4">
+                                                            <div class="hour-container">
+                                                                <p>{{"ITINERARIES.LUNCH-HOUR" | translate}}:</p>
+                                                                <mat-radio-group formControlName="lunchHour">
+                                                                    <mat-radio-button value="12:00">12:00</mat-radio-button>
+                                                                    <mat-radio-button value="13:00">13:00</mat-radio-button>
+                                                                    <mat-radio-button value="14:00">14:00</mat-radio-button>
+                                                                </mat-radio-group>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-lg-4">
+                                                            <div class="hour-container">
+                                                                <p>{{"ITINERARIES.DINNER-HOUR" | translate}}:</p>
+                                                                <mat-radio-group formControlName="dinnerHour">
+                                                                    <mat-radio-button value="18:00">18:00</mat-radio-button>
+                                                                    <mat-radio-button value="19:00">19:00</mat-radio-button>
+                                                                    <mat-radio-button value="20:00">20:00</mat-radio-button>
+                                                                </mat-radio-group>
+                                                            </div>
+                                                        </div>
+
+                                                        <ng-container *ngIf="!journeyTheme?.roadTrip && !isManualItinerary">
+                                                            <div class="col-12 col-lg-6">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>{{'RESERVATION.CHECK-IN'|translate}}</mat-label>
+                                                                    <!--daca apare o eroare la datepicker, sa stiti ca e legata strict de webstorm si functioneaza cum trebuie-->
+                                                                    <input formControlName="startDate" matInput [min]="currentDay"
+                                                                           [matDatepicker]="startDatePicker"
+                                                                           (dateChange)="endDatePicker.open()">
+                                                                    <mat-error *ngIf="extraInfo.get('startDate').hasError('startDateIsHigherOrEqual')">
+                                                                        {{"ITINERARIES.START-DATE-LOWER" | translate}} 
+                                                                    </mat-error>
+                                                                    <mat-datepicker-toggle matSuffix
+                                                                                           [for]="startDatePicker"></mat-datepicker-toggle>
+                                                                    <mat-datepicker #startDatePicker></mat-datepicker>
+                                                                </mat-form-field>
+                                                            </div>
+
+                                                            <div class="col-12 col-lg-6">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-label>{{'RESERVATION.CHECK-OUT'|translate}}</mat-label>
+                                                                    <input formControlName="endDate" matInput [min]="nextDay"
+                                                                           [matDatepicker]="endDatePicker">
+                                                                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                                                    <mat-datepicker #endDatePicker></mat-datepicker>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="journeyTheme?.roadTrip || isManualItinerary">
+                                                            <ng-container formArrayName="destinations">
+                                                                <ngb-accordion #destinationsAccordion [activeIds]="'0'" class="outer-accordion-container" [closeOthers]="true" [destroyOnHide]="false">
+                                                                    <ngb-panel *ngFor="let destination of destinations.controls; let destinationIndex = index"
+                                                                               [id]="destinationIndex + ''"
+                                                                               [type]="formBtnClicked && destinations.controls.at(destinationIndex).invalid ? 'warning' : null"
+                                                                    >
+                                                                        <ng-template ngbPanelHeader>
+                                                                            <div class="destination-panel d-flex align-items-center">
+                                                                                <button *ngIf="!isManualItinerary" ngbPanelToggle
+                                                                                        type="button">
+                                                                                    <p class="m-0">
+                                                                                        {{"ITINERARIES.DESTINATION" | translate}} {{ destinationIndex + 1 }}:
+                                                                                        <ng-container *ngIf="destination.value.location">
+                                                                                            {{ destination.value.location?.city }}, {{ destination.value.location?.country }}
+                                                                                        </ng-container>
+                                                                                    </p>
+                                                                                </button>
+
+                                                                                <button *ngIf="isManualItinerary"
+                                                                                        type="button">
+                                                                                    <p class="m-0">
+                                                                                        {{"ITINERARIES.DESTINATION" | translate}}:
+                                                                                        <ng-container *ngIf="destination.value.location">
+                                                                                            {{ destination.value.location?.city }}, {{ destination.value.location?.country }}
+                                                                                        </ng-container>
+                                                                                    </p>
+                                                                                </button>
+
+                                                                                <button *ngIf="destinationIndex > 0" type="button" (click)="removeDestination(destinationIndex)">
+                                                                                    <i class="fas fa-times"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </ng-template>
+
+                                                                        <ng-template ngbPanelContent>
+                                                                            <ng-container [formGroupName]="destinationIndex">
+                                                                                <div class="container pt-3">
+                                                                                    <div class="row">
+                                                                                        <div class="col-12 col-lg-6">
+                                                                                            <mat-form-field appearance="outline">
+                                                                                                <mat-label>{{'RESERVATION.CHECK-IN'|translate}}</mat-label>
+                                                                                                <!--daca apare o eroare la datepicker, sa stiti ca e legata strict de webstorm si functioneaza cum trebuie-->
+                                                                                                <input formControlName="startDate" matInput [min]="currentDay"
+                                                                                                       [matDatepicker]="startDatePicker"
+                                                                                                       (dateChange)="endDatePicker.open()">
+                                                                                                <mat-error *ngIf="extraInfo.get('startDate').hasError('startDateIsHigherOrEqual')">
+                                                                                                    {{"ITINERARIES.START-DATE-LOWER" | translate}}
+                                                                                                </mat-error>
+                                                                                                <mat-datepicker-toggle matSuffix
+                                                                                                                       [for]="startDatePicker"></mat-datepicker-toggle>
+                                                                                                <mat-datepicker #startDatePicker></mat-datepicker>
+                                                                                            </mat-form-field>
+                                                                                        </div>
+
+                                                                                        <div class="col-12 col-lg-6">
+                                                                                            <mat-form-field appearance="outline">
+                                                                                                <mat-label>{{'RESERVATION.CHECK-OUT'|translate}}</mat-label>
+                                                                                                <input formControlName="endDate" matInput [min]="nextDay"
+                                                                                                       [matDatepicker]="endDatePicker">
+                                                                                                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                                                                                <mat-datepicker #endDatePicker></mat-datepicker>
+                                                                                            </mat-form-field>
+                                                                                        </div>
+
+                                                                                        <div class="col-12">
+                                                                                            <p class="m-0">
+                                                                                                <mat-form-field appearance="outline">
+                                                                                                    <mat-label>{{"ITINERARIES.SEARCH-CITY" | translate}}</mat-label>
+                                                                                                    <input [(ngModel)]="cityToSearch" [ngModelOptions]="{standalone: true}"
+                                                                                                           (ngModelChange)="searchForCities()" matInput placeholder="Search city...">
+                                                                                                    <mat-icon role="button" *ngIf="!cityToSearch" matSuffix>search</mat-icon>
+                                                                                                    <mat-icon role="button" *ngIf="cityToSearch" matSuffix
+                                                                                                              (click)="cityToSearch = null;
+                                                                                                               recommendedCities = null;"
+                                                                                                    >clear</mat-icon>
+                                                                                                </mat-form-field>
+                                                                                            </p>
+
+                                                                                            <div class="destinations-container">
+                                                                                                <div *ngFor="let city of recommendedCities | slice : 0 : 5"
+                                                                                                     (click)="updateLocationValue(destinationIndex, city); cityToSearch = null; recommendedCities = null"
+                                                                                                     (keyup.enter)="updateLocationValue(destinationIndex, city); cityToSearch = null; recommendedCities = null"
+                                                                                                     [tabindex]="0"
+                                                                                                     class="destination-element">
+                                                                                            <span class="destination-icon">
+                                                                                                <i class="fas fa-map-marker-alt"></i>
+                                                                                            </span>
+
+                                                                                                    <p>{{ city.city }}, {{ city.country }}</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                        </ng-template>
+                                                                    </ngb-panel>
+                                                                </ngb-accordion>
+                                                            </ng-container>
+
+                                                            <div *ngIf="!isManualItinerary" class="col-12">
+                                                                <button *ngIf="!isManualItinerary"
+                                                                        [disabled]="destinations?.controls?.at(-1)?.invalid" class="btn-add-destination" type="button" (click)="addDestination()">
+                                                                        {{"ITINERARIES.ADD-NEW-DESTINATION" | translate}}
+                                                                    <i class="fas fa-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </ng-container>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </ng-template>
+                                    </ngb-panel>
+
+                                    <ngb-panel>
+                                        <ng-template ngbPanelHeader>
+                                            <button type="button"
+                                                    (click)="confirmSelection(journeyTheme)"
+                                                    class="btn-auto btn-color-fill generate-itinerary">
+                                                    {{"ITINERARIES.GENERATE-ITINERARY" | translate}}                                            </button>
+                                        </ng-template>
+                                    </ngb-panel>
+                                </ngb-accordion>
+
+                            </ng-template>
+                        </ngb-panel>
+                    </ng-container>
+                </ngb-accordion>
+
+            </div>
+        </div>
+
+    </div>
+</ng-container>

@@ -1,0 +1,19 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+
+.car-rentals-header {
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)), url("../../../../../assets/images/others/images-client/available-car-rentals.png");
+  background-size: cover;
+  background-position: center;
+  height: 768px;
+}
+
+.content-container {
+  background-color: var(--primary-background);
+  padding-top: 48px;
+  padding-bottom: 48px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  row-gap: 64px;
+}

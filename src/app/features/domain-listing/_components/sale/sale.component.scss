@@ -1,0 +1,51 @@
+@import "../../../../theme/styles/components/colors";
+
+.sale-container {
+  padding-top:48px;
+  padding-bottom:48px;
+  background-color: var(--primary-background);
+
+  .sale-card {
+    border-radius: 8px;
+    background-color: #1160D7;
+
+    .col-text {
+      padding:48px;
+      .title-p {
+        color: var(--primary-background);
+        font-size: 38px;
+        font-weight: 700;
+      }
+
+      .details {
+        color: var(--primary-background);
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      .more{
+        background-color: var(--primary-background);
+        color:$title;
+        border-radius: 8px;
+        border:1px solid var(--primary-background);
+        font-size:16px;
+        font-weight: 600;
+        padding:12px 48px;
+      }
+    }
+
+    .col-img{
+      img{
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        height: 100%;
+      }
+
+      @media(max-width: 992px){
+        display: none;
+      }
+    }
+
+  }
+
+}

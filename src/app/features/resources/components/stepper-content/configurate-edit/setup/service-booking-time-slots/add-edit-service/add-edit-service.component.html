@@ -1,0 +1,174 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>{{isEditMode ? 'Editare produs' : 'Adăugare produs'}}</h2>
+        <button type="button" (click)="close()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+        <form [formGroup]="serviceForm">
+            <div class="row mb-5">
+
+                <div class="col-12">
+                    <h3 class="section-name">Informații generale</h3>
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>Denumire</mat-label>
+                        <input matInput placeholder="Denumire" formControlName="name">
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>Descriere</mat-label>
+                        <input matInput placeholder="Descriere" formControlName="description">
+                    </mat-form-field>
+
+                    <h3 class="section-name">Disponibilitate</h3>
+
+                    <div formArrayName="slotItems" class="config-group p-0 mb-3">
+                        <mat-tab-group class="conf-tabs" animationDuration="0ms" mat-stretch-tabs="true" dynamicHeight
+                                       [selectedIndex]="tabIndex">
+                            <div *ngFor="let day of slotItems.controls; let dayTabIndex=index">
+                                <mat-tab [formGroupName]="dayTabIndex" [label]="day.value.day | titlecase">
+                                    <div class="tab-content">
+                                        <div formArrayName="slots">
+                                            <div *ngFor="let slot of slots(dayTabIndex).controls ;let slotIndex=index">
+                                                <div [formGroupName]="slotIndex">
+                                                    <div class="row">
+                                                        <div class="col-10 col-lg-5">
+                                                            <div class="time-container w-100 d-flex justify-content-between align-items-center">
+                                                                <p class="label mb-0">Ora de inceput:</p>
+                                                                <ngx-mat-timepicker formControlName="startHour"
+                                                                                    enableMeridian="true">
+                                                                </ngx-mat-timepicker>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-10 col-lg-5">
+                                                            <div class="time-container w-100 d-flex justify-content-between align-items-center">
+                                                                <p class="label mb-0">Ora de final:</p>
+                                                                <ngx-mat-timepicker formControlName="endHour"
+                                                                                    enableMeridian="true">
+                                                                </ngx-mat-timepicker>
+                                                            </div>
+                                                            <mat-error
+                                                                    *ngIf="slot.get('endHour').hasError('invalidTime')">
+                                                                Ora de final trebuie sa fie mai mare decat ora de inceput!
+                                                            </mat-error>
+                                                        </div>
+
+                                                        <div class="col-2">
+                                                            <div class="d-flex justify-content-center align-items-center h-100">
+                                                                <button class="btn-round btn-color-outline me-2" type="button" (click)="removeSlot(dayTabIndex,slotIndex)"><i class="fas fa-times"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="add-btn" (click)="addSlot(dayTabIndex)">Adaugă un interval de timp <i class="fas fa-plus"></i> </button>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                            </div>
+
+
+                        </mat-tab-group>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6 col-12">
+                            <!--Category Name-->
+                            <h3 class="section-name">Politici de rezervare</h3>
+
+                            <mat-error *ngIf="serviceForm.get('bookingPolicies').hasError('requireCheckboxesToBeChecked') && serviceForm.get('bookingPolicies').touched">
+                                You have to check one
+                            </mat-error>
+
+                            <!--Checkboxes-->
+                            <div class="d-flex flex-column" formGroupName="bookingPolicies">
+                                <mat-checkbox formControlName="depositRequired" (change)="bookingPolicyEdit($event.checked, 'depositRequired')">Se cere
+                                    depozit
+                                </mat-checkbox>
+
+                                <div class="row" *ngIf="serviceForm.get('bookingPolicies').get('depositRequired').value">
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="standard" class="w-100">
+                                            <mat-label>Depozit (%)</mat-label>
+                                            <input matInput type="text" formControlName="depositRequiredPercentage" (ngModelChange)="checkDepositType('percentage')">
+                                            <mat-error *ngIf="serviceForm.get('bookingPolicies').get('depositRequiredPercentage').hasError('pattern')">
+                                                Sunt acceptate doar numere mai mari ca 0.
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="standard" class="w-100">
+                                            <mat-label>Depozit (EUR)</mat-label>
+                                            <input matInput type="text" formControlName="depositRequiredAmount" (ngModelChange)="checkDepositType('amount')">
+                                            <mat-error *ngIf="serviceForm.get('bookingPolicies').get('depositRequiredAmount').hasError('pattern')">
+                                                Sunt acceptate doar numere.
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                    </div>
+
+                                </div>
+
+
+                                <mat-checkbox formControlName="advanceFullPayment" (change)="bookingPolicyEdit($event.checked, 'advanceFullPayment')">Plata completa in avans</mat-checkbox>
+                                <mat-checkbox formControlName="advancePartialPayment" (change)="bookingPolicyEdit($event.checked, 'advancePartialPayment')">Plata partiala in avans</mat-checkbox>
+                                <mat-form-field appearance="standard" class="w-100" *ngIf="serviceForm.get('bookingPolicies').get('advancePartialPayment').value">
+                                    <mat-label>Avans (%)</mat-label>
+                                    <input matInput type="text" formControlName="advancePartialPaymentPercentage">
+                                    <mat-error *ngIf="serviceForm.get('bookingPolicies').get('advancePartialPaymentPercentage').hasError('pattern')">
+                                        Sunt acceptate doar numere cuprinse între 1 și 100.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <h3 class="section-name">Pret</h3>
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>EUR</mat-label>
+                        <input matInput placeholder="Pret" type="number" [min]="0" formControlName="price">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-10">
+                    <h3 class="section-name">Preview</h3>
+
+                    <app-service-timeslot-preview [serviceData]="serviceForm.value"></app-service-timeslot-preview>
+                </div>
+
+            </div>
+
+        </form>
+
+
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill" (click)="confirm()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>
+

@@ -1,0 +1,33 @@
+<div class="inside_view_container mb-2 p-3">
+    <div>
+        <h6>{{"PROVIDER.AVAILABLE-BALANCE" | translate}}</h6>
+    </div>
+    <div class="d-flex justify-content-center grey-rectangle">
+        <h4>{{moneyToReceive | number: '1.0-2'}}</h4>
+
+        <p class="align-self-baseline big-currency-class">€</p>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between">
+        <div class="col-6 col-sm-6 col-md-12 col-lg-12 col-xl-6">
+
+            <div class="grey-rectangle">
+                <p>{{"PROVIDER.TOTAL-RECIEPT" | translate}}</p>
+                <div class="d-flex">
+                    <!-- <h6>{{allMoney}}</h6> -->
+                    <h6>{{receivedMoney | number: '1.0-2'}}</h6>
+                    <h6 class="align-self-baseline currency-class">€</h6>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-6 col-sm-6 col-md-12 col-lg-12 col-xl-6">
+            <div class="grey-rectangle">
+                <p>{{"PROVIDER.COMMISSION" | translate}}</p>
+                <div class="d-flex">
+                <h6>{{commission | number: '1.0-2'}}</h6>
+                    <h6 class="align-self-baseline currency-class">€</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

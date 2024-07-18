@@ -1,0 +1,42 @@
+<div class="content d-flex flex-column align-items-center justify-content-between h-100 w-100">
+    <p class="p-4 mb-0 upper">STEP 2 OF 3</p>
+    <h1>{{'ENROLLMENT.NICE-TO-MEET-YOU' | translate}}</h1>
+
+    <div class="user-data">
+        <p class="personal-data">{{'ENROLLMENT.PERSONAL-DATA' | translate}}</p>
+        <form [formGroup]="userDataForm">
+            <mat-form-field appearance="standard" class="w-100 custom-field">
+                <mat-label>{{'ENROLLMENT.BIRTHDAY' | translate}}</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="birthdate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="userDataForm.get('birthdate').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" class="w-100 custom-field">
+                <mat-label>{{'ENROLLMENT.TELEPHONE' | translate}}</mat-label>
+                <input matInput formControlName="telephone">
+                <mat-error *ngIf="userDataForm.get('telephone').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" class="w-100 custom-field">
+                <mat-label>{{'ENROLLMENT.GENDER' | translate}}</mat-label>
+                <mat-select formControlName="gender">
+                    <mat-option value="male">{{'ENROLLMENT.MALE' | translate}}</mat-option>
+                    <mat-option value="female">{{'ENROLLMENT.FEMALE' | translate}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="userDataForm.get('gender').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+            </mat-form-field>
+
+        </form>
+    </div>
+
+    <div class="footer-btns w-100 d-flex justify-content-between">
+        <button class="back-btn" type="button" (click)="prevStep()"><i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="skip-btn" type="button" (click)="nextStep()">{{'ENROLLMENT.NEXT-STEP' | translate}}
+        </button>
+        <button class="next-btn" type="button" (click)="nextStep()"><i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>

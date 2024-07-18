@@ -1,0 +1,12 @@
+<div class="places-block">
+  <div class="places-title">
+    <h1>{{title}}</h1>
+  </div>
+  <div class="places-content">
+    <ng-container *ngFor="let place of places">
+      <app-place-card [place]="place">
+
+      </app-place-card>
+    </ng-container>
+  </div>
+</div>

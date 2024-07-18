@@ -1,0 +1,33 @@
+<p-card>
+    <ng-template pTemplate="header">
+        <div class="menu-filter">
+            <ng-container *ngIf="items.length;">
+                <p-selectButton [options]="categories" [(ngModel)]="value" optionLabel="label" optionValue="value"
+                                class="menu-filter-items"  (onOptionClick)="filterClicked($event)"></p-selectButton>
+            </ng-container>
+
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="content">
+        <div class="card-content">
+            <ng-container *ngIf="items.length; else emptyContainer">
+                <div *ngFor="let item of items; let i = index">
+                    <app-restaurant-menu-item
+                            [price]="item?.price"
+                            [name]="item?.name"
+                            [ingredients]="item?.description"
+                            [image]="item?.image ? item.image : '../../../assets/images/others/empty-menu-image.png'"
+                            [currency]="item?.currency"
+                    ></app-restaurant-menu-item>
+                </div>
+            </ng-container>
+
+            <ng-template #emptyContainer>
+                <p>În prezent, meniul este indisponibil.</p>
+            </ng-template>
+
+        </div>
+    </ng-template>
+</p-card>

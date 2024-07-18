@@ -1,0 +1,25 @@
+<div class="container-fluid p-full">
+    <div class="container container-additional">
+        <h1 *ngIf="pageLang === 'en'">Additional benefits</h1>
+        <h1 *ngIf="pageLang === 'ro'">Beneficii suplimentare</h1>
+        <div class="full-width">
+            <div *ngFor="let box of boxes;let i=index">
+                <app-benefit-box [color]="i" [data]="box"/>
+            </div>
+        </div>
+
+        <div class="mobile">
+            <owl-carousel-o [options]="customOptions">
+                <ng-container *ngFor = "let box of boxes; let i=index">
+                    <ng-template carouselSlide>
+                        <app-benefit-box [color]="i" [data]="box"/>
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+        </div>
+
+    </div>
+    <div class="image">
+        <img src="assets/images/others/newsletter/partners.png" class="additional-img">
+    </div>
+</div>

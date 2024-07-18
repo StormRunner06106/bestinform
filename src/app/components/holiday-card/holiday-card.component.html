@@ -1,0 +1,18 @@
+<div class="container m-0 p-0 ho-card">
+  <div class="holiday-overlay">
+    <div class="holiday-info">
+      <div class="info-left">
+        <p class="ho-location m-0">{{ holiday.location }}</p>
+        <p class="ho-date m-0">{{ holiday.date }}</p>
+      </div>
+      <div class="info-right">
+        <p class="ho-state m-0">{{ holiday.state }}</p>
+        <div class="ho-price">
+          <span class="ho-price-min m-0">from</span>
+          <span class="ho-price-val m-0">{{ holiday.price }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img [src]="holiday.imageUrl" class="ho-img" />
+</div>

@@ -1,0 +1,238 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.nav-pills {
+  border: 1px solid rgba($primary-color, 0.48);
+  border-radius: 12px;
+  padding: 4px;
+  height: 48px;
+
+  & > .nav-item {
+    flex-grow: 1;
+
+    .nav-link {
+      text-align: center;
+      color: $primary-color;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 38px;
+      padding: 6px 0;
+      border-radius: 8px;
+
+      &.active {
+        background-color: $primary-color;
+        color: var(--primary-background);
+      }
+    }
+  }
+
+}
+
+.about-tab {
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .date-time-group {
+    p {
+      color: $title;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    span {
+      color: $title;
+      font-weight: 400;
+      font-size: 16px;
+    }
+  }
+
+  .info-group {
+    h4 {
+      color: $title;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 140%;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 160%;
+      letter-spacing: -0.02em;
+      color: $paragraph;
+      margin-bottom: 0;
+    }
+
+    .icon-text-container {
+      // gap: 12px;
+      // padding: 0px!important;
+
+      .icon-text-group {
+        display: flex;
+        align-items: center;
+        // margin-right: 12px;
+        img {
+          width: 20px;
+          height: auto;
+        }
+      }
+    }
+
+  }
+}
+
+.booking-type-tab {
+  padding-top: 32px;
+
+  form {
+    margin-bottom: 24px;
+  }
+
+  .mat-form-field {
+    width: 100% !important;
+  }
+
+  .guests-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+
+    .guests-selector {
+      display: flex;
+      flex-shrink: 0;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+
+      border: 1px solid $inactive-color;
+      border-radius: 8px;
+
+      button {
+        border: 1px solid $inactive-color;
+        background-color: var(--primary-background);
+        border-radius: 8px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          color: $primary-color;
+          font-size: 24px;
+        }
+
+        &:hover {
+          background-color: $primary-color;
+          transition: 0.3s ease-in-out;
+
+          i {
+            color: var(--primary-background);
+          }
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.related-resources-tab {
+  padding-top: 32px;
+
+  .row {
+    row-gap: 24px;
+  }
+
+  .related-resource-card {
+    width: 100%;
+    box-shadow: 0 4px 8px rgba($title, 0.08);
+    border: 1px solid rgba($primary-color, 0.24);
+    border-radius: 8px;
+
+    .img-container {
+      height: 178px;
+      width: 100%;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+
+     
+    }
+
+    .card-text {
+      padding: 8px;
+      height: 100px;
+
+      h4 {
+        color: $primary-color;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 110%;
+        margin-bottom: 14px;
+      }
+
+      p {
+        color: $paragraph;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+        letter-spacing: -0.02em;
+
+        //max nr of lines
+        margin-bottom: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+}
+
+::ng-deep .ngx-mat-timepicker form {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.other-attr .info-group,
+.other-attr {
+  display: flex;
+  align-items: center;
+}
+
+.other-attr {
+  gap: 15px;
+
+  img {
+    width: 20px;
+    height: auto;
+    margin-right: 4px;
+  }
+}
+

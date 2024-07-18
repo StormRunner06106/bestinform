@@ -1,0 +1,44 @@
+<ng-container *ngIf="isBiggerThan981">
+  <div style="height: 100%">
+    <div [ngStyle]="{height: selected === 'restaurants' ? '45rem' : '100%'}">
+      <div [ngClass]="selected === 'hotels' ? 'grid-hotels' : 'grid'" *ngIf="shownGrid">
+        <ng-container *ngFor="let image of images; let i = index">
+          <div
+                  *ngIf="(selected === 'hotels' ? i + 1 <= 11 : i + 1 <= 9) && images.length > 0"
+                  style="overflow: hidden"
+                  [ngStyle]="shownGrid[shownImages.length - 1][i]"
+          >
+            <img [src]="image" alt="" (error)="handleImageError($event, image)" />
+            <div class="action-overlay" *ngIf="i === (selected === 'hotels' ? shownImages.length : shownImages.length - 1)" (click)="display = !display">
+              <span class="fs-6">+{{images.length - (selected === 'hotels' ? 11 : 9)}} photos</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div *ngIf="display || !isBiggerThan981">
+  <p-galleria
+          [value]="images"
+          [showItemNavigators]="true"
+          [(visible)]="display"
+          [fullScreen]="display"
+          [numVisible]="5"
+          (activeIndexChange)="updateCurrentImageIndex($event)"
+          [containerClass]="galleriaClass()"
+  >
+    <ng-template pTemplate="item" let-item>
+      <img
+              class="gallery-image"
+              (click)="display = !display"
+              [src]="item"
+              (error)="handleImageError($event, item)"
+      />
+    </ng-template>
+  </p-galleria>
+
+  <div class="image-counter">{{ currentImageIndex + 1 }}/{{ totalImages }}</div>
+</div>
+

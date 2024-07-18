@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,KAAK,CAAA;EACD,KAAK,EAAC,IAAI;CACb;;AAED,AAAA,UAAU,CAAA;EACN,OAAO,EAAC,IAAI;EACZ,aAAa,EAAE,GAAG;CACrB;;AAED,AAAA,gBAAgB,CAAA;EACZ,OAAO,EAAC,IAAI;EACZ,aAAa,EAAE,GAAG;EAClB,MAAM,EAAE,qBAAqB;CAChC;;AAED,AAAA,YAAY,CAAA;EACR,WAAW,EAAE,MAAM;EACnB,cAAc,EAAE,MAAM;EACtB,YAAY,EAAC,WAAW;CAE3B;;AAED,AAAA,KAAK,AAAA,YAAY,AAAA,aAAa,AAAA,SAAS,CAAA;EACnC,MAAM,EAAC,IAAI;CACd;;AAED;;;;;;KAMK",
+    "sources": [
+        "editorials-list.component.scss",
+        "../../../../theme/styles/components/_colors.scss"
+    ],
+    "names": [],
+    "file": "editorials-list.component.css"
+}

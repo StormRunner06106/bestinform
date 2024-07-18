@@ -1,0 +1,213 @@
+@import "/src/app/theme/styles/components/colors";
+
+.save-btn{
+  margin-top: -90px;
+
+  button:disabled{
+    border: 2px solid rgba($paragraph, 48%);
+    background: rgba($primary-color, 0%) !important;
+    color: rgba($paragraph, 48%);
+  }
+}
+
+#rental-booking {
+
+  .tab-section-title {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 16px 25px;
+    border-bottom: solid rgba(36, 57, 138, 0.1607843137) 1px;
+
+    i {
+      font-size: 32px;
+      color: #24398A;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #24398A;
+      margin-left: 10px;
+      margin-bottom: 0;
+    }
+  }
+
+  .section-title {
+    font-weight: 600;
+    font-size: 24px;
+    color: #24398A;
+  }
+
+  .section-content {
+    padding: 46px 100px;
+    background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), #FFFFFF;
+  }
+
+  .list-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #24398A29;
+    padding: 10px 0;
+    border-radius: 8px 8px 0 0;
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #24398A;
+      margin: 0;
+    }
+  }
+
+  .list-content {
+    background-color: rgba(36, 57, 138, 0.08);
+    border-radius: 0 0 8px 8px;
+    padding: 20px;
+
+
+    .add-room-btn {
+      border-radius: 8px;
+      border: 1px dotted rgba(36, 57, 138, 0.16);
+      background-color: transparent;
+      width: 100%;
+      padding: 15px 0;
+      color: rgba(36, 57, 138, 0.16);
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+
+
+  #room-list {
+    max-height: 900px;
+    overflow-y: auto;
+
+    .room-container {
+      border-radius: 8px;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
+
+      .room-header {
+        background-color: #24398A;
+        padding: 8px 12px;
+        border-radius: 8px 0 0 0;
+
+        h4 {
+          color: white;
+          margin: 0;
+          font-size: 24px;
+          font-weight: 700;
+        }
+      }
+
+      .room-body {
+        padding: 8px 12px;
+
+        .section-title {
+          font-weight: 700;
+          color: #4257EE;
+          font-size: 14px;
+          margin-bottom: 0;
+
+          span {
+            font-weight: 400;
+          }
+        }
+
+        .bed-type {
+          display: flex;
+          align-items: center;
+          border: 1px solid rgba(36, 57, 138, 0.16);
+          border-radius: 90px;
+          padding: 15px 0 15px 20px;
+
+          i {
+            color: #24398A;
+            font-size: 27px;
+          }
+
+          span {
+            font-weight: 700;
+            font-size: 12px;
+          }
+        }
+
+        .regular-price, .weekend-price {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 12px 24px;
+          border: 1px solid #24398A;
+          border-radius: 8px;
+
+          h5 {
+            font-weight: 700;
+            font-size: 16px;
+            color: #4257EE;
+          }
+
+          .price {
+            font-weight: 700;
+            font-size: 48px;
+            color: #24398A;
+          }
+
+          .price-per-night {
+            font-weight: 700;
+            font-size: 16px;
+            color: #24398A;
+          }
+        }
+      }
+
+      .delete-room-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(0deg, #24398A, #24398A), #FFFFFF;
+        border-radius: 0 8px 0 0;
+        border: 0;
+        color: white;
+        width: 40px;
+        height: 45px;
+
+        i {
+          font-size: 20px;
+        }
+      }
+
+      .edit-room-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(0deg, rgba(36, 57, 138, 0.48), rgba(36, 57, 138, 0.48)), #FFFFFF;
+        border-radius: 0 0 8px 0;
+        border: 0;
+        height: 50px;
+        color: white;
+
+        i {
+
+          font-size: 15px;
+        }
+      }
+    }
+  }
+
+
+  .stepper-step-controller {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 25px 40px;
+
+    .next-step {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+

@@ -1,0 +1,127 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.map-container{
+  min-height:100vw;
+}
+
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .section-title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+    color: $title;
+  }
+
+  .section-row {
+    display: flex;
+    gap: 4px;
+
+    img {
+      width: 20px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    p {
+      margin-bottom: 0;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: $paragraph;
+    }
+  }
+}
+
+#ol-map {
+  height: 100vh;
+  width: 100%;
+}
+
+// .ol-popup{
+//   position: absolute;
+//   background-color: white;
+//   padding:15px;
+//   border-radius: 7px;
+//   border:1px solid var(--secondary-background);
+//   bottom:12px;
+//   left:-50px;
+//   min-width: 280px
+// }
+
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  /*--webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));*/
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  width: 335px;
+  // min-width: 180px;
+}
+
+// .ol-popup:after, .ol-popup:before{
+//   top:100%;
+//   border:solid transparent;
+//   content:" ";
+//   height: 0px;
+//   width:0px;
+//   position: absolute;
+//   pointer-events: none;
+// }
+
+.ol-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+// .ol-popup:after{
+//   border-top-color: white;
+//   border-width: 10px;
+//   left:48px;
+//   margin-left:-10px;
+// }
+
+// .ol-popup:before{
+//   border-top-color: white;
+//   border-width: 11px;
+//   left:48px;
+//   margin-left:-11px;
+// }
+
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.ol-popup-closer{
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right:8px;
+}
+
+.ol-popup-closer:after{
+  content: "x";
+}

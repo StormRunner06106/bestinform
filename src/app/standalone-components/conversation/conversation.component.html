@@ -1,0 +1,32 @@
+<div class="conversation-general-class">
+    <!-- conversation list -->
+    <div  class="conversationBox">
+
+        <div id="conversationBox" class="container" *ngFor="let message of processedMessages">
+            <div [ngClass]="{'align-message-right' : message.userId === currentUserId,
+    'align-message-left' : message.userId !== currentUserId}">
+                <div [ngClass]="{'current-user-bubble-message' : message.userId === currentUserId,
+      'reciver-bubble-message' : message.userId !== currentUserId}" class="message-class">
+                    <span *ngIf="conversationData?.sharedExperienceId!== null"> <b>{{message.userName+':&nbsp;'}} </b></span>
+                    <span [innerHTML]="message.text"></span> <!-- Use innerHTML to render HTML content -->
+                </div>
+                <p class="sending-date-time">{{message.date | date: "EEEE HH:mm"}}</p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="input-message-class d-flex align-items-center justify-content-md-between gap-2 flex-wrap flex-md-nowrap">
+        <input class="w-100" type="text" [formControl]="sendMessageForm" placeholder="Type your message here ..." (keyup.enter)="sendMessage()">
+        <div class="d-flex justify-content-end gap-2 ">
+            <button (click)="listChanges()"
+            matTooltip="Vezi mesaje noi"
+            class="btn-round btn-color-fill"
+            type="submit">
+            <i class="fas fa-sync-alt"></i>
+            </button>
+            <button (click)="sendMessage()" class="btn-long btn-color-fill" type="submit">Send message</button>
+        </div>
+    </div>
+</div>

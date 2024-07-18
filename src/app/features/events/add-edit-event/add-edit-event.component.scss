@@ -1,0 +1,240 @@
+@import "/src/app/theme/styles/components/colors";
+
+.page-header {
+  margin-top: 64px;
+  margin-bottom: 40px;
+  row-gap: 1rem;
+
+  h2 {
+    margin: 0;
+    color: $primary-color;
+    font-weight: 700;
+  }
+
+  div {
+    row-gap: 1rem;
+  }
+}
+
+.panel-title {
+  font-size: 1.5rem;
+  color: $primary-color;
+  font-weight: 600;
+}
+
+.panel-subtitle {
+  font-weight: 400;
+  font-size: 16px;
+  color: $paragraph;
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 24px;
+  color: #24398A;
+}
+
+.section-content {
+  padding: 46px 100px;
+  background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), #FFFFFF;
+}
+
+.list-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #24398A29;
+  padding: 10px 0;
+  border-radius: 8px 8px 0 0;
+
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #24398A;
+    margin: 0;
+  }
+}
+
+.list-content {
+  background-color: rgba(36, 57, 138, 0.08);
+  border-radius: 0 0 8px 8px;
+  padding: 20px;
+
+  .ticket-list{
+    .btn-delete{
+      background-color:#24398A;
+      color: #FFFFFF;
+      border-top-right-radius: 8px;
+      border:none;
+      width: 40px;
+      height: 50px;
+    }
+
+    .btn-edit{
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(0deg, rgba(36, 57, 138, 0.48), rgba(36, 57, 138, 0.48)), #FFFFFF;
+      color: #FFFFFF;
+      border-bottom-right-radius: 8px;
+      border:none;
+      width: 40px;
+      height: 50px;
+    }
+  }
+
+
+  .add-btn {
+    border-radius: 8px;
+    border: 1px dotted rgba(36, 57, 138, 0.16);
+    background-color: transparent;
+    width: 100%;
+    padding: 15px 0;
+    color: rgba(36, 57, 138, 0.16);
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
+
+.mat-expansion-panel-header {
+  height: 4.875rem;
+}
+
+.mat-expansion-panel-header-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  gap: 1rem;
+  color: $primary-color !important;
+  i {
+    font-weight: 900;
+    font-size: 2rem;
+  }
+}
+
+:host ::ng-deep .mat-expansion-indicator:after {
+  color: $primary-color !important;
+}
+
+:host ::ng-deep .mat-expansion-panel-body {
+  background: linear-gradient(0deg, rgba($primary-color, 0.04), rgba($primary-color, 0.04)), var(--primary-background);
+  padding: 1rem 1.5rem;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-expansion-panel {
+  box-shadow: none !important;
+}
+
+.gallery-container {
+  row-gap: 1rem;
+
+  .image-container img {
+    max-height: 400px;
+    object-fit: contain;
+  }
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  //min-height: 7.5rem;
+  //height: 100%;
+  border: 2px solid rgba($primary-color, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+
+  & .no-image {
+    width: 100%;
+    height: 120px;
+    min-height: inherit;
+    background: rgba($primary-color, 0.04);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary-color;
+    cursor: pointer;
+    gap: 0.75rem;
+
+    &:before {
+      content: '\f03e';
+      font-family: 'Font Awesome 5 Free';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 2.25rem;
+    }
+
+    &:after {
+      font-size: 1rem;
+      content: attr(translatedContent);
+    }
+  }
+
+  .btn-thumbnail, .btn-gallery {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($primary-color, 0.16);
+    border-radius: 100%;
+    border: none;
+
+    i {
+      color: var(--primary-background);
+      font-weight: 900;
+      font-size: 16px;
+    }
+  }
+
+  .btn-thumbnail {
+    position: absolute;
+    top: 2.125rem;
+    right: 2.125rem;
+  }
+
+  .btn-gallery {
+    position: absolute;
+    top: 0.875rem;
+    right: 0.875rem;
+  }
+
+  .gallery-img{
+    height: 120px!important;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .featured-image{
+    width: 100%;
+    height: 600px!important;
+    object-fit: contain;
+  }
+}
+
+.footer-container {
+  background-color: var(--primary-background);
+  padding: 3rem 1.5rem;
+  font-size: 0.875rem;
+  border-radius: 0px 0px 8px 8px;
+}
+
+::ng-deep .ngx-mat-timepicker form {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.mat-accordion .mat-expansion-panel:last-of-type {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.clear-form{
+  color:rgba($primary-color, 0.48 );
+  background-color:var(--primary-background);
+  border-radius: 100%;
+}
+
+.related-resource{
+  color: $paragraph;
+}
+

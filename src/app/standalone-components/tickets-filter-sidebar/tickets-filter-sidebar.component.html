@@ -1,0 +1,18 @@
+    <div class="filter-tickets-container" [formGroup]="filterForm">    
+        <h4>Cuisine</h4>
+        <mat-checkbox formControlName="mostPopular">Most popular</mat-checkbox>
+        <mat-checkbox formControlName="highestRating">Highest Rating</mat-checkbox>
+        <mat-checkbox formControlName="lowestRating">Lowest Rating</mat-checkbox>
+        <mat-checkbox formControlName="highPrice">High Price</mat-checkbox>
+        <mat-checkbox formControlName="lowPrice">Low Price</mat-checkbox>
+    
+        <h4>Rating range</h4>
+        <mat-checkbox formControlName="rate1">&lt; 25%</mat-checkbox>
+        <mat-checkbox formControlName="rate2">25 - 50%</mat-checkbox>
+        <mat-checkbox formControlName="rate3">50 - 75%</mat-checkbox>
+        <mat-checkbox formControlName="rate4">>&gt; 75%</mat-checkbox>
+    
+        <button (click)="getFilterData()" class="btn-long btn-color-fill my-2"><i class="fas fa-check"></i> Apply</button>
+    
+    </div>
+

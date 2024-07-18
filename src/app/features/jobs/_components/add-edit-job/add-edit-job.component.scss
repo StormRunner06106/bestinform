@@ -1,0 +1,111 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.background-container {
+  width: 100%;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(0deg, rgba($title, 0.48), rgba($title, 0.48));
+  }
+
+  img {
+    height: auto;
+    max-height: 560px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+}
+
+.content-container {
+  background-color: var(--primary-background);
+  padding-top: 48px;
+  padding-bottom: 48px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  row-gap: 64px;
+
+  .image-container {
+    position: relative;
+    width: 50%;
+    min-height: 7.5rem;
+    height: 100%;
+    border: 2px solid rgba($primary-color, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+
+    & .no-image {
+      width: 100%;
+      min-height: inherit;
+      background: rgba($primary-color, 0.04);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $primary-color;
+      cursor: pointer;
+      gap: 0.75rem;
+
+      &:before {
+        content: '\f03e';
+        font-family: 'Font Awesome 5 Free';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 2.25rem;
+      }
+
+      &:after {
+        font-size: 1rem;
+        content: attr(translatedContent);
+      }
+    }
+
+    .btn-thumbnail {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba($primary-color, 0.16);
+      border-radius: 100%;
+      border: none;
+      position: absolute;
+      top: 2.125rem;
+      right: 2.125rem;
+
+      i {
+        color: var(--primary-background);
+        font-weight: 900;
+        font-size: 16px;
+      }
+    }
+
+    .featured-image{
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+    }
+  }
+}
+
+.custom-accordion .mat-expansion-panel-header-title {
+  justify-content: space-between;
+  align-items: center;
+  i {
+    display: none;
+  }
+}
+
+.custom-accordion .mat-expansion-panel-header-title.panel-warning {
+  color: red;
+  i {
+    display: inline-block;
+  }
+}
+

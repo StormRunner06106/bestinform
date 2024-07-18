@@ -1,0 +1,26 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.filter-tickets-container{
+    border: 1px solid rgba(35, 31, 32, 0.23);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    padding:10px;
+}
+
+.filter-tickets-container{
+
+    h4{
+        font-weight: 700;
+        font-size: 16px;
+        color: #231F20;
+    }
+
+    label.mat-checkbox-layout{
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 160%;
+    }
+
+}

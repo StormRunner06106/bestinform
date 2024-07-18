@@ -1,0 +1,562 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="Content Management System"
+                          [buttonBackRoute]="'../../dashboard'"
+                          (buttonCall)="submitHomepage()">
+    </app-dashboard-header>
+
+<div class="form-container mb-5">
+    <form [formGroup]="homepageForm" id="homePageForm" (ngSubmit)="submitHomepage()">
+
+        <div class="accordion-container">
+            <mat-accordion>
+                <!--Homepage Model-->
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="fas fa-info-circle"></i>
+                            {{ "HOMEPAGE.MODEL" | translate}} 
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <h3 class="panel-title">
+                        {{ "HOMEPAGE.DISPLAY-LANGUAGE-VERSION" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{ "HOMEPAGE.DISPLAY-LANGUAGE-VERSION" | translate}}</mat-label>
+                                <mat-select id="selectFormHomepageDomain" formControlName="language" (selectionChange)="getHomepageData()">
+                                    <mat-option [value]="'ro'">Română</mat-option>
+                                    <mat-option [value]="'en'">English</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{ "HOMEPAGE.VERSION" | translate}}</mat-label>
+                                <mat-select id="selectFormHomepageApp" formControlName="app" (selectionChange)="getHomepageData()">
+                                    <mat-option [value]="'web'">Web</mat-option>
+                                    <mat-option [value]="'mobile'">Mobile</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                </mat-expansion-panel>
+
+                <!--Sectiune 1 - Hero-->
+                <mat-expansion-panel formGroupName="hero">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title [ngClass]="{'warning-highlight' : (submitBtnClicked && !homepageForm.get('hero').valid)}">
+                            <i class="fas fa-info-circle"></i>
+                            {{ "HOMEPAGE.SECTION" | translate}} 1 - Hero
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <h3 class="panel-title">
+                        {{ "FIELD.TITLE" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{ "HOMEPAGE.TEXT-TITLE" | translate}}</mat-label>
+                                <input id="inputFormHomepageTitle" formControlName="title" matInput type="text">
+                                <mat-error *ngIf="homepageForm.get('hero.title').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                <button *ngIf="homepageForm.get('hero.title').value" (click)="clearFormControl('hero.title')"-->
+<!--                                        id="btnHomepageClearTitle" type="button" mat-icon-button matSuffix>-->
+<!--                                    <mat-icon>close</mat-icon>-->
+<!--                                </button>-->
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="homepageForm.get('hero.title').value" (click)="clearFormControl('hero.title')"
+                                   id="btnHomepageClearTitle" matSuffix></i>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <h3 class="panel-title">
+                        {{ "HOMEPAGE.SUBTITLE" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{ "HOMEPAGE.TEXT-CONTENT" | translate}}</mat-label>
+                                <input id="inputFormHomepageContentText" formControlName="contentText" matInput type="text">
+                                <mat-error *ngIf="homepageForm.get('hero.contentText').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                <button *ngIf="homepageForm.get('hero.contentText').value" (click)="clearFormControl('hero.contentText')"-->
+<!--                                        id="btnHomepageClearContentText" type="button" mat-icon-button matSuffix>-->
+<!--                                    <mat-icon>close</mat-icon>-->
+<!--                                </button>-->
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="homepageForm.get('hero.contentText').value" (click)="clearFormControl('hero.contentText')"
+                                   id="btnHomepageClearContentText" matSuffix></i>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <h3 class="panel-title">
+                        {{ "HOMEPAGE.BACKGROUND-IMG" | translate}}
+                    </h3>
+
+                    <div class="image-container mb-5">
+                        <div *ngIf="homepageForm.get('hero.backgroundImage').value?.filePath===''" class="no-image"
+                             attr.translatedContent = "{{ 'GENERAL.INSERT_IMAGE' | translate}}"
+                             (click)="openMedia(heroModal)"></div>
+
+                        <ng-template #heroModal let-modal>
+                            <app-choose-media [category]="'image'"
+                                              [multipleSelect]="false"
+                                              [for]="'hero'"
+                                              [modalRef]="modal"></app-choose-media>
+                        </ng-template>
+
+                        <img *ngIf=" homepageForm.get('hero.backgroundImage').value?.filePath" class="img-fluid w-100"
+                             [src]="homepageForm.get('hero.backgroundImage').value?.filePath" alt="thumbnail">
+                        <button *ngIf="homepageForm.get('hero.backgroundImage').value"
+                                (click)="removeImage('hero.backgroundImage', 'background')"
+                                type="button"
+                                id="btnRemoveFeaturedImage"
+                                class="btn-thumbnail">
+                            <i class="fas fa-times"></i>
+                        </button>
+
+                    </div>
+
+                    <h3 class="panel-title">
+                        {{ "HOMEPAGE.BTN-TEXT" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{ "HOMEPAGE.BTN-TEXT" | translate}}</mat-label>
+                                <input id="inputFormHomepageButtonText" formControlName="buttonText" matInput type="text">
+                                <mat-error *ngIf="homepageForm.get('hero.buttonText').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                <button *ngIf="homepageForm.get('hero.buttonText').value" (click)="clearFormControl('hero.buttonText')"-->
+<!--                                        id="btnHomepageClearButtonText" type="button" mat-icon-button matSuffix>-->
+<!--                                    <mat-icon>close</mat-icon>-->
+<!--                                </button>-->
+
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="homepageForm.get('hero.buttonText').value" (click)="clearFormControl('hero.buttonText')"
+                                   id="btnHomepageClearButtonText" matSuffix></i>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </mat-expansion-panel>
+
+                <!--Sectiune 2 - Beneficii-->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title [ngClass]="{'warning-highlight' : (submitBtnClicked && !homepageForm.get('benefits').valid)}">
+                            <i class="fas fa-info-circle"></i>
+                            {{ "HOMEPAGE.SECTION" | translate}} 2 - {{ "HOMEPAGE.BENEFITS" | translate}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <ng-container formArrayName="benefits">
+                        <ng-container *ngFor="let benefit of benefits.controls; index as i">
+                            <h3 class="panel-title">
+                                {{ "HOMEPAGE.BENEFIT" | translate}} {{ i + 1 }}
+                            </h3>
+
+                            <div class="fields-container" [formGroupName]="i">
+                                <h3 class="panel-title">
+                                    {{ "FIELD.TITLE" | translate}}
+                                </h3>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>{{ "HOMEPAGE.TEXT-TITLE" | translate}}</mat-label>
+                                            <input id="inputFormHomepageBenefitTitle-{{i}}" formControlName="title" matInput type="text">
+                                            <mat-error *ngIf="benefit.get('title').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                            <button *ngIf="benefit.get('title').value" (click)="benefit.get('title').patchValue('')"-->
+<!--                                                    id="btnHomepageClearBenefitTitle-{{i}}" type="button" mat-icon-button matSuffix>-->
+<!--                                                <mat-icon>close</mat-icon>-->
+<!--                                            </button>-->
+
+                                            <i class="fas fa-times-circle clear-form" type="button" *ngIf="benefit.get('title').value" (click)="benefit.get('title').patchValue('')"
+                                               id="btnHomepageClearBenefitTitle-{{i}}" matSuffix></i>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <h3 class="panel-title">
+                                    {{ "HOMEPAGE.CONTENT" | translate}} 
+                                </h3>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>{{ "HOMEPAGE.TEXT-CONTENT" | translate}}</mat-label>
+                                            <textarea formControlName="content" matInput id="inputFormHomepageBenefitContent-{{i}}"
+                                                      cdkTextareaAutosize
+                                                      cdkAutosizeMinRows="1"
+                                                      cdkAutosizeMaxRows="20"></textarea>
+                                            <mat-error *ngIf="benefit.get('content').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                            <button *ngIf="benefit.get('content').value" (click)="benefit.get('content').patchValue('')"-->
+<!--                                                    id="btnHomepageClearBenefitContent-{{i}}" type="button" mat-icon-button matSuffix>-->
+<!--                                                <mat-icon>close</mat-icon>-->
+<!--                                            </button>-->
+
+                                            <i class="fas fa-times-circle clear-form" type="button" *ngIf="benefit.get('content').value" (click)="benefit.get('content').patchValue('')"
+                                               id="btnHomepageClearBenefitContent-{{i}}" matSuffix></i>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+
+                </mat-expansion-panel>
+
+                <!--Sectiune 3 - Trial Section-->
+                <mat-expansion-panel formGroupName="trialSection">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title [ngClass]="{'warning-highlight' : (submitBtnClicked && !homepageForm.get('trialSection').valid)}">
+                            <i class="fas fa-info-circle"></i>
+                            {{ "HOMEPAGE.SECTION" | translate}} 3 -{{ "HOMEPAGE.TRIAL-SECTION" | translate}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <h3 class="panel-title">
+                        {{"FIELD.TITLE" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{"HOMEPAGE.TEXT-TITLE" | translate}}</mat-label>
+                                <input id="inputFormHomepageTrialTitle" formControlName="mainTitle" matInput type="text">
+                                <mat-error *ngIf="homepageForm.get('trialSection.mainTitle').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                <button *ngIf="homepageForm.get('trialSection.mainTitle').value" (click)="clearFormControl('trialSection.mainTitle')"-->
+<!--                                        id="btnHomepageClearTrialTitle" type="button" mat-icon-button matSuffix>-->
+<!--                                    <mat-icon>close</mat-icon>-->
+<!--                                </button>-->
+
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="homepageForm.get('trialSection.mainTitle').value" (click)="clearFormControl('trialSection.mainTitle')"
+                                   id="btnHomepageClearTrialTitle" matSuffix></i>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <h3 class="panel-title">
+                        {{"HOMEPAGE.SUBTITLE" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{"HOMEPAGE.TEXT-SUBTITLE" | translate}}</mat-label>
+                                <input id="inputFormHomepageTrialSubtitle" formControlName="subTitle" matInput type="text">
+                                <mat-error *ngIf="homepageForm.get('trialSection.subTitle').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                <button *ngIf="homepageForm.get('trialSection.subTitle').value" (click)="clearFormControl('trialSection.subTitle')"-->
+<!--                                        id="btnHomepageClearTrialSubtitle" type="button" mat-icon-button matSuffix>-->
+<!--                                    <mat-icon>close</mat-icon>-->
+<!--                                </button>-->
+
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="homepageForm.get('trialSection.subTitle').value" (click)="clearFormControl('trialSection.subTitle')"
+                                   id="btnHomepageClearTrialSubtitle" matSuffix></i>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <h3 class="panel-title">
+                        {{"HOMEPAGE.CONTENT" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{ "HOMEPAGE.TEXT-CONTENT" | translate}}</mat-label>
+                                <textarea formControlName="content" matInput id="inputFormHomepageTrialContent"
+                                          cdkTextareaAutosize
+                                          cdkAutosizeMinRows="1"
+                                          cdkAutosizeMaxRows="20"></textarea>
+                                <mat-error *ngIf="homepageForm.get('trialSection.content').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                <button *ngIf="homepageForm.get('trialSection.content').value" (click)="clearFormControl('trialSection.content')"-->
+<!--                                        id="btnHomepageClearTrialContent" type="button" mat-icon-button matSuffix>-->
+<!--                                    <mat-icon>close</mat-icon>-->
+<!--                                </button>-->
+
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="homepageForm.get('trialSection.content').value" (click)="clearFormControl('trialSection.content')"
+                                   id="btnHomepageClearTrialContent" matSuffix></i>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <h3 class="panel-title">
+                        {{"HOMEPAGE.BTN-TEXT" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{"HOMEPAGE.BTN-TEXT" | translate}}</mat-label>
+                                <input id="inputFormHomepageTrialButtonText" formControlName="buttonText" matInput type="buttonText">
+                                <mat-error *ngIf="homepageForm.get('trialSection.content').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                <button *ngIf="homepageForm.get('trialSection.buttonText').value" (click)="clearFormControl('trialSection.buttonText')"-->
+<!--                                        id="btnHomepageClearTrialButtonText" type="button" mat-icon-button matSuffix>-->
+<!--                                    <mat-icon>close</mat-icon>-->
+<!--                                </button>-->
+
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="homepageForm.get('trialSection.buttonText').value" (click)="clearFormControl('trialSection.buttonText')"
+                                   id="btnHomepageClearTrialButtonText" matSuffix></i>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <h3 class="panel-title">
+                        {{"HOMEPAGE.IMAGE" | translate}}
+                    </h3>
+
+                    <div class="image-container mb-5">
+                        <div *ngIf="homepageForm.get('trialSection.image').value?.filePath===''" class="no-image"
+                             attr.translatedContent = "{{ 'GENERAL.INSERT_IMAGE' | translate}}"
+                             (click)="openMedia(trialImage)"></div>
+
+                        <ng-template #trialImage let-modal>
+                            <app-choose-media [category]="'image'"
+                                              [multipleSelect]="false"
+                                              [for]="'trial'"
+                                              [modalRef]="modal"></app-choose-media>
+                        </ng-template>
+
+                        <img *ngIf="homepageForm.get('trialSection.image').value?.filePath" class="img-fluid w-100"
+                             [src]="homepageForm.get('trialSection.image').value?.filePath" alt="thumbnail">
+                        <button *ngIf="homepageForm.get('trialSection.image').value"
+                                (click)="removeImage('trialSection.image', 'content')"
+                                type="button"
+                                id="btnRemoveTrialImage"
+                                class="btn-thumbnail">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                </mat-expansion-panel>
+
+                <!--Sectiune 4 - Galerie-->
+                <mat-expansion-panel formGroupName="gallery">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title [ngClass]="{'warning-highlight' : (submitBtnClicked && !homepageForm.get('gallery').valid)}">
+                            <i class="fas fa-info-circle"></i>
+                            {{ "HOMEPAGE.SECTION" | translate}} 4 - {{ "HOMEPAGE.GALLERY" | translate}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <h3 class="panel-title">
+                        {{ "HOMEPAGE.DESCRIPTION" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{ "HOMEPAGE.TEXT-CONTENT" | translate}}</mat-label>
+                                <textarea formControlName="textContent" matInput id="inputFormHomepageGalleryContent"
+                                          cdkTextareaAutosize
+                                          cdkAutosizeMinRows="1"
+                                          cdkAutosizeMaxRows="20"></textarea>
+<!--                                <button *ngIf="homepageForm.get('gallery.textContent').value" (click)="clearFormControl('gallery.textContent')"-->
+<!--                                        id="btnHomepageClearGalleryContent" type="button" mat-icon-button matSuffix>-->
+<!--                                    <mat-icon>close</mat-icon>-->
+<!--                                </button>-->
+
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="homepageForm.get('gallery.textContent').value" (click)="clearFormControl('gallery.textContent')"
+                                   id="btnHomepageClearGalleryContent" matSuffix></i>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <ng-container formArrayName="videos">
+                        <ng-container *ngFor="let video of videos.controls; index as i">
+                            <h3 class="panel-title">
+                                Video {{ i + 1 }}
+                            </h3>
+
+                            <div class="fields-container" [formGroupName]="i">
+                                <h3 class="panel-title">
+                                    {{ "HOMEPAGE.INFO-VIDEO" | translate}}
+                                </h3>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>{{"HOMEPAGE.TEXT-TITLE" | translate}}</mat-label>
+                                            <input id="inputFormHomepageVideoTitle-{{i}}" formControlName="fileName" matInput type="text">
+                                            <mat-error *ngIf="video.get('fileName').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                            <button *ngIf="video.get('fileName').value" (click)="video.get('fileName').patchValue('')"-->
+<!--                                                    id="btnHomepageClearVideoTitle-{{i}}" type="button" mat-icon-button matSuffix>-->
+<!--                                                <mat-icon>close</mat-icon>-->
+<!--                                            </button>-->
+
+                                            <i class="fas fa-times-circle clear-form" type="button" *ngIf="video.get('fileName').value" (click)="video.get('fileName').patchValue('')"
+                                               id="btnHomepageClearVideoTitle-{{i}}" matSuffix></i>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>Link</mat-label>
+                                            <input id="inputFormHomepageVideoPath-{{i}}" formControlName="filePath" matInput type="text">
+                                            <mat-error *ngIf="video.get('filePath').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+<!--                                            <button *ngIf="video.get('filePath').value" (click)="video.get('filePath').patchValue('')"-->
+<!--                                                    id="btnHomepageClearVideoPath-{{i}}" type="button" mat-icon-button matSuffix>-->
+<!--                                                <mat-icon>close</mat-icon>-->
+<!--                                            </button>-->
+
+                                            <i class="fas fa-times-circle clear-form" type="button" *ngIf="video.get('filePath').value" (click)="video.get('filePath').patchValue('')"
+                                               id="btnHomepageClearVideoPath-{{i}}" matSuffix></i>
+                                            <i class="fas fa-search clear-form" type="button" *ngIf="!video.get('filePath').value" (click)="openMedia(chooseVideo)"
+                                               id="btnHomepageClearVideoPath-{{i}}" matSuffix></i>
+                                        </mat-form-field>
+
+                                        <ng-template #chooseVideo let-modal>
+                                            <app-choose-media [category]="'video'"
+                                                              [multipleSelect]="false"
+                                                              [for]="'video-'+i"
+                                                              [modalRef]="modal"></app-choose-media>
+                                        </ng-template>
+                                    </div>
+
+
+                                    <h6>Featured Image</h6>
+                                    <div class="col-12">
+                                        <div class="image-container">
+                                            <div *ngIf="!video.get('featuredImagePath').value" class="no-image"
+                                                 attr.translatedContent = "{{ 'GENERAL.INSERT_IMAGE' | translate}}"
+                                                 (click)="openMedia(imagePath)"></div>
+
+                                            <ng-template #imagePath let-modal>
+                                                <app-choose-media [category]="'image'"
+                                                                  [multipleSelect]="false"
+                                                                  [for]="'featuredImage-'+i"
+                                                                  [modalRef]="modal"></app-choose-media>
+                                            </ng-template>
+
+                                            <img *ngIf="video.get('featuredImagePath').value" class="img-fluid w-100"
+                                                 [src]="video.get('featuredImagePath').value" alt="thumbnail">
+                                            <button *ngIf="video.get('featuredImagePath').value"
+                                                    (click)="video.get('featuredImagePath').patchValue('')"
+                                                    type="button"
+                                                    id="btnHomepageClearFeaturedImagePath-{{i}}"
+                                                    class="btn-thumbnail">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+
+                </mat-expansion-panel>
+
+                <!--Sectiune 5 - Call To Action-->
+                <mat-expansion-panel formGroupName="callToAction">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title [ngClass]="{'warning-highlight' : (submitBtnClicked && !homepageForm.get('callToAction').valid)}">
+                            <i class="fas fa-info-circle"></i>
+                            {{ "HOMEPAGE.SECTION" | translate}} 5 - Call To Action
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <h3 class="panel-title">
+                        {{"FIELD.TITLE" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{"HOMEPAGE.TEXT-TITLE" | translate}}</mat-label>
+                                <input id="inputFormHomepageActionTitle" formControlName="title" matInput type="text">
+                                <mat-error *ngIf="homepageForm.get('callToAction.title').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+                                <button *ngIf="homepageForm.get('callToAction.title').value" (click)="clearFormControl('callToAction.title')"
+                                        id="btnHomepageClearActionTitle" type="button" mat-icon-button matSuffix>
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <h3 class="panel-title">
+                        {{"HOMEPAGE.CONTENT" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{ "HOMEPAGE.TEXT-CONTENT" | translate}}</mat-label>
+                                <textarea formControlName="content" matInput id="inputFormHomepageActionContent"
+                                          cdkTextareaAutosize
+                                          cdkAutosizeMinRows="1"
+                                          cdkAutosizeMaxRows="20"></textarea>
+                                <mat-error *ngIf="homepageForm.get('callToAction.content').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+                                <button *ngIf="homepageForm.get('callToAction.content').value" (click)="clearFormControl('callToAction.content')"
+                                        id="btnHomepageClearActionContent" type="button" mat-icon-button matSuffix>
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <h3 class="panel-title">
+                        {{"HOMEPAGE.BTN-TEXT" | translate}}
+                    </h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{"HOMEPAGE.BTN-TEXT" | translate}}</mat-label>
+                                <input id="inputFormHomepageActionButtonText" formControlName="buttonText" matInput type="text">
+                                <mat-error *ngIf="homepageForm.get('callToAction.buttonText').hasError('required')">{{ 'ERROR.REQUIRED' | translate }}</mat-error>
+                                <button *ngIf="homepageForm.get('callToAction.buttonText').value" (click)="clearFormControl('callToAction.buttonText')"
+                                        id="btnHomepageClearActionButtonText" type="button" mat-icon-button matSuffix>
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
+        <div class="footer-container d-flex flex-wrap justify-content-center justify-content-xl-between align-items-center">
+            <div class="d-flex gap-2">
+                <mat-checkbox></mat-checkbox>
+                <p>
+                    {{ 'MESSAGE.TERMS_AND_CONDITIONS' | translate}}
+                </p>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="button" class="btn-auto btn-color-outline w-50" id="btnBackFooterAddEditHomepage"
+                        routerLink="../../../dashboard">
+                    <i class="fas fa-times"></i>
+                    {{ 'BTN.CANCEL' | translate}}
+                </button>
+
+                <button type="submit" class="btn-auto btn-color-fill w-50" id="btnSubmitFooterAddEditHomepage">
+                    {{ 'BTN.SUBMIT' | translate}}
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+

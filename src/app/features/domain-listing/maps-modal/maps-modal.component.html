@@ -1,0 +1,180 @@
+<ng-container *ngIf="isFiltersShown">
+    <div style="display: flex; justify-content: space-between; align-items: self-endf;padding: 20px;">
+        <div>
+            <mat-icon (click)="isFiltersShown = false" style="font-size: 28px;">arrow_left</mat-icon>
+        </div>
+        <div>
+            <h2 style="text-align: center;color: #4257EE;font-size: 16px;">Cauta Restaurant</h2>
+        </div>
+        <div></div>
+    </div>
+</ng-container>
+<div class="main-maps-container">
+
+
+    <ng-container *ngIf="!isMobile()">
+
+    <div class="filters-container">
+
+        <ng-container *ngTemplateOutlet="accordionFilters"></ng-container>
+    </div>
+    </ng-container>
+
+    <div class="maps-modal-container" [ngStyle]="{ width: isMobile() && '100%'}">
+        <div [ngStyle]="{display: isFiltersShown ? 'none' : 'block'}">
+            <google-map
+                    width="100vw"
+                    height="90vh"
+                    [options]="googlemapOptions"
+                    [center]="center"
+                    [zoom]="zoom"
+                    (mapClick)="isMarkerClicked = false"
+                    #mapContainer
+            >
+                <map-marker
+                        *ngFor="let markerPosition of modalMarkerPositions"
+                        [position]="markerPosition"
+                        [options]="!markerPosition.isSelected && isMarkerClicked ? notActiveMarkerOptions : markerOptions"
+                        (mapClick)="getLocationData(markerPosition, $event)"
+                        #marker
+                ></map-marker>
+
+                <ng-container *ngIf="isMobile()">
+                    <button
+                            pButton
+                            class="view-filters"
+                            label="Vezi filtre"
+                            (click)="showFilters()"
+                    ></button>
+                </ng-container>
+
+                <div *ngIf="isMarkerClicked" class="wrapper" >
+                    <div class="location-description-container">
+                        <div class="location-info">
+
+                            <div class="location-name">
+                                <p class="name">{{ markerData.name }}</p>
+                                <ng-container *ngIf="!isMobile()">
+                                    <div class="rating">
+                                        <span class="rating-text">Rating</span>
+                                        <span class="rating-score">{{ markerData?.rating ? markerData?.rating : 0 }}</span>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                            <div class="location-details">
+                                <i class="pi pi-map-marker"></i>
+                                {{ markerData?.country }} {{ markerData?.city }}
+                            </div>
+
+                            <div class="location-details" style="align-items: end">
+                                <mat-icon class="restaurant-icon" svgIcon="custom-icon"></mat-icon>
+                                {{ markerData?.specific }}
+                            </div>
+
+                            <div style="display: flex; gap: 10px">
+                                <button
+                                        (click)="modal.closeAll()"
+                                        pButton
+                                        class="reserve"
+                                        label="{{ 'RESTAURANTS.RESERVE_NOW' | translate }}"
+                                        [routerLink]="[
+          '/client/domain/63bfcca765dc3f3863af755c/category/63dbb183df393f737216183c/resource-type/63dbb18cdf393f737216183d/view/',
+          markerData._id
+        ]"
+                                ></button>
+                                <ng-container *ngIf="!isMobile()">
+                                    <div style="margin-top: 5%">
+                                        <p style="margin: 0">Categorie de preț</p>
+                                        <p style="margin: 0">Nota medie de plata incepand cu {{markerData?.avgPrice}} lei</p>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+
+                        </div>
+                        <div class="background-image" [style.backgroundImage]="'url(' + markerData.featuredImage + ')'"></div>
+                    </div>
+                </div>
+            </google-map>
+        </div>
+
+        <div [ngStyle]="{display: isFiltersShown ? 'block' : 'none', width: isFiltersShown && '100%'}">
+            <ng-container *ngTemplateOutlet="accordionFilters"></ng-container>
+        </div>
+
+        </div>
+
+</div>
+
+
+<ng-template #accordionFilters>
+    <ng-container *ngFor="let item of restaurantModalFilters">
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <span class="title-of-accordions">{{item.accordionHeader}}</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="location-type" [ngStyle]="{ 'flex-direction': item.inputType === 'star' && 'row' }">
+                    <ng-container [ngSwitch]="item.inputType">
+                        <ng-container *ngSwitchCase="'text'">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>{{item.accordionHeader}}</mat-label>
+                                <input matInput
+                                       placeholder="{{item.accordionHeader}}"
+                                       [(ngModel)]="item.model"
+                                       (input)="onFilterChange(item.modelName, item.model)"
+                                >
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'checkbox'">
+                            <ng-container *ngFor="let value of item.iterableItems">
+                                <mat-checkbox
+                                        (change)="collectData(item.modelName, value.value)"
+                                        labelPosition="after"
+                                >{{ value.displayText }}</mat-checkbox>
+                            </ng-container>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'star'">
+                            <mat-icon *ngFor="let star of item.iterableItems"
+                                      (click)="setRating(item.modelName, star.value, item.iterableItems)"
+                                      [ngStyle]="{'color': star.color}"
+                            >
+                                star
+                            </mat-icon>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'radio'">
+                            <mat-radio-group style="display: flex; flex-direction: column; gap: 5px;" (change)="onFilterChange(item.modelName, $event.value)">
+                                <ng-container *ngFor="let val of item.iterableItems">
+                                    <mat-radio-button [value]="val.value">
+                                        {{val.displayText}}
+                                    </mat-radio-button>
+                                </ng-container>
+                            </mat-radio-group>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'slider'">
+                            <div class="card flex justify-content-center" style="border: none;display: flex;gap: 10px;">
+                                <span class="range-title">{{item.accordionHeader}}: {{avgRangeValues.join(" - ")}}</span>
+                                <div class="card flex justify-content-center" >
+                                    <p-slider
+                                            [(ngModel)]="avgRangeValues"
+                                            [step]="item.step" (mouseup)="getAvgItems(item.modelName, avgRangeValues)"
+                                            [min]="item.min" [max]="item?.max"
+                                            [range]="item.range"></p-slider>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                    </ng-container>
+
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </ng-container>
+</ng-template>

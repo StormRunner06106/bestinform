@@ -1,0 +1,51 @@
+<div class="info-container">
+  <ng-container *ngIf="selected === 'restaurants'">
+      <ng-container *ngFor="let category of infoCategories" >
+          <ng-container *ngIf="category['items'].length">
+              <section class="info-category">
+                  <ng-container *ngIf="category['items'].length">
+                      <h2>{{ category.title }}</h2>
+
+                      <ul>
+                          <li class="list-container" *ngFor="let item of category.items">
+                              <!--          <i class="{{ item.icon }}"></i>-->
+
+                              <ng-container *ngIf="item.svgImagePath; else simpleIconContainer">
+                                  <mat-icon class="custom-icon" svgIcon="{{item.svgImagePath}}"></mat-icon>
+                              </ng-container>
+
+                              <ng-template #simpleIconContainer>
+                                  <mat-icon class="icon-container">{{item.icon}}</mat-icon>
+                              </ng-template>
+                              {{ item.name }} • {{ item.distance }}
+                          </li>
+                      </ul>
+                  </ng-container>
+
+              </section>
+          </ng-container>
+
+      </ng-container>
+
+  </ng-container>
+
+  <ng-container *ngIf="selected === 'hotels'">
+    <div class="row" style="width: 100%">
+      <div
+        *ngFor="let category of infoCategories; let i = index"
+        class="dotari-item col-12 col-md-6 col-lg-4"
+        [ngClass]="{
+          'right-gray': shortInfo && i !== infoCategories.length - 1
+        }"
+      >
+        <h2>{{ category.group_name }}</h2>
+
+        <ul style="padding: 0 15px">
+          <li class="list-container" *ngFor="let item of category.amenities">
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,280 @@
+<div class="container mb-5">
+    <app-dashboard-header pageTitleOne="Istoric Acțiuni"
+                          [buttonBackRoute]="'../../dashboard'">
+    </app-dashboard-header>
+    <div class="card custom-table gutter-b">
+
+        <!----Table---------------------------------------------------------------------------->
+        <div *ngIf="dataLoaded">
+            <div class="row filterRow">
+                <div class="col-12 col-lg-7">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Nume utilizator</mat-label>
+                                <input matInput [(ngModel)]=filterName (keydown.enter)="applyFilter()">
+                                <mat-icon matSuffix (click)="clearfilterName()">highlight_off</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Tip actiune</mat-label>
+                                <mat-select [(ngModel)]="filterActionType">
+                                    <mat-option [value]="undefined">-</mat-option>
+                                    <mat-option *ngFor="let action of actionTypes" [value]="action.value">{{action.title}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 col-lg-5 d-flex align-items-center justify-content-end gap-2">
+                    <button type="button" class="btn-round btn-color-outline" id="clearFilterBtn" (click)="clearFields()" matTooltip="{{'RESOURCE.RESET-FILTERS' | translate}}"><i
+                            class="fas fa-sync"></i></button>
+                    <button type="button" id="id-resources-filter" class="btn-long btn-color-fill" (click)="applyFilter()">{{'BTN.FILTER' | translate}}
+                        <i class="fas fa-filter"></i></button>
+                </div>
+
+
+            </div>
+
+
+            <div class=" row tableContent">
+
+                <table class="editorals-table-class logs-table" mat-table matSort appMatTableResponsive [dataSource]="dataList" (matSortChange) = applyFilter($event)>
+                    <!--Create data-->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef>Data și Ora</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'FIELD.CREATION_DATE'|translate}}">
+                            <ng-container [ngSwitch]="element.objectType">
+                                <span *ngSwitchCase="'resourceAttribute'">
+                                       <i class="fas fa-diamond"></i>
+                                </span>
+                                <span *ngSwitchCase="'resource'">
+                                       <i class="fas fa-mountain"></i>
+                                </span>
+                                <span *ngSwitchCase="'resourceTemplate'">
+                                       <i class="fas fa-file-archive"></i>
+                                </span>
+                                <span *ngSwitchCase="'attributeCategory'">
+                                       <i class="fas fa-clipboard-list"></i>
+                                </span>
+                                <span *ngSwitchCase="'resourceAttributes'">
+                                       <i class="fas fa-diamond"></i>
+                                </span>
+                                <span *ngSwitchCase="'bookingTimePicker'">
+                                       <i class="fas fa-clock"></i>
+                                </span>
+                                <span *ngSwitchCase="'bookingTimeSlot'">
+                                       <i class="fas fa-business-time"></i>
+                                </span>
+                                <span *ngSwitchCase="'city'">
+                                      <i class="fas fa-city"></i>
+                                </span>
+                                <span *ngSwitchCase="'conversation'">
+                                      <i class="fas fa-comments"></i>
+                                </span>
+                                <span *ngSwitchCase="'country'">
+                                      <i class="fas fa-flag"></i>
+                                </span>
+                                <span *ngSwitchCase="'cv'">
+                                      <i class="fas fa-address-book"></i>
+                                </span>
+                                <span *ngSwitchCase="'domain'">
+                                      <i class="fas fa-grip-horizontal"></i>
+                                </span>
+                                <span *ngSwitchCase="'editorialCategory'">
+                                      <i class="fas fa-folder-plus"></i>
+                                </span>
+                                <span *ngSwitchCase="'editorial'">
+                                      <i class="fas fa-newspaper"></i>
+                                </span>
+                                <span *ngSwitchCase="'editorialSubcategory'">
+                                      <i class="fas fa-list"></i>
+                                </span>
+                                <span *ngSwitchCase="'footer'">
+                                      <i class="fas fa-border-all"></i>
+                                </span>
+                                <span *ngSwitchCase="'forum'">
+                                      <i class="fas fa-table-list"></i>
+                                </span>
+                                <span *ngSwitchCase="'itinerary'">
+                                      <i class="fas fa-route"></i>
+                                </span>
+                                <span *ngSwitchCase="'location'">
+                                      <i class="fas fa-map-marked"></i>
+                                </span>
+                                <span *ngSwitchCase="'media'">
+                                      <i class="fas fa-photo-video"></i>
+                                </span>
+                                <span *ngSwitchCase="'menu'">
+                                      <i class="fas fa-utensils"></i>
+                                </span>
+                                <span *ngSwitchCase="'notificationTemplate'">
+                                      <i class="fas fa-envelope-open"></i>
+                                </span>
+                                <span *ngSwitchCase="'paymentRequest'">
+                                      <i class="fas fa-comment-dollar"></i>
+                                </span>
+                                <span *ngSwitchCase="'product'">
+                                      <i class="fas fa-book"></i>
+                                </span>
+                                <span *ngSwitchCase="'purchasedSubscription'">
+                                      <i class="fas fa-hand-holding-usd"></i>
+                                </span>
+                                <span *ngSwitchCase="'reservation'">
+                                      <i class="fas fa-receipt"></i>
+                                </span>
+                                <span *ngSwitchCase="'resourceCategory'">
+                                      <i class="fas fa-folder"></i>
+                                </span>
+                                <span *ngSwitchCase="'resourceType'">
+                                     <i class="fas fa-folder-open"></i>
+                                </span>
+                                <span *ngSwitchCase="'roomItem'">
+                                    <i class="fas fa-bed"></i>
+                                </span>
+                                <span *ngSwitchCase="'secondaryPage'">
+                                    <i class="fas fa-file-alt"></i>
+                                </span>
+                                <span *ngSwitchCase="'sharedExperience'">
+                                    <i class="fas fa-users"></i>
+                                </span>
+                                <span *ngSwitchCase="'subscription'">
+                                    <i class="fas fa-piggy-bank"></i>
+                                </span>
+                                <span *ngSwitchCase="'systemSettings'">
+                                    <i class="fas fa-gear"></i>
+                                </span>
+                                <span *ngSwitchCase="'threadComment'">
+                                    <i class="fas fa-comment"></i>
+                                </span>
+                                <span *ngSwitchCase="'ticket'">
+                                    <i class="fas fa-ticket-alt"></i>
+                                </span>
+                                <span *ngSwitchCase="'tripReservation'">
+                                    <i class="fas fa-hotel"></i>
+                                </span>
+                                <span *ngSwitchCase="'trip'">
+                                    <i class="fas fa-suitcase-rolling"></i>
+                                </span>
+                                <span *ngSwitchCase="'user'">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </ng-container>
+                            {{element.date | date:'dd/MM/yyyy HH:mm'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef > Acțiune</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="actiune">
+                            A fost
+
+                            <ng-container [ngSwitch]="element.activityType">
+                                <span *ngSwitchCase="'create'">creat</span>
+                                <span *ngSwitchCase="'update'">actualizat</span>
+                                <span *ngSwitchCase="'delete'">șters</span>
+                                <span *ngSwitchCase="'changeAttributeOrder'">schimbată ordinea pentru</span>
+                                <span *ngSwitchCase="'changeMediaStatus'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'deleteProductAttachment'">șters un atașament pentru</span>
+                                <span *ngSwitchCase="'buySubscription'">cumpărat</span>
+                                <span *ngSwitchCase="'cancelSubscription'">anulat</span>
+                                <span *ngSwitchCase="'changePurchasedSubscriptionStatus'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'makeAutoRenewTrue'">activată reînnoirea automată pentru</span>
+                                <span *ngSwitchCase="'changeValidityStatus'">schimbată valabilitatea pentru</span>
+                                <span *ngSwitchCase="'changeReservationStatus'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'updateReservation'">actualizat</span>
+                                <span *ngSwitchCase="'changeResourceStatus'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'changeResourceCategoryEnableForListStatus'">schimbat statusul de vizibilitate in listă pentru</span>
+                                <span *ngSwitchCase="'deleteResourceFeatureImage'">ștearsă imaginea pentru</span>
+                                <span *ngSwitchCase="'deleteParticipantFromSharedExperience'">șters un participant din</span>
+                                <span *ngSwitchCase="'leaveSharedExperience'">părăsit</span>
+                                <span *ngSwitchCase="'changeStatus'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'disableThreadComment'">dezactivată postarea de comentarii pentru</span>
+                                <span *ngSwitchCase="'changeTripStatus'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'addUser'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'updateUser'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'changeUserPassword'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'changeUserStatus'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'changeActiveStatus'">schimbat statusul pentru</span>
+                                <span *ngSwitchCase="'updateUserPreferences'">schimbat statusul pentru</span>
+
+                            </ng-container>
+
+                            elementul de tip
+                            <ng-container [ngSwitch]="element.objectType">
+                                <span *ngSwitchCase="'resourceAttribute'">atribut resursă</span>
+                                <span *ngSwitchCase="'resource'">resursă</span>
+                                <span *ngSwitchCase="'resourceTemplate'">template resursă</span>
+                                <span *ngSwitchCase="'attributeCategory'">atribut categorie</span>
+                                <span *ngSwitchCase="'resourceAttributes'">atribute resursă</span>
+                                <span *ngSwitchCase="'bookingTimePicker'">time picker</span>
+                                <span *ngSwitchCase="'bookingTimeSlot'">time slot</span>
+                                <span *ngSwitchCase="'city'">oraș</span>
+                                <span *ngSwitchCase="'conversation'">conversație</span>
+                                <span *ngSwitchCase="'country'">țară</span>
+                                <span *ngSwitchCase="'cv'">CV</span>
+                                <span *ngSwitchCase="'domain'">domeniu</span>
+                                <span *ngSwitchCase="'editorialCategory'">categorie editorial</span>
+                                <span *ngSwitchCase="'editorial'">editorial</span>
+                                <span *ngSwitchCase="'editorialSubcategory'">subcategorie editorial</span>
+                                <span *ngSwitchCase="'footer'">footer</span>
+                                <span *ngSwitchCase="'forum'">forum</span>
+                                <span *ngSwitchCase="'itinerary'">itinerariu</span>
+                                <span *ngSwitchCase="'location'">locație</span>
+                                <span *ngSwitchCase="'media'">media</span>
+                                <span *ngSwitchCase="'menu'">meniu</span>
+                                <span *ngSwitchCase="'notificationTemplate'">notificare șablon</span>
+                                <span *ngSwitchCase="'paymentRequest'">cerere plată</span>
+                                <span *ngSwitchCase="'product'">produs</span>
+                                <span *ngSwitchCase="'purchasedSubscription'">achiziție abonament</span>
+                                <span *ngSwitchCase="'reservation'">rezervare</span>
+                                <span *ngSwitchCase="'resourceCategory'">categorie resursă</span>
+                                <span *ngSwitchCase="'resourceType'">tip de resursă</span>
+                                <span *ngSwitchCase="'roomItem'">cameră</span>
+                                <span *ngSwitchCase="'secondaryPage'">pagină secundară</span>
+                                <span *ngSwitchCase="'sharedExperience'">experiență la comun</span>
+                                <span *ngSwitchCase="'subscription'">abonament</span>
+                                <span *ngSwitchCase="'systemSettings'">setări sistem</span>
+                                <span *ngSwitchCase="'threadComment'">comentariu</span>
+                                <span *ngSwitchCase="'ticket'">bilet</span>
+                                <span *ngSwitchCase="'tripReservation'">rezervare călătorie</span>
+                                <span *ngSwitchCase="'trip'">călătorie</span>
+                                <span *ngSwitchCase="'user'">utilizator</span>
+                            </ng-container>
+                            <span *ngIf="!element.objectName.includes('For resourceId')" class="mx-1">cu identificatorul {{element.objectName}} ({{element.objectId}})</span>
+                            <span *ngIf="element.objectName.includes('For resourceId')" class="mx-1">pentru resursa cu id-ul {{element.objectName | slice:15}}.</span>
+
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="user">
+                        <th mat-header-cell *matHeaderCellDef> Utilizator</th>
+                        <td mat-cell  *matCellDef="let element" attr.data-column-name="{{'FIELD.AUTHOR'|translate}}">
+                            <span>{{element.userName}}</span>
+                            <span class="user-avatar" *ngIf="element.userAvatar?.filePath">
+                                <img [src]="element.userAvatar.filePath" alt="user avatar" class="img-fluid"/>
+                            </span>
+                            </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+
+                <!--Pagination-->
+                <mat-paginator
+                        [pageSizeOptions]="pageItems"
+                        [length]="totalElements"
+                        [pageSize]="pageSize"
+                        (page)="pageChanged($event)"
+                >
+                </mat-paginator>
+
+            </div>
+            <!-- Table container -->
+        </div>
+    </div>
+</div>

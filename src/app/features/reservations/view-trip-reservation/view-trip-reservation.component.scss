@@ -1,0 +1,114 @@
+
+@import "/src/app/theme/styles/components/colors";
+
+.content_container{
+    // background-color: var(--primary-background);
+    // border: 1px solid rgba(36, 57, 138, 0.16);
+    // box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    // border-radius: 8px;
+    // overflow: hidden;
+}
+
+.content_container{
+    .header-title-section{
+        position:relative;
+        background-color: var(--primary-background);
+        box-shadow: 0px 4px 8px rgba(35, 31, 32, 0.08);
+        padding: 27px 48px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom: 1px solid rgba(36, 57, 138, 0.12);
+   }
+
+   .middle-content-section{
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0) 50.51%, rgba(36, 57, 138, 0.08) 100%), #FFFFFF;
+        border-bottom: 1px solid rgba(36, 57, 138, 0.12);
+        padding: 24px 48px;
+    }
+
+   .content-section{
+        background-color: var(--primary-background);
+        border: 1px solid rgba(36, 57, 138, 0.16);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+        padding: 48px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        margin-bottom: 16px;
+
+        .booking-details-img{
+          height: 240px;
+          overflow: hidden;
+          img{
+               object-fit: cover;
+               -webkit-transform: translateY(-50%);
+               -moz-transform: translateY(-50%);
+               -ms-transform: translateY(-50%);
+               transform: translateY(-50%);
+          }
+
+     }
+   }
+
+   //titles
+   h3{
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 140%;
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        color: $paragraph;
+
+        span{
+          color: $primary-color;
+          padding-right: 5px;
+          padding-left: 5px;
+        }
+   }
+
+   h4{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 140%;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: $primary-color;
+    margin-bottom: 16px;
+
+    span {
+        color: $paragraph;
+        padding-right: 5px;
+
+      }
+   }
+
+   p{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+         display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        color: $paragraph;
+        margin-bottom:0px;
+   }
+
+   p span{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 140%;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: $primary-color;
+    padding: 0 5px;
+   }
+   i{
+     margin-right: 5px;
+   }
+
+}

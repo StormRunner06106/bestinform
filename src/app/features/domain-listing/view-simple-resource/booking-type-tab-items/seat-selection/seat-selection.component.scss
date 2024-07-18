@@ -1,0 +1,34 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.booking-section-title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  color: $paragraph;
+}
+
+.seat-price-footer {
+  margin-top: 16px;
+
+  p {
+    margin-bottom: 0;
+  }
+  p:first-child {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 140%;
+    text-align: right;
+    letter-spacing: -0.02em;
+    color: $primary-color;
+  }
+
+  p:nth-child(2) {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+    text-align: right;
+    letter-spacing: -0.02em;
+    color: $paragraph;
+  }
+}

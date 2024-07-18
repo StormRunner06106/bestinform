@@ -1,0 +1,52 @@
+@import "/src/app/theme/styles/components/colors";
+
+.inbox-container{
+    background-color: var(--primary-background);
+    padding:0px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.inbox-container{
+
+    //tabs styling
+    #inboxTab{
+          border: none;
+          height: 54px;
+          background-color: var(--secondary-background);
+          color:$paragraph;
+        border-bottom: 1px solid #E6E7E8;
+
+        .nav-item{
+            width: 25%;
+
+            button{
+                width:100%;
+                height:100%;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 140%;
+                display: flex;
+                align-items: center;
+                letter-spacing: -0.02em;
+                color: $paragraph;
+
+            }
+            button.active{
+                border:$background-primary 1px solid;
+                border-radius: 0px;
+                margin: 0px;
+            }
+        }
+    } // end tabs styling
+
+
+}
+
+
+#inboxTab .btn-long.btn-color-fill {
+    height: 30px !important;
+    min-width: 30px !important;
+    width: 30px !important;
+    padding: 5px 10px !important;
+}

@@ -1,0 +1,18 @@
+
+$main-font-family: 'Roboto', sans-serif;
+
+$secondary-font-family: 'Montserrat', sans-serif;
+
+* {
+  font-family: $main-font-family;
+}
+
+h1{
+  font-size:32px;
+  line-height:140%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight:700;
+  color: #4257EE;
+}

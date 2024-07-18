@@ -1,0 +1,402 @@
+<div class="container">
+    <div class="row">
+        <app-dashboard-header pageTitleOne="{{ 'TEMPLATES.LIST' | translate}}"
+                              routeTitleOne="../../templates/list"
+                              pageTitleTwo=" {{ 'PROP-CATEGORIES.TITLE' | translate }}"
+                              routeTitleTwo="../../templates/categories"
+                              pageTitleThree="{{'PROPERTIES.TITLE' | translate}}"
+                              routeTitleThree="../../templates/properties"
+                              [buttonBackRoute]="'../../dashboard'"
+                              (buttonCall)="onSaveClick()">
+        </app-dashboard-header>
+    </div>
+<div class="row properties-card card">
+    <div class="card-body ">
+        <div class="container add-form">
+                <form [formGroup]="propertiesForm">
+
+                    <div class="row add-property-row mb-5">
+                        <p class="p-title">
+                            {{propertiesForm.get('id').value ? ('PROPERTIES.EDIT-PROP' | translate) : ('PROPERTIES.ADD-PROP' | translate)}}</p>
+                    <div class="col-12 col-lg-6">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>{{'PROPERTIES.PROP-NAME' | translate}}</mat-label>
+                            <input matInput placeholder="{{'PROPERTIES.PROP-NAME' | translate}}" formControlName="name"  required>
+                                                        <i class="fas fa-times-circle" type="button" *ngIf="propertiesForm.get('name').value"
+                                                           (click)="clearFormControl('name')" matSuffix></i>
+                                                        <mat-error  *ngIf="propertiesForm.controls.name.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                                                        </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>Public info</mat-label>
+                            <input matInput placeholder="Public info" formControlName="alias"  required>
+                                                        <i class="fas fa-times-circle" type="button" *ngIf="propertiesForm.get('alias').value"
+                                                           (click)="clearFormControl('alias')" matSuffix></i>
+                                                        <mat-error  *ngIf="propertiesForm.controls.alias.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                                                        </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>{{'PROPERTIES.PROP-CATEGORY' | translate}}</mat-label>
+                            <mat-select formControlName="categoryId" id="categoryId" required>
+                                <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>{{'PROPERTIES.PROP-VALUE-TYPE' | translate}}</mat-label>
+                            <mat-select formControlName="valueType" id="valueType">
+                                <mat-option value="text">Text</mat-option>
+                                <mat-option value="number">{{'VALUE-TYPE.NUMBER' | translate}}</mat-option>
+                                <mat-option value="textarea">{{'VALUE-TYPE.TEXTAREA' | translate}}</mat-option>
+                                <mat-option value="select">{{'VALUE-TYPE.SELECT' | translate}}</mat-option>
+                                <mat-option value="multiple-select">{{'VALUE-TYPE.MULTIPLE-SELECT' | translate}}</mat-option>
+                                <mat-option value="toggle">Toggle</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                        <div class="col-12 " *ngIf="propertiesForm.value['valueType']==='select' || propertiesForm.value['valueType']==='multiple-select'">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>{{'PROPERTIES.SELECTION-OPTION' | translate}}</mat-label>
+                                <mat-chip-list mat-chip-grid #chip>
+                                    <mat-chip
+                                            *ngFor="let option of options; let i = index"
+                                            (removed)="removeOption(option)">
+                                        {{option}}
+                                        <button id="btnRemoveChip-{{i}}" matChipRemove>
+                                            <mat-icon>cancel</mat-icon>
+                                        </button>
+                                    </mat-chip>
+                                    <input
+                                            id="benefitsInput"
+                                            placeholder="{{'PROPERTIES.ADD-OPTION' | translate}}"
+                                            [formControl]="optionCtrl"
+                                            [matChipInputFor]="chip"
+                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                            (matChipInputTokenEnd)="addOption($event)"
+                                            [matChipInputAddOnBlur]="true"
+                                    >
+                                </mat-chip-list>
+
+                            </mat-form-field>
+                        </div>
+
+                    <div class="col-12">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>{{'PROPERTIES.DESCRIPTION' | translate}}</mat-label>
+                            <input matInput placeholder="{{'PROPERTIES.DESCRIPTION' | translate}}" formControlName="description">
+                            <i class="fas fa-times-circle" type="button" *ngIf="propertiesForm.get('description').value"
+                               (click)="clearFormControl('description')" matSuffix></i>
+                            <mat-error  *ngIf="propertiesForm.controls.description.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    </div>
+
+                    <div class="row technical-info-row">
+                        <p class="p-title">{{'PROPERTIES.TECHNICAL-INFO' | translate}}</p>
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>{{'PROPERTIES.EXAMPLE' | translate}}</mat-label>
+                                <input matInput placeholder="{{'PROPERTIES.EXAMPLE' | translate}}" formControlName="valuePlaceholder" >
+                                                            <i class="fas fa-times-circle" type="button" *ngIf="propertiesForm.get('valuePlaceholder').value"
+                                                               (click)="clearFormControl('valuePlaceholder')" matSuffix></i>
+                                                            <mat-error  *ngIf="propertiesForm.controls.valuePlaceholder.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                                                            </mat-error>
+                            </mat-form-field>
+                        </div>
+
+<!--                        <div class="col-12 col-lg-6">-->
+<!--                            <mat-form-field appearance="standard" class="w-100">-->
+<!--                                <mat-label>{{'PROPERTIES.OFFSET' | translate}}</mat-label>-->
+<!--                                <mat-select formControlName="offset" id="offset">-->
+<!--                                </mat-select>-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>{{'PROPERTIES.FIELD-SIZE' | translate}}</mat-label>
+                                <mat-select formControlName="size" id="size">
+                                    <mat-option [value]="null">-</mat-option>
+                                    <mat-option [value]="'full_row'">Full row</mat-option>
+                                    <mat-option [value]="'half_row'">Half row</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6" >
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>{{'PROPERTIES.VISIBLE-IN-FORM' | translate}}</mat-label>
+                                <mat-select formControlName="visibleInForm" id="visibleInForm">
+                                    <mat-option>-</mat-option>
+                                    <mat-option [value]="true">{{'BTN.YES' | translate}}</mat-option>
+                                    <mat-option [value]="false">{{'BTN.NO' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>{{'PROPERTIES.VISIBLE-IN-LIST' | translate}}</mat-label>
+                                <mat-select formControlName="visibleInList" id="visibleInList">
+                                    <mat-option [value]="true">{{'BTN.YES' | translate}}</mat-option>
+                                    <mat-option [value]="false">{{'BTN.NO' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>{{'PROPERTIES.PROP-REQUIRED' | translate}}</mat-label>
+                                <mat-select formControlName="propertyRequired" id="propertyRequired">
+                                    <mat-option [value]="true">{{'BTN.YES' | translate}}</mat-option>
+                                    <mat-option [value]="false">{{'BTN.NO' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>{{'PROPERTIES.UNIQUE-VALUE' | translate}}</mat-label>
+                                <mat-select formControlName="uniqueValue" id="uniqueValue" >
+                                    <mat-option [value]="true">{{'BTN.YES' | translate}}</mat-option>
+                                    <mat-option [value]="false">{{'BTN.NO' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Folosit in filtrare?</mat-label>
+                                <mat-select formControlName="usedInFiltering" id="usedInFiltering" >
+                                    <mat-option [value]="true">{{'BTN.YES' | translate}}</mat-option>
+                                    <mat-option [value]="false">{{'BTN.NO' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+<!--                        <div class="col-12 col-lg-6">-->
+<!--                            <mat-form-field appearance="standard" class="w-100">-->
+<!--                                <mat-label>Featured</mat-label>-->
+<!--                                <mat-select formControlName="featured" id="featured" >-->
+<!--                                    <mat-option [value]="true">{{'BTN.YES' | translate}}</mat-option>-->
+<!--                                    <mat-option [value]="false">{{'BTN.NO' | translate}}</mat-option>-->
+<!--                                </mat-select>-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Tipuri de resursa</mat-label>
+                                <mat-select formControlName="resourceTypeIds" multiple (selectionChange)="display($event)">
+                                    <mat-option *ngFor="let resourceType of resourceTypes" [value]="resourceType.id">{{resourceType.nameRo}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6 icon-col">
+                            <div class="d-flex flex-row justify-content-between ">
+                                <div class="upload-icon w-75 px-2 border rounded d-flex justify-content-between align-items-center">
+                                    <p class="mb-0">Upload icon</p>
+                                    <div>
+                                        <button *ngIf="imgPath!=='./assets/images/others/icon.png'" class="btnn-upload border rounded me-2" (click)="deleteIcon()"><i class="fas fa-trash"></i></button>
+
+                                        <button class="btnn-upload border rounded" type="button" (click)="openMedia(iconAttr)" id="uploadIconBtn"><i class="fas fa-upload"></i></button>
+                                    </div>
+
+                                    <ng-template #iconAttr let-modal>
+                                        <app-choose-media [category]="'image'"
+                                                          [multipleSelect]="false"
+                                                          [for]="'attr-icon'"
+                                                          [modalRef]="modal"></app-choose-media>
+                                    </ng-template>
+                                </div>
+                                <img [src]="imgPath" class="icon w-25">
+                            </div>
+
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                                <mat-checkbox  color="primary" class="w-100" formControlName="enrollment">Enrollment Utilizator</mat-checkbox>
+                        </div>
+                    </div>
+                </form>
+
+
+        </div>
+    </div>
+
+</div>
+
+    <div class="pt-4">
+
+    <h3 class="pb-2">{{'PROPERTIES.PROP-LIST' | translate}}</h3>
+    <div class="row filterRow">
+        <mat-form-field class="w-100" appearance="standard">
+            <mat-label>{{'GENERAL.SEARCH' | translate }}</mat-label>
+            <input matInput type="text" [formControl]="searchFilter" placeholder="{{'GENERAL.SEARCH' | translate }}"
+                   (keyup.enter)="searchProperties()">
+        </mat-form-field>
+    </div>
+
+    <div class="row tableContent">
+
+            <table mat-table matSort appMatTableResponsive [dataSource]="categList" class="w-100" *ngIf="loaded" >
+
+                <!-- id -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Order by category</th>
+                    <td data-column-name="#" mat-cell
+                        *matCellDef="let row; let i = index;">{{row.order}} </td>
+                 </ng-container>  
+                    <!--{{ (i + 1) + pageSize * (pageNumber-1)}}-->
+
+                <!-- ICON Column -->
+                <ng-container matColumnDef="icon">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Icon </th>
+                    <td data-column-name="Icon" mat-cell *matCellDef="let row">
+                    <img ngSrc="{{row.icon?.filePath}}" width="40" height="40" alt="icon" class="icon-table">
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="alias">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Public info</th>
+                    <td data-column-name="Public info" mat-cell *matCellDef="let row"> {{row.alias}} </td>
+                </ng-container>
+
+                <!-- Value Type Column -->
+                <ng-container matColumnDef="valueType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'PROPERTIES.PROP-VALUE-TYPE' | translate}} </th>
+                    <td attr.data-column-name="{{'PROPERTIES.PROP-VALUE-TYPE' | translate}}" mat-cell *matCellDef="let row"> {{row.valueType | valueTypeTransform}} </td>
+                </ng-container>
+
+                <!-- Visible in list Column -->
+                <ng-container matColumnDef="visibleInList">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'PROPERTIES.VISIBLE-IN-LIST' | translate}} </th>
+                    <td attr.data-column-name="{{'PROPERTIES.VISIBLE-IN-LIST' | translate}}" mat-cell *matCellDef="let row"> {{row.visibleInList ? ("BTN.YES" | translate) : ("BTN.NO" | translate) }} </td>
+
+                </ng-container>
+
+
+                <!-- Category Column -->
+                <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'PROPERTIES.PROP-CATEGORY' | translate}} </th>
+                    <td attr.data-column-name="{{'PROPERTIES.PROP-CATEGORY' | translate}}" mat-cell *matCellDef="let row"> {{row.categoryName}} </td>
+                </ng-container>
+
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="actions-class"> Acțiuni </th>
+                    <td mat-cell *matCellDef="let row; let i = index;">
+                        <div class="d-flex actions-container flex-wrap py-2">
+                            <button class="btn-round btn-no-outline"
+                                    id="btnListEditProperty-{{i}}"
+                                    matTooltip="Edit"
+                                    (click)="onEditClick(row.id)"
+                                    >
+                                <i class="fas fa-pen"></i>
+                            </button>
+
+                            <button class="btn-round btn-no-outline"
+                                    id="btnOpenModalDeleteProperty-{{i}}"
+                                    (click)="openModal(deleteProperty)"
+                                    matTooltip="{{'BTN.DELETE' | translate}}">
+                                <i class="fas fa-times"></i>
+                            </button>
+
+                            <div [matTooltipDisabled]="row.order !== 0" [matTooltip]="'Acest atribut este deja primul in categoria sa.'">
+                                <button class="btn-round btn-no-outline" (click)="decrementOrder(row.order,row.id)" [disabled]="row.order === 0" 
+                                [matTooltip]="'Mută mai sus'">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                            </div>
+
+                            <div [matTooltipDisabled]="row.order !== row.maxOrderCategory" [matTooltip]="'Acest atribut este deja ultimul in categoria sa.'">
+                            <button class="btn-round btn-no-outline" (click)="incrementOrder(row.categoryId, row.order, row.id)" [disabled]="row.order === row.maxOrderCategory" [matTooltip]="'Mută mai jos'">
+                                <i class="fas fa-arrow-down"></i>
+                                
+                            </button>
+                            </div>
+                        </div>
+
+                        <!--Modal Delete Property-->
+                        <ng-template #deleteProperty let-c="close" let-d="dismiss">
+                            <div class="modal-card card">
+                                <div class="card-header border-0">
+                                    <h3 class="m-0">
+                                        {{ 'PROPERTIES.DELETE-TITLE' | translate }}
+                                    </h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <p>{{ 'PROPERTIES.DELETE-WARNING' | translate}}</p>
+
+                                    <div class="card-property card">
+                                        <div class="card-body d-flex justify-content-center align-items-start flex-column">
+                                            <h3>#{{ (i + 1) + pageSize * (pageNumber - 1)}} {{row.alias}}</h3>
+<!--                                            <p class="m-0">provider</p>-->
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer border-0">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-outline w-100"
+                                                    id="btnModalPropertyDismissDelete-{{i}}"
+                                                    (click)="d()">
+                                                <i class="fas fa-times"></i>
+                                                {{ 'BTN.CANCEL' | translate}}
+                                            </button>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-fill w-100"
+                                                    id="btnModalPropertyConfirmDelete-{{i}}"
+                                                    (click)="deleteAttribute(row.id)">
+                                                <i class="fas fa-check"></i>
+                                                {{ 'BTN.CONFIRM' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{searchFilter.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="pageSizeArray"
+                           [pageSize]="pageSize"
+                           [length]="paginationInfo?.totalElements"
+                           (page)="pageChanged($event)"
+                           aria-label="Select page of properties"></mat-paginator>
+
+
+
+        </div>
+
+
+
+
+    </div>
+</div>
+

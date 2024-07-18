@@ -1,0 +1,340 @@
+<div class="container">
+    <app-dashboard-header
+            [pageTitleOne]="isEditMode ? 'Editare tara' : 'Adaugare tara'"
+            [buttonBackRoute]="isEditMode ? '../../' : '../'"
+    >
+    </app-dashboard-header>
+
+    <div class="custom-card mb-4">
+        <form [formGroup]="countryForm" (ngSubmit)="submitCountry()">
+            <div class="row">
+
+                <h2>
+                    Țară
+                </h2>
+
+                <!--country name-->
+                <div class="col-12 col-lg-6">
+                    <p>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Nume țară</mat-label>
+                            <input formControlName="name" matInput placeholder="Nume țară">
+                            <mat-icon *ngIf="countryForm.get('name').value"
+                                      (click)="countryForm.get('name').setValue('')"
+                                      role="button" matSuffix>clear</mat-icon>
+                            <mat-error *ngIf="countryForm.get('name').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+
+                <!--country description-->
+                <div class="col-12">
+                    <p>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Descriere țară</mat-label>
+                            <textarea formControlName="description"
+                                      placeholder="Descriere țară"
+                                      matInput
+                                      cdkTextareaAutosize
+                                      cdkAutosizeMinRows="1"
+                                      cdkAutosizeMaxRows="20"
+                            ></textarea>
+                            <mat-icon *ngIf="countryForm.get('description').value"
+                                      (click)="countryForm.get('description').setValue('')"
+                                      role="button" matSuffix>clear</mat-icon>
+                            <mat-error *ngIf="countryForm.get('description').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+
+                <!--country featured image-->
+                <div class="col-12 upload-image-col">
+
+                    <p class="text-danger" *ngIf="countryForm.get('image').hasError('noImage') && countryForm.get('image').touched">
+                        Imaginea este obligatorie
+                    </p>
+                    <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                    <button *ngIf="!countryForm.get('image').value?.filePath"
+                            class="thumbnail-button
+                                   d-flex flex-column align-items-center justify-content-center"
+                            type="button"
+                            (click)="openMedia(countryImageModal)"
+                            id="btnChangeItineraryFeaturedImg">
+                        <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}} <span>1400 x 1400px</span>
+                    </button>
+
+                    <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                    <div *ngIf="countryForm.get('image').value?.filePath" class="img-thumbnail">
+                        <img class="img-fluid w-100"
+                             [src]="countryForm.get('image').value?.filePath" alt="thumbnail">
+                        <button
+                                (click)="countryForm.get('image').setValue(null); countryForm.get('image').markAsTouched()"
+                                type="button"
+                                id="btnRemoveItineraryFeaturedImg"
+                                class="btn-thumbnail position-absolute">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn-auto btn-color-fill float-end mb-4">
+                        Salveaza
+                    </button>
+                </div>
+
+                <ng-template #countryImageModal let-modal>
+                    <app-choose-media [category]="'image'"
+                                      [multipleSelect]="false"
+                                      [for]="'country-img'"
+                                      [modalRef]="modal"></app-choose-media>
+                </ng-template>
+
+            </div>
+        </form>
+
+        <ng-container *ngIf="countryData">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h2>
+                    Locatii
+                </h2>
+
+                <button type="button"
+                        (click)="openMedia(addNewLocation)"
+                        class="btn-auto btn-color-fill">
+                    Adauga locatie
+                </button>
+            </div>
+
+            <ng-template #addNewLocation>
+                <div class="custom-card app blue">
+                    <form [formGroup]="newLocationForm" (ngSubmit)="submitNewLocation()">
+                        <div class="row">
+                            <h2>
+                                Locatie Noua
+                            </h2>
+
+                            <!--new location name-->
+                            <div class="col-12 col-lg-6">
+                                <p>
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Nume locatie</mat-label>
+                                        <input formControlName="name" matInput placeholder="Nume locatie">
+                                        <mat-icon *ngIf="newLocationForm.get('name').value"
+                                                  (click)="newLocationForm.get('name').setValue('')"
+                                                  role="button" matSuffix>clear</mat-icon>
+                                        <mat-error *ngIf="newLocationForm.get('name').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                    </mat-form-field>
+                                </p>
+                            </div>
+
+                            <!--new location description-->
+                            <div class="col-12">
+                                <p>
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Descriere locatie</mat-label>
+                                        <textarea formControlName="description"
+                                                  placeholder="Descriere locatie"
+                                                  matInput
+                                                  cdkTextareaAutosize
+                                                  cdkAutosizeMinRows="1"
+                                                  cdkAutosizeMaxRows="20"
+                                        ></textarea>
+                                        <mat-icon *ngIf="newLocationForm.get('description').value"
+                                                  (click)="newLocationForm.get('description').setValue('')"
+                                                  role="button" matSuffix>clear</mat-icon>
+                                        <mat-error *ngIf="newLocationForm.get('description').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                    </mat-form-field>
+                                </p>
+                            </div>
+
+                            <!--new location featured image-->
+                            <div class="col-12 upload-image-col">
+
+                                <p class="text-danger" *ngIf="newLocationForm.get('image').hasError('noImage') && newLocationForm.get('image').touched">
+                                    Imaginea este obligatorie
+                                </p>
+                                <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                                <button *ngIf="!newLocationForm.get('image').value?.filePath"
+                                        class="thumbnail-button
+                                   d-flex flex-column align-items-center justify-content-center"
+                                        type="button"
+                                        (click)="openMedia(newLocationImageModal);"
+                                        id="btnChangeNewLocationFeaturedImg">
+                                    <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}} <span>1400 x 1400px</span>
+                                </button>
+
+                                <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                                <div *ngIf="newLocationForm.get('image').value?.filePath" class="img-thumbnail">
+                                    <img class="img-fluid w-100"
+                                         [src]="newLocationForm.get('image').value?.filePath" alt="thumbnail">
+                                    <button
+                                            (click)="newLocationForm.get('image').setValue(null); newLocationForm.get('image').markAsTouched()"
+                                            type="button"
+                                            id="btnRemoveNewLocationFeaturedImg"
+                                            class="btn-thumbnail position-absolute">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn-auto btn-color-fill float-end">
+                                    Salveaza
+                                </button>
+                            </div>
+
+                            <ng-template #newLocationImageModal let-modal>
+                                <app-choose-media [category]="'image'"
+                                                  [multipleSelect]="false"
+                                                  [for]="'new-location'"
+                                                  [modalRef]="modal"></app-choose-media>
+                            </ng-template>
+                        </div>
+                    </form>
+                </div>
+            </ng-template>
+
+            <form [formGroup]="locationsForm" *ngIf="locationsData?.length > 0; else noLocationsMessage">
+                <ngb-accordion formArrayName="locations" [closeOthers]="true" [destroyOnHide]="false">
+                    <ng-container *ngFor="let location of locations.controls; let index = index">
+
+                        <ngb-panel>
+                            <ng-template ngbPanelHeader let-opened="opened">
+                                <div class="location-panel-header d-flex align-items-center justify-content-between">
+                                    <p>
+                                        {{ location.value.name }}
+                                    </p>
+
+                                    <div class="d-flex gap-2 align-items-center">
+                                        <button type="button" ngbPanelToggle class="btn-round btn-no-outline">
+                                            <i [ngClass]="opened ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"></i>
+                                        </button>
+
+                                        <button type="button"
+                                                (click)="modalService.open(confirmDeleteLocation, {centered: true})"
+                                                class="btn-round btn-no-outline">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+
+                                        <ng-template #confirmDeleteLocation let-dismiss = dismiss>
+                                            <div class="custom-card">
+                                                <h2>
+                                                    Are you sure you want to delete this location?
+                                                </h2>
+
+                                                <div class="d-flex align-items-center justify-content-center gap-4 mt-5">
+                                                    <button type="button"
+                                                            (click)="dismiss()"
+                                                            class="btn-auto btn-color-outline">
+                                                        No
+                                                    </button>
+
+                                                    <button type="button"
+                                                            (click)="deleteLocation(index)"
+                                                            class="btn-auto btn-color-fill">
+                                                        Yes
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                            <ng-template ngbPanelContent>
+                                <div [formGroupName]="index" class="row">
+                                    <!--location name-->
+                                    <div class="col-12 col-lg-6">
+                                        <p>
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Nume locatie</mat-label>
+                                                <input formControlName="name" matInput placeholder="Nume locatie">
+                                                <mat-icon *ngIf="location.get('name').value"
+                                                          (click)="location.get('name').setValue('')"
+                                                          role="button" matSuffix>clear</mat-icon>
+                                                <mat-error *ngIf="location.get('name').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                            </mat-form-field>
+                                        </p>
+                                    </div>
+
+                                    <!--location description-->
+                                    <div class="col-12">
+                                        <p>
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Descriere locatie</mat-label>
+                                                <textarea formControlName="description"
+                                                          placeholder="Descriere locatie"
+                                                          matInput
+                                                          cdkTextareaAutosize
+                                                          cdkAutosizeMinRows="1"
+                                                          cdkAutosizeMaxRows="20"
+                                                ></textarea>
+                                                <mat-icon *ngIf="location.get('description').value"
+                                                          (click)="location.get('description').setValue('')"
+                                                          role="button" matSuffix>clear</mat-icon>
+                                                <mat-error *ngIf="location.get('description').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                            </mat-form-field>
+                                        </p>
+                                    </div>
+
+                                    <!--location featured image-->
+                                    <div class="col-12 upload-image-col">
+
+                                        <p class="text-danger" *ngIf="location.get('image').hasError('noImage') && location.get('image').touched">
+                                            Imaginea este obligatorie
+                                        </p>
+                                        <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                                        <button *ngIf="!location.get('image').value?.filePath"
+                                                class="thumbnail-button
+                                                       d-flex flex-column align-items-center justify-content-center"
+                                                type="button"
+                                                (click)="openMedia(locationImageModal)"
+                                                id="btnChangeLocationFeaturedImg">
+                                            <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}} <span>1400 x 1400px</span>
+                                        </button>
+
+                                        <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                                        <div *ngIf="location.get('image').value?.filePath" class="img-thumbnail">
+                                            <img class="img-fluid w-100"
+                                                 [src]="location.get('image').value?.filePath" alt="thumbnail">
+                                            <button
+                                                    (click)="location.get('image').setValue(null); location.get('image').markAsTouched()"
+                                                    type="button"
+                                                    id="btnRemoveLocationFeaturedImg"
+                                                    class="btn-thumbnail position-absolute">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit"
+                                                (click)="updateLocation(index)"
+                                                class="btn-auto btn-color-fill float-end mt-4">
+                                            Salveaza
+                                        </button>
+                                    </div>
+
+                                    <ng-template #locationImageModal let-modal>
+                                        <app-choose-media [category]="'image'"
+                                                          [multipleSelect]="false"
+                                                          for="location-{{index}}"
+                                                          [modalRef]="modal"></app-choose-media>
+                                    </ng-template>
+                                </div>
+                            </ng-template>
+                        </ngb-panel>
+
+                    </ng-container>
+                </ngb-accordion>
+            </form>
+
+            <ng-template #noLocationsMessage>
+                <h3 class="text-center">
+                    No locations added
+                </h3>
+            </ng-template>
+        </ng-container>
+    </div>
+</div>

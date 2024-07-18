@@ -1,0 +1,284 @@
+@import "/src/app/theme/styles/components/colors";
+
+.my-bookings-container{
+  background-color: var(--primary-background);
+  border: 1px solid rgba(36, 57, 138, 0.16);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+.booking-delighted-container{
+  // background-color: var(--primary-background);
+  border: 1px solid rgba(36, 57, 138, 0.16);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  background: radial-gradient(100% 787.93% at 0% 100%,
+          rgba(0, 178, 255, 0.72) 0%, rgba(0, 178, 255, 0) 100%) ,
+  #24398A;
+  background-blend-mode: normal, luminosity, normal;
+  .booking-delighted-text{
+    max-width: 540px;
+  }
+
+  h2{
+    color:white;
+    font-weight: 700;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+  }
+
+  p{
+    color:white;
+    margin-bottom: 0px;
+    font-weight: 400;
+    font-size: 16px;
+
+    letter-spacing: -0.02em;
+    span {
+      color: rgba(255, 204, 4, 1);
+      margin:0px 5px 0px 5px;
+    }
+  }
+
+
+}
+
+.client-general-box .page-header{
+  h2{
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 140%;
+    /* identical to box height, or 45px */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+
+    /* Primary */
+
+    color: $primary-color;
+  }
+}
+
+//my-experiences-card-style / shared experiences-card-style------------------------------------------------
+.experiences-card-class{
+  border: 1px $background-secondary solid;
+  border-radius: 8px;
+  overflow: hidden;
+
+  //diminuate paragraph bottom margin
+  p{
+    margin-bottom: 2px!important;
+  }
+
+
+  //white part of the card
+  //title, date, location
+  // .col-lg-9.p-2.align-items-center{
+  h4,a{
+    font-weight: 600;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    color: #24398A;
+    flex-grow: 1;
+    text-decoration: none;
+  }
+  p{
+    font-weight: 400;
+    font-size: 12px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    /* Title */
+
+    color: $paragraph;
+  }
+  // }
+
+
+
+
+
+  .rate-button{
+    // background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), white;
+
+    .btn-rate-booking {
+      border: none;
+      height: 100%;
+
+      i.active-thumbs-up{
+        font-style: normal;
+        font-weight: 900;
+        font-size: 24px;
+        line-height: 140%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #34A853;
+      }
+
+      i.active-thumbs-down{
+        font-style: normal;
+        font-weight: 900;
+        font-size: 24px;
+        line-height: 140%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #EA4335;
+      }
+
+      &:hover {
+        background: rgba($background-secondary, 80%);
+      }
+
+      &:focus, &:active {
+        background: rgba($background-secondary, 48%);
+      }
+    }
+
+    .btn-rate-booking:disabled{
+      cursor: not-allowed;
+
+      i.active-thumbs-up{
+        opacity: 50%;
+      }
+
+      i.active-thumbs-down{
+        opacity: 50%
+      }
+
+      &:hover {
+        box-shadow: none;
+      }
+    }
+  }
+
+  //blue part
+  .blue.align-items-center.col-lg-2{
+    background-color: $primary-color;
+    border-right: 1px white dotted;
+
+    //price and completed/canceled
+    .col-lg-9{
+      h4{
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 140%;
+        /* or 22px */
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #FFFFFF;
+      }
+      p{
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 140%;
+        /* identical to box height, or 17px */
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #2CCEA7;
+      }
+    }
+  }
+
+  // ... dots
+  .align-items-center.py-3.col-lg-1{
+    background-color: $primary-color;
+
+    .col-lg-3{
+      color: white;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 140%;
+      /* identical to box height, or 20px */
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+  }
+}
+
+.rate-button{
+  // background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), white;
+}
+
+//after the customer gives a review, hide the other one
+.hide-button{
+  display:none
+}
+
+@media only screen and (min-width:320px) and (max-width: 480px){
+  .mobile-header{
+    display: block;
+    background-color: var(--primary-background);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+  }
+  .web-header{
+    display: none;
+  }
+
+  .my-bookings-container .px-10{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .container.my-bookings-container{
+    background: white;
+    margin-top:20px!important;
+  }
+
+  //no margin/padding for container-fluid
+  .client-general-box{
+    padding:0px;
+  }
+
+  .my-bookings-container{
+    background-color: transparent;
+    border: none;
+    box-shadow:none;
+    border-radius: 0px;
+  }
+
+}
+
+@media only screen and (min-width:481px) and (max-width: 768px){
+
+
+  .my-bookings-container .px-10{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+
+}
+
+@media only screen and (min-width:769px) and (max-width: 1023px){
+
+
+  .my-bookings-container .px-10{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+
+}
+
+@media only screen and (min-width:1024px) and (max-width: 1200px){
+
+}
+
+@media only screen and (min-width:1200px){
+
+
+}

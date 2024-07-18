@@ -1,0 +1,29 @@
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+.notif_item_sup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .mat-badge-content {
+    width: 6px;
+    height: 6px;
+    right: 0 !important;
+    top: 0 !important;
+  }
+}
+.notif_item_title {
+  color: #22222f;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+}
+.notif_item_date {
+  font-size: 12px;
+  line-height: 18px;
+  color: #424462;
+  font-weight: 400;
+}

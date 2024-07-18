@@ -1,0 +1,33 @@
+@import '/src/app/theme/styles/components/colors';
+
+.card-body {
+    & > p {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: $paragraph;
+    }
+  }
+  .card-header{
+    padding-top: 44.5px;
+    padding-bottom: 42.5px;
+    border-color:transparent;
+    // background-color: rgba(237, 239, 245, 1);
+  }
+  
+  .card.custom-table.gutter-b{
+    border:none;
+  }
+  
+  .card-event{
+    h3{
+      max-width:400px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      /* autoprefixer: ignore next */
+      -webkit-box-orient: vertical;
+    }
+  }

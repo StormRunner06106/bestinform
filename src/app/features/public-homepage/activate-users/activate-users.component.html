@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="content-404 text-center">
+        <div class="img-wrapper">
+            <img src="assets/waiting.png" alt="" class="img-fluid"/>
+        </div>
+        <h1>Verificare</h1>
+        <p *ngIf="!inactiveCode">Datele se încarcă...</p>
+        <p *ngIf="inactiveCode">Apasă pe butonul de mai jos pentru a solicita un nou link de activare.</p>
+        <button class="btn-long btn-color-fill" type="button" *ngIf="inactiveCode" (click)="resendLink()">Retrimite Link</button>
+    </div>
+</div>

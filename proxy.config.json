@@ -1,0 +1,12 @@
+{
+  "/bestinform/*": {
+    "target": "https://bestinform.eu",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "router": {
+      "localhost:4200" : "https://localhost:4562",
+      "bestinform.eu" : "https://bestinform.eu"
+    }
+  }
+}

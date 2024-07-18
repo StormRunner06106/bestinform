@@ -1,0 +1,117 @@
+<div class="save-btn d-flex justify-content-end align-items-center mb-3" *ngIf="resourceId">
+    <button  *ngIf="resourceId"
+             (click)="saveResource()"
+             [disabled]="isSubmitLoading"
+             class="btn-long btn-color-fill" type="button">
+        <ng-container *ngIf="isSubmitLoading===false">
+            <i class="fas fa-save"></i>
+            Salvează
+        </ng-container>
+        <ng-container *ngIf="isSubmitLoading === true">
+                      <span [style.display]="'block'" class="indicator-progress">
+                        Salvare...{{ " " }}
+                          <span
+                                  class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                      </span>
+        </ng-container>
+    </button>
+</div>
+
+<div id="ticket-booking">
+    <div class="tab-section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Setup</h2>
+    </div>
+
+
+    <!--Content-->
+    <div class="section-content">
+        <div class="row content-tickets">
+            <!--Title Section-->
+            <div class="col-12 mb-3">
+                <h2 class="section-title">Tipuri de bilete</h2>
+            </div>
+
+            <div class="col-12">
+
+                <!--List Title-->
+                <div class="list-title">
+                    <h5 class="title">Listare bilete</h5>
+                </div>
+
+                <!--List Content-->
+                <div class="list-content">
+
+                    <div class="ticket-list" *ngFor="let ticket of ticketList; let i= index;">
+                        <div class="ticket d-flex justify-content-center">
+<!--                            <app-ticket-card class="w-100" [name]="ticket.name" [description]="ticket.description" [regularPrice]="ticket.regularPrice" [weekendPrice]="ticket.weekendPrice"></app-ticket-card>-->
+                           <app-ticket-card class="w-100" [ticketData]="ticket" [list]="true"></app-ticket-card>
+                            <div class="actions d-flex flex-column align-items-start">
+                                <button class="btn-delete" type="button" (click)="openDeleteModal(ticket, i)"><i class="fas fa-times"></i></button>
+                                <button class="btn-edit" type="button" (click)="openEditModal(ticket)"><i class="fas fa-pen"></i></button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="ticket-list" *ngFor="let ticket of updateList; let i= index;">
+                        <div class="ticket d-flex justify-content-center">
+                            <!--                            <app-ticket-card class="w-100" [name]="ticket.name" [description]="ticket.description" [regularPrice]="ticket.regularPrice" [weekendPrice]="ticket.weekendPrice"></app-ticket-card>-->
+                            <app-ticket-card class="w-100" [ticketData]="ticket" [list]="true"></app-ticket-card>
+                            <div class="actions d-flex flex-column align-items-start">
+                                <button class="btn-delete" type="button" (click)="openDeleteModal(ticket, i)"><i class="fas fa-times"></i></button>
+                                <button class="btn-edit" type="button" (click)="openEditModal(ticket)"><i class="fas fa-pen"></i></button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="ticket-list" *ngFor="let ticket of createList; let i= index;">
+                        <div class="ticket d-flex justify-content-center">
+                            <app-ticket-card class="w-100" [ticketData]="ticket" [list]="true"></app-ticket-card>
+                            <div class="actions d-flex flex-column align-items-start">
+                                <button class="btn-delete" type="button" (click)="openDeleteModal(ticket, i)"><i class="fas fa-times"></i></button>
+                                <button class="btn-edit" type="button" (click)="openEditModal(ticket)"><i class="fas fa-pen"></i></button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <!--Add Button-->
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="add-btn" (click)="openAddModal()">
+                                Adăugare
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Stepper Controller-->
+        <div class="stepper-step-controller">
+            <!--Prev Step-->
+            <div class="next-step">
+                <button class="btn-long btn-color-fill" type="button" (click)="prevStep()">
+                    <i class="fas fa-arrow-left"></i>
+                    Înapoi
+                </button>
+            </div>
+            <!--Next Step-->
+            <div class="next-step">
+                <button class="btn-long btn-color-fill" type="button" (click)="nextStep()">
+                    Urmatorul
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

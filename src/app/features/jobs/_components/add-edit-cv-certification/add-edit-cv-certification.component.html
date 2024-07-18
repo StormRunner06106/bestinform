@@ -1,0 +1,86 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>{{isEditMode ? ('JOBS.EDIT-CERTIFICATION' | translate) : ('JOBS.NEW-CERTIFICATION' | translate)}}</h2>
+        <button type="button" class="btn-round btn-color-fill" (click)="close()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+        <form [formGroup]="certificationForm">
+            <div class="row mb-3">
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.CERTIFICATION-NAME' | translate}}</mat-label>
+                        <input matInput placeholder="{{'JOBS.CERTIFICATION-NAME' | translate}}" formControlName="name">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.COMPANY-NAME' | translate}}</mat-label>
+                        <input matInput placeholder="{{'JOBS.COMPANY-NAME' | translate}}" formControlName="company">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.CERTIFICATION-ID' | translate}}</mat-label>
+                        <input matInput placeholder="{{'JOBS.CERTIFICATION-ID' | translate}}" formControlName="certificationId">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.CERTIFICATION-LINK' | translate}}</mat-label>
+                        <input matInput placeholder="{{'JOBS.CERTIFICATION-LINK' | translate}}" formControlName="certificationLink">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.DATE-OF-CERTIFICATION' | translate}}</mat-label>
+                        <input matInput [matDatepicker]="pickerStart" formControlName="dateOfCertification">
+                        <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerStart></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'JOBS.EXPIRATION-DATE' | translate}}</mat-label>
+                        <input matInput [matDatepicker]="pickerEnd" formControlName="expirationDate">
+                        <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerEnd></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+
+        </form>
+
+
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill" (click)="confirm()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>

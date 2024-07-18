@@ -1,0 +1,46 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.activity-card {
+  // display: flex;
+  background: var(--primary-background);
+  border: 1px solid rgba($primary-color, 0.24);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba($title, 0.08);
+  overflow: hidden;
+  cursor: pointer;
+  // flex-direction: row;
+  width: 100%;
+  height: 140px;
+  margin-bottom:12px ;
+
+  .img-container {
+    width: 200px;
+    height: 140px;
+
+    img {
+      width: inherit;
+      height: inherit;
+      transition: all 0.3s ease-out;
+    }
+  }
+
+  &:hover {
+    .img-container img {
+      transform: scale(1.05);
+    }
+  }
+
+  .resource-info{
+    padding: 12px;
+
+    h3{
+      // max nr of lines
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+  }
+}

@@ -1,0 +1,77 @@
+.holiday-info {
+  position: absolute;
+  padding: 10px 15px;
+  bottom: 0px;
+  width: 100%;
+  align-items: end;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 1%,
+    rgba(0, 0, 0, 0.3) 25%,
+    #111118 85%
+  );
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-left {
+  left: 0px;
+}
+
+.info-right {
+  right: 0px;
+}
+
+.ho-location {
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.ho-date {
+  margin-top: 10px;
+  color: white;
+  font-size: 16px;
+}
+
+.ho-state {
+  color: white;
+  font-size: 16px;
+}
+
+.ho-price {
+  margin-top: 0px;
+}
+
+.ho-price-min {
+  color: white;
+  font-size: 12px;
+}
+
+.ho-price-val {
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.ho-img {
+  width: 100%;
+  height: 100%;
+}
+
+.holiday-overlay {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.ho-card {
+  border-radius: 10px;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+}

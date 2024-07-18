@@ -1,0 +1,64 @@
+
+
+<div class="container-fluid">
+    <div class="container modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <h4 class="modal-title">{{"TITLES.TRIP-ARCHIVING" | translate}}</h4>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <span class="modal-body-text">{{"MESSAGE.ARCHIVE-WARNING" | translate}}</span>
+      </div>
+  
+      <!--Info card blue-->
+      <div class="blue-card">
+          <div class="modal-blue-container d-flex">
+            
+              <div class="p-2">
+                <h4>{{tripData?.name}}, pachet</h4>
+                <div class="d-flex justify-content-start gap-2 align-items-center">
+                    <p>{{locationName}}</p>
+                    <p>{{countryName}}</p>
+
+                </div>
+
+                
+              </div>
+             
+          </div>
+      </div>
+      <!--Footer-->
+      <div class="p-3">
+        <div class="row gap-2 gap-xl-0">
+            <div class="col-12 col-xl-6">
+                <button type="button" class="btn-long btn-color-outline w-100"
+                (click)="close()">
+                    <i class="fas fa-times"></i>
+                    {{ 'BTN.CANCEL' | translate}}
+                    <!-- <ng-container *ngIf="isDeleteLoading === true">
+                      <span
+                        class="spinner-border spinner-border-sm align-middle ms-2"
+                      ></span>
+                    </ng-container>   -->
+                </button>
+            </div>
+
+            <div class="col-12 col-xl-6">
+                <button type="button" class="btn-long btn-color-fill w-100"  id="confirmDelete"
+                        (click)="archiveTrip()">
+                    <i class="fas fa-check"></i>
+                    {{ 'BTN.CONFIRM' | translate}}
+                    <!-- <ng-container *ngIf="isDeleteLoading === true">
+                      <span
+                        class="spinner-border spinner-border-sm align-middle ms-2"
+                      ></span>
+                    </ng-container>   -->
+                </button>
+            </div>
+
+        </div>
+      </div>
+    </div>
+    </div>
+  

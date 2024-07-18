@@ -1,0 +1,83 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.custom-card {
+  background: var(--primary-background);
+  border-radius: 8px;
+  overflow-y: scroll;
+  padding: 24px;
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+  form > div.row {
+    row-gap: 24px;
+  }
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.guests-container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+
+  .guests-selector {
+    display: flex;
+    flex-shrink: 0;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+
+    border: 1px solid $inactive-color;
+    border-radius: 8px;
+
+    button {
+      border: 1px solid $inactive-color;
+      background-color: var(--primary-background);
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        color: $primary-color;
+        font-size: 24px;
+      }
+
+      &:hover {
+        background-color: $primary-color;
+        transition: 0.3s ease-in-out;
+        i {
+          color: var(--primary-background);
+        }
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+
+    p {
+      margin-bottom: 0;
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+}
+
+::ng-deep .ngx-mat-timepicker form {
+  display: flex !important;
+  justify-content: center !important;
+}

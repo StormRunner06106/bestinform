@@ -1,0 +1,152 @@
+@import "../../theme/styles/components/colors";
+
+.conversation-general-class{
+    background-color: var(--primary-background);
+    padding-top:32px;
+    padding-bottom:32px;
+}
+
+
+
+.conversation-general-class{
+
+    .conversationBox{
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+      height:560px;
+      margin-bottom:20px;
+
+
+    }
+
+    .align-message-right{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: end;
+    }
+
+    .align-message-left{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: start;
+    }
+
+    //messages bubble style
+    .message-class {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 126%;
+        width: fit-content;
+        margin:0px;
+        /* or 18px */
+
+        // display: flex;
+        // flex-direction: column;
+        letter-spacing: -0.02em;
+
+        &.reciver-bubble-message {
+            display: flex;
+            align-items: flex-start;
+            background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), rgba(255, 255, 255, 0.72);
+            box-shadow: 0px 4px 4px rgba(36, 57, 138, 0.08);
+            border-radius: 0px 8px 8px 8px;
+            padding:8px;
+            color: $paragraph;
+        }
+
+        &.current-user-bubble-message {
+            display: flex;
+            align-items: flex-end;
+            background: #24398A;
+            box-shadow: 0px 4px 4px rgba(36, 57, 138, 0.08);
+            border-radius: 8px 0px 8px 8px;
+            padding:8px;
+            color:white;
+        }
+
+
+    }
+    //date-hour message paragraf
+    .sending-date-time{
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      display: flex;
+      color: #24398A;
+      opacity: 0.5;
+    }
+
+
+    //divider between days
+    .hr-text {
+        line-height: 1em;
+        position: relative;
+        outline: 0;
+        border: 0;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 140%;
+        /* identical to box height, or 17px */
+
+        text-align: center;
+        letter-spacing: -0.02em;
+
+        /* Primary */
+
+        color: #24398A;
+
+        opacity: 0.48;
+
+        &:before {
+          content: '';
+          // use the linear-gradient for the fading effect
+          // use a solid background color for a solid bar
+          background: linear-gradient(to right, transparent, #818078, transparent);
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: 100%;
+          height: 1px;
+        }
+        &:after {
+          content: attr(data-content);
+          position: relative;
+          display: inline-block;
+          color: #4257EE;
+
+          padding: 0 .5em;
+          line-height: 1.5em;
+          // this is really the only tricky part, you need to specify the background color of the container element...
+          color: #818078;
+          background-color: #fcfcfa;
+        }
+      }
+
+      .input-message-class{
+        input{
+          // height: 74px;
+          height: 50px;
+          align-items: center;
+          padding: 8px 12px 8px 24px;
+          background: rgba(36, 57, 138, 0.08);
+          border-radius: 100px;
+          border:transparent;
+
+          &:focus, &:focus-visible{
+            border: 1px solid rgba($primary-color,0.5);
+          }
+        }
+
+        //button inside input
+        // button.btn-long{
+        //   margin-left: -215px;
+        // }
+      }
+}
+
+
+

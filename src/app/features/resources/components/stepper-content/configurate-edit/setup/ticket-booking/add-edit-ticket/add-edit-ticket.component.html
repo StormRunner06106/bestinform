@@ -1,0 +1,194 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>Adăugare bilet</h2>
+        <button type="button" (click)="close()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+        <form [formGroup]="ticketForm">
+            <div class="row mb-5">
+
+                <div class="col-12">
+                    <h3 class="section-name">Tip bilet</h3>
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>Denumire</mat-label>
+                        <input matInput placeholder="Denumire" formControlName="name">
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>Descriere</mat-label>
+                        <input matInput placeholder="Descriere" formControlName="description">
+                    </mat-form-field>
+
+                    <h3 class="section-name">Informatii bilet</h3>
+
+                    <div class="tickets-limit row">
+                        <div class="col-12 col-md-6">
+                            <div class="limit-check d-flex align-items-center">
+                                <mat-checkbox formControlName="limit" color="primary" (change)="limitChecking($event)">Nr. tickete disponibile</mat-checkbox>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6" *ngIf="displayLimit">
+                            <mat-form-field class="w-100" appearance="legacy">
+                                <mat-label>Nr. tickete disponibile</mat-label>
+                                <input matInput type="text" placeholder="Nr. tickete disponibile" formControlName="ticketsLimit" >
+                            </mat-form-field>
+                        </div>
+
+                        <mat-checkbox [ngClass]="displaySeats ? 'mb-0' : 'mb-4'" formControlName="hasSeat" color="primary" (change)="seatChecking($event)">Exista locuri pe scaun</mat-checkbox>
+
+
+                    </div>
+
+                    <!--Seats-->
+                    <div class="row my-4" formArrayName="ticketsForBooking" *ngIf="displaySeats">
+                        <div class="d-flex flex-row align-items-center mb-4">
+
+                            <!--Section SubTitle-->
+                            <h5 class="section-subtitle mb-0 me-4">Locuri pe scaun</h5>
+
+                            <!--Action Buttons & Room Added-->
+                            <div class="add-remove-tickets d-flex align-items-center justify-content-between">
+                                <!--Remove Room-->
+                                <button class="add-remove-btn" type="button" (click)="removeTicket()">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <!--Number of Rooms Added-->
+                                <span>{{ticketForm.get('ticketsForBooking').value.length}}</span>
+                                <!--Add Room-->
+                                <button class="add-remove-btn" type="button" (click)="addTicket()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-4"
+                             *ngFor="let ticket of ticketForm.get('ticketsForBooking').controls; let i = index"
+                             [formGroupName]="i">
+
+                            <div class="col-12 col-md-6">
+                                <mat-form-field class="w-100" appearance="legacy">
+                                    <mat-label>Numar loc</mat-label>
+                                    <input matInput placeholder="Numar loc" formControlName="seatNumber">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <mat-form-field class="w-100" appearance="legacy">
+                                    <mat-label>Numar tichet</mat-label>
+                                    <input matInput placeholder="Numar tichet" formControlName="ticketNumber">
+                                </mat-form-field>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6 col-12">
+                            <!--Category Name-->
+                            <h3 class="section-name">Politici de rezervare</h3>
+                            <mat-error *ngIf="ticketForm.get('bookingPolicies').hasError('requireCheckboxesToBeChecked') && ticketForm.get('bookingPolicies').touched">
+                                You have to check one
+                            </mat-error>
+
+                            <!--Checkboxes-->
+                            <div class="d-flex flex-column" formGroupName="bookingPolicies">
+                                <mat-checkbox formControlName="depositRequired" (change)="bookingPolicyEdit($event.checked, 'depositRequired')">Se cere depozit</mat-checkbox>
+                                <div class="row" *ngIf="ticketForm.get('bookingPolicies').get('depositRequired').value">
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="standard" class="w-100">
+                                            <mat-label>Depozit (%)</mat-label>
+                                            <input matInput type="text" formControlName="depositRequiredPercentage" (ngModelChange)="checkDepositType('percentage')">
+                                            <mat-error *ngIf="ticketForm.get('bookingPolicies').get('depositRequiredPercentage').hasError('pattern')">
+                                                Sunt acceptate doar numere cuprinse între 1 și 100.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="standard" class="w-100">
+                                            <mat-label>Depozit (EUR)</mat-label>
+                                            <input matInput type="text" formControlName="depositRequiredAmount" (ngModelChange)="checkDepositType('amount')">
+                                            <mat-error *ngIf="ticketForm.get('bookingPolicies').get('depositRequiredAmount').hasError('pattern')">
+                                                Sunt acceptate doar numere mai mari ca 0.
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                </div>
+
+                                <mat-checkbox formControlName="advanceFullPayment" (change)="bookingPolicyEdit($event.checked, 'advanceFullPayment')">Plata completa in avans</mat-checkbox>
+                                <mat-checkbox formControlName="advancePartialPayment" (change)="bookingPolicyEdit($event.checked, 'advancePartialPayment')">Plata partiala in avans</mat-checkbox>
+                                <mat-form-field appearance="standard" class="w-100" *ngIf="ticketForm.get('bookingPolicies').get('advancePartialPayment').value">
+                                    <mat-label>Avans (%)</mat-label>
+                                    <input matInput type="text" formControlName="advancePartialPaymentPercentage">
+                                    <mat-error *ngIf="ticketForm.get('bookingPolicies').get('advancePartialPaymentPercentage').hasError('pattern')">
+                                        Sunt acceptate doar numere cuprinse între 1 și 100.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-2">
+                    <h3 class="section-name">Pret obisnuit</h3>
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>EUR/persoana</mat-label>
+                        <input matInput placeholder="Pret obisnuit" type="text" formControlName="regularPrice">
+                        <mat-error *ngIf="ticketForm.get('regularPrice').hasError('required')">Acest camp trebuie completat!</mat-error>
+                        <mat-error *ngIf="!ticketForm.get('regularPrice').hasError('required') && ticketForm.get('regularPrice').invalid">Acest camp trebuie sa contina un numar!</mat-error>
+                    </mat-form-field>
+
+                    <h3 class="section-name">Pret pentru weekend</h3>
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>EUR/persoana</mat-label>
+                        <input matInput placeholder="Pret pentru weekend" type="text" formControlName="weekendPrice">
+                        <mat-error *ngIf="ticketForm.get('weekendPrice').hasError('required')">Acest camp trebuie completat!</mat-error>
+                        <mat-error *ngIf="!ticketForm.get('weekendPrice').hasError('required') && ticketForm.get('weekendPrice').invalid">Acest camp trebuie sa contina un numar!</mat-error>
+
+                    </mat-form-field>
+                </div>
+
+                <div class="col-10">
+                    <h3 class="section-name">Preview</h3>
+
+                    <app-ticket-card [ticketData]="ticketForm.value"></app-ticket-card>
+                </div>
+
+            </div>
+        </form>
+
+
+
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill" (click)="confirm()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>
+

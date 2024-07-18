@@ -1,0 +1,1141 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="Editează setări de sistem"
+                          [buttonBackRoute]="'../../dashboard'"
+                          (buttonCall)="saveSettings()">
+    </app-dashboard-header>
+
+    <div class="content">
+        <div [formGroup]="systemSettingsForm" class="my-4">
+            <h3>Forums</h3>
+                <div formGroupName="medicalForum">
+                    <div class="d-flex align-items-baseline justify-content-start gap-2">
+                        <h4>Medical Forum</h4>
+                        <!--Enable-->
+                        <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="d-flex align-items-center row">
+                    <!--Name Ro-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba română)</mat-label>
+                        <input matInput placeholder="Name ro" formControlName="nameRo" >
+                        <mat-icon *ngIf="systemSettingsForm.get('medicalForum.nameRo').value"
+                              (click)="systemSettingsForm.get('medicalForum.nameRo').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('medicalForum.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+
+                    <!--Name En-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba engleză)</mat-label>
+                        <input matInput placeholder="Name eng" formControlName="nameEn" >
+                        <mat-icon *ngIf="systemSettingsForm.get('medicalForum.nameEn').value"
+                        (click)="systemSettingsForm.get('medicalForum.nameEn').setValue('')"
+                        role="button" matSuffix>clear</mat-icon>
+                        <mat-error *ngIf="systemSettingsForm.get('medicalForum.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                        </mat-error>
+                    </mat-form-field>
+                    </div>
+
+                    <!--Featured medical image-->
+                    <div class="thumbnail">
+                        <h5>Medical forum featured image</h5>
+                        <div class="col-12 upload-image-col my-2">
+
+                            <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!systemSettingsForm.get('medicalForum.image').value?.filePath"
+                                    class="thumbnail-button
+                                        d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                                    (click)="openMedia(medicalFeaturedImageModal)">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                            </button>
+
+                            <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="systemSettingsForm.get('medicalForum.image').value?.filePath" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                     [src]="systemSettingsForm.get('medicalForum.image').value?.filePath">
+                                <button
+                                        (click)="systemSettingsForm.get('medicalForum.image').setValue(null)"
+                                        type="button"
+                                        id="btnRemoveItineraryFeaturedImg"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <ng-template #medicalFeaturedImageModal let-modal>
+                                <app-choose-media
+                                [category]="'image'"
+                                [multipleSelect]="false"
+                                [for]="'medicalForum-featuredImg'"
+                                [modalRef]="modal">
+                                </app-choose-media>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <div formGroupName="fitnessForum">
+                    <div class="d-flex align-items-baseline justify-content-start gap-2">
+                        <h4>Fitness Forum</h4>
+                        <!--Enable-->
+                        <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="d-flex align-items-center row">
+                    <!--Name Ro-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba română)</mat-label>
+                        <input matInput placeholder="Name ro" formControlName="nameRo" >
+                        <mat-icon *ngIf="systemSettingsForm.get('fitnessForum.nameRo').value"
+                              (click)="systemSettingsForm.get('fitnessForum.nameRo').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                        <mat-error *ngIf="systemSettingsForm.get('fitnessForum.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!--Name En-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba engleză)</mat-label>
+                        <input matInput placeholder="Name eng" formControlName="nameEn" >
+                        <mat-icon *ngIf="systemSettingsForm.get('fitnessForum.nameEn').value"
+                              (click)="systemSettingsForm.get('fitnessForum.nameEn').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('fitnessForum.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+                    </div>
+
+                    <!--Featured medical image-->
+                    <div class="thumbnail">
+                        <h5>Fitness forum featured image</h5>
+                        <div class="col-12 upload-image-col my-2">
+
+                            <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!systemSettingsForm.get('fitnessForum.image').value?.filePath"
+                                    class="thumbnail-button
+                                        d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                                    (click)="openMedia(fitnessFeaturedImageModal)">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                            </button>
+
+                            <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="systemSettingsForm.get('fitnessForum.image')?.value?.filePath" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                    [src]="systemSettingsForm.get('fitnessForum.image').value?.filePath" alt="thumbnail">
+                                <button
+                                        (click)="systemSettingsForm.get('fitnessForum.image').setValue(null)"
+                                        type="button"
+                                        id="btnRemoveItineraryFeaturedImg"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <ng-template #fitnessFeaturedImageModal let-modal>
+                                <app-choose-media
+                                [category]="'image'"
+                                [multipleSelect]="false"
+                                [for]="'fitnessForum-featuredImg'"
+                                [modalRef]="modal">
+                                </app-choose-media>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <!--fitness Forum Category select-->
+                <mat-form-field appearance="standard" class="col-12">
+                    <mat-label>Categorie Forum Fitness</mat-label>
+                    <mat-select formControlName="fitnessForumCategory">
+                        <mat-option *ngFor="let category of resourceCategoryList" [value]="category.id">
+                        {{category.nameEn}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div formGroupName="nutritionForum">
+                    <div class="d-flex align-items-baseline justify-content-start gap-2">
+                        <h4>Nutrition Forum</h4>
+                        <!--Enable-->
+                        <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="d-flex align-items-center row">
+                    <!--Name Ro-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba română)</mat-label>
+                        <input matInput placeholder="Name ro" formControlName="nameRo" >
+                        <mat-icon *ngIf="systemSettingsForm.get('nutritionForum.nameRo').value"
+                              (click)="systemSettingsForm.get('nutritionForum.nameRo').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                        <mat-error *ngIf="systemSettingsForm.get('nutritionForum.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+
+                    <!--Name En-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba engleză)</mat-label>
+                        <input matInput placeholder="Name eng" formControlName="nameEn" >
+                        <mat-icon *ngIf="systemSettingsForm.get('nutritionForum.nameEn').value"
+                              (click)="systemSettingsForm.get('nutritionForum.nameEn').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('nutritionForum.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+                    </div>
+
+                    <div class="thumbnail">
+                        <h5>Nutrition forum featured image</h5>
+                        <div class="col-12 upload-image-col my-2">
+
+                            <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!systemSettingsForm.get('nutritionForum.image').value?.filePath"
+                                    class="thumbnail-button
+                                        d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                                    (click)="openMedia(nutritionFeaturedImageModal)">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                            </button>
+
+                            <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="systemSettingsForm.get('nutritionForum.image').value?.filePath" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                    [src]="systemSettingsForm.get('nutritionForum.image').value?.filePath" alt="thumbnail">
+                                <button
+                                        (click)="systemSettingsForm.get('nutritionForum.image').setValue(null)"
+                                        type="button"
+                                        id="btnRemoveItineraryFeaturedImg"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <ng-template #nutritionFeaturedImageModal let-modal>
+                                <app-choose-media
+                                [category]="'image'"
+                                [multipleSelect]="false"
+                                [for]="'nutritionForum-featuredImg'"
+                                [modalRef]="modal">
+                                </app-choose-media>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <!--nutrition Forum Category select-->
+                <mat-form-field appearance="standard" class="col-12">
+                    <mat-label>Categorie Forum Nutriție</mat-label>
+                    <mat-select formControlName="nutritionForumCategory">
+                      <mat-option *ngFor="let category of resourceCategoryList" [value]="category.id">
+                        {{category.nameEn}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+
+            <h3>Trips & Itineraries</h3>
+            <div class="row">
+                <!--journey Theme Category select-->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Tema călătoriei</mat-label>
+                    <mat-select formControlName="journeyThemeCategoryId">
+                    <mat-option *ngFor="let category of categoriesList" [value]="category.id">
+                        {{category.name}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!--type Of Destination Category select-->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Tipul destinației</mat-label>
+                    <mat-select formControlName="typeOfDestinationCategoryId">
+                        <mat-option *ngFor="let category of categoriesList" [value]="category.id">
+                        {{category.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!--type Of journey Category select-->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Tipul călătoriei</mat-label>
+                    <mat-select formControlName="typeOfJourneyCategoryId">
+                        <mat-option *ngFor="let category of categoriesList" [value]="category.id">
+                        {{category.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div formGroupName="trip">
+                <div class="d-flex align-items-baseline justify-content-start gap-2">
+                    <h4>Trip</h4>
+                    <!--Enable-->
+                    <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                    </mat-slide-toggle>
+                </div>
+                <div class="d-flex align-items-center row">
+                <!--Name Ro-->
+                <mat-form-field appearance="standard" class="col-6">
+                    <mat-label>Denumire (limba română)</mat-label>
+                    <input matInput placeholder="Name ro" formControlName="nameRo" >
+                    <mat-icon *ngIf="systemSettingsForm.get('trip.nameRo').value"
+                              (click)="systemSettingsForm.get('trip.nameRo').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('trip.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                </mat-form-field>
+
+                <!--Name En-->
+                <mat-form-field appearance="standard" class="col-6">
+                    <mat-label>Denumire (limba engleză)</mat-label>
+                    <input matInput placeholder="Name eng" formControlName="nameEn" >
+                    <mat-icon *ngIf="systemSettingsForm.get('trip.nameEn').value"
+                              (click)="systemSettingsForm.get('trip.nameEn').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('trip.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                </mat-form-field>
+                </div>
+
+                <div class="thumbnail">
+                    <h5>Trip featured image</h5>
+                    <div class="col-12 upload-image-col my-2">
+
+                        <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                        <button *ngIf="!systemSettingsForm.get('trip.image').value?.filePath"
+                                class="thumbnail-button
+                                    d-flex flex-column align-items-center justify-content-center"
+                                type="button"
+                                (click)="openMedia(tripFeaturedImageModal)">
+                            <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                        </button>
+
+                        <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                        <div *ngIf="systemSettingsForm.get('trip.image').value?.filePath" class="img-thumbnail">
+                            <img class="img-fluid w-100"
+                                [src]="systemSettingsForm.get('trip.image').value?.filePath" alt="thumbnail">
+                            <button
+                                    (click)="systemSettingsForm.get('trip.image').setValue(null)"
+                                    type="button"
+                                    id="btnRemoveItineraryFeaturedImg"
+                                    class="btn-thumbnail position-absolute">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <ng-template #tripFeaturedImageModal let-modal>
+                            <app-choose-media
+                            [category]="'image'"
+                            [multipleSelect]="false"
+                            [for]="'trip-featuredImg'"
+                            [modalRef]="modal">
+                            </app-choose-media>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+
+            <!--Trip options-->
+            <div formGroupName="tripOptions">
+                <h4>Optiuni trip</h4>
+                <!-- configuratorItinerary-->
+                <div formGroupName="configuratorItinerary">
+                    <div class="d-flex align-items-baseline justify-content-start gap-2">
+                        <h4 class="mt-4">Configurator itinerariu</h4>
+                        <!--Enable-->
+                        <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="d-flex align-items-center row">
+                    <!--Name Ro-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba română)</mat-label>
+                        <input matInput placeholder="Name ro" formControlName="nameRo" >
+                        <mat-icon *ngIf="systemSettingsForm.get('tripOptions.configuratorItinerary.nameRo').value"
+                              (click)="systemSettingsForm.get('tripOptions.configuratorItinerary.nameRo').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('tripOptions.configuratorItinerary.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+
+                    <!--Name En-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba engleză)</mat-label>
+                        <input matInput placeholder="Name eng" formControlName="nameEn" >
+                        <mat-icon *ngIf="systemSettingsForm.get('tripOptions.configuratorItinerary.nameEn').value"
+                              (click)="systemSettingsForm.get('tripOptions.configuratorItinerary.nameEn').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('tripOptions.configuratorItinerary.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+                    </div>
+
+                    <div class="thumbnail">
+                        <h5>Configurator itinerary featured image</h5>
+                        <div class="col-12 upload-image-col my-2">
+
+                            <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!systemSettingsForm.get('tripOptions.configuratorItinerary.image')?.value?.filePath"
+                                    class="thumbnail-button
+                                        d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                                    (click)="openMedia(configuratorItineraryFeaturedImageModal)">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                            </button>
+
+                            <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="systemSettingsForm.get('tripOptions.configuratorItinerary.image').value?.filePath" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                    [src]="systemSettingsForm.get('tripOptions.configuratorItinerary.image').value?.filePath" alt="thumbnail">
+                                <button
+                                        (click)="systemSettingsForm.get('tripOptions.configuratorItinerary.image').setValue(null)"
+                                        type="button"
+                                        id="btnRemoveItineraryFeaturedImg"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <ng-template #configuratorItineraryFeaturedImageModal let-modal>
+                                <app-choose-media
+                                [category]="'image'"
+                                [multipleSelect]="false"
+                                [for]="'configuratorItinerary-featuredImg'"
+                                [modalRef]="modal">
+                                </app-choose-media>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- itinerary-->
+                <div formGroupName="itinerary">
+                    <div class="d-flex align-items-baseline justify-content-start gap-2">
+                        <h4 class="mt-4">Itinerariu</h4>
+                        <!--Enable-->
+                        <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="d-flex align-items-center row">
+                    <!--Name Ro-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba română)</mat-label>
+                        <input matInput placeholder="Name ro" formControlName="nameRo" >
+                        <mat-icon *ngIf="systemSettingsForm.get('tripOptions.itinerary.nameRo').value"
+                              (click)="systemSettingsForm.get('tripOptions.itinerary.nameRo').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('tripOptions.itinerary.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+
+                    <!--Name En-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba engleză)</mat-label>
+                        <input matInput placeholder="Name eng" formControlName="nameEn" >
+                        <mat-icon *ngIf="systemSettingsForm.get('tripOptions.itinerary.nameEn').value"
+                              (click)="systemSettingsForm.get('tripOptions.itinerary.nameEn').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('tripOptions.itinerary.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+                    </div>
+
+                    <div class="thumbnail">
+                        <h5>Itinerary featured image</h5>
+                        <div class="col-12 upload-image-col my-2">
+
+                            <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!systemSettingsForm.get('tripOptions.itinerary.image')?.value?.filePath"
+                                    class="thumbnail-button
+                                        d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                                    (click)="openMedia(itineraryFeaturedImageModal)">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                            </button>
+
+                            <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="systemSettingsForm.get('tripOptions.itinerary.image').value?.filePath" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                    [src]="systemSettingsForm.get('tripOptions.itinerary.image').value?.filePath" alt="thumbnail">
+                                <button
+                                        (click)="systemSettingsForm.get('tripOptions.itinerary.image').setValue(null)"
+                                        type="button"
+                                        id="btnRemoveItineraryFeaturedImg"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <ng-template #itineraryFeaturedImageModal let-modal>
+                                <app-choose-media
+                                [category]="'image'"
+                                [multipleSelect]="false"
+                                [for]="'itinerary-featuredImg'"
+                                [modalRef]="modal">
+                                </app-choose-media>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- holidayOffer-->
+                <div formGroupName="holidayOffer">
+                    <div class="d-flex align-items-baseline justify-content-start gap-2">
+                        <h4 class="mt-4">Oferte vacante</h4>
+                        <!--Enable-->
+                        <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="d-flex align-items-center row">
+                    <!--Name Ro-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba română)</mat-label>
+                        <input matInput placeholder="Name ro" formControlName="nameRo" >
+                        <mat-icon *ngIf="systemSettingsForm.get('tripOptions.holidayOffer.nameRo').value"
+                              (click)="systemSettingsForm.get('tripOptions.holidayOffer.nameRo').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('tripOptions.holidayOffer.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+
+                    <!--Name En-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba engleză)</mat-label>
+                        <input matInput placeholder="Name eng" formControlName="nameEn" >
+                        <mat-icon *ngIf="systemSettingsForm.get('tripOptions.holidayOffer.nameEn').value"
+                              (click)="systemSettingsForm.get('tripOptions.holidayOffer.nameEn').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('tripOptions.holidayOffer.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+                    </div>
+
+                    <div class="thumbnail">
+                        <h5>Holiday offer featured image</h5>
+                        <div class="col-12 upload-image-col my-2">
+
+                            <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!systemSettingsForm.get('tripOptions.holidayOffer.image')?.value?.filePath"
+                                    class="thumbnail-button
+                                        d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                                    (click)="openMedia(holidayOfferFeaturedImageModal)">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                            </button>
+
+                            <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="systemSettingsForm.get('tripOptions.holidayOffer.image').value?.filePath" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                    [src]="systemSettingsForm.get('tripOptions.holidayOffer.image').value?.filePath" alt="thumbnail">
+                                <button
+                                        (click)="systemSettingsForm.get('tripOptions.holidayOffer.image').setValue(null)"
+                                        type="button"
+                                        id="btnRemoveholidayOfferFeaturedImg"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <ng-template #holidayOfferFeaturedImageModal let-modal>
+                                <app-choose-media
+                                [category]="'image'"
+                                [multipleSelect]="false"
+                                [for]="'holidayOffer-featuredImg'"
+                                [modalRef]="modal">
+                                </app-choose-media>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!--tripOptions-->
+
+            <!--Resources type itinerary-->
+
+            <div class="row">
+                <!--road Trip Attribute -->
+                <mat-form-field appearance="standard" class="col-4" *ngIf="attributesList">
+                    <mat-label>Road Trip</mat-label>
+                    <mat-select formControlName="roadTripAttributeId">
+                        <mat-option *ngFor="let category of attributesList" [value]="category.id">
+                        {{category.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!--itinerary Transport ResourceTypes-->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Transport (itinerarii)</mat-label>
+                    <mat-select formControlName="itineraryTransportResourceTypes" multiple>
+                    <mat-option *ngFor="let resourceType of itineraryTransportResourceTypes" [value]="resourceType?.resourceTypeId">{{resourceType?.resourceTypeName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!--itinerary Accommodation ResourceTypes-->
+                <ng-container *ngIf="(rentalBookingResourceTypes$ | async) as rentalBookingResourceTypes">
+                    <mat-form-field appearance="standard" class="col-4">
+                        <mat-label>Cazare (itinerarii)</mat-label>
+                        <mat-select formControlName="itineraryAccommodationResourceTypes" multiple>
+                        <mat-option *ngFor="let resourceType of rentalBookingResourceTypes" [value]="resourceType?.id">{{resourceType?.nameEn}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+            </div>
+
+            <div class="row">
+                <!--itinerary EatAndDrinksResource ResourceTypes-->
+                <ng-container *ngIf="(menuResourceTypes$ | async) as menuResourceTypes">
+                    <mat-form-field appearance="standard" class="col-4">
+                        <mat-label>Mâncare și băutură (itinerarii)</mat-label>
+                        <mat-select formControlName="itineraryEatAndDrinksResourceTypes" multiple>
+                        <mat-option *ngFor="let resourceType of menuResourceTypes" [value]="resourceType?.id">{{resourceType?.nameEn}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+
+                <ng-container *ngIf="(ticketBookingResourceTypes$ | async) as ticketBookingResourceTypes">
+                    <!--itinerary DayActivity ResourceTypes-->
+                    <mat-form-field appearance="standard" class="col-4">
+                        <mat-label>Activități de zi (itinerarii)</mat-label>
+                        <mat-select formControlName="itineraryDayActivityResourceTypes" multiple>
+                        <mat-option *ngFor="let resourceType of ticketBookingResourceTypes" [value]="resourceType?.id">{{resourceType?.nameEn}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <!--itinerary EveningActivity ResourceTypes-->
+                    <mat-form-field appearance="standard" class="col-4">
+                        <mat-label>Activități de seară (itinerarii)</mat-label>
+                        <mat-select formControlName="itineraryEveningActivityResourceTypes" multiple>
+                        <mat-option *ngFor="let resourceType of ticketBookingResourceTypes" [value]="resourceType?.id">{{resourceType?.nameEn}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+            </div>
+
+            <h3>Jobs Market</h3>
+<!--            <div formGroupName="job">-->
+<!--                <div class="d-flex align-items-baseline justify-content-start gap-2">-->
+<!--                    <h4>Job</h4>-->
+<!--                    &lt;!&ndash;Enable&ndash;&gt;-->
+<!--                    <mat-slide-toggle formControlName="enable" matTooltip="Enable">-->
+<!--                    </mat-slide-toggle>-->
+<!--                </div>-->
+<!--                <div class="d-flex align-items-center row">-->
+<!--                &lt;!&ndash;Name Ro&ndash;&gt;-->
+<!--                <mat-form-field appearance="standard" class="col-6">-->
+<!--                    <mat-label>Denumire (limba română)</mat-label>-->
+<!--                    <input matInput placeholder="Name ro" formControlName="nameRo" >-->
+<!--                    <mat-icon *ngIf="systemSettingsForm.get('job.nameRo').value"-->
+<!--                              (click)="systemSettingsForm.get('job.nameRo').setValue('')"-->
+<!--                              role="button" matSuffix>clear</mat-icon>-->
+<!--                              <mat-error *ngIf="systemSettingsForm.get('job.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.-->
+<!--                            </mat-error>-->
+<!--                </mat-form-field>-->
+
+<!--                &lt;!&ndash;Name En&ndash;&gt;-->
+<!--                <mat-form-field appearance="standard" class="col-6">-->
+<!--                    <mat-label>Denumire (limba engleză)</mat-label>-->
+<!--                    <input matInput placeholder="Name eng" formControlName="nameEn" >-->
+<!--                    <mat-icon *ngIf="systemSettingsForm.get('job.nameEn').value"-->
+<!--                              (click)="systemSettingsForm.get('job.nameEn').setValue('')"-->
+<!--                              role="button" matSuffix>clear</mat-icon>-->
+<!--                              <mat-error *ngIf="systemSettingsForm.get('job.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.-->
+<!--                            </mat-error>-->
+<!--                </mat-form-field>-->
+<!--                </div>-->
+
+<!--                <div class="thumbnail">-->
+<!--                    <h5>Job featured image</h5>-->
+<!--                    <div class="col-12 upload-image-col my-2">-->
+
+<!--                        &lt;!&ndash;ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL&ndash;&gt;-->
+<!--                        <button *ngIf="!systemSettingsForm.get('job.image').value?.filePath"-->
+<!--                                class="thumbnail-button-->
+<!--                                    d-flex flex-column align-items-center justify-content-center"-->
+<!--                                type="button"-->
+<!--                                (click)="openMedia(jobFeaturedImageModal)">-->
+<!--                            <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}-->
+<!--                        </button>-->
+
+<!--                        &lt;!&ndash;IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON&ndash;&gt;-->
+<!--                        <div *ngIf="systemSettingsForm.get('job.image').value?.filePath" class="img-thumbnail">-->
+<!--                            <img class="img-fluid w-100"-->
+<!--                                [src]="systemSettingsForm.get('job.image').value?.filePath" alt="thumbnail">-->
+<!--                            <button-->
+<!--                                    (click)="systemSettingsForm.get('job.image').setValue(null)"-->
+<!--                                    type="button"-->
+<!--                                    id="btnRemoveItineraryFeaturedImg"-->
+<!--                                    class="btn-thumbnail position-absolute">-->
+<!--                                <i class="fas fa-times"></i>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                        <ng-template #jobFeaturedImageModal let-modal>-->
+<!--                            <app-choose-media-->
+<!--                            [category]="'image'"-->
+<!--                            [multipleSelect]="false"-->
+<!--                            [for]="'job-featuredImg'"-->
+<!--                            [modalRef]="modal">-->
+<!--                            </app-choose-media>-->
+<!--                        </ng-template>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div formGroupName="jobOptions">
+                <!--myCv -->
+                <div formGroupName="myCv">
+                    <div class="d-flex align-items-baseline justify-content-start gap-2">
+                        <h4 class="mt-4">CV-ul meu</h4>
+                        <!--Enable-->
+                        <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="d-flex align-items-center row">
+                    <!--Name Ro-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba română)</mat-label>
+                        <input matInput placeholder="Name ro" formControlName="nameRo" >
+                        <mat-icon *ngIf="systemSettingsForm.get('jobOptions.myCv.nameRo').value"
+                              (click)="systemSettingsForm.get('jobOptions.myCv.nameRo').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('jobOptions.myCv.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+
+                    <!--Name En-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba engleză)</mat-label>
+                        <input matInput placeholder="Name eng" formControlName="nameEn" >
+                        <mat-icon *ngIf="systemSettingsForm.get('jobOptions.myCv.nameEn').value"
+                              (click)="systemSettingsForm.get('jobOptions.myCv.nameEn').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                    </mat-form-field>
+                    </div>
+
+                    <div class="thumbnail">
+                        <h5>My CV featured image</h5>
+                        <div class="col-12 upload-image-col my-2">
+
+                            <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!systemSettingsForm.get('jobOptions.myCv.image')?.value?.filePath"
+                                    class="thumbnail-button
+                                        d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                                    (click)="openMedia(CVFeaturedImageModal)">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                            </button>
+
+                            <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="systemSettingsForm.get('jobOptions.myCv.image').value?.filePath" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                    [src]="systemSettingsForm.get('jobOptions.myCv.image').value?.filePath" alt="thumbnail">
+                                <button
+                                        (click)="systemSettingsForm.get('jobOptions.myCv.image').setValue(null)"
+                                        type="button"
+                                        id="btnRemoveholidayOfferFeaturedImg"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <ng-template #CVFeaturedImageModal let-modal>
+                                <app-choose-media
+                                [category]="'image'"
+                                [multipleSelect]="false"
+                                [for]="'myCv-featuredImg'"
+                                [modalRef]="modal">
+                                </app-choose-media>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <!--jobOffers -->
+                <div formGroupName="jobOffers">
+                    <div class="d-flex align-items-baseline justify-content-start gap-2">
+                        <h4 class="mt-4">Oferte de joburi</h4>
+                        <!--Enable-->
+                        <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="d-flex align-items-center row">
+                    <!--Name Ro-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba română)</mat-label>
+                        <input matInput placeholder="Name ro" formControlName="nameRo" >
+                        <mat-icon *ngIf="systemSettingsForm.get('jobOptions.jobOffers.nameRo').value"
+                              (click)="systemSettingsForm.get('jobOptions.jobOffers.nameRo').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('jobOptions.jobOffers.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+
+                    <!--Name En-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba engleză)</mat-label>
+                        <input matInput placeholder="Name eng" formControlName="nameEn" >
+                        <mat-icon *ngIf="systemSettingsForm.get('jobOptions.jobOffers.nameEn').value"
+                              (click)="systemSettingsForm.get('jobOptions.jobOffers.nameEn').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('jobOptions.jobOffers.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+                    </div>
+
+                    <div class="thumbnail">
+                        <h5>Oferte joburi featured image</h5>
+                        <div class="col-12 upload-image-col my-2">
+
+                            <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!systemSettingsForm.get('jobOptions.jobOffers.image')?.value?.filePath"
+                                    class="thumbnail-button
+                                        d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                                    (click)="openMedia(jobOfferFeaturedImageModal)">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                            </button>
+
+                            <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="systemSettingsForm.get('jobOptions.jobOffers.image').value?.filePath" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                    [src]="systemSettingsForm.get('jobOptions.jobOffers.image').value?.filePath" alt="thumbnail">
+                                <button
+                                        (click)="systemSettingsForm.get('jobOptions.jobOffers.image').setValue(null)"
+                                        type="button"
+                                        id="btnRemoveholidayOfferFeaturedImg"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <ng-template #jobOfferFeaturedImageModal let-modal>
+                                <app-choose-media
+                                [category]="'image'"
+                                [multipleSelect]="false"
+                                [for]="'jobOffers-featuredImg'"
+                                [modalRef]="modal">
+                                </app-choose-media>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <!--candidates -->
+                <div formGroupName="candidates">
+                    <div class="d-flex align-items-baseline justify-content-start gap-2">
+                        <h4 class="mt-4">Candidati</h4>
+                        <!--Enable-->
+                        <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="d-flex align-items-center row">
+                    <!--Name Ro-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba română)</mat-label>
+                        <input matInput placeholder="Name ro" formControlName="nameRo" >
+                        <mat-icon *ngIf="systemSettingsForm.get('jobOptions.candidates.nameRo').value"
+                              (click)="systemSettingsForm.get('jobOptions.candidates.nameRo').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('jobOptions.candidates.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+
+                    <!--Name En-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba engleză)</mat-label>
+                        <input matInput placeholder="Name eng" formControlName="nameEn" >
+                        <mat-icon *ngIf="systemSettingsForm.get('jobOptions.candidates.nameEn').value"
+                              (click)="systemSettingsForm.get('jobOptions.candidates.nameEn').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                              <mat-error *ngIf="systemSettingsForm.get('jobOptions.candidates.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                            </mat-error>
+                    </mat-form-field>
+                    </div>
+
+                    <div class="thumbnail">
+                        <h5>Candidates featured image</h5>
+                        <div class="col-12 upload-image-col my-2">
+
+                            <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!systemSettingsForm.get('jobOptions.candidates.image')?.value?.filePath"
+                                    class="thumbnail-button
+                                        d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                                    (click)="openMedia(candidatesFeaturedImageModal)">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                            </button>
+
+                            <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="systemSettingsForm.get('jobOptions.candidates.image').value?.filePath" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                    [src]="systemSettingsForm.get('jobOptions.candidates.image').value?.filePath" alt="thumbnail">
+                                <button
+                                        (click)="systemSettingsForm.get('jobOptions.candidates.image').setValue(null)"
+                                        type="button"
+                                        id="btnRemoveholidayOfferFeaturedImg"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <ng-template #candidatesFeaturedImageModal let-modal>
+                                <app-choose-media
+                                [category]="'image'"
+                                [multipleSelect]="false"
+                                [for]="'candidates-featuredImg'"
+                                [modalRef]="modal">
+                                </app-choose-media>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- myJobOffers-->
+                <div formGroupName="myJobOffers">
+                    <div class="d-flex align-items-baseline justify-content-start gap-2">
+                        <h4 class="mt-4">Ofertele mele de joburi</h4>
+                        <!--Enable-->
+                        <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="d-flex align-items-center row">
+                    <!--Name Ro-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba română)</mat-label>
+                        <input matInput placeholder="Name ro" formControlName="nameRo" >
+                        <mat-icon *ngIf="systemSettingsForm.get('jobOptions.myJobOffers.nameRo').value"
+                        (click)="systemSettingsForm.get('jobOptions.myJobOffers.nameRo').setValue('')"
+                        role="button" matSuffix>clear</mat-icon>
+                        <mat-error *ngIf="systemSettingsForm.get('jobOptions.myJobOffers.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!--Name En-->
+                    <mat-form-field appearance="standard" class="col-6">
+                        <mat-label>Denumire (limba engleză)</mat-label>
+                        <input matInput placeholder="Name eng" formControlName="nameEn" >
+                        <mat-icon *ngIf="systemSettingsForm.get('jobOptions.myJobOffers.nameEn').value"
+                        (click)="systemSettingsForm.get('jobOptions.myJobOffers.nameEn').setValue('')"
+                        role="button" matSuffix>clear</mat-icon>
+                        <mat-error *ngIf="systemSettingsForm.get('jobOptions.myJobOffers.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                        </mat-error>
+                    </mat-form-field>
+                    </div>
+
+                    <div class="thumbnail">
+                        <h5>Ofertele mele de joburi featured image</h5>
+                        <div class="col-12 upload-image-col my-2">
+
+                            <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!systemSettingsForm.get('jobOptions.myJobOffers.image')?.value?.filePath"
+                                    class="thumbnail-button
+                                        d-flex flex-column align-items-center justify-content-center"
+                                    type="button"
+                                    (click)="openMedia(myJobOffersFeaturedImageModal)">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                            </button>
+
+                            <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="systemSettingsForm.get('jobOptions.myJobOffers.image').value?.filePath" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                    [src]="systemSettingsForm.get('jobOptions.myJobOffers.image').value?.filePath" alt="thumbnail">
+                                <button
+                                        (click)="systemSettingsForm.get('jobOptions.myJobOffers.image').setValue(null)"
+                                        type="button"
+                                        id="btnRemoveholidayOfferFeaturedImg"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <ng-template #myJobOffersFeaturedImageModal let-modal>
+                                <app-choose-media
+                                [category]="'image'"
+                                [multipleSelect]="false"
+                                [for]="'myJobOffers-featuredImg'"
+                                [modalRef]="modal">
+                                </app-choose-media>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div><!--job Options -->
+
+            <!-- Shared Experiences-->
+            <div formGroupName="sharedExperience">
+                <div class="d-flex align-items-baseline justify-content-start gap-2">
+                    <h3>SharedExperience</h3>
+                    <!--Enable-->
+                    <mat-slide-toggle formControlName="enable" matTooltip="Enable">
+                    </mat-slide-toggle>
+                </div>
+                <div class="d-flex align-items-center row">
+                <!--Name Ro-->
+                <mat-form-field appearance="standard" class="col-6">
+                    <mat-label>Denumire (limba română)</mat-label>
+                    <input matInput placeholder="Name ro" formControlName="nameRo" >
+                    <mat-icon *ngIf="systemSettingsForm.get('sharedExperience.nameRo').value"
+                        (click)="systemSettingsForm.get('sharedExperience.nameRo').setValue('')"
+                        role="button" matSuffix>clear</mat-icon>
+                        <mat-error *ngIf="systemSettingsForm.get('sharedExperience.nameRo').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                        </mat-error>
+                </mat-form-field>
+
+                <!--Name En-->
+                <mat-form-field appearance="standard" class="col-6">
+                    <mat-label>Denumire (limba engleză)</mat-label>
+                    <input matInput placeholder="Name eng" formControlName="nameEn" >
+                    <mat-icon *ngIf="systemSettingsForm.get('sharedExperience.nameEn').value"
+                        (click)="systemSettingsForm.get('sharedExperience.nameEn').setValue('')"
+                        role="button" matSuffix>clear</mat-icon>
+                        <mat-error *ngIf="systemSettingsForm.get('sharedExperience.nameEn').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                        </mat-error>
+                </mat-form-field>
+                </div>
+
+                <div class="thumbnail">
+                    <h5>Shared Experience featured image</h5>
+                    <div class="col-12 upload-image-col my-2">
+
+                        <!--ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                        <button *ngIf="!systemSettingsForm.get('sharedExperience.image').value?.filePath"
+                                class="thumbnail-button
+                                    d-flex flex-column align-items-center justify-content-center"
+                                type="button"
+                                (click)="openMedia(sharedExperienceFeaturedImageModal)">
+                            <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                        </button>
+
+                        <!--IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                        <div *ngIf="systemSettingsForm.get('sharedExperience.image').value?.filePath" class="img-thumbnail">
+                            <img class="img-fluid w-100"
+                                [src]="systemSettingsForm.get('sharedExperience.image').value?.filePath" alt="thumbnail">
+                            <button
+                                    (click)="systemSettingsForm.get('sharedExperience.image').setValue(null)"
+                                    type="button"
+                                    id="btnRemoveItineraryFeaturedImg"
+                                    class="btn-thumbnail position-absolute">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <ng-template #sharedExperienceFeaturedImageModal let-modal>
+                            <app-choose-media
+                            [category]="'image'"
+                            [multipleSelect]="false"
+                            [for]="'sharedExperience-featuredImg'"
+                            [modalRef]="modal">
+                            </app-choose-media>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Special Resources Category</h3>
+                <!--culinary Preferences -->
+                <!-- <mat-form-field>
+                    <mat-label>Preferințe culinare</mat-label>
+                    <mat-select formControlName="culinaryPreferencesId">
+                        <mat-option *ngFor="let category of healthCategories" [value]="category.id">
+                            {{category.nameEn}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+
+                <!--event CategoryId select-->
+                <mat-form-field appearance="standard" class="col-12">
+                    <mat-label>Categorie Eveniment</mat-label>
+                    <mat-select formControlName="eventCategoryId">
+                    <mat-option *ngFor="let category of resourceCategoryList" [value]="category.id">
+                        {{category.nameRo}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+                <!--transport CategoryId select-->
+                <mat-form-field appearance="standard" class="col-12">
+                    <mat-label>Categorie Transport</mat-label>
+                    <mat-select formControlName="transportCategoryId">
+                    <mat-option *ngFor="let category of resourceCategoryList" [value]="category.id">
+                        {{category.nameEn}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            <h3>Others</h3>
+            <div class="d-flex flex-column">
+                <h4>Mode</h4>
+                <mat-radio-group  formControlName="mode" class="d-flex justify-content-start gap-2">
+                <mat-radio-button value="dev">
+                    Development
+                </mat-radio-button>
+                <mat-radio-button value="production">
+                    Production
+                </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+
+            <h3>Payment Settings</h3>
+            <div class="row">
+                <!-- percentageLoyaltyPointsSpend -->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Procent puncte de loialitate cheltuite</mat-label>
+                    <input matInput type="number" placeholder="Loyalty Points Spend %" formControlName="percentageLoyaltyPointsSpend" >
+                </mat-form-field>
+
+                <!-- percentageLoyaltyPointsGain -->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Procent puncte de loialitate castigate</mat-label>
+                    <input matInput type="number" placeholder="Loyalty Points Gain %" formControlName="percentageLoyaltyPointsGain" >
+                </mat-form-field>
+
+                <!-- percentageCommission -->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Procent comision</mat-label>
+                    <input matInput type="number" placeholder="Commission %" formControlName="percentageCommission" >
+                </mat-form-field>
+            </div>
+            <h3>Billing</h3>
+            <div class="row d-flex">
+                <!-- smartBillEmail -->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Email SmartBill</mat-label>
+                    <input matInput placeholder="SmartBill Email" formControlName="smartBillEmail" >
+                    <mat-icon *ngIf="systemSettingsForm.get('smartBillEmail').value"
+                        (click)="systemSettingsForm.get('smartBillEmail').setValue('')"
+                        role="button" matSuffix>clear</mat-icon>
+                    <mat-error *ngIf="systemSettingsForm.get('smartBillEmail').hasError('email')">{{'ERROR.EMAIL'|translate}}</mat-error>
+                    <mat-error *ngIf="systemSettingsForm.get('smartBillEmail').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- smartBillToken -->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Token SmartBill</mat-label>
+                    <input matInput placeholder="smartBillToken" formControlName="smartBillToken" >
+                    <mat-icon *ngIf="systemSettingsForm.get('smartBillToken').value"
+                        (click)="systemSettingsForm.get('smartBillToken').setValue('')"
+                        role="button" matSuffix>clear</mat-icon>
+                        <mat-error *ngIf="systemSettingsForm.get('smartBillToken').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                        </mat-error>
+                </mat-form-field>
+
+                <!-- smartBillFiscalCode -->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Cod fiscal SmartBill</mat-label>
+                    <input matInput placeholder="smartBillFiscalCode" formControlName="smartBillFiscalCode" >
+                    <mat-icon *ngIf="systemSettingsForm.get('smartBillFiscalCode').value"
+                        (click)="systemSettingsForm.get('smartBillFiscalCode').setValue('')"
+                        role="button" matSuffix>clear</mat-icon>
+                        <mat-error *ngIf="systemSettingsForm.get('smartBillFiscalCode').hasError('whitespace')">Campul nu poate conține doar spații goale.
+                        </mat-error>
+                </mat-form-field>
+            </div>
+
+            <h3>Flights Settings</h3>
+            <div class="row d-flex">
+                <!-- flightCommission -->
+                <mat-form-field appearance="standard" class="col-4">
+                    <mat-label>Procent comision</mat-label>
+                    <input matInput type="number" placeholder="Commission %" formControlName="flightCommission" >
+                </mat-form-field>
+            </div>
+        </div><!--form-->
+    </div>
+</div>

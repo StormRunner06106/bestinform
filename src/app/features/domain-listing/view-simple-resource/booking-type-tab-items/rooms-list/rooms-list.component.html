@@ -1,0 +1,77 @@
+<ng-container *ngIf="recommendedRooms && !isItineraryModal">
+    <p class="booking-section-title">
+        Our recommendation
+    </p>
+
+    <div class="booking-items-container">
+        <div class="row mb-4">
+            <div class="col-12 col-lg-6"
+                 *ngFor="let room of recommendedRooms">
+                <app-room-card [room]="room" [totalNights]="totalNights" [recommendation]="true"></app-room-card>
+            </div>
+        </div>
+
+        <div class="room-price-footer d-flex justify-content-between align-items-center">
+            <div class="d-flex flex-column align-items-start">
+                <p>
+                    € {{ recommendedRoomsPrice }}
+                    <span class="payment-details" *ngIf="recTodayPayment > 0 && recTodayPayment !== recommendedRoomsPrice">(acum veți achita doar € {{recTodayPayment | number: '1.0-2'}})</span>
+                </p>
+
+                <p>
+                    {{ recommendedRoomsNr }} rooms / max {{ nrOfPeopleForRecommendedRooms }} guests
+                </p>
+            </div>
+
+            <button type="button" class="btn-auto btn-color-fill" (click)="reserveRecommendedRooms()">
+                <i class="fas fa-check"></i>
+                Reserve now
+            </button>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="availableRooms; else noRoomsAvailable">
+    <p class="booking-section-title">
+        See your options
+    </p>
+
+    <div class="row mb-4">
+        <div class="col-12 col-lg-6"
+             *ngFor="let room of availableRooms">
+            <app-room-card [room]="room"
+                           [reservationQty]="roomDictionary?.[room.id] || 0"
+                           [totalNights]="totalNights"
+                           (roomNrChange)="handleNewRoomNr($event)"
+                           [recommendation]="false"></app-room-card>
+        </div>
+    </div>
+
+    <div class="room-price-footer d-flex justify-content-between align-items-center">
+        <div class="d-flex flex-column align-items-start">
+            <p>
+                € {{ availableRoomsTotalPrice }}
+                <span class="payment-details" *ngIf="optionsTodayPayment > 0 && optionsTodayPayment !== availableRoomsTotalPrice">(acum veți achita doar € {{optionsTodayPayment | number: '1.0-2'}})</span>
+            </p>
+            <p>
+                {{ selectedRoomsNr }} rooms / max {{ nrOfPeopleForSelectedRooms }} guests
+            </p>
+        </div>
+
+        <button *ngIf="selectedRoomsNr > 0 && !isItineraryModal" type="button" class="btn-auto btn-color-fill" [routerLink]="['checkout']">
+            <i class="fas fa-check"></i>
+            Reserve now
+        </button>
+
+        <button *ngIf="selectedRoomsNr > 0 && isItineraryModal" type="button" class="btn-auto btn-color-fill" [matDialogClose]="roomSelection">
+            <i class="fas fa-check"></i>
+            Confirm selection
+        </button>
+    </div>
+</ng-container>
+
+<ng-template #noRoomsAvailable>
+    <h3 class="text-center">
+        {{ "TOAST.BOOKING.NOT_ENOUGH" | translate }}
+    </h3>
+</ng-template>

@@ -1,0 +1,97 @@
+<div class="save-btn d-flex justify-content-end align-items-center mb-3" *ngIf="resourceId">
+    <button *ngIf="resourceId"
+            (click)="saveResource()"
+            [disabled]="isSubmitLoading || !form.valid"
+            matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+            class="btn-long btn-color-fill" type="button">
+        <ng-container *ngIf="isSubmitLoading===false">
+            <i class="fas fa-save"></i>
+            Salvează
+        </ng-container>
+        <ng-container *ngIf="isSubmitLoading === true">
+                      <span [style.display]="'block'" class="indicator-progress">
+                        Salvare...{{ " " }}
+                          <span
+                                  class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                      </span>
+        </ng-container>
+    </button>
+</div>
+
+<form [formGroup]="form" id="facilities">
+
+
+    <div class="section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Facilitati</h2>
+    </div>
+
+    <!--Content-->
+    <div class="section-content">
+        <div class="row">
+            <!--            class="col-xl-3 col-lg-6 col-sm-6 col-12 mb-6"-->
+            <div class="col-lg-6 col-12 mb-6" *ngFor="let facility of facilitiesByCategory">
+                <h5 class="facility-category-name">{{facility.categoryName}}</h5>
+                <div class="row">
+                    <div *ngFor="let inputForm  of facility.tabAttributes | orderBy : 'order'"
+                         [className]="columnSize(inputForm.size)">
+                        <app-dynamic-inputs [control]="form.get(inputForm.name)"
+                                            [inputFormData]="inputForm"/>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="facilities">
+
+
+    <div class="section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Servicii de interes</h2>
+    </div>
+
+    <!--Content-->
+    <div class="section-content">
+        <div class="services-wrapper">
+            <!--            class="col-xl-3 col-lg-6 col-sm-6 col-12 mb-6"-->
+            <div *ngFor="let service of services; let i = index" class="services">
+                <div class="service-container">
+                    <h2>Serviciu</h2>
+                    <div class="service">
+                        <label>Titlu serviciu</label>
+                        <input type="text" pInputText [(ngModel)]="service.title" />
+                        <label>Descriere</label>
+                        <textarea pInputTextarea [(ngModel)]="service.description" (change)="onChange($event)"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button pButton class="addService" (click)="addService()">Adauga un serviciu</button>            
+        </div>
+    </div>
+</div>
+
+<!--Stepper Controller-->
+<div class="stepper-step-controller">
+    <!--Prev Step-->
+    <div class="next-step">
+        <button class="btn-long btn-color-fill" type="button" (click)="prevStep()" [disabled]="!form.valid"
+                matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+        >
+            <i class="fas fa-arrow-left"></i>
+            Înapoi
+        </button>
+    </div>
+    <!--Next Step-->
+    <div class="next-step">
+        <button class="btn-long btn-color-fill" type="button" (click)="nextStep()" [disabled]="!form.valid"
+                matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+        >
+            Urmatorul
+            <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+</div>

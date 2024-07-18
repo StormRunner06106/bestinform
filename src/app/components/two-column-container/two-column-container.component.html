@@ -1,0 +1,43 @@
+<div class="two-column-container">
+  <div
+    class="column"
+    [style.width]="leftColumnWidth"
+    [ngClass]="{ column1: reverseColumns }"
+  >
+    <div
+      class="content"
+      style="background: #fff"
+      [style.background-image]="'url(' + leftBackgroundImage + ')'"
+    >
+      <p class="shared-title">{{ leftTitle }}</p>
+      <p class="shared-subtitle">{{ leftSubtitle }}</p>
+      <ng-container *ngIf="buttonPosition === 'left'">
+        <button
+          [style.background-color]="buttonColor"
+          [style.color]="textColor"
+          (click)="onButtonClick()"
+        >
+          {{ buttonText }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+  <div class="column" [style.width]="rightColumnWidth">
+    <div
+      class="content"
+      style="background: #fff"
+      [style.background-image]="'url(' + rightBackgroundImage + ')'"
+    >
+      <p class="shared-title">{{ rightTitle }}</p>
+      <p class="shared-subtitle">{{ rightSubtitle }}</p>
+      <ng-container *ngIf="buttonPosition === 'right'">
+        <button
+          [style.background-color]="buttonColor"
+          (click)="onButtonClick()"
+        >
+          {{ buttonText }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>

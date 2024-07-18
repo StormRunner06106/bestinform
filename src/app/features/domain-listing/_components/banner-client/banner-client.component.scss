@@ -1,0 +1,22 @@
+.row{
+  width: 100%;
+  .container-fluid{
+    height: 560px;
+    background:url("../../../../../assets/images/others/banner.jpg"),
+    linear-gradient(rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.24));
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1{
+      color:white;
+    }
+    p{
+      color:white;
+    }
+  }
+}
+

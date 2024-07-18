@@ -1,0 +1,120 @@
+<div class="general-ticket-card" *ngIf="!isCarList">
+    <!--first row with buttons-->
+    <div class="bkg-grey first-label-line d-flex justify-content-between gap-2">
+        <div class="label-recommended label">
+            <p><i class="fas fa-star"></i>
+                Recomandat</p>
+        </div>
+        <div class="label-cheapest label"><p><i class="fas fa-dollar-sign"></i> Cel mai ieftin</p></div>
+        <div class="label-fastest label"><p><i class="fas fa-clock"></i> Cel mai rapid</p></div>
+    </div>
+    <!--first empty row-->
+    <!-- <div class="bkg-grey first-line">
+    </div> -->
+    <!--icon name airport-->
+    <div class="bkg-white d-flex justify-content-between align-items-center py-2 px-4 flex-column flex-md-row">
+         <div class="d-flex justify-content-start">
+            <img src="{{firstTicket?.iconPath}}">
+            <h4>{{firstTicket?.from}}</h4>
+         </div>
+         <div>
+            <h4><i class="fas fa-arrow-right"></i></h4>
+         </div>
+         <div>
+            <h4>{{firstTicket?.to}}</h4>
+         </div>
+    </div>
+    <!--fly data-->
+    <div class="bkg-grey d-flex justify-content-between align-items-center py-2 px-4 flex-column flex-md-row">
+        <div>
+            <p class="hour-1"> {{firstTicket?.departureDate | date: "HH:mm"}} <i class="fas fa-arrow-right"></i>  {{firstTicket?.arrivalDate | date: "HH:mm"}} </p>
+        </div>
+        <div class="d-flex">
+            <p class="hour-2 d-flex align-items-center justify-content-center px-4"> <i class="far fa-clock"></i> {{firstTicket?.transportDuration | minutesToHours}}</p>
+            <div class="d-flex flex-column align-items-end" >
+                <p *ngIf="firstTicket?.stops===0" class="type-flight green">Direct</p>
+                <p *ngIf="firstTicket?.stops>0" class="type-flight red">{{firstTicket?.stops}} stops</p>
+                <p class="class-flight">clasa: {{firstTicket?.travelClass}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!--book now button and price    -->
+    <div class="bkg-last-line d-flex justify-content-md-end align-items-center flex-column flex-md-row">
+        <h4 class="d-flex align-items-center"> {{firstTicket?.price}} {{firstTicket?.currency}}  <span><i class="far fa-question-circle"></i></span></h4>
+        <button class="btn-long btn-color-fill" (click)="goToCheckout(firstTicket?.transportNumber)">Book now</button>
+    </div>
+</div>
+
+
+<div *ngFor="let ticket of ticketList">
+
+    <div class="general-ticket-card" *ngIf="!isCarList">
+        <div class="bkg-grey first-line">
+        </div>
+        <!--icon name airport-->
+            <div class="bkg-white d-flex justify-content-between align-items-center py-2 px-4 flex-column flex-md-row">
+                <div class="d-flex justify-content-start">
+                   <img src="{{ticket?.iconPath}}">
+                   <h4>{{ticket?.from}}</h4>
+                </div>
+                <div>
+                   <h4><i class="fas fa-arrow-right"></i></h4>
+                </div>
+                <div>
+                   <h4>{{ticket?.to}}</h4>
+                </div>
+           </div>
+        <!--fly data-->
+            <div class="bkg-grey d-flex justify-content-between align-items-center py-2 px-4 flex-column flex-md-row">
+                <div>
+                    <p class="hour-1"> {{ticket?.departureDate | date: "HH:mm"}} <i class="fas fa-arrow-right"></i>  {{ticket?.arrivalDate | date: "HH:mm"}} </p>
+                </div>
+                <div class="d-flex">
+                    <p class="hour-2 d-flex align-items-center justify-content-center px-4"> <i class="far fa-clock"></i> {{ticket?.transportDuration | minutesToHours}}</p>
+                    <div class="d-flex flex-column align-items-end" >
+                        <p *ngIf="ticket?.stops===0" class="type-flight green">Direct</p>
+                        <p *ngIf="ticket?.stops>0" class="type-flight red">{{ticket?.stops}} stops</p>
+                        <p class="class-flight">clasa: {{ticket?.travelClass}}</p>
+                    </div>
+                </div>
+            </div>
+        <!--book now button and price  -->
+        <div class="bkg-last-line d-flex justify-content-md-end align-items-center flex-column flex-md-row">
+            <h4 class="d-flex align-items-center"> {{ticket?.price}} {{ticket?.currency}} <span><i class="far fa-question-circle"></i></span></h4>
+            <button class="btn-long btn-color-fill" (click)="goToCheckout(ticket?.transportNumber)">Book now</button>
+        </div>
+    </div>
+
+    <div class="general-ticket-card" *ngIf="isCarList">
+
+        <!--icon name airport-->
+        <div class="bkg-white d-flex justify-content-between align-items-center flex-column flex-md-row">
+            <div class="d-flex flex-column justify-content-start flex-lg-row">
+                <img class="car-img" alt="img" src="{{ticket?.image.filePath}}">
+                <div class="car-info d-flex flex-column justify-content-between">
+                    <div class="top-info">
+                        <h4>{{ticket?.name}}</h4>
+                        <p class="description">{{ticket?.description}}</p>
+                    </div>
+                    <div class="small-info d-flex justify-content-start align-items-center flex-wrap">
+                        <span><i class="fas fa-user me-1"></i>{{ticket?.seats}}</span>
+                        <span><img src="assets/images/others/car-door.png" alt="car-door" class="car-door me-1">{{ticket?.doors}}</span>
+                        <span><i class="fas fa-cog me-1"></i>{{ticket?.transmission}}</span>
+                        <span><i class="fas fa-gas-pump me-1"></i>{{ticket?.consumption}}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--book now button and price  -->
+        <div class="bkg-last-line d-flex justify-content-md-end align-items-center flex-column flex-md-row">
+            <h4 class="d-flex align-items-center"> {{ticket?.price}} {{ticket?.currency}} / day<span><i class="far fa-question-circle"></i></span></h4>
+            <button class="btn-long btn-color-fill" (click)="goToCheckout(ticket.id)">Book now</button>
+        </div>
+    </div>
+
+
+</div>
+

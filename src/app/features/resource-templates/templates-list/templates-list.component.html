@@ -1,0 +1,124 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="{{ 'TEMPLATES.LIST' | translate}}"
+                          routeTitleOne="../../templates/list"
+                          pageTitleTwo=" {{ 'PROP-CATEGORIES.TITLE' | translate }}"
+                          routeTitleTwo="../../templates/categories"
+                          pageTitleThree="{{'PROPERTIES.TITLE' | translate}}"
+                          routeTitleThree="../../templates/properties"
+                          [buttonBackRoute]="'../../dashboard'"
+                          [buttonAddRoute]="'../../templates/add'">
+    </app-dashboard-header>
+
+    <div class="row filterRow">
+        <mat-form-field class="w-100" appearance="standard">
+            <mat-label>{{'GENERAL.SEARCH-NAME' | translate }}</mat-label>
+            <input matInput type="text" [formControl]="searchFilter" placeholder="{{'GENERAL.SEARCH-ENTER' | translate }}"
+                   (keyup.enter)="searchTemplate()">
+            <button *ngIf="searchFilter.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+                <i class="fas fa-times clear-field" ></i>
+            </button>
+
+        </mat-form-field>
+    </div>
+
+    <div class="row tableContent">
+            <table mat-table matSort appMatTableResponsive [dataSource]="templates">
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef> Nume</th>
+                    <td data-column-name="Denumire" mat-cell *matCellDef="let row"> {{row.name}} </td>
+                </ng-container>
+
+
+                <!-- Res Type Column -->
+                <ng-container matColumnDef="resType">
+                    <th mat-header-cell *matHeaderCellDef> Tip de resursa</th>
+                    <td data-column-name="Tip de resursa" mat-cell *matCellDef="let row"> {{row.objectNames}} </td>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="actions-class"> Acțiuni</th>
+                    <td mat-cell *matCellDef="let row; let i = index;">
+                        <div class="d-flex actions-container py-2">
+                            <button class="btn-round btn-no-outline"
+                                    id="btnListEditEvent-{{i}}"
+                                    routerLink="../edit/{{ row.id }}">
+                                <i class="fas fa-pen"></i>
+                            </button>
+
+                            <button class="btn-round btn-no-outline"
+                                    id="btnOpenModalDeleteTemplate-{{i}}"
+                                    (click)="openModal(deleteTemplate, row.userId)">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <!--Modal Delete Event-->
+                        <ng-template #deleteTemplate let-c="close" let-d="dismiss">
+                            <div class="modal-card card">
+                                <div class="card-header border-0">
+                                    <h3 class="m-0">
+                                        {{ 'TEMPLATES.DELETE' | translate }}
+                                    </h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <p>{{ 'TEMPLATES.DELETE-WARNING' | translate}}</p>
+
+                                    <div class="card-event card">
+                                        <div class="card-body d-flex justify-content-center align-items-start flex-column">
+                                            <h3>#{{ (i + 1) + pageSize * (pageNumber - 1)}} {{row.name}}</h3>
+                                            <p class="m-0">{{userData?.firstName+' '+userData?.lastName}}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer border-0">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-outline w-100"
+                                                    id="btnModalEventDismissDelete-{{i}}"
+                                                    (click)="d()">
+                                                <i class="fas fa-times"></i>
+                                                {{ 'BTN.CANCEL' | translate}}
+                                            </button>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-fill w-100"
+                                                    id="btnModalTemplateConfirmDelete-{{i}}"
+                                                    (click)="deleteTemplates(row.id)">
+                                                <i class="fas fa-check"></i>
+                                                {{ 'BTN.CONFIRM' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+<!--                Row shown when there is no matching data.-->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{searchFilter.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="pageSizeArray"
+                           [pageSize]="pageSize"
+                           [length]="totalElements"
+                           (page)="pageChanged($event)"
+                           aria-label="Select page of events"></mat-paginator>
+
+        </div>
+
+
+</div>

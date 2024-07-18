@@ -1,0 +1,45 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>Stergere Card</h2>
+        <p>Acțiunea de stergere card este permanentă și complet irevocabilă.</p>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+
+        <div class="row">
+
+            <!--Name-->
+            <div class="col-12">
+                <h5 class="section-title">Denumirea: <span>{{categoryData?.category.categoryName}}</span></h5>
+            </div>
+
+            <!--Regular Price-->
+            <div class="col-12">
+                <h5 class="section-title">Produse: <span *ngFor="let item of categoryData?.category.categoryItems; let last = last">{{last ? item.name : item.name +', '}}</span></h5>
+            </div>
+
+        </div>
+
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline w-100" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill w-100" (click)="deleteCategory()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>
+

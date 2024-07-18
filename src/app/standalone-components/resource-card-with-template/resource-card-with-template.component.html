@@ -1,0 +1,92 @@
+<div *ngIf="resourceData"
+     class="resource-card"
+     [ngClass]="{
+        'short-card' : cardType === 'short',
+        'short-w-100-card' : cardType === 'short-w-100',
+        'long-card': cardType === 'long'
+     }">
+    <div class="status-label" *ngIf="isMyJob" [ngClass]="resourceData?.status === 'active' ? 'active-status' :
+                                        resourceData?.status === 'pending_review' ? 'pending-status' :
+                                        resourceData?.status === 'inactive' ? 'inactive-status' : null">
+        <span *ngIf="resourceData?.status === 'active'">Activ</span>
+        <span *ngIf="resourceData?.status === 'pending_review'">În așteptare</span>
+        <span *ngIf="resourceData?.status === 'inactive'">Inactiv</span>
+    </div>
+    <div class="img-container">
+        <img [src]="resourceData?.featuredImage?.filePath" alt="resource picture">
+        <button class="favorite-btn" [ngClass]="resourceData?.favorite ? 'active' : 'inactive'"
+                (click)="$event.stopPropagation(); toggleFavorite()">
+            <i [ngClass]="resourceData?.favorite ? 'fas fa-star' : 'far fa-star'"></i>
+        </button>
+    </div>
+
+    <div class="resource-info">
+        <div class="info-header">
+            <div class="d-flex flex-column flex-md-row justify-content-start align-items-baseline gap-2">
+                <h3>
+                    {{ resourceData?.title | titlecase }}
+                </h3>
+                <div *ngIf="resourceData?.bookingType=== 'rentalBooking'" class="accommodation-stars">
+                    <ng-container class="d-flex" *ngFor="let val of [1, 2, 3, 4, 5]" >
+                        <span [ngClass]="val <= resourceData.stars ? 'yellow-star' : 'grey-star'">
+                            <i class="fas fa-star"></i>
+                        </span>
+                    </ng-container>
+                </div>
+
+            </div>
+
+
+            <div *ngIf="resourceTemplate?.listingSetting?.reviews || !resourceTemplate"
+                 class="reviews">
+                <div class="dollars">
+                    <ng-container *ngFor="let val of [1, 2, 3, 4, 5]" >
+                        <span [ngClass]="val * 20 <= roundedReviewPercentage ? 'bold-dollar' : 'normal-dollar'">
+                            $
+                        </span>
+                    </ng-container>
+                </div>
+
+                <div class="percentage">
+                    {{ resourceData.proReviewsPercentage }}%
+                    <i *ngIf="resourceData.proReviewsPercentage < 50" class="far fa-frown"></i>
+                    <i *ngIf="resourceData.proReviewsPercentage >= 50" class="far fa-smile"></i>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="listingAttributes?.length > 0" class="attributes-list">
+            <span *ngFor="let attribute of listingAttributes">
+                <i class="fas fa-icons"></i>
+                <p>
+                    {{ attribute.attributeName }}
+                </p>
+            </span>
+        </div>
+
+        <div *ngIf="cardType === 'long'" class="description">
+            <p *ngIf="!htmlDescription">
+                {{ resourceData?.description }}
+            </p>
+            <p *ngIf="htmlDescription" [innerHTML]="resourceData.description">
+
+            </p>
+        </div>
+
+        <div *ngIf="resourceTemplate" class="resource-type">
+            {{ resourceTypeName | titlecase }}
+        </div>
+
+        <div *ngIf="!resourceTemplate" class="resource-type">
+            {{ resourceData?.resourceCategoryName | titlecase }}
+        </div>
+
+        <div *ngIf="resourceTemplate?.listingSetting?.location || !resourceTemplate" class="location">
+            <i class="fas fa-map-marker-alt"></i>
+            {{ resourceData.city }}
+            <p class="d-inline-block float-end m-0 price" *ngIf="resourceData?.estimatedPrice && resourceData?.estimatedPrice > 0">
+                €{{resourceData.estimatedPrice}}
+            </p>
+        </div>
+    </div>
+</div>

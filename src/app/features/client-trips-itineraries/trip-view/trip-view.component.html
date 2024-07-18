@@ -1,0 +1,173 @@
+<div *ngIf="tripData" class="d-flex flex-column">
+
+    <div class="background-container">
+        <img [src]="tripData?.featuredImage?.filePath" alt="trip-background-image">
+    </div>
+
+    <div class="content-container">
+        <div class="container">
+            <h1 class="text-left m-0">
+                {{ tripData.name | titlecase }}
+            </h1>
+        </div>
+
+        <app-images-gallery *ngIf="tripData?.images" [images]="tripData.images"></app-images-gallery>
+
+        <div class="container">
+            <p class="m-0">
+               {{ tripData.description }}
+            </p>
+        </div>
+
+        <div class="container">
+            <div class="info-card">
+                <div *ngIf="guestsState?.adultsNumber || guestsState?.childrenNumber" class="info-card-left">
+                    <div class="title-container">
+                        <h4>
+                            {{"ITINERARIES.NUMBER-GUESTS" | translate}}
+                        </h4>
+                    </div>
+
+                    <ul>
+                        <li *ngIf="guestsState?.adultsNumber > 0">
+                            {{"ITINERARIES.SELECTED" | translate}} {{ guestsState.adultsNumber }} {{"RESOURCE.RES-FILTERS.NR_ADULTS" | translate}} 
+                        </li>
+
+                        <li *ngIf="guestsState?.childrenNumber > 0">
+                            {{"ITINERARIES.SELECTED" | translate}} {{ guestsState.childrenNumber }} {{"RESOURCE.RES-FILTERS.NR_CHILDREN" | translate}}
+                        </li>
+
+                        <li *ngIf="tripData?.estimatedPrice">
+                            {{"ITINERARIES.PRICE-PER-PERSON" | translate}} €{{ tripData.estimatedPrice }}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="info-card-right">
+                    <div class="title-container">
+                        <h4>
+                            {{"ITINERARIES.TRANSPORT" | translate}}
+                        </h4>
+                    </div>
+
+                    <ul>
+                        <li>
+                            {{ "TRIPS.AIRLINE_TICKET_INCLUDED" | translate }}
+                        </li>
+
+                        <li>
+                            {{ "TRIPS.HAND_LUGGAGE" | translate }}
+                        </li>
+
+                        <li *ngIf="tripData?.departure?.location">
+                            {{ "TRIPS.DEPARTURE" | translate }} - {{ tripData.departure.location }}
+                        </li>
+
+                        <li *ngIf="tripData?.departure?.start">
+                            {{ "TRIPS.DEPARTURE_TIME" | translate }} - {{ tripData.departure.start | date : 'HH:mm' }}
+                        </li>
+
+                        <li *ngIf="tripData?.arrival?.location">
+                            {{ "TRIPS.ARRIVAL" | translate }} - {{ tripData.arrival.location }}
+                        </li>
+
+                        <li *ngIf="tripData?.arrival?.end">
+                            {{ "TRIPS.ARRIVAL_TIME" | translate }} - {{ tripData.departure.end | date : 'HH:mm' }}
+                        </li>
+
+                        <li>
+                            {{ "TRIPS.AIRPORT_TRANSFER" | translate }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="info-card flex-column">
+                <div class="title-container">
+                    <h4>
+                        {{ "ITINERARIES.SELECT-ACCOMODATION" | translate }}
+                    </h4>
+                </div>
+
+                <div class="title-container hotels-container">
+                    <ng-container *ngIf="tripData?.hotelList?.length > 0; else noHotelsForSelectedTrip">
+                        <ngb-accordion #ngbAccordion [closeOthers]="true" [destroyOnHide]="false" [activeIds]="['0']">
+
+                            <ng-container *ngFor="let hotel of tripData.hotelList; let index = index">
+                                <ngb-panel [id]="index + ''">
+                                    <ng-template ngbPanelHeader let-opened="opened">
+                                        <button [class.opened]="opened" class="hotel-item" (click)="handleHotelToggle(ngbAccordion, index + '')">
+                                            <div class="hotel-title">
+                                                <p>
+                                                    {{ hotel.hotelName }}
+                                                </p>
+
+                                                <span>
+                                                    <ng-container *ngFor="let hotelRating of [].constructor(hotel.starRating)">
+                                                        *
+                                                    </ng-container>
+                                                </span>
+                                            </div>
+
+                                            <div class="hotel-price">
+                                                <p>
+                                                    {{ "ITINERARIES.PRICE-PER-ONE-PERSON" | translate }}  /
+                                                </p>
+
+                                                <span>
+                                                    €{{ hotel.rooms | cheapestRoom }}
+                                                </span>
+
+                                                <div class="selected-icon">
+                                                    <div *ngIf="opened" class="icon-background">
+                                                        <i class="fas fa-check"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </ng-template>
+                                    <ng-template ngbPanelContent>
+                                        <div class="row">
+                                            <div class="col-12 col-md-6 col-lg-4" *ngFor="let tripRoom of hotel.rooms">
+                                                <app-trip-room-card [tripRoom]="tripRoom"
+                                                                    [nrOfNights]="tripData.numberOfNights"
+                                                                    (tripRoomNrChange)="handleNewRoomNr($event)">
+                                                </app-trip-room-card>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-panel>
+                            </ng-container>
+
+                        </ngb-accordion>
+                    </ng-container>
+
+                    <ng-template #noHotelsForSelectedTrip>
+                        <p class="text-center">
+                            {{ "ITINERARIES.NO-HOTELS" | translate }}
+                        </p>
+                    </ng-template>
+                </div>
+
+                <div class="checkout-bar title-container d-flex align-items-center justify-content-between">
+                    <h4>
+                        {{ "ITINERARIES.TOTAL-COST" | translate }}
+                    </h4>
+
+                    <div class="d-flex align-items-center justify-content-end">
+                        <p class="m-0">
+                            €{{ totalPrice }}
+                        </p>
+
+                        <button class="btn-auto btn-color-fill" (click)="confirmSelection()">
+                            Check out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

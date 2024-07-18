@@ -1,0 +1,141 @@
+<div class="containter-fluid">
+    <div class="container">
+        <app-dashboard-header pageTitleOne="{{threadData?.category | titlecase}} Forum"
+                              [buttonBackRoute]="'../../'"
+                              (buttonExtraCall)="goTo(comm)"
+                              [buttonExtraName]="'Reply to this thread'">
+                              <!--de adaugat linkul catre adaga thread-->
+        </app-dashboard-header>
+    </div>
+
+    <div class="container">
+        <div class="content d-flex justify-content-between align-items-center flex-wrap flex-md-nowrap">
+            <div class="d-flex justify-content-start align-items-center gap-2">
+                <img class="profil-img" src="{{ threadData?.featuredImage !== null ? threadData?.featuredImage?.filePath : '../../../../../../assets/images/others/no-photo.png'}}"/>
+                <div>
+                <div class="d-flex justify-content-start align-items-baseline gap-2">
+                    <!-- <button class="btn-round btn-white-fill small-button"><i class="fas fa-thumbtack"></i></button>
+                    <button class="btn-round btn-white-fill small-button"><i class="fas fa-star"></i></button> -->
+                    <h3>{{threadData?.title}}</h3>
+                </div>
+                <div class="d-flex justify-content-start align-items-center gap-2">
+                    <p><b>{{threadData?.userName}}</b></p>
+                    <p><span>{{threadData?.lastDateUpdate | date: 'dd MMM, yyyy'}}</span></p>
+                    <p><span>{{threadData?.replies}} replies</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end align-items-center gap-3">
+            <p class="d-flex flex-column justify-content-center align-items-center"><b>{{threadData?.replies}}</b>Replies </p>
+            <p class="d-flex flex-column justify-content-center align-items-center" ><b>{{threadData?.views}}</b>Views</p>
+            <!-- <button class="btn-round btn-color-outline"><i class="far fa-star"></i></button>
+            <button class="btn-round btn-color-outline"><i class="fas fa-share-alt"></i></button> -->
+        </div>
+    </div>
+
+    <div class="content-card">
+        <!--Pagination-->
+        <mat-paginator
+        [pageSizeOptions]="pageItems"
+        [length]="totalElements"
+        [pageSize]="pageSize"
+        (page)="pageChanged($event)"
+        >
+        </mat-paginator>
+    </div>
+
+    <div class="content-card d-flex flex-wrap flex-md-nowrap">
+        <div class="d-flex flex-row flex-md-column align-items-center justify-content-start gap-2 padding-card border-right photo-n-name">
+            <img class="profil-img" src="{{ threadData?.userImagePath ? threadData?.userImagePath : '../../../../../../assets/images/others/no-image.png'}}"/>
+            <p><b>{{threadData?.userName}}</b></p>
+            <!-- <div class="d-flex align-items-center justify-content-center gap-4">
+                <p><i class="fas fa-plus-circle me-2"></i> 8</p>
+                <p><i class="fas fa-comment-dots me-2"></i> 232</p>
+            </div> -->
+        </div> 
+        <div class="w-100">
+            <div class="d-flex justify-content-between align-items-center padding-card border-bottom">
+                <h6>Posted on {{threadData?.date | date: 'dd MMM, yyyy'}} <span *ngIf="threadData?.lastDateUpdate">(edited)</span></h6>
+                <!-- <i class="fas fa-share-alt"></i> -->
+            </div>
+            <div class="padding-card">
+                <div *ngIf="threadData?.featuredImage" class="featured-img mb-2">
+                    <img src="{{threadData?.featuredImage?.filePath}}"/>
+                </div>
+               
+                <div [innerHTML]="threadData?.description"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--wysiwyg Add comment-->
+    <div class="content-card d-flex flex-wrap flex-md-nowrap wysiwyg-class">
+        <div class="d-flex flex-row flex-md-column align-items-center justify-content-center gap-2 padding-card border-right photo-n-name">
+            <img class="profil-img" src='{{currentUserAvatar}}'/>
+            <p><b>{{currentUserName}}</b></p>
+            <!-- <div class="d-flex align-items-center justify-content-center gap-4">
+                <p><i class="fas fa-plus-circle me-2"></i> 8</p>
+                <p><i class="fas fa-comment-dots me-2"></i> 232</p>
+            </div> -->
+        </div> 
+        <div #comm class="wysiwyg-container">
+            <!-- <div class="d-flex justify-content-between align-items-center padding-card border-bottom">
+                <h6>Posted on 13 of September, 2022 (edited)</h6>
+                <i class="fas fa-share-alt"></i>
+            </div>
+            <div class="padding-card">content</div> -->
+            <angular-editor
+                [formControl]="newCommentForm"
+                name="content"
+                id="postContent"
+                [config]="editorConfig">
+            </angular-editor>
+            <div class="padding-card d-flex justify-content-start justify-content-lg-end align-items-center send-container">
+                <!-- <p>Cuvinte: {{nrWords}}</p> -->
+                <button type="button" (click)="addComment()" matTooltip="Send comment" class="btn-long btn-color-fill"><i class="fas fa-paper-plane"></i> Send</button>
+            </div> 
+
+        </div>
+    </div>
+
+    <!--Comments List-->
+
+    <div *ngFor="let comment of listThreadComments">
+        <div class="content-card d-flex flex-wrap flex-md-nowrap">
+            <div class="d-flex flex-row flex-md-column align-items-center justify-content-start gap-2 padding-card border-right photo-n-name">
+                <img class="profil-img" src="{{comment?.userImagePath ? comment?.userImagePath : '../../../../assets/images/login/provider_img.png'}}"/>
+                <p><b>{{comment?.userName}}</b></p>
+                <!-- <div class="d-flex align-items-center justify-content-center gap-4">
+                    <p><i (click)="likeComment(comment.id)" class="fas fa-plus-circle me-2"></i> {{comment?.likes === null ? 0 : comment?.likes}}</p>
+                    <p><i class="fas fa-comment-dots me-2"></i> 232</p>
+                </div> -->
+            </div> 
+            <div class="w-100">
+                <div class="d-flex justify-content-between align-items-center padding-card border-bottom">
+                    <h6>Posted on {{comment?.date | date: 'dd MMM, yyyy'}} <span *ngIf="comment?.edited">(edited)</span></h6>
+                    <!-- <i class="fas fa-share-alt"></i> -->
+                </div>
+                <div class="padding-card">
+                    <!-- <div class="featured-img mb-2">
+                        <img  src="{{comment?.featuredImage ? comment?.featuredImage?.filePath : '../../../../assets/images/login/provider_img.png'}}"/>
+                    </div> -->
+                   
+                    <div [innerHTML]="comment?.content" class="content-comment"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <!--Pagination-->
+        <mat-paginator
+
+        [pageSizeOptions]="pageItems"
+        [length]="totalElements"
+        [pageSize]="pageSize"
+        (page)="pageChanged($event)"
+        >
+        </mat-paginator>
+    </div>
+
+</div>

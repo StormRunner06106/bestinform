@@ -1,0 +1,23 @@
+<div class="place-card">
+  <div *ngIf="place.disabled" class="event-disabled">
+    <div class="disabled-message">
+      <div class="image-disabled"></div>
+      <div class="disabled-message-text">
+        Disponibil in curand
+      </div>
+    </div>
+  </div>
+  <div class="place-card-image">
+    <img [src]="place?.imageUrl" placeholder />
+  </div>
+  <div class="place-card-description">
+    <div class="place-card-footer">
+      <div class="place-card-title">
+        <h2>{{ place?.cardText?.title }}</h2>
+      </div>
+      <div class="place-card-link">
+        <a href="">{{ place?.cardText?.action }}</a>
+      </div>
+    </div>
+  </div>
+</div>

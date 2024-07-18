@@ -1,0 +1,140 @@
+@import "/src/app/theme/styles/components/colors";
+@import "/src/app/theme/styles/components/buttons";
+@import "/src/app/theme/styles/components/fonts";
+@import "src/assets/fonts/font-awesome/css/all.css";
+
+.container{
+  padding: 32px 52px;
+  border: none;
+}
+
+.close{
+cursor:pointer;
+}
+
+@media screen and (min-width:1020px){
+  .container.modal-content{
+    border: none;
+  }
+
+}
+
+
+.modal-header{
+    border: none;
+    max-width: 615.95px;
+
+    h4.modal-title{
+    color: $primary-color!important;
+    font-size: 24px;
+      font-weight: 700;
+      color:$paragraph;
+      line-height: 33.6px;
+      text-align:left;
+    }
+    i{
+        color: $primary-color;
+        font-weight: 900;
+        font-size: 24px;
+        line-height: 140%;
+        /* identical to box height, or 34px */
+
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+    }
+}
+.modal-body {
+    max-width: 615.95px;
+
+    .modal-body-text {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      /* or 22px */
+
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.02em;
+      color: rgba($paragraph,0.5);
+    }
+  }
+
+  .blue-card{
+    max-width: 615.95px;
+
+    img{
+      height: 96px;
+      width:96px;
+      border-radius: 50%;
+    }
+
+        div.modal-blue-container{
+        border: solid 1px $primary-color;
+        border-radius: 8px;
+        padding: 16px;
+        background: linear-gradient(0deg, rgba(36, 57, 138, 0.08), rgba(36, 57, 138, 0.08)), #FFFFFF;
+
+        .primary-color{
+            color:$primary-color;
+        }
+        .paragraph-color{
+            color:$paragraph;
+        }
+
+        h4{
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 140%;
+            /* identical to box height, or 34px */
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.02em;
+        }
+
+        p{
+          font-weight: 400px;
+          font-size: 16px;
+          line-height: 140%;
+          /* or 22px */
+
+          display: flex;
+          align-items: center;
+          letter-spacing: -0.02em;
+
+        }
+        h6{
+          color: $primary-color;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 140%;
+          /* or 22px */
+
+          display: flex;
+          align-items: center;
+          letter-spacing: -0.02em;
+        }
+    }
+  }
+
+.modal-footer{
+
+  max-width: 615.95px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+
+    .button-wrapper{
+        justify-content:space-evenly;
+        max-width: 615.95px;
+        flex-wrap: wrap;
+    }
+
+    button.btn-long{
+        align-items: center;
+        max-width: 303px!important;
+        height: 50px;
+        margin:0px;
+    }
+}

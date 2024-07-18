@@ -1,0 +1,27 @@
+<div class="d-flex flex-column">
+
+    <div *ngIf="previousCategoryImg" class="background-container">
+        <img [src]="previousCategoryImg?.filePath" alt="category-background-image">
+        <p class="category-title">{{ currentLanguage === 'ro' ? pageNameRo : pageNameEn }}</p>
+    </div>
+
+    <div class="content-container">
+
+        <div *ngIf="listOfCategoryData" class="container categories-container">
+            <div class="row">
+                <ng-container *ngFor="let categoryName of listOfCategoryData; let i = index">
+                    <div class="col-12 col-md-6 col-lg-{{colArray[i]}}">
+                        <app-category-card [imgPath]="categoryData[categoryName]?.image?.filePath"
+                                           [nameEn]="categoryData[categoryName]?.nameEn"
+                                           [nameRo]="categoryData[categoryName]?.nameRo"
+                                           [routerLink]="categoryData[categoryName].nextRouteSection
+                                           ? categoryData[categoryName].nextRouteSection
+                                           : ['/client', 'domain', domainId, nextRoute + categoryName]"></app-category-card>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+
+</div>

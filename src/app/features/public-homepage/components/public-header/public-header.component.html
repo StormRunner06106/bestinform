@@ -1,0 +1,63 @@
+
+
+<header class="has-bg-image">
+<mat-toolbar id="main-toolbar" class="mat-elevation-z2 bkg-toolbar">
+    <div class="theme-container d-flex justify-content-between">
+        <a class="logo d-flex align-items-center" routerLink="/" >
+            <div class="logo">
+                <img src="\assets\Bestinform_logo.png" width="212" height="37" alt="">
+<!--                <img src="\assets\images\logos\logo_bestinform_lightmode.jpg" class="mobile_logo" alt="">-->
+            </div>
+        </a>
+        <div [ngClass]="{'d-flex' : true }" style="gap: 14px;" class="d-flex justify-content-center align-items-center">
+            <!-- <button (click)="openNgbModal(openLayersMap)" class="btn-round btn-white-fill me-3">
+                <i class="far fa-map"></i>
+            </button> -->
+            <div>
+                    <div style="position: relative;top: 2px;" [ngClass]="{'lang-dropdown': !isDekstop, 'lang-dropdown-web': isDekstop}">
+                        <p-dropdown [options]="languages" [(ngModel)]="selectedLanguage" (onChange)="changeLanguage()">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="selectedLanguage">
+                                    <img [src]="selectedLanguage.icon"/>
+                                    <div class="language-name">{{ selectedLanguage.name }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-country pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <img [src]="country.icon"/>
+                                    <div>{{ country.name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+            </div>
+            <button id="openAuthModalBtn" class="connect btn-long btn-white-fill toolbar-button" [ngStyle]="{'font-size: 14px' : isDekstop, 'font-size: 12px': !isDekstop}" (click)="openAuthModal()" *ngIf="!userConnected"><span class="vanish">{{ 'LOGIN' | translate }}</span><img src="../../../../../assets/icons/log-in.svg" height="24px" height="24px"></button>
+            <button id="openConnectModalBtn" class="btn-long btn-white-fill toolbar-button" [routerLink]="redirectUrl" *ngIf="userConnected">{{ 'LOGIN' | translate }} <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+<!--            <a class="mobile-toolbar-button" (click)="openAuthModal()" *ngIf="!userConnected"><img src="./assets/images/others/sign-in-alt.jpg"></a>-->
+<!--            <a class="mobile-toolbar-button" [routerLink]="redirectUrl" *ngIf="userConnected"><img src="./assets/images/others/sign-in-alt.jpg"></a>-->
+        </div>
+    </div>
+</mat-toolbar>
+
+
+<ng-template #openLayersMap let-c="close" let-d="dismiss">
+    <div class="card">
+        <div class="card-header border-0 d-flex justify-content-end">
+            <button (click)="d()" class="btn-round btn-color-fill">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="card-body d-flex flex-grow-1">
+            <div id="ol-map" class="map-container flex-grow-1"></div>
+        </div>
+
+        <div class="card-footer border-0">
+
+        </div>
+    </div>
+</ng-template>
+</header>
+
+
+

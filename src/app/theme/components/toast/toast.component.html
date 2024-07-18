@@ -1,0 +1,20 @@
+<ngb-toast *ngIf="visible"
+           [ngClass]="type === 'success' ? 'success' : type ==='error' ? 'error' : type ==='warning' ? 'warning' : 'info'"
+           [autohide]="type === 'success' || hidden"
+           [delay]="5000"
+           (hidden)="hide()">
+    <div class="d-flex justify-content-start gap-2 align-items-center">
+        <i *ngIf="type === 'success'" class="fas fa-check"></i>
+        <i *ngIf="type === 'error'" class="fas fa-times-circle"></i>
+        <i *ngIf="type === 'info'" class="fas fa-info-circle"></i>
+        <i *ngIf="type === 'warning'" class="fas fa-exclamation-triangle"></i>
+        <div class="w-100">
+            <div class="d-flex justify-content-between align-items-center">
+                <p><b>{{title}}</b></p>
+                <i class="fas fa-times" (click)="hide()"></i>
+            </div>
+            <p>{{ message }}</p>
+        </div>
+    </div>
+    
+</ngb-toast>

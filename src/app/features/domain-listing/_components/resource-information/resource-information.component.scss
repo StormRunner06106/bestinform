@@ -1,0 +1,50 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.contact-info-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 16px;
+  border: 1px solid rgba($title, 0.24);
+  border-radius: 8px;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .section-title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+    color: $title;
+  }
+
+  .section-row {
+    display: flex;
+    gap: 4px;
+
+    img {
+      width: 20px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    p {
+      margin-bottom: 0;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: $paragraph;
+    }
+  }
+}
+
+#ol-map {
+  height: 200px;
+  width: 100%;
+}
+

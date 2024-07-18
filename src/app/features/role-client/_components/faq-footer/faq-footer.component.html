@@ -1,0 +1,109 @@
+<div class="row entire-comp p-0 mx-0">
+
+    <div class="footer container-fluid col-12 pt-5">
+
+
+        <div class="container mb-3">
+            <p class="p-title">FAQ</p>
+            <div class="accordion accordion-flush" id="faq">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#first" aria-expanded="false" aria-controls="#first">
+                            {{"FAQ-FOOTER.WHAT-BESTINFORM" | translate}}
+                        </button>
+                    </h2>
+                    <div id="first" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#faq">
+                        <div class="accordion-body">{{"FAQ-FOOTER.RESPONSE-WHAT-BESTINFORM" | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingtwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#second" aria-expanded="false" aria-controls="#second">
+                            {{"FAQ-FOOTER.EXPLOITATION-SERVICE" | translate}}
+                        </button>
+                    </h2>
+                    <div id="second" class="accordion-collapse collapse" aria-labelledby="flush-headingtwo" data-bs-parent="#faq">
+                        <div class="accordion-body">{{"FAQ-FOOTER.RESPONSE-EXPLOITATION-SERVICE" | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingfour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#four" aria-expanded="false" aria-controls="#four">
+                            {{"FAQ-FOOTER.WHAT-PROVIDER" | translate}}
+                        </button>
+                    </h2>
+                    <div id="four" class="accordion-collapse collapse" aria-labelledby="flush-headingfour" data-bs-parent="#faq">
+                        <div class="accordion-body">{{"FAQ-FOOTER.RESPONSE-WHAT-PROVIDER" | translate}}Raspuns</div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingfive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#five" aria-expanded="false" aria-controls="#five">
+                            {{"FAQ-FOOTER.WHICH-PLATFORMS" | translate}}
+                        </button>
+                    </h2>
+                    <div id="five" class="accordion-collapse collapse" aria-labelledby="flush-headingfive" data-bs-parent="#faq">
+                        <div class="accordion-body">{{"FAQ-FOOTER.RESPONSE-WHICH-PLATFORMS" | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingthree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#three" aria-expanded="false" aria-controls="#three">
+                            {{"FAQ-FOOTER.PREMIUM-BENEFITS" | translate}}
+                        </button>
+                    </h2>
+                    <div id="three" class="accordion-collapse collapse" aria-labelledby="flush-headingthree" data-bs-parent="#faq">
+                        <div class="accordion-body">{{"FAQ-FOOTER.RESPONSE-PREMIUM-BENEFITS" | translate}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-3 d-flex flex-column flex-lg-row justify-content-between container-links">
+            <a>{{'TERMS-OF-USE' | translate}}</a>
+            <a routerLink="/content/privacy-policy" target="_blank">{{'PRIVACY-STATEMENT' | translate}}</a>
+            <a>{{'HOW-SITE-WORKS' | translate}}</a>
+            <a>Site map</a>
+            <a>{{'CONTACT-US' | translate}}</a>
+        </div>
+
+        <div class="container mb-3">
+            <div class="row">
+<!--                <div class="col-12 col-md-3 col-lg-2">-->
+<!--                    <mat-form-field appearance="outline" >-->
+<!--                        <mat-select [(ngModel)]="selectedCurrency" name="food">-->
+<!--                            <mat-option [value]="'usd'">USD</mat-option>-->
+<!--                            <mat-option [value]="'lei'">LEI</mat-option>-->
+<!--                        </mat-select>-->
+<!--                    </mat-form-field>-->
+<!--                </div>-->
+                <div class="col-12 col-md-4 col-lg-3">
+                    <mat-form-field appearance="outline" >
+                        <mat-select [(ngModel)]="selectedValue" name="food" (selectionChange)="changeLang(selectedValue)">
+                            <mat-option [value]="'ro'">Română</mat-option>
+                            <mat-option [value]="'en'">Engleză</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container">
+
+            <!-- <p>{{'TRANSLATE' | translate}}</p> -->
+            <p><strong> © BestInform Romania. All rights reserved.</strong></p>
+            <div class="d-flex justify-content-center align-items-center w-100 py-3">
+                <img src="assets/images/logos/fonduri-ue.png" class="w-25">
+                <p class="w-25 mb-0">Pentru informaţii
+                    detaliate despre celelalte programe cofinanţate de Uniunea
+                    Europeană, vă invităm să vizitaţi <a href="https://www.fonduri-ue.ro/" target="_blank">www.fonduri-ue.ro
+                    </a></p>
+            </div>
+        </div>
+    </div>
+</div>

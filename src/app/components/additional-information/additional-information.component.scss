@@ -1,0 +1,121 @@
+.additional-information-container {
+  .footer {
+    width: 100%;
+  }
+
+  ::ng-deep {
+    .p-card .p-card-content {
+      padding: 0px
+    }
+  }
+
+  .restaurant-icon {
+    user-select: none;
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: currentColor;
+    height: 21px;
+    width: 16px;
+    overflow: visible;
+  }
+
+  .p-card {
+    .p-card-title {
+      font-weight: 900;
+      font-family: Avenir;
+      font-size: 20px;
+    }
+  }
+
+  .card-header-container {
+    width: 100%;
+    font-weight: 800;
+    font-family: Avenir;
+  }
+
+  .info-description {
+    font-family: Avenir;
+    font-size: 16px;
+    font-weight: 800;
+    color: #333447;
+    padding-left: 3px;
+  }
+
+  .info-specific {
+    font-size: 16px;
+    font-weight: 400;
+    color: #393A53;
+    font-family: Avenir;
+  }
+
+  .infomration-div {
+    span i {
+      color: #4257EE;
+    }
+    display: flex;
+    flex-direction: column;
+  }
+
+  .additional-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  //:host ::ng-deep {
+  .p-progressbar {
+    height: 10px;
+  }
+
+  .button:not(:disabled),
+  [type="button"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  [type="submit"]:not(:disabled) {
+    cursor: pointer;
+    background-color: #4257EE;
+    width: 100%;
+    height: 40px;
+  }
+
+  .p-progressbar-determinate .p-progressbar-value-animate {
+    background-color: #4257EE;
+  }
+  //}
+
+  .check-in-progress {
+    .p-progressbar {
+      background-color: #4257EE !important;
+    }
+
+    .p-progressbar-value-animate {
+      background-color: #dee2e6 !important;
+    }
+  }
+
+  .clauze-div {
+    gap: 8px;
+  }
+
+  .padding-40 {
+    padding: 40px;
+  }
+
+  .total-price {
+    background: #4257EE;
+    padding: 1rem; /* Adjust padding as needed */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: relative; /* This enables you to position it relative to its normal position */
+    top: -2rem; /* Adjust this value to control the amount of overlap */
+    z-index: 100; /* Ensure it is above other elements */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  .total-price-number {
+    font-weight: bold;
+  }
+}

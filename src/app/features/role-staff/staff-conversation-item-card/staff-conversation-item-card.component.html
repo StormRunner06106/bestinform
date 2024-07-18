@@ -1,0 +1,179 @@
+<div class="container">
+    <p class="my-2">Messages</p>
+
+    <!-- my conversations -->
+    <div *ngIf="categoryConversation === 'myConversations'">
+        <div *ngFor="let conversation of myActiveConversationsList"   class="conv-item-card my-3">
+            <div class="d-flex justify-content-between align-items-center  my-2">
+                <div routerLink="/private/staff/inbox/{{conversation.id}}" class="d-flex justify-content-start align-items-center gap-2 first-half-conv-item">
+                    <img class="img-class" src="../../../../../../../assets/images/others/user.jpg">
+                    <div class="d-flex flex-column align-items-start justify-content-center">
+                        <h4>{{conversation.name}}</h4><!--de verificat daca trebuie numele userului numele problemei-->
+                        <p *ngIf="conversation?.lastMessage === null">Incepeti o conversatie!</p>
+                        <p *ngIf="conversation?.lastMessage !== null">{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end align-items-center second-half-conv-item gap-2 conv-handling-class">
+                    <p>{{conversation.date | date: 'EEEE,d MMMM HH:mm'}}</p>
+                    <button (click)="leaveConversation(conversation.id)" class="btn-long btn-color-fill"><i class="fas fa-sign-out-alt"></i>Leave</button>
+                </div>
+            </div>
+        </div>
+         <!--Pagination-->
+         <mat-paginator
+         [pageSizeOptions]="pageItems"
+         [length]="totalMyActiveConversation"
+         [pageSize]="pageSize"
+         (page)="pageChanged($event)"
+         >
+         </mat-paginator>
+    </div>
+
+    <!-- Unassigned conversation -->
+    <div *ngIf="categoryConversation === 'unassignedConversations'">
+        <div *ngFor="let conversation of unassignedConversationsList"  class="conv-item-card my-3">
+            <div class="d-flex justify-content-between align-items-center  my-3">
+                <div routerLink="/private/staff/inbox/{{conversation.id}}" class="d-flex justify-content-start align-items-center gap-2 first-half-conv-item">
+                    <img class="img-class" src="../../../../../../../assets/images/others/user.jpg">
+                    <div class="d-flex flex-column align-items-start justify-content-center">
+                        <h4>{{conversation.name}}</h4><!--de verificat daca trebuie numele userului numele problemei-->
+                        <p *ngIf="conversation?.lastMessage === null">Incepeti o conversatie!</p>
+                        <p *ngIf="conversation?.lastMessage !== null">{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end align-items-center second-half-conv-item gap-2 conv-handling-class">
+                    <p>{{conversation.date | date: 'EEEE,d MMMM HH:mm'}}</p>
+                    <button (click)="joinConversation(conversation.id, currentUser)" class="btn-long btn-color-fill"><i class="fas fa-sign-in-alt"></i> Join</button>
+                </div>
+            </div>
+        </div>
+
+         <!--Pagination-->
+         <mat-paginator
+         [pageSizeOptions]="pageItems"
+         [length]="totalUnassignedConversations"
+         [pageSize]="pageSize"
+         (page)="pageChanged($event)"
+         >
+         </mat-paginator>
+    </div>
+
+
+    <!-- my closed conversations -->
+    <div *ngIf="categoryConversation === 'myClosedConversations'">
+        <div *ngFor="let conversation of myClosedConversationsList"  class="conv-item-card my-3">
+            <div class="d-flex justify-content-between align-items-center p-2 my-3">
+                <div routerLink="/private/staff/inbox/{{conversation.id}}" class="d-flex justify-content-start align-items-center gap-2 first-half-conv-item">
+                    <img class="img-class" src="../../../../../../../assets/images/others/user.jpg">
+                    <div class="d-flex flex-column align-items-start justify-content-center">
+                        <h4>{{conversation.name}}</h4><!--de verificat daca trebuie numele userului numele problemei-->
+                        <!-- <p *ngIf="conversation?.lastMessage === null">Incepeti o conversatie!</p> -->
+                        <p *ngIf="conversation?.lastMessage !== null">{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end align-items-center second-half-conv-item gap-2 conv-handling-class">
+                    <p>{{conversation.date | date: 'EEEE,d MMMM HH:mm'}}</p>
+                    <!-- <button (click)="joinConversation(currentUser, conversation.id)" class="btn-long btn-color-fill" disabled><i class="fas fa-sign-in-alt"></i> Join</button> -->
+                </div>
+            </div>
+        </div>
+         <!--Pagination-->
+         <mat-paginator
+         [pageSizeOptions]="pageItems"
+         [length]="totalMyClosedConversations"
+         [pageSize]="pageSize"
+         (page)="pageChanged($event)"
+         >
+         </mat-paginator>
+    </div>
+
+
+    <!--all conversation-->
+    <div *ngIf="categoryConversation === 'allConversations'">
+        <div *ngFor="let conversation of allConversationsList"  class="conv-item-card my-3 d-flex justify-content-between align-items-center flex-wrap flex-lg-nowrap">
+            <!-- <div *ngFor="let participant of conversation.participants"> -->
+
+            <!-- <div *ngFor="let participant of conversation.participants">
+
+            </div> -->
+            <div class="d-flex col-12 col-lg-7 justify-content-between align-items-center my-3">
+                <!-- Staff -->
+                <div routerLink='/private/staff/inbox/{{conversation.id}}' class="d-flex justify-content-start align-items-center gap-2 first-half-conv-item">
+                    <img class="img-class" src="../../../../../../../assets/images/others/user.jpg">
+                    <div class="d-flex flex-column align-items-start justify-content-center">
+                        <h4>{{conversation?.name}}</h4>
+                        <p *ngIf="conversation?.lastMessage === null">Incepeti o conversatie!</p>
+                        <p *ngIf="conversation?.lastMessage !== null">{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center second-half-conv-item">
+                    <p>{{conversation.date | date: 'EEEE,d MMMM HH:mm'}}</p>
+                </div>
+            </div>
+
+            <div class="d-flex col-12 col-lg-5 justify-content-between align-items-center buttons-part">
+                <div class="col-md-6">
+                    <p>Chat controlled by:</p>
+                    <div *ngFor="let participant of conversation.participants">
+                        <div *ngIf="participant.userId !== conversation.userId">
+                            <h5 class="chat-controlled-by-you"> {{ participant.userName }}</h5>
+                        </div>
+                    </div>
+                    <div *ngIf="(conversation.participants.length === 1)">
+                        <h5 class="chat-controlled-by-you"> None</h5>
+                    </div>
+                    <!-- <h5 class="chat-controlled-by-others">None</h5> -->
+                </div>
+                <div  class="d-flex justify-content-end align-items-center gap-2 col-md-6 conv-handling-class flex-wrap flex-md-nowrap">
+                    <button class="btn-long btn-color-fill" (click)="joinConversation(conversation.id,currentUser)"><i class="fas fa-sign-in-alt"></i> Join</button>
+                    <button class="btn-long btn-color-fill" (click)="leaveConversation(conversation.id)"><i class="fas fa-sign-out-alt"></i> Leave</button>
+
+                </div>
+            </div>
+
+            <!-- </div> -->
+        </div>
+
+        <!--Pagination-->
+        <mat-paginator
+        [pageSizeOptions]="pageItems"
+        [length]="totalAllConversations"
+        [pageSize]="pageSize"
+        (page)="pageChanged($event)"
+        >
+        </mat-paginator>
+    </div>
+
+
+
+    <!-- <div routerLink=""  class="conv-item-card d-flex justify-content-between align-items-center flex-wrap flex-lg-nowrap my-3">
+        <div class="d-flex col-12 col-lg-7 justify-content-between align-items-center p-2 my-3">
+            <div class="d-flex justify-content-start align-items-center gap-2 first-half-conv-item">
+                <img class="img-class" src="../../../../../../../assets/images/others/user.jpg">
+                <div class="d-flex flex-column align-items-start justify-content-center">
+                    <h4>Popa Vasilescu</h4>
+                    <p>Incepeti o conversatie!</p>
+                     <p>{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                </div>
+            </div>
+            <div class="d-flex align-items-center second-half-conv-item">
+                <p>2/03/2022</p>
+            </div>
+        </div>
+
+        <div class="d-flex col-12 col-lg-5 justify-content-between align-items-center buttons-part">
+            <div class="col-md-6">
+                <p>Chat controlled by:</p>
+                <h5 class="chat-controlled-by-you">(You) Max Wellson</h5>
+                 <h5 class="chat-controlled-by-others">None</h5>
+            </div>
+            <div  class="d-flex justify-content-end align-items-center gap-2 col-md-6 conv-handling-class flex-wrap flex-md-nowrap">
+                <button class="btn-long btn-color-fill" disabled><i class="fas fa-sign-in-alt"></i> Join</button>
+                <button class="btn-long btn-color-fill"><i class="fas fa-sign-out-alt"></i> Leave</button>
+
+            </div>
+        </div>
+    </div> -->
+</div>

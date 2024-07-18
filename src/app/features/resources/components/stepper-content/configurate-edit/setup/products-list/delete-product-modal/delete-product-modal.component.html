@@ -1,0 +1,53 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>Stergere Card</h2>
+        <p>Acțiunea de stergere card este permanentă și complet irevocabilă.</p>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+
+        <div class="row">
+
+            <!--Name-->
+            <div class="col-12 col-md-6">
+                <h5 class="section-title">Numele: <span>{{currentProd.name}}</span></h5>
+            </div>
+
+            <!--Regular Price-->
+            <div class="col-md-6 col-12">
+                <h5 class="section-title">Pret: <span>{{currentProd.price}} EUR</span></h5>
+            </div>
+
+            <!--Description-->
+            <div class="col-12">
+                <h5 class="section-title">Descriere: <span>{{currentProd.description}}</span></h5>
+            </div>
+
+
+
+        </div>
+
+
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline w-100" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill w-100" (click)="deleteProduct()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>
+

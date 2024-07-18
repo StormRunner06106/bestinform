@@ -1,0 +1,83 @@
+<ng-container *ngIf="itineraryData; else loadingData">
+    <div class="d-flex flex-column">
+
+        <div *ngIf="itineraryData?.featuredImage" class="background-container">
+            <img [src]="itineraryData?.featuredImage?.filePath" alt="itinerary-background-image">
+        </div>
+
+        <div class="content-container">
+            <h1 class="text-center">
+                Itinerary
+            </h1>
+
+            <div *ngIf="itineraryExtraInfo?.itineraryType !== 'ai'" class="container">
+                <h5>
+                    {{"ITINERARIES.CONFIGURE-ITINERARY" | translate}}
+                </h5>
+
+                <p>
+                    {{"ITINERARIES.CREATE-EXPERIENCE"| translate}}
+                </p>
+
+                <p class="m-0">
+                    <mat-form-field class="w-100" appearance="standard">
+                        <mat-label>{{"ITINERARIES.NAME"| translate}}
+                        </mat-label>
+                        <input  [formControl]="itineraryName"
+                                matInput placeholder="Itinerary name...">
+                        <mat-icon role="button" *ngIf="itineraryName.value" matSuffix
+                                  (click)="itineraryName.setValue('')">
+                            clear
+                        </mat-icon>
+                        <mat-error *ngIf="itineraryName.hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                    </mat-form-field>
+                </p>
+            </div>
+
+            <app-images-gallery *ngIf="itineraryData?.images" [images]="itineraryData.images"></app-images-gallery>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <app-transport></app-transport>
+                    </div>
+                    <div class="col-md-4">
+                        <app-accomodation (itineraryChanged)="handleItineraryChanges($event, 'accommodation')"></app-accomodation>
+                    </div>
+                    <div class="col-md-4">
+                        <app-eat-and-drink (itineraryChanged)="handleItineraryChanges($event, 'eatAndDrinks')"></app-eat-and-drink>
+                    </div>
+                    <div class="col-md-6">
+                        <app-activities [dayActivities]="true" (itineraryChanged)="handleItineraryChanges($event, 'dayActivities')"></app-activities>
+                    </div>
+                    <div class="col-md-6">
+                        <app-activities [dayActivities]="false" (itineraryChanged)="handleItineraryChanges($event, 'eveningActivities')"></app-activities>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="price-container">
+                    <div class="price">
+                        <p class="m-0">
+                            {{"ITINERARIES.TOTAL-COST"| translate}}
+                        </p>
+                        <span>
+                            €{{ itineraryTotalPrice }} (To be paid: €{{ itineraryPaidAmount }})
+                        </span>
+                    </div>
+
+                    <button [disabled]="confirmBtnDisabled" class="btn-auto btn-color-fill" type="button" (click)="confirmItinerary()">
+                        {{"ITINERARIES.GENERATE-ITINERARY"| translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #loadingData>
+    <div class="w-100 h-100 d-flex justify-content-center align-items-center" [style.background-color]="'white'">
+        <mat-spinner [diameter]="50" matSuffix></mat-spinner>
+    </div>
+</ng-template>

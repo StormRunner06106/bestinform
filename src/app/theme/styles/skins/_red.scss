@@ -1,0 +1,11 @@
+$red-primary: mat.define-palette(mat.$red-palette, 700, 50, 900);
+$red-accent: mat.define-palette(mat.$green-palette, 600, 100, 900);
+$red-warn: mat.define-palette(mat.$deep-orange-palette, A400);
+
+$red-theme: mat.define-light-theme((
+    color: (
+        primary: $red-primary,
+        accent: $red-accent,
+        warn: $red-warn,
+    )
+));

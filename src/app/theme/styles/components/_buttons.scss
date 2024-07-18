@@ -1,0 +1,376 @@
+@import '../components/fonts';
+
+// START: button shapes
+.btn-long {
+  min-width: 200px;
+}
+
+.btn-auto {
+  width: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .btn-long {
+    height: auto!important;
+    min-width: 0;
+    padding: 0 10px;
+  }
+}
+
+.btn-long, .btn-auto  {
+  text-decoration: none;
+  font-size: 14px;
+  font-family: $main-font-family;
+  font-weight: 500;
+  gap: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 32px;
+  height: 50px;
+  border: 1px solid;
+  border-radius: 100px;
+
+
+  span, i {
+    //font-size: 12px;
+    /*font-family: 'Font Awesome 5 Free';
+    font-weight: 900;*/
+  }
+
+  &:hover {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+    transition: ease-in-out 0.3s;
+    //color: #fff;
+  }
+
+
+  &:focus, &:active {
+    transition: 0s;
+    outline: none;
+  }
+}
+
+a.btn-color-fill:hover {
+  color: #fff;
+}
+
+.btn-round {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid;
+
+  span, i {
+    font-size: 12px;
+    margin-right: 0px!important;
+    /*font-family: 'Font Awesome 5 Free';
+    font-weight: 900;*/
+  }
+
+  &:hover {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+    transition: ease-in-out 0.3s;
+  }
+
+  // &:focus,
+  &:active {
+    transition: 0s;
+    outline: none;
+  }
+}
+
+.btn-label {
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+  gap: 4px;
+  width: 100px;
+  height: 32px;
+  // background: #34A853;
+  border-radius: 90px;
+
+  span, i {
+    font-size: 12px;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+    transition: ease-in-out 0.3s;
+  }
+
+  // &:focus,
+   &:active {
+    transition: 0s;
+    outline: none;
+  }
+}
+// END: button shapes
+
+
+// START: button colors
+.btn-color-fill {
+  background-color: $primary-color;
+  color: var(--primary-background);
+  border: none;
+
+  span, i {
+    color: var(--primary-background);
+  }
+
+  &:hover {
+    background: rgba($primary-color, 72%);
+  }
+
+   &:active {
+    background: rgba($primary-color, 48%);
+  }
+}
+
+.btn-white-fill {
+  background-color: var(--primary-background);
+  color: $primary-color;
+  border: none;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+
+  span, i {
+    color: $primary-color;
+  }
+
+  &:hover {
+    background: rgba($background-secondary, 72%);
+    // border-radius: 50%;
+  }
+
+  // &:focus,
+   &:active {
+    background: rgba($background-secondary , 48%);
+  }
+}
+
+.btn-like-fill {
+  background-color: $like-color;
+  color: var(--primary-background);
+  border: none;
+
+  span, i {
+    color: var(--primary-background);
+  }
+
+  &:hover {
+    background: rgba($like-color, 72%);
+  }
+
+  // &:focus,
+  &:active {
+    background: rgba($like-color, 48%);
+  }
+}
+
+.btn-dislike-fill {
+  background-color: $dislike-color;
+  color: var(--primary-background);
+  border: none;
+
+  span, i {
+    color: var(--primary-background);
+  }
+
+  &:hover {
+    background: rgba($dislike-color, 72%);
+  }
+
+  // &:focus,
+  &:active {
+    background: rgba($dislike-color, 48%);
+  }
+}
+
+.btn-color-fill:disabled, .btn-white-fill:disabled, .btn-dislike-fill:disabled ,.btn-like-fill:disabled {
+  background-color: var(--secondary-background);
+  color: rgba($paragraph, 48%);
+  cursor: not-allowed;
+
+  span, i {
+    color: rgba($paragraph, 48%);
+  }
+
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+
+.btn-color-outline {
+  background: rgba($primary-color, 0%);
+  color: $primary-color;
+  border-color: $primary-color;
+
+  span, i {
+    color: $primary-color;
+  }
+
+  &:hover {
+    background: rgba($primary-color, 8%);
+  }
+
+  // &:focus,
+   &:active {
+    background: rgba($primary-color, 24%);
+  }
+}
+
+.btn-white-outline {
+  background: rgba($primary-color, 0%);
+  color: var(--primary-background);
+  border-color: $primary-color;
+
+  span, i {
+    color: $primary-color;
+  }
+
+  &:hover {
+    background: rgba($primary-color, 8%);
+  }
+
+  // &:focus,
+  &:active {
+    background: rgba($primary-color, 24%);
+  }
+}
+
+.btn-white-border-outline {
+  background: rgba($primary-color, 0%);
+  color: white;
+  border-color: white;
+
+  span, i {
+    color: white;
+  }
+
+  &:hover {
+    background: rgba($primary-color, 8%);
+  }
+
+   &:focus, &:active {
+    background: rgba($primary-color, 24%);
+  }
+}
+
+.btn-color-outline:disabled, .btn-white-outline:disabled, .btn-white-border-outline:disabled {
+  background: rgba($primary-color, 0%);
+  color: rgba($paragraph, 48%);
+  border-color: rgba($paragraph, 48%);
+  cursor: not-allowed;
+
+  span, i {
+    color: rgba($paragraph, 48%);
+  }
+
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+.btn-no-outline {
+  background: rgba($primary-color, 0%);
+  color: $primary-color;
+  border-color: transparent;
+  width: 40px;
+  height: 40px;
+
+  span, i {
+    color: $primary-color;
+  }
+
+  &:hover {
+    background: rgba($primary-color, 8%);
+  }
+
+  // &:focus,
+  &:active {
+    background: rgba($primary-color, 24%);
+  }
+}
+
+.btn-no-outline:disabled{
+  background: rgba($primary-color, 0%);
+  color: rgba($paragraph, 48%);
+  cursor: not-allowed;
+
+  span, i {
+    color: rgba($paragraph, 48%);
+  }
+
+  &:hover {
+    box-shadow: none;
+  }
+   &:active {
+    background: rgba($active-btn-color, 0.8);
+  }
+}
+
+.active-label-button{
+  background: $active-btn-color;
+  color: white;
+  border-color: transparent;
+
+  span, i {
+    color: white;
+  }
+
+  &:hover {
+    background: rgba($active-btn-color, 0.8);
+  }
+
+  &:focus, &:active {
+    background: rgba($active-btn-color, 0.8);
+  }
+}
+
+.inactive-label-button{
+  background: $inactive-btn-color;
+  color: white;
+  border-color: transparent;
+
+  span, i {
+    color: white;
+  }
+
+  &:hover {
+    background: rgba($inactive-btn-color, 0.8);
+  }
+
+  &:focus, &:active {
+    background: rgba($inactive-btn-color, 0.8);
+  }
+
+}
+
+.disabled-label-button{
+  background: $disabled-btn-color,;
+  color: white;
+  border-color: transparent;
+
+  span, i {
+    color: white;
+  }
+
+  &:hover {
+    background: rgba($disabled-btn-color, 0.8);
+  }
+
+   &:focus,&:active {
+    background: rgba($disabled-btn-color, 0.8);
+  }
+
+}
+
+// END: button colors

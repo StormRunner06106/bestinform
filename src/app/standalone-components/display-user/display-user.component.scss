@@ -1,0 +1,46 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.container-user{
+  margin-bottom: 10px;
+  .user-data{
+    .avatar{
+      img{
+        width: 56px;
+        aspect-ratio: 1/1;
+        border-radius: 100%;
+      }
+
+      i{
+        width: 16px;
+        aspect-ratio: 1/1;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: $secondary-color;
+        background: radial-gradient(100% 787.93% at 0% 100%, rgba(0, 178, 255, 0.48) 0%, rgba(0, 178, 255, 0) 100%) , #24398A;
+        border: 2px solid var(--primary-background);
+        border-radius: 100%;
+        font-size: 6px;
+      }
+    }
+
+    .name-email{
+      padding: 0 12px;
+      .client-name{
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.modal-card.card > div {
+  background-color: var(--primary-background);
+    h3{
+      color:$title!important;
+      span{
+        color: $primary-color;
+      }
+    }
+
+}

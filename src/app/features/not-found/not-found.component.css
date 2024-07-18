@@ -1,0 +1,55 @@
+.box {
+  border-radius: 0;
+}
+
+.box .box-header {
+  height: 180px;
+}
+
+.box .box-header .error {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.box .box-content {
+  position: relative;
+  height: 180px;
+}
+
+.box .box-content .box-content-inner {
+  position: absolute;
+  top: -34px;
+  left: 34px;
+  right: 34px;
+  height: 180px;
+}
+
+.box .box-content .box-content-header {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.box .box-content .box-content-header.server-error {
+  margin-bottom: 36px;
+}
+
+.box .box-content .box-text {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.box .box-content .box-text::last-child {
+  margin-bottom: 15px;
+}
+
+.box .box-content .box-footer {
+  position: relative;
+  bottom: 16px;
+}
+
+.box .box-content .box-footer button {
+  min-width: 70px;
+  margin: 0 2px;
+}
+/*# sourceMappingURL=not-found.component.css.map */

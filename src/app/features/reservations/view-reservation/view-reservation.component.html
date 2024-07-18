@@ -1,0 +1,23 @@
+<!--Title bar-->
+<div class="container-fluid client-general-box" *ngIf="reservation">
+    <div class="container">
+        <app-dashboard-header *ngIf="userRole.includes('ROLE_CLIENT')"
+                            pageTitleOne="{{ 'RESERVATION.VIEW-RESERVATION' | translate}}"
+                              (buttonCall)="downloadAsPDF()"
+                              [buttonCallName]="'Descarcă Voucher'">
+        </app-dashboard-header>
+
+        <app-dashboard-header *ngIf="userRole.includes('ROLE_SUPER_ADMIN') || userRole.includes('ROLE_STAFF') || userRole.includes('ROLE_PROVIDER')"
+         pageTitleOne="{{ 'RESERVATION.VIEW-RESERVATION' | translate}}"
+        (buttonBackCall)="userRole.includes('ROLE_SUPER_ADMIN') ? navigateBack('admin') : userRole.includes('ROLE_STAFF') ? navigateBack('staff') : navigateBack('provider')"
+        (buttonCall)="downloadAsPDF()"
+        [buttonCallName]="'Descarcă Voucher'">
+        </app-dashboard-header>
+    </div>
+
+    <div>
+        <app-view-reservation-content [reservationId]="reservation?.id"></app-view-reservation-content>
+    </div>
+
+
+</div>

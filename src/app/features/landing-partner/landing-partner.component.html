@@ -1,0 +1,312 @@
+<nav class="navbar navbar-expand-lg navbar-light" [ngClass]="!isSticky ?  'nav-up' : ''">
+    <div  class="container-xl">
+        <a class="navbar-brand me-0" href="/parteneri"><img src="assets/images/logos/logo_blue_1.png" alt="bestinform logo"></a>
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <a class="navbar-toggler" href="tel:+40722673283"><i class="fas fa-phone"></i></a>-->
+        <button class="btn-partner show-on-mobile" [routerLink]="pageLang == LangOptions.RO ? '../formular/ro' : '../formular/en'">Începe</button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link fs-16" aria-current="page" (click)="scroll(home)">{{menu.home[pageLang]}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-16" aria-current="page" (click)="scroll(characteristics)" >{{menu.char[pageLang]}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-16" aria-current="page" (click)="scroll(offer)">{{menu.offer[pageLang]}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-16" aria-current="page" (click)="scroll(benefits)">{{menu.benefits[pageLang]}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-16" aria-current="page" (click)="scroll(faq)">FAQs</a>
+                </li>
+                <li class="nav-item">
+<!--                    <a class="nav-link fs-16" aria-current="page" (click)="scroll(contact)">Contact</a>-->
+                </li>
+                <li class="nav-item align-self-start align-self-sm-center">
+                    <select class="language" [(ngModel)]="pageLang" (change)="changeRoute()">
+                        <option [value]="LangOptions.RO">RO</option>
+                        <option [value]="LangOptions.EN">EN</option>
+                    </select>
+                </li>
+            </ul>
+            <button class="btn-partner" [routerLink]="pageLang == LangOptions.RO ? '../formular/ro' : '../formular/en'">{{menu.join[pageLang]}}</button>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-section d-flex flex-column">
+    <div class="container">
+        <div class="notifications-section
+                    d-flex justify-content-center justify-content-xl-between align-items-center flex-wrap-reverse" #home>
+            <div class="d-flex flex-column align-items-start">
+
+                <h1>
+                    {{ heroSection.notificationSection.title[pageLang] }}
+                </h1>
+
+                <p class="fs-24">
+                    {{ heroSection.notificationSection.paragraph[pageLang] }}
+                </p>
+
+                <button class="btn-partner" type="submit" #characteristics [routerLink]="pageLang == LangOptions.RO ? '../formular/ro' : '../formular/en'">{{menu.join[pageLang]}}</button>
+
+                <div class="d-flex align-items-center">
+                    <img *ngFor="let icon of heroSection.notificationSection.locationsIcons"
+                         [src]="icon.iconPath" alt="location icon">
+
+                    <p class="fs-16">
+                        {{ heroSection.notificationSection.locationsNr[pageLang] }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="d-flex flex-grow-1 position-relative">
+                <img [src]="heroSection.notificationSection.bigImg.imgPath" alt="mobile picture">
+
+                <div appParallax [parallaxRatio]="parallaxRatioNotifications"
+                     id="heart" class="notification-tile">
+                    <img [src]="heroSection.notificationSection.heartImg.imgPath" alt="heart">
+                </div>
+
+                <div appParallax [parallaxRatio]="parallaxRatioNotifications"
+                     id="confetti-top" class="notification-tile">
+                    <img [src]="heroSection.notificationSection.confettiImg.imgPath" alt="confetti">
+                    <p class="fs-16">{{ heroSection.notificationSection.confettiTxtTop[pageLang] }}</p>
+                </div>
+
+                <div appParallax [parallaxRatio]="parallaxRatioNotifications"
+                     id="stars" class="notification-tile">
+                    <img *ngFor="let star of [1,2,3,4,5]"
+                         [src]="heroSection.notificationSection.starImg.imgPath" alt="star {{star}}">
+                </div>
+
+                <div appParallax [parallaxRatio]="parallaxRatioNotifications"
+                     id="confetti-bottom" class="notification-tile">
+                    <img [src]="heroSection.notificationSection.confettiImg.imgPath" alt="confetti">
+                    <p class="fs-16">{{ heroSection.notificationSection.confettiTxtBottom[pageLang] }}</p>
+                </div >
+            </div>
+        </div>
+
+        <div class="images-section position-relative" >
+            <div class="mx-auto" >
+                <h2>
+                    {{ heroSection.imagesSection.title[pageLang] }}
+                </h2>
+
+                <p class="fs-20">
+                    {{ heroSection.imagesSection.paragraph[pageLang] }}
+                </p>
+            </div>
+
+            <img [src]="heroSection.imagesSection.imageLeft.imgPath"
+                 appParallax [parallaxRatio]="parallaxRatioImages"
+                 id="imgLeft"
+                 class="position-absolute d-none d-xxl-inline"
+                 alt="image left">
+
+            <img [src]="heroSection.imagesSection.vectorLeft.imgPath"
+                 id="vectorLeft"
+                 class="position-absolute d-none d-xxl-inline"
+                 alt="line left">
+
+            <img [src]="heroSection.imagesSection.imageCenter.imgPath"
+                 appParallax [parallaxRatio]="parallaxRatioImages"
+                 id="imgCenter"
+                 alt="image center">
+
+            <img [src]="heroSection.imagesSection.vectorRight.imgPath"
+                 id="vectorRight"
+                 class="position-absolute d-none d-xxl-inline"
+                 alt="line right">
+
+            <img [src]="heroSection.imagesSection.imageRight.imgPath"
+                 appParallax [parallaxRatio]="parallaxRatioImages"
+                 id="imgRight"
+                 class="position-absolute d-none d-xxl-inline"
+                 alt="image right">
+        </div>
+    </div>
+</section>
+
+<section class="features-section" #offer>
+    <div class="container">
+        <div class="mx-auto mx-xl-0">
+            <h2>
+                {{ featuresSection.titleSection.title[pageLang] }}
+            </h2>
+
+            <p class="fs-20">
+                {{ featuresSection.titleSection.paragraph[pageLang] }}
+            </p>
+        </div>
+
+        <div class="row">
+            <div *ngFor="let tile of featuresSection.tiles; let tileIndex = index" class="col-12 col-md-6 col-lg-4">
+                <div class="offer-card">
+                    <img class="icon-tile" [src]="tile.icon" alt="offer {{tileIndex}}">
+                    <h3>
+                        {{ tile.title[pageLang] }}
+                    </h3>
+                    <p class="fs-16">
+                        {{ tile.paragraph[pageLang] }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="benefits-section" #benefits>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end">
+            <div>
+                <h2>
+                    {{ benefitsSection.titleSection.title[pageLang] }}
+                </h2>
+
+                <p class="fs-20">
+                    {{ benefitsSection.titleSection.paragraph[pageLang] }}
+                </p>
+            </div>
+
+            <button class="btn-partner up" type="submit" [routerLink]="pageLang == LangOptions.RO ? '../formular/ro' : '../formular/en'">{{menu.start[pageLang]}}</button>
+        </div>
+
+        <div class="benefits-slides" id="benefit-slides">
+            <div>
+                <ng-container *ngFor="let benefit of benefitsSection.benefits; index as i">
+                    <div class="benefit-card cursor" [ngClass]="benefit.isActive ? 'is-active' : null" (click)="changeBenefitActive(i)">
+                        <div class="progress-container">
+                            <div class="loading"></div>
+                        </div>
+                        <div class="benefit-info">
+                            <img class="icon-tile" [src]="benefit.iconPath" alt="benefit icon">
+
+                            <h3>
+                                {{ benefit.title[pageLang] }}
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div *ngIf="benefit.isActive"
+                         class="d-flex d-xxl-none selected-benefit">
+                        <img [src]="activeBenefit.imgPath" alt="benefit image">
+
+                        <p class="fs-16">
+                            {{ activeBenefit.description }}
+                        </p>
+                    </div>
+                </ng-container>
+            </div>
+
+            <div class="d-none d-xxl-flex selected-benefit">
+                <img [src]="activeBenefit.imgPath" alt="benefit image">
+
+                <p class="fs-16">
+                    {{ activeBenefit.description }}
+                </p>
+            </div>
+        </div>
+
+        <button class="btn-partner down" type="submit" [routerLink]="pageLang == LangOptions.RO ? '../formular/ro' : '../formular/en'">{{menu.start[pageLang]}}</button>
+
+        <div class="clients d-flex flex-column">
+            <h2>
+                {{ benefitsSection.clientSection.title[pageLang] }}
+            </h2>
+
+            <div>
+                <div *ngFor="let client of benefitsSection.clientSection.clients"
+                    class="client-card">
+                    <div>
+                        <img [src]="client.iconPath" alt="client profile">
+
+                        <div>
+                            <p class="fs-16">{{ client.name }}</p>
+                            <p class="fs-16">{{ client.job }}</p>
+                        </div>
+                    </div>
+
+                    <p class="fs-16 ">{{ client.review[pageLang] }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="faq-section" #faq>
+    <div class="container">
+        <h2>
+            {{ faqSection.title[pageLang] }}
+        </h2>
+
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+            <ngb-panel *ngFor="let section of faqSection.sections, index as i">
+                <ng-template ngbPanelHeader let-opened="opened">
+                    <div class="question cursor" (click)="acc.toggle('ngb-panel-'+i)">
+                        <h3>
+                            {{ section.question[pageLang] }}
+                        </h3>
+
+                        <button type="button" ngbPanelToggle class="btn-round btn-no-outline">
+                            <i [ngClass]="opened ? 'fas fa-times' : 'fas fa-plus'"></i>
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <p class="fs-16 answer" [innerHtml]="section.answer[pageLang]">
+                    </p>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+
+        <div class="d-flex justify-content-center align-items-center w-100">
+            <button class="btn-partner-bigger" [routerLink]="pageLang == LangOptions.RO ? '../formular/ro' : '../formular/en'">{{menu.join[pageLang]}}</button>
+        </div>
+
+    </div>
+</section>
+
+<footer class="footer-section" #contact>
+     <div class="container">
+         <div class="mx-auto">
+             <img [src]="'assets/images/others/partner-landing/Bestinform_logo.png'" alt="bestinform white logo">
+
+             <p>{{footer.text[pageLang]}}</p>
+
+             <div class="d-flex justify-content-between align-items-center">
+                 <p class="fs-16 cursor" (click)="scroll(home)">{{menu.home[pageLang]}}</p>
+                 <p class="fs-16 cursor" (click)="scroll(characteristics)">{{menu.char[pageLang]}}</p>
+                 <p class="fs-16 cursor" (click)="scroll(offer)">{{menu.offer[pageLang]}}</p>
+                 <p class="fs-16 cursor" (click)="scroll(benefits)">{{menu.benefits[pageLang]}}</p>
+                 <p class="fs-16 cursor" (click)="scroll(faq)">FAQs</p>
+<!--                 <p class="fs-16" (click)="scroll(contact)">Contact</p>-->
+             </div>
+
+             <div class="d-flex justify-content-between align-items-center">
+                 <a href="tel:+40722673283"><i class="fas fa-phone"></i></a>
+                 <a target="_blank" href="https://www.facebook.com/profile.php?id=100076116217462"><i class="fab fa-facebook-f"></i></a>
+                 <a target="_blank" href="https://www.tiktok.com/@bestinform"><i class="fab fa-tiktok"></i></a>
+                 <a target="_blank" href="https://www.instagram.com/bestinform.eu "><i class="fab fa-instagram"></i></a>
+             </div>
+         </div>
+
+         <p class="fs-16">
+             © Bestinform 2023. All Rights Reserved.
+         </p>
+     </div>
+</footer>
+<div class="ue-logo d-flex justify-content-center align-items-center w-100 flex-wrap">
+    <img src="assets/images/logos/fonduri-ue.png" class="w-25">
+    <p class="w-25 mb-0">Pentru informaţii
+        detaliate despre celelalte programe cofinanţate de Uniunea
+        Europeană, vă invităm să vizitaţi <a href="https://www.fonduri-ue.ro/" target="_blank">www.fonduri-ue.ro
+        </a></p>
+</div>
+

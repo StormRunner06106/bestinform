@@ -1,0 +1,22 @@
+<div class="container">
+    <div *ngIf="isAdmin" class="row dashboard-admin">
+        <p class="title-p">
+            {{'TITLES.CONTROL-PANEL' | translate}}
+        </p>
+
+        <div class="dashboard-cards-admin">
+            <div class="row">
+                <div class="col-12 col-md-6" role="button" routerLink="/private/admin/manage-staff">
+                    <div class="staff-list">
+                        <p class="title-for-card mb-0">{{'TITLES.STAFF-LIST' | translate}}</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6" role="button" routerLink="/private/admin/logs/list">
+                    <div class="history-log">
+                        <p class="title-for-card mb-0">{{'TITLES.HISTORY-LOG' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

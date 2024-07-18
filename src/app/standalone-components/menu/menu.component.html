@@ -1,0 +1,499 @@
+<div *ngIf="isStaff || isAdmin" class="second-bar">
+    <div class="container">
+        <mat-toolbar class="first p-0">
+            <a class="item d-flex m-0" [routerLink]="isStaff ? '/private/staff/dashboard' : '/private/admin/dashboard'">
+                <i class="fas fa-puzzle-piece d-flex align-items-center"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="item d-flex m-0 " *ngIf="isAdmin || (isStaff && user.roles.includes('ROLE_PROVIDERS_EDIT'))"
+               [routerLink]="isStaff ? '/private/staff/manage-providers/active' : '/private/admin/manage-providers/active'">
+                <i class="fas fa-user-cog d-flex align-items-center"></i>
+                <span>{{ 'STAFF.PROVIDERS' | translate }}</span>
+            </a>
+
+            <a class="item d-flex m-0 "
+               [routerLink]="isStaff ? '/private/staff/clients' : '/private/admin/clients'">
+                <i class="fas fa-users d-flex align-items-center"></i>
+                <span>{{ 'STAFF.USERS' | translate }}</span>
+            </a>
+
+            <a class="item d-flex m-0 align-items-center" (click)="sablonMenuTrigger.openMenu()"  *ngIf="isAdmin || isStaff"
+               #sablonMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="sablon">
+                <i class="fas fa-icons d-flex align-items-center"></i>
+                <span>{{ 'STAFF.RESOURCES' | translate }}<i class="fas fa-chevron-down ms-2"></i></span>
+            </a>
+            <mat-menu #sablon="matMenu">
+                <span class="custom-dropdown-menu">
+<!--                     (mouseleave)="sablonMenuTrigger.closeMenu()"-->
+                    <button *ngIf="isAdmin || (isStaff &&  user.roles.includes('ROLE_PROVIDERS_EDIT'))" [routerLink]="isStaff ? '/private/staff/resources' : '/private/admin/resources'"
+                            mat-menu-item><i class="fas fa-icons me-2"></i>{{ 'STAFF.LIST' | translate }}</button>
+                    <button [routerLink]="isStaff ? '/private/staff/templates' : '/private/admin/templates'"
+                            mat-menu-item><i
+                            class="fas fa-layer-group me-2"></i>{{ 'TEMPLATES.LIST' | translate }}</button>
+                    <button [routerLink]="isStaff ? '/private/staff/domains' : '/private/admin/domains'"
+                            mat-menu-item><i class="fas fa-shapes me-2"></i>{{ 'STAFF.DOMAINS' | translate }}</button>
+                    <button *ngIf="isAdmin || (isStaff && user.roles.includes('ROLE_EVENTS_EDIT'))" [routerLink]="isStaff ? '/private/staff/events' : '/private/admin/events'" mat-menu-item><i
+                            class="fas fa-globe me-2"></i>{{ 'STAFF.EVENTS' | translate }}</button>
+                    <button *ngIf="isStaff || isAdmin" [routerLink]="isStaff ? '/private/staff/reservations/flight-list' : '/private/admin/reservations/flight-list'" mat-menu-item><i class="fas fa-plane me-2"></i>Rezervari zboruri</button>
+                    <!-- <button mat-menu-item><i class="fas fa-globe me-2"></i>{{ 'STAFF.OFFERS' | translate }}</button> -->
+                </span>
+            </mat-menu>
+
+            <!--            <a class="item d-flex m-0">-->
+            <!--                <i class="fas fa-icons d-flex align-items-center"></i>-->
+            <!--                <span>Trips</span>-->
+            <!--            </a>-->
+
+            <!--            <a class="item d-flex m-0"-->
+            <!--               [routerLink]="isStaff ? '/private/staff/itineraries/add' : '/private/admin/itineraries/add'">-->
+            <!--                <i class="fas fa-icons d-flex align-items-center"></i>-->
+            <!--                <span>Itineraries</span>-->
+            <!--            </a>-->
+
+            <a class="item d-flex m-0" (click)="cmsTrigger.openMenu()"
+               #cmsTrigger="matMenuTrigger" [matMenuTriggerFor]="cms">
+                <i class="fas fa-cogs d-flex align-items-center"></i>
+                <span class="mb-0 pb-0">CMS<i class="fas fa-chevron-down ms-2"></i></span>
+            </a>
+            <mat-menu #cms="matMenu">
+                <span class="custom-dropdown-menu" (mouseleave)="cmsTrigger.closeMenu()">
+                    <button [routerLink]="isStaff ? '/private/staff/cms/home' : '/private/admin/cms/home'"
+                            mat-menu-item><i class="fas fa-home me-2"></i>{{ 'STAFF.HOMEPAGE' | translate }}</button>
+                    <button mat-menu-item><i class="fas fa-columns me-2"></i>{{ 'STAFF.PAGES' | translate }}</button>
+                    <button *ngIf="isAdmin || (isStaff && user.roles.includes('ROLE_EDITORIALS_EDIT'))" [routerLink]="isStaff ? '/private/staff/editorials' : '/private/admin/editorials'"
+                            mat-menu-item><i
+                            class="fas fa-pen-nib me-2"></i>{{ 'STAFF.EDITORIALS' | translate }}</button>
+                    <button mat-menu-item
+                            [routerLink]="isStaff ? '/private/staff/jobs/list' : '/private/admin/jobs/list'"><i
+                            class="fas fa-briefcase me-2"></i>{{ 'STAFF.JOBS_TRADE' | translate }}</button>
+<!--                    <button mat-menu-item-->
+<!--                            [routerLink]="isStaff ? '/private/staff/jobs/candidates' : '/private/admin/jobs/candidates'"><i-->
+<!--                            class="fas fa-briefcase me-2"></i>{{ 'STAFF.CANDIDATES_CV' | translate }}</button>-->
+                    <button mat-menu-item
+                            [routerLink]="isStaff ? '/private/staff/forum/threads' : '/private/admin/forum/threads'"><i
+                            class="fas fa-users me-2"></i>{{ 'STAFF.FORUMS' | translate }}</button>
+                    <button [routerLink]="isStaff ? '/private/staff/cms/media-library' : '/private/admin/cms/media-library'"
+                            mat-menu-item><i
+                            class="fas fa-images me-2"></i>{{ 'STAFF.MEDIA-LIBRARY' | translate }}</button>
+                </span>
+            </mat-menu>
+
+            <a class="item d-flex m-0" (click)="configTrigger.openMenu()"
+               #configTrigger="matMenuTrigger" [matMenuTriggerFor]="config">
+                <i class="fas fa-cogs d-flex align-items-center"></i>
+                <span class="mb-0 pb-0">Configurator<i class="fas fa-chevron-down ms-2"></i></span>
+            </a>
+            <mat-menu #config="matMenu">
+                <span class="custom-dropdown-menu" (mouseleave)="configTrigger.closeMenu()">
+                    <!--                    <button mat-menu-item><i-->
+                    <!--                            class="fas fa-money-bill-wave me-2"></i>{{ 'STAFF.SUBSCRIPTIONS' | translate }}</button>-->
+                    <!--                    <button mat-menu-item><i-->
+                    <!--                            class="fas fa-cog me-2"></i>{{ 'STAFF.NOTIFICATIONS' | translate }}</button>-->
+                    <!--                    <button [routerLink]="isStaff ? '/private/staff/configurator/locations' : '/private/admin/configurator/locations'"-->
+                    <!--                            mat-menu-item><i class="fas fa-map-marker-alt me-2"></i>{{ 'STAFF.LOCATIONS' | translate }}</button>-->
+                    <button [routerLink]="isStaff ? '/private/staff/itineraries/list' : '/private/admin/itineraries/list'"
+                            mat-menu-item><i class="fas fa-cog me-2"></i>Itinerarii</button>
+                    <button [routerLink]="isStaff ? '/private/staff/trips/list' : '/private/admin/trips/list'"
+                            mat-menu-item><i class="fas fa-cog me-2"></i>Trips</button>
+                    <button [routerLink]="isStaff ? '/private/staff/trips/countries' : '/private/admin/trips/countries'"
+                            mat-menu-item><i class="fas fa-cog me-2"></i>Locații Trips</button>
+                    <button [routerLink]="isStaff ? '/private/staff/trips/hotels' : '/private/admin/trips/hotels'"
+                            mat-menu-item><i class="fas fa-cog me-2"></i>Markup Hoteluri</button>
+                </span>
+            </mat-menu>
+
+            <a class="item d-flex m-0" (click)="reportsTrigger.openMenu()"
+               #reportsTrigger="matMenuTrigger" [matMenuTriggerFor]="reports">
+                <i class="fas fa-file d-flex align-items-center"></i>
+                <span class="mb-0 pb-0">{{'STAFF.REPORTS' | translate}}
+                    <i class="fas fa-chevron-down ms-2"></i></span>
+            </a>
+
+            <mat-menu #reports="matMenu">
+                <span class="custom-dropdown-menu" (mouseleave)="reportsTrigger.closeMenu()">
+                    <button mat-menu-item
+                            [routerLink]="isStaff ? '/private/staff/reports/clients' : '/private/admin/reports/clients'"><i
+                            class="fas fa-chart-line me-2"></i>Clients</button>
+                    <button mat-menu-item
+                            [routerLink]="isStaff ? '/private/staff/reports/providers' : '/private/admin/reports/providers'"><i
+                            class="fas fa-chart-line me-2"></i>Providers</button>
+                    <button mat-menu-item
+                            [routerLink]="isStaff ? '/private/staff/reports/resources' : '/private/admin/reports/resources'"><i
+                            class="fas fa-chart-line me-2"></i>Resources</button>
+    <!--                    <button mat-menu-item-->
+    <!--                            [routerLink]="isStaff ? '/private/staff/reports/events' : '/private/admin/reports/events'"><i-->
+    <!--                            class="fas fa-chart-line me-2"></i>Events</button>-->
+    <!--                    <button mat-menu-item-->
+    <!--                            [routerLink]="isStaff ? '/private/staff/reports/editorials' : '/private/admin/reports/editorials'"><i-->
+    <!--                            class="fas fa-chart-line me-2"></i>Editorials</button>-->
+    <!--                    <button mat-menu-item-->
+    <!--                            [routerLink]="isStaff ? '/private/staff/reports/jobs' : '/private/admin/reports/jobs'"><i-->
+    <!--                            class="fas fa-chart-line me-2"></i>Jobs</button>-->
+                </span>
+            </mat-menu>
+
+
+            <a class="item d-flex m-0 align-items-center" (click)="systemSettingsTrigger.openMenu()"
+               #systemSettingsTrigger="matMenuTrigger" [matMenuTriggerFor]="systemSettings">
+               <i class="fas fa-tools"></i>
+                <span>Setări<i class="fas fa-chevron-down ms-2"></i></span>
+            </a>
+            <mat-menu #systemSettings="matMenu">
+                <span class="custom-dropdown-menu" (mouseleave)="sablonMenuTrigger.closeMenu()">
+                    <button [routerLink]="isStaff ? '/private/staff/settings/system-settings' : '/private/admin/settings/system-settings'"
+                            mat-menu-item><i class="fas fa-sliders-h me-2"></i>Setări sistem</button>
+                    <button [routerLink]="isStaff ? '/private/staff/settings/integration-settings' : '/private/admin/settings/integration-settings'"
+                            mat-menu-item><i class="fas fa-sliders-h me-2"></i>Setări integrări</button>
+                </span>
+            </mat-menu>
+
+        </mat-toolbar>
+
+        <!--            BLUE BAR FOR STAFF ON RESPONSIVE-->
+        <mat-toolbar class="second">
+            <button mat-icon-button (click)="snav.toggle()"><i class="fas fa-bars"></i></button>
+        </mat-toolbar>
+
+
+        <mat-sidenav-container class="side-menu-container" [hasBackdrop]="true">
+            <mat-sidenav #snav #snavRef [mode]="mobileQuery.matches ? 'over' : 'side'"
+                         [fixedInViewport]="mobileQuery.matches" fixedTopGap="0" [(opened)]="isOpen">
+                <mat-nav-list>
+                    <div class="row-button d-flex justify-content-end me-2">
+                        <button mat-icon-button (click)="snav.close()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <a mat-list-item class="item m-0" routerLink="/dashboard">
+                        <i class="fas fa-puzzle-piece me-2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a mat-list-item class="item d-flex m-0" routerLink="">
+                        <i class="fas fa-user-cog me-2"></i>
+                        <span>{{ 'STAFF.PROVIDERS' | translate }}</span>
+                    </a>
+                    <a mat-list-item class="item d-flex m-0 align-items-center" (click)="onResourcesClick()" *ngIf="user.approvedStatus === 'active'">
+                        <i class="fas fa-icons d-flex me-2"></i>
+                        <span>{{ 'STAFF.RESOURCES' | translate }}
+                            <i *ngIf="!isResourcesClicked" class="fas fa-chevron-down ms-2"></i>
+                    <i *ngIf="isResourcesClicked" class="fas fa-chevron-up ms-2"></i>
+                </span>
+                    </a>
+                    <div class="menu-res" *ngIf="isResourcesClicked">
+
+                        <a mat-list-item class="item-sm ml-3 p-0" routerLink="">
+                            <i class="fas fa-icons me-2"></i>
+                            <span>{{ 'STAFF.LIST' | translate }}</span>
+                        </a>
+
+                        <a mat-list-item class="item-sm ml-3 p-0" routerLink="">
+                            <i class="fas fa-layer-group me-2"></i>
+                            <span>{{ 'STAFF.PATTERNS' | translate }}</span>
+                        </a>
+
+                        <a mat-list-item class="item-sm ml-3 p-0" routerLink="/dashboard/domains/list">
+                            <i class="fas fa-shapes me-2"></i>
+                            <span>{{ 'STAFF.DOMAINS' | translate }}</span>
+                        </a>
+
+                        <a mat-list-item class="item-sm ml-3 p-0" routerLink="">
+                            <i class="fas fa-globe me-2"></i>
+                            <span>{{ 'STAFF.EVENTS' | translate }}</span>
+                        </a>
+
+                        <!-- <a mat-list-item class="item-sm ml-3 p-0" routerLink="">
+                            <i class="fas fa-globe me-2"></i>
+                            <span>{{ 'STAFF.OFFERS' | translate }}</span>
+                        </a> -->
+                    </div>
+
+                    <a mat-list-item class="item d-flex m-0 align-items-center" (click)="onCMSClick()">
+                        <i class="fas fa-cogs d-flex me-2"></i>
+                        <span>CMS
+                            <i *ngIf="!isCMSClicked" class="fas fa-chevron-down ms-2"></i>
+                            <i *ngIf="isCMSClicked" class="fas fa-chevron-up ms-2"></i>
+                        </span>
+                    </a>
+
+                    <div class="menu-cms" *ngIf="isCMSClicked">
+                        <a mat-list-item class="item-sm ml-3 p-0" routerLink="">
+                            <i class="fas fa-home me-2"></i>
+                            <span>{{ 'HOME' | translate }}</span>
+                        </a>
+
+                        <a mat-list-item class="item-sm ml-3 p-0" routerLink="">
+                            <i class="fas fa-columns me-2"></i>
+                            <span>{{ 'STAFF.PAGES' | translate }}</span>
+                        </a>
+
+                        <a mat-list-item class="item-sm ml-3 p-0" routerLink="">
+                            <i class="fas fa-pen-nib me-2"></i>
+                            <span>{{ 'STAFF.EDITORIALS' | translate }}</span>
+                        </a>
+
+                        <a mat-list-item class="item-sm ml-3 p-0"  [routerLink]="isStaff ? '/private/staff/jobs/list' : '/private/admin/jobs/list'">
+                            <i class="fas fa-briefcase me-2"></i>
+                            <span>{{ 'STAFF.JOBS_TRADE' | translate }}</span>
+                        </a>
+
+<!--                        <a mat-list-item class="item-sm ml-3 p-0"  [routerLink]="isStaff ? '/private/staff/jobs/candidates' : '/private/admin/jobs/candidates'">-->
+<!--                            <i class="fas fa-briefcase me-2"></i>-->
+<!--                            <span>{{ 'STAFF.CANDIDATES_CV' | translate }}</span>-->
+<!--                        </a>-->
+
+
+                        <a mat-list-item class="item-sm ml-3 p-0"
+                           [routerLink]="isStaff ? '/private/staff/forum/threads' : '/private/admin/forum/threads'">
+                            <i class="fas fa-users me-2"></i>
+                            <span>Forum</span>
+                        </a>
+
+                        <a mat-list-item class="item-sm ml-3 p-0" routerLink="">
+                            <i class="fas fa-images me-2"></i>
+                            <span>{{ 'STAFF.MEDIA-LIBRARY' | translate }}</span>
+                        </a>
+                    </div>
+
+                    <a mat-list-item class="item d-flex m-0 align-items-center" (click)="onConfigClick()">
+                        <i class="fas fa-cogs d-flex me-2"></i>
+                        <span>Configurator
+                            <i *ngIf="!isConfigClicked" class="fas fa-chevron-down ms-2"></i>
+                            <i *ngIf="isConfigClicked" class="fas fa-chevron-up ms-2"></i>
+                        </span>
+                    </a>
+
+                    <div class="menu-cms" *ngIf="isConfigClicked">
+                        <a mat-list-item class="item-sm ml-3 p-0"
+                           [routerLink]="isStaff ? '/private/staff/itineraries/list' : '/private/admin/itineraries/list'">
+                            <i class="fas fa-users me-2"></i>
+                            <span>Itinerarii</span>
+                        </a>
+                        <a mat-list-item class="item-sm ml-3 p-0"
+                           [routerLink]="isStaff ? '/private/staff/trips/list' : '/private/admin/trips/list'">
+                            <i class="fas fa-users me-2"></i>
+                            <span>Trips</span>
+                        </a>
+                        <a mat-list-item class="item-sm ml-3 p-0"
+                           [routerLink]="isStaff ? '/private/staff/trips/countries' : '/private/admin/trips/countries'">
+                            <i class="fas fa-users me-2"></i>
+                            <span>Locații Trips</span>
+                        </a>
+                        <a mat-list-item class="item-sm ml-3 p-0"
+                           [routerLink]="isStaff ? '/private/staff/trips/hotels' : '/private/admin/trips/hotels'">
+                            <i class="fas fa-users me-2"></i>
+                            <span>Markup Hoteluri</span>
+                        </a>
+                    </div>
+
+                    <a mat-list-item class="item d-flex m-0 align-items-center" (click)="onReportsClick()">
+                        <i class="fas fa-file d-flex me-2"></i>
+                        <span>Rapoarte
+                            <i *ngIf="!isReportsClicked" class="fas fa-chevron-down ms-2"></i>
+                            <i *ngIf="isReportsClicked" class="fas fa-chevron-up ms-2"></i>
+                        </span>
+                    </a>
+
+                    <div class="menu-cms" *ngIf="isReportsClicked">
+                        <a mat-list-item class="item-sm ml-3 p-0"
+                           [routerLink]="isStaff ? '/private/staff/reports/clients' : '/private/admin/reports/clients'">
+                            <i class="fas fa-chart-line me-2"></i>
+                            <span>Clients</span>
+                        </a>
+
+                        <a mat-list-item class="item-sm ml-3 p-0"
+                           [routerLink]="isStaff ? '/private/staff/reports/providers' : '/private/admin/reports/providers'">
+                            <i class="fas fa-chart-line me-2"></i>
+                            <span>Providers</span>
+                        </a>
+
+                        <a mat-list-item class="item-sm ml-3 p-0"
+                           [routerLink]="isStaff ? '/private/staff/reports/resources' : '/private/admin/reports/resources'">
+                            <i class="fas fa-chart-line me-2"></i>
+                            <span>Resources</span>
+                        </a>
+
+<!--                        <a mat-list-item class="item-sm ml-3 p-0"-->
+<!--                           [routerLink]="isStaff ? '/private/staff/reports/events' : '/private/admin/reports/events'">-->
+<!--                            <i class="fas fa-chart-line me-2"></i>-->
+<!--                            <span>Events</span>-->
+<!--                        </a>-->
+
+<!--                        <a mat-list-item class="item-sm ml-3 p-0"-->
+<!--                           [routerLink]="isStaff ? '/private/staff/reports/editorials' : '/private/admin/reports/editorials'">-->
+<!--                            <i class="fas fa-chart-line me-2"></i>-->
+<!--                            <span>Editorials</span>-->
+<!--                        </a>-->
+
+<!--                        <a mat-list-item class="item-sm ml-3 p-0"-->
+<!--                           [routerLink]="isStaff ? '/private/staff/reports/jobs' : '/private/admin/reports/jobs'">-->
+<!--                            <i class="fas fa-chart-line me-2"></i>-->
+<!--                            <span>Jobs</span>-->
+<!--                        </a>-->
+                    </div>
+
+                    <a mat-list-item class="item d-flex m-0 align-items-center" (click)="onSettingsClick()">
+                        <i class="fas fa-tools me-2"></i>
+                        <span>Setări
+                            <i *ngIf="!isReportsClicked" class="fas fa-chevron-down ms-2"></i>
+                            <i *ngIf="isReportsClicked" class="fas fa-chevron-up ms-2"></i>
+                        </span>
+                    </a>
+
+                    <div class="menu-cms" *ngIf="isSettingsClicked">
+                        <a mat-list-item class="item-sm ml-3 p-0"
+                           [routerLink]="isStaff ? '/private/staff/settings/system-settings' : '/private/admin/settings/system-settings'">
+                           <i class="fas fa-sliders-h me-2"></i>
+                            <span>Setări sistem</span>
+                        </a>
+
+                        <a mat-list-item class="item-sm ml-3 p-0"
+                           [routerLink]="isStaff ? '/private/admin/settings/integration-settings' : '/private/admin/settings/integration-settings'">
+                           <i class="fas fa-sliders-h me-2"></i>
+                            <span>Setări integrări</span>
+                        </a>
+                    </div>
+
+
+                </mat-nav-list>
+            </mat-sidenav>
+            <mat-sidenav-content>
+
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+
+
+</div>
+
+<div *ngIf="isProvider" class="second-bar">
+    <div class="container">
+        <mat-toolbar class="first p-0">
+            <a class="item d-flex m-0" routerLink="/private/provider/dashboard">
+                <i class="fas fa-puzzle-piece d-flex align-items-center"></i>
+                <span>Dashboard</span>
+            </a>
+            <!-- <a class="item d-flex m-0 " routerLink="/private/provider/reservations/my-list">
+                <i class="fas fa-icons d-flex align-items-center"></i>
+                <span>{{ 'PROVIDER.BOOKINGS' | translate }}</span>
+            </a> -->
+
+            <a class="item d-flex m-0" routerLink="/private/provider/resources/my-list" *ngIf="user.approvedStatus === 'active'">
+                <i class="fas fa-list d-flex align-items-center"></i>
+                <span>{{ 'PROVIDER.RESOURCES' | translate }}</span>
+            </a>
+
+            <a class="item d-flex m-0" routerLink="/private/provider/profile/view">
+                <i class="fas fa-user d-flex align-items-center"></i>
+                <span>{{ 'PROVIDER.MY_PROFILE' | translate }}</span>
+            </a>
+
+            <a class="item d-flex m-0" routerLink="/private/provider/events/list" *ngIf="user.approvedStatus === 'active'">
+                <i class="fas fa-icons d-flex align-items-center"></i>
+                <span>{{ 'PROVIDER.EVENTS' | translate }}</span>
+            </a>
+
+            <a class="item d-flex m-0" (click)="reportsProvTrigger.openMenu()"
+               #reportsProvTrigger="matMenuTrigger" [matMenuTriggerFor]="reportsProv">
+                <i class="fas fa-file d-flex align-items-center"></i>
+                <span class="mb-0 pb-0">{{'STAFF.REPORTS' | translate}}
+                    <i class="fas fa-chevron-down ms-2"></i></span>
+            </a>
+
+            <mat-menu #reportsProv="matMenu">
+                <span class="custom-dropdown-menu" (mouseleave)="reportsProvTrigger.closeMenu()">
+<!--                    <button mat-menu-item [routerLink]="'/private/provider/reports/clients'"><i-->
+<!--                            class="fas fa-chart-line me-2"></i>Clients</button>-->
+                    <button mat-menu-item [routerLink]="'/private/provider/reports/resources'"><i
+                            class="fas fa-chart-line me-2"></i>Resources</button>
+<!--                    <button mat-menu-item [routerLink]="'/private/provider/reports/events'"><i-->
+<!--                            class="fas fa-chart-line me-2"></i>Events</button>-->
+                </span>
+            </mat-menu>
+
+            <a class="item d-flex m-0" routerLink="/private/provider/forum/medical" *ngIf="isHealthCare">
+                <i class="fas fa-comment d-flex align-items-center"></i>
+                <span>Forum Medical</span>
+            </a>
+
+        </mat-toolbar>
+
+        <!--            BLUE BAR FOR STAFF ON RESPONSIVE-->
+        <mat-toolbar class="second">
+            <button mat-icon-button (click)="snav.toggle()"><i class="fas fa-bars"></i></button>
+        </mat-toolbar>
+
+
+        <mat-sidenav-container class="side-menu-container" [hasBackdrop]="true">
+            <mat-sidenav #snav #snavRef [mode]="mobileQuery.matches ? 'over' : 'side'"
+                         [fixedInViewport]="mobileQuery.matches" fixedTopGap="0" [(opened)]="isOpen">
+                <mat-nav-list>
+                    <div class="row-button d-flex justify-content-end me-2">
+                        <button mat-icon-button (click)="snav.close()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <a mat-list-item class="item m-0" routerLink="/private/provider/dashboard">
+                        <i class="fas fa-puzzle-piece me-2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a mat-list-item class="item m-0" routerLink="/private/provider/reservations/my-list">
+                        <i class="fas fa-icons me-2"></i>
+                        <span>{{ 'PROVIDER.BOOKINGS' | translate }}</span>
+                    </a>
+
+                    <a mat-list-item class="item m-0" routerLink="/private/provider/resources/my-list" *ngIf="user.approvedStatus === 'active'">
+                        <i class="fas fa-list me-2"></i>
+                        <span>{{ 'PROVIDER.RESOURCES' | translate }}</span>
+                    </a>
+
+                    <a mat-list-item class="item m-0" routerLink="/private/provider/profile/view">
+                        <i class="fas fa-user me-2"></i>
+                        <span>{{ 'PROVIDER.MY_PROFILE' | translate }}</span>
+                    </a>
+
+                    <a mat-list-item class="item m-0" routerLink="/private/provider/profile/view" *ngIf="user.approvedStatus === 'active'">
+                        <i class="fas fa-icons me-2"></i>
+                        <span>{{ 'PROVIDER.EVENTS' | translate }}</span>
+                    </a>
+
+                    <a mat-list-item class="item d-flex m-0 align-items-center" (click)="onReportsClick()">
+                        <i class="fas fa-file d-flex me-2"></i>
+                        <span>Rapoarte
+                            <i *ngIf="!isReportsClicked" class="fas fa-chevron-down ms-2"></i>
+                            <i *ngIf="isReportsClicked" class="fas fa-chevron-up ms-2"></i>
+                        </span>
+                    </a>
+
+                    <div class="menu-cms" *ngIf="isReportsClicked">
+<!--                        <a mat-list-item class="item-sm ml-3 p-0" [routerLink]="'/private/provider/reports/clients'">-->
+<!--                            <i class="fas fa-chart-line me-2"></i>-->
+<!--                            <span>Clients</span>-->
+<!--                        </a>-->
+
+
+                        <a mat-list-item class="item-sm ml-3 p-0" [routerLink]="'/private/provider/reports/resources'">
+                            <i class="fas fa-chart-line me-2"></i>
+                            <span>Resources</span>
+                        </a>
+
+<!--                        <a mat-list-item class="item-sm ml-3 p-0" [routerLink]="'/private/provider/reports/events'">-->
+<!--                            <i class="fas fa-chart-line me-2"></i>-->
+<!--                            <span>Events</span>-->
+<!--                        </a>-->
+                    </div>
+                    <a mat-list-item class="item m-0" routerLink="/private/provider/forum/medical" *ngIf="isHealthCare">
+                        <i class="fas fa-comment me-2"></i>
+                        <span>Forum Medical</span>
+                    </a>
+                </mat-nav-list>
+            </mat-sidenav>
+            <mat-sidenav-content>
+
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+
+
+</div>

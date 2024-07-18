@@ -1,0 +1,74 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.p-full {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.pb-full {
+  padding-bottom: 120px;
+}
+
+.container-fluid{
+  background-color: #F0F0F0;
+  position: relative;
+
+  .container-additional {
+
+    h1 {
+      font-size: 60px;
+      margin-bottom: 100px;
+      text-align: center;
+    }
+
+    .full-width{
+      gap: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+      //padding-bottom:145px ;
+      @media (max-width: 600px) {
+        display: none;
+      }
+    }
+
+    .mobile{
+      @media (min-width: 576px) {
+        display: none;
+      }
+    }
+  }
+
+  .image{
+    height: 441px;
+    min-height: 441px;
+    @media (min-width: 768px) {
+      display: none;
+    }
+    img.additional-img {
+      position: absolute;
+      height: 441px;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}
+@media only screen and (max-width: 767px) {
+
+  .p-full {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+  }
+
+  .pb-full {
+    padding-bottom: 80px;
+  }
+
+  h1 {
+    font-size: 30px !important;
+    margin-bottom: 45px !important;
+  }
+
+}
+

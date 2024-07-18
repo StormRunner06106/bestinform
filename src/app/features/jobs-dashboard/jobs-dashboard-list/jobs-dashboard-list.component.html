@@ -1,0 +1,171 @@
+<div class="container-fluid mb-5">
+    <div class="container">
+        <app-dashboard-header pageTitleOne="Listă Job-uri"
+        [buttonBackRoute]="'../../dashboard'">
+        </app-dashboard-header>
+    </div>
+    
+    <div class="container">
+        <!----Table---------------------------------------------------------------------------->
+        <div *ngIf="dataLoaded">
+            <div class="row filterRow">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <input matInput type="text" [formControl]="searchFilter" (keydown.enter)="filterData()" placeholder="Căutare">
+                </mat-form-field>
+            </div>
+
+            <div class="row tableContent">
+
+                <table class="editorals-table-class" mat-table matSort appMatTableResponsive [dataSource]="dataList" (matSortChange) = applyFilter($event)>
+                    <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
+                    <td data-column-name="id" mat-cell
+                        *matCellDef="let element; let i = index;"> {{ (i + 1) + pageSize * page }} </td>
+                        
+                </ng-container>
+
+                    <!--Title-->
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'FIELD.TITLE'| translate}}</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'FIELD.TITLE'| translate}}"> {{element.title}} </td>
+                    </ng-container>
+
+                    <!--PROVIDER-->
+                    <ng-container matColumnDef="provider">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'FIELD.PROVIDER'|translate}}</th>
+                        <td mat-cell  *matCellDef="let element" attr.data-column-name="{{'FIELD.PROVIDER'|translate}}">{{element.userName}}</td>
+                    </ng-container>
+
+
+                    <!--Data and hour-->
+                    <ng-container matColumnDef="date&hour">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'FIELD.DATE-N-HOUR'|translate}}</th>
+                        <td mat-cell *matCellDef="let element" attr.data-column-name="{{'FIELD.DATE-N-HOUR'|translate}}">{{element.date | date:'dd/MMM/yyyy hh:mm'}}</td>
+                    </ng-container>
+
+
+                    <!--Status-->
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                        <td attr.data-column-name='Time Status' mat-cell *matCellDef="let element">
+                        <span class="custom-label"
+                              [ngClass]="{
+                        'label-active' : element.status === 'active',
+                        'label-pending' : element.status === 'pending_review',
+                        'label-archived' : element.status === 'archived'
+                        }">
+                            <span [ngSwitch]="element.status">
+                               <span *ngSwitchCase="'active'">Activ</span>
+                               <span *ngSwitchCase="'pending_review'">Pending</span>
+                               <span *ngSwitchCase="'archived'">Archived</span>
+                           </span>
+                        </span></td>
+                        
+                    </ng-container>
+
+                    <!--Views column-->
+                    <ng-container matColumnDef="views">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vizualizari </th>
+                        <td attr.data-column-name="Vizualizari" mat-cell *matCellDef="let row"><span
+                                class="d-flex justify-content-end me-3">{{row.views}}</span></td>
+                    </ng-container>
+
+
+                    <!--actions-->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef class="actions-class"> {{'FIELD.ACTIONS'|translate}}</th>
+                        <td mat-cell *matCellDef="let element; let i = index" data-column-name="Acțiuni">
+                            <div class=" d-flex actions-container py-2" >
+
+                                <!--Edit button-->
+                                <!-- <button class="btn-round btn-no-outline"  matTooltip="Editează">
+                                    <i class="fa fa-pen"></i>
+                                </button> -->
+
+                                <!--view button-->
+                                <button class="btn-round btn-no-outline" [routerLink]="'../../client-jobs/view/'+element.id" matTooltip="Vizualizează job">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+
+                                <!--Change status button-->
+                                <button class="btn-round btn-no-outline" matTooltip="Schimba status" 
+                                (click)="openModal(changeStatusModal, element.status)">
+                                <i class="fas fa-toggle-on"></i>
+
+                                </button>
+                            </div>
+                        
+                        <ng-template #changeStatusModal let-c="close" let-d="dismiss">
+                            <div class="modal-card card">
+                                <div class="card-header border-0">
+                                    <h3 class="m-0">
+                                        Schimbă statusul Job-ului
+                                    </h3>
+                                </div>
+    
+                                <div class="card-body">
+                                    <p>{{ 'TEMPLATES.DELETE-WARNING' | translate}}</p>
+    
+                                    <div class="card-event card">
+                                        <div class="card-body d-flex justify-content-center align-items-start flex-column">
+                                            <h3>#{{ (i + 1) + pageSize * (page) }} {{element.title}}</h3>
+                                            <!--                                        <p class="m-0">{{userData?.firstName+' '+userData?.lastName}}</p>-->
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-label>Schimbă status</mat-label>
+                                                <mat-select [(ngModel)]="statusInput">
+                                                    <mat-option value="active">Active</mat-option>
+                                                    <mat-option value="pending_review">Pending review</mat-option>
+                                                    <mat-option value="archived">Archived</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+    
+                                </div>
+    
+                                <div class="card-footer border-0">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-outline w-100"
+                                                    (click)="closeModal()">
+                                                <i class="fas fa-times"></i>
+                                                {{ 'BTN.CANCEL' | translate}}
+                                            </button>
+                                        </div>
+    
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-fill w-100"
+                                                    (click)="changeStatus(element.id, statusInput )">
+                                                <i class="fas fa-check"></i>
+                                                {{ 'BTN.CONFIRM' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </td>
+                            
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let element; columns: displayedColumns;"></tr>
+                </table>
+
+
+                <!--Pagination-->
+                <mat-paginator
+                        [pageSizeOptions]="pageItems"
+                        [length]="totalElements"
+                        [pageSize]="pageSize"
+                        (page)="pageChanged($event)"
+                >
+                </mat-paginator>
+
+            </div>
+            <!-- Table container -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="inside_view_container recent-transaction-container mb-2 p-3">
+    <div>
+        <h6 class="d-flex align-items-end">{{"PROVIDER.RECENTLY-RESERVATION" | translate}}</h6>
+    </div>
+        <div *ngIf="recentTransactionList.length === 0">
+            <p class="mb-0">Nu exista rezervari recente.</p>
+        </div>
+
+        <div *ngFor="let transaction of recentTransactionList" class="row justify-content-center align-items-center recent-transactions-label">
+
+            <!--text-->
+            <div class="col-9"  [routerLink]="isProvider ? '../../reservations/view/'+transaction.id : isStaff ? '../../../reservations/view/'+transaction.id : isAdmin ? '../../../reservations/view/'+transaction.id : '/'">
+                <p class="mb-0">{{transaction.resourceId}}</p>
+                <div class="d-flex justify-content-left">
+                    <h5 class="amount mr-1" [ngClass]="{'positive-amount': transaction?.totalPrice >= 0,
+                        'negative-amount' : transaction.totalPrice < 0}">{{transaction?.totalPrice | number: '1.0-2'}}</h5>
+                    <p class="align-self-baseline" [ngClass]="{'positive-amount': transaction?.totalPrice >= 0,
+                        'negative-amount' : transaction?.totalPrice < 0}"> €</p>
+                </div>
+
+            </div>
+            <!--Button-->
+            <div class="col-3 d-flex justify-content-end px-0">
+                <button class="btn-round btn-color-outline" [routerLink]="isProvider ? '../../reservations/view/'+transaction.id : isStaff ? '../../../reservations/view/'+transaction.id : isAdmin ? '../../../reservations/view/'+transaction.id : '/'" >
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+        </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="car-rentals-header">
+</div>
+
+<div class="content-container">
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center my-4">
+            <h2>{{'TRANSPORT.CAR_RENT' | translate}}</h2>
+        </div>
+    </div>
+    <div class="d-flex gap-4 container flex-column flex-md-row">
+        <!--filter tickets -->
+        <div class="col-md-3 d-flex flex-column">
+            <app-tickets-filter-sidebar></app-tickets-filter-sidebar>
+            <app-ticket-filter-plus-sidebar></app-ticket-filter-plus-sidebar>
+        </div>
+        <!--tickets list / content-->
+        <div class="col-md-9">
+            <app-location-card></app-location-card>
+            <app-available-ticket-card></app-available-ticket-card>
+        </div>
+    </div>
+</div>

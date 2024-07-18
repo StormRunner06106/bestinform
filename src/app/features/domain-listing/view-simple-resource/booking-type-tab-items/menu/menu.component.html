@@ -1,0 +1,34 @@
+
+<div *ngFor="let item of menuItems">
+    <div class="my-2">
+        <h3 class="my-4">
+            {{item.categoryName}}
+        </h3>
+        <div *ngFor="let subcategory of item?.subCategories">
+            <h4>
+                {{subcategory?.subCategoryName}}
+            </h4>
+            <div *ngFor="let item of subcategory.subCategoryItems " class="d-flex justify-content-between align-items-center ">
+                <div class="w-75">
+
+                    <h5>{{item.name}}</h5>
+                    <p>
+                        <span>Ingrediente: </span>{{item.ingredients}}
+                    </p>
+                    <p><span>Alergeni: </span>{{item.allergens}}</p>
+                    <p><span>Informatii nutritionale: </span>{{item.nutritionalFacts}}</p>
+                </div>
+                <div class="d-flex justify-content-center align-items-end flex-column w-25">
+                    <h5 *ngIf="item.price !== 0">
+                        {{item.price}} {{currency}}
+                    </h5>
+                    <p *ngIf="item.weight !== 0">
+                        {{item.weight}} gr
+                    </p>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+</div>

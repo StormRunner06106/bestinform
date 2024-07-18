@@ -1,0 +1,111 @@
+.event-mobile-card {
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 287px;
+    min-width: 240px;
+    display: grid;
+    position: relative;
+    height: 276px;
+    margin-right: 12px;
+    @media (max-width: 400px){
+        max-width: 240px;
+    }
+    @media (max-width: 440px){
+        max-width: 270px;
+    }
+    .event-mobile-disabled {
+        position: absolute;
+        background-color: rgba(000, 000, 000, 0.6);
+        height: 100%;
+          width: 100%;
+        .disabled-message-mobile {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+          color: #fff;
+            .disabled-message-text-mobile{
+                font-size: 18px;
+            }
+          .image-disabled-mobile {
+              background-image: url("../../../assets/icons/lock.svg");
+              background-position: center;
+              background-repeat: no-repeat;
+              height: 30%;
+              width: 100%;
+          }
+        }
+    }
+
+    .event-mobile-card-title{
+        h2{
+            color:#fff!important;
+        }
+    }
+    .event-mobile-card-description{
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        justify-content: space-between;
+    }
+    .event-mobile-top{
+        display: flex;
+        justify-content: space-between;
+        .event-mobile-card-title-calendar{
+            align-items: end;
+            display: flex;
+            gap: 8px;
+        }
+        .event-mobile-title-text-type{
+            img{
+                margin:4px;
+            }
+        }
+    }
+    .event-mobile-card-footer{
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        .event-mobile-price{
+            color: #F8CC50;
+            font-size: 14px;
+            font-weight: 700;
+        }
+    }
+    
+}
+.event-mobile-card-image,
+.event-mobile-card-description {
+  grid-area: 1/1;
+  max-width: 287px;
+  height: 276px;
+}
+.event-mobile-calendar {
+    width: 22px;
+    height: 24px;
+    font-size: 12px;
+    color: #fff;
+    line-height: 14px;
+  
+    justify-content: center;
+    align-items: end;
+    display: flex;
+  
+    background-image: url(../../../assets/images/others/events/events/calendar-white.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .event-mobile-date {
+    font-size: 12px;
+    text-transform: capitalize;
+  }
+  .event-mobile-title-text-type{
+    img{
+        filter: invert(98%) sepia(91%) saturate(1%) hue-rotate(226deg) brightness(107%) contrast(0%);
+    }
+  }

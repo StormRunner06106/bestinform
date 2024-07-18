@@ -1,0 +1,155 @@
+<div class="save-btn d-flex justify-content-end align-items-center mb-3" *ngIf="resourceId">
+    <button  *ngIf="resourceId"
+             (click)="saveResource()"
+             [disabled]="isSubmitLoading || !timetableForm.valid"
+             matTooltip="{{timetableForm.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+             class="btn-long btn-color-fill" type="button">
+        <ng-container *ngIf="isSubmitLoading===false">
+            <i class="fas fa-save"></i>
+            Salvează
+        </ng-container>
+        <ng-container *ngIf="isSubmitLoading === true">
+                      <span [style.display]="'block'" class="indicator-progress">
+                        Salvare...{{ " " }}
+                          <span
+                                  class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                      </span>
+        </ng-container>
+    </button>
+</div>
+
+<div id="policy">
+
+    <div class="tab-section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Politici</h2>
+    </div>
+
+    <div class="section-content">
+        <div class="row">
+            <!--Title Section-->
+
+            <!-- <div class="col-12 mb-3">
+                <h2 class="section-title">Program de lucru</h2>
+            </div> -->
+            <form [formGroup]="timetableForm">
+                <!-- <div formArrayName="timetable" class="config-group p-0 mb-4">
+                    <mat-tab-group class="conf-tabs" animationDuration="0ms" mat-stretch-tabs="true" dynamicHeight
+                                   [selectedIndex]="tabIndex">
+                        <div *ngFor="let day of timetable().controls; let dayTabIndex=index">
+                            <mat-tab [formGroupName]="dayTabIndex" [label]="day.value.day | titlecase">
+                                <div class="tab-content">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 col-lg-4">
+                                            <div class="time-container w-100 d-flex justify-content-between align-items-center">
+                                                <p class="label mb-0">Ora de inceput:</p>
+                                                <ngx-mat-timepicker formControlName="startTime" enableMeridian="true">
+                                                </ngx-mat-timepicker>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-4">
+                                            <div class="time-container w-100 d-flex justify-content-between align-items-center">
+                                                <p class="label mb-0">Ora de final:</p>
+                                                <ngx-mat-timepicker formControlName="endTime" enableMeridian="true">
+                                                </ngx-mat-timepicker>
+                                            </div>
+                                            <mat-error *ngIf="day.get('endTime').hasError('invalidTime')">Ora de final
+                                                trebuie să fie mai mare decât ora de început.
+                                            </mat-error>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 col-lg-4 d-flex align-items-center">
+                                            <mat-checkbox color="primary" formControlName="closed" id="closed">Inchis
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                        </div>
+                    </mat-tab-group>
+                </div> -->
+
+
+                <div class="col-12 mb-3">
+                    <h2 class="section-title">Politici</h2>
+                </div>
+                <div class="row mb-5" id="applicable-politics">
+                    <!--Left Side-->
+                    <div class="col-md-6 col-12">
+                        <!--Category Name-->
+                        <h5 class="politics-category-name">Politici de modificare</h5>
+                        <mat-error *ngIf="timetableForm.get('changePolicies').hasError('invalidPolicy') && (timetableForm.get('changePolicies').dirty || timetableForm.get('changePolicies').touched)">
+                            Trebuie să alegi o variantă între "Nerambursabil" și "Anulare Gratuită".
+                        </mat-error>
+                        <!--Checkboxes-->
+                        <div formGroupName="changePolicies" class="d-flex flex-column">
+                            <mat-checkbox formControlName="nonRefundable" (change)="changePolicyEdit($event, 'nonRefundable')">Nerambursabil</mat-checkbox>
+                            <mat-checkbox formControlName="modifiable">Se poate modifica</mat-checkbox>
+                            <div formGroupName="freeCancellation">
+                                <mat-checkbox formControlName="freeCancellation"  (change)="changePolicyEdit($event, 'freeCancellation')">Anulare gratuită
+                                </mat-checkbox>
+                                <mat-form-field appearance="standard" class="w-100"   *ngIf="timetableForm.get('changePolicies').get('freeCancellation').get('freeCancellation').value">
+                                    <mat-label>Timp limita (zile)</mat-label>
+                                    <input matInput type="text" formControlName="deadlineDays">
+                                    <mat-error *ngIf="timetableForm.get('changePolicies').get('freeCancellation').get('deadlineDays').hasError('pattern')">
+                                        Sunt acceptate doar numere mai mari decât 0.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--Right Side-->
+                    <div class="col-md-6 col-12">
+                        <!--Category Name-->
+                        <h5 class="politics-category-name">Politici de rezervare</h5>
+                        <mat-error *ngIf="timetableForm.get('bookingPolicies').hasError('requireCheckboxesToBeChecked') && timetableForm.get('bookingPolicies').touched">
+                            You have to check one
+                        </mat-error>
+                        <!--Checkboxes-->
+                        <div formGroupName="bookingPolicies" class="d-flex flex-column">
+                            <mat-checkbox formControlName="depositRequired" (change)="depositCheck($event)">Se cere
+                                depozit
+                            </mat-checkbox>
+                            <div class="row" *ngIf="timetableForm.get('bookingPolicies').get('depositRequired').value">
+                                <div class="col-12">
+                                    <mat-form-field appearance="standard" class="w-100">
+                                        <mat-label>Depozit (LEI)</mat-label>
+                                        <input matInput formControlName="depositRequiredAmount">
+                                        <mat-error *ngIf="timetableForm.get('bookingPolicies').get('depositRequiredAmount').hasError('pattern')">
+                                            Sunt acceptate doar numere.
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <!--Stepper Controller-->
+    <div class="stepper-step-controller">
+        <!--Prev Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="prevStep()" [disabled]="!timetableForm.valid" matTooltip="{{timetableForm.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}">
+                <i class="fas fa-arrow-left"></i>
+                Înapoi
+            </button>
+        </div>
+        <!--Next Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="nextStep()" [disabled]="!timetableForm.valid" matTooltip="{{timetableForm.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}">
+                Urmatorul
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>

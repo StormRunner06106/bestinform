@@ -1,0 +1,630 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="
+                           {{(editorialSlug === '') || (editorialSlug === undefined) ? ('ADD_EDITORIAL' | translate) : ('EDIT_EDITORIAL' | translate) }}"
+                          [buttonBackRoute]="isEditMode ? '../../../editorials/list' : '../../editorials/list'"
+                          [buttonSaveDisabled]="editorialSubmitted"
+                          (buttonCall)="saveHandler()">
+    </app-dashboard-header>
+
+    <!--Body-->
+    <div class="container p-6 widget-container card">
+        <!--Form - Start-->
+        <form [formGroup]="addEditorialForm">
+
+        <div class="row">
+            <div class="col-md-7">
+                <!--Title -->
+                <div class="mb-4">
+                    <!-- Title Column-->
+                     <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'FIELD.TITLE' | translate}}</mat-label>
+                        <input matInput formControlName="title" (change)="createSlug(addEditorialForm.value.title)" id="title" placeholder="{{'FIELD.TITLE' | translate}}">
+<!--                        <mat-icon matSuffix (click)="clearTitle()">highlight_off</mat-icon>-->
+                         <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('title').value"
+                            (click)="clearFormControlAddEditorial('title')" matSuffix></i>
+                        <mat-error *ngIf="addEditorialForm.get('title').errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+
+                        <!-- <i class="fas fa-photo-video mat-form-field-suffix" aria-hidden="true"></i> -->
+                         <!-- <mat-error *ngIf="createDocumentForm.controls.docNumber.hasError('required')">
+                          Câmpul <strong>Doc Number</strong> este obligatoriu.
+                        </mat-error>  -->
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{'FIELD.SHORT-DESCRIPTION' | translate}}</mat-label>
+                        <input matInput formControlName="shortDescription" id="shortDescriptionField" placeholder="{{'FIELD.SHORT-DESCRIPTION' | translate}}">
+                        <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('shortDescription').value"
+                           (click)="clearFormControlAddEditorial('shortDescription')" matSuffix></i>
+                    </mat-form-field>
+
+                    <!-- category Column -->
+                    <div>
+                        <mat-form-field class="w-100 py-2" appearance="legacy">
+                            <mat-label>{{'FIELD.CATEGORY' | translate}}</mat-label>
+                            <mat-select formControlName="category" id="category" (selectionChange)="onCategoryChange($event)">
+                               <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="addEditorialForm.get('category').errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                          </mat-form-field>
+                    </div>
+
+<!--                     subcategory Column -->
+                    <div>
+                        <mat-form-field class="w-100 py-2" appearance="legacy">
+                            <mat-label>{{'FIELD.SUBCATEGORY' | translate}}</mat-label>
+                            <mat-select formControlName="subcategory" id="subcategory">
+                             <mat-option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{subcategory.name}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="addEditorialForm.get('subcategory').errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                          </mat-form-field>
+                    </div>
+
+                    <mat-form-field class="w-100 py-2" appearance="legacy" *ngIf="categoryDestinationsSelected">
+                        <mat-label>City</mat-label>
+                        <input matInput formControlName="city" id="city" placeholder="Event City">
+                        <!--                        <mat-icon matSuffix (click)="clearTitle()">highlight_off</mat-icon>-->
+                        <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('city').value"
+                           (click)="clearFormControlAddEditorial('city')" matSuffix></i>
+
+                        <!-- <i class="fas fa-photo-video mat-form-field-suffix" aria-hidden="true"></i> -->
+                        <!-- <mat-error *ngIf="createDocumentForm.controls.docNumber.hasError('required')">
+                         Câmpul <strong>Doc Number</strong> este obligatoriu.
+                       </mat-error>  -->
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100 py-2" appearance="legacy" *ngIf="categoryDestinationsSelected">
+                        <mat-label>Country</mat-label>
+                        <input matInput formControlName="country" id="country" placeholder="Event Country">
+                        <!--                        <mat-icon matSuffix (click)="clearTitle()">highlight_off</mat-icon>-->
+                        <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('country').value"
+                           (click)="clearFormControlAddEditorial('country')" matSuffix></i>
+
+                        <!-- <i class="fas fa-photo-video mat-form-field-suffix" aria-hidden="true"></i> -->
+                        <!-- <mat-error *ngIf="createDocumentForm.controls.docNumber.hasError('required')">
+                         Câmpul <strong>Doc Number</strong> este obligatoriu.
+                       </mat-error>  -->
+                    </mat-form-field>
+
+                </div>
+                <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Introduction title</mat-label>
+                    <input matInput formControlName="introductionTitle" id="introductionTitleField" >
+                    <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('introductionTitle').value"
+                       (click)="clearFormControlAddEditorial('introductionTitle')" matSuffix></i>
+                </mat-form-field>
+
+                <h2>Introduction</h2>
+                <!--add media button-->
+<!--                <div class="mb-4">-->
+<!--                    <button class="btn-long btn-color-fill" routerLink="/">-->
+<!--                        <i class="fas fa-photo-video" aria-hidden="true"></i> {{'BTN.ADD-MEDIA' | translate}}-->
+<!--                    </button>-->
+<!--                </div>-->
+                <!-- wysiwyg editor -->
+                <div class="mb-4">
+                    <angular-editor
+                    formControlName="content"
+                    name="content"
+                    id="postContent"
+                    [config]="editorConfig">
+                    </angular-editor>
+                </div>
+
+                <div class="mb-4">
+                       <!-- Permalink Column -->
+                       <mat-form-field class="w-100" matColumnDef="slug" appearance="legacy">
+                        <mat-label>{{'FIELD.SLUG' | translate}}</mat-label>
+                        <input matInput formControlName="slug" id="slug">
+                           <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('slug').value"
+                              (click)="clearFormControlAddEditorial('slug')" matSuffix></i>
+<!--                        <mat-icon matSuffix (click)="clearSlug()">highlight_off</mat-icon>-->
+                           <mat-error *ngIf="addEditorialForm.get('slug').hasError('required')">{{'ERROR.REQUIRED' | translate}}</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>Single Image Order</mat-label>
+                        <input matInput formControlName="singleImageOrder" id="singleImageOrder" >
+                        <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('singleImageOrder').value"
+                           (click)="clearFormControlAddEditorial('singleImageOrder')" matSuffix></i>
+                    </mat-form-field>
+                </div>
+                <div class="mb-4 row tags-class">
+                    <!--Tags-->
+                    <mat-form-field appearance="legacy" matColumnDef="tags">
+                        <mat-label>{{'FIELD.TAGS' | translate}}</mat-label>
+                        <mat-chip-list #tagList aria-label="Tags">
+                          <mat-chip *ngFor="let tag of addedTags" (removed)="remove(tag)">
+                            {{tag}}
+                            <button matChipRemove>
+                              <mat-icon>close</mat-icon>
+                            </button>
+                          </mat-chip>
+                            <input
+                                    id="tagList"
+                                placeholder="Add new..."
+                                [matChipInputFor]="tagList"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur"
+                                (matChipInputTokenEnd)="addTag($event)">
+                        </mat-chip-list>
+                      </mat-form-field>
+              </div>
+                <div class="mb-4 row tags-class">
+                    <!--Tags-->
+                    <mat-form-field appearance="legacy" matColumnDef="tags">
+                        <mat-label>Category tags</mat-label>
+                        <mat-chip-list #categoryTagList aria-label="Tags">
+                            <mat-chip *ngFor="let tag of categoryTags" (removed)="removeCategoryTag(tag)">
+                                {{tag}}
+                                <button matChipRemove>
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-chip>
+                            <input
+                                    id="categoryTagList"
+                                    placeholder="Add new..."
+                                    [matChipInputFor]="categoryTagList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    [matChipInputAddOnBlur]="addOnBlur"
+                                    (matChipInputTokenEnd)="addCategoryTag($event)">
+                        </mat-chip-list>
+                    </mat-form-field>
+                </div>
+
+
+                <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Carousel title</mat-label>
+                    <input matInput formControlName="carouselTitle" id="carouselTitleField" >
+                    <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('carouselTitle').value"
+                       (click)="clearFormControlAddEditorial('carouselTitle')" matSuffix></i>
+                </mat-form-field>
+
+                <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Image Carousel Order</mat-label>
+                    <input matInput formControlName="imageCarouselOrder" id="imageCarouselOrder" >
+                    <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('imageCarouselOrder').value"
+                       (click)="clearFormControlAddEditorial('imageCarouselOrder')" matSuffix></i>
+                </mat-form-field>
+
+                <h2>Carousel description</h2>
+
+                <div class="mb-4">
+                    <angular-editor
+                            formControlName="carouselDescription"
+                            name="carouselContent"
+                            id="carouselContent"
+                            [config]="editorConfig">
+                    </angular-editor>
+                </div>
+
+                <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Grid images title</mat-label>
+                    <input matInput formControlName="gridImagesTitle" id="gridImagesTitleField" >
+                    <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('gridImagesTitle').value"
+                       (click)="clearFormControlAddEditorial('gridImagesTitle')" matSuffix></i>
+                </mat-form-field>
+
+                <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Image Grid Order</mat-label>
+                    <input matInput formControlName="imageGridOrder" id="imageGridOrder" >
+                    <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('imageGridOrder').value"
+                       (click)="clearFormControlAddEditorial('imageGridOrder')" matSuffix></i>
+                </mat-form-field>
+
+                <h2>Image grid description</h2>
+
+
+                <div class="mb-4">
+                    <angular-editor
+                            formControlName="imageGridDescription"
+                            name="imageGridContent"
+                            id="imageGridContent"
+                            [config]="editorConfig">
+                    </angular-editor>
+                </div>
+
+                <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Single video title</mat-label>
+                    <input matInput formControlName="singleVideoTitle" id="singleVideoTitleField" >
+                    <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('singleVideoTitle').value"
+                       (click)="clearFormControlAddEditorial('singleVideoTitle')" matSuffix></i>
+                </mat-form-field>
+
+                <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Single video order</mat-label>
+                    <input matInput formControlName="singleVideoOrder" id="singleVideoOrder" >
+                    <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('singleVideoOrder').value"
+                       (click)="clearFormControlAddEditorial('singleVideoOrder')" matSuffix></i>
+                </mat-form-field>
+
+                <h2>Single video description</h2>
+
+                <div class="mb-4">
+                    <angular-editor
+                            formControlName="singleVideoDescription"
+                            name="singleVideoContent"
+                            id="singleVideoContent"
+                            [config]="editorConfig">
+                    </angular-editor>
+                </div>
+
+                <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Multiple video title</mat-label>
+                    <input matInput formControlName="multipleVideoTitle" id="multipleVideoTitleField" >
+                    <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('multipleVideoTitle').value"
+                       (click)="clearFormControlAddEditorial('multipleVideoTitle')" matSuffix></i>
+                </mat-form-field>
+
+                <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Multiple Videos Order</mat-label>
+                    <input matInput formControlName="multipleVideosOrder" id="multipleVideosOrderField" >
+                    <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('multipleVideosOrder').value"
+                       (click)="clearFormControlAddEditorial('multipleVideosOrder')" matSuffix></i>
+                </mat-form-field>
+
+                <h2>Multiple video description</h2>
+
+                <div class="mb-4">
+                    <angular-editor
+                            formControlName="multipleVideoDescription"
+                            name="multipleVideoContent"
+                            id="multipleVideoContent"
+                            [config]="editorConfig">
+                    </angular-editor>
+                </div>
+
+                <h2>Conclusion</h2>
+
+                <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Conclusion title</mat-label>
+                    <input matInput formControlName="conclusionTitle" id="conclusionDescriptionField" placeholder="Conclusion title">
+                    <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('conclusionTitle').value"
+                       (click)="clearFormControlAddEditorial('conclusionTitle')" matSuffix></i>
+                </mat-form-field>
+
+                <div class="mb-4">
+                    <angular-editor
+                            formControlName="conclusionContent"
+                            name="conclusionContent"
+                            id="conclusionContent"
+                            [config]="editorConfig">
+                    </angular-editor>
+                </div>
+
+            </div>
+
+            <div class="col-md-5">
+                <div class="py-2 publish-class">
+                    <!--publish-->
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenPublish = true"
+                                             (closed)="panelOpenPublish = false" [expanded]="panelOpenPublish">
+                          <mat-expansion-panel-header class="p-2">
+                            <mat-panel-title class="widget-title-font">
+                              {{'FIELD.PUBLICATION' | translate}}
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <!--status-->
+                          <div class="row pt-4">
+                            <div class="paragraph-font">
+                                <!-- <i class="fas fa-key col-1" aria-hidden="true"></i>
+                                Status: Publicat -->
+
+                                <mat-form-field class="w-100" appearance="legacy">
+                                    <mat-label>{{'FIELD.STATUS' | translate}}</mat-label>
+                                    <mat-select formControlName="status" id="status" value="Draft">
+                                      <mat-option value="Active" id="Active">{{'STATUS.ACTIVE' | translate}}</mat-option>
+                                      <mat-option value="Pending" id="Pending">{{'STATUS.PENDING' | translate}}</mat-option>
+                                      <mat-option value="Inactive" id="Inactive">{{'STATUS.INACTIVE' | translate}}</mat-option>
+                                      <mat-option value="Draft" id="Draft">{{ 'STATUS.DRAFT' | translate }}</mat-option>
+                                      <mat-option value="Archived" id="Archived">{{'STATUS.ARCHIVED' | translate}}</mat-option>
+                                      <mat-option value="In progress" id="In progress">{{'STATUS.IN_PROGRESS' | translate}}</mat-option>
+                                    </mat-select>
+                                    <!-- <mat-error *ngIf="changeEditorialStatusForm.controls.status.hasError('required')">
+                                      Câmpul este obligatoriu.
+                                    </mat-error> -->
+                                  </mat-form-field>
+                            </div>
+                          </div>
+
+                          <!--published date-->
+                          <div class="row" *ngIf="isEditMode">
+                            <div class="paragraph-font">
+                                <!-- <i class="fas fa-calendar-alt col-1" aria-hidden="true"></i>
+                                Publicat: data publicarii -->
+
+                                <mat-form-field class="w-100" appearance="legacy">
+                                    <mat-label>{{'FIELD.PUBLICATION_DATE' | translate}}</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="date" id="publishedDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <!-- <div class="col-2">
+                                <button class="btn-round btn-color-outline" routerLink="/"  matTooltip="Editează">
+                                    <i class="fa fa-pen"></i>
+                                </button>
+                            </div> -->
+                          </div>
+
+                          <!--delete / save buttons-->
+<!--                        <div *ngIf="editorialSlug ==='' || editorialSlug ===undefined && editorialId ==='' || editorialId === undefined" >-->
+<!--                            <button class="btn-long btn-color-fill w-100" (click)="publishEditorial()" id="publishEditorial">-->
+<!--                                <i class="fas fa-save" aria-hidden="true"></i>{{'BTN.PUBLISH'| translate}}-->
+<!--                            </button>-->
+<!--                            <button class="btn-long btn-color-fill col-6"  (click)="addEditorial()" id="addEditorial">-->
+<!--                            <i class="fas fa-save" aria-hidden="true"></i> {{'BTN.SAVE_DRAFT' | translate}}-->
+<!--                            </button>-->
+<!--                        </div>-->
+
+<!--                        <div *ngIf="editorialSlug !=='' && editorialSlug !== undefined && editorialId !=='' && editorialId !== undefined" class="d-flex w-100 justify-content-center">-->
+<!--                          <button class="btn-long btn-color-fill w-100" (click)="updateEditorial()">-->
+<!--                              <i class="fas fa-save" aria-hidden="true"></i>{{'BTN.UPDATE' | translate}}-->
+<!--                          </button>-->
+
+<!--                      </div>-->
+
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                </div>
+
+                <!--SEO optimization-->
+
+                <div class="py-2 SEO-class">
+                    <!--SEO optimization-->
+
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenSEO = true"
+                                             (closed)="panelOpenSEO = false" [expanded]="panelOpenSEO">
+                          <mat-expansion-panel-header class="p-2">
+                            <mat-panel-title class="widget-title-font">
+                              {{"FIELD.SEO_OPTIMIZATION" | translate}}
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <!--Meta title-->
+                          <div class="row pt-3">
+                            <mat-form-field class="w-100" appearance="legacy">
+                                <mat-label>{{"FIELD.TITLE" | translate}}</mat-label>
+                                <input matInput formControlName="metaTitle" id="metaTitle">
+<!--                                <mat-icon matSuffix (click)="clearMetaTitle()">highlight_off</mat-icon>-->
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('metaTitle').value"
+                                   (click)="clearFormControlAddEditorial('metaTitle')" matSuffix></i>
+                                <mat-error *ngIf="addEditorialForm.get('metaTitle').errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+
+                            </mat-form-field>
+
+                            <!--Meta description-->
+                            <mat-form-field class="w-100" appearance="legacy">
+                                <mat-label>{{"FIELD.META_DESCRIPTION" | translate}}</mat-label>
+                                <textarea matInput formControlName="metaDescription" id="metaDescription" rows="5" class="textarea-resize"></textarea>
+<!--                                <mat-icon matSuffix (click)="clearMetaDescription()">highlight_off</mat-icon>-->
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('metaDescription').value"
+                                   (click)="clearFormControlAddEditorial('metaDescription')" matSuffix></i>
+                            </mat-form-field>
+                          </div>
+
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                </div>
+
+                <!-- featured image -->
+                <div class="py-2">
+                    <mat-accordion>
+                        <mat-expansion-panel [expanded]="panelOpenImage">
+                            <mat-expansion-panel-header class="p-2">
+                              <mat-panel-title class="widget-title-font">
+                                {{"FIELD.FEATURED_IMAGE" | translate}}
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="pt-3">
+                                <div>
+                                  <input #fileInput hidden type="file" accept="image/*" (change)="onImgChanged($event)" id="featImg">
+                                      <!-- <span class="file-name">{{selectedFile?.name}}</span> -->
+                                      <div class="w-100">
+                                        <button (click)="fileInput.click()"
+                                                class="w-100 btn-upload" type="button">
+                                          <!-- <p>Alege fisierul</p> -->
+                                          <img class="featured-image-class" src='{{urlfeaturedImg}}'>
+                                        </button>
+                                      </div>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+
+                <div class="py-2">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header class="p-2">
+                                <mat-panel-title class="widget-title-font">
+                                    Image carousel
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="pt-3">
+                                <div>
+                                    <input #fileInputCarousel hidden type="file" multiple  accept="image/*" (change)="onMultipleImgChanged($event, 'carousel')" id="carouselImages">
+                                    <!-- <span class="file-name">{{selectedFile?.name}}</span> -->
+                                    <div class="w-100">
+
+                                        <div style="display: flex;flex-direction: row;flex-wrap: wrap;">
+                                            <ng-container *ngFor="let item of oldCarouselImages; let i = index">
+                                                <div style="position: relative; width: 50%;">
+                                                    <img class="featured-image-class" [src]="item" style="width: 100%; height: 135px;">
+
+                                                    <div class="remove-img-item" (click)="removeImage(i, 'carousel', true)">
+                                                        <mat-icon>close</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngFor="let item of arrayOfCarouselImages; let i = index">
+                                                <div style="position: relative; width: 50%;">
+                                                    <img class="featured-image-class" [src]="item" style="width: 100%; height: 135px;">
+
+                                                    <div class="remove-img-item" (click)="removeImage(i, 'carousel')">
+                                                        <mat-icon>close</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+
+                                        <button (click)="fileInputCarousel.click()"
+                                                class="w-100 btn-upload" type="button">
+                                            <p>Upload more</p>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <mat-form-field class="w-100" appearance="legacy">
+                                <mat-label>Carousel caption</mat-label>
+                                <input matInput formControlName="imageCarouselCaption" id="imageCarouselCaption" >
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('imageCarouselCaption').value"
+                                   (click)="clearFormControlAddEditorial('imageCarouselCaption')" matSuffix></i>
+                            </mat-form-field>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+
+                <div class="py-2">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header class="p-2">
+                                <mat-panel-title class="widget-title-font">
+                                    Image grid
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="pt-3">
+                                <div>
+                                    <input #fileInputGrid hidden type="file" multiple  accept="image/*"
+                                           (change)="onMultipleImgChanged($event, 'grid-images')" id="gridImages">
+                                    <!-- <span class="file-name">{{selectedFile?.name}}</span> -->
+                                    <div class="w-100">
+
+                                        <div style="display: flex;flex-direction: row;flex-wrap: wrap;">
+                                            <ng-container *ngFor="let item of oldGridImages; let i = index">
+                                                <div style="position: relative; width: 50%;">
+                                                    <img class="featured-image-class" [src]="item" style="width: 100%;">
+                                                    <div class="remove-img-item" (click)="removeImage(i, 'grid-images', true)">
+                                                        <mat-icon>close</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngFor="let item of arrayOfGridImages; let i = index">
+                                                <div style="position: relative; width: 50%;">
+                                                    <img class="featured-image-class" [src]="item.filePath" style="width: 100%;">
+                                                    <div class="remove-img-item" (click)="removeImage(i, 'grid-images')">
+                                                        <mat-icon>close</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+
+                                        <button (click)="fileInputGrid.click()"
+                                                class="w-100 btn-upload" type="button">
+                                            <p>Upload more</p>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <mat-form-field class="w-100" appearance="legacy">
+                                <mat-label>Image grid caption</mat-label>
+                                <input matInput formControlName="imageGridCaption" id="imageGridCaption" >
+                                <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('imageGridCaption').value"
+                                   (click)="clearFormControlAddEditorial('imageGridCaption')" matSuffix></i>
+                            </mat-form-field>
+
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+
+
+                <div class="py-2">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header class="p-2">
+                                <mat-panel-title class="widget-title-font">
+                                    Single Video
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="pt-3">
+                                <div>
+                                    <input #videoInput hidden type="file" accept="video/*" (change)="onVideoChanged($event, 'singlevideo')" id="singleVideo">
+                                    <div class="w-100">
+                                        <div style="display: flex;flex-direction: row;flex-wrap: wrap;">
+                                            <ng-container *ngFor="let item of arrayOfSingleGridVideos; let i = index">
+                                                <div style="position: relative; width: 100%;">
+                                                    <video id="single" class="featured-video" controls>
+                                                        <source [src]="item" type="video/mp4">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                    <div class="remove-img-item" (click)="removeVideo(i, 'singlevideo')">
+                                                        <mat-icon>close</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                        <button (click)="videoInput.click()" class="w-100 btn-upload" type="button">
+                                            <p>Upload another</p>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+
+
+                <div class="py-2">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header class="p-2">
+                                <mat-panel-title class="widget-title-font">
+                                    Multiple Videos
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="pt-3">
+                                <div>
+                                    <input #multipleVideoInput hidden type="file" multiple accept="video/*"
+                                           (change)="onVideoChanged($event, 'multiplevideo')" id="multipleVideo">
+                                    <div class="w-100">
+                                        <div style="display: flex;flex-direction: row;flex-wrap: wrap;">
+                                            <ng-container *ngFor="let item of arrayOfMultipleVideos; let i = index">
+                                                <div style="position: relative; width: 100%;">
+                                                    <video class="featured-video" controls>
+                                                        <source [src]="item.filePath" type="video/mp4">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                    <div class="remove-img-item" (click)="removeVideo(i, 'multiplevideo')">
+                                                        <mat-icon>close</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                        <button (click)="multipleVideoInput.click()" class="w-100 btn-upload" type="button">
+                                            <p>Upload another</p>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+
+<!--                <div class="py-2">-->
+<!--                    <mat-form-field class="w-100" appearance="legacy">-->
+<!--                        <mat-label>Instagram link</mat-label>-->
+<!--                        <input matInput formControlName="carouselTitle" id="carouselTitleField" >-->
+<!--                        <i class="fas fa-times-circle clear-form" type="button" *ngIf="addEditorialForm.get('carouselTitle').value"-->
+<!--                           (click)="clearFormControlAddEditorial('carouselTitle')" matSuffix></i>-->
+<!--                    </mat-form-field>-->
+<!--                </div>-->
+
+
+            </div>
+        </div>
+    </form>
+
+    </div><!--End Body-->
+    </div><!--Finall container-->

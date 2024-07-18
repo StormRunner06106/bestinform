@@ -1,0 +1,444 @@
+<main [class.content-offset-to-top]="true">
+
+    <app-public-header [redirectUrl]="redirectUrl" [userConnected]="userConnected" ></app-public-header>
+
+    <div class="d-flex flex-row w-100" *ngIf="isDesktop">
+        <div *ngFor="let img of images" class="col-3">
+            <img [src]="img.imageUrl" class="h-100 w-100"/>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row" *ngIf="!isDesktop">
+        <div class="col-12">
+            <img [src]="images[0].imageUrl" class="w-100"/>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-5 pb-5 giveaway">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <span [ngStyle]="{'font-size': isDesktop ? '4rem' : '3.125rem'}">GIVEAWAY</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <span [ngStyle]="{'font-size': isDesktop ? '2.75rem' : '1.75rem', 'text-align': 'center'}">{{ 'GIVEAWAY.GIVEAWAY_INFO' | translate}}</span>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div [ngClass]="{'col-4' : isDesktop, 'col-12': !isDesktop, 'mt-3': !isDesktop}">
+                <p-chip class="col-12 d-flex justify-content-center">
+                    <div class="material-symbols-outlined">bed</div>
+                    <div class="ms-2">{{ 'GIVEAWAY.HOTEL' | translate}}</div>
+                </p-chip>
+            </div>
+            <div [ngClass]="{'col-4' : isDesktop, 'col-12': !isDesktop, 'mt-3': !isDesktop}">
+                <p-chip class="col-12 d-flex justify-content-center">
+                    <div class="material-symbols-outlined">local_bar</div>
+                    <div class="ms-2">{{ 'GIVEAWAY.CONSUME' | translate}}</div>
+                </p-chip>
+            </div>
+            <div [ngClass]="{'col-4' : isDesktop, 'col-12': !isDesktop, 'mt-3': !isDesktop}">
+                <p-chip class="col-12 d-flex justify-content-center">
+                    <div class="material-symbols-outlined">group</div>
+                    <div class="ms-2">{{ 'GIVEAWAY.BRACELETS' | translate}}</div>
+                </p-chip>
+            </div>
+        </div>
+    </div>
+    <app-homepage-giveaway class="mt-5"></app-homepage-giveaway>
+<!--    <app-hero-section -->
+<!--                      [title]=hero?.title-->
+<!--                      [desc]=hero?.contentText-->
+<!--                      [fullscreen]="true"-->
+<!--                      [buttonText]=hero?.buttonText-->
+<!--                      [redirectUrl]="redirectUrl"-->
+<!--                      [userConnected]="userConnected">-->
+<!--    </app-hero-section>-->
+
+    <div class="col-12 mt-5">
+        <img [src]="bst" class="w-100"/>
+    </div>
+    <div class="col-12" *ngIf="isDesktop">
+        <img [src]="services" class="w-100"/>
+    </div>
+    <div class="col-12">
+        <img [src]="info" class="w-100"/>
+    </div>
+    <div class="col-12" style="background-color: #4257EE">
+        <div class="d-flex col-xl-8 offset-xl-2 col-sm-12" style="background-color: #4257EE; margin-top: '-1px'; margin-bottom: '-1px'">
+            <p-button label="{{ 'GIVEAWAY.REGISTER' | translate}}"
+                      [ngClass]="{'col-4': isDesktop, 'offset-4': isDesktop, 'col-10': !isDesktop, 'offset-1': !isDesktop, 'register-button': true}"
+                      (click)="openRegister()"
+                      [ngStyle]="{'font-size': isDesktop ? '2.5rem' : '1rem'}"
+            ></p-button>
+        </div>
+    </div>
+
+    <div class="d-flex" style="background-color: #4257EE; height: 50px"></div>
+    <div>
+        <div class="col-12">
+            <img [src]="partner" class="w-100"/>
+        </div>
+        <div class="d-flex mt-3 col-xl-8 offset-xl-2 col-sm-12">
+            <p-button label="{{ 'GIVEAWAY.REGISTER_PARTNER' | translate }}"
+                      [ngClass]="{'col-4': isDesktop, 'offset-4': isDesktop, 'col-10': !isDesktop, 'offset-1': !isDesktop, 'register-partner-button': true}"
+                      [ngStyle]="{'font-size': isDesktop ? '2.5rem' : '1rem'}"
+                      (click)="openProviderRegister()"></p-button>
+        </div>
+    </div>
+    <div class="d-flex flex-column p-5 mt-5" *ngIf="isDesktop">
+        <div class="d-flex flex-row" style="font-size: 2.5rem">
+            <div class="col-8">
+                <div class="fw-bold">{{ 'GIVEAWAY.CONTACT' | translate }}</div>
+            </div>
+            <div class="col-4 d-flex justify-content-center">
+                <div class="fw-bold">Social Media</div>
+            </div>
+        </div>
+        <div class="d-flex flex-row">
+            <div class="col-8">
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row align-items-center">
+                        <img src="assets/icons/brandbook/mail.svg"/>
+                        <div style="font-size: 1.25rem" class="ms-3">contact@bestinform.eu</div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center">
+                        <img src="assets/icons/brandbook/phone.svg">
+                        <div style="font-size: 1.25rem" class="ms-3">+40 722 670 826</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 d-flex flex-row social-media mt-3">
+                <div class="col-4 d-flex justify-content-center">
+                    <a href="https://www.facebook.com/profile.php/?id=100076116217462">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+                <div class="col-4 d-flex justify-content-center">
+                    <a href="https://instagram.com/bestinform.eu?igshid=MzRlODBiNWFlZA==">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                <div class="col-4 d-flex justify-content-center">
+                    <a href="https://www.tiktok.com/@bestinform">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="d-flex flex-column p-5 mt-5" *ngIf="!isDesktop">
+        <div style="font-size: 1.5rem; text-align: center">
+            <div class="fw-bold">{{ 'GIVEAWAY.CONTACT' | translate }}</div>
+        </div>
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            <img src="assets/icons/brandbook/mail.svg"/>
+            <div style="font-size: 1rem" class="ms-3">contact@bestinform.eu</div>
+        </div>
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            <img src="assets/icons/brandbook/phone.svg">
+            <div style="font-size: 1rem" class="ms-3">+40 722 670 826</div>
+        </div>
+        <div style="font-size: 1.5rem; text-align: center" class="mt-5">
+            <div class="fw-bold">Social Media</div>
+        </div>
+        <div class="col-12 d-flex flex-row social-media mt-3">
+            <div class="col-4 d-flex justify-content-center">
+                <a href="https://www.facebook.com/profile.php/?id=100076116217462">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </div>
+            <div class="col-4 d-flex justify-content-center">
+                <a href="https://instagram.com/bestinform.eu?igshid=MzRlODBiNWFlZA==">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <div class="col-4 d-flex justify-content-center">
+                <a href="https://www.tiktok.com/@bestinform">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+
+        </div>
+
+    <div class="giveaway-footer">
+        <div class="container-footer">
+            <a href="/">
+                <img src="assets/Bestinform_logo.png" alt="Bestinform Logo" width="200px">
+            </a>
+            <div class="menu-items">
+                <a class="menu-item" href="/content/giveaway-rules">{{ 'GIVEAWAY.CONTEST_RULES' | translate }}</a>
+
+            </div>
+        </div>
+        <hr class="width">
+
+        <div class="menu-links">
+            <div class="menu-items">
+                <span class="menu-item"  target="_blank">© 2024 Bestinform </span>
+                <a class="menu-item" href="/content/privacy-policy" target="_blank">{{ "FOOTER.PRIVACY" | translate }}</a>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!--Benefits section-->
+
+<!--    <div class="container-fluid phb-benefits py-10">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col col-title">-->
+<!--                    <h1 class="section-title public-homepage-section-title">{{ 'HOMEPAGE.BENEFITS' | translate }}</h1>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col-6">-->
+<!--                    <h2>-->
+<!--                        <mat-icon>play_arrow</mat-icon>-->
+<!--                        {{benefits[0]?.title}}</h2>-->
+<!--                    <p class="mt-2">{{benefits[0]?.content}}</p>-->
+<!--                </div>-->
+<!--                <div class="col-6">-->
+<!--                    <h2>-->
+<!--                        <mat-icon>play_arrow</mat-icon>-->
+<!--                        {{benefits[2]?.title}}</h2>-->
+<!--                    <p class="mt-2">{{benefits[2]?.content}}</p>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row">-->
+<!--                <div class="col-6">-->
+<!--                    <h2>-->
+<!--                        <mat-icon>play_arrow</mat-icon>-->
+<!--                        {{benefits[1]?.title}}</h2>-->
+<!--                    <p class="mt-2">{{benefits[1]?.content}}</p>-->
+<!--                </div>-->
+<!--                <div class="col-6">-->
+<!--                    <h2>-->
+<!--                        <mat-icon>play_arrow</mat-icon>-->
+<!--                        {{benefits[3]?.title}}</h2>-->
+<!--                    <p class="mt-2">{{benefits[3]?.content}}</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+    <!--Gallery text-->
+
+<!--    <div class="container-fluid gallery-text-section py-10">-->
+<!--        <div class="container pb-5">-->
+<!--            <div class="row">-->
+<!--                <h1 class="section-title col-title mb-0">{{ 'HOMEPAGE.GALLERY' | translate }}</h1>-->
+<!--                <p class="py-2">{{gallery?.textContent}}</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;gallery text end-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
+<!--        &lt;!&ndash;Gallery video&ndash;&gt;-->
+
+<!--        <div *ngIf="gotVideo && afterViewInitialized" class="container-fluid gallery-video-section">-->
+<!--            <div class="container">-->
+<!--                <div class="parent video-img-container">-->
+<!--                    <div class="div1" *ngIf="gallery?.videos[0].filePath === playedVideo">-->
+<!--                        &lt;!&ndash; <div class="col-10 w-100 big-video" *ngIf="gotVideo && playedVideo"> &ndash;&gt;-->
+<!--                        <div class="col-10 w-100 big-video">-->
+<!--&lt;!&ndash;                            <vm-player>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <vm-video poster={{gallery?.videos[0].featuredImagePath}}>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <source data-src={{gallery?.videos[0].filePath}} type="video/mp4"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <track&ndash;&gt;-->
+<!--&lt;!&ndash;                                            default&ndash;&gt;-->
+<!--&lt;!&ndash;                                    />&ndash;&gt;-->
+<!--&lt;!&ndash;                                </vm-video>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <vm-default-ui no-click-to-play>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </vm-default-ui>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </vm-player>&ndash;&gt;-->
+<!--                            <video src="../../../../../assets/videos/people_being_served_their_food_and_getting_ready_to_eat-(1080p).mp4"-->
+<!--                                   poster="../../../../../assets/videos/Restaurant-(1)-(1).webp" autoplay muted loop playsinline controls></video>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="div1" *ngIf="gallery?.videos[1].filePath === playedVideo">-->
+<!--                        &lt;!&ndash; <div class="col-10 w-100 big-video" *ngIf="gotVideo && playedVideo"> &ndash;&gt;-->
+<!--                        <div class="col-10 w-100 big-video">-->
+<!--                            <video poster="../../../../../assets/videos/Concert-(1).webp"-->
+<!--                                   src="../../../../../assets/videos/pexels_videos_2022395-(1080p).mp4" autoplay muted loop playsinline controls>-->
+<!--                            </video>-->
+<!--&lt;!&ndash;                            <vm-player>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <vm-video poster={{gallery?.videos[1].featuredImagePath}}>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <source data-src={{gallery?.videos[1].filePath}} type="video/mp4"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <track&ndash;&gt;-->
+<!--&lt;!&ndash;                                            default&ndash;&gt;-->
+<!--&lt;!&ndash;                                    />&ndash;&gt;-->
+<!--&lt;!&ndash;                                </vm-video>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <vm-default-ui no-click-to-play>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </vm-default-ui>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </vm-player>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="div1" *ngIf="gallery?.videos[2].filePath === playedVideo">-->
+<!--                        &lt;!&ndash; <div class="col-10 w-100 big-video" *ngIf="gotVideo && playedVideo"> &ndash;&gt;-->
+<!--                        <div class="col-10 w-100 big-video">-->
+<!--&lt;!&ndash;                            <vm-player>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <vm-video poster={{gallery?.videos[2].featuredImagePath}}>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <source data-src={{gallery?.videos[2].filePath}} type="video/mp4"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <track&ndash;&gt;-->
+<!--&lt;!&ndash;                                            default&ndash;&gt;-->
+<!--&lt;!&ndash;                                    />&ndash;&gt;-->
+<!--&lt;!&ndash;                                </vm-video>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <vm-default-ui no-click-to-play>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </vm-default-ui>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </vm-player>&ndash;&gt;-->
+<!--                            <video poster="../../../../../assets/videos/BESTINFORM-NYAttractions.webp"-->
+<!--                            src="../../../../../assets/videos/travel.mp4" autoplay muted loop playsinline controls>-->
+<!--                            </video>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="div1" *ngIf="gallery?.videos[3].filePath === playedVideo">-->
+<!--                        &lt;!&ndash; <div class="col-10 w-100 big-video" *ngIf="gotVideo && playedVideo"> &ndash;&gt;-->
+<!--                        <div class="col-10 w-100 big-video">-->
+<!--&lt;!&ndash;                            <vm-player>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <vm-video poster={{gallery?.videos[3].featuredImagePath}}>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <source data-src={{gallery?.videos[3].filePath}} type="video/mp4"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <track&ndash;&gt;-->
+<!--&lt;!&ndash;                                            default&ndash;&gt;-->
+<!--&lt;!&ndash;                                    />&ndash;&gt;-->
+<!--&lt;!&ndash;                                </vm-video>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <vm-default-ui no-click-to-play>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </vm-default-ui>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </vm-player>&ndash;&gt;-->
+<!--                            <video poster="../../../../../assets/videos/Vacante_BESTINFORM-(1).webp"-->
+<!--                            src="../../../../../assets/videos/pexels-rodnae-productions-8230691-(540p).mp4" autoplay muted loop playsinline controls>-->
+<!--                            </video>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="div2 left-video">-->
+<!--                        <img class="d-block w-100" src="../../../../../assets/videos/Concert-(1).webp" alt="First slide">-->
+
+<!--                        <div class="file-name"><span>{{gallery?.videos[1].fileName}}</span></div>-->
+<!--                        <div class="icon" (click)="playVideo(gallery?.videos[1].filePath)"><i class="fa fa-play"-->
+<!--                                                                                              aria-hidden="true"></i>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="div3 left-video">-->
+<!--                        <img class="d-block w-100" src="../../../../../assets/videos/BESTINFORM-NYAttractions.webp" alt="First slide">-->
+
+<!--                        <div class="file-name"><span>{{gallery?.videos[2].fileName}}</span></div>-->
+<!--                        <div class="icon" (click)="playVideo(gallery?.videos[2].filePath)"><i class="fa fa-play"-->
+<!--                                                                                              aria-hidden="true"></i>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="div4 left-video">-->
+<!--                        <img class="d-block w-100" src="../../../../../assets/videos/Restaurant-(1)-(1).webp" alt="First slide">-->
+
+<!--                        <div class="file-name"><span>{{gallery?.videos[0].fileName}}</span></div>-->
+<!--                        <div class="icon" (click)="playVideo(gallery?.videos[0].filePath)"><i class="fa fa-play"-->
+<!--                                                                                              aria-hidden="true"></i>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="div5 left-video">-->
+<!--                        <img class="d-block w-100" src="../../../../../assets/videos/Vacante_BESTINFORM-(1).webp" alt="First slide">-->
+<!--                        <div class="file-name"><span>{{gallery?.videos[3].fileName}}</span></div>-->
+<!--                        <div class="icon" (click)="playVideo(gallery?.videos[3].filePath)"><i class="fa fa-play"-->
+<!--                                                                                              aria-hidden="true"></i>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;mobile&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
+<!--                    <div class="wrap-videos">-->
+<!--                        <div class="mobile-video">-->
+<!--                            <img class="d-block w-100" src="../../../../../assets/videos/Concert-(1).webp" alt="First slide">-->
+
+<!--                            <div class="file-name"><span>{{gallery?.videos[1].fileName}}</span></div>-->
+<!--                            <div class="icon" (click)="playVideo(gallery?.videos[1].filePath)"><i class="fa fa-play"-->
+<!--                                                                                                  aria-hidden="true"></i>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="mobile-video">-->
+<!--                            <img class="d-block w-100" src="../../../../../assets/videos/BESTINFORM-NYAttractions.webp" alt="First slide">-->
+<!--                            <div class="file-name"><span>{{gallery?.videos[2].fileName}}</span></div>-->
+<!--                            <div class="icon" (click)="playVideo(gallery?.videos[2].filePath)"><i class="fa fa-play"-->
+<!--                                                                                                  aria-hidden="true"></i>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="mobile-video">-->
+<!--                            <img class="d-block w-100" src="../../../../../assets/videos/Restaurant-(1)-(1).webp" alt="First slide">-->
+<!--                            <div class="file-name"><span>{{gallery?.videos[0].fileName}}</span></div>-->
+<!--                            <div class="icon" (click)="playVideo(gallery?.videos[0].filePath)"><i class="fa fa-play"-->
+<!--                                                                                                  aria-hidden="true"></i>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+<!--                        <div class="mobile-video">-->
+<!--                            <img class="d-block w-100" src="../../../../../assets/videos/Vacante_BESTINFORM-(1).webp" alt="First slide">-->
+<!--                            <div class="file-name"><span>{{gallery?.videos[3].fileName}}</span></div>-->
+<!--                            <div class="icon" (click)="playVideo(gallery?.videos[3].filePath)"><i class="fa fa-play"-->
+<!--                                                                                                  aria-hidden="true"></i>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+    <!--Free trial-->
+
+<!--    <div class="container-fluid free-trial-section-hpb py-10">-->
+<!--        <div class="container">-->
+<!--            <div class="row align-items-center">-->
+<!--                <div class="col md-6 free-trial-text">-->
+<!--                    <h1 class="section-title py-2">{{trialSection?.mainTitle}}</h1>-->
+<!--                    <h1 class="section-title second-title-trial py-2">{{trialSection?.subTitle}}</h1>-->
+<!--                    <p class="py-2">{{trialSection?.content}}</p>-->
+<!--                    <div class="d-flex free-trial-button-container py-2">-->
+<!--                        <button class="btn-long btn-color-outline" (click)="openAuthModal()">-->
+<!--                            {{ trialSection?.buttonText }} <i class="fa fa-arrow-right" aria-hidden="true"></i>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col md-6 free-trial-img">-->
+<!--                    <img src="../../../../../assets/images/others/free-trial-section.png" alt="freeTrial"-->
+<!--                         class="mw-100 d-block" width="612" height="480">-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+<!--    </div>-->
+
+
+    <!--Become provider-->
+
+<!--    <div class="container-fluid became-provider py-10">-->
+<!--        <div class="container">-->
+<!--            <div class="became-provider-container">-->
+<!--                <div class="row became-provider-title justify-content-center">-->
+<!--                    <h1 class="section-title mb-0 px-0"><span style="color:white">{{c2a[0]}}</span> <span-->
+<!--                            style="color:#FFCC04"> {{c2a[1]}}</span></h1>-->
+<!--                    <p class="mb-0">{{callToAction?.content}}</p>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <button (click)="openProviderRegister()" class="btn-long btn-white-fill w-fit-content" >-->
+<!--                        &lt;!&ndash; <span>{{ 'REGISTER' | translate }} <i class="fa fa-arrow-right" aria-hidden="true"></i></span> &ndash;&gt;-->
+<!--                        {{ callToAction?.buttonText }} <i class="fa fa-arrow-right" aria-hidden="true"></i>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+</main>

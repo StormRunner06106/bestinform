@@ -1,0 +1,87 @@
+<div class="container">
+    <p class="my-2">Messages</p>
+
+
+    <div *ngFor="let conversation of conversationArray">
+
+        <!-- reservation -->
+        <div routerLink="/client/dashboard/inbox/{{conversation.id}}" *ngIf="category === 'reservation'" class="conv-item-card d-flex justify-content-between align-items-center p-2 my-3">
+                <div class="d-flex justify-content-start align-items-center gap-2 first-half-conv-item">
+                    <img src="{{conversation?.featuredImage ? conversation?.featuredImage?.filePath : '../../../../../../../assets/images/others/user.jpg' }}">
+                    <div class="d-flex flex-column align-items-start justify-content-center">
+                        <h4>{{conversation?.name}} </h4>
+                        <p *ngIf="conversation?.lastMessage === null">Incepeti o conversatie!</p>
+                        <p *ngIf="conversation?.lastMessage !== null">{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                    </div>
+                </div>
+
+            <div class="d-flex align-items-center second-half-conv-item">
+                <p>{{conversation?.lastMessage?.date | date: 'EEEE, HH:mm'}}</p>
+            </div>
+        </div>
+
+        <!-- shared experiences -->
+        <div routerLink="/client/dashboard/inbox/{{conversation.id}}" *ngIf="category === 'sharedExperience'"  class="conv-item-card d-flex justify-content-between align-items-center p-2 my-3">
+            <div class="d-flex justify-content-start align-items-center gap-2 first-half-conv-item">
+                <img src="{{conversation?.featuredImage ? conversation?.featuredImage?.filePath : '../../../../../../../assets/images/others/user.jpg' }}">
+                <div class="d-flex flex-column align-items-start justify-content-center">
+                    <!-- de pus link catre mesaje -->
+                    <h4>{{conversation?.name}}</h4>
+                    <p *ngIf="conversation?.lastMessage === null">Incepeti o conversatie!</p>
+                    <p *ngIf="conversation?.lastMessage !== null">{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center second-half-conv-item">
+                <p>{{conversation?.lastMessage?.date | date: 'EEEE, HH:mm'}}</p>
+            </div>
+        </div>
+
+        <!-- Bestinform support -->
+        <div routerLink="/client/dashboard/inbox/{{conversation.id}}" *ngIf="category === 'bestinformSupport'"  class="conv-item-card d-flex justify-content-between align-items-center p-2 my-3">
+            <div class="d-flex justify-content-start align-items-center gap-2 first-half-conv-item">
+                <img src="{{conversation?.featuredImage ? conversation?.featuredImage.filePath : '../../../../../assets/images/logos/Icon_Logo.png'}}">
+                <div class="d-flex flex-column align-items-start justify-content-center">
+                    <!-- de pus link catre mesaje -->
+                    <h4>{{conversation?.name}}</h4>
+                    <p *ngIf="conversation?.lastMessage === null">Incepeti o conversatie!</p>
+                    <p *ngIf="conversation?.lastMessage !== null">{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center second-half-conv-item">
+                <p>{{conversation?.lastMessage?.date | date: 'EEEE, HH:mm'}}</p>
+            </div>
+        </div>
+
+        <!-- others private -->
+        <div routerLink="/client/dashboard/inbox/{{conversation.id}}" *ngIf="category === 'private'"  class="conv-item-card d-flex justify-content-between align-items-center p-2 my-3">
+            <div class="d-flex justify-content-start align-items-center gap-2 first-half-conv-item">
+                <img src="{{conversation?.featuredImage ? conversation?.featuredImage?.filePath : '../../../../../../../assets/images/others/user.jpg' }}" >
+                <div class="d-flex flex-column align-items-start justify-content-center">
+                    <!-- de pus link catre mesaje -->
+                    <h4>{{conversation?.name}}</h4>
+                    <p *ngIf="conversation?.lastMessage === null">Incepeti o conversatie!</p>
+                    <p *ngIf="conversation?.lastMessage !== null">{{conversation?.lastMessage?.userName}} : {{conversation?.lastMessage?.content}}</p>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center second-half-conv-item">
+                <p>{{conversation?.lastMessage?.date | date: 'EEEE, HH:mm a'}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!--Pagination-->
+    <mat-paginator
+    [pageSizeOptions]="pageItems"
+    [length]="(category === 'reservation') ? totalReservationConversations  :
+    (category === 'sharedExperience') ? totalSharedExperiencesConversations :
+    (category === 'bestinformSupport') ? totalBestinformConversations:
+    totalPrivateConversations"
+    [pageSize]="pageSize"
+    (page)="pageChanged($event)"
+    >
+    </mat-paginator>
+
+</div>

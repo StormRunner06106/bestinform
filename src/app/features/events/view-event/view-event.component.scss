@@ -1,0 +1,135 @@
+@import "/src/app/theme/styles/components/colors";
+
+.white-background {
+  background-color: var(--primary-background);
+}
+
+h1 {
+  font-weight: 700;
+  color: $paragraph;
+}
+
+.responsive-header-text {
+  font-size: 24px;
+  @media (width >= 768px) {
+    font-size: 32px;
+  }
+  @media (width >= 1200px) {
+    font-size: 48px;
+  }
+}
+
+.thumbnail {
+  width: 100%;
+  max-height: 600px;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+}
+
+.event-location-time {
+  font-weight: 400;
+  font-size: 16px;
+  color: $paragraph;
+  margin-bottom: 3rem;
+
+  p, i {
+    margin-bottom: 0;
+    line-height: 24px;
+  }
+}
+
+.event-details {
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 3rem;
+  background-color: var(--primary-background);
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  div:first-child {
+
+    h1 {
+      span {
+        color: $secondary-color;
+      }
+    }
+
+    p {
+      font-weight: 700;
+      font-size: 20px;
+    }
+  }
+
+  div:nth-child(2) {
+    h2 {
+      font-weight: 400;
+      font-size: 32px;
+    }
+
+    div {
+      i {
+        color: $secondary-color;
+      }
+    }
+  }
+}
+
+.event-description {
+  white-space: pre-line;
+}
+
+.gallery-container {
+  aspect-ratio: 16/9;
+  max-height: 100%;
+
+  img {
+    border-radius: 8px;
+  }
+
+  .selected-image {
+    max-height: inherit;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .side-gallery-container {
+    max-height: inherit;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .image-container {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+      }
+
+      img {
+        aspect-ratio: 16 / 9;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.might-like-section {
+  background: rgba(13, 68, 148, 0.04);
+
+  .cards-container {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}

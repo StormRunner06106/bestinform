@@ -1,0 +1,354 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne=" {{ isEditMode
+                            ? ('PROVIDER.EDIT' | translate)
+                            : ('PROVIDER.ADD' | translate) }}"
+                          [buttonBackRoute]="isEditMode && !isCurrentUser ? '../../../manage-providers/active':
+                                            !isEditMode && !isCurrentUser ? '../../manage-providers/active' :
+                                            isCurrentUser ? '../view' : null"
+                          (buttonCall)="save()">
+    </app-dashboard-header>
+    <div class="container p-6 widget-container card">
+        <form [formGroup]="addEditForm">
+            <div>
+                <h2 class="py-8"> {{('PROVIDER.IDENTIFICATION_INFORMATION' | translate)}}</h2>
+
+                <!--Name and Status-->
+                <div class="row">
+                    <mat-form-field class="w-50" appearance="legacy">
+                        <mat-label>Company name</mat-label>
+                        <input matInput formControlName="companyName">
+                        <mat-icon matSuffix (click)="clearCompanyName()">highlight_off</mat-icon>
+                        <mat-error *ngIf="addEditForm.controls.companyName.hasError('required')">
+                            Numele companiei este obligatoriu.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-50" appearance="legacy">
+                        <mat-label>{{('PROVIDER.STATUS' | translate)}}</mat-label>
+                        <mat-select formControlName="approvedStatus" [disabled]="isProvider">
+                            <!-- <mat-option value="Opening Partnership">Opening Partnership</mat-option>
+                            <mat-option value="Partnership">Partnership</mat-option> -->
+
+                            <mat-option value="new" id="new">Nou</mat-option>
+                            <mat-option value="draft" id="draft">{{'STATUS.DRAFT' | translate}}</mat-option>
+                            <mat-option value="pending" id="pending">{{'STATUS.PENDING' | translate}}</mat-option>
+                            <mat-option value="active" id="active">{{'STATUS.ACTIVE' | translate}}</mat-option>
+                            <mat-option value="inactive" id="inactive">{{'STATUS.INACTIVE' | translate}}</mat-option>
+                            <mat-option value="archived" id="archived">{{'STATUS.ARCHIVED' | translate}}</mat-option>
+                            <mat-option value="refused" id="refused">Refuzat</mat-option>
+                        </mat-select>
+                        <mat-error
+                                *ngIf="addEditForm.get('approvedStatus').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <!--Email and Telephone-->
+                <div class="row">
+                    <mat-form-field class="w-50" appearance="legacy">
+                        <mat-label>{{('PROVIDER.EMAIL' | translate)}}</mat-label>
+                        <input matInput formControlName="email" [readonly]="isEditMode ? 'true' : 'false'">
+                        <mat-error
+                                *ngIf="addEditForm.get('email').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        <mat-error
+                                *ngIf="addEditForm.get('email').hasError('email')">{{'ERROR.EMAIL'|translate}}</mat-error>
+
+                    </mat-form-field>
+
+                    <mat-form-field class="w-50" appearance="legacy">
+                        <mat-label>{{('PROVIDER.TELEPHONE' | translate)}}</mat-label>
+                        <input matInput formControlName="telephone">
+                        <!--                <mat-error *ngIf="addEditForm.controls.telephone.hasError('pattern')">-->
+                        <!--                    {{'ERROR.TELEPHONE'|translate}}-->
+                        <!--                </mat-error>-->
+                        <mat-error>{{addEditForm.controls.telephone.hasError('pattern') ? ('ERROR.TELEPHONE'|translate) : ('ERROR.TELEPHONE-LEN'|translate) }}</mat-error>
+                        <!--                <mat-error *ngIf="addEditForm.controls.telephone.hasError('minlength')">-->
+                        <!--                    {{'ERROR.TELEPHONE-LEN'|translate}}-->
+                        <!--                </mat-error>-->
+                        <!--                <mat-error *ngIf="addEditForm.controls.telephone.hasError('maxlength')">-->
+                        <!--                    {{'ERROR.TELEPHONE-LEN'|translate}}-->
+                        <!--                </mat-error>-->
+                    </mat-form-field>
+                </div>
+                <!--CUI and Name repr-->
+                <div class="row">
+                    <mat-form-field class="w-50" appearance="legacy">
+                        <mat-label>{{('PROVIDER.CUI' | translate)}}</mat-label>
+                        <input matInput formControlName="cui">
+                    </mat-form-field>
+
+                    <mat-form-field class="w-25" appearance="legacy">
+                        <mat-label>Nume reprezentant</mat-label>
+                        <input matInput formControlName="lastName">
+                    </mat-form-field>
+
+                    <mat-form-field class="w-25" appearance="legacy">
+                        <mat-label>Prenume reprezentant</mat-label>
+                        <input matInput formControlName="firstName">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <h2 class="py-8">{{('PROVIDER.DOMAIN' | translate)}}</h2>
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label> {{('PROVIDER.SELECT_DOMAIN' | translate)}}</mat-label>
+                        <mat-select formControlName="domain">
+                            <mat-option *ngFor="let domain of domains"
+                                        [value]="domain?.id">{{domain?.nameEn}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div formGroupName="billingAddress">
+                <h2 class="py-8" >{{('PROVIDER.BILLING_DATA' | translate)}}</h2>
+
+                <!--Name and address-->
+                <div class="row">
+                    <mat-form-field class="w-50" appearance="legacy">
+                        <mat-label>{{('PROVIDER.BILLING_NAME' | translate)}}</mat-label>
+                        <input matInput formControlName="name">
+                        <mat-icon matSuffix>highlight_off</mat-icon>
+                        <mat-error *ngIf="addEditForm.get('billingAddress.name').hasError('required')">
+                            Numele este obligatoriu.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-50" appearance="legacy">
+                        <mat-label>{{('PROVIDER.BILLING_ADDRESS' | translate)}}</mat-label>
+                        <input matInput formControlName="address">
+                        <mat-icon matSuffix (click)="clearAddress()">highlight_off</mat-icon>
+                    </mat-form-field>
+                </div>
+                <!--City and County-->
+                <div class="row">
+                    <mat-form-field appearance="legacy" class="w-50">
+                        <mat-label>{{'USER.COUNTRY' | translate}}</mat-label>
+                        <mat-select formControlName="country" (selectionChange)="getCities($event)">
+                            <mat-option *ngFor="let country of countries" [value]="country">
+                                {{country}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="legacy" class="w-50">
+                        <mat-label>{{'USER.CITY' | translate}}</mat-label>
+                        <mat-select formControlName="city">
+                            <mat-option *ngFor="let city of cities" [value]="city.name">
+                                {{city.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!--Iban and Bank name-->
+                <div class="row">
+                    <mat-form-field class="w-50" appearance="legacy">
+                        <mat-label>{{('PROVIDER.IBAN' | translate)}}</mat-label>
+                        <input matInput formControlName="iban">
+                        <mat-icon matSuffix (click)="clearIBAN()">highlight_off</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-50" appearance="legacy">
+                        <mat-label>{{('PROVIDER.BANK' | translate)}}</mat-label>
+                        <input matInput formControlName="bankName">
+                        <mat-icon matSuffix (click)="clearBank()">highlight_off</mat-icon>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+<!--            <div>-->
+<!--                <h2 class="py-8" >{{('PROVIDER.PERCENTAGE-COMISSION' | translate)}}</h2>-->
+
+<!--                <mat-form-field class="w-100" appearance="legacy" matTooltip="Această valoarea reprezintă procentul din încasările provider-ului pe care îl va primi Bestinform.">-->
+<!--                    <mat-label>{{('PROVIDER.PERCENTAGE-COMISSION' | translate)}}</mat-label>-->
+<!--                    <input matInput formControlName="percentageCommission" [readonly]="isProvider ? 'true' : 'false'">-->
+<!--                    <mat-error *ngIf="addEditForm.get('percentageCommission').hasError('pattern')">{{'ERROR.DIGIT-ONLY'|translate}}-->
+<!--                    </mat-error>-->
+<!--                    &lt;!&ndash; <mat-icon matSuffix (click)="clearPercentage()">highlight_off</mat-icon> &ndash;&gt;-->
+<!--                </mat-form-field>-->
+<!--            </div>-->
+
+            <!--Incarcare contract ascuns-->
+            <!-- <div>
+                <h2 class="py-8">{{('PROVIDER.CONTRACT' | translate)}}</h2>
+
+                <div *ngIf="providerData">
+                    <input #fileInput hidden type="file" (change)="onUploadContract($event)">
+                    <p><i class="far fa-file" *ngIf="providerData['contract']"></i>{{contractTitle}}</p>
+                    <div class="w-100">
+                        <button (click)="fileInput.click()" matTooltip="Fisierul existent va fi inlocuit"
+                                class="btn-long btn-color-fill w-100" type="button">
+                            {{('PROVIDER.CONTRACT_UPLOAD' | translate)}}
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div> -->
+
+            <div *ngIf="showActions">
+                <h2 class="py-8">{{('PROVIDER.BESTINFORM_ACCOUNT' | translate)}}</h2>
+
+                <div class="row">
+
+                    <mat-form-field class="col-5" appearance="standard">
+                        <mat-label>{{('PROVIDER.PASSWORD' | translate)}}</mat-label>
+                        <input formControlName="password" matInput [type]="showPassword ? 'text' : 'password'"
+                               name="password" autocomplete="new-password" id="password">
+
+                        <mat-error *ngIf="addEditForm.get('password').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                        <mat-error
+                                *ngIf="addEditForm.get('password').hasError('passMin')">{{'ERROR.PASS-MIN-LENGTH'|translate}}</mat-error>
+                        <mat-error
+                                *ngIf="addEditForm.get('password').hasError('passMax')">{{'ERROR.PASS-MAX-LENGTH'|translate}}</mat-error>
+                        <mat-error
+                                *ngIf="addEditForm.get('password').hasError('specialCharacter')">{{'ERROR.PASS-SPECIAL-CHAR'|translate}}
+                            .
+                        </mat-error>
+                        <mat-error
+                                *ngIf="addEditForm.get('password').hasError('number')">{{'ERROR.PASS-DIGIT'|translate}}</mat-error>
+                        <mat-error
+                                *ngIf="addEditForm.get('password').hasError('upper')">{{'ERROR.PASS-UPPERCASE'|translate}}</mat-error>
+                        <mat-error
+                                *ngIf="addEditForm.get('password').hasError('lower')">{{'ERROR.PASS-LOWERCASE'|translate}}</mat-error>
+                        <mat-error
+                                *ngIf="addEditForm.get('password').hasError('whiteSpace')">{{'ERROR.PASS-WHITESPACE'|translate}}</mat-error>
+
+                        <button type="button" (click)="showPassword = !showPassword" mat-icon-button matSuffix
+                                id="showPwdBtn">
+                            <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </button>
+
+                    </mat-form-field>
+
+                    <mat-form-field class="col-5" appearance="standard">
+                        <mat-label>{{('PROVIDER.CHECK_PASSWORD' | translate)}}</mat-label>
+                        <input formControlName="checkPassword" matInput [type]="showPassword ? 'text' : 'password'"
+                               name="password" autocomplete="new-password" id="checkPassword">
+                        <mat-error *ngIf="addEditForm.controls.checkPassword.hasError('mustMatch')">
+                            Confirmarea parolei nu este corecta.
+                        </mat-error>
+                        <mat-error *ngIf="addEditForm.controls.checkPassword.hasError('required')">
+                            Ați uitat sa rescrieți parola.
+                        </mat-error>
+                        <button type="button" (click)="showPassword = !showPassword" mat-icon-button matSuffix
+                                id="showCheckPwdBtn">
+                            <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+
+                    <div class="col-2 d-flex justify-content-end pwdActions">
+                        <button
+                                id="generatePwdBtn"
+                                type="button"
+                                class="btn-auto btn-color-outline"
+                                (click)="generatePassword()">
+                            <i class="fas fa-sync"></i> {{'PROVIDER.GENERATE_PASSWORD' | translate}}
+                        </button>
+
+                        <button *ngIf="isEditMode"
+                                type="button"
+                                id="resetPwdBtn"
+                                class="btn-auto btn-color-outline"
+                                (click)="resetPassword()">
+                            <i class="fas fa-save"></i>
+                        </button>
+
+                    </div>
+                    <!-----Check password-------->
+
+
+
+                </div>
+
+                <div *ngIf="!isEditMode">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>{{('PROVIDER.STATUS' | translate)}}</mat-label>
+                        <mat-select formControlName="approvedStatus" (selectionChange)="activateUser($event.value)">
+                            <mat-option [value]="'approved'">Aprobat</mat-option>
+                            <mat-option [value]="'pending'">In asteptare</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+<!--            <div class="integration-class" >-->
+<!--                <h2 class="py-8">{{('PROVIDER.INTEGRATIONS' | translate)}}</h2>-->
+
+<!--                <h5>Channel manager</h5>-->
+<!--                &lt;!&ndash;Channel manager&ndash;&gt;-->
+<!--                <div class="row">-->
+<!--                    <mat-form-field class="w-50" appearance="legacy">-->
+<!--                        <mat-label>{{('PROVIDER.EMAIL' | translate)}}</mat-label>-->
+<!--                        <input matInput>&lt;!&ndash;formControlName="email"&ndash;&gt;-->
+<!--                        <mat-icon matSuffix (click)="clearChannelEmail()">highlight_off</mat-icon>-->
+<!--                    </mat-form-field>-->
+
+<!--                    <mat-form-field class="w-50" appearance="legacy">-->
+<!--                        <mat-label>{{('PROVIDER.TOKEN' | translate)}}</mat-label>-->
+<!--                        <input matInput>&lt;!&ndash;formControlName="token" &ndash;&gt;-->
+<!--                        <mat-icon matSuffix (click)="clearToken()">highlight_off</mat-icon>-->
+<!--                    </mat-form-field>-->
+<!--                </div>-->
+
+<!--                <h5>Channel manager</h5>-->
+<!--                &lt;!&ndash;Channel manager&ndash;&gt;-->
+<!--                <div class="row">-->
+<!--                    <div class="w-50">-->
+<!--                        <input #fileInput hidden type="file" (change)="onUploadContract($event)">-->
+<!--                        <button (click)="fileInput.click()" matTooltip="Fisierul existent va fi inlocuit"-->
+<!--                                class="btn-long btn-color-fill w-100" type="button">-->
+<!--                            <i class="fas fa-upload"></i>-->
+<!--                            Private Key-->
+<!--                        </button>-->
+
+<!--                    </div>-->
+
+<!--                    <div class="w-50">-->
+<!--                        <input #fileInput hidden type="file" (change)="onUploadContract($event)">-->
+<!--                        <button (click)="fileInput.click()" matTooltip="Fisierul existent va fi inlocuit"-->
+<!--                                class="btn-long btn-color-fill w-100" type="button">-->
+<!--                            <i class="fas fa-upload"></i>-->
+<!--                            Public Key-->
+<!--                        </button>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash;semnatura ascunsa&ndash;&gt;-->
+<!--                    &lt;!&ndash; <mat-form-field class="w-100 py-4" appearance="legacy">-->
+<!--                        <mat-label>{{('PROVIDER.SIGNATURE' | translate)}}</mat-label>-->
+<!--                        <input matInput>-->
+<!--                        <mat-icon matSuffix (click)="clearSignature()">highlight_off</mat-icon>-->
+<!--                    </mat-form-field> &ndash;&gt;-->
+
+<!--                </div>-->
+
+
+<!--            </div>-->
+
+<!--            Block and Delete Actions-->
+            <div *ngIf="isEditMode && showActions">
+                <h2 class="py-8">{{('PROVIDER.ACCOUNT_ACTIONS' | translate)}}</h2>
+                <div class="row">
+                    <div class="w-50">
+                        <button (click)="blockProvider(providerId)"
+                                class="btn-long btn-color-fill w-100" type="button">
+                            <i class="fas fa-lock"></i>
+                            BLOCARE CONT
+                        </button>
+
+                    </div>
+
+                    <div class="w-50">
+                        <button (click)="deleteProvider(providerId)"
+                                class="btn-long btn-color-fill w-100" type="button">
+                            <i class="fas fa-times"></i>
+                            STERGERE PROVIDER
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,CAAC;EACP,OAAO,EAAE,IAAI;EACb,KAAK,EAAE,CAAC;EACR,GAAG,EAAE,mBAAoB;CAC1B",
+    "sources": [
+        "toaster.component.scss"
+    ],
+    "names": [],
+    "file": "toaster.component.css"
+}

@@ -1,0 +1,24 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+h4{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+    color: $paragraph;
+}
+
+h5{
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 140%;
+    color: $primary-color;
+}
+
+p{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: $paragraph;
+    //opacity: 0.5 ;
+}

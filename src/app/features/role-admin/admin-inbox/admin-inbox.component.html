@@ -1,0 +1,63 @@
+<!--Title bar-->
+<div ngclass="container-fluid">
+    <div class="container">
+        <app-dashboard-header pageTitleOne="Inbox"
+        [buttonBackRoute]="'../dashboard'">
+        </app-dashboard-header>
+    </div>
+
+
+    <!-- Tabs -->
+    <div  class="container inbox-container ">
+        <ul class="nav nav-tabs" id="inboxTab" role="tablist" >
+            <!-- Myconversation -->
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="my-conversation-tab" data-bs-toggle="tab" data-bs-target="#myConversation" type="button" role="tab" aria-controls="myConversation" aria-selected="false">Conversațiile mele</button>
+            </li>
+
+            <!-- Bestinform Support -->
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="bestinform-support-tab" data-bs-toggle="tab" data-bs-target="#bestinformSupport" type="button" role="tab" aria-controls="bestinformSupport" aria-selected="false">Bestinform Support</button>
+            </li>
+
+            <!-- Closed conversation -->
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="closed-conversation-tab" data-bs-toggle="tab" data-bs-target="#closedConversation" type="button" role="tab" aria-controls="closedConversation" aria-selected="false">Conversații închise</button>
+            </li>
+
+            <!-- All Bestinform Support -->
+            <li  class="nav-item" role="presentation">
+                    <button *ngIf="isAdmin" class="nav-link" id="all-bestinform-support-tab" data-bs-toggle="tab" data-bs-target="#allBestinformSupport" type="button" role="tab" aria-controls="allBestinformSupport" aria-selected="false">Toate conversațiile</button>
+            </li>
+
+          </ul>
+
+
+        <!-- Content of tabs -->
+        <div class="tab-content" id="myTabContent">
+            <!-- Content booking suport -->
+            <div class="tab-pane fade show active" id="myConversation" role="tabpanel" aria-labelledby="booking-support-tab">
+                <app-admin-conversation-item-card [categoryConversation]="'myConversations'"></app-admin-conversation-item-card>
+            </div>
+
+            <!-- Content bestinform suport -->
+            <div class="tab-pane fade" id="bestinformSupport" role="tabpanel" aria-labelledby="bestinform-support-tab">
+              <app-admin-conversation-item-card [categoryConversation]="'unassignedConversations'"></app-admin-conversation-item-card>
+
+            </div>
+
+            <!-- Closed conversation -->
+            <div class="tab-pane fade" id="closedConversation" role="tabpanel" aria-labelledby="closed-conversation-tab">
+                <app-admin-conversation-item-card [categoryConversation]="'myClosedConversations'"></app-admin-conversation-item-card>
+            </div>
+
+            <!-- All Bestinform Support -->
+            <div class="tab-pane fade" id="allBestinformSupport" role="tabpanel" aria-labelledby="all-bestinform-support-tab">
+                <app-admin-conversation-item-card [categoryConversation]="'allConversations'"></app-admin-conversation-item-card>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

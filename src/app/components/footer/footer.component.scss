@@ -1,0 +1,158 @@
+.footer {
+    background-color: #4257EE;
+    color: white;
+    padding: 80px 60px!important;
+    bottom: 0;
+    width: 100%;
+    padding: 3vw;
+
+    .container-footer {
+        display: flex; flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 40px;
+    }
+
+    .menu-items {
+        display: flex; flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+    }
+
+.menu-item {
+    font-size: 16px;
+    font-family: "Roboto", Helvetica, sans-serif;
+    color:#FBFFFE;
+    text-decoration: unset;
+}
+
+.width {
+    color: white;
+    opacity: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+    .container {
+        display: flex; flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-and-social {
+        display: flex; flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+
+        .contact {
+            h1 {
+                font-size: 20px; // Adjust font size
+                margin-bottom: 10px; // Add spacing between heading and paragraph
+            }
+
+            p {
+                margin: 0; // Reset default margin
+                a {
+                    color: white; // Ensure links are visible on #4257EE background
+                    text-decoration: none; // Remove underlines from links
+                    &:hover {
+                        text-decoration: underline; // Add underline on hover
+                    }
+                }
+            }
+        }
+
+        .social-media-icons {
+            display: flex; flex-wrap: wrap;
+            justify-content: flex-end; // Align icons to the right
+            margin-top: 10px;
+            
+                    // Styles for social media icons
+            i {
+                justify-content: space-between;
+                color: white; // Adjust icon color for visibility
+                font-size: 40px; // Increase icon size
+                margin-left: 20px; // Add spacing between icons
+                cursor: pointer; // Change cursor to pointer on hover
+                &:hover {
+                    opacity: 0.8;
+            }}
+        }
+    }
+
+    .menu-links {
+        // Styles for menu links section
+        display: flex; flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 40px; // Add spacing between sections
+        gap: 20px;
+
+        a {
+            font-size: 16px; // Adjust font size for menu links
+            text-decoration: none; // Remove underlines from links
+            color: white; // Link color
+            margin: 0 10px; // Add spacing between links
+            &:hover {
+                text-decoration: underline; // Add underline on hover
+            }
+        }
+    }
+
+    .additional-info {
+        // Styles for additional info like language selector
+        margin-top: 20px; // Add spacing between sections
+        select {
+            background-color: #111; // Adjust background color for select element
+            color: white; // Text color
+            border: none; // Remove border
+            padding: 5px; // Add padding
+            font-size: 16px; // Adjust font size
+        }
+    }
+
+    a {
+        color: white; // General link color
+    }
+    // Additional styling as needed
+  }
+
+  @media (max-width: 1032px) {
+
+    .container-footer {
+        gap: 20px;
+        padding-bottom: 20px!important;
+    }
+    .footer {
+        padding: 39px 40px !important; 
+        .menu-items {
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+        .menu-item {
+            margin: 0!important;
+        }
+        .menu-links {
+            margin-top: 20px;
+        }
+    }
+    
+  }
+  
+  .fa-facebook:before {
+    font-size: 32px;
+  }
+
+  .fa-instagram:before {
+    font-size: 32px;
+  }
+
+  .fa-tiktok:before {
+    font-size: 32px;
+  }
+
+  
+  

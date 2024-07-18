@@ -1,0 +1,21 @@
+<div class="page-background">
+    <h1 class="page-title">
+        Booking Confirmation
+    </h1>
+
+    <div class="checkmark-container">
+        <i class="far fa-check"></i>
+    </div>
+
+    <h2 class="bold-text">
+        Your booking has been placed!
+    </h2>
+
+    <p class="normal-text">
+        Thanks for the reservation! You’ll find more about your booking on <span [routerLink]="['/client/dashboard/my-bookings']">My Bookings</span>.
+    </p>
+
+    <button type="button" class="btn-auto btn-color-fill" [routerLink]="['/client/dashboard/my-bookings']">
+        View my reservations
+    </button>
+</div>

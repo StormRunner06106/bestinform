@@ -1,0 +1,84 @@
+<div class="container-user d-flex justify-content-between align-items-center">
+    <div class="user-data d-flex justify-content-start">
+        <div class="avatar position-relative">
+            <img [src]="menuType === 'candidate' ? candidate?.avatar?.filePath : user?.avatar.filePath">
+            <i *ngIf="isAdmin" class="fas fa-crown d-flex justify-content-center align-items-center"></i>
+        </div>
+        <div class="name-email">
+            <p class="client-name mb-0">{{menuType === 'candidate' ? candidate?.name : (user?.firstName+' '+user?.lastName)}}</p>
+            <p class="mb-0">{{menuType === 'candidate' ? candidate?.email : user?.email}}</p>
+        </div>
+    </div>
+
+    <div *ngIf="showMenu && isAdmin" class="menu">
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="btn-round btn-no-outline"><i class="fas fa-ellipsis-v" ></i></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item><i class="fas fa-user-plus me-2"></i>{{'SHARED-EXPERIENCES.INVITE-PARTICIPANT' | translate}}</button>
+            <button mat-menu-item><i class="fas fa-share me"></i> {{'SHARED-EXPERIENCES.SHARE-EXPERIENCE' | translate}}</button>
+            <button mat-menu-item><i class="fas fa-pen me"></i> {{'SHARED-EXPERIENCES.MODIFY-EXPERIENCE' | translate}}</button>
+            <button mat-menu-item><i class="fas fa-ban me"></i> {{'SHARED-EXPERIENCES.CANCEL-EXPERIENCE' | translate}}</button>
+        </mat-menu>
+    </div>
+
+    <div *ngIf="showMenu && menuType==='pending'" class="menu">
+        <button mat-icon-button  [matMenuTriggerFor]="menuPending" class="btn-round btn-no-outline"><i class="fas fa-ellipsis-v"></i></button>
+        <mat-menu #menuPending="matMenu">
+            <button mat-menu-item (click)="respondToRequest(true)"><i class="far fa-smile me-2"></i>{{'SHARED-EXPERIENCES.ACCEPT-PARTICIPANT' | translate}}</button>
+            <button mat-menu-item (click)="respondToRequest(false)"><i class="far fa-frown me"></i>{{'SHARED-EXPERIENCES.DECLINE-PARTICIPANT' | translate}}</button>
+        </mat-menu>
+    </div>
+
+    <div *ngIf="showMenu && menuType==='participant'" class="menu">
+        <button mat-icon-button  [matMenuTriggerFor]="menuPending" class="btn-round btn-no-outline"><i class="fas fa-ellipsis-v"></i></button>
+        <mat-menu #menuPending="matMenu">
+            <button mat-menu-item (click)="openModal(kickparticipant)"><i class="fas fa-user-times me-2"></i>{{'SHARED-EXPERIENCES.KICK-PARTICIPANT' | translate}}t</button>
+        </mat-menu>
+    </div>
+
+    <div *ngIf="showMenu && (menuType==='job' || menuType ==='candidate')" class="menu">
+        <button mat-icon-button  [matMenuTriggerFor]="menuCandidate" class="btn-round btn-no-outline"><i class="fas fa-ellipsis-v"></i></button>
+        <mat-menu #menuCandidate="matMenu">
+            <button mat-menu-item  (click)="navigateToCv()"><i class="far fa-eye me-2"></i>{{'JOBS.VIEW_CV' | translate}}</button>
+            <button mat-menu-item *ngIf="candidate?.pdfCv?.filePath || user?.cv?.filePath" (click)="downloadCv()"><i class="fas fa-download me-2"></i>{{'JOBS.DOWNLOAD_CV' | translate}}</button>
+        </mat-menu>
+    </div>
+</div>
+
+
+
+<ng-template #kickparticipant let-c="close" let-d="dismiss">
+    <div class="modal-card card">
+        <div class="card-header border-0">
+            <h3 class="m-0">{{'SHARED-EXPERIENCES.KICK-PARTICIPANT-WARN' | translate}} <span>{{user?.firstName+' '+user?.lastName}}</span>?
+            </h3>
+        </div>
+
+        <div class="card-body">
+            <p>{{'SHARED-EXPERIENCES.KICK-PARTICIPANT-INFO' | translate}}</p>
+        </div>
+
+        <div class="card-footer border-0">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <button class="btn-auto btn-color-outline w-100"
+                            id="btn-dismiss-kick"
+                            (click)="d()">
+                        <i class="fas fa-times"></i>
+                        {{ 'BTN.CANCEL' | translate}}
+                    </button>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                    <button class="btn-auto btn-color-fill w-100"
+                            id="btn-confirm-kick"
+                            (click)="kickParticipant()"
+                    >
+                        <i class="fas fa-check"></i>
+                        {{ 'BTN.CONFIRM' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>

@@ -1,0 +1,169 @@
+@import "/src/app/theme/styles/components/colors";
+
+.page-header {
+  margin-top: 64px;
+  margin-bottom: 40px;
+  row-gap: 1rem;
+
+  h2 {
+    margin: 0;
+    color: $primary-color;
+    font-weight: 700;
+  }
+
+  div {
+    row-gap: 1rem;
+  }
+}
+
+.panel-title {
+  font-size: 1.5rem;
+  color: $primary-color;
+  font-weight: 600;
+}
+
+.panel-subtitle {
+  font-weight: 400;
+  font-size: 16px;
+  color: $paragraph;
+}
+
+.mat-expansion-panel-header {
+  height: 4.875rem;
+}
+
+.accordion-container .mat-expansion-panel-header-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  gap: 1rem;
+  color: $primary-color;
+  i {
+    font-weight: 900;
+    font-size: 2rem;
+  }
+}
+
+:host ::ng-deep .accordion-container .mat-expansion-indicator:after {
+  color: $primary-color !important;
+}
+
+:host ::ng-deep .accordion-container .mat-expansion-panel-body {
+  background: linear-gradient(0deg, rgba($primary-color, 0.04), rgba($primary-color, 0.04)), var(--primary-background);
+  padding: 1rem 1.5rem;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-expansion-panel {
+  box-shadow: none !important;
+}
+
+.gallery-container {
+  row-gap: 1rem;
+
+  .image-container img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  min-height: 7.5rem;
+  height: 100%;
+  border: 2px solid rgba($primary-color, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+
+  & .no-image {
+    width: 100%;
+    min-height: inherit;
+    background: rgba($primary-color, 0.04);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary-color;
+    cursor: pointer;
+    gap: 0.75rem;
+
+    &:before {
+      content: '\f03e';
+      font-family: 'Font Awesome 5 Free';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 2.25rem;
+    }
+
+    &:after {
+      font-size: 1rem;
+      content: attr(translatedContent);
+    }
+  }
+
+  .btn-thumbnail, .btn-gallery {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($primary-color, 0.16);
+    border-radius: 100%;
+    border: none;
+
+    i {
+      color: var(--primary-background);
+      font-weight: 900;
+      font-size: 16px;
+    }
+  }
+
+  .btn-thumbnail {
+    position: absolute;
+    top: 2.125rem;
+    right: 2.125rem;
+  }
+
+  .btn-gallery {
+    position: absolute;
+    top: 0.875rem;
+    right: 0.875rem;
+  }
+}
+
+.fields-container {
+  background-color: var(--primary-background);
+  border: 1px solid rgba($primary-color, 0.16);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 3rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.footer-container {
+  background-color: var(--primary-background);
+  padding: 3rem 1.5rem;
+  font-size: 0.875rem;
+  border-radius: 0px 0px 8px 8px;
+}
+
+.mat-accordion .mat-expansion-panel:last-of-type {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.accordion-container .mat-expansion-panel-header-title.warning-highlight {
+  color: red;
+}
+
+
+.clear-form{
+  color:rgba($primary-color, 0.48 );
+  background-color:var(--primary-background);
+  border-radius: 100%;
+}

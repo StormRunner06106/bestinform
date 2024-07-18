@@ -1,0 +1,131 @@
+<div class="save-btn d-flex justify-content-end align-items-center mb-3" *ngIf="resourceId">
+    <button  *ngIf="resourceId"
+             (click)="saveResource()"
+             [disabled]="isSubmitLoading"
+             class="btn-long btn-color-fill" type="button">
+        <ng-container *ngIf="isSubmitLoading===false">
+            <i class="fas fa-save"></i>
+            Salvează
+        </ng-container>
+        <ng-container *ngIf="isSubmitLoading === true">
+                      <span [style.display]="'block'" class="indicator-progress">
+                        Salvare...{{ " " }}
+                          <span
+                                  class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                      </span>
+        </ng-container>
+    </button>
+</div>
+
+<div id="rental-booking">
+
+    <div class="tab-section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Property Setup</h2>
+    </div>
+
+    <!--Content-->
+    <div class="section-content">
+        <div class="row">
+            <div *ngIf="!hasBookedWithReservation; else noLayoutModificationsAllowed" class="col-12 col-lg-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Rows generation</mat-label>
+                    <mat-select [(ngModel)]="rowsGenerationType">
+                        <mat-option value="numbers">Numbers</mat-option>
+                        <mat-option value="letters">Letters</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <ng-container *ngFor="let zone of zones.controls; let firstZone = first; let zoneIndex = index">
+                    <ng-container [formGroup]="zone">
+                        <div class="d-flex flex-wrap justify-content-between">
+                            <p class="w-100">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Price (€)</mat-label>
+                                    <input formControlName="price" type="number" name="price" matInput placeholder="0">
+                                    <mat-error *ngIf="zone.controls.price.hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                </mat-form-field>
+                            </p>
+
+                            <p>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Rows</mat-label>
+                                    <input formControlName="rows" type="number" name="rows" matInput placeholder="1">
+                                    <mat-error *ngIf="zone.controls.rows.hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                </mat-form-field>
+                            </p>
+
+                            <p>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Columns</mat-label>
+                                    <input formControlName="columns" type="number" name="columns" matInput placeholder="1">
+                                    <mat-error *ngIf="zone.controls.columns.hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                </mat-form-field>
+                            </p>
+
+                            <button *ngIf="!firstZone" class="btn-round btn-color-fill"
+                                    type="button" (click)="removeZone(zoneIndex)">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+                <button class="btn-auto btn-color-outline w-100"
+                        type="button" (click)="addZone()">
+                    Add New Zone
+                </button>
+
+                <button class="btn-auto btn-color-fill w-100 mt-4"
+                        type="button" (click)="generateSeats()">
+                    Generate Seats
+                </button>
+            </div>
+
+            <ng-template #noLayoutModificationsAllowed>
+                <div class="col-12 col-lg-6">
+                    <h1>
+                        A client has bought a ticket and you cannot modify the room layout
+                    </h1>
+                </div>
+            </ng-template>
+
+            <div class="col-12 col-lg-6">
+                <div class="panel">
+                    <ng-container *ngIf="culturalRoomData; else hereWeGenerateTheRoom">
+                        <app-seats-viewer [culturalRoom]="culturalRoomData" [rowsGenerationType]="rowsGenerationType"></app-seats-viewer>
+                    </ng-container>
+                </div>
+
+
+                <ng-template #hereWeGenerateTheRoom>
+                    <h3>
+                        Fill the fields to your left, to start generating the seats.
+                    </h3>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Stepper Controller-->
+    <div class="stepper-step-controller">
+        <!--Prev Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="prevStep()">
+                <i class="fas fa-arrow-left"></i>
+                Înapoi
+            </button>
+        </div>
+        <!--Next Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" [disabled]="!culturalRoomData" (click)="nextStep()">
+                Urmatorul
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+
+</div>

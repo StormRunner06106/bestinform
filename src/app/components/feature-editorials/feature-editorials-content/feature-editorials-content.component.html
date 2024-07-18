@@ -1,0 +1,355 @@
+<ng-container *ngTemplateOutlet="editorialsHeader"></ng-container>
+
+<div class="editorials-parent-container">
+    <div class="max-width-wrapper">
+        <div class="editorials-parent-container__editorials-content">
+            <p class="editorials-parent-container__editorials-content__header-text" *ngIf="(editorialsContent$ | async)?.introductionTitle">{{(editorialsContent$ | async)?.introductionTitle}}</p>
+
+            <div class="editorials-parent-container__editorials-content__detailed-description">
+                <!--            <div class="short-description">{{(editorialsContent$ | async)?.shortDescription}}</div>-->
+                <!--            <br>-->
+                <span [innerHTML]="(editorialsContent$ | async)?.content" class="mt-4"></span>
+            </div>
+
+        </div>
+
+        <!--    I know that it's a piece of shit, but for time being it's ok-->
+        <div class="editorials-parent-container__editorials-content">
+            <ng-container *ngIf="(editorialsContent$ | async).singleImageOrder === 1">
+                <ng-container *ngTemplateOutlet="singleImageTemplate"></ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="(editorialsContent$ | async).imageGridOrder === 1">
+                <ng-container *ngTemplateOutlet="imageGridTemplate"></ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="(editorialsContent$ | async).carouselOrder === 1">
+                <ng-container *ngTemplateOutlet="imageCarousel"></ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="(editorialsContent$ | async).singleVideoOrder === 1">
+                <ng-container *ngTemplateOutlet="singleVideoTemplate"></ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="(editorialsContent$ | async).multipleVideosOrder === 1">
+                <ng-container *ngTemplateOutlet="multipleVideosTemplate"></ng-container>
+            </ng-container>
+        </div>
+
+
+        <div class="editorials-parent-container__editorials-content__editorials-sub-content">
+            <!--        <p class="editorials-parent-container__editorials-content__header-text">-->
+            <!--            Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet pellentesque aenean hac vestibulum turpis mi bibendum diam. Tempor integer aliquam in vitae malesuada fringilla.-->
+            <!--        </p>-->
+
+            <!--        <p class="editorials-parent-container__editorials-content__detailed-description">-->
+            <!--            {{(editorialsContent$ | async)?.shortDescription}}-->
+            <!--            <br>-->
+            <!--            <span>-->
+            <!--                Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur convallis risus. Sed condimentum enim dignissim adipiscing faucibus consequat, urna. Viverra purus et erat auctor aliquam. Risus, volutpat vulputate posuere purus sit congue convallis aliquet. Arcu id augue ut feugiat donec porttitor neque. Mauris, neque ultricies eu vestibulum, bibendum quam lorem id. Dolor lacus, eget nunc lectus in tellus, pharetra, porttitor.-->
+            <!--            </span>-->
+            <!--        </p>-->
+
+            <!--        <p class="editorials-parent-container__editorials-content__image-increased-caption">-->
+            <!--            "Ipsum sit mattis nulla quam nulla. Gravida id gravida ac enim mauris id. Non pellentesque congue eget consectetur turpis. Sapien, dictum molestie sem tempor. Diam elit, orci, tincidunt aenean tempus."-->
+            <!--        </p>-->
+
+
+
+
+            <div class="editorials-parent-container__editorials-content">
+                <ng-container *ngIf="(editorialsContent$ | async).singleImageOrder === 2">
+                    <ng-container *ngTemplateOutlet="singleImageTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).imageGridOrder === 2">
+                    <ng-container *ngTemplateOutlet="imageGridTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).carouselOrder === 2">
+                    <ng-container *ngTemplateOutlet="imageCarousel"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).singleVideoOrder === 2">
+                    <ng-container *ngTemplateOutlet="singleVideoTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).multipleVideosOrder === 2">
+                    <ng-container *ngTemplateOutlet="multipleVideosTemplate"></ng-container>
+                </ng-container>
+            </div>
+
+
+
+            <div class="editorials-parent-container__editorials-content">
+                <ng-container *ngIf="(editorialsContent$ | async).singleImageOrder === 3">
+                    <ng-container *ngTemplateOutlet="singleImageTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).imageGridOrder === 3">
+                    <ng-container *ngTemplateOutlet="imageGridTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).carouselOrder === 3">
+                    <ng-container *ngTemplateOutlet="imageCarousel"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).singleVideoOrder === 3">
+                    <ng-container *ngTemplateOutlet="singleVideoTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).multipleVideosOrder === 3">
+                    <ng-container *ngTemplateOutlet="multipleVideosTemplate"></ng-container>
+                </ng-container>
+            </div>
+
+
+            <div *ngIf="display">
+                <p-galleria
+                        [value]="(editorialsContent$ | async)?.gridImages"
+                        [showItemNavigators]="true"
+                        [(visible)]="display"
+                        [fullScreen]="display"
+                        [numVisible]="5"
+                        [containerClass]="galleriaClass()"
+                >
+                    <ng-template pTemplate="item" let-item>
+                        <img
+                                class="gallery-image"
+                                (click)="display = !display"
+                                [src]="item"
+                        />
+                    </ng-template>
+                </p-galleria>
+
+            </div>
+
+
+            <div class="editorials-parent-container__editorials-content">
+                <ng-container *ngIf="(editorialsContent$ | async).singleImageOrder === 4">
+                    <ng-container *ngTemplateOutlet="singleImageTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).imageGridOrder === 4">
+                    <ng-container *ngTemplateOutlet="imageGridTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).carouselOrder === 4">
+                    <ng-container *ngTemplateOutlet="imageCarousel"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).singleVideoOrder === 4">
+                    <ng-container *ngTemplateOutlet="singleVideoTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).multipleVideosOrder === 4">
+                    <ng-container *ngTemplateOutlet="multipleVideosTemplate"></ng-container>
+                </ng-container>
+            </div>
+
+            <div class="editorials-parent-container__editorials-content">
+                <ng-container *ngIf="(editorialsContent$ | async).singleImageOrder === 5">
+                    <ng-container *ngTemplateOutlet="singleImageTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).imageGridOrder === 5">
+                    <ng-container *ngTemplateOutlet="imageGridTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).carouselOrder === 5">
+                    <ng-container *ngTemplateOutlet="imageCarousel"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).singleVideoOrder === 5">
+                    <ng-container *ngTemplateOutlet="singleVideoTemplate"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="(editorialsContent$ | async).multipleVideosOrder === 5">
+                    <ng-container *ngTemplateOutlet="multipleVideosTemplate"></ng-container>
+                </ng-container>
+            </div>
+        </div>
+
+
+
+        <div class="editorials-parent-container__editorials-content__editorials-sub-content" *ngIf="(editorialsContent$ | async)?.conclusionContent">
+            <p class="editorials-parent-container__editorials-content__header-text" *ngIf="(editorialsContent$ | async)?.conclusionTitle">{{(editorialsContent$ | async)?.conclusionTitle}}</p>
+
+            <p class="editorials-parent-container__editorials-content__detailed-description" [innerHTML]="(editorialsContent$ | async)?.conclusionContent"></p>
+        </div>
+
+        <div class="editorials-parent-container__editorials-content__editorials-sub-content" style="border-bottom: 1px solid black; padding-bottom: 30px;">
+            <p class="editorials-parent-container__editorials-content__header-text">Share this post</p>
+            <div class="share-container">
+                <div class="editorials-parent-container__editorials-content__social-media">
+<!--                    <ng-container *ngFor="let image of socialMediaLinks">-->
+<!--                        <div class="icons-container">-->
+<!--                            <img src="{{image.iconLink}}" class="social-media-icons">-->
+<!--                        </div>-->
+<!--                    </ng-container>-->
+                    <div class="social-media-icons d-flex align-items-center justify-content-center flex-wrap">
+                        <share-buttons theme="circles-dark"
+                                       [include]="['twitter', 'facebook', 'whatsapp','pinterest','email','copy']"
+                                       [showIcon]="true"
+                                       [showText]="false"
+                                       url="{{currentRoute}}"
+                                       description="See more on BESTINFORM!">
+                        </share-buttons>
+                    </div>
+                </div>
+
+                <div class="editorials-parent-container__editorials-content__tags">
+                    <ng-container *ngFor="let tag of (editorialsContent$ | async)?.tags">
+
+                        <div class="editorials-parent-container__editorials-content__tags-container">
+                            {{tag}}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="authors-content">
+            <div class="container-authors">
+                <img class="authors-content-image" src="../../../../assets/images/others/empty-menu-image.png" alt="">
+                <p class="authors-content-user">
+                    {{(editorialsContent$ | async)?.username}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<ng-container *ngTemplateOutlet="editorialsFooterTemplate"></ng-container>
+
+<ng-template #multipleVideosTemplate>
+    <div *ngIf="(editorialsContent$ | async)?.videosLinks?.length">
+        <p class="editorials-parent-container__editorials-content__header-text">{{ (editorialsContent$ | async)?.multipleVideoTitle || 'Video Carousel'}}</p>
+
+
+        <div class="multiple-images">
+            <div class="editorials-parent-container__editorials-content">
+                <p-carousel [showIndicators]="false" [value]="(editorialsContent$ | async)?.videosLinks" [numVisible]="!isMobile() ? 3 : 1"
+                            [numScroll]="!isMobile() ? 3 : 1" [circular]="true">
+                    <ng-template let-video pTemplate="item">
+                        <div class="border-1 surface-border border-round m-2 text-center">
+                            <video width="100%" height="100%" controls>
+                                <source [src]="video" type="video/mp4">
+                            </video>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #singleVideoTemplate>
+  <div *ngIf="(editorialsContent$ | async)?.singleVideoLink">
+      <p class="editorials-parent-container__editorials-content__header-text" *ngIf="(editorialsContent$ | async)?.singleVideoTitle">{{(editorialsContent$ | async)?.singleVideoTitle}}</p>
+
+      <div>
+          <!--      <iframe width="100%" height="450px" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>-->
+          <video width="100%" height="450px" controls>
+              <source [src]="(editorialsContent$ | async)?.singleVideoLink" type="video/mp4">
+          </video>
+      </div>
+  </div>
+</ng-template>
+
+<ng-template #imageGridTemplate>
+    <div *ngIf="(editorialsContent$ | async)?.gridImages?.length">
+        <p class="editorials-parent-container__editorials-content__header-text" *ngIf="(editorialsContent$ | async)?.gridImagesTitle">{{(editorialsContent$ | async)?.gridImagesTitle}}</p>
+
+        <div class="image-gallery">
+            <ng-container *ngFor="let image of (editorialsContent$ | async)?.gridImages?.slice(0, 4); let i = index;">
+                <div class="image-container" [ngClass]="{'show-more-container': i === (editorialsContent$ | async)?.gridImages.length - 1 && (editorialsContent$ | async)?.gridImages.length > 4}">
+                    <img (click)="display = !display" [src]="image" />
+                    <!-- Show more text inside the last image container if there are more than 4 images -->
+                    <ng-container *ngIf="i === 3 && (editorialsContent$ | async)?.gridImages.length > 4">
+                        <div (click)="display = !display" class="show-more-overlay">
+                            <div  class="show-more-text">+{{(editorialsContent$ | async)?.gridImages.length - 4}}</div>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+
+        <p class="editorials-parent-container__editorials-content__detailed-description" [innerHTML]="(editorialsContent$ | async)?.imageGridDescription">
+            <!--              {{(editorialsContent$ | async)?.imageGridDescription}}-->
+        </p>
+    </div>
+</ng-template>
+
+<ng-template #imageCarousel>
+    <div *ngIf="(editorialsContent$ | async)?.carouselImages?.length">
+        <p style="margin-top: 25px" class="editorials-parent-container__editorials-content__header-text" *ngIf="(editorialsContent$ | async)?.carouselTitle">{{(editorialsContent$ | async)?.carouselTitle}}</p>
+
+        <p-carousel [showIndicators]="false" [value]="(editorialsContent$ | async)?.carouselImages" [numVisible]="3" [numScroll]="3" [circular]="true">
+            <ng-template let-product pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 text-center py-5">
+                    <div class="mb-3">
+                        <img style="width: 100%;height: 360px;" src="{{product}}" class="w-6 shadow-2" />
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+
+        <p class="editorials-parent-container__editorials-content__detailed-description" [innerHTML]="(editorialsContent$ | async)?.carouselDescription"></p>
+    </div>
+</ng-template>
+
+<ng-template #singleImageTemplate>
+    <div class="image-container">
+        <img id="resizable-image" src="{{(editorialsContent$ | async)?.featuredImage}}" alt="">
+    </div>
+    <p class="editorials-parent-container__editorials-content__image-caption">{{(editorialsContent$ | async)?.singleImageCaption}}</p>
+</ng-template>
+
+
+<ng-template #editorialsFooterTemplate>
+    <div class="footer-description-content max-width-wrapper">
+        <div class="description-content">
+            <p class="paragraph-title">Mai multe editoriale</p>
+            <div (click)="seeAllEditorials()" class="all-button">Vezi toate</div>
+        </div>
+
+        <p-carousel [showIndicators]="false" [value]="editorialsAll$ | async" [numVisible]="!isMobile() ? 3 : 1"
+                    [numScroll]="!isMobile() ? 3 : 1" [circular]="true">
+            <ng-template let-editorial pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 text-center">
+                    <div class="mb-3" style="border-radius: 8px" (click)="redirectBySlug(editorial?.slug)">
+                        <img src="{{editorial?.featuredImage}}" class="w-6 shadow-2 carousel-img" />
+                        <div class="carousel-item-description">
+                            <p class="carousel-item-description__title-container">{{editorial?.title}}</p>
+                            <p class="carousel-item-description__description-container">{{editorial?.shortDescription}}</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>
+</ng-template>
+
+<ng-template #editorialsHeader>
+    <div [ngStyle]="{'background-image': 'url(&quot;' + (editorialsContent$ | async).featuredImage + '&quot;)'}"
+         class="component-image"
+    >
+        <p class="component-image__category-title" *ngIf="(editorialsContent$ | async)?.category">{{(editorialsContent$ | async)?.category}}</p>
+        <p class="component-image__title">{{(editorialsContent$ | async)?.title}}</p>
+
+        <div style="text-align: center;">
+<!--            <img class="component-image__user-image" src="../../../../assets/images/others/empty-menu-image.png" alt="">-->
+<!--            <p class="component-image__user-details">-->
+<!--                {{(editorialsContent$ | async)?.username}}-->
+<!--            </p>-->
+            <p class="component-image__user-details">
+                <span>{{getFormattedDate()}}</span>
+                <span *ngIf="(editorialsContent$ | async)?.categoryTags?.length">{{(editorialsContent$ | async)?.categoryTags?.join(', ')}}</span>
+            </p>
+        </div>
+    </div>
+</ng-template>

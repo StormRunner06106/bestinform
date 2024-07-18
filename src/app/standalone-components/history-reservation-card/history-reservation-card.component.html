@@ -1,0 +1,38 @@
+<div class="transaction-history-container inside_view_container  mb-2 p-3">
+                    <!--Title-->
+                    <div class="d-flex row justify-between align-items-center flex-wrap ">
+                        <div class="col-12 col-sm-6 justify-content-sm-start">
+                            <h6>{{"PROVIDER.TOTAL-RESERVATION" | translate}}</h6>
+                        </div>
+
+                        <!-- <div class="col-6 col-sm-6 d-flex justify-content-sm-start justify-content-xl-end">
+                            <div class="date-rectangle d-flex align-items-center">
+                                <p>1 Sep 2022 - 30 Sep 2022 <i class="far fa-calendar-alt"></i></p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!--Amount-->
+                    <div class="d-flex flex-wrap">
+                        <div class="d-flex">
+                            <h4>{{allMoney | number: '1.0-2'}}</h4>
+                            <p class="align-self-baseline big-currency-class">€</p>
+                        </div>
+                        <!-- <div class="d-flex blue-percent-rectangle align-self-center">
+                            <p class="mb-0 px-2"> <i class="fas fa-arrow-up"></i>
+                                4.5%
+                            </p>
+                        </div> -->
+                    </div>
+                    <!--subtitle-->
+                    <!-- <div>
+                        <p>Tranzacții în Aprilie</p>
+                    </div> -->
+                    <!--Graphic-->
+                    <!-- <div style="text-align:center">
+                        <apx-chart
+                        [series]="chartOptions.series"
+                        [chart]="chartOptions.chart"
+                        [xaxis]="chartOptions.xaxis"
+                    ></apx-chart>
+                    </div> -->
+</div>

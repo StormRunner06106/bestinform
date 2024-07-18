@@ -1,0 +1,53 @@
+<div class="body">
+    <div class="container-fluid strengthsArea p-full">
+        <div class="container">
+            <div class="strengths">
+                <h1 *ngIf="pageLang === 'ro'">Punctele forte ale A.I.</h1>
+                <h1 *ngIf="pageLang === 'en'">Strengths of A.I.</h1>
+                <div class="section-strength w-100" *ngFor="let strength of strengths">
+
+                    <h5 class="d-flex">
+                        <div class="circle me-2">
+                            <div class="checkmark"></div>
+                        </div>
+                        {{strength.title}}
+                    </h5>
+                    <p>{{strength.text}}</p>
+                </div>
+
+
+            </div>
+            <p class="conclusion mb-0" *ngIf="pageLang === 'en'">In conclusion, A.I. incorporates an advanced system for
+                processing and
+                prioritizing the displayed resources
+                to our users, surpassing traditional platforms through the complexity and multitude of suggestions
+                provided.
+                It functions like an awareness campaign, promoting lesser-known activities or resources that are
+                relevant to
+                the users. This creates a synergy between the users' potential consumer interests and the service
+                providers'
+                offerings.</p>
+            <p class="conclusion mb-0" *ngIf="pageLang === 'ro'">În concluzie, A.I. include un sistem avansat de
+                procesare și de stabilire a priorităților resurselor afișate pentru utilizatorii noștri, depășind
+                platformele tradiționale prin complexitatea și multitudinea sugestiilor furnizate. Aceasta funcționează
+                ca o campanie de conștientizare, promovând activități sau resurse mai puțin cunoscute care sunt
+                relevante pentru utilizatori. Aceasta creează o sinergie între potențialele interese de consumator ale
+                utilizatorilor și ofertele furnizorilor de servicii.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid benefitsArea p-half">
+    <div class="benefits d-flex flex-row justify-content-end align-items-end pb-full">
+        <!--                <img src="assets/images/others/newsletter/partners.png" class="benefit-img">-->
+        <div class="section-benefit">
+            <h1 *ngIf="pageLang === 'en'">Benefits for Partners</h1>
+            <h1 *ngIf="pageLang === 'ro'">Beneficiile pentru Parteneri</h1>
+            <ol>
+                <li *ngFor="let benefit of benefits"> {{benefit}}</li>
+            </ol>
+        </div>
+    </div>
+    <div class="container container-text"></div>
+</div>
+

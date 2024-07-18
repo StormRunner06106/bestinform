@@ -1,0 +1,25 @@
+
+@import "src/app/theme/styles/components/_colors.scss";
+
+.location-card-container {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 8px rgba(35, 31, 32, 0.08);
+    border-radius: 0px 0px 30px 30px;
+}
+
+  .location-card-container {
+    p{
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        color: $primary-color;
+        padding:13px 0px;
+        margin-bottom:0px;
+        i{
+            margin-right:15px;
+        }
+    }
+  }

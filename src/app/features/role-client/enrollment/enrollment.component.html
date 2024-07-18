@@ -1,0 +1,22 @@
+<!--    *ngIf="dataLoaded"-->
+<div class="background d-flex justify-content-center">
+    <div [ngSwitch]="step" class="content-stepper">
+        <div *ngSwitchCase="0" class="h-100">
+            <app-welcome-screen/>
+        </div>
+        <div *ngSwitchCase="1" class="h-100">
+            <app-client-preferences/>
+        </div>
+        <div *ngSwitchCase="2" class="h-100">
+            <app-user-data/>
+        </div>
+
+        <div *ngSwitchCase="3" class="h-100">
+            <app-finish-enrollment/>
+        </div>
+
+        <div *ngSwitchCase="4" class="h-100">
+            <app-trial-active/>
+        </div>
+    </div>
+</div>

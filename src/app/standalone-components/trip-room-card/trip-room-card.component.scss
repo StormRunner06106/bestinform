@@ -1,0 +1,119 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.room-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba($title, 0.08);
+  border-radius: 8px;
+
+  .img-container {
+    width: inherit;
+    height: 110px;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:hover img {
+      transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    img {
+      width: inherit;
+      height: inherit;
+      object-fit: cover;
+      transition: transform 0.3s ease-out;
+    }
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+
+    .room-name {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: $primary-color;
+      margin-bottom: 0;
+    }
+
+    .room-size {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: $paragraph;
+      opacity: 0.72;
+      margin-bottom: 4px;
+    }
+
+    .price-for {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: $paragraph;
+      opacity: 0.72;
+      margin-bottom: 0;
+    }
+
+    .bold-blue-text {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: #24398A;
+      margin-bottom: 0;
+    }
+
+    .guests-selector {
+      display: flex;
+      flex-shrink: 0;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+
+      border: 1px solid rgba($paragraph, 0.1);
+      border-radius: 8px;
+
+      button {
+        border: 1px solid $inactive-color;
+        background-color: var(--primary-background);
+        border-radius: 8px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          color: $primary-color;
+          font-size: 24px;
+        }
+
+        &:hover {
+          background-color: $primary-color;
+          transition: 0.3s ease-in-out;
+          i {
+            color: var(--primary-background);
+          }
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
+  }
+}

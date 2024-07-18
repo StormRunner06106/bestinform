@@ -1,0 +1,21 @@
+<div class="steps-container">
+    <div class="step-content" *ngFor="let step of stepTitleList" [ngClass]="selectedStep === step.id ? 'selected': ''">
+        <span class="step-name">{{step.stepName}}</span>
+        <span class="step-completion"></span>
+    </div>
+</div>
+
+<!--Add Resource-->
+<nav *ngIf="stage === 'Configure/Edit'" aria-label="breadcrumb">
+<!--    <ol class="breadcrumb">-->
+<!--        <li class="breadcrumb-item" ><a (click)="goToStep(0)">{{domain}}</a></li>-->
+<!--        <li class="breadcrumb-item" ><a (click)="goToStep(1)">{{category}}</a></li>-->
+<!--        <li class="breadcrumb-item" ><a (click)="goToStep(2)">{{resourceType}}</a></li>-->
+<!--    </ol>-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" ><a >{{domain}}</a></li>
+        <li class="breadcrumb-item" ><a >{{category}}</a></li>
+        <li class="breadcrumb-item" ><a >{{resourceType}}</a></li>
+    </ol>
+</nav>
+

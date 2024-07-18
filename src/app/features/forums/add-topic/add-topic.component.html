@@ -1,0 +1,100 @@
+<div class="container mb-5">
+    <app-dashboard-header pageTitleOne="{{'THREAD.ADD_THREAD' | translate}}"
+    [buttonBackRoute]="'../'"
+    [buttonCallName]="'Save'"
+    (buttonCall)="saveTopic()"
+    ><!--de adaugat linkul catre adaga thread-->
+    </app-dashboard-header>
+
+    <div class="content">
+        <div [formGroup]="addTopicForm" id="addTopicForm" (ngSubmit)="saveTopic()" class="card custom-table gutter-b">
+            <!--Title-->
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'THREAD.TITLE' | translate}}</mat-label>
+                    <input formControlName="title" matInput placeholder="{{'THREAD.TITLE' | translate}}" (change)="createSlug(addTopicForm.value.title)">
+                    <mat-icon *ngIf="addTopicForm.get('title').value"
+                              (click)="addTopicForm.get('title').setValue('')"
+                              role="button" matSuffix>clear</mat-icon>
+                    <mat-error *ngIf="addTopicForm.get('title').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                </mat-form-field>
+            
+            <!--Status-->
+            <!-- <mat-form-field class="w-100" appearance="standard">
+                <mat-label>{{'FIELD.STATUS' | translate}}</mat-label>
+                <mat-select formControlName="status" id="status" value="Draft">
+                    <mat-option value="active">Active</mat-option>
+                    <mat-option value="pending_review">Pending review</mat-option>
+                    <mat-option value="archived">Archived</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+
+            <!--Featured Image-->
+            <h3>{{"FIELD.FEATURED_IMAGE" | translate}}</h3>
+
+            <div class="image-container mb-5">
+                <input type="file"
+                       hidden
+                       accept="image/*"
+                       #thumbnail
+                       id="thumbnailInput"
+                       (change)="onThumbnailChange($event)">
+                <div *ngIf="!thumbnail.value && !thumbnailUrl?.filePath" class="no-image"
+                     attr.translatedContent="{{ 'GENERAL.INSERT_IMAGE' | translate}}"
+                     (click)="thumbnail.click()"></div>
+
+                <img *ngIf="thumbnail.value || thumbnailUrl?.filePath" class="img-fluid w-100"
+                     [src]="thumbnailUrl.filePath" alt="thumbnail">
+                <button *ngIf="thumbnail.value || thumbnailUrl?.filePath"
+                        (click)="removeThumbnail(); thumbnail.value=''"
+                        type="button"
+                        id="btnRemoveFeaturedImage"
+                        class="btn-thumbnail">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!--Description-->
+            <h3>{{"USER.DESCRIPTION" | translate}}</h3>
+                <angular-editor
+                formControlName="description"
+                name="description"
+                id="postThread"
+                [config]="editorConfig">
+                </angular-editor>
+                <mat-error *ngIf="addTopicForm.get('description').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+            <h3>Altele</h3>
+
+            <!--Slug-->
+                <mat-form-field appearance="standard">
+                    <mat-label>{{"THREAD.SLUG" | translate}}</mat-label>
+                    <input formControlName="slug" matInput placeholder="Permalink">
+                    <mat-icon *ngIf="addTopicForm.get('slug').value"
+                                (click)="addTopicForm.get('slug').setValue('')"
+                                role="button" matSuffix>clear</mat-icon>
+                    <mat-error *ngIf="addTopicForm.get('slug').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                </mat-form-field>
+                
+            <!--Tags-->
+                <mat-form-field appearance="standard">
+                    <mat-label>{{'FIELD.TAGS' | translate}}</mat-label>
+                    <mat-chip-list #tagList aria-label="Tags">
+                        <mat-chip *ngFor="let tag of addedTags" (removed)="remove(tag)">
+                        {{tag}}
+                        <button matChipRemove>
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        </mat-chip>
+                        <input
+                            id="tagList"
+                            placeholder="Add new..."
+                            [matChipInputFor]="tagList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="addTag($event)">
+                    </mat-chip-list>
+                </mat-form-field>
+
+
+            </div>
+    </div>
+</div>

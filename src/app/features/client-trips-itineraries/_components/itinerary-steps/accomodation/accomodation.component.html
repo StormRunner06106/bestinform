@@ -1,0 +1,146 @@
+<div class="card step-card">
+    <div class="card-header">
+        <span class="step-name">Step II</span>
+        <span class="step-separator">-</span>
+        <span class="step-category">Accommodation</span>
+    </div>
+    <div class="card-body d-flex flex-column">
+        <ng-container *ngIf="(newItinerary.resources[destinationIndex]) as currentLocation">
+            <div class="row align-items-center step-card-title">
+                <div class="col">
+                    <p class="step-title">Destinations</p>
+                </div>
+                <div class="col text-right step-details">
+                    <p>{{ currentLocation?.city }}, {{ currentLocation?.country }}</p>
+                </div>
+            </div>
+
+            <ng-container *ngIf="(currentLocation?.accommodationResourceRecommended) as accommodation; else noAccommodationMsg">
+                <div class="row">
+                    <div class="col">
+                        <div class="item">
+                            <div class="row item-info">
+                                <div class="col">
+                                    <p class="item-title">{{ accommodation?.resourceName }}</p>
+                                </div>
+                                <div class="col">
+                                    <p class="acc-details text-right">
+                                        <span class="acc-type">{{ accommodation.resourceTypeName }}</span>
+                                        <!--<span class="acc-separator">-</span>
+                                        <span class="acc-room">Deluxe double room</span>-->
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <p class="item-resource mb-0">Check-in date</p>
+                                    <p class="mb-0 yellow-text acc-dates">{{ accommodation.startDate | date : 'dd MMM, YYYY' }}</p>
+                                </div>
+                                <div class="col text-right">
+                                    <p class="item-resource mb-0">Check-out date</p>
+                                    <p class="mb-0 yellow-text acc-dates">{{ accommodation.endDate | date : 'dd MMM, YYYY' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-template #noAccommodationMsg>
+                <p class="step-title">
+                    No accommodation selected for this location
+                </p>
+            </ng-template>
+
+            <ng-container *ngIf="newItinerary.resources?.length > 1">
+                <div class="row time-period mt-auto">
+                    <div class="col time-period-type">
+                        <span>Destination</span>
+                    </div>
+                    <div class="col d-flex align-items-center justify-content-end time-period-number">
+                        <div *ngFor="let index of destinationIndexesArray"
+                             class="day-box"
+                             [ngClass]="destinationIndex === index ? 'selected' : null"
+                             (click)="setDestinationIndex(index)"
+                        >
+                            <span>{{ index + 1 }}</span>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+    <div *ngIf="newItinerary.resources[destinationIndex]?.accommodationResourceRecommended || itineraryExtraInfo.itineraryType === 'manual'; else noAvailableResourcesForLocation"
+         class="card-footer" (click)="openModal(editAccResources)">
+        <a>View more</a>
+    </div>
+
+    <ng-template #noAvailableResourcesForLocation>
+        <div class="card-footer pe-none">
+            <p class="m-0 text-white">
+                No available accommodations for the current destination
+            </p>
+        </div>
+    </ng-template>
+</div>
+
+<ng-template #editAccResources let-c="close" let-d="dismiss">
+    <mat-dialog-content>
+        <h2 class="step-title pb-4">Step II</h2>
+        <h3 class="step-category">Accomodation</h3>
+        <p class="mb-3">Choose the best way to get to your destinations by adding your favourite routes and type of transportation.</p>
+
+        <ng-container *ngIf="accommodationResources?.[destinationIndex]?.length > 0; else noResourcesFound">
+            <ul ngbNav #accNav="ngbNav" [(activeId)]="activeAccId" class="nav-pills">
+                <ng-container *ngFor="let resourcesGroup of accommodationResources?.[destinationIndex]; let groupIndex = index">
+                    <li [ngbNavItem]="resourcesGroup.resourceTypeName">
+                        <a ngbNavLink>{{ resourcesGroup.resourceTypeName | titlecase }}</a>
+                        <ng-template ngbNavContent>
+                            <div class="res-container">
+                                <div class="res-item" *ngFor="let res of resourcesGroup.resources; index as i" (click)="openResourceModal(res, groupIndex)">
+                                    <div class="res-item-image">
+                                        <img [src]="res?.featuredImage?.filePath" alt=""/>
+                                    </div>
+                                    <div class="res-item-content">
+                                        <div class="res-main-info d-flex align-items-center justify-content-between">
+                                            <span class="res-title">{{res?.title}}</span>
+                                            <span class="res-review">{{res?.proReviewsPercentage}}%
+                                            <i class="fa fa-smile"></i>
+                                        </span>
+                                        </div>
+                                        <div class="res-address">
+                                            <span>{{res?.address}}</span>
+                                            <span>{{res?.city}}</span>
+                                            <span>{{res?.country}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="res-check">
+                                        <i *ngIf="temporaryModalItinerary.resources[destinationIndex]?.accommodationResourceRecommended?.resourceId === res.id" class="fa fa-check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ng-container>
+            </ul>
+            <div [ngbNavOutlet]="accNav" class="mt-2"></div>
+        </ng-container>
+
+        <ng-template #noResourcesFound>
+            <p class="mt-4 mb-0 text-center">
+                No accommodations found for this location
+            </p>
+        </ng-template>
+
+        <div class="row buttons-row">
+            <div class="col">
+                <button class="btn-auto btn-color-outline w-100" matDialogClose>Anulare</button>
+            </div>
+            <div class="col">
+                <button class="btn-auto btn-color-fill w-100" [matDialogClose]="temporaryModalItinerary">Check options</button>
+            </div>
+        </div>
+    </mat-dialog-content>
+</ng-template>

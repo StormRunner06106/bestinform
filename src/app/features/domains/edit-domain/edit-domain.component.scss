@@ -1,0 +1,665 @@
+@import "/src/app/theme/styles/components/colors";
+
+.error-msg{
+  color: red;
+}
+
+.page-header {
+  margin-top: 64px;
+  margin-bottom: 40px;
+  row-gap: 1rem;
+
+  h2 {
+    margin: 0;
+    color: $primary-color;
+    font-weight: 700;
+  }
+
+  div {
+    row-gap: 1rem;
+  }
+}
+
+
+.card > div {
+  background-color: var(--primary-background);
+}
+
+
+.custom-tooltip ::ng-deep .tooltip-inner {
+    background-color:rgba(0, 0, 0, 0.6); /* Replace 'red' with the desired background color */
+  }
+
+
+
+.resources-card.card {
+  margin-bottom: 1rem;
+
+  .card-header {
+
+  }
+
+  .card-body {
+    padding: 48px;
+
+    .thumbnail-icon {
+
+      .upload-image-col {
+
+
+        .thumbnail-button {
+          width: 100%;
+          height: 350px;
+          background-color: rgba($primary-color, 0.04);
+          border: 2px solid rgba($primary-color, 0.08);
+          border-radius: 8px;
+          color: rgba($primary-color, 0.08);
+          font-size: 24px;
+          font-weight: 600;
+
+          i {
+            font-size: 64px;
+          }
+
+          span {
+            font-size: 16px;
+            font-weight: 400;
+          }
+        }
+
+        .img-thumbnail {
+          height: 350px;
+          max-height: 350px;
+          border: 1px solid rgba($primary-color, 0.16);
+          border-radius: 8px;
+          position: relative;
+          padding: 0;
+
+          img {
+            height: 348px;
+            max-height: 348px;
+            border-radius: 8px;
+            object-fit: cover;
+            object-position: center;
+          }
+        }
+      }
+
+      .upload-icon-col {
+        .icon-button {
+          width: 30%;
+          height: 120px;
+          border: 2px solid rgba($primary-color, 0.16);
+          color: rgba($primary-color, 0.16);
+          background-color: var(--primary-background);
+          border-radius: 8px;
+          font-size: 32px;
+        }
+
+
+        .img-icon {
+          height: 120px;
+          max-height: 120px;
+          width: 30%;
+          border: 2px solid rgba($primary-color, 0.16);
+          border-radius: 8px;
+          position: relative;
+          padding: 0;
+
+          img {
+            height: 116px;
+            max-height: 116px;
+            border-radius: 8px;
+            object-fit: cover;
+            object-position: center;
+          }
+        }
+
+
+        .icon-text {
+          font-size: 12px;
+          text-align: center;
+          width: 50%;
+        }
+
+        .dimension-text {
+          color: $primary-color;
+          font-size: 16px;
+          font-weight: 700;
+        }
+      }
+
+      .upload-video{
+        .thumbnail-button {
+          width: 100%;
+          height: 350px;
+          background-color: rgba($primary-color, 0.04);
+          border: 2px solid rgba($primary-color, 0.08);
+          border-radius: 8px;
+          color: rgba($primary-color, 0.08);
+          font-size: 24px;
+          font-weight: 600;
+
+          i {
+            font-size: 64px;
+          }
+
+          span {
+            font-size: 16px;
+            font-weight: 400;
+          }
+        }
+
+        .img-thumbnail {
+          height: 350px;
+          max-height: 350px;
+          border: 1px solid rgba($primary-color, 0.16);
+          border-radius: 8px;
+          position: relative;
+          padding: 0;
+
+          video {
+            height: 348px;
+            max-height: 348px;
+            border-radius: 8px;
+            object-fit: cover;
+            object-position: center;
+          }
+        }
+      }
+    }
+
+    .row {
+      row-gap: 1.5rem;
+    }
+
+    .resources {
+
+      .resource {
+        border-bottom: 1px solid rgba(36, 57, 138, 0.16);
+        margin-bottom: 16px;
+
+        i.fa-chevron-up, i.fa-chevron-down, i.fa-times {
+          padding: 16px;
+          cursor: pointer;
+          color: $primary-color
+        }
+
+        .resource-title {
+          font-size: 24px;
+          font-weight: 700;
+        }
+
+        .hide {
+          display: none;
+        }
+
+        .upload-image-res {
+          .thumbnail-res{
+            width: 100%;
+            height: 240px;
+            background-color: rgba($primary-color, 0.04);
+            border: 2px solid rgba($primary-color, 0.16);
+            border-radius: 8px;
+            color: rgba($primary-color, 0.08);
+            font-size: 24px;
+            font-weight: 600;
+            padding: 0;
+
+            i {
+              font-size: 64px;
+            }
+
+            span {
+              font-size: 16px;
+              font-weight: 400;
+            }
+          }
+
+          .img-thumbnail {
+            height: 240px;
+            max-height: 240px;
+            border: 1px solid rgba($primary-color, 0.16);
+            border-radius: 8px;
+            position: relative;
+            padding: 0;
+
+            img {
+              height: 238px;
+              max-height: 238px;
+              border-radius: 8px;
+              object-fit: cover;
+              object-position: center;
+            }
+
+            .delete{
+              color:$background-primary!important;
+            }
+
+
+          }
+        }
+
+        .upload-icon-res {
+          .icon-button {
+            width: 100%;
+            height: 120px;
+            border: 2px solid rgba($primary-color, 0.16);
+            color: rgba($primary-color, 0.16);
+            background-color: var(--primary-background);
+            border-radius: 8px;
+            font-size: 32px;
+          }
+
+          .icon-res{
+            height:120px;
+            max-height: 120px;
+            border: 1px solid rgba($primary-color, 0.16);
+            border-radius: 8px;
+            position: relative;
+            padding: 0;
+
+            img {
+              height: 118px;
+              max-height: 118px;
+              border-radius: 8px;
+              object-fit: cover;
+              object-position: center;
+            }
+
+            .delete{
+              color:$background-primary!important;
+            }
+          }
+
+          .icon-text {
+            font-size: 12px;
+          }
+
+          .dimension-text {
+            color: $primary-color;
+            font-size: 16px;
+            font-weight: 700;
+          }
+        }
+
+        .card-res-types {
+          .header-res-types {
+            background-color: rgba($primary-color, 0.16);
+
+            .title-res-card {
+              font-weight: 600;
+              font-size: 20px;
+              color: rgba($primary-color, 0.5);
+              text-align: center;
+            }
+          }
+
+          .body-res-types {
+            background-color: rgba($primary-color, 0.08);
+
+            .card-res {
+
+              .res-body {
+                background-color: var(--primary-background);
+                padding: 8px 16px;
+              }
+
+
+              .line-clamp{
+                height: 2.5rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+              }
+
+              button.x-button-location {
+                border-top-right-radius: 8px;
+                border: transparent;
+                background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(0deg, #24398A, #24398A), #FFFFFF;
+
+                i {
+                  color: white;
+                }
+              }
+
+              button.edit-button-location {
+                background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(0deg, rgba(36, 57, 138, 0.48), rgba(36, 57, 138, 0.48)), #FFFFFF;;
+                border-bottom-right-radius: 8px;
+                color: white;
+                border: transparent;
+              }
+            }
+
+            .btn-add-res {
+              border: 1px dashed rgba($primary-color, 0.16);
+              border-radius: 8px;
+              color: rgba($primary-color, 0.16);
+              background-color: transparent;
+              height: 62px;
+              font-size: 16px;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .card-footer {
+
+    p {
+      margin: 0;
+      color: $primary-color;
+      font-weight: 400;
+      font-size: 16px;
+    }
+  }
+}
+
+
+
+//-----Modal----
+
+.modal-card.card > div {
+  background-color: var(--primary-background);
+}
+
+.card-resource.card > div {
+  background: linear-gradient(0deg, rgba($primary-color, 0.04), rgba($primary-color, 0.04)), var(--primary-background);
+}
+
+.add-design.card > div {
+  background: $background-primary !important;
+}
+
+.add-design.card {
+  border: none !important;
+}
+
+.card-resource.card {
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .card-body {
+    gap: 1rem;
+    letter-spacing: -0.02em;
+    line-height: 140%;
+
+    h3 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 140%;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 140%;
+      margin-bottom: 5px;
+    }
+
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-suffix{
+      top:0!important;
+    }
+
+    mat-form-field {
+      color: $primary-color;
+
+      mat-error{
+        color:red;
+      }
+
+
+        i{
+          top:0;
+          background-color: var(--primary-background);
+          border-radius: 100%;
+          color:rgba($primary-color, 0.24);
+        }
+
+
+
+      //.btn-icn {
+      //  border: none;
+      //  background: transparent;
+      //  color: $primary-color;
+      //}
+    }
+  }
+
+  .card-footer {
+
+    .row {
+      row-gap: 1rem;
+    }
+  }
+}
+
+.modal-card.card {
+  padding: 1.5rem;
+
+  .card-header {
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: $primary-color;
+    }
+  }
+
+  .card-body {
+    & > p {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: $paragraph;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      color: $title;
+      font-weight: 700;
+    }
+
+
+    .thumbnail-res-type-col{
+      .thumbnail-res-type{
+        height: 240px;
+        background-color: rgba($primary-color, 0.04);
+        border: 2px solid rgba($primary-color, 0.08);
+        border-radius: 8px;
+        color: rgba($primary-color, 0.08);
+        font-size: 16px;
+        font-weight: 600;
+
+        i {
+          font-size: 64px;
+        }
+
+        span {
+          font-size: 16px;
+          font-weight: 400;
+        }
+      }
+
+      .img-thumbnail-restype{
+        height:240px;
+        max-height: 240px;
+        border: 1px solid rgba($primary-color, 0.16);
+        border-radius: 8px;
+        position: relative;
+        padding: 0;
+
+        img {
+          height: 238px;
+          max-height: 238px;
+          border-radius: 8px;
+          object-fit: cover;
+          object-position: center;
+        }
+
+        .delete{
+          color:$background-primary!important;
+        }
+      }
+
+    }
+
+    .icon-res-type{
+      .domain-title {
+        font-size: 24px;
+        color: $primary-color;
+        font-weight: 700;
+      }
+
+      .icon-text {
+        font-size: 12px;
+        width: 50%;
+      }
+
+
+      .icon-button-res-type {
+        width: 100%;
+        height: 120px;
+        min-height: 120px;
+        border: 2px solid rgba($primary-color, 0.16);
+        color: rgba($primary-color, 0.16);
+        background-color: var(--primary-background);
+        border-radius: 8px;
+        font-size: 32px;
+      }
+
+      .icon-thumbnail-restype {
+        height: 120px;
+        max-height: 120px;
+        width: 100%;
+        border: 2px solid rgba($primary-color, 0.16);
+        border-radius: 8px;
+        position: relative;
+        padding: 0;
+
+        img {
+          height: 118px;
+          max-height: 118px;
+          border-radius: 8px;
+          object-fit: cover;
+          object-position: center;
+        }}
+
+
+    }
+  }
+
+  .card-footer {
+
+    .row {
+      row-gap: 1rem;
+    }
+  }
+}
+
+////general classes
+.domain-title {
+  font-size: 24px;
+  color: $primary-color;
+  font-weight: 700;
+}
+
+
+.btn-thumbnail, .btn-icon{
+  right:10px;
+  top: 10px;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: var(--primary-background);
+  background: rgba($primary-color, 0.16);
+  border-radius: 100%;
+  i{
+    color:var(--primary-background);
+  }
+}
+
+.checkbox-container.container{
+  /* The container */
+  .container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    span{
+      color: $title;
+    }
+  }
+
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: var(--primary-background);
+    border: 1px solid rgba(35, 31, 32, 0.24);
+    border-radius: 4px;
+  }
+
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: var(--primary-background);
+  }
+
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: white;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid $title;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+

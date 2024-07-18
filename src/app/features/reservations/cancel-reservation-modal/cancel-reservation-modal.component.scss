@@ -1,0 +1,60 @@
+@import '/src/app/theme/styles/components/colors';
+
+.container {
+  padding: 32px 52px;
+  border: none;
+}
+
+@media screen and (min-width: 1020px) {
+  .container.modal-content {
+    border: none;
+  }
+}
+
+
+.modal-header {
+  border: none;
+  max-width: 615.95px;
+
+  h4.modal-title {
+    color: $primary-color !important;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 33.6px;
+    text-align: left;
+  }
+}
+
+.modal-body {
+  max-width: 615.95px;
+
+  .modal-body-text {
+    font-size: 16px;
+    font-weight: 400;
+    color: $paragraph;
+    line-height: 22.4px;
+    text-align: left;
+  }
+}
+
+.modal-footer {
+
+  max-width: 615.95px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+
+  .button-wrapper {
+    justify-content: space-evenly;
+    max-width: 615.95px;
+    flex-wrap: wrap;
+  }
+
+  button.btn-long {
+    align-items: center;
+    max-width: 303px !important;
+    height: 50px;
+    margin: 0;
+  }
+}

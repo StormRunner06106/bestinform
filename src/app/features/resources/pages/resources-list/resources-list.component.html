@@ -1,0 +1,432 @@
+<div class="row">
+    <app-dashboard-header *ngIf="isProviderAccepted === false || isAdmin || isStaff"
+                          pageTitleOne="{{ 'RESOURCE.LIST' | translate}}"
+                          [buttonAddRoute]="'../../resources/add'"
+                          [buttonBackRoute]="backPath">
+    </app-dashboard-header>
+
+    <app-dashboard-header
+            *ngIf="isProviderAccepted === true && isProvider"
+            pageTitleOne="{{ 'RESOURCE.LIST' | translate}}"
+            [buttonBackRoute]="backPath"
+            [buttonAddRoute]="'../../resources/add'">
+    </app-dashboard-header>
+</div>
+<div class="container" *ngIf="isLoaded">
+
+
+    <!--content-->
+    <div class="row filterRow" (keyup.enter)="callSubmitButton($event)">
+        <div class="col-12 col-lg-7">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field appearance="standard">
+                        <mat-label>{{'FIELD.TITLE' | translate}}</mat-label>
+                        <input matInput [(ngModel)]=filterTitle placeholder="Ex. expozitie" #inputTitle (keydown.enter)="getResourcesList()">
+                        <mat-icon matSuffix (click)="clearfilterTitle()">highlight_off</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field appearance="standard">
+                        <mat-label>{{'FIELD.COUNTRY' | translate}}</mat-label>
+                        <mat-select [(ngModel)]="filterCountry" #inputCountry (selectionChange)="getCities($event)">
+                            <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field appearance="standard">
+                        <mat-label>{{'FIELD.CITY' | translate}}</mat-label>
+                        <mat-select [(ngModel)]="filterCity" #inputCity>
+                            <mat-option *ngFor="let city of cities" [value]="city.name">{{city.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-12 col-lg-5 d-flex align-items-center justify-content-end gap-2">
+            <button type="button" class="btn-round btn-color-outline" id="clearFilterBtn" (click)="clearFields()" matTooltip="{{'RESOURCE.RESET-FILTERS' | translate}}"><i
+                    class="fas fa-sync"></i></button>
+            <button type="button" class="btn-long btn-color-outline" id="advancedFilterBtn" (click)="advancedClick()"><i
+                    [ngClass]="isAdvanced ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>{{'BTN.ADVANCED-FILTER' | translate}}
+            </button>
+            <button type="button" id="id-resources-filter" class="btn-long btn-color-fill" (click)="applyFilter()">{{'BTN.FILTER' | translate}}
+                <i class="fas fa-filter"></i></button>
+        </div>
+
+        <!--Advanced fliter-->
+        <div [ngClass]="{'d-none': !isAdvanced}">
+            <div class="advanced-filter-first row">
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Domeniu</mat-label>
+                        <mat-select disableOptionCentering  panelClass="drop-down-panel" [(ngModel)]=filterDomain
+                                    (ngModelChange)="getCategories($event)">
+                            <!-- <mat-option value="63bfcca765dc3f3863af755c">Travel & Entertainment</mat-option>
+                            <mat-option value="63bfda2765dc3f3863af755f">Healthcare</mat-option>
+                            <mat-option value="63bfda7e65dc3f3863af7560">Culture&Art</mat-option>
+                            <mat-option value="63bfda9365dc3f3863af7561">Education</mat-option> -->
+                            <!-- <mat-option value="63bfdaaa65dc3f3863af7562">Jobs&Market</mat-option> -->
+                            <mat-option [value]="travelDomainId">Travel & Entertainment</mat-option>
+                            <mat-option [value]="healthDomainId">Healthcare</mat-option>
+                            <mat-option [value]="cultureDomainId">Culture&Art</mat-option>
+                            <mat-option [value]="educationDomainId">Education</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Categorii</mat-label>
+                        <mat-select [(ngModel)]=filterCategory>
+                            <mat-option *ngFor="let categories of categoriesList" [value]="categories.id">
+                                {{categories.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Shared Experiences</mat-label>
+                        <mat-select [(ngModel)]=filterSharedExperiences>
+                            <mat-option [value]="true">Yes</mat-option>
+                            <mat-option [value]="false">No</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Status</mat-label>
+                        <mat-select [(ngModel)]=filterStatus>
+                            <mat-option [value]="'pending_review'">În așteptare</mat-option>
+                            <mat-option [value]="'active'">Active</mat-option>
+                            <mat-option [value]="'inactive'">Inactive</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row tableContent">
+        <!--Table start-->
+        <table mat-table matSort appMatTableResponsive [dataSource]="dataSource" (matSortChange)="applyFilter($event)"
+               class="w-100">
+
+            <!-- Resource Name Column -->
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.NAME' | translate}} </th>
+                <td attr.attr.data-column-name="{{'RESOURCES.NAME' | translate}}" mat-cell *matCellDef="let row"
+                    [routerLink]="'../../reservations/list'"
+                    [queryParams]="{resourceid: row.id}">
+                    <!-- <a [routerLink]="'../../reservations/list'"
+                    [queryParams]="{resourceId: row.id}"> -->
+                    <i class="fas fa-users" [ngClass]="{
+                        'shared' : row.sharedExperience === true,
+                        'not-shared' : row.sharedExperience === false
+                    }"></i>{{row.title}}
+                    <!-- </a> -->
+                </td>
+
+            </ng-container>
+
+                        <!-- Resource Provider Name Column -->
+
+                        <ng-container matColumnDef="provider">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.POVIDERNAME' | translate}} </th>
+                            <td attr.data-column-name="{{'RESOURCES.POVIDERNAME' | translate}}" mat-cell
+                                *matCellDef="let row"> {{row.userName}} </td>
+                        </ng-container>
+            
+
+            <!-- Address column -->
+            <ng-container matColumnDef="address">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.LOCATION' | translate}} </th>
+                <td attr.data-column-name="{{'RESOURCES.LOCATION' | translate}}" mat-cell
+                    *matCellDef="let row"> {{row.address}} {{row.city}} </td>
+            </ng-container>
+
+            <!--Category column-->
+            <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.CATEGORY' | translate}} </th>
+                <td attr.data-column-name="{{'RESOURCES.CATEGORY' | translate}}" mat-cell
+                    *matCellDef="let row">{{row.resourceCategoryName}}</td>
+            </ng-container>
+
+            <!--Purchase column-->
+            <ng-container matColumnDef="purchase">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.PURCHASE' | translate}} </th>
+                <td attr.data-column-name="{{'RESOURCES.PURCHASE' | translate}}" mat-cell *matCellDef="let row"><span
+                        class="d-flex justify-content-end me-3">{{row.totalBookingNumber}}</span></td>
+            </ng-container>
+
+            <!--Status column-->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'RESOURCES.STATUS' | translate}} </th>
+                <td attr.data-column-name="{{'RESOURCES.STATUS' | translate}}" mat-cell *matCellDef="let row">
+                            <span class="custom-label"
+                                  [ngClass]="{
+                            'label-pending' : row.status === 'pending_review',
+                            'label-active' : row.status === 'active',
+                            'label-inactive' : row.status === 'inactive',
+                            'label-archived' : row.status === 'archived'
+                        }">
+                                <span [ngSwitch]="row.status">
+                                   <span *ngSwitchCase="'pending_review'">În așteptare</span>
+                                   <span *ngSwitchCase="'active'">Activ</span>
+                                   <span *ngSwitchCase="'inactive'">Inactiv</span>
+                                   <span *ngSwitchCase="'archived'">Arhivat</span>
+                                </span>
+                            </span>
+                </td>
+            </ng-container>
+
+            <!--Views column-->
+            <ng-container matColumnDef="views">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Vizualizari </th>
+                <td attr.data-column-name="Vizualizari" mat-cell *matCellDef="let row"><span
+                        class="d-flex justify-content-end me-3">{{row.views}}</span></td>
+            </ng-container>
+
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="actions-class"> {{'RESOURCES.ACTIONS' | translate}}</th>
+                <td mat-cell *matCellDef="let row; let i = index;">
+                    <div class="d-flex actions-container">
+                        <!--Edit-->
+                        <button class="btn-round btn-no-outline"
+                                (click)="editResource(row.id)"
+                                matTooltip="Editeaza">
+                            <i class="fas fa-pen"></i>
+                        </button>
+
+                        <!--Reservation-->
+                        <button class="btn-round btn-no-outline"
+                                matTooltip="Rezervari"
+                                [routerLink]="'../../reservations/list'"
+                                [queryParams]="{resourceid: row.id}">
+                            <i class="fas fa-list"></i>
+                        </button>
+                        <!--Status-->
+                        <button class="btn-round btn-no-outline"
+                                matTooltip="Schimbă status"
+                                (click)="openModal(changeStatusModal, row.status)">
+                            <i class="fas fa-toggle-on"></i>
+                        </button>
+                        <!--Archive-->
+                        <button class="btn-round btn-no-outline"
+                                matTooltip="Arhiveaza"
+                                (click)="openModal(archiveResourceModal)">
+                            <i class="fas fa-archive"></i>
+                        </button>
+
+                        <!--                        Create shared experience-->
+                        <button class="btn-round btn-no-outline" *ngIf="row.bookingType === 'serviceBookingTimeSlots' && row.sharedExperience"
+                                matTooltip="Create Shared Experience"
+                        (click)="openSharedExperienceCreateModal(row.id)">
+                            <i class="fas fa-user-friends"></i>
+                        </button>
+                        <!--                        Create shared experience-->
+                        <button class="btn-round btn-no-outline" *ngIf="row.bookingType === 'serviceBookingTimeSlots' && row.sharedExperience"
+                                (click)="openSharedExperienceListModal(row.id)"
+                                matTooltip="Shared Experiences List">
+                            <i class="fab fa-slideshare"></i>
+                        </button>
+
+
+                        <!--Delete-->
+                        <button class="btn-round btn-no-outline" *ngIf="(isProvider===false) || (isStaff===false)"
+                                matTooltip="Sterge"
+                                (click)="openModal(deleteResourceModal)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+
+
+
+                    <!--Modal Delete Resource-->
+                    <ng-template #deleteResourceModal let-c="close" let-d="dismiss">
+                        <div class="modal-card card">
+                            <div class="card-header border-0">
+                                <h3 class="m-0">
+                                    Ștergere resursă
+                                </h3>
+                            </div>
+
+                            <div class="card-body">
+                                <p>{{ 'TEMPLATES.DELETE-WARNING' | translate}}</p>
+
+                                <div class="card-event card">
+                                    <div class="card-body d-flex justify-content-center align-items-start flex-column">
+                                        <h3>#{{ (i + 1) + pageSize * (pageNumber) }} {{row.title}}</h3>
+                                        <!--                                        <p class="m-0">{{userData?.firstName+' '+userData?.lastName}}</p>-->
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer border-0">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <button class="btn-auto btn-color-outline w-100"
+                                                id="btnModalEventDismissDelete-{{i}}"
+                                                (click)="closeModal()">
+                                            <i class="fas fa-times"></i>
+                                            {{ 'BTN.CANCEL' | translate}}
+                                        </button>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <button class="btn-auto btn-color-fill w-100"
+                                                id="btnModalTemplateConfirmDelete-{{i}}"
+                                                (click)="deleteResource(row.id)">
+                                            <i class="fas fa-check"></i>
+                                            {{ 'BTN.CONFIRM' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <!--                    Modal Archive Resource-->
+                    <ng-template #archiveResourceModal let-c="close" let-d="dismiss">
+                        <div class="modal-card card">
+                            <div class="card-header border-0">
+                                <h3 class="m-0">
+                                    Arhivare resursă
+                                </h3>
+                            </div>
+
+                            <div class="card-body">
+                                <p>Acțiunea de ascundere resursă nu este permanentă și complet irevocabilă.</p>
+
+                                <div class="card-event card">
+                                    <div class="card-body d-flex justify-content-between align-items-center flex-row">
+                                        <h3 class="mb-0">#{{ (i + 1) + pageSize * (pageNumber) }} {{row.title}}</h3>
+                                        <!--                                        <p class="m-0">{{userData?.firstName+' '+userData?.lastName}}</p>-->
+                                        <span class="custom-label"
+                                              [ngClass]="{
+                            'label-pending' : row.status === 'pending_review',
+                            'label-active' : row.status === 'active',
+                            'label-inactive' : row.status === 'inactive',
+                            'label-archived' : row.status === 'archived'
+                        }"><span [ngSwitch]="row.status">
+                                   <span *ngSwitchCase="'pending_review'">În așteptare</span>
+                                   <span *ngSwitchCase="'active'">Activ</span>
+                                   <span *ngSwitchCase="'inactive'">Inactiv</span>
+                                   <span *ngSwitchCase="'archived'">Arhivat</span>
+                                </span></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer border-0">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <button class="btn-auto btn-color-outline w-100"
+                                                id="btnModalEventDismissDelete-{{i}}"
+                                                (click)="closeModal()">
+                                            <i class="fas fa-times"></i>
+                                            {{ 'BTN.CANCEL' | translate}}
+                                        </button>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <button class="btn-auto btn-color-fill w-100"
+                                                id="btnModalTemplateConfirmDelete-{{i}}"
+                                                (click)="archiveResource(row.id)">
+                                            <i class="fas fa-check"></i>
+                                            {{ 'BTN.CONFIRM' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+
+                    <!--Modal Change Status Resource-->
+                    <ng-template #changeStatusModal let-c="close" let-d="dismiss">
+                        <div class="modal-card card">
+                            <div class="card-header border-0">
+                                <h3 class="m-0">
+                                    Schimbă statusul resursei
+                                </h3>
+                            </div>
+
+                            <div class="card-body">
+                                <p>{{ 'TEMPLATES.DELETE-WARNING' | translate}}</p>
+
+                                <div class="card-event card">
+                                    <div class="card-body d-flex justify-content-center align-items-start flex-column">
+                                        <h3>#{{ (i + 1) + pageSize * (pageNumber) }} {{row.title}}</h3>
+                                        <!--                                        <p class="m-0">{{userData?.firstName+' '+userData?.lastName}}</p>-->
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Schimbă status</mat-label>
+                                            <mat-select [(ngModel)]="statusInput">
+                                                <mat-option *ngIf="isAdmin || isStaff" value="active">Active
+                                                </mat-option>
+                                                <mat-option value="pending_review">Pending review</mat-option>
+                                                <mat-option value="inactive">Inactive</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer border-0">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <button class="btn-auto btn-color-outline w-100"
+                                                id="btnModalEventDismissDelete-{{i}}"
+                                                (click)="closeModal()">
+                                            <i class="fas fa-times"></i>
+                                            {{ 'BTN.CANCEL' | translate}}
+                                        </button>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <button class="btn-auto btn-color-fill w-100"
+                                                id="btnModalTemplateConfirmDelete-{{i}}"
+                                                (click)="changeStatus(row.id, statusInput )">
+                                            <i class="fas fa-check"></i>
+                                            {{ 'BTN.CONFIRM' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedResourcesColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedResourcesColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+
+                <td class="mat-cell" colspan="4">{{'PROVIDER.NO_DATA'|translate}}</td>
+            </tr>
+        </table>
+
+        <!--Pagination-->
+        <mat-paginator
+                [pageSizeOptions]="pageSizeArray"
+                [length]="totalElements"
+                [pageSize]="pageSize"
+                (page)="pageChanged($event)">
+        </mat-paginator>
+
+    </div>
+
+
+</div><!--container-fluid general-box-->

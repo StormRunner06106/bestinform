@@ -1,0 +1,35 @@
+<div *ngIf="resource" class="resource-card d-flex flex-column">
+    <div class="img-container">
+        <button class="btn-add" *ngIf="!favorite" (click)="addResourceToFavorite()">
+            <i class="far fa-star"></i>
+        </button>
+
+        <button class="btn-del" *ngIf="favorite" (click)="deleteResourceFromFavorite()">
+            <i class="favorite fas fa-star"></i>
+        </button>
+
+        <img [src]="resource.featuredImage?.filePath ? resource.featuredImage?.filePath : notFoundImg" alt="resource image">
+    </div>
+
+    <div class="resource-info">
+        <h6>{{ resource.title }}</h6>
+<!--        <p>{{ resource.description }}</p>-->
+        <p>{{resourceTypeName}}</p>
+
+<!--        <div class="d-flex align-items-center justify-content-between">-->
+<!--            <p>-->
+<!--                {{ "EVENTS.STARTS" | translate }}:-->
+<!--                <span>-->
+<!--                    {{ resource.attributes | find : filterStartHour }}-->
+<!--                </span>-->
+<!--            </p>-->
+
+<!--            <p>{{ (resource.attributes | find :  filterStartDate) | date : 'd.M.yyyy' }}</p>-->
+<!--        </div>-->
+
+        <div class="d-flex align-items-center justify-content-start gap-1">
+            <i class="fas fa-map-marker-alt"></i>
+            <p>{{ resource.city }}</p>
+        </div>
+    </div>
+</div>

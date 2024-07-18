@@ -1,0 +1,8 @@
+<div class="checkbox-container mb-4 w-100">
+    <span class="checkbox-name">{{name | titlecase}}</span>
+    <label class="switch">
+        <input type="checkbox" (change)="changeValue($event)" [checked]="control.value === 'true'">
+        <span class="slider round"></span>
+    </label>
+
+</div>

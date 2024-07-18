@@ -1,0 +1,146 @@
+.save-btn{
+  margin-top: -90px;
+  button:disabled{
+    border: 2px solid rgba(#231F20, 48%);
+    background: rgba(#24398A, 0%) !important;
+    color: rgba(#231F20, 48%);
+  }
+}
+
+@import "/src/app/theme/styles/components/colors";
+
+.section-title {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 16px 25px;
+  border-bottom: solid rgba(36, 57, 138, 0.1607843137) 1px;
+
+  i {
+    font-size: 32px;
+    color: #24398A;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #24398A;
+    margin-left: 10px;
+    margin-bottom: 0;
+  }
+}
+
+.section-content {
+  padding: 46px 100px;
+  background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), #FFFFFF;
+}
+
+
+.stepper-step-controller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 25px 40px;
+
+  .next-step {
+    display: flex;
+    justify-content: center;
+  }
+
+}
+//.single-image{
+//  height: 120px;
+//  max-height: 120px;
+//  object-fit: cover;
+//  width: 100%;
+//}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  //min-height: 7.5rem;
+  height:100%;
+  border: 2px solid rgba($primary-color, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+
+  & .no-image {
+    width: 100%;
+    min-height: inherit;
+    height: 120px;
+    background: rgba($primary-color, 0.04);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary-color;
+    cursor: pointer;
+    gap: 0.75rem;
+
+    &:before {
+      content: '\f03e';
+      font-family: 'Font Awesome 5 Free';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 2.25rem;
+    }
+
+    &:after {
+      font-size: 1rem;
+      content: attr(translatedContent);
+    }
+  }
+
+
+
+  .btn-thumbnail, .btn-gallery {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($primary-color, 0.16);
+    border-radius: 100%;
+    border: none;
+
+    i {
+      color: var(--primary-background);
+      font-weight: 900;
+      font-size: 16px;
+    }
+  }
+
+  .btn-thumbnail {
+    position: absolute;
+    top: 2.125rem;
+    right: 2.125rem;
+  }
+
+  .btn-gallery {
+    position: absolute;
+    top: 0.875rem;
+    right: 0.875rem;
+  }
+  .gallery-img{
+    height: 120px!important;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .video{
+    height:100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .featured-image{
+    width: 100%;
+    height: 400px!important;
+    object-fit: cover;
+  }
+}
+
+#gallery .image-container img.img-fluid {
+  object-fit: cover;
+  height: 100%;
+}

@@ -1,0 +1,140 @@
+<div *ngIf="dataIsLoaded" class="white-background d-flex flex-column">
+    <img *ngIf="eventData?.featuredImage?.filePath"
+         [src]="eventData.featuredImage.filePath" class="thumbnail" alt="thumbnail">
+
+    <div class="container">
+        <h1 class="responsive-header-text">
+            {{ eventData.title | titlecase}}
+        </h1>
+
+        <div class="event-location-time d-flex flex-wrap
+                flex-column flex-lg-row
+                justify-content-start">
+            <div class="d-flex align-items-center gap-2
+                    me-lg-auto" *ngIf="eventBenefits?.length > 0">
+                <i *ngIf="eventBenefits.length > 0 " class="fas fa-tag"></i>
+                <p *ngFor="let benefit of eventBenefits; let i = index">
+                    {{ benefit }}<span *ngIf="i !== eventBenefits.length - 1">,</span>
+                </p>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 me-lg-3">
+                <i class="fas fa-list"></i>
+                <p>{{domain}}</p>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 me-lg-3">
+                <i class="far fa-calendar-alt"></i>
+                <p>
+                    {{ "EVENTS.DATE-EVENT" | translate}}:
+                    {{ eventData?.startDate | date : 'dd/MM/yyyy'}}
+                </p>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <i class="far fa-clock"></i>
+                <p>
+                    {{ "EVENTS.EVENT-TIME" | translate}}:
+                    {{ eventData?.startDate | date : 'H:mm'}}
+                </p>
+            </div>
+        </div>
+
+        <div class="event-details d-flex align-items-center justify-content-center">
+            <div class="d-flex flex-column align-items-center
+                    me-lg-auto gap-2">
+                <h1 class="d-flex gap-2 m-0">
+                    {{ eventData?.startDate | date : 'dd'}}
+                    <span>{{ (eventData?.startDate | date : 'MMM') | uppercase}}</span>
+                </h1>
+
+                <p>
+                    {{ eventData?.startDate | date : 'E H:mm'}}
+                </p>
+            </div>
+
+            <div class="d-flex flex-column align-items-center align-items-lg-start
+                    gap-2">
+                <h2 class="m-0 text-center">
+                    {{ eventData.title | titlecase | slice : 0 : 50}}
+                    <ng-container *ngIf="eventData.title.length > 50">
+                        <span [matTooltip]="eventData.title">
+                            ...
+                        </span>
+                    </ng-container>
+                </h2>
+
+                <div *ngIf="eventData.address && eventData.city" class="d-flex align-items-center gap-2">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>{{ eventData.address }}, {{ eventData.city }}</p>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 ms-lg-auto">
+<!--                <button class="btn-round btn-white-outline">-->
+<!--                    <i class="fas fa-share"></i>-->
+<!--                </button>-->
+
+<!--                <button class="btn-round btn-white-outline">-->
+<!--                    <i class="far fa-star"></i>-->
+<!--                </button>-->
+
+                <button class="btn-auto btn-color-fill"
+                        (click)="navigateToEventsTicket()">
+                    <i class="fas fa-ticket-alt"></i>
+                    {{ "EVENTS.TICKETS" | translate}}
+                </button>
+            </div>
+        </div>
+
+        <h2 class="mb-3">
+            {{ "EVENTS.DETAILS" | translate }}
+        </h2>
+
+        <p class="mb-5 event-description">
+            {{ eventData.description }}
+        </p>
+
+        <div *ngIf="eventData.images" class="row gallery-container">
+            <div class="col-9 selected-image">
+                <img [src]="selectedImage" class="img-fluid" alt="selected-image">
+            </div>
+
+            <div class="col-3 side-gallery-container">
+                <div *ngFor="let image of eventData.images"
+                     (click)="changeImage(image.filePath)"
+                     class="image-container"
+                >
+                    <img [src]="image.filePath" class="img-fluid" alt="gallery-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-container *ngIf="($otherEvents | async) as otherEvents">
+    <div class="might-like-section row container-fluid mx-0">
+        <div class="col">
+            <div class="container cards-container">
+                <!--<p class="p-title m-0">{{'GENERAL.ACTIVITIES' | translate}}</p>
+                <div class="divider">
+                </div>-->
+                <!--<p class="description">{{'GENERAL.BOOK' | translate}}Cluj-Napoca, Cluj County.</p>-->
+
+                <h3>
+                    You might also like...
+                </h3>
+
+                <div class="container d-flex justify-content-between flex-wrap px-0">
+                    <ng-container *ngFor="let event of otherEvents | slice : 0 : 4">
+                        <app-resource-card [resource]="event"  [routerLink]="['/client/events/view/' + event.slug]"></app-resource-card>
+                    </ng-container>
+                </div>
+                <!--<div class="more d-flex justify-content-end">
+                    <a>{{'GENERAL.SEE-MORE' | translate}} <i class="fas fa-arrow-right"></i></a>
+                </div>-->
+            </div>
+
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,19 @@
+@import "../../../../theme/styles/components/colors";
+.container-fluid{
+  background-color:var(--primary-background);
+  padding: 48px 0;
+  }
+
+
+  .section-explore{
+    .grid-item{
+      text-align: center;
+
+      a{
+        text-decoration: none;
+        color:$title;
+      }
+
+    }
+  }
+

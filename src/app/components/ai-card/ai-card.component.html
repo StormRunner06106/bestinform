@@ -1,0 +1,34 @@
+<div class="ai-card">
+
+  <div class="ai-card-image">
+    <div *ngIf="event.disabled" class="ai-event-disabled">
+      <div class="ai-disabled-message">
+        <div class="ai-image-disabled"></div>
+        <div class="ai-disabled-message-text">
+          Disponibil in curand
+        </div>
+      </div>
+    </div>
+
+    <img [src]="event?.imageUrl" placeholder />
+  </div>
+
+  <div class="ai-card-description">
+    <div class="ai-description-info">
+      <div class="ai-description-title">
+        {{ event?.cardText?.title }}
+      </div>
+      <div class="ai-description-text">
+        {{ event.cardText.text }}
+      </div>
+    </div>
+
+    <div class="ai-card-button">
+      <p-button
+      class="ai-button-disabled"
+        label="{{ event.cardText.action }}"
+        [disabled]="true"
+      ></p-button>
+    </div>
+  </div>
+</div>

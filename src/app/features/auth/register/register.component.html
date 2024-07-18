@@ -1,0 +1,108 @@
+<div class="container h-100 position-relative">
+    <button class="btn-close-modal btn-round btn-white-fill" type="button" [mat-dialog-close]="true">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div class="row d-flex justify-content-between h-100">
+        <div class="col-md-6 register">
+            <div class="p-3">
+                <div class="logo">
+                    <img src="/assets/Logo-blue.svg" height="50px" alt="Logo">
+                </div>
+                <div class="title">
+                    <p class="title-text m-0">{{'TITLES.REGISTER-CLI' | translate}}</p>
+                    <p class="subtitle-text m-0">{{'TITLES.REGISTER-DIRECTIONS' | translate}}</p>
+                </div>
+                <div class="register-body">
+                    <form [formGroup]="registerForm">
+
+                        <mat-form-field appearance="legacy" class="p-0 mb-14">
+                            <mat-label>{{'USER.LASTNAME' | translate}}</mat-label>
+                            <input matInput required placeholder="{{'USER.LASTNAME' | translate}}" formControlName="lastName" tabindex="1">
+                            <mat-error *ngIf="registerForm.controls.lastName.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.controls.lastName.hasError('whitespace')">Campul nu poate conține doar spații goale.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="legacy" class="p-0 mb-14">
+                            <mat-label>{{'USER.FIRSTNAME' | translate}}</mat-label>
+                            <input matInput required placeholder="{{'USER.FIRSTNAME' | translate}}" formControlName="firstName" tabindex="2">
+                            <mat-error *ngIf="registerForm.controls.firstName.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.controls.firstName.hasError('whitespace')">Campul nu poate conține doar spații goale.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="legacy" class="p-0 mb-14">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Email" formControlName="email" required tabindex="3">
+
+                            <mat-error *ngIf="registerForm.controls.email.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('email').hasError('email')">{{'ERROR.EMAIL'|translate}}
+                            </mat-error>
+
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="legacy" class="p-0 mb-14">
+                            <mat-label>{{'FIELD.PASSWORD' | translate}}</mat-label>
+                            <input matInput placeholder="{{'FIELD.PASSWORD' | translate}}" formControlName="password"
+                                   [type]="hide ? 'password' : 'text'" required tabindex="4">
+
+                            <mat-error *ngIf="registerForm.controls.password.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('password').hasError('requiredPass')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('password').hasError('passMin')">{{'ERROR.PASS-MIN-LENGTH'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('password').hasError('passMax')">{{'ERROR.PASS-MAX-LENGTH'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('password').hasError('emptyFirst')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('password').hasError('specialCharacter')">{{'ERROR.PASS-SPECIAL-CHAR'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('password').hasError('number')">{{'ERROR.PASS-DIGIT'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('password').hasError('upper')">{{'ERROR.PASS-UPPERCASE'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('password').hasError('lower')">{{'ERROR.PASS-LOWERCASE'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('password').hasError('whiteSpace')">{{'ERROR.PASS-WHITESPACE'|translate}}</mat-error>
+
+                            <button mat-icon-button matSuffix (click)="hide = !hide" type="button" class="text-muted">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+
+                        </mat-form-field>
+
+                        <mat-form-field appearance="legacy" class="p-0 mb-14">
+                            <mat-label>{{'FIELD.CONFIRM-PASSWORD' | translate}}</mat-label>
+                            <input matInput placeholder="{{'FIELD.CONFIRM-PASSWORD' | translate}}" formControlName="confPassword"
+                                   [type]="hideCurrent ? 'password' : 'text'" required tabindex="5">
+
+                            <button mat-icon-button matSuffix (click)="hideCurrent = !hideCurrent" type="button"
+                                    class="text-muted">
+                                <mat-icon>{{hideCurrent ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+
+                            <mat-error *ngIf="registerForm.get('confPassword').hasError('requiredConf')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('confPassword').hasError('passInvalid')">{{'ERROR.SAME-PASS-REQ'|translate}}</mat-error>
+                            <mat-error *ngIf="registerForm.get('confPassword').hasError('emptySecond')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+
+                        </mat-form-field>
+
+                        <mat-checkbox required formControlName="termsAndCond" class="mt-3">{{ 'GIVEAWAY.READ_CONSENT' | translate}} <a href="/content/terms-and-conditions" target="_blank">{{ 'GIVEAWAY.CONFIDENTIALITY_TERMS' | translate}}</a> {{'GIVEAWAY.AND_WITH' | translate}}
+                            <a href="/content/privacy-policy" target="_blank">{{ ('GIVEAWAY.TERMS_CONDITIONS' | translate) + '.'}}</a></mat-checkbox>
+
+                        <div class="row container-buttons d-inline-flex justify-content-between">
+                        <button class="col btn-long btn-white-fill ml-2" mat-button [mat-dialog-close]="true" type="button" ><i
+                                class="fas fa-arrow-left"></i> {{'BTN.CANCEL' | translate}}
+                        </button>
+                        <button class="col btn-long btn-color-fill ml-2" type="button" mat-dialog-close (click)="onSendClick()" [disabled]="!registerForm.valid">{{'BTN.SUBMIT' | translate}} <i
+                            class="fas fa-arrow-right" tabindex="6"></i></button>
+                    </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="image col-md-6">
+<!--            <img *ngIf="isClient" src="./../../assets/images/login/provider_img.png ">-->
+<!--            <img *ngIf="!isClient" src="../../../../assets/images/login/provider_image.png">-->
+            <!--            <div class="close">-->
+            <!--                <button class="btn-round btn-white-fill"><i class="fas fa-times"></i></button>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</div>

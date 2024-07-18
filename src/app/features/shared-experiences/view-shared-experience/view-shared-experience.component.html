@@ -1,0 +1,36 @@
+<div class="d-flex flex-column">
+    <div class="background-container">
+        <img [src]="currentExperience?.featuredImage?.filePath" alt="{{currentExperience?.name}}">
+    </div>
+</div>
+
+<div class="view-container">
+    <h1 class="mb-4">{{currentExperience?.name}}</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6 col-info">
+                <div  class="available-spots row align-items-center mb-3">
+                    <div class="col-12" *ngIf="!isHost && !userJoined && !accepted && currentExperience?.participantsLimit">
+                        <p class="w-100 mb-0 spots-left" >Only {{availableSpotsLeft}} slots left! Hurry up and join the fun!</p>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end" *ngIf="isHost || userJoined">
+                        <button *ngIf="isHost" class="btn-long btn-color-fill w-50" routerLink="../../lobby/{{currentExperience.slug}}"><i class="fas fa-crown"></i>Admin lobby<i class="fas fa-arrow-right"></i></button>
+                        <button *ngIf="userJoined && accepted" class="btn-long btn-color-fill w-50" routerLink="../../lobby/{{currentExperience.slug}}">Experience lobby<i class="fas fa-arrow-right"></i></button>
+                        <button class="btn-long btn-color-fill" [disabled]="true" *ngIf="userJoined && !accepted">Deja ai aplicat, asteapta sa fii acceptat!</button>
+                    </div>
+                     </div>
+                <app-shared-experiences-info *ngIf="currentExperience" [experience]="currentExperience" [showMenu]="false"></app-shared-experiences-info>
+                <h4>Initiated by</h4>
+                <div class="creator">
+                    <app-display-user *ngIf="currentExperience" [userId]= "currentExperience.userId" [isAdmin]="isHost" [showMenu]="false"></app-display-user>
+
+                </div>
+                <button *ngIf="!userJoined && !isHost"  (click)="requestToJoinSharedExp()" class="btn-long btn-color-fill w-100">Request to join <i class="fas fa-arrow-right"></i></button>
+            </div>
+            <div class="col-12 col-lg-6">
+                <img [src]="currentExperience?.featuredImage?.filePath" class="image-fluid w-100" alt="{{currentExperience?.name}}">
+            </div>
+        </div>
+    </div>
+</div>

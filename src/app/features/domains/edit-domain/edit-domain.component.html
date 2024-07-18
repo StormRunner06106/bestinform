@@ -1,0 +1,1032 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="{{currentDomain?.nameEn}}"
+                          [buttonBackRoute]="'..'">
+    </app-dashboard-header>
+
+    <div class="resources-card card">
+        <div class="card-header border-0">
+
+        </div>
+
+        <div class="card-body">
+            <!--       ------------------ DOMAIN IMAGES ------------------->
+            <div class="thumbnail-icon mb-3">
+                <p class="domain-title">Thumbnail & Icon</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="upload-image-col col-md-8  px-0">
+
+                            <!--                        ADD THUMBNAIL BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!domainImagesForm.get('filePath').value"
+                                    class="thumbnail-button d-flex flex-column align-items-center justify-content-center"
+                                    (click)="openMedia(content)"
+                                    id="changeDomainsThumbnail">
+                                <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}} <span>1400 x 1400px</span>
+                            </button>
+
+                            <!--                        IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="domainImagesForm.get('filePath').value" class="img-thumbnail">
+                                <img class="img-fluid w-100"
+                                     [src]="domainImagesForm.get('filePath').value" alt="thumbnail">
+                                <button
+                                        (click)="removeDomainThumbnail(); cdr.detectChanges()"
+                                        type="button"
+                                        id="btnRemoveDomainThumbnail"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <ng-template #content let-modal>
+                            <app-choose-media [category]="'image'"
+                                              [multipleSelect]="false"
+                                              [for]="'domain-img'"
+                                              [modalRef]="modal"></app-choose-media>
+                        </ng-template>
+
+                        <div class="upload-icon-col col-md-4 col-sm-12 d-flex flex-column align-items-center justify-content-center">
+                            <p class="domain-title">Upload Icon</p>
+                            <button *ngIf="!domainIconForm.get('filePath').value"
+                                    class="icon-button d-flex flex-column align-items-center justify-content-center mb-3"
+                                    (click)="openMedia(domainIcon)" id="changeDomainIcon">
+                                <i class="fas fa-file-upload"></i></button>
+
+                            <!--                        IF THERE IS AN ICON, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                            <div *ngIf="domainIconForm.get('filePath').value" class="img-icon position-relative mb-3">
+                                <img class="img-fluid w-100"
+                                     [src]="domainIconForm.get('filePath').value" alt="icon">
+                                <button
+                                        (click)="removeDomainIcon(); cdr.detectChanges()"
+                                        type="button"
+                                        id="btnRemoveFeaturedImage"
+                                        class="btn-icon position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <p class="icon-text">{{'RESOURCE.DOMAIN.ICON_CLICK' | translate}}</p>
+                            <p class="dimension-text">112 px x 112 px</p>
+
+                            <ng-template #domainIcon let-modal>
+                                <app-choose-media [category]="'image'"
+                                                  [multipleSelect]="false"
+                                                  [for]="'domain-icon'"
+                                                  [modalRef]="modal"></app-choose-media>
+                            </ng-template>
+
+                        </div>
+
+                        <div class="upload-video col-12 px-0">
+
+                            <!--                        ADD Video BUTTON, IF THERE IS NO THUMBNAIL-->
+                            <button *ngIf="!domainVideoForm.get('filePath').value"
+                                    class="thumbnail-button d-flex flex-column align-items-center justify-content-center"
+                                    (click)="openMedia(domainVideo)"
+                                    id="changeDomainsVideo">
+                                <i class="fas fa-video"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}} <span>1400 x 1400px</span>
+                            </button>
+
+                            <!--                        IF THERE IS A Video, DISPLAY Video AND REMOVE video BUTTON-->
+                            <div *ngIf="domainVideoForm.get('filePath').value" class="img-thumbnail">
+                                <video class="img-fluid w-100"
+                                       [src]="domainVideoForm.get('filePath').value" alt="thumbnail" controls></video>
+                                <button
+                                        (click)="removeDomainVideo(); cdr.detectChanges()"
+                                        type="button"
+                                        id="btnRemoveDomainVideo"
+                                        class="btn-thumbnail position-absolute">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <ng-template #domainVideo let-modal>
+                            <app-choose-media [category]="'video'"
+                                              [multipleSelect]="false"
+                                              [for]="'domain-video'"
+                                              [modalRef]="modal"></app-choose-media>
+                        </ng-template>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-------------------- CATEGORIES ---------------------->
+            <div class="categories">
+                <div class="d-flex justify-content-between flex-wrap">
+                    <p class="domain-title">{{'RESOURCE.DOMAIN.CATEGORIES' | translate}}</p>
+                    <button class="btn-long btn-color-fill" id="btnAdd-resource" (click)="openModal(addResource)">
+                        <i class="fas fa-plus"></i>
+                        {{'BTN.ADD' | translate}}
+                    </button>
+                </div>
+
+                <div class="resources" *ngFor="let res of resourcesList;let i = index">
+                    <div class="resource">
+                        <div class="row">
+                            <div class="col-7 col-md-9 col-lg-10 col-xl-11">
+                                <p class="resource-title mb-0">{{res.nameEn}}</p>
+                                <p *ngIf="!isAdvanced[i]" class="resource-type mb-0">{{'GENERAL.RES-TYPES' | translate}}
+                                    :
+                                    <span>{{resourceTypes[i]?.length}}</span></p>
+                            </div>
+                            <div class="col-5 col-md-3 col-lg-2 col-xl-1 d-flex justify-content-center align-items-center">
+                                <i (click)="clickMore(i, res.id)"
+                                   [ngClass]="isAdvanced[i] ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"></i>
+                                <i class="fas fa-times" (click)="openModal(deleteResource)"></i>
+                            </div>
+                        </div>
+                        <div class="sectiune" [ngClass]="{'hide': !isAdvanced[i]}">
+                            <!--------------------------CATEGORY THUMBNAIL&ICON ------------------>
+                            <div class="container mb-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="checkbox" [checked]="res.enableForList"
+                                               (change)="updateCategory($event, res.id)"> Afișare categorie în listă
+                                    </div>
+                                    <div class="upload-image-res col-md-8  px-0">
+                                        <button *ngIf="!categoryImagesForm.get('filePath').value"
+                                                class="thumbnail-res d-flex flex-column align-items-center justify-content-center"
+                                                (click)="openMedia(categoryImage)" id="changeCategThumbnail">
+                                            <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                                            <span>1400 x 1400px</span>
+                                        </button>
+                                        <!--                        IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                                        <div *ngIf="categoryImagesForm.get('filePath').value" class="img-thumbnail">
+                                            <img class="img-fluid w-100"
+                                                 [src]="categoryImagesForm.get('filePath').value" alt="thumbnail">
+                                            <button
+                                                    (click)="removeCategoryThumbnail(); cdr.detectChanges()"
+                                                    type="button"
+                                                    id="btnRemoveCategoryThumbnail"
+                                                    class="btn-thumbnail position-absolute ">
+                                                <i class="delete fas fa-times "></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <ng-template #categoryImage let-modal>
+                                        <app-choose-media [category]="'image'"
+                                                          [multipleSelect]="false"
+                                                          [for]="'category-img'"
+                                                          [modalRef]="modal"></app-choose-media>
+                                    </ng-template>
+
+                                    <div class="upload-icon-res col-md-4 col-sm-12 d-flex align-items-center">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <button *ngIf="!categoryIconForm.get('filePath').value"
+                                                            class="icon-button d-flex flex-column align-items-center justify-content-center mb-3"
+                                                            (click)="openMedia(categoryIcon)" id="changeCategIcon">
+                                                        <i class="fas fa-file-upload"></i></button>
+
+                                                    <div *ngIf="categoryIconForm.get('filePath').value"
+                                                         class="icon-res">
+                                                        <img class="img-fluid w-100"
+                                                             [src]="categoryIconForm.get('filePath').value"
+                                                             alt="thumbnail">
+                                                        <button
+                                                                (click)="removeCategoryIcon(); cdr.detectChanges()"
+                                                                type="button"
+                                                                id="btnRemoveCategoryIcon"
+                                                                class="btn-thumbnail position-absolute">
+                                                            <i class="fas fa-times delete"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-7">
+                                                    <p class="domain-title mb-0">Upload Icon</p>
+                                                    <p class="icon-text mb-0">{{'RESOURCE.DOMAIN.ICON_CLICK' | translate}}</p>
+                                                    <p class="dimension-text mb-0">112 px x 112 px</p>
+                                                </div>
+                                            </div>
+                                            <ng-template #categoryIcon let-modal>
+                                                <app-choose-media [category]="'image'"
+                                                                  [multipleSelect]="false"
+                                                                  [for]="'category-icon'"
+                                                                  [modalRef]="modal"></app-choose-media>
+                                            </ng-template>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--------------------------RESOURCE TYPES ------------------------->
+                            <div class="card card-res-types">
+                                <div class="card-header header-res-types">
+                                    <p class="title-res-card mb-0">Resource Types</p>
+                                </div>
+                                <div class="card-body body-res-types">
+                                    <div class="container">
+                                        <div class="row mb-3">
+
+                                            <div class="col-xl-3 col-md-6 col-12"
+                                                 *ngFor="let resource of resourceTypes[i]">
+
+                                                <div class="row card-res">
+                                                    <div class="res-body rounded shadow-sm col-9">
+                                                        <p class="mb-0"><b>{{'RESOURCE.DOMAIN.NAME' | translate}}</b>
+                                                        </p>
+                                                        <p>{{(resource?.nameEn?.length > 25) ? (resource?.nameEn | slice:0:25) + '...' : resource?.nameEn }}
+                                                            <span *ngIf="resource?.nameRo?.length > 0">
+                                                        / {{(resource?.nameRo?.length > 25) ? (resource?.nameRo| slice:0:25) + '...' : resource?.nameRo }}
+                                                    </span>
+                                                        </p>
+
+                                                        <p class="mb-0">
+                                                            <b>{{'RESOURCE.DOMAIN.AVAILABLE_FILTERS' | translate}}:</b>
+                                                        </p>
+                                                        <p class=" line-clamp mb-0">
+                                                            <span *ngIf="resource?.filterOption?.location">Location, </span>
+                                                            <span *ngIf="resource?.filterOption?.adultNumber">Number of adults, </span>
+                                                            <span *ngIf="resource?.filterOption?.adultChildrenNumber">Number of adults, </span>
+                                                            <span *ngIf="resource?.filterOption?.adultChildrenAndRoomNumber">Number of adults, children, room, </span>
+                                                            <span *ngIf="resource?.filterOption?.dateAsDay">Date as day, </span>
+                                                            <span *ngIf="resource?.filterOption?.dateInterval">Date interval, </span>
+                                                            <span *ngIf="resource?.filterOption?.dateAsHour">Date as hour, </span>
+                                                            <span *ngIf="resource?.filterOption?.hoursInterval">Hours interval</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-2 p-0">
+                                                        <button class="x-button-location h-25 w-100 "
+                                                                (click)="openModal(deleteResourceType)"><i
+                                                                class="fas fa-times p-0"></i></button>
+                                                        <button class="edit-button-location h-25 w-100 "
+                                                                (click)="openModalValue(editResourceType, resource)"><i
+                                                                class="fas fa-pen"></i></button>
+                                                    </div>
+
+                                                    <!--            Modal Edit Resource Type-->
+                                                    <ng-template #editResourceType let-c="close" let-d="dismiss">
+                                                        <div class="modal-card card">
+                                                            <div class="card-header border-0">
+                                                                <h3 class="m-0">
+                                                                    {{'RESOURCE.DOMAIN.EDIT-RES-TYPE' | translate}}
+                                                                </h3>
+                                                            </div>
+
+
+                                                            <div class="card-body">
+                                                                <form [formGroup]="resTypeForm">
+
+                                                                    <div class="card-resource add-design card">
+                                                                        <div class="card-body no-wrapper px-0 d-flex justify-content-center align-items-start flex-column">
+                                                                            <p class="modal-title">{{'RESOURCE.DOMAIN.GENERAL-INFO' | translate}}</p>
+                                                                            <mat-form-field
+                                                                                    class="col-md-6  col-sm-6 w-100"
+                                                                                    appearance="outline">
+                                                                                <mat-label>{{'TITLES.NAME-EN' | translate}}</mat-label>
+                                                                                <input matInput
+                                                                                       placeholder="{{'TITLES.NAME-EN' | translate}}"
+                                                                                       formControlName="nameEn">
+                                                                                <i class="fas fa-times-circle"
+                                                                                   type="button"
+                                                                                   *ngIf="resTypeForm.get('nameEn').value"
+                                                                                   (click)="clearFormControlresType('nameEn')"
+                                                                                   matSuffix></i>
+                                                                                <mat-error
+                                                                                        *ngIf="resTypeForm.controls.nameEn.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                                                                                </mat-error>
+
+                                                                            </mat-form-field>
+
+                                                                            <mat-form-field
+                                                                                    class="col-md-6  col-sm-6 w-100"
+                                                                                    appearance="outline">
+                                                                                <mat-label>{{'TITLES.NAME-RO' | translate}}</mat-label>
+                                                                                <input matInput
+                                                                                       placeholder="{{'TITLES.NAME-RO' | translate}}"
+                                                                                       formControlName="nameRo">
+                                                                                <i class="fas fa-times-circle"
+                                                                                   type="button"
+                                                                                   *ngIf="resTypeForm.get('nameRo').value"
+                                                                                   (click)="clearFormControlresType('nameRo')"
+                                                                                   matSuffix></i>
+                                                                                <mat-error
+                                                                                        *ngIf="resTypeForm.controls.nameRo.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                                                                                </mat-error>
+
+                                                                            </mat-form-field>
+
+                                                                            <mat-form-field
+                                                                                    class="col-md-6  col-sm-6 w-100"
+                                                                                    appearance="outline">
+                                                                                <mat-label>Interval de timp pentru
+                                                                                    reminder rezervare (ore)
+                                                                                </mat-label>
+                                                                                <input matInput
+                                                                                       placeholder="Interval de timp pentru reminder rezervare (ore)"
+                                                                                       formControlName="notificationHours"
+                                                                                       type="text">
+                                                                                <i class="fas fa-times-circle"
+                                                                                   type="button"
+                                                                                   *ngIf="resTypeForm.get('notificationHours').value"
+                                                                                   (click)="clearFormControlresType('notificationHours')"
+                                                                                   matSuffix></i>
+                                                                                <mat-error
+                                                                                        *ngIf="resTypeForm.controls.notificationHours.hasError('pattern')">
+                                                                                    Sunt acceptate doar numere.
+                                                                                </mat-error>
+
+                                                                            </mat-form-field>
+
+
+                                                                            <p class="modal-title">Thumbnail & Icon</p>
+                                                                            <div class="thumbnail-icon-res-type container">
+                                                                                <div class="row">
+                                                                                    <div class="thumbnail-res-type-col col-sm-5 col-12 px-0">
+                                                                                        <button *ngIf="!resTypeForm.get('image').value.filePath"
+                                                                                                class="thumbnail-res-type d-flex flex-column align-items-center justify-content-center w-100"
+                                                                                                (click)="openMedia(imageResType)"
+                                                                                                id="changeResTypeThumbnailonEdit">
+                                                                                            <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                                                                                            <span>1400 x 1400px</span>
+                                                                                        </button>
+
+                                                                                        <!--                        IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                                                                                        <div *ngIf="resTypeForm.get('image').value.filePath"
+                                                                                             class="img-thumbnail-restype">
+                                                                                            <img class="img-fluid w-100"
+                                                                                                 [src]="resTypeForm.get('image').value.filePath"
+                                                                                                 alt="thumbnail">
+                                                                                            <button
+                                                                                                    (click)="removeResTypeThumbnail(); cdr.detectChanges()"
+                                                                                                    type="button"
+                                                                                                    id="btnRemoveResTypeThumbnailonEdit"
+                                                                                                    class="btn-thumbnail position-absolute">
+                                                                                                <i class="fas fa-times delete"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <ng-template #imageResType
+                                                                                                 let-modal>
+                                                                                        <app-choose-media
+                                                                                                [category]="'image'"
+                                                                                                [multipleSelect]="false"
+                                                                                                [for]="'resType-img'"
+                                                                                                [modalRef]="modal"></app-choose-media>
+                                                                                    </ng-template>
+
+                                                                                    <div class="icon-res-type col-sm-7 col-12 px-0">
+                                                                                        <div class="container h-100">
+                                                                                            <div class="row h-100 d-flex justify-content-center align-items-center">
+                                                                                                <div class="col-5 h-100 d-flex justify-content-center align-items-center">
+                                                                                                    <button *ngIf="!resTypeForm.get('icon').value.filePath"
+                                                                                                            class="icon-button-res-type d-flex flex-column align-items-center justify-content-center"
+                                                                                                            (click)="openMedia(iconResType)"
+                                                                                                            id="changeResTypeIcononedit">
+                                                                                                        <i class="fas fa-file-upload"></i>
+                                                                                                    </button>
+                                                                                                    <!--                        IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                                                                                                    <div *ngIf="resTypeForm.get('icon').value.filePath"
+                                                                                                         class="icon-thumbnail-restype">
+                                                                                                        <img class="img-fluid w-100"
+                                                                                                             [src]="resTypeForm.get('icon').value.filePath"
+                                                                                                             alt="thumbnail">
+                                                                                                        <button
+                                                                                                                (click)="removeResTypeIcon(); cdr.detectChanges()"
+                                                                                                                type="button"
+                                                                                                                id="btnRemoveResTypeIcononEdit"
+                                                                                                                class="btn-thumbnail position-absolute">
+                                                                                                            <i class="fas fa-times delete"></i>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <ng-template
+                                                                                                    #iconResType
+                                                                                                    let-modal>
+                                                                                                    <app-choose-media
+                                                                                                            [category]="'image'"
+                                                                                                            [multipleSelect]="false"
+                                                                                                            [for]="'resType-icn'"
+                                                                                                            [modalRef]="modal"></app-choose-media>
+                                                                                                </ng-template>
+
+                                                                                                <div class="col-7">
+                                                                                                    <p class="domain-title mb-0">
+                                                                                                        Upload
+                                                                                                        Icon</p>
+                                                                                                    <p class="icon-text w-100 mb-0">{{'RESOURCE.DOMAIN.ICON_CLICK' | translate}}</p>
+                                                                                                    <p class="domain-title mb-0">
+                                                                                                        112 px
+                                                                                                        x 112 px</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+
+
+                                                                            <p class="modal-title">{{'RESOURCE.DOMAIN.AVAILABLE_FILTERS' | translate}}</p>
+                                                                            <div class="checkbox-container container">
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-6 col-12 px-0">
+                                                                                        <label class="container"><span
+                                                                                                [innerHTML]="'RESOURCE.RES-FILTERS.LOCATION' | translate"></span>
+                                                                                            <input type="checkbox"
+                                                                                                   class="is-invalid"
+                                                                                                   formControlName="location">
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+                                                                                        <label class="container"><span
+                                                                                                [innerHTML]="'RESOURCE.RES-FILTERS.ADULTS' | translate"></span>
+                                                                                            <input type="checkbox"
+                                                                                                   class="is-invalid"
+                                                                                                   formControlName="adultNumber"
+                                                                                            >
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+                                                                                        <label class="container"><span
+                                                                                                [innerHTML]="'RESOURCE.RES-FILTERS.ADULTS-KIDS' | translate"></span>
+                                                                                            <input type="checkbox"
+                                                                                                   class="is-invalid"
+                                                                                                   formControlName="adultChildrenNumber"
+                                                                                            >
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+                                                                                        <label class="container"><span
+                                                                                                [innerHTML]="'RESOURCE.RES-FILTERS.ADULTS-KIDS-ROOMS' | translate"></span>
+                                                                                            <input type="checkbox"
+                                                                                                   class="is-invalid"
+                                                                                                   formControlName="adultChildrenAndRoomNumber"
+                                                                                            >
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+                                                                                        <p class="error-msg" *ngIf="resTypeForm.hasError('personInvalid')">Puteti alege o singura filtrare in functie de numarul de persoane!</p>
+
+                                                                                    </div>
+
+                                                                                    <div class="col-sm-6 col-12 px-0">
+                                                                                        <label class="container"><span
+                                                                                                [innerHTML]="'RESOURCE.RES-FILTERS.DATE-DAY' | translate"></span>
+                                                                                            <input type="checkbox"
+                                                                                                   class="is-invalid"
+                                                                                                   formControlName="dateAsDay"
+                                                                                            >
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+                                                                                        <label class="container"><span
+                                                                                                [innerHTML]="'RESOURCE.RES-FILTERS.DATE-FROM-DAY' | translate"></span>
+                                                                                            <input type="checkbox"
+                                                                                                   class="is-invalid"
+                                                                                                   formControlName="dateInterval"
+                                                                                                   >
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+                                                                                        <label class="container"><span
+                                                                                                [innerHTML]="'RESOURCE.RES-FILTERS.DATE-DAY-TIME' | translate"></span>
+                                                                                            <input type="checkbox"
+                                                                                                   class="is-invalid"
+                                                                                                   formControlName="dateAsHour"
+                                                                                                  >
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+
+                                                                                        <label class="container"><span
+                                                                                                [innerHTML]="'RESOURCE.RES-FILTERS.DATE-DAY-FROM-TIME' | translate"></span>
+                                                                                            <input type="checkbox"
+                                                                                                   class="is-invalid"
+                                                                                                   formControlName="hoursInterval">
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                        <p class="error-msg" *ngIf="resTypeForm.hasError('dateInvalid')">Puteti alege o singura filtrare in functie de data!</p>
+
+
+                                                                                    </div>
+
+                                                                                </div>
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+
+                                                            <div class="card-footer border-0">
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-6">
+                                                                        <button class="btn-auto btn-color-outline w-100"
+                                                                                id="btn-dismiss-edit"
+                                                                                (click)="d(); resTypeInit()">
+                                                                            <i class="fas fa-times"></i>
+                                                                            {{ 'BTN.CANCEL' | translate}}
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <div class="col-12 col-sm-6">
+                                                                        <button class="btn-auto btn-color-fill w-100"
+                                                                                id="btn-save-res-type-edit"
+                                                                                (click)="updateResType(resource.id)">
+                                                                            <i class="fas fa-check"></i>
+                                                                            {{ 'BTN.CONFIRM' | translate}}
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-template>
+
+                                                </div>
+
+                                                <!--            Modal Delete ResourceType-->
+                                                <ng-template #deleteResourceType let-c="close" let-d="dismiss">
+                                                    <div class="modal-card card">
+                                                        <div class="card-header border-0">
+                                                            <h3 class="m-0">
+                                                                {{ 'TITLES.DELETE-RESTYPE' | translate }}
+                                                            </h3>
+                                                        </div>
+
+                                                        <div class="card-body">
+                                                            <p>{{ 'TITLES.DELETE-CATEGORY-DIRECTIONS' | translate}}</p>
+                                                            <div class="card-resource card">
+                                                                <div class="card-body d-flex justify-content-between align-items-center flex-row">
+                                                                    <h3>{{resource.nameEn}} / {{resource.nameRo}}</h3>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="card-footer border-0">
+                                                            <div class="row">
+                                                                <div class="col-12 col-sm-6">
+                                                                    <button class="btn-auto btn-color-outline w-100"
+                                                                            id="btn-dismiss-delete-{{i}}"
+                                                                            (click)="d()">
+                                                                        <i class="fas fa-times"></i>
+                                                                        {{ 'BTN.CANCEL' | translate}}
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="col-12 col-sm-6">
+                                                                    <button class="btn-auto btn-color-fill w-100"
+                                                                            id="btn-confirm-delete-{{i}}"
+                                                                            (click)="deleteResType(resource.id)"
+                                                                    >
+                                                                        <i class="fas fa-check"></i>
+                                                                        {{ 'BTN.CONFIRM' | translate}}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <button class="btn-add-res" id="btnAdd-resourceType"
+                                                    (click)="openModal(addResourceType)">
+                                                {{'BTN.ADD' | translate}}<i class="fas fa-plus ms-2"></i></button>
+
+                                            <!--            Modal Add Resource Type-->
+                                            <ng-template #addResourceType let-c="close" let-d="dismiss">
+                                                <div class="modal-card card">
+                                                    <div class="card-header border-0">
+                                                        <h3 class="m-0">
+                                                            {{'RESOURCE.DOMAIN.ADD-RES-TYPE' | translate}}
+                                                        </h3>
+                                                    </div>
+
+
+                                                    <div class="card-body">
+                                                        <form [formGroup]="resTypeForm">
+
+                                                            <div class="card-resource add-design card">
+                                                                <div class="card-body no-wrapper px-0 d-flex justify-content-center align-items-start flex-column">
+                                                                    <p class="modal-title">{{'RESOURCE.DOMAIN.GENERAL-INFO' | translate}}</p>
+                                                                    <mat-form-field class="col-md-6  col-sm-6 w-100"
+                                                                                    appearance="outline">
+                                                                        <mat-label>{{'TITLES.NAME' | translate}}
+                                                                            (engleza)
+                                                                        </mat-label>
+                                                                        <input matInput
+                                                                               placeholder="{{'TITLES.NAME' | translate}} (engleza)"
+                                                                               formControlName="nameEn">
+                                                                        <i class="fas fa-times-circle" type="button"
+                                                                           *ngIf="resTypeForm.get('nameEn').value"
+                                                                           (click)="clearFormControlresType('nameEn')"
+                                                                           matSuffix></i>
+
+                                                                        <mat-error
+                                                                                *ngIf="resTypeForm.controls.nameEn.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                                                                        </mat-error>
+
+                                                                    </mat-form-field>
+
+                                                                    <mat-form-field class="col-md-6  col-sm-6 w-100"
+                                                                                    appearance="outline">
+                                                                        <mat-label>{{'TITLES.NAME' | translate}}
+                                                                            (romana)
+                                                                        </mat-label>
+                                                                        <input matInput
+                                                                               placeholder="{{'TITLES.NAME' | translate}} (romana)"
+                                                                               formControlName="nameRo">
+                                                                        <i class="fas fa-times-circle" type="button"
+                                                                           *ngIf="resTypeForm.get('nameRo').value"
+                                                                           (click)="clearFormControlresType('nameRo')"
+                                                                           matSuffix></i>
+
+                                                                        <mat-error
+                                                                                *ngIf="resTypeForm.controls.nameRo.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                                                                        </mat-error>
+
+                                                                    </mat-form-field>
+
+                                                                    <mat-form-field class="col-md-6  col-sm-6 w-100"
+                                                                                    appearance="outline">
+                                                                        <mat-label>Interval de timp pentru reminder
+                                                                            rezervare (ore)
+                                                                        </mat-label>
+                                                                        <input matInput
+                                                                               placeholder="Interval de timp pentru reminder rezervare (ore)"
+                                                                               formControlName="notificationHours"
+                                                                               type="text">
+                                                                        <i class="fas fa-times-circle" type="button"
+                                                                           *ngIf="resTypeForm.get('notificationHours').value"
+                                                                           (click)="clearFormControlresType('notificationHours')"
+                                                                           matSuffix></i>
+                                                                        <mat-error
+                                                                                *ngIf="resTypeForm.controls.notificationHours.hasError('pattern')">
+                                                                            Sunt acceptate doar numere.
+                                                                        </mat-error>
+
+                                                                    </mat-form-field>
+
+
+                                                                    <p class="modal-title">Thumbnail & Icon</p>
+                                                                    <div class="thumbnail-icon-res-type container">
+                                                                        <div class="row">
+                                                                            <div class="thumbnail-res-type-col col-sm-5 col-12 px-0">
+                                                                                <button *ngIf="!resTypeForm.get('image').value.filePath"
+                                                                                        class="thumbnail-res-type d-flex flex-column align-items-center justify-content-center w-100"
+                                                                                        (click)="openMedia(imageResType)"
+                                                                                        id="changeResTypeThumbnailonAdd">
+                                                                                    <i class="far fa-image"></i>{{'RESOURCE.DOMAIN.THUMBNAIL_CLICK' | translate}}
+                                                                                    <span>1400 x 1400px</span>
+                                                                                </button>
+
+                                                                                <!--                        IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                                                                                <div *ngIf="resTypeForm.get('image').value.filePath"
+                                                                                     class="img-thumbnail-restype">
+                                                                                    <img class="img-fluid w-100"
+                                                                                         [src]="resTypeForm.get('image').value.filePath"
+                                                                                         alt="thumbnail">
+                                                                                    <button
+                                                                                            (click)="removeResTypeThumbnail(); cdr.detectChanges()"
+                                                                                            type="button"
+                                                                                            id="btnRemoveResTypeThumbnailonAdd"
+                                                                                            class="btn-thumbnail position-absolute">
+                                                                                        <i class="fas fa-times delete"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <ng-template #imageResType let-modal>
+                                                                                <app-choose-media [category]="'image'"
+                                                                                                  [multipleSelect]="false"
+                                                                                                  [for]="'resType-img'"
+                                                                                                  [modalRef]="modal"></app-choose-media>
+                                                                            </ng-template>
+
+                                                                            <div class="icon-res-type col-sm-7 col-12 px-0">
+                                                                                <div class="container h-100">
+                                                                                    <div class="row h-100 d-flex justify-content-center align-items-center">
+                                                                                        <div class="col-5 h-100 d-flex justify-content-center align-items-center">
+                                                                                            <button *ngIf="!resTypeForm.get('icon').value.filePath"
+                                                                                                    class="icon-button-res-type d-flex flex-column align-items-center justify-content-center"
+                                                                                                    (click)="openMedia(iconResType)"
+                                                                                                    id="changeResTypeIcononadd">
+                                                                                                <i class="fas fa-file-upload"></i>
+                                                                                            </button>
+                                                                                            <!--                        IF THERE IS A THUMBNAIL, DISPLAY THUMBNAIL AND REMOVE THUMBNAIL BUTTON-->
+                                                                                            <div *ngIf="resTypeForm.get('icon').value.filePath"
+                                                                                                 class="icon-thumbnail-restype">
+                                                                                                <img class="img-fluid w-100"
+                                                                                                     [src]="resTypeForm.get('icon').value.filePath"
+                                                                                                     alt="thumbnail">
+                                                                                                <button
+                                                                                                        (click)="removeResTypeIcon(); cdr.detectChanges()"
+                                                                                                        type="button"
+                                                                                                        id="btnRemoveResTypeIcononadd"
+                                                                                                        class="btn-thumbnail position-absolute">
+                                                                                                    <i class="fas fa-times delete"></i>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <ng-template #iconResType
+                                                                                                     let-modal>
+                                                                                            <app-choose-media
+                                                                                                    [category]="'image'"
+                                                                                                    [multipleSelect]="false"
+                                                                                                    [for]="'resType-icn'"
+                                                                                                    [modalRef]="modal"></app-choose-media>
+                                                                                        </ng-template>
+
+                                                                                        <div class="col-7">
+                                                                                            <p class="domain-title mb-0">
+                                                                                                Upload
+                                                                                                Icon</p>
+                                                                                            <p class="icon-text w-100 mb-0">{{'RESOURCE.DOMAIN.ICON_CLICK' | translate}}</p>
+                                                                                            <p class="domain-title mb-0">
+                                                                                                112 px
+                                                                                                x 112 px</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+
+                                                                    <p class="modal-title">{{'RESOURCE.DOMAIN.AVAILABLE_FILTERS' | translate}}</p>
+                                                                    <div class="checkbox-container container">
+                                                                        <div class="row custom-tooltip">
+                                                                            <div class="col-sm-6 col-12 px-0">
+                                                                                <label ngbTooltip="Filtrare dupa locație"
+                                                                                       class="container"><span
+                                                                                        [innerHTML]="'RESOURCE.RES-FILTERS.LOCATION' | translate"></span>
+                                                                                    <input type="checkbox"
+                                                                                           class="is-invalid"
+                                                                                           formControlName="location">
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+
+                                                                                <label ngbTooltip="Filtrare dupa numărul de adulți"
+                                                                                       class="container"><span
+                                                                                        [innerHTML]="'RESOURCE.RES-FILTERS.ADULTS' | translate"></span>
+                                                                                    <input type="checkbox"
+                                                                                           class="is-invalid"
+                                                                                           formControlName="adultNumber"
+                                                                                           >
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+
+                                                                                <label ngbTooltip="Filtrare pentru numărul de adulți și numarul de copii"
+                                                                                       class="container"><span
+                                                                                        [innerHTML]="'RESOURCE.RES-FILTERS.ADULTS-KIDS' | translate"></span>
+                                                                                    <input type="checkbox"
+                                                                                           class="is-invalid"
+                                                                                           formControlName="adultChildrenNumber"
+                                                                                           >
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+
+                                                                                <label ngbTooltip="Filtrare pentru: numărul de adulți,numărul de copii, camere"
+                                                                                       class="container"><span
+                                                                                        [innerHTML]="'RESOURCE.RES-FILTERS.ADULTS-KIDS-ROOMS' | translate"></span>
+                                                                                    <input type="checkbox"
+                                                                                           class="is-invalid"
+                                                                                           formControlName="adultChildrenAndRoomNumber"
+                                                                                          >
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+
+                                                                                <p class="error-msg" *ngIf="resTypeForm.hasError('personInvalid')">Puteti alege o singura filtrare in functie de numarul de persoane!</p>
+                                                                            </div>
+
+                                                                            <div class="col-sm-6 col-12 px-0">
+                                                                                <label ngbTooltip="Filtrare dupa o zi"
+                                                                                       class="container"><span
+                                                                                        [innerHTML]="'RESOURCE.RES-FILTERS.DATE-DAY' | translate"></span>
+                                                                                    <input type="checkbox"
+                                                                                           class="is-invalid"
+                                                                                           formControlName="dateAsDay"
+                                                                                          >
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+
+                                                                                <label ngbTooltip="Filtrare dupa un interval de zile (de la - până la)"
+                                                                                       class="container"><span
+                                                                                        [innerHTML]="'RESOURCE.RES-FILTERS.DATE-FROM-DAY' | translate"></span>
+                                                                                    <input type="checkbox"
+                                                                                           class="is-invalid"
+                                                                                           formControlName="dateInterval">
+
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+
+                                                                                <label ngbTooltip="Filtrare dupa zi si oră"
+                                                                                       class="container"><span
+                                                                                        [innerHTML]="'RESOURCE.RES-FILTERS.DATE-DAY-TIME' | translate"></span>
+                                                                                    <input type="checkbox"
+                                                                                           class="is-invalid"
+                                                                                           formControlName="dateAsHour"
+                                                                                          >
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+
+                                                                                <label ngbTooltip="Filtrare dupa zi si un interval orar(de la ora - până la ora)"
+                                                                                       class="container"><span
+                                                                                        [innerHTML]="'RESOURCE.RES-FILTERS.DATE-DAY-FROM-TIME' | translate"></span>
+                                                                                    <input type="checkbox"
+                                                                                           class="is-invalid"
+                                                                                           formControlName="hoursInterval"
+                                                                                          >
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+
+                                                                                <p class="error-msg" *ngIf="resTypeForm.hasError('dateInvalid')">Puteti alege o singura filtrare in functie de data!</p>
+                                                                            </div>
+
+                                                                        </div>
+
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+
+                                                    <div class="card-footer border-0">
+                                                        <div class="row">
+                                                            <div class="col-12 col-sm-6">
+                                                                <button class="btn-auto btn-color-outline w-100"
+                                                                        id="btn-dismiss-add-edit"
+                                                                        (click)="d(); resTypeInit()">
+                                                                    <i class="fas fa-times"></i>
+                                                                    {{ 'BTN.CANCEL' | translate}}
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="col-12 col-sm-6">
+                                                                <button class="btn-auto btn-color-fill w-100"
+                                                                        id="btn-save-res-type"
+                                                                        (click)="addResType(res.id)">
+                                                                    <i class="fas fa-check"></i>
+                                                                    {{ 'BTN.CONFIRM' | translate}}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--            Modal Delete Resource-->
+                    <ng-template #deleteResource let-c="close" let-d="dismiss">
+                        <div class="modal-card card">
+                            <div class="card-header border-0">
+                                <h3 class="m-0">
+                                    {{ 'TITLES.DELETE-CATEGORY' | translate }}
+                                </h3>
+                            </div>
+
+                            <div class="card-body">
+                                <p>{{ 'TITLES.DELETE-CATEGORY-DIRECTIONS' | translate}}</p>
+                                <div class="card-resource card">
+                                    <div class="card-body d-flex justify-content-between align-items-center flex-row">
+                                        <h3>{{res.nameEn}} / {{res.nameRo}}</h3>
+                                        <p>{{'TITLES.TYPE-OF-RES' | translate}}:
+                                            <span>{{resourceTypes[i]?.length}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer border-0">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <button class="btn-auto btn-color-outline w-100"
+                                                id="btn-dismiss-delete-{{i}}"
+                                                (click)="d()">
+                                            <i class="fas fa-times"></i>
+                                            {{ 'BTN.CANCEL' | translate}}
+                                        </button>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6">
+                                        <button class="btn-auto btn-color-fill w-100"
+                                                id="btn-confirm-delete-{{i}}"
+                                                (click)="deleteCategory(res.id)"
+                                        >
+                                            <i class="fas fa-check"></i>
+                                            {{ 'BTN.CONFIRM' | translate}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+
+                </div>
+            </div>
+
+
+            <mat-paginator [pageSizeOptions]="pageSizeArray"
+                           [pageSize]="pageSize"
+                           [length]="paginationInfo?.totalElements"
+                           (page)="pageChanged($event)"
+                           aria-label="Select page of resources"></mat-paginator>
+
+            <!--        [length]="paginationInfo?.totalElements"-->
+            <!--        (page)="pageChanged($event)"-->
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--            Modal Add Resource-->
+<ng-template #addResource let-c="close" let-d="dismiss">
+    <div class="modal-card card">
+        <div class="card-header border-0">
+            <h3 class="m-0">
+                {{'TITLES.NEW-CATEGORY' | translate}}
+            </h3>
+        </div>
+
+        <div class="card-body">
+
+            <div class="card-resource add-design card">
+                <div class="card-body no-wrapper px-0 d-flex justify-content-center align-items-start flex-column">
+                    <form [formGroup]="categoryForm" class="w-100">
+                        <mat-form-field class="col-md-12  col-sm-12" appearance="outline">
+                            <mat-label>{{'TITLES.NAME-EN' | translate}}</mat-label>
+                            <input matInput placeholder="{{'TITLES.NEW-CATEGORY' | translate}}" formControlName="nameEn"
+                                   #categoryNameEn>
+                            <i class="fas fa-times-circle" type="button" *ngIf="categoryForm.get('nameEn').value"
+                               (click)="clearFormControlCategory('nameEn')" matSuffix></i>
+
+                            <mat-error
+                                    *ngIf="categoryForm.controls.nameEn.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-md-12  col-sm-12" appearance="outline">
+                            <mat-label>{{'TITLES.NAME-RO' | translate}}</mat-label>
+                            <input matInput placeholder="{{'TITLES.NEW-CATEGORY' | translate}}" formControlName="nameRo"
+                                   #categoryNameRo>
+
+                            <mat-error
+                                    *ngIf="categoryForm.controls.nameRo.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+
+                        <input type="checkbox" formControlName="enableForList" #enableForList> Afișare categorie în
+                        listă
+
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer border-0">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <button class="btn-auto btn-color-outline w-100"
+                            id="btn-dismiss-add"
+                            (click)="d(); categoryInit()">
+                        <i class="fas fa-times"></i>
+                        {{ 'BTN.CANCEL' | translate}}
+                    </button>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                    <button class="btn-auto btn-color-fill w-100"
+                            id="btn-confirm-add-category"
+                            (click)="addNewCategory(categoryNameEn.value, categoryNameRo.value, enableForList.checked)"
+                    >
+                        <i class="fas fa-check"></i>
+                        {{ 'BTN.CONFIRM' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+

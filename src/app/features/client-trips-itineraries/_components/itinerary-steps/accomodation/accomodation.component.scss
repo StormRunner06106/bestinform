@@ -1,0 +1,10 @@
+@import "../steps-card.component";
+
+.step-card {
+  background-size: cover;
+  background: linear-gradient(0deg, rgba(36, 57, 138, 0.8), rgba(36, 57, 138, 0.8)),
+  radial-gradient(100% 787.93% at 0% 100%, rgba(0, 178, 255, 0.1) 0%, rgba(0, 178, 255, 0) 100%),
+  linear-gradient(270deg, rgba(36, 57, 138, 0) 0%, rgba(36, 57, 138, 0) 100%),
+  linear-gradient(0deg, rgba(36, 57, 138, 0.7), rgba(36, 57, 138, 0.7)),
+  url('/assets/images/others/itinerary-steps/accomodation-itineraries-min.jpg');
+}

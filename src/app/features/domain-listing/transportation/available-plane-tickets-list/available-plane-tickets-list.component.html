@@ -1,0 +1,76 @@
+<app-search-section [isBiggerThan981]="true" [selected]="'planes'" (getPlaneOffers)="updatePlaneOffers($event)"></app-search-section>
+<div class="container-paddings top-padding">
+    <div class="plane-list max-width-wrapper">
+        <div class="filters">
+            <app-plane-filters [loading]="isLoading" [airlines]="airlines" [flightsChanged]="flightsLoaded$"></app-plane-filters>
+        </div>
+        <div class="content-container">
+            <h3 class="mb-3">{{flights ? flights.length : 0}} Zboruri disponibile</h3>
+            <mat-tab-group [selectedIndex]="0" (selectedTabChange)="changeTabStatus($event)" class="sort-selection mb-4" #tabGroup>
+                <mat-tab class="flex-grow-1">
+                    <ng-template mat-tab-label>
+                        <div class="d-flex flex-column w-100">
+                            <div class="d-flex justify-content-between">
+                                <div class="tab-title">Recomandat</div>
+                                <div class="tab-hour">{{tabOffers.recommended.price}}</div>
+                            </div>
+                            <div class="d-flex justify-content-start tab-duration">{{tabOffers.recommended.duration}}</div>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab class="flex-grow-1">
+                    <ng-template mat-tab-label>
+                        <div class="d-flex flex-column w-100">
+                            <div class="d-flex justify-content-between">
+                                <div class="tab-title">Cel mai ieftin</div>
+                                <div class="tab-hour">{{tabOffers.cheapest.price}}</div>
+                            </div>
+                            <div class="d-flex justify-content-start tab-duration">{{tabOffers.cheapest.duration}}</div>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab class="flex-grow-1">
+                    <ng-template mat-tab-label>
+                        <div class="d-flex flex-column w-100">
+                            <div class="d-flex justify-content-between">
+                                <div class="tab-title">Cel mai scurt</div>
+                                <div class="tab-hour">{{tabOffers.shortest.price}}</div>
+                            </div>
+                            <div class="d-flex justify-content-start tab-duration">{{tabOffers.shortest.duration}}</div>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+            <div *ngIf="tabGroup.selectedIndex === 0">
+                <div *ngIf="recommendedFlights?.length === 0">
+                    <h4>Nu au fost găsite rezultate pentru această căutare.</h4>
+                </div>
+                <div class="list" *ngIf="recommendedFlights?.length">
+                    <div *ngFor="let flight of recommendedFlights">
+                        <app-plane-ticket-card [flight]="flight" (bookNowClicked)="selectFlight(flight)"></app-plane-ticket-card>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="tabGroup.selectedIndex === 1">
+                <div *ngIf="cheapestFlights?.length === 0">
+                    <h4>Nu au fost găsite rezultate pentru această căutare.</h4>
+                </div>
+                <div class="list" *ngIf="cheapestFlights?.length">
+                    <div *ngFor="let flight of cheapestFlights">
+                        <app-plane-ticket-card [flight]="flight" (bookNowClicked)="selectFlight(flight)"></app-plane-ticket-card>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="tabGroup.selectedIndex === 2">
+                <div *ngIf="shortestFlights?.length === 0">
+                    <h4>Nu au fost găsite rezultate pentru această căutare.</h4>
+                </div>
+                <div class="list" *ngIf="shortestFlights?.length">
+                    <div *ngFor="let flight of shortestFlights">
+                        <app-plane-ticket-card [flight]="flight" (bookNowClicked)="selectFlight(flight)"></app-plane-ticket-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

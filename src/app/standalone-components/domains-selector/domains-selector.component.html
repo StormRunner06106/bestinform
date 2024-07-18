@@ -1,0 +1,34 @@
+<button mat-button class="btn-open-modal" (click)="openDomainsModal(domainsModal)">
+    <i class="fas fa-th-large"></i>
+</button>
+
+<ng-template #domainsModal>
+    <mat-card>
+        <mat-card-header class="justify-content-between mb-4">
+            <mat-card-title>
+                {{ "RESOURCE.DOMAIN.SELECT" | translate}}
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{ "RESOURCE.DOMAIN.CHECK_INFO" | translate}}
+            </mat-card-subtitle>
+
+            <button class="btn-round btn-color-outline" type="button" mat-dialog-close="true">
+                <i class="fas fa-times"></i>
+            </button>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div class="row">
+                <div *ngFor="let domain of listOfDomains" class="col-12 col-md-6 col-xl">
+
+                    <div class="domain-container" (click)="onClickGoToDomain(domain.id)">
+                        <img [src]="domain.image.filePath" alt="domain-image">
+
+                        <h2>{{ currentLanguage === 'ro' ? domain.nameRo : domain.nameEn}}</h2>
+                    </div>
+
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</ng-template>

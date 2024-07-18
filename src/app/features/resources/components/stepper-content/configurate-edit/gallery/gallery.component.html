@@ -1,0 +1,138 @@
+<div class="save-btn d-flex justify-content-end align-items-center mb-3" *ngIf="resourceId">
+    <button  *ngIf="resourceId"
+             (click)="saveResource()"
+             [disabled]="isSubmitLoading || !form.valid"
+             matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+             class="btn-long btn-color-fill" type="button">
+        <ng-container *ngIf="isSubmitLoading===false">
+            <i class="fas fa-save"></i>
+            Salvează
+        </ng-container>
+        <ng-container *ngIf="isSubmitLoading === true">
+                      <span [style.display]="'block'" class="indicator-progress">
+                        Salvare...{{ " " }}
+                          <span
+                                  class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                      </span>
+        </ng-container>
+    </button>
+</div>
+
+<div id="gallery">
+    <div class="section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Galerie multimedia</h2>
+    </div>
+
+    <!--Content-->
+    <div class="section-content">
+        <!--    Featured Image-->
+        <h3>Imagine reprezentativa</h3>
+        <div class="image-container mb-5">
+            <input type="file"
+                   hidden
+                   accept="image/*"
+                   #thumbnail
+                   id="thumbnailInput"
+                   (change)="onThumbnailChange($event)">
+            <div *ngIf="!thumbnailUrl" class="no-image"
+                 attr.translatedContent="{{ 'GENERAL.INSERT_IMAGE' | translate}}"
+                 (click)="thumbnail.click()"></div>
+
+            <img *ngIf="thumbnailUrl" class="img-fluid featured-image"
+                 [src]="thumbnailUrl" alt="thumbnail">
+            <button *ngIf="thumbnailUrl"
+                    (click)="removeThumbnail(); thumbnail.value=''"
+                    type="button"
+                    id="btnRemoveFeaturedImage"
+                    class="btn-thumbnail">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!--    Image gallery-->
+        <div class="d-flex justify-content-between mb-2">
+            <h3>Galerie foto</h3>
+            <div class="d-flex align-items-center">
+                <input type="file"
+                       accept="image/*"
+                       multiple
+                       hidden
+                       #add_image
+                       id="galleryInput"
+                       (change)="onImageChange($event, add_image)">
+                <button class="btn-long btn-color-fill" (click)="add_image.click()"><i
+                        class="fas fa-image"></i>{{ 'GENERAL.INSERT_IMAGE' | translate}}</button>
+
+            </div>
+        </div>
+        <div class="row gy-3 gallery-image mb-5">
+            <div *ngFor="let image of galleryUrls; let i = index" class="col-6 col-lg-2">
+                <div class="image-container">
+                    <img class="img-fluid gallery-img"
+                         [src]="image" alt="image-{{i}}">
+                    <button (click)="removeImage(i)"
+                            id="btnRemoveGalleryImage-{{i}}"
+                            type="button"
+                            class="btn-gallery">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--Video Gallery-->
+        <div class="d-flex justify-content-between mb-2">
+            <h3>Galerie video</h3>
+            <div class="d-flex align-items-center">
+                <input type="file"
+                       accept="video/*"
+                       multiple
+                       hidden
+                       #add_video
+                       id="videoGalleryInput"
+                       (change)="onVideoChange($event, add_video)">
+                <button class="btn-long btn-color-fill" (click)="add_video.click()"><i class="fas fa-video"></i>Adauga un
+                    video aici
+                </button>
+
+            </div>
+        </div>
+        <div class="row gy-3 gallery-image mb-5">
+            <div *ngFor="let video of videoUrls; let i = index" class="col-6 col-lg-4">
+                <div class="image-container">
+                    <video class="video" [src]="video.filePath" controls></video>
+                    <button (click)="removeVideo(i)"
+                            id="btnRemoveGalleryVideo-{{i}}"
+                            type="button"
+                            class="btn-gallery">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Stepper Controller-->
+    <div class="stepper-step-controller">
+        <!--Prev Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="prevStep()" [disabled]="!form.valid"              matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+            >
+                <i class="fas fa-arrow-left"></i>
+                Înapoi
+            </button>
+        </div>
+        <!--Next Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="nextStep()" [disabled]="!form.valid"              matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+            >
+                Urmatorul
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>

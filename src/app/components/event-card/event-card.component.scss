@@ -1,0 +1,146 @@
+.event-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #4257ee;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  width: 100%;
+}
+.event-image {
+  img {
+    object-fit: cover;
+    flex-shrink: 0;
+    width: 175px;
+    min-height: 150px;
+    height: 100%;
+  }
+  position: relative;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.event-disabled {
+  position: absolute;
+  background-color: rgba(000, 000, 000, 0.6);
+  height: 100%;
+    width: 100%;
+  .disabled-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    color: #fff;
+
+    .image-disabled {
+        background-image: url("../../../assets/icons/lock.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 30%;
+        width: 100%;
+    }
+  }
+}
+.event-description {
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  line-height: 18px;
+}
+.event-card-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.event-card-title-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.event-title-text-type {
+  display: flex;
+  line-height: 15px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8588ab;
+  img {
+    padding-right: 4px;
+    filter: invert(61%) sepia(10%) saturate(924%) hue-rotate(198deg) brightness(88%) contrast(84%);
+  }
+}
+.event-title-text-main {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+}
+.event-card-details {
+    height: 18px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #b0b2c9;
+}
+.event-card-title-calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 53px;
+}
+.event-calendar {
+  width: 22px;
+  height: 24px;
+  font-size: 12px;
+  color: #4257ee;
+  line-height: 14px;
+
+  justify-content: center;
+  align-items: end;
+  display: flex;
+
+  background-image: url(../../../assets/images/others/events/events/calendar.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.event-date {
+  font-size: 12px;
+  color: #4257ee;
+  text-transform: capitalize;
+}
+.event-card-footer {
+  display: flex;
+  justify-content: space-between;
+  max-width: 210px;
+}
+.event-card-footer-location {
+  font-size: 14px;
+  color: #f8cc50;
+  display: flex;
+  line-height: 20px;
+  gap: 4px;
+}
+.event-card-footer-price {
+  font-size: 12px;
+  color: #3caf41;
+  font-weight: 700;
+}
+.event-side-bubble {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+
+  .event-bubble-text {
+    width: 26px;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 5px;
+  }
+}

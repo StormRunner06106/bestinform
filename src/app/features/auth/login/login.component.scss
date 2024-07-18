@@ -1,0 +1,150 @@
+@import "../../../theme/styles/components/colors";
+
+.btn-close-modal {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.container {
+  //width: 1440px;
+  //height: 840px;
+
+  .login {
+    //padding-left: 100px;
+    //padding-right: 100px;
+
+    .logo {
+      width: 100%;
+      margin: auto;
+      margin-top: 48px;
+    }
+
+    .login-body {
+      padding: 20px 0 20px 0;
+      margin-top: 56px;
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: auto;
+
+        .mat-form-field {
+          width: 100%;
+        }
+
+        .row {
+          //width: 100%;
+          //display: flex;
+          //justify-content: space-between !important;
+          //margin-bottom: 24px;
+
+          .mat-checkbox, a {
+            width: 50%;
+            padding: 0;
+          }
+
+          a {
+            text-align: right;
+          }
+        }
+      }
+
+      .text-center {
+        width: 100%;
+
+        button {
+          width: 100%;
+        }
+      }
+
+      .container-hr {
+        width: 100%;
+        align-items: center;
+        hr {
+          margin-top: 1rem;
+          border: 0;
+          border-top: 1px solid $title;
+          height: 0;
+        }
+
+        p {
+          text-align: center;
+          color:$title;
+        }
+      }
+
+      .container-btn{
+        button{
+          box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.08), 0px 2px 4px rgba(0, 0, 0, 0.16);
+          margin-bottom: 16px;
+          color:$title;
+
+          i{
+            color:$title;
+            font-size:16px;
+          }
+        }
+      }
+
+      .register{
+        max-width: 100%;
+        margin-top:100px!important;
+        margin:auto;
+
+        p,a{
+          margin:0 auto;
+        }
+      }
+    }
+
+    a.ml-2{
+      text-decoration: none;
+    }
+    .register.d-flex.flex-row.justify-content-between p{
+      margin-right: 0px;
+    }
+
+  }
+
+  .image{
+    //position: relative;
+    //.btn-round{
+    //  height: 40px;
+    //  width: 40px;
+    //  position:absolute;
+    //  top:20px;
+    //  right:20px;
+    //
+    //  i{
+    //    font-size:24px;
+    //    color:$title;
+    //  }
+    //}
+
+    @media(max-width: 1200px){
+      display: none;
+    }
+  }
+
+  @media(max-width: 576px){
+    width: 320px;
+
+    .login{
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .image{
+      display: none;
+    }
+  }
+}
+
+.image {
+  background: url("../../../../assets/images/login/client_img.png") center no-repeat;
+  background-size: cover;
+}
+

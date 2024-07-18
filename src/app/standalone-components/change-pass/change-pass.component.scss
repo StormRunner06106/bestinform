@@ -1,0 +1,51 @@
+@import "../../theme/styles/components/colors";
+
+.card {
+  background-color: #edeff5;
+  border: none;
+
+  .card-header {
+    color: $primary-color;
+    font-size: 32px;
+    font-weight: 700;
+    border: none;
+    background-color: #edeff5;
+  }
+
+  .card-body {
+    background-color: var(--primary-background);
+    border-color: var(--primary-background);
+    border-bottom: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 48px 100px;
+
+    .subtitle {
+      font-weight: 600;
+      font-size: 24px;
+    }
+
+    .form-column {
+
+      mat-form-field {
+        width: 100%;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+
+    @media(max-width: 992px) {
+      padding: 24px 50px;
+    }
+  }
+
+  .card-footer {
+    padding: 24px;
+    background-color: var(--primary-background);
+    border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+}

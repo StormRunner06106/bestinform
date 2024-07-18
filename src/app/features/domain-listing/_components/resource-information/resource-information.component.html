@@ -1,0 +1,37 @@
+<div *ngIf="resourceData" class="contact-info-card">
+
+    <div *ngFor="let tabAttributesList of tabAttributesListByCategory;" class="info-section">
+        <h4 class="section-title">
+            {{ tabAttributesList[0].attributeCategory | titlecase }}
+        </h4>
+
+        <span *ngFor="let tabAttribute of tabAttributesList" class="section-row">
+            <span *ngIf="tabAttribute.attributeValue" class="section-row">
+                            <img #attributeImg [src]="tabAttribute.attributeIconPath"
+                                 (error)="attributeImg.hidden = true"
+                                 alt="icon {{tabAttribute.attributeName | lowercase}}">
+            <p>
+                {{ tabAttribute.attributeName }}
+                <span *ngIf="tabAttribute.attributeValue.toLowerCase() !== 'true' && tabAttribute.attributeValue.toLowerCase() !== 'false'">: {{ tabAttribute.attributeValue }} </span>
+            </p>
+            </span>
+
+        </span>
+        <span class="section-row">
+            <img [src]="'/assets/images/others/map-marker.png'" alt="icon" />
+            <p>{{resourceData.address}}, {{resourceData.city}}, {{resourceData.country}}</p>
+        </span>
+    </div>
+
+    <div *ngIf="isValidCoords"
+         class="info-section">
+        <h4 class="section-title">
+            Location on map
+        </h4>
+
+
+        <div id="ol-map"></div>
+
+    </div>
+
+</div>

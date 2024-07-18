@@ -1,0 +1,207 @@
+:host ::ng-deep {
+
+  .p-button-yellow {
+    background-color: #f8cc50;
+    color: #4257EE;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    border: unset;
+    width: 100%;
+  }
+  .p-button-yellow:enabled:focus {
+    background: hsla(233, 83%, 60%, 1);
+    border-color: hsla(233, 83%, 60%, 1);
+  }
+  .p-button-yellow:enabled:hover {
+    background: hsla(233, 83%, 60%, 1);
+    border-color: hsla(233, 83%, 60%, 1);
+  }
+  .p-carousel-item {
+    padding: 0px 10px;
+  }
+  .p-carousel-container {
+    button:not(.rezerva) {
+      color: #101828 !important;
+      border-color: transparent !important;
+      background: white !important;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.12) !important;
+    }
+    .p-carousel-next {
+      right: 35px;
+      z-index: 999;
+      position: absolute;
+    }
+    .p-carousel-prev {
+      left: 35px;
+      z-index: 999;
+      position: absolute;
+    }
+  }
+
+  .events-true.p-carousel-content {
+    .p-carousel-container {
+      .p-carousel-prev {
+        top: -21px;
+        z-index: 999;
+        left: unset;
+        position: absolute;
+      }
+      .p-carousel-next {
+        bottom: -21px;
+        z-index: 999;
+        right: unset;
+        position: absolute;
+      }
+    }
+  }
+}
+
+.button-wrapper {
+  padding: 0px 10px;
+  width: 100%;
+}
+
+.first-container {
+  .title-container {
+    padding: 0;
+  }
+}
+
+.slider-container {
+  position: relative;
+  overflow: visible;
+  padding-bottom: 16px;
+  border-radius: 16px;
+  height: 100%;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.slider {
+  display: grid;
+  grid-auto-flow: column;
+  // grid-template-columns: repeat(auto-fill, 200px);
+  gap: 24px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.left-arrow,
+.right-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.left-arrow {
+  left: 0;
+}
+
+.right-arrow {
+  right: 0;
+}
+
+mat-icon {
+  color: #101828;
+}
+
+::ng-deep .arrow {
+  background-color: white !important;
+}
+
+.glow-wrapper {
+  position: relative;
+}
+
+.glow-wrapper::before,
+.glow-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  pointer-events: none;
+}
+
+.glow-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.8), transparent);
+}
+
+.glow-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.8), transparent);
+}
+
+.title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
+:host ::ng-deep .p-button.p-button-outlined {
+  color: #4257EE;
+}
+
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+@media (max-width: 980px) {
+  :host ::ng-deep p-button {
+    display: none;
+  }
+  .arrow {
+    display: none;
+  }
+  .slider-container {
+    padding: 0px;
+  }
+  :host ::ng-deep {
+    .events-true.p-carousel-content {
+      .p-carousel-container {
+        .p-carousel-next {
+          right: 35px !important;
+          bottom: unset !important;
+          z-index: 999;
+          position: absolute;
+        }
+        .p-carousel-prev {
+          left: 35px !important;
+          top: unset !important;
+          z-index: 999;
+          position: absolute;
+        }
+      }
+    }
+    .p-carousel-item {
+      padding: 5px;
+    }
+  }
+}
+
+@media (min-width: 981px) {
+  .eventTitle {
+    display: none;
+  }
+  .eventSlider {
+    padding: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .title-container {
+    flex-wrap: wrap;
+    gap: 20px;
+    white-space: normal;
+  }
+}

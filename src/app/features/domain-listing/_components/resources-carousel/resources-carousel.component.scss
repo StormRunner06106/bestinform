@@ -1,0 +1,10 @@
+@import "../../../../theme/styles/components/colors";
+
+.best-events-title {
+  margin-bottom: 32px;
+  color: $title;
+
+  span {
+    color: $primary-color;
+  }
+}

@@ -1,0 +1,31 @@
+<div class="container-fluid financeArea">
+    <div class="row">
+        <div class="col-12">
+            <div class="imgWrapper">
+                <img src="assets/images/logos/fonduri-ue.png" class="img-fluid">
+            </div>
+        </div>
+        <div class="col-12" *ngIf="pageLang === 'en'">
+            <p>Project co-financed from the European Regional Development Fund and the State Budget through the
+                Competitiveness Operational Program 2014 - 2020.</p>
+        </div>
+        <div class="col-12" *ngIf="pageLang === 'ro'">
+            <p>Proiect cofinanțat din Fondul European de Dezvoltare regională și Bugetul de Stat prin Programul operațional competitivitate 2014 - 2020.</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer d-flex flex-column justify-content-between align-items-center">
+    <img src="assets/images/logos/Logo%20-%20White.png" width="165px">
+    <div class="social-media">
+        <a href="https://www.facebook.com/profile.php?id=100076116217462" target="_blank">
+            <i class="fab fa-facebook-f me-3"></i>
+        </a>
+
+        <a href="https://www.instagram.com/bestinform.eu " target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+    <p *ngIf="pageLang === 'en'">© 2023 Bestinform | All rights reserved.</p>
+    <p *ngIf="pageLang === 'ro'">© 2023 Bestinform | Toate drepturile rezervate.</p>
+</div>

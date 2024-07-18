@@ -1,0 +1,58 @@
+// theme colors
+$primary-color: #4257EE;
+
+$secondary-color: #FFCC29;
+
+$title: #231F20;
+$paragraph: #231F20;
+$link: #0D4494;
+
+$background-primary: #FFFFFF !default;
+$background-secondary: #edf0fa !default;
+
+$header-footer-color: #FFF;
+
+:root {
+  --primary-background: #{$background-primary};
+  --secondary-background: #{$background-secondary};
+  --header-footer-background: #{$header-footer-color}
+}
+
+[data-theme='dark']:root {
+  --primary-background: #EDE9E8;
+  --secondary-background: #EDE9E8;
+}
+
+//label colors
+$active-color:#69C98C;
+$pending-color:#FCCC3D;
+$inactive-color:#858495;
+$draft-color:#2F9DF4;
+$archived-color:#E6536C;
+$inprogress-color:#236BB4;
+
+$bkg-active-color:rgba(105, 201, 140, 0.2);
+$bkg-pending-color:rgba(252, 204, 61, 0.2);
+$bkg-inactive-color:rgba(133, 132, 149, 0.2);
+$bkg-draft-color:rgba(47, 157, 244, 0.2);
+$bkg-archived-color:rgba(230, 83, 108, 0.2);
+$bkg-inprogress-color:rgba(73, 80, 250, 0.2);
+
+$like-color:#2CCEA7;
+$dislike-color: #EA4335;;
+
+
+//label buttons active/inactive/disabled
+
+$active-btn-color:#34A853;
+$inactive-btn-color:#848484;
+$disabled-btn-color:#E64335;
+
+.positive-amount{
+    color:rgba(105, 201, 140, 1)!important;
+}
+
+.negative-amount{
+        color:rgba(241, 56, 88, 1)!important;
+}
+

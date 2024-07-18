@@ -1,0 +1,47 @@
+<div class="event-mobile-card">
+
+  <div *ngIf="event.disabled" class="event-mobile-disabled">
+    <div class="disabled-message-mobile">
+      <div class="image-disabled-mobile"></div>
+      <div class="disabled-message-text-mobile">
+        Disponibil in curand
+      </div>
+    </div>
+  </div>
+
+  <div class="event-mobile-card-image">
+    <img [src]="event?.imageUrl" />
+  </div>
+
+  <div class="event-mobile-card-description">
+    <div class="event-mobile-top">
+      <div class="event-mobile-card-title-calendar">
+        <div class="event-mobile-calendar">{{ data?.day }}</div>
+        <div class="event-mobile-date">{{ data?.month }}</div>
+      </div>
+
+      <div class="event-mobile-title-text-type">
+        <img
+          [src]="icon"
+          width="15"
+          height="15"
+        />{{ event.type }}
+    </div>
+    </div>
+
+    <div class="event-mobile-card-footer">
+      <div class="event-mobile-card-title">
+        <h2>{{ event?.cardText?.title }}</h2>
+      </div>
+
+      <div class="event-card-mobile-footer-location">
+        <i class="pi pi-map-marker"></i>
+        {{event?.cardText?.address}}
+      </div>
+
+      <div class="event-card-mobile-footer-price">
+        de la <span class="event-mobile-price">{{ event?.cardText?.price }} RON/pers</span>
+      </div>
+    </div>
+  </div>
+</div>

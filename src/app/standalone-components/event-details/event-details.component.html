@@ -1,0 +1,31 @@
+<div class="underlay"></div>
+<!--<div class="event-header d-flex flex-column" [style.background-image]="'url(https://s3-alpha-sig.figma.com/img/e4a7/5eb5/163f874ba2d9cf89ed39189186a2b7f2?Expires=1713744000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=G3rCxOKkODqpaA4r~r2AAuAtJkZwvsz4W-2Ry962aeCqgNOMJrFW16Szt~rP0IV3tdKvo8ncm~T5WmOgQqOp29PZD5VeivtRHtIwAH0YmMCkrjaJgijipqUQ1b7G5VkRfQINI5SAiYgyCkmxzLwo43KCpr8lW~kFcD6cWQEleDFlaBBQ0A7tgwVUhh96~oluHMiWj7ZyEOf0U~jyLh1GuzvACFWviz5nKU00Zy3EZRBflkzr2ze~BrL0fQgYVY0D0NYy65palrXo5AXTXSKGT1PWYzg4tiaKG8V4OsPjYX8kuUkLjHNsJlGvIuahlXYF3rv2R0ENrfhYFbNJ25ZCCg__)'">-->
+<div class="event-header d-flex flex-column" [style.background-image]="getEventImage()">
+    <div class="event-search-bar">
+        <div class="d-flex justify-content-between mb-3">
+            <h1>{{event?.title}}</h1>
+            <div class="d-flex rating-wrapper align-items-center">
+                <div class="mr-1 rating">Rating</div>
+                <div class="rating-count">9+</div>
+            </div>
+        </div>
+        <!--        <app-main-search selected="common"></app-main-search>-->
+        <div class="d-flex justify-content-between event-essentials">
+            <div class="event-card-text position-relative d-flex"><i class="pi pi-calendar left"><span>{{getDay()}}</span></i><span class="month">{{getMonth()}}</span></div>
+            <div class="location"><i class="pi pi-map-marker left"></i>{{event?.venue?.name}}</div>
+            <div class="event-ticket"><i class="pi pi-ticket left"></i>Pret Bilet: de la <span>25 RON</span></div>
+        </div>
+        <div class="d-flex justify-content-between event-tabs mt-4">
+            <div class="event-tab" [routerLink]="['/client/event/description']" queryParamsHandling="merge" routerLinkActive="active">
+                Despre
+            </div>
+            <!--            <div class="event-tab" [style.background-image]="'url(https://s3-alpha-sig.figma.com/img/bfc7/e679/e5631de48494f7967243ba7c8a7a2018?Expires=1713744000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Pe9ZZnVEVd2qWQD-W4F8KwvFoZpU7sjdWGXh8JPsQgFCRy2dfivXZ0LQCu5h1Bo~n4hrdDoIzzwyVbOCh~xV8aAPvGVNj~17dWGZaJirWzQ55YjA2wsEbnLmZx1B4tAgrlaT-7V0QSMFhZUu3q7rqTYix60T5GeMpJCbulbJmPI5-6NunlvEjUZXWyoepUdScsOIixVdG6Auu1sTird1DWY8v6JQ5mYXuatx5seSgTzs-x2RrFr5QVRa5VpRDfpI7ubPbhkXY75EltRY~HEHwTi6OOD9e9j839Ur0CqG9Ccp3MsoXTkxKb5uY-VrfDf-~fVO7eyNy6OYcV-FTRCEuQ__)'">-->
+            <!--                Galerie-->
+            <!--            </div>-->
+            <div class="event-tab" [routerLink]="['/client/event/tickets']" queryParamsHandling="merge" routerLinkActive="active">
+                Bilete
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

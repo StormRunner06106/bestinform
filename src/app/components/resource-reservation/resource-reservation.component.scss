@@ -1,0 +1,514 @@
+:host ::ng-deep {
+  .iti--allow-dropdown .iti__flag-container,
+  .iti--separate-dial-code .iti__flag-container {
+    height: 100% !important;
+  }
+
+  .iti.separate-dial-code input,
+  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-2 input,
+  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input,
+  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4 input {
+    height: 100% !important;
+  }
+
+  .cautare {
+    background: #4257EE !important;
+    border: none;
+    border-radius: 0px 8px 8px 0px;
+    padding: 0.75rem 2.25rem;
+  }
+  .special-request-input {
+    height: 10vh;
+  }
+  .p-autocomplete {
+    width: 100%;
+  }
+  p-autocomplete {
+    width: 100%;
+    input {
+      border-radius: 6px 0px 0px 6px;
+    }
+  }
+  input {
+    width: 100%;
+  }
+  p-calendar {
+    width: 50%;
+    input {
+      order: 1;
+      padding-left: 46px;
+    }
+    .p-button.p-button-icon-only {
+      position: absolute;
+    }
+    button {
+      order: 0;
+      color: #515478a6;
+      border: unset;
+      background: unset;
+    }
+    button:enabled:focus {
+      outline: 0 none;
+      outline-offset: 0;
+      box-shadow: unset;
+      border-color: unset;
+      background: unset;
+      color: #515478;
+    }
+    button:enabled:hover {
+      outline: 0 none;
+      outline-offset: 0;
+      box-shadow: unset;
+      border-color: unset;
+      background: unset;
+      color: #515478;
+    }
+    .p-selectbutton .p-button.p-highlight {
+      background: hsla(233, 83%, 60%, 1);
+      border-color: hsla(233, 83%, 60%, 1);
+    }
+  }
+  .p-calendar {
+    width: 100%;
+  }
+  .arrow {
+    background-color: white;
+    color: #515478a6;
+    border: unset;
+  }
+  .arrow:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: unset;
+    border-color: unset;
+    background: white;
+    color: #515478;
+  }
+  .arrow:enabled:hover {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: unset;
+    border-color: unset;
+    background: white;
+    color: #515478;
+  }
+  p-inputNumber .p-inputtext:enabled:focus {
+    border: unset;
+    box-shadow: unset;
+  }
+  p-inputNumber .p-inputtext {
+    border: unset;
+    text-align: center;
+  }
+  .p-inputnumber .p-button {
+    display: none;
+  }
+
+  .p-dropdown {
+    width: 100%;
+  }
+  .pi-map-marker {
+    cursor: pointer;
+  }
+  .p-inputnumber {
+    button {
+      width: 10px;
+    }
+  }
+  p-selectbutton {
+    .p-buttonset {
+      width: 100%;
+      display: flex;
+      .p-button {
+        width: 100%;
+      }
+    }
+  }
+  .dropdownButton {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: unset;
+    border-color: unset;
+    background: white;
+    color: #515478;
+    width: 100%;
+    border: 1px solid #ced4da;
+  }
+  .dropdownButton:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: unset;
+    border-color: unset;
+    background: white;
+    color: #515478;
+    border: 1px solid #ced4da;
+  }
+  .dropdownButton:enabled:hover {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: unset;
+    border-color: unset;
+    background: white;
+    color: #515478;
+    border: 1px solid #ced4da;
+  }
+  .guests {
+    .p-button-label {
+      text-align: start;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .p-float-label {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .p-float-label-phone {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+  }
+}
+
+.preferential {
+  font-size: 12px;
+}
+
+.reservation-error {
+  color: #c0392b;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.reservation-date-and-time {
+  display: flex;
+  gap: 20px;
+}
+
+.reservation-preferences {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reservation-personal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reservation-info-1 {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding-top: 15px;
+}
+
+@media (max-width: 980px) {
+  .input-container {
+    flex-wrap: wrap;
+    gap: 32px;
+    padding: 0;
+    padding-top: 16px;
+    ::ng-deep input {
+      border-radius: 8px;
+    }
+  }
+
+  .reservation-info-1 {
+    flex-direction: column;
+  }
+
+  .reservation-date-and-time {
+    flex-direction: column;
+  }
+
+  .reservation-loyalty-points {
+    width: 100% !important;
+  }
+
+  :host ::ng-deep .reservation-button .p-button {
+    cursor: pointer;
+    background-color: #4257EE;
+    width: 100% !important;
+    height: 50px;
+    border: none; /* Optional: if you want to remove the border */
+  }
+
+  :host ::ng-deep {
+    p-calendar {
+      width: 100%;
+    }
+
+    .iti--allow-dropdown .iti__flag-container,
+    .iti--separate-dial-code .iti__flag-container {
+      height: 100% !important;
+    }
+
+    .iti.separate-dial-code[_ngcontent-serverApp-c659]
+      input[_ngcontent-serverApp-c659],
+    .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-2[_ngcontent-serverApp-c659]
+      input[_ngcontent-serverApp-c659],
+    .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3[_ngcontent-serverApp-c659]
+      input[_ngcontent-serverApp-c659],
+    .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4[_ngcontent-serverApp-c659]
+      input[_ngcontent-serverApp-c659] {
+      height: 100% !important;
+    }
+  }
+
+  :host ::ng-deep .guests {
+    width: 100%;
+    .p-button-label {
+      max-width: unset;
+    }
+  }
+}
+
+:host ::ng-deep .reservation-button .p-button {
+  cursor: pointer;
+  background-color: #4257EE;
+  width: 30%;
+  height: 50px;
+  border: none; /* Optional: if you want to remove the border */
+}
+
+.dropdown {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
+  width: 20vw;
+  z-index: 1001;
+  transform-origin: center bottom;
+  top: 416px;
+  right: 173px;
+  .p-inputtext {
+    padding: 0;
+  }
+}
+
+.p-input-icon-left {
+  width: 100%;
+}
+
+.guests {
+  display: flex;
+  width: 70%;
+  height: 100%;
+  input {
+  }
+}
+
+.dropdown-value {
+  height: 100%;
+  width: 100%;
+}
+
+.label {
+  width: 100%;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0px 25px;
+  gap: 10px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 16px 0px 16px;
+}
+
+input {
+  width: 100%;
+}
+
+.bundled-search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+span .input-field {
+  padding-left: 45px;
+  height: 52px !important;
+  width: 100%;
+}
+
+.left {
+  left: 15px;
+  right: unset !important;
+}
+
+.p-input-icon-right {
+  width: 100%;
+}
+
+.input-row {
+  width: 100%;
+  border: 1px solid #ced4da;
+}
+
+.reservation-loyalty-points {
+  color: #333;
+  border-radius: 8px;
+  width: 20vw; /* Adjust the width as needed */
+}
+
+.reservation-section-header span {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.center-header span {
+  display: flex;
+  flex-direction: row;
+}
+
+.loyalty-points-box {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  align-content: start;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-switch input[type="checkbox"] {
+  margin-left: 8px;
+}
+
+.points-display span {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.loyalty-points-label {
+  padding-right: 20%;
+}
+
+.reservation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.reservation-information-part1 {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+:host ::ng-deep {
+  .iti {
+    display: block !important;
+    height: 100%;
+  }
+
+  .iti .dropdown-menu.country-dropdown {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-color: #c7cace;
+    margin-top: -1px;
+  }
+
+  .iti .iti__country-list {
+    box-shadow: none;
+    font-size: 14px;
+    margin-left: 0;
+    //   width: 244px;
+    //   max-height: 170px;
+  }
+
+  .iti__flag-container.open + input {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .iti .search-container input {
+    font-size: 14px;
+    border-color: #c7cace;
+    border-radius: 0;
+    padding: 5px 10px;
+  }
+
+  .iti .search-container input:focus {
+    outline: none;
+  }
+
+  @media screen and (max-width: 479px) {
+    .iti .iti__country-list {
+      width: 88.3vw;
+    }
+  }
+
+  ngx-intl-tel-input input {
+    //   height: 58.5px;
+    //   margin-bottom: 20px;
+    //   padding: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #c7cace;
+    border-radius: 4px;
+    //   font-size: 18px;
+  }
+
+  ngx-intl-tel-input.ng-invalid.ng-touched input {
+    border: 1px solid #c0392b;
+  }
+
+  ngx-intl-tel-input input:hover {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.24);
+  }
+
+  ngx-intl-tel-input input:focus {
+    outline: none !important;
+    border-color: #3498db;
+    box-shadow: 0 0 0 0 #000;
+  }
+
+  ngx-intl-tel-input input::-webkit-input-placeholder {
+    color: #bac2c7;
+  }
+
+  ngx-intl-tel-input input:-ms-input-placeholder {
+    color: #bac2c7;
+  }
+
+  ngx-intl-tel-input input::-ms-input-placeholder {
+    color: #bac2c7;
+  }
+
+  ngx-intl-tel-input input::placeholder {
+    color: #bac2c7;
+  }
+
+  ngx-intl-tel-input input[disabled] {
+    background-color: #e5eaf1;
+  }
+}
+
+.calendar-validation-span {
+  width: 100%;
+}

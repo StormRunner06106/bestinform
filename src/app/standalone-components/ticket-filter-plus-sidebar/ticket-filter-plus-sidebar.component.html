@@ -1,0 +1,31 @@
+<div class="filter-tickets-container" [formGroup]="filterForm">
+    <h4>Cuisine</h4>
+   
+    <mat-checkbox formControlName="italian">Italian</mat-checkbox>
+    <mat-checkbox formControlName="indian">Indian</mat-checkbox>
+    <mat-checkbox formControlName="lebanese">Lebanese</mat-checkbox>
+    <mat-checkbox formControlName="asian">Asian</mat-checkbox>
+    <mat-checkbox formControlName="mediteraneean">Mediteraneean</mat-checkbox>
+
+    <h4>Price range</h4>
+    <mat-checkbox formControlName="price1"> $ </mat-checkbox>
+    <mat-checkbox formControlName="price2"> $$ </mat-checkbox>
+    <mat-checkbox formControlName="price3"> $$$ </mat-checkbox>
+    <mat-checkbox formControlName="price4"> $$$$ </mat-checkbox>
+    <mat-checkbox formControlName="price5"> $$$$$ </mat-checkbox>
+
+    <h4>Entertainment</h4>
+    <mat-checkbox formControlName="karaoke">Karaoke</mat-checkbox>
+    <mat-checkbox formControlName="dj">Dj</mat-checkbox>
+    <mat-checkbox formControlName="liveMusic">Live music</mat-checkbox>
+    <mat-checkbox formControlName="standUp">Stand-up</mat-checkbox>
+
+    <h4>Parking</h4>
+    <mat-checkbox formControlName="freeParking">Free parking</mat-checkbox>
+
+    <h4>Smoking policy</h4>
+    <mat-checkbox formControlName="inner">Inner</mat-checkbox>
+    <mat-checkbox formControlName="outer">Outer</mat-checkbox>
+
+    <button (click)="getFilterData()" class="btn-long btn-color-fill my-2"><i class="fas fa-check"></i> Apply</button>
+</div>

@@ -1,0 +1,63 @@
+
+
+<div class="container-fluid">
+    <div class="container modal-content">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-between">
+        <h4 class="modal-title">{{"PROVIDER.NEW-PAYMENT-REQUEST" | translate}}</h4>
+        <i class="fas fa-times close" (click)="closeModal()"></i>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <span class="modal-body-text">Această acțiune este permanentă și complet irevocabilă.</span>
+      </div>
+  
+      <!--Info card blue-->
+      <div class="blue-card">
+          <div class="modal-blue-container d-flex row">
+              <div class="d-flex justify-content-between row">
+                <h4 class="col-6 primary-color">{{providerName}}</h4>
+                <h4 class="col-6 d-flex justify-content-end paragraph-color">{{providerMoneyToRecive | number: '1.0-2'}} {{currency}}</h4>
+              </div>
+
+              <div class="d-flex justify-content-between row align-items-center">
+                <div class="col-6 d-flex align-items-baseline">
+                    <h6 class="primary-color">IBAN:</h6>
+                    <p class="paragraph-color mb-0">{{providerIBAN}}</p>
+                </div>
+                <div class="col-6 d-flex justify-content-end align-items-baseline">
+                    <h6 class="primary-color">{{"PROVIDER.REQUEST-DATE" | translate}}: </h6>
+                    <p class="paragraph-color mb-0">{{ dateRequest | date:'dd MMM yyyy' }}</p>
+                </div>
+              </div>
+          </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <div class="d-flex button-wrapper justify-content-between w-100">
+            <button type="button" class="btn-long btn-color-outline"
+            (click)="closeModal()">
+            <i class="fas fa-times"></i>
+            {{ 'BTN.CANCEL' | translate}}
+              <!-- <ng-container *ngIf="isDeleteLoading === true">
+                <span
+                  class="spinner-border spinner-border-sm align-middle ms-2"
+                ></span>
+              </ng-container>   -->
+            </button>
+  
+            <button type="button" class="btn-long btn-color-fill"  id="confirmPaymentRequest"
+            (click)="confirmAction()">
+            <i class="fas fa-check"></i>
+            {{ 'BTN.CONFIRM' | translate}}
+              <!-- <ng-container *ngIf="isDeleteLoading === true">
+                <span
+                  class="spinner-border spinner-border-sm align-middle ms-2"
+                ></span>
+              </ng-container>   -->
+            </button>
+        </div>
+      </div>
+    </div>
+    </div>
+  

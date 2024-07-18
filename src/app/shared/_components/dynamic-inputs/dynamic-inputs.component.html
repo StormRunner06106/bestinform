@@ -1,0 +1,151 @@
+<ng-container [ngSwitch]="inputFormData.valueType">
+
+    <!--Simple Text-->
+    <mat-form-field class="w-100" appearance="standard" *ngSwitchCase="'text'">
+
+        <mat-label>{{inputFormData.name}}</mat-label>
+        <input matInput *ngIf="inputFormData.name ==='Email'"
+               type="text"
+               [formControl]="formControl"
+               required   >
+
+        <input matInput *ngIf="inputFormData.name !=='Email'"
+               type="text"
+               [formControl]="formControl"
+               [placeholder]="inputFormData.valuePlaceholder"
+               >
+
+        <!-- <input matInput *ngIf="inputFormData.name ==='Telephone'"
+        type="text"
+        [formControl]="formControl"
+        pattern="'^[0-9]+$'" > -->
+
+        <button *ngIf="control.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearInput()">
+            <mat-icon>close</mat-icon>
+        </button>
+
+        <!--Error Message-->
+        <mat-error *ngIf="control.hasError('required') && control.touched">
+            Input is <strong>required</strong>
+        </mat-error>
+
+        <mat-error *ngIf="control.invalid && control.touched && !control.hasError('required')">
+            Acest <strong>email</strong> nu este corect!
+        </mat-error>
+
+        <!-- <mat-error *ngIf="(inputFormData.name ==='Telephone') && control.invalid && control.touched && !control.hasError('required')">
+            Acest camp nu este valid!
+        </mat-error> -->
+
+    </mat-form-field>
+
+    <!--Textarea-->
+    <mat-form-field class="w-100" appearance="standard" *ngSwitchCase="'textarea'">
+        <mat-label>{{inputFormData.name}}</mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="20"
+                  [formControl]="formControl"
+                  [placeholder]="inputFormData.valuePlaceholder">
+        </textarea>
+
+        <!--Error Message-->
+        <mat-error *ngIf="control.hasError('required') && control.touched">
+            Input is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <!--Number-->
+    <mat-form-field class="w-100" appearance="standard" *ngSwitchCase="'number'">
+        <mat-label>{{inputFormData.name}}</mat-label>
+        <input type="text" matInput
+               [placeholder]="inputFormData.valuePlaceholder"
+               [formControl]="formControl"
+        [pattern]="'^[0-9]*[0-9][0-9]*$'">
+
+<!--        <button *ngIf="control.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearInput()">-->
+<!--            <mat-icon>close</mat-icon>-->
+<!--        </button>-->
+
+        <!--Error Message-->
+        <mat-error *ngIf="control.hasError('required') && control.touched">
+            Input is <strong>required</strong>
+        </mat-error>
+
+        <mat-error *ngIf="!control.hasError('required') && control.touched && control.invalid">
+            Asigură-te ca ai adăugat <strong>un număr pozitiv</strong>.
+        </mat-error>
+    </mat-form-field>
+
+    <!--Select-->
+    <mat-form-field class="w-100" appearance="standard" *ngSwitchCase="'select'">
+        <mat-label>{{inputFormData.name}}</mat-label>
+        <mat-select [formControl]="formControl">
+            <mat-option *ngFor="let option of inputFormData.valueOptions"
+                        [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-select>
+
+        <!--Error Message-->
+        <mat-error *ngIf="control.hasError('required') && control.touched">
+            Input is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <!--Multiple Select-->
+    <mat-form-field class="w-100" appearance="standard" *ngSwitchCase="'multiple-select'">
+        <mat-label>{{inputFormData.name}}</mat-label>
+        <mat-select [formControl]="formControl" multiple>
+            <mat-option *ngFor="let option of inputFormData.valueOptions"
+                        [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-select>
+
+        <!--Error Message-->
+        <mat-error *ngIf="control.hasError('required') && control.touched">
+            Input is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <!--Toggle-->
+    <div *ngSwitchCase="'toggle'">
+        <app-custom-checkbox [name]="inputFormData.name" [control]="formControl"/>
+    </div>
+
+    <!--Checkbox-->
+    <div *ngSwitchCase="'checkbox'">
+        <mat-checkbox color="primary" [formControl]="formControl">{{inputFormData.name}}</mat-checkbox>
+<!--        <app-custom-checkbox [name]="inputFormData.name" [control]="control"/>-->
+    </div>
+
+
+    <mat-form-field appearance="standard" *ngSwitchCase="'datetime'" class="w-100">
+        <mat-label>{{inputFormData.name}}</mat-label>
+        <input matInput [matDatepicker]="picker" [formControl]="formControl" [placeholder]="inputFormData.valuePlaceholder">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="standard" *ngSwitchCase="'coord'">
+        <mat-label>{{inputFormData.name}}</mat-label>
+        <input type="number" matInput
+               [placeholder]="inputFormData.valuePlaceholder"
+               [formControl]="formControl">
+
+        <!--        <button *ngIf="control.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearInput()">-->
+        <!--            <mat-icon>close</mat-icon>-->
+        <!--        </button>-->
+        <mat-icon matSuffix [matTooltip]="'ex format: 45.1234'">info</mat-icon>
+        <!--Error Message-->
+        <mat-error *ngIf="control.hasError('required') && control.touched">
+            Input is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+</ng-container>
+
+
+

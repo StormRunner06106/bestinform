@@ -1,0 +1,92 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.header-modal {
+  background-color: $primary-color;
+  color: var(--primary-background);
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  box-shadow: 0px 12px 16px rgba(13, 68, 148, 0.48);
+  text-align: center;
+  height: 88px;
+  margin-bottom: 40px;
+}
+
+.container {
+  background-color: var(--primary-background);
+  min-height: 600px;
+}
+
+.location-list-container {
+  width: 700px;
+}
+
+.modal-content-time {
+  min-height: 400px;
+
+  .content-body{
+    .subtitle{
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+
+    .choose-activity {
+      gap: 8px;
+
+      .activity {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        line-height: 20px;
+        background-color: $primary-color;
+        color: $background-primary;
+        border-radius: 100px;
+        width: fit-content;
+        border: 1px solid $primary-color;
+      }
+
+      .selected-btn{
+        color: $primary-color;
+        background-color: $background-primary;
+      }
+
+    }
+
+
+    .timeslots-container .mat-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .time-slot {
+        max-width: 335px;
+        border: 1px solid rgba($primary-color, 0.16) !important;
+        border-radius: 20px;
+        padding: 8px 12px;
+
+        .mat-radio-button {
+          width: 100%;
+        }
+      }
+    }
+
+    :host ::ng-deep .timeslots-container .mat-radio-label {
+      justify-content: space-between;
+    }
+  }
+
+
+
+}
+
+.error-msg{
+  color: red;
+}
+
+
+::ng-deep .cdk-overlay-container {
+  z-index: 1200 !important;
+}
+

@@ -1,0 +1,145 @@
+:host ::ng-deep {
+  .reserve {
+    background: #4257EE!important;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 17px;
+  }
+
+  .search-bar-listing{
+    .p-input-icon-left > .p-inputtext{
+      width: 100%;
+    }
+    .p-input-icon-left, .p-input-icon-right{
+      width: 95%;
+    }
+  }
+
+  .p-dropdown, p-dropdown{
+    width: 100%;
+  }
+
+  .custom-paginator{
+    color: #8588AB;
+    .p-paginator-prev, .p-paginator-first{
+      margin: 0;
+      border: solid #D5D6E2;
+      border-width: 1px 0 1px 1px;
+    }
+    .p-paginator-first{
+      border-radius: 4px 0 0 4px;
+    }
+    .p-paginator-next, .p-paginator-last {
+      margin: 0;
+      border: solid #D5D6E2;
+      border-width: 1px 1px 1px 0;
+    }
+    .p-paginator-last{
+      border-radius: 0 4px 4px 0;
+    }
+    .p-paginator-prev, .p-paginator-next{
+      border-radius: 0;
+    }
+    .p-paginator-pages{
+      button, .p-highlight{
+        margin: 0;
+        border: 1px solid #D5D6E2;
+        border-radius: 0;
+      }
+      .p-highlight{
+          background-color: #ECECF2;
+          color: #8588AB;
+      }
+
+    }
+  }
+
+}
+
+.search-bar-listing {
+  display: flex;
+  width: 100%; /* Ensure the container takes the full width */
+}
+
+.search-container {
+  flex: 100%;
+  gap: 16px;
+  display: flex;
+  align-items: center; /* Centers the search input vertically */
+}
+
+.sort-container {
+  flex: 20%; /* Takes up 20% of the space */
+  display: flex;
+  align-items: center; /* Centers the dropdown vertically */
+}
+ 
+.list-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.filters-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+.listings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  // align-items: flex-start;
+  // justify-content: flex-start;
+}
+
+.listings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.paginator {
+  width: 100%;
+  
+}
+
+app-image-card {
+  width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.04);
+
+}
+
+app-image-card:hover {
+  cursor: pointer;
+}
+
+.title {
+  font-weight: 900;
+  line-height: 1.4em;
+  padding-top: 20px;
+  color: #111118;
+}
+
+.black {
+  color: #4257EE;
+  font-weight: inherit;
+}
+
+.search-bar-listing{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+

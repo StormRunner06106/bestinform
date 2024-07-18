@@ -1,0 +1,13 @@
+<button mat-button [matMenuTriggerFor]="langMenu" #langMenuTrigger="matMenuTrigger" class="lang-btn">
+    <img [src]="'assets/images/flags/'+translateService.currentLang+'.svg'" width="18" [alt]="translateService.currentLang" class="mat-elevation-z1">
+    <span Show="false" Show.gt-md class="uppercase flag-name">{{langName}}</span>
+    <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+</button>
+<mat-menu #langMenu="matMenu" [overlapTrigger]="false" class="app-menu-panel lang">
+    <span (mouseleave)="langMenuTrigger.closeMenu()">
+        <button *ngFor="let lang of translateService.getLangs()" mat-menu-item (click)="changeLang(lang)">
+            <img [src]="'assets/images/flags/'+lang+'.svg'" width="18" [alt]="lang" class="mat-elevation-z1">
+            <span class="flag-name">{{getLangName(lang)}}</span>
+        </button>
+    </span>
+</mat-menu>

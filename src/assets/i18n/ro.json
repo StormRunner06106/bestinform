@@ -1,0 +1,4652 @@
+{
+  "LOGIN": "Conectează-te",
+  "LOGOUT": "Deconectare",
+  "REGISTER": "Înregistrează-te",
+  "ACCOUNT": "Account",
+  "SUBMIT_PROPERTY": "Submit property",
+  "MENU": "Menu",
+  "MY_PROPERTIES": "My Properties",
+  "FAVORITES": "Favorites",
+  "COMPARE": "Compare",
+  "EDIT_PROFILE": "Edit Profile",
+  "LOCK_SCREEN": "Lock screen",
+  "HELP": "Help",
+  "HOME": "Acasă",
+  "NOTIFICATIONS": "Notificări",
+  "CHANGE_PASSWORD": "Schimbă parola",
+  "SETTINGS": "Setări",
+  "GENERAL-SETTINGS": "Setări Generale",
+  "APP-SETTINGS": "Setări Aplicație",
+  "MESSAGES": "Mesaje",
+  "ADD_EDITORIAL": "Adaugă editorial",
+  "EDIT_EDITORIAL": "Editează editorial",
+  "FAVOURITES": "Favorite",
+  "LOYALTY-POINTS": "Puncte loialitate",
+  "SUBSCRIPTIONS": "Abonamente",
+  "MY_BOOKINS": "Rezervările mele",
+  "FLIGHT-BOOKINGS": "Rezervări zboruri",
+  "PAYMENT-METHOD": "Metode de plată",
+  "ACTIVITIES": "Centrul de activități",
+  "TERMS": "Accept termenii și condițiile impuse de Bestinform pentru prelucrarea și modificarea datelor cu caracter personal. ",
+  "TERMS-OF-USE": "Termeni de utilizare",
+  "PRIVACY-STATEMENT": "Declarație de confidențialitate și cookie-uri",
+  "HOW-SITE-WORKS": "Cum funcționează site-ul",
+  "COOKIE-CONSENT": "Consimțământ cookie-uri",
+  "CONTACT-US": "Contactează-ne",
+  "TRANSLATE": "Această variantă a site-ului nostru este destinată vorbitorilor de limba română. Dacă vorbești o altă limbă, te rugăm să selectezi varianta potrivită pentru tine a proiectului Bestinform cu ajutorul selectorului de mai sus.",
+  "GENERAL": {
+    "INSERT_IMAGE": "Adauga o imagine aici",
+    "DELETE_ACCOUNT": "Stergere cont",
+    "DELETE_ACCOUNT_WARNING": "Continuarea va șterge permanent contul dumneavoastră, acțiunea fiind irevocabilă.  Sunteți de acord cu această acțiune?",
+    "DELETE_EVENT": "Stergere Eveniment",
+    "DEACTIVATE_ACCOUNT": "Dezactivare cont",
+    "ACTIVATE_ACCOUNT": "Activare cont",
+    "ACCOUNT": "Nu ești utilizator?",
+    "SIGNUP": "Înregistrează-te aici",
+    "OR": "sau",
+    "EVENTS": "Evenimente",
+    "EXPLORE": "Explorează",
+    "EDITORIALS": "Editoriale",
+    "MODULES": "Module",
+    "POPULAR-LOCATIONS": "Locații populare",
+    "BOOK": "Rezervă aceste experiențe pentru a explora împrejurimile orașului ",
+    "SEE-MORE": "Vezi mai multe",
+    "ACTIVITIES": "Activități",
+    "EDITORIALS": "Editoriale",
+    "COMMUNITY-REVIEW": "Ce spune comunitatea despre locațiile și recomandările oferite de BestInform.",
+    "INSPIRE": "Lasă-te inspirat de experiențele oferite de platforma ",
+    "SEARCH": "Căutare",
+    "SEARCH-NAME": "Căutare după nume",
+    "SEARCH-ENTER": "Tastează și apoi apasă Enter ...",
+    "CATEGORIES": "Categorii",
+    "RES-TYPES": "Tipuri de resurse",
+    "RES-LIST": "Listă tipuri de resurse",
+    "ADD-MORE": "Adaugă mai multe...",
+    "MY-PROFILE": "Profilul meu",
+    "MY-ACCOUNT": "Contul meu",
+    "EDIT": "Editare",
+    "ABOUT_YOURSELF": "Scrie mai multe despre tine",
+    "JOINED": "Adăugat în",
+    "NO_DATA": "Momentan nu există resurse potrivite pentru cerințele dvs.",
+    "LOAD_AUTHENTICATION": "Autentificare în curs...",
+    "LANGUAGE": "Limbă",
+    "DISTANCE-UNIT": "Unitatea de măsură pentru distanțe",
+    "TEMP-UNIT": "Unitatea de măsură pentru temperatură",
+    "CURRENCY": "Moneđă",
+    "EXP-PART": "Participare experiențe",
+    "PUSH-NOT": "Notificări Push",
+    "DETECT-LOCATION": "Detectare locație",
+    "TERMS-COND": "Accept Termeni&Condiții",
+    "2FA": "Autentificare în doi pași",
+    "RO": "Română",
+    "EN": "Engleză",
+    "DOWNLOAD-APP":"Descarcă aplicația BESTINFORM",
+    "SEARCH-RESOURCES": "Caută resurse"
+  },
+  "FAQ-FOOTER":{
+    "WHAT-BESTINFORM":"Ce este bestinform?",
+    "EXPLOITATION-SERVICE":"Cum folosești serviciul de exploatare?",
+    "WHAT-PROVIDER":"Ce este un provider?",
+    "WHICH-PLATFORMS":"Pe ce platforme pot descărca aplicația?",
+    "PREMIUM-BENEFITS":"Care sunt beneficiile premium?",
+    "RESPONSE-WHAT-BESTINFORM":"Ce este bestinform?",
+    "RESPONSE-EXPLOITATION-SERVICE":"Cum folosești serviciul de exploatare?",
+    "RESPONSE-WHAT-PROVIDER":"Ce este un provider?",
+    "RESPONSE-WHICH-PLATFORMS":"Pe ce platforme pot descărca aplicația?",
+    "RESPONSE-PREMIUM-BENEFITS":"Care sunt beneficiile premium?"
+  },
+  "THREAD": {
+    "ADD_THREAD": "Adaugă topic",
+    "EDIT_THREAD": "Editează topic",
+    "VIEW_COMMENT": "Vizualizare comentariu",
+    "TITLE": "Denumire",
+    "SLUG": "Permalink",
+    "COMMENTS": "Comentarii",
+    "COMMENT": "Comentariu",
+    "DISABLED_COMMENT": "Comentariu dezactivat",
+    "DISABLE_COMMENT": "Dezactivează comentariu",
+    "ENABLE_COMMENT": "Activează comentariu",
+    "CHANGE_STATUS": "Schimbă statusul",
+    "GENERAL_INFO": "Informații generale",
+    "THREAD_COMMENTS": "Comentarii topic",
+    "NO_COMMENTS": "Nu există comentarii"
+  },
+  "RESERVATIONS": {
+    "LIST": "Listă rezervări",
+    "NO_SPECIAL_REQUESTS": "Nu există cerințe speciale!"
+  },
+  "STAFF": {
+    "ADD_STAFF_MEMBER": "Adăugare membru Staff",
+    "EDIT_STAFF_MEMBER": "Modificare membru Staff",
+    "PROVIDERS": "Provideri",
+    "DOMAINS": "Domenii",
+    "PATTERNS": "Listă șabloane",
+    "TRIPS": "Itinerarii",
+    "LIST": "Listă resurse",
+    "PROPERTIES": "Proprietăți",
+    "EXPERIENCES": "Experiențe",
+    "FORUMS": "Forumuri",
+    "EDITORIALS": "Editoriale",
+    "LIBRARY": "Librărie",
+    "REPORTS": "Rapoarte",
+    "RESOURCES": "Resurse",
+    "EVENTS": "Evenimente",
+    "OFFERS": "Oferte călătorii",
+    "PAGES": "Pagini",
+    "MEDIA-LIBRARY": "Librărie media",
+    "HOMEPAGE": "Acasă",
+    "JOBS_TRADE": "Locuri de muncă",
+    "CANDIDATES_CV": "CV-uri candidați",
+    "SUBSCRIPTIONS": "Abonamente",
+    "NOTIFICATIONS": "Notificări",
+    "LOCATIONS": "Locații",
+    "USERS": "Clienți"
+  },
+  "RESOURCE": {
+    "DOMAIN": {
+      "TRAVEL_ENTERTAINMENT": "Călătorit & Divertisment",
+      "HEALTHCARE": "Sănătate",
+      "CULTURE_ART": "Cultură & Artă",
+      "EDUCATION": "Educație",
+      "JOBS": "Locuri de muncă",
+      "CATEGORIES": "Categorii",
+      "RES-TYPES": "Tipuri de resurse",
+      "NAME": "Denumire",
+      "AVAILABLE_FILTERS": "Proprietăți de filtrare disponibilitate",
+      "THUMBNAIL_CLICK": "Apasă pentru a alege un fișier",
+      "ICON_CLICK": "Încarcă o imagine de tip .png, .jpg, .jpeg de maxim 1024 Kb.",
+      "ADD-RES-TYPE": "Adaugă un tip de resursă",
+      "EDIT-RES-TYPE": "Editează tipul de resursă",
+      "GENERAL-INFO": "Informații generale",
+      "SELECT": "Selectarea domeniului",
+      "CHECK_INFO": "Verifică informațiile de mai jos pentru a continua"
+    },
+    "RES-FILTERS": {
+      "LOCATION": "Locație",
+      "PERSONS": "Persoane",
+      "ADULTS": "Număr persoane adulți",
+      "ADULTS-KIDS": "Număr persoane adulți, copii",
+      "ADULTS-KIDS-ROOMS": "Număr persoane adulți, copii, camere",
+      "ADULTS-KIDS-MEALS": "Număr persoane adulți, copii, mese",
+      "DATE-DAY": "Data - o zi",
+      "DATE-FROM-DAY": "Data - de la data - până la data",
+      "DATE-DAY-TIME": "Data - zi, ora",
+      "DATE-DAY-FROM-TIME": "Data - zi, de la ora - până la ora",
+      "GUESTS": "Invitați",
+      "NR_ADULTS": "Adulți",
+      "NR_CHILDREN": "Copii",
+      "NR_ROOMS": "Camere",
+      "SELECT_GUESTS": "Alegeți numărul de invitați",
+      "SELECT_DESTINATION": "Alegeți destinația",
+      "SELECT_DATE": "Alegeți data",
+      "SELECT_TIME": "Alegeți ora",
+      "SELECT_DATE_TIME": "Alegeți data și ora",
+      "SELECT_START_DATE": "Check in",
+      "SELECT_END_DATE": "Check out",
+      "SELECT_START_TIME": "Alegeți ora de start",
+      "SELECT_END_TIME": "Alegeți ora de final"
+    },
+    "LIST": "Listă resurse",
+    "BEST_FOR": "Recomandate pentru",
+    "BOOK_NOW": "Rezervă acum",
+    "ABOUT_IT": "Despre",
+    "EVENTS": "Evenimente",
+    "MENU": "Meniu",
+    "FACILITIES": "Facilităţi",
+    "ROOMS": "Camere",
+    "TICKETS": "Bilete",
+    "RESERVATIONS": "Rezervări",
+    "BUY_NOW": "Cumpără acum",
+    "RESET-FILTERS": "Resetează filtrele"
+  },
+  "MEDIA-LIBRARY": {
+    "LIBRARY": "Librărie Media"
+  },
+  "EVENTS": {
+    "ADD": "Adăugare Eveniment",
+    "EDIT": "Editare Eveniment",
+    "LIST": "Listă Evenimente",
+    "GENERAL-INFO": "Informații generale",
+    "TITLE": "Denumire",
+    "DATE-EVENT": "Data",
+    "EVENT-TIME": "Ora",
+    "SHORT-DESCRIPTION": "Scurtă descriere",
+    "EXTENSION": "Extensie Predefinită URL",
+    "START-TIME": "Oră începere",
+    "END-TIME": "Oră încheiere",
+    "DESCRIPTION": "Descriere",
+    "CATEGORY": "Categorie",
+    "DOMAIN": "Domeniu",
+    "EVENT-TYPE": "Tipul Evenimentului",
+    "DRESS-CODE": "Cod vestimentar",
+    "BENEFITS": "Beneficii",
+    "THUMBNAIL-GALLERY": "Imagini si galerie",
+    "THUMBNAIL": "Imagine",
+    "UPLOAD-IMAGES": "Încarcă imagini",
+    "LOCATION": "Locație",
+    "TICKETING": "Denumire Ticket",
+    "TICKET-TYPE": "Tipul Ticketului",
+    "BEST_FOR": "Evenimente pentru",
+    "RESERVE_LOCATION": "Rezervă aceste experiențe pentru a explora împrejurimile orașului",
+    "STARTS": "Începe",
+    "TICKETS": "Bilete",
+    "DETAILS": "Detalii eveniment",
+    "FACILITIES": "Facilități",
+    "LONGITUDE": "Longitudine",
+    "LATITUDE": "Latitudine",
+    "ADDRESS": "Adresă",
+    "MAP": "Hartă",
+    "COUNTRY": "Țară",
+    "CITY": "Oraș",
+    "SHARED-EXPERIENCE": "Experiență împărtășită"
+  },
+  "EDITORIALS": {
+    "BEST_FOR": "Editoriale pentru",
+    "BY": "de",
+    "CHANGE-STATUS-TITLE": "Schimbă statusul editorialului",
+    "DELETE-TITLE": "Ștergere editorial",
+    "DELETE-DIRECTIONS": "Acțiunea de ștergere este permanentă și complet irevocabilă."
+  },
+  "PROP-CATEGORIES": {
+    "TITLE": "Categorii proprietăți",
+    "ZONE": "Zonă",
+    "ADD": "Adăugare categorie proprietăți",
+    "EDIT": "Editare categorie proprietăți",
+    "GENERAL-INFO": "Informații Generale",
+    "CONTACT": "Contact",
+    "LOCATION": "Locație",
+    "FACILITIES": "Facilități",
+    "SERVICES": "Servicii",
+    "LIST": "Listă categorii",
+    "DELETE-TITLE": "Ștergere categorie proprietăți",
+    "DELETE-WARNING": "Acțiunea de ștergere categorie proprietăți este permanentă și complet irevocabilă."
+  },
+  "PROPERTIES": {
+    "TITLE": "Proprietăți",
+    "ADD-PROP": "Adăugare proprietate",
+    "EDIT-PROP": "Editare proprietate",
+    "PROP-NAME": "Proprietăți",
+    "PROP-CATEGORY": "Categorie",
+    "PROP-VALUE-TYPE": "Tip valoare",
+    "DESCRIPTION": "Descriere",
+    "TECHNICAL-INFO": "Informații tehnice",
+    "OFFSET": "Spațiere",
+    "FIELD-SIZE": "Dimensiune câmp",
+    "VISIBLE-IN-FORM": "Vizibilitate în formular",
+    "EXAMPLE": "Exemplu de completare",
+    "VISIBLE-IN-LIST": "Vizibilitate în listă",
+    "PROP-REQUIRED": "Proprietate obligatorie?",
+    "UNIQUE-VALUE": "Valoare unică?",
+    "ICON-UPLOAD": "Încărcare pictogramă",
+    "PROP-LIST": "Listă proprietăți",
+    "SELECTION-OPTION": "Opțiuni selecție",
+    "ADD-OPTION": "Adaugă opțiuni",
+    "DELETE-TITLE": "Ștergere proprietate",
+    "DELETE-WARNING": "Acțiunea de ștergere proprietate este permanentă și complet irevocabilă."
+  },
+  "TEMPLATES": {
+    "LIST": "Listă șabloane",
+    "NAME": "Nume",
+    "DOMAIN": "Domeniu",
+    "CATEGORY": "Categorie",
+    "RES-TYPE": "Tipul de resursă",
+    "ACTIONS": "Acțiuni",
+    "LIST": "Listă șabloane",
+    "FORM": "Formular",
+    "FORM-DIRECTIONS": "Completează formularul cu informații relevante",
+    "GENERAL-INFO": "Informații generale",
+    "BENEFITS": "Beneficii",
+    "TEMPLATE-MODULES": "Module șablon",
+    "GEO-LOCATION": "Locație Geografică",
+    "BOOKING-TIME": "Selectare Timp pentru Rezervare",
+    "APPOINTMENTS": "Programări",
+    "TIMETABLE": "Orar",
+    "TICKET-BOOKING": "Rezervare Bilet",
+    "CULTURAL-BOOKING": "Rezervare Culturală",
+    "BOOKING-TIME-SLOTS": "Rezervare Intervale orare",
+    "CAR-BOOKING": "Rezervare Mașină",
+    "RELATED-RESOURCES": "Resurse asociate",
+    "RENTAL-BOOKING": "Rezervare pentru închiriere",
+    "PRODUCT-LIST": "Listă de produse",
+    "ADDITIONAL-SERVICES": "Servicii adiționale",
+    "VOUCHER": "Voucher Electronic",
+    "GENERATE-QR": "Generare cod QR",
+    "QR-TITLE": "Titlu cod QR",
+    "QR-DESCRIPTION": "Descriere cod QR",
+    "ADD": "Adăugare șablon",
+    "EDIT": "Editare șablon: ",
+    "DELETE": "Ștergere șablon",
+    "DELETE-WARNING": "Acțiunea de ștergere șablon este permanentă și complet irevocabilă"
+  },
+  "NAV": {
+    "HOME": "Acasă",
+    "PROPERTIES": "Properties",
+    "PAGES": "Pages",
+    "AGENTS": "Agents",
+    "AGENT": "Agent",
+    "FAQS": "Faqs",
+    "PRICING": "Pricing",
+    "TERMS_CONDITIONS": "Terms & Conditions",
+    "LANDING": "Landing",
+    "404_PAGE": "404 Page",
+    "OTHERS": "Others",
+    "EXTERNAL_LINK": "External Link",
+    "MENU_ITEM": "Menu Item",
+    "CONTACT": "Contact",
+    "ABOUT_US": "About Us",
+    "ADMIN": "Admin"
+  },
+  "BTN": {
+    "DELETE": "Ștergere",
+    "ADD": "Adaugă",
+    "SAVE": "Salvează",
+    "SUBMIT": "Trimite",
+    "CANCEL": "Anulare",
+    "UPLOAD": "Încarcă",
+    "REMOVE": "Renunță",
+    "YES": "Da",
+    "NO": "Nu",
+    "OK": "OK",
+    "PUBLISH": "Publică",
+    "UPDATE": "Actualizează",
+    "SAVE_DRAFT": "Salvează schiță",
+    "ADD_EDITORIAL": "Adaugă editorial",
+    "SAVE_EDITORIAL": "Salvează editorial",
+    "CLEAR": "Șterge",
+    "ADVANCED": "Avansat",
+    "HIDE": "Ascunde",
+    "MORE": "Continuă",
+    "CONFIRM": "Confirmă",
+    "BACK": "Înapoi",
+    "CHANGE": "Schimbă",
+    "CHANGE-PASS": "Schimbă parola",
+    "NEXT": "Continuă",
+    "LOGIN": "Autentificare",
+    "FACEBOOK-LOGIN": "Continuă cu Facebook",
+    "GOOGLE-LOGIN": "Continuă cu Google",
+    "FILTER": "Filtrează",
+    "ADVANCED-FILTER": "Filtrare avansată",
+    "DELETE_CONFIRM": "Confirmă ștergerea",
+    "DELETE_ABORT": "Anulează acțiunea de ștergere",
+    "ADD-MEDIA": "Adaugă media",
+    "ACTIVATE": "Activare",
+    "DEACTIVATE": "Dezactivare",
+    "CONTINUE": "Continuă"
+  },
+  "MEDIA": {
+    "CHOOSE-MEDIA": "Alege media",
+    "IMG": "Imagine",
+    "OTHER": "Altele",
+    "CATEGORY": "Categorie"
+  },
+  "MESSAGE": {
+    "SURE_DELETE": "Are you sure you want to delete?",
+    "FILE_SIZE": "The file size cannot exceed {{param}} kb.",
+    "ACCOUNT_DELETE_WARNING": "Acțiunea de stergere cont este permanentă și complet irevocabilă. Datele cu caracter personal vor fi criptate și arhivate.",
+    "ACCOUNT_DEACTIVATE_WARNING": "Dezactivarea unui cont presupune activarea acestuia după o anumită dată, contul poate fi reactivat doar de către super-admin sau automat după data aleasă.",
+    "ACCOUNT_ACTIVATE_WARNING": "Activare membru staff.",
+    "EVENT_DELETE_WARNING": "Acțiunea de stergere eveniment este permanentă și complet irevocabilă.",
+    "TERMS_AND_CONDITIONS": "Accept termenii și condițiile inpuse de Bestinform pentru prelucrarea și modificarea datelor cu caracter personal.",
+    "SUCCESS": "Succes",
+    "ERROR": "Eroare",
+    "CHANGE-PASS-CLIENT": "Adaugă parola ta existentă pentru a putea creea una nouă.",
+    "TERMS-CHANGE-PASS": "Accept termenii și condițiile impuse de <b>Bestinform</b> pentru prelucrarea și modificarea datelor cu caracter personal.",
+    "TERMS-ERROR": "Vă rugăm să fiți de acord cu termenii și condițiile pentru a continua.",
+    "COMPLETE-RANGE": "Completați interlvalul.",
+    "ARCHIVE-WARNING": "Acțiunea de arhivare trip nu este permanentă și complet irevocabilă."
+  },
+  "FIELD": {
+    "NAME": "Nume",
+    "TITLE": "Titlu",
+    "DOMAIN": "Domeniu",
+    "AUTHOR": "Autor",
+    "SLUG": "Permalink",
+    "CATEGORY": "Categorie",
+    "SUBCATEGORY": "Subcategorie",
+    "CREATION_DATE": "Data creării",
+    "TAGS": "Etichete",
+    "STATUS": "Status",
+    "ACTIONS": "Acțiuni",
+    "PUBLIC": "Public",
+    "PUBLICATION": "Publicare",
+    "PUBLICATION_DATE": "Data publicării",
+    "PRIVATE": "Privat",
+    "OLD-PASSWORD": "Parolă veche",
+    "NEW-PASSWORD": "Parolă nouă",
+    "PASSWORD": "Parolă",
+    "CONFIRM-NEW-PASSWORD": "Confirmă parola nouă",
+    "CONFIRM-PASSWORD": "Confirmă parola",
+    "NO-MATCH": "Parolele nu se potrivesc",
+    "REMEMBER-ME": "Ține-mă minte",
+    "FORGOT-PASS": "Ai uitat parola?",
+    "RESET-CODE": "Codul de resetare al parolei",
+    "SEO_OPTIMIZATION": "Optimizare SEO",
+    "SHORT-DESCRIPTION": "Descriere scurtă",
+    "META_DESCRIPTION": "Descriere META",
+    "FEATURED_IMAGE": "Imagine reprezentativă",
+    "TITLE": "Titlu",
+    "CITY": "Oraș",
+    "COUNTRY": "Țară",
+    "RESOURCE-TYPE": "Tipul de eveniment",
+    "DRESS-CODE": "Cod vestimentar",
+    "START-DATE": "Dată de început",
+    "END-DATE": "Dată de final",
+    "BENEFITS": "Beneficii",
+    "DOMAIN": "Domeniu",
+    "RESOURCE-NAME": "Nume resursă",
+    "PROVIDER": "Provider",
+    "DATE-N-HOUR": "Data & Ora",
+    "DESTINATION": "Destinație"
+  },
+  "TITLES": {
+    "PERSONAL-INFORMATION": "Informații personale",
+    "EDITORIALS_LIST": "Listă Editoriale",
+    "STAFF-MEMBERS-LIST": "Listă membri Staff",
+    "PROFILE-DIRECTIONS": "Completează profilul tău cu informații relevante.",
+    "PROFILE-IMG": "Imagine de profil",
+    "PERSONAL-DATA": "Date personale",
+    "AVATAR": "Modifică avatar",
+    "NEW-PASS": "Parolă nouă",
+    "SECURITY": "Securitate cont",
+    "SECURITY-DIRECTIONS": "Creează o nouă parolă pentru a te putea autentifica în contul tău.",
+    "FORGOT-PASS": "Recuperare cont",
+    "FORGOT-PASS-DIRECTIONS": "Ai uitat parola? Introdu emailul și recuperează contul.",
+    "REGISTER-CLI": "Înregistrare client",
+    "REGISTER-PROVIDER": "Înregistrare provider",
+    "REGISTER-DIRECTIONS": "Completează formularul cu datele potrivite.",
+    "DOMAINS-LIST": "Listă domenii",
+    "NEW-CATEGORY": "Categorie nouă",
+    "NAME": "Denumire",
+    "NAME-EN": "Denumire (engleză)",
+    "NAME-RO": "Denumire (română)",
+    "DELETE-CATEGORY": "Ștergere categorie",
+    "DELETE-RESTYPE": "Ștergere tip de resursă",
+    "TYPE-OF-RES": "Tipuri de resurse",
+    "DELETE-CATEGORY-DIRECTIONS": "Acțiunea de ștergere categorie este permanentă și irevocabilă.",
+    "CONTROL-PANEL": "Panou de control",
+    "STAFF-LIST": "Lista membrilor Staff",
+    "HISTORY-LOG": "Istoric",
+    "RESOURCES": "Resurse",
+    "TEMPLATES": "Șabloane",
+    "EVENTS": "Evenimente",
+    "TRIPS-OFFERS": "Oferte trips",
+    "EDITORIALS": "Editoriale",
+    "BALANCE": "Balanță",
+    "BOOKINGS": "Rezervări",
+    "TRIP-ARCHIVING": "Arhivare trip",
+    "TRIP-BOOKINGS":"Rezervări tripuri",
+    "ACCOUNT-INFO" : "Informatii cont",
+    "COMPANY-DETAILS" : "Detalii Companie"
+
+  },
+  "USER": {
+    "FIRSTNAME": "Prenume",
+    "LASTNAME": "Nume",
+    "BIRTHDAY": "Data nașterii",
+    "PHONE": "Telefon",
+    "GENDER": "Gen",
+    "SUPPORT-FORMAT": "Formate suportate: .jpeg, .png, .jpg",
+    "MALE": "Bărbat",
+    "FEMALE": "Femeie",
+    "NAME": "Name",
+    "DESCRIPTION": "Descriere",
+    "COMPANY-NAME": "Numele companiei",
+    "TELEPHONE": "Telefon",
+    "FAX": "Fax",
+    "CUI": "CUI",
+    "J": "J",
+    "OFFICE-ADDRESS": "Adresa sediului",
+    "COUNTY": "Județ",
+    "CITY": "Oraș",
+    "COUNTRY": "Țară"
+  },
+  "STATUS": {
+    "ACTIVE": "Activ",
+    "PENDING": "În așteptare",
+    "INACTIVE": "Inactiv",
+    "DRAFT": "Schiță",
+    "ARCHIVED": "Arhivat",
+    "IN_PROGRESS": "În progres"
+  },
+  "FOOTER": {
+    "QUESTIONS": "Ai intrebări?",
+    "CONTACT_US": "Contactează-ne la",
+    "ABOUT_BESTINFORM": "Despre Bestinform",
+    "PRIVACY": "Politica de confidențialitate",
+    "TERMS": "Termeni și condiții",
+    "PROVIDERS": "Provideri",
+    "BECOME_PARTNER": "Devino provider",
+    "BENEFITS": "Avantaje",
+    "EU_INFO": "Pentru informaţii detaliate despre celelalte programe cofinanţate de Uniunea Europeană, vă invităm să vizitaţi"
+  },
+  "ERROR": {
+    "REQUIRED": "Câmpul este obligatoriu.",
+    "WHITESPACE": "Câmpul NU trebuie să conțină spații goale.",
+    "PASS-MIN-LENGTH": "Parola trebuie să conțină cel puțin 8 caractere.",
+    "PASS-MAX-LENGTH": "Parola trebuie să conțină cel mult 16 caractere.",
+    "PASS-MIN-MAX-LENGTH": "Parola trebuie sa aiba lunigmea intre 8 si 16 caractere",
+    "PASS-DIGIT": "Parola trebue să conțină cel puțin o cifră.",
+    "PASS-UPPERCASE": "Parola trebuie să conțină cel puțin o majusculă.",
+    "PASS-LOWERCASE": "Parola trebuie să conțină cel puțin o literă mică.",
+    "PASS-WHITESPACE": "Parola NU trebuie să conțină spații goale.",
+    "PASS-SPECIAL-CHAR": "Parola trebuie să conțină cel puțin un caracter special.",
+    "SAME-PASS-REQ": "Parola NU coincide cu parola confirmată.",
+    "SAME-PASS-WARN": "Parola nouă NU poate fi aceeași cu parola veche.",
+    "EMAIL": "Emailul nu este corect.",
+    "TELEPHONE": "Numărul de telefon trebuie să conțină doar cifre. ",
+    "TELEPHONE-LEN": "Numărul de telefon trebuie să aibă o lungime de 10 cifre.",
+    "REQUIRED-ALL": "Completați toate câmpurile obligatorii.",
+    "DIGIT-ONLY": "Câmpul trebuie să conțină doar cifre.",
+    "PAST-DATE":"Nu puteți adăuga o dată din trecut.",
+    "PASSENGERS-NUMBER": "Completati  numarul de pasageri.",
+    "NEGATIVE-NUMBER": "Numărul nu poate fi negativ."
+  },
+  "TOAST": {
+    "SUCCESS": "Succes",
+    "ERROR": "Eroare",
+    "SERVER-ERROR": "Eroare de la server!",
+    "DELETE_CLIENT": "Cont șters cu succes",
+    "LOGIN": {
+      "SUCCESS": "Te-ai logat cu succes!",
+      "INVALID-CREDENTIALS": "Datele completate sunt incorecte!",
+      "NOT-ACTIVE": "Acest cont nu este activ!",
+      "ACCOUNT-BLOCKED": "Acest cont este blocat! Luați legatura cu administratorul!"
+    },
+    "REGISTER": {
+      "SUCCESS": "Te-ai înregistrat cu succes!",
+      "EMAIL-INVALID": "Emailul nu este valid!",
+      "PASSWORD-INVALID": "Parola nu este validă!",
+      "EMAIL-EXISTS": "Acest email există deja!",
+      "INVALID-ROLE": "Rolul este invalid!"
+    },
+    "REGISTRATION-EMAIL": {
+      "SUCCESS": "Emailul pentru confirmare a fost trimis cu succes!",
+      "ALREADY-ACTIVE": "Contul este deja activ!",
+      "INVALID-ID": "Id-ul este invalid!",
+      "FAIL": "Eroare de la server!"
+    },
+    "FORGOTPASS-EMAIL": {
+      "SUCCESS": "Emailul pentru resetarea parolei a fost trimis cu succes!",
+      "EMAIL-NOT-FOUND": "Acest email nu există!",
+      "FAIL": "Eroare de la server!",
+      "NOT-ACTIVE": "Acest cont nu este activ!"
+    },
+    "RESET-PASS": {
+      "SUCCESS": "Parola a fost resetată cu succes!",
+      "INVALID-EMAIL": "Emailul este invalid!",
+      "USER-NOT-FOUND": "Acest cod nu este corect!",
+      "INVALID-PASS": "Parola nu este validă!",
+      "NOT-ACTIVE": "Acest cont nu este activ!"
+    },
+    "UPLOAD-AVATAR": {
+      "SUCCESS": "Avatarul a fost încărcat cu succes!",
+      "ERROR": "Eroare de la server!"
+    },
+    "DELETE-AVATAR": {
+      "SUCCESS": "Avatarul a fost șters!",
+      "ERROR": "Eroare de la server!"
+    },
+    "UPDATE-CURRENT-USER": {
+      "SUCCESS": "Datele au fost modificate cu succes!",
+      "ERROR": "Eroare de la server!"
+    },
+    "CHANGE-PASS": {
+      "SUCCESS": "Parola a fost modificată cu succes!",
+      "INVALID-OLD-PASS": "Parola veche introdusă nu este validă!",
+      "NOT-LOGGEDIN": "Nu sunteți autentificat!",
+      "INVALID-PASS": "Parola nouă introdusă nu este validă!",
+      "PASSWORD-USED": "Nu poți folosi o parolă pe care ai avut-o deja.",
+      "NOT-ACTIVE": "Acest cont nu este activ!"
+    },
+    "ADD-RES-TYPE": {
+      "SUCCESS": "Tipul de resursă a fost adăugat!",
+      "ALREADY-EXISTS": "Acest tip de resursă există deja!",
+      "NOT-LOGGEDIN": "Nu sunteți autentificat!",
+      "INVALID-ID": "Eroare de la server!"
+    },
+    "DOMAIN": {
+      "NOT-LOGGEDIN": "Nu sunteți autentificat!",
+      "INVALID-ID": "Eroare de la server!",
+      "DEL-RES-SUCCESS": "Tipul de resursă a fost șters!",
+      "ADD-CATEGORY-SUCCESS": "Categoria a fost adăugată!",
+      "ADD-RESTYPE-SUCCESS": "Tipul de resursă a fost adăugat!",
+      "DEL-CATEGORY-SUCCESS": "Categoria a fost ștearsă!",
+      "DEL-RESTYPE-SUCCESS": "Tipul de resursă a fost șters!",
+      "ADD-CATEGORY-EXISTS": "Această categorie există deja!",
+      "ADD-RESTYPE-EXISTS": "Acest tip de resursă există deja!"
+    },
+    "TEMPLATE": {
+      "ADD-SUCCESS": "Șablonul a fost adăugat!",
+      "DELETE-SUCCESS": "Șablonul a fost șters!",
+      "ADD-ERROR": "Șablonul nu a putut fi adăugat!",
+      "DELETE-ERROR": "Șablonul nu a putut fi șters!",
+      "UPDATE-SUCCESS": "Șablonul a fost modificat!",
+      "UPDATE-ERROR": "Șablonul nu a putut fi modificat!",
+      "UPDATE-EXISTS": "Există deja un șablon creat pentru acest tip de resursă!"
+    },
+    "BOOKING": {
+      "SUCCESS": "Rezervare realizata cu succes",
+      "ERROR_NR_TICKETS": "Nu sunt suficiente bilete",
+      "ERROR_NR_PEOPLE": "Număr greșit de oameni",
+      "INVALID_ID": "Id invalid",
+      "NOT_AVAILABLE": "Articolul nu este disponibil",
+      "NOT_FOUND": "Articolul nu a fost găsit",
+      "NOT_ENOUGH": "Nu sunt destule articole disponibile",
+      "RENT_MIN_STAY": "Nr. minim de zile nu a fost atins",
+      "INVALID_DATE": "Data/Ora nu este validă"
+    }
+  },
+  "RESOURCES": {
+    "NAME": "Titlu",
+    "POVIDERNAME": "Provider",
+    "LOCATION": "Locație",
+    "CATEGORY": "Categorie",
+    "PURCHASE": "Achiziții",
+    "STATUS": "Status",
+    "ACTIONS": "Acțiuni"
+  },
+  "HOTELS": {
+    "RECOMMENDED_HOTEL": "Proprietati recomandate de Bestinform pentru"
+  },
+  "RESTAURANTS": {
+    "RESERVE_NOW": "Rezervă acum",
+    "AVAILABILITY_CHECK": "Verifica disponibilitatea",
+    "SEARCH": "Rezerva Acum",
+    "CATEGORIES": "Categorii",
+    "CITY": "Oraș",
+    "RATING": "Rating",
+    "RATINGS_STARS": "Rating (stele)",
+    "CURRENCY": "Monedă",
+    "GUESTS": "Oaspeți",
+    "RECOMMENDED_RESTAURANT": "Restaurante recomandate de Bestinform pentru",
+    "VIEWS": "Vizualizări",
+    "PAYMENT_METHOD": "Metodă de plată",
+    "SEE_ON_MAP": "Vezi pe hartă",
+    "NR_GUESTS": "Număr de oaspeți",
+    "NO_SEATS_AVAILABLE": "Nu sunt locuri disponibile",
+    "SEATS_AVAILABLE": "Locuri disponibile",
+    "PRICE_CATEGORY": "Categorie de preț",
+    "SPECIFIC": "Specific",
+    "CALUSES_AND_RESERVATION_CONDITIONS": "Clauze si conditii pentru rezervare",
+    "AVG_DURATION": "Durata medie",
+    "OWNER_ADDRESS": "Adresa proprietarului",
+    "LOCATION_ADDRESS": "Adresa proprietatii",
+    "ADULTS": "Adulți",
+    "CHILDREN": "Copii",
+    "DESCRIPTION": "Descriere",
+    "PROGRAM": "Program",
+    "PRODUCTS_AND_SERVICES": "Produse și servicii recomandate de BestInform",
+    "SERVICE": "Serviciu",
+    "IMPORTANT_INFORMATION": "Informații importante",
+    "POLITICS": "Politici",
+    "PAYMENT": "Platit la locație",
+    "ADDITIONAL_INFO": "Informatii suplimentare",
+    "RESERVATION_DETAILS": "Detalii rezervare",
+    "NUMBER_OF_PEOPLE": "Selecteaza Număr de persoane",
+    "HOUR_AND_DATE": "Ora și data",
+    "PREFERENCES": "Preferințe",
+    "NAME": "Nume",
+    "PHONE": "Telefon",
+    "SURNAME": "Prenume",
+    "EMAIL": "Email",
+    "COUNTRY_REGION": "Țară/Regiune",
+    "YOUR_INFORMATION": "Informațiile tale",
+    "LOYALTY_POINTS": "Puncte de loialitate",
+    "USE_LOYALTY_POINTS": "Folosește punctele de loialitate",
+    "AVARAGE_PRICE": "Preț mediu",
+    "FACILITIES": "Facilități",
+    "TAGS": "Etichete",
+    "MENU_ITEM_NAME": "Numele produsului din Meniu",
+    "DIETARY_PREFERENCES": "Preferințe Alimentare"
+  },
+  "ERRORS":{
+    "EMAIL-REQUIRED": "E-mailul este obligatoriu.",
+    "LASTNAME-REQUIRED": "Numele de familie este obligatoriu.",
+    "FIRSTNAME-REQUIRED": "Numele este obligatoriu.",
+    "PREFERENCE-REQUIRED": "Este necesară preferința locurilor.",
+    "ADULTS-REQUIRED": "Este necesar un numar de adulti.",
+    "DATE-REQUIRED": "Este necesara data.",
+    "TIME-REQUIRED": "Este necesara ora.",
+    "RESERVATION-SUCCESS": "Rezervarea a fost trimisă cu succes",
+    "FORM-ERROR": "Formularul nu a fost trimis. Vă rugăm să încercați din nou",
+    "FORM-ERRORS": "Vă rugăm să corectați erorile din formular înainte de a trimite."
+  },
+  "RESERVATION": {
+    "VIEW-RESERVATION-NO": "Vizualizare rezervare nr.",
+    "VIEW-RESERVATION": "Vizualizare rezervare",
+    "RESERVATION-NUMBER": "Număr rezervare",
+    "RESOURCE-NAME": "Nume resursă",
+    "GUEST": "Oaspete",
+    "DATE": "Dată",
+    "BOOKED-ON": "Booked-on",
+    "TOTAL-PAYMENT": "Sumă totală",
+    "STATUS": "Status",
+    "BOOKING": "Rezervare",
+    "BOOKING-NR": "Rezervare nr.",
+    "RESERVATION-CHANGE": "Modifică rezervare",
+    "ADD-RATING-TITLE": "Acordă un rating experienței tale!",
+    "ADD-RATING-TEXT": "Bestinform will automatically continue your membership and charge the membership fee (currently USD 14.99/month) to your payment method until you cancel. You may cancel at any time to avoid future charges.",
+    "LAST-UPDATED": "Ultima modificare",
+    "ON": "la",
+    "CANCEL-RESERVATION": "Anulează rezervare",
+    "EDIT-RESERVATION": "Editează rezervare",
+    "RESERVATION-FOR": "Rezervare pentru",
+    "GUEST-DETAILS": "Detalii oaspete",
+    "NAME": "Nume:",
+    "PHONE": "Telefon:",
+    "EMAIL": "Email:",
+    "OTHER-DETAILS": "Alte detalii",
+    "CHANNEL": "Canal",
+    "BOOKING-NUMBER": "Număr rezervare",
+    "DATE-RECIVED": "Data primirii",
+    "PAYMENT-STATUS": "Statusul plății",
+    "PAYMENT-DETAILS": "Detalii plată",
+    "INFO-MSG": "Nu există detalii de plată în acest moment.",
+    "CANCELLATION-MSG": "În cazul anulării, suma pentru rezervare nu va fi returnată.",
+    "BOOKING-DETAILS": "Detalii rezervare",
+    "START-DATE": "Dată de început",
+    "END-DATE": "Dată de final",
+    "CONVERSATION-WITH": "Conversație cu",
+    "TYPE-MESSAGE": "Tipărește mesajul aici ...",
+    "SEND-MESSAGE": "Trimite",
+    "CAR-NUMBER": "Număr mașină",
+    "BOOKED-START-DATE": "Dată de preluare",
+    "PICK-UP-LOCATION": "Locație de preluare",
+    "RETURN-LOCATION": "Locație de predare",
+    "ROOM": "Cameră",
+    "TICKETS": "Bilete",
+    "TICKET-NUMBER": "Număr bilet",
+    "SEAT-NUMBER": "Număr loc",
+    "PRICE": "Preț",
+    "TICKET-USED": "Bilet folosit",
+    "YES": "Da",
+    "NO": "Nu",
+    "WEEKEND": "Weekend",
+    "PRODUCT-ID": "Cod produs",
+    "CHECK-IN": "Check-in",
+    "CHECK-OUT": "Check-out",
+    "LENGTH-OF-STAY": "Durată ședere",
+    "NIGHTS": "Nopți",
+    "TOTAL-GUESTS": "Total oaspeți (nr. maxim)",
+    "ADULTS": "adulți",
+    "TEENAGERS": "adolescenți",
+    "CHILDREN": "copii",
+    "INFANTS": "infanți",
+    "YEARS-OLD": "ani",
+    "TOTAL-ROOMS": "Total camere",
+    "TOTAL-PRICE": "Total preț",
+    "BOOKED-DAY": "Ziua rezervării",
+    "TICKET-PRICE": "Preț bilet",
+    "TICKET-QUANTITY": "Cantitate",
+    "QUANTITY": "Cantitate",
+    "CODE": "Cod",
+    "ROOM-INFO": "Informații cameră",
+    "CANCELLATION-RESERVATION": "Anulare rezervare",
+    "CANCEL-MSG": "Acțiunea de anulare rezervare este permanentă și complet irevocabilă.Doriti sa continuati ?",
+    "EMPTY-LIST-MSG": "Nu aveți rezervări înregistrate.",
+    "FREE-CANCELLATION": "Anulare gratuită",
+    "DEADLINE-HOURS": "Disponibilitate"
+},
+
+"PROVIDER":{
+
+  "ADD":"Adăugare Provider",
+  "EDIT":"Editare Provider",
+  "ACTIVE-PROVIDERS": "Provideri activi",
+  "PENDING-PROVIDERS": "Provideri în așteptare",
+
+  "PERCENTAGE-COMISSION": "Comision aplicat (%)",
+
+
+  "DECLINE":"Refuză",
+  "CHECK_PASSWORD":"Verifică parolă",
+  "BOOKINGS": "Rezervări",
+  "RESOURCES": "Resurse",
+  "MY_PROFILE": "Profilul meu",
+  "EVENTS": "Evenimente",
+  "REPORTS": "Rapoarte",
+  "BALANCE":"Balanță",
+
+  "NEW-PAYMENT-REQUEST":"Cerere nouă de plată",
+
+  "BESTINFORM_ACCOUNT": "Cont Bestinform",
+  "PASSWORD": "Parolă",
+
+  "AVAILABLE-BALANCE":"Balanță disponibilă",
+  "TOTAL-RECIEPT":"Încasări totale",
+  "COMMISSION": "Comision",
+  "RECENTLY-RESERVATION": "Rezervări recente",
+  "HISTORY-RESERVATION": "Istoric rezervări",
+  "TOTAL-RESERVATION": "Rezervări totale",
+  "SEE-MORE": "Vezi mai mult",
+
+  "RESERVATION": "Rezervări",
+  "RESOURCE-NAME":"Nume resursă",
+  "CLIENT":"Client",
+  "PAYMENT-DATE":"Data plății",
+  "AMOUNT": "Sumă",
+  "STATUS" :"Status",
+
+  "MY-RESOURCES":"Resursele mele",
+  "PAYMENT-REQUEST":"Cereri de plată",
+  "PROVIDER-NAME":"Nume provider",
+  "DATE-AND-HOUR":"Data & Ora",
+
+  "VIEW-PAYMENT-REQUEST":"Vizualizare cerere de plată",
+  "REQUEST-DATE":"Data cererii",
+  "PAID-PAYMENT":"Plată efectuată",
+  "DOWNLOAD-BILL":"Descărcare factură",
+  "DOWNLOAD-REPORT":"Descărcare raport rezervare",
+
+  "REJECT":"Respinge",
+  "CANCEL-REQUEST": "Anulare cerere",
+
+  "MESSAGE": {
+    "PROVIDER_REQUEST_WARNING": "Acțiunea de refuzare a providerului este permanentă și complet irevocabilă.",
+    "TERMS_AND_CONDITIONS": "Accept termenii și condițiile inpuse de Bestinform pentru prelucrarea și modificarea datelor cu caracter personal.",
+    "SUCCESS": "Succes",
+    "ERROR": "Eroare",
+
+    "ERROR_MSG":"A apărut o eroare!",
+
+    "UPDATE_SUCCESS":"Providerul a fost actualizat cu succes!",
+    "UPDATE_ERROR":"Providerul nu a fost actualizat!",
+    "ADD_SUCCESS":"Providerul a fost adăugat cu succes!",
+    "ADD_ERROR":"Providerul nu a fost adăugat!",
+    "UPLOAD_CONTRACT_SUCCESS":"Contractul a fost adăugat cu succes!",
+    "UPLOAD_CONTRACT_ERROR":"Contractul nu a fost adăugat!",
+    "RESET_PASSWORD_SUCCESS":"Parola a fost modificată cu succes!",
+    "RESET_PASSWORD_ERROR":"Parola nu a fost modificată!",
+    "RESET_PASSWORD_CRITERIA_ERROR":"Parola nu indeplineste toate criteriile!",
+    "EMAIL_ERROR":"Emailul nu este valid!",
+    "EMAIL_EXIST":"Acest email exista deja in baza de date!",
+    "BLOCK-PROVIDER-PARAGRAPH":"Acțiunea de blocare cont nu este permanentă și complet irevocabilă. Datele cu caracter personal vor fi criptate și arhivate.",
+    "DELETE-PROVIDER-PARAGRAPH":"Acțiunea de stergere cont este permanentă și complet irevocabilă. Datele cu caracter personal vor fi criptate și arhivate.",
+    "HAVE-READ-TERMS": "Am citit și sunt de acord cu Termenii și Condițiile și cu Politica de Confidențialitate."
+  },
+
+
+
+  "BUTTONS":{
+    "CONFIRM": "Aprobă",
+    "CANCEL": "Refuză"
+  },
+
+  "ACTIVE_PROVIDERS":"Provideri activi",
+  "PENDING_PROVIDERS": "Provideri în așteptare",
+  "SEARCH": "Căutare",
+  "CURRENT_NUMBER": "Nr.",
+  "PROVIDER_NAME": "Nume Provider",
+  "LIST_DOMAIN": "Domeniu",
+  "LIST_STATUS": "Status",
+  "ACTIONS": "Acțiuni",
+  "NO_DATA":"Nu exista date.",
+
+  "PROVIDER_REQUEST":"Cerere Provider",
+  "REASON":"Observații",
+  "REQUEST_DATE":"Data cererii",
+  "GENERATE_PASSWORD": "Generează parolă",
+  "IDENTIFICATION_INFORMATION": "Informații de identificare",
+    "NAME":"Denumire",
+    "STATUS":"Status",
+    "EMAIL":"Email",
+    "CUI":"CUI",
+    "TELEPHONE":"Telefon",
+    "AGENT_NAME":"Nume reprezentant",
+
+  "BILLING_DATA":"Date de facturare",
+     "BILLING_NAME":"Nume",
+     "BILLING_ADDRESS": "Adresă",
+     "BILLING_CITY" :"Oraș",
+     "BILLING_COUNTY":"Județ",
+     "IBAN":"IBAN",
+     "BANK" :"Bancă",
+
+  "CONTRACT": "Contract",
+  "CONTRACT_UPLOAD":"Încărcare contract",
+  "MEDIA":"Media",
+  "DOMAIN": "Domeniu",
+    "SELECT_DOMAIN":"Selectează Domeniu",
+
+  "LOCATIONS":"Locații",
+    "LOCATION_NAME":"Nume locație",
+    "LOCATION_ADDRESS":"Adresă locație",
+    "GEOGRAPHICAL_COORDINATES":"Coordonate geografice",
+
+
+  "INTEGRATIONS": "Integrări",
+     "CHANNEL_MANAGER": "Channel manager",
+       "TOKEN":"Token",
+       "PRIVATE_KEY":"Private Key",
+       "PUBLIC_KEY" :  "Public Key",
+       "SIGNATURE": "Semnătură",
+
+  "ACCOUNT_ACTIONS":"Acțiuni cont",
+      "ACCOUNT_BLOCK":"Blocare cont",
+      "DELETE_PROVIDER": "Ștergere provider"
+  },
+  "VALUE-TYPE": {
+    "TEXTAREA": "Zonă text",
+    "SELECT": "Selecție simplă",
+    "MULTIPLE-SELECT": "Selecție multiplă",
+    "NUMBER": "Număr"
+  },
+  "BESTINFORM_ACCOUNT": "Cont Bestinform",
+  "PASSWORD": "Parola",
+  "GENERATE_PASSWORD": "Generează",
+  "RESET_PASSWORD": "Actualizează",
+  "ACCOUNT_STATUS": "Status cont",
+  "SHARED-EXPERIENCES": {
+    "CREATE": "Creează o experiență împărtășită",
+    "CREATE-INFO": "Creează-ți o experiență unică și împărtășește-o cu ceilalți.",
+    "EXPERIENCE-NAME": "Numele experienței",
+    "PLACE-DETAILS": "Detaliile spațiului",
+    "DETAILS": "Detalii",
+    "MAX-GUESTS": "Număr maxim de invitați",
+    "DRESSCODE": "Ținută",
+    "DATE&HOUR": "Dată & Oră",
+    "DATE": "Dată",
+    "TIME": "Oră",
+    "SEARCH-PLACE": "Apasă aici pentru a căuta un spațiu.",
+    "CREATE-SUCCESS": "Experiența ta împărtășită a fost creată!",
+    "CREATE-SUCCESS-INFO": "Mulțumim pentru că ești minunat! Mergi către experientțele tale create.",
+    "DELETE-SUCCESS": "Experiența ta împărtășită a fost ștearsă!",
+    "DELETE-SUCCESS-INFO": "Dacă dorești să creezi o nouă experiență impărtășită, accesează categoria Experiențe Împărtășite.",
+    "GO-TO-LOBBY": "Mergi către Lobby",
+    "INVITE-PARTICIPANT": "Invită participant",
+    "SHARE-EXPERIENCE": "Distribuie experiența",
+    "MODIFY-EXPERIENCE": "Modifică experiența",
+    "CANCEL-EXPERIENCE": "Anulează experiența",
+    "ACCEPT-PARTICIPANT": "Acceptă participant",
+    "DECLINE-PARTICIPANT": "Refuză participant",
+    "KICK-PARTICIPANT": "Exclude participant",
+    "KICK-PARTICIPANT-WARN": "Ești sigur că vrei să excluzi participantul ",
+    "KICK-PARTICIPANT-INFO": "Această acțiune va exclude utilizatorul din experiența ta împărtășită, dar mesajele din chat vor rămâne."
+  },
+  "TRIPS": {
+    "AIRLINE_TICKET_INCLUDED": "Biletul de avion este inclus în preț",
+    "HAND_LUGGAGE": "Fiecare pasager are bagajele de mână și de hol incluse în preț",
+    "AIRPORT_TRANSFER": "Transportul spre aeroport nu este inclus",
+    "DEPARTURE": "Plecare",
+    "DEPARTURE_TIME": "Oră plecare",
+    "ARRIVAL": "Sosire",
+    "ARRIVAL_TIME": "Oră sosire"
+  },
+  "TRANSPORT": {
+    "PLANE_TICKET": "Bilete de avion",
+    "TRAIN_TICKET": "Bilete de tren",
+    "CAR_RENT": "Închirieri mașini",
+    "SET-PICK-LOCATION":"Setează locația de preluare",
+    "PICK-LOCATION":"Locația de preluare",
+    "SET-DROP-OFF-LOCATION":"Setează locația de predare",
+    "DROP-OFF-LOCATION":"Locația de predare",
+    "SELECT-DATES":"Selectează datele",
+    "CHECK-AVAILABILITY":"Verifică disponibilitate",
+    "RETURN-DATE":"Data de returnare",
+    "RETURN-DATE-PLANE":"Data de întoarcere",
+    "DEPARTURE-DATE":"Data de plecare",
+    "SET-DEP-AIRPORT":"Setează aeroportul de plecare",
+    "DEP-AIRPORT":"Plecare de pe aeroportul",
+    "SET-ARRIVAL-AIRPORT":"Setează aeroportul de sosire",
+    "ARRIVAL-AIRPORT":"Aeroportul de sosire",
+    "SET-CLASS":"Setează clasa",
+    "SELECT-PASSENGERS":"Selectează numărul de pasageri",
+    "SET-DEPARTURE-TRAIN-STATION":"Setează gara de plecare",
+    "DEPARTURE-TRAIN-STATION":"Gara de plecare",
+    "SET-ARRIVAL-TRAIN-STATION":"Setează gara de sosire",
+    "ARRIVAL-TRAIN-STATION":"Gara de sosire",
+    "TICKET-DETAILS":"Detalii zbor"
+
+  },
+
+  "ITINERARIES":{
+    "SELECT-REGION": "Selectează o regiune pe care ai vrea să o vezi",
+    "CHOSEN-CITY": "Minunat! Ai ales",
+    "CHOOSE-PACKAGE": "Alege pachetul de calatorii care ți-ar plăcea",
+    "STARTING-PRICE": "Prețuri începând de la",
+    "ONE-PERSON": "pentru o persoana",
+    "NO-TRIPS-AVAILABLE":"Nu exista tripuri pentru orașul selectat",
+    "NO-ITINERARIES-AVAILABLE":"Nu există itinerarii pentru selecția făcută",
+    "COUNTRY-SELECT": "Selectează țara",
+    "CONFIGURE-ITINERARY": "Configurează itinerariu",
+    "CREATE-EXPERIENCE": "Creează-ți o experiență unică, completând cardurile de mai jos, cu informații care ți se potrivesc.",
+    "NAME": "Nume itinerariu",
+    "TOTAL-COST" :"Costul total bazat pe alegerile făcute",
+    "GENERATE-ITINERARY": "Generează itinerariu",
+    "SELECT-THEME" : "Selectează tema itinerariului",
+    "STEP": "Step",
+    "SELECT-DESTINATION-TYPE" : "Selectează tipul destinației",
+    "SELECT-JOURNEY-TYPE": "Selectează tipul călatoriei",
+    "SELECT-JOURNEY-DETAILS":"Selectează detaliile călătoariei ",
+    "BREAKFAST-HOUR": "Oră mic dejun",
+    "LUNCH-HOUR": "Oră prânz",
+    "DINNER-HOUR": "Oră cină",
+    "START-DATE-LOWER" : "Data începerii trebuie să fie anterioară celei de final",
+    "DESTINATION" : "Destinație",
+    "SEARCH-CITY" : "Caută oraș",
+    "ADD-NEW-DESTINATION": "Adaugă o nouă destinație",
+    "AI-GENERATED-LIST" : "Lista generată de IA",
+
+    "NUMBER-GUESTS" : "Număr viztatori",
+    "SELECTED" : "Ai selectat",
+    "PRICE-PER-PERSON": "Prețul de pornire pe persoană",
+    "TRANSPORT" : "Informații despre transport",
+    "SELECT-ACCOMODATION" : "Selectează ofertele de cazare",
+    "PRICE-PER-ONE-PERSON" : "Prețul pentru o persoană",
+    "NO-HOTELS": "Nu exista hoteluri disponibile pentru tripul selectat"
+  },
+
+  "HOMEPAGE":{
+    "MODEL": "Model Homepage",
+    "DISPLAY-LANGUAGE-VERSION" :"Limba de afișare și versiunea website-ului",
+    "DISPLAY-LANGUAGE" :"Limba de afișare",
+    "VERSION": "Versiunea website-ului",
+    "SECTION" : "Secțiunea",
+    "TEXT-TITLE" : "Textul titlului",
+    "TEXT-CONTENT" : "Textul conținutului",
+    "TEXT-SUBTITLE" : "Textul subtitlului",
+    "BACKGROUND-IMG" : "Imaginea de fundal",
+    "BTN-TEXT": "Textul butonului",
+    "SUBTITLE" : "Subtitlu",
+    "BENEFITS" : "Beneficii",
+    "BENEFIT" : "Beneficiu",
+    "CONTENT" : "Conținut",
+    "TRIAL-SECTION": "Trial section",
+    "GALLERY" : "Galerie",
+    "DESCRIPTION" : "Descriere",
+    "INFO-VIDEO" : "Informațiile videoclipului",
+    "IMAGE" : "Imagine",
+    "PAGE-NAME": "Nume pagină",
+    "PAGE-SLUG":"Slug pagină"
+  },
+
+  "JOBS": {
+    "ALL_JOB_OFFERS": "Toate ofertele de muncă",
+    "MY_JOB_OFFERS": "Ofertele mele de muncă",
+    "CANDIDATES_LIST": "Vizualizare candidați",
+    "VIEW_CV": "Vizualizare CV",
+    "DOWNLOAD_CV": "Descarcă CV (.pdf)",
+    "EDIT-CERTIFICATION": "Editează certificarea",
+    "NEW-CERTIFICATION": "Certificare nouă",
+    "EDIT-EDUCATION": "Editează educația",
+    "NEW-EDUCATION": "Educație nouă",
+    "EDIT-EXPERIENCE": "Editează experiența",
+    "NEW-EXPERIENCE": "Experiență nouă",
+    "MY-CV": "CV-ul meu",
+    "CANDIDATE-CV": "CV Candidat",
+    "SUMMARY": "Sumar",
+    "EXPERIENCE": "Experiență",
+    "EDUCATION": "Educație",
+    "CERTIFICATION": "Certificări",
+    "READ-MORE": "Citește mai mult",
+    "POSITION": "Postul",
+    "TYPE-OF-CONTRACT": "Tipul contractului",
+    "8H": "Full time (8 ore/zi)",
+    "6H": "Part time (6 ore/zi)",
+    "4H": "Part time (4 ore/zi)",
+    "COMPANY-NAME": "Numele companiei",
+    "LOCATION": "Locația",
+    "STARTED-WORKING": "Data de început",
+    "FINISHED-WORKING": "Data de sfârșit",
+    "DESCRIPTION": "Descriere",
+    "SCHOOL-NAME": "Numele Școlii",
+    "GROUP": "Grupa",
+    "CERTIFICATION-NAME": "Numele Certificării",
+    "CERTIFICATION-ID": "ID-ul Certificării",
+    "CERTIFICATION-LINK": "Link-ul Certificării",
+    "DATE-OF-CERTIFICATION": "Data Certificării",
+    "EXPIRATION-DATE": "Data Expirării",
+    "EDIT-JOB": "Editează  Job",
+    "ADD-JOB": "Adaugă un Job Nou",
+    "ABOUT": "Despre",
+    "APPLY-TO-JOB": "Aplică la acest job",
+    "APPLY-INFO": "Verifică informațiile de mai jos pentru a continua.",
+    "PROFILE-DETAILS": "Detaliile profilului",
+    "CV-STATUS": "Status CV",
+    "CV-DIR": "CV-ul tău nu este complet încă, iată de ce:",
+    "COMPLETE-CV": "Completează-ți CV-ul",
+    "APPLY-NOW": "Aplică acum"
+  },
+  "ENROLLMENT": {
+    "WELCOME-BACK": "Bine ai revenit",
+    "CONTINUE-WITH-DATA": "Să continuăm completarea profilului tău!",
+    "WELCOME-DIR": "Înțelegem importanța timpului tău de aceea Bestinform este personalizat pentru nevoile tale și pentru a pretrece timpul așa cum îți dorești.",
+    "CHOOSE-PREFERENCES": "Alege preferințele tale:",
+    "NICE-TO-MEET-YOU": "Suntem bucuroși să te cunoaștem!",
+    "PERSONAL-DATA": "Datele tale personale:",
+    "BIRTHDAY": "Data nașterii",
+    "TELEPHONE": "Telefon",
+    "GENDER": "Gen",
+    "MALE": "Bărbat",
+    "FEMALE": "Femeie",
+    "CONGRATS": "Felicitări!",
+    "ACTIVE-ACCOUNT": "Contul tău este acum activ!",
+    "WELCOME": "Bine ai venit, ",
+    "GO-TO-HP": "Continuă spre homepage",
+    "NEXT-STEP": "Continuă",
+    "TRIAL": "Activează trial"
+  },
+  "cookie": {
+    "header": "Acest site folosește cookie-uri!",
+    "message": "Acest site folosește cookie-uri ca tu să ai parte de o experiență cât mai plăcută pe site-ul nostru!",
+    "dismiss": "Am ințeles!",
+    "allow": "Permite",
+    "deny": "Refuză",
+    "link": "Află mai multe",
+    "policy": "Politica Cookie"
+  },
+  "airports": [
+    {
+      "country": "Romania",
+      "city": "Bucuresti",
+      "city_code": "BUH",
+      "airport_name": "Aeroportul International Henri Coanda",
+      "airport_short_name": "Otopeni",
+      "airport_code": "OTP"
+    },
+    {
+      "country": "Romania",
+      "city": "Bucuresti",
+      "city_code": "BUH",
+      "airport_name": "Aeroportul International Aurel Vlaicu",
+      "airport_short_name": "Baneasa",
+      "airport_code": "BBU"
+    },
+    {
+      "country": "Romania",
+      "city": "Craiova",
+      "city_code": "CRA",
+      "airport_name": "Aeroportul International Craiova",
+      "airport_short_name": "Craiova",
+      "airport_code": "CRA"
+    },
+    {
+      "country": "Romania",
+      "city": "Timisoara",
+      "city_code": "TSR",
+      "airport_name": "Aeroportul International Traian Vuia",
+      "airport_short_name": "Timisoara",
+      "airport_code": "TSR"
+    },
+    {
+      "country": "Romania",
+      "city": "Arad",
+      "city_code": "ARW",
+      "airport_name": "Aeoportul International Arad",
+      "airport_short_name": "Arad",
+      "airport_code": "ARW"
+    },
+    {
+      "country": "Romania",
+      "city": "Sibiu",
+      "city_code": "SBZ",
+      "airport_name": "Aeoportul International Sibiu",
+      "airport_short_name": "Sibiu",
+      "airport_code": "SBZ"
+    },
+    {
+      "country": "Romania",
+      "city": "Brasov",
+      "city_code": "GHV",
+      "airport_name": "Aeroportul Ghimbav Brasov",
+      "airport_short_name": "Brasov",
+      "airport_code": "GHV"
+    },
+    {
+      "country": "Romania",
+      "city": "Constanta",
+      "city_code": "CND",
+      "airport_name": "Aeroportul International Mihail Kogalniceanu",
+      "airport_short_name": "Constanta",
+      "airport_code": "CND"
+    },
+    {
+      "country": "Romania",
+      "city": "Bacau",
+      "city_code": "BCM",
+      "airport_name": "Aeroportul International George Enescu",
+      "airport_short_name": "Bacau",
+      "airport_code": "BCM"
+    },
+    {
+      "country": "Romania",
+      "city": "Iasi",
+      "city_code": "IAS",
+      "airport_name": "Aeroportul International Iasi",
+      "airport_short_name": "Iasi",
+      "airport_code": "IAS"
+    },
+    {
+      "country": "Romania",
+      "city": "Suceava",
+      "city_code": "SCV",
+      "airport_name": "Aeoportul International Stefan cel Mare",
+      "airport_short_name": "Suceava",
+      "airport_code": "SCV"
+    },
+    {
+      "country": "Romania",
+      "city": "Targul Mures",
+      "city_code": "TGM",
+      "airport_name": "Aeroportul International Transilvania",
+      "airport_short_name": "Tg Mures",
+      "airport_code": "TGM"
+    },
+    {
+      "country": "Romania",
+      "city": "Cluj",
+      "city_code": "CLJ",
+      "airport_name": "Aeroportul International Avram Iancu",
+      "airport_short_name": "Cluj",
+      "airport_code": "CLJ"
+    },
+    {
+      "country": "Romania",
+      "city": "Oradea",
+      "city_code": "OMR",
+      "airport_name": "Aeroportul International Oradea",
+      "airport_short_name": "Oradea",
+      "airport_code": "OMR"
+    },
+    {
+      "country": "Romania",
+      "city": "Baia Mare",
+      "city_code": "BAY",
+      "airport_name": "Aeroportul International Maramures",
+      "airport_short_name": "Baia mare",
+      "airport_code": "BAY"
+    },
+    {
+      "country": "Romania",
+      "city": "Satu mare",
+      "city_code": "SUJ",
+      "airport_name": "Aeroportul International Satu Mare",
+      "airport_short_name": "Satu Mare",
+      "airport_code": "SUJ"
+    },
+    {
+      "country": "Moldova",
+      "city": "Chisinau",
+      "city_code": "KIV",
+      "airport_name": "Aeroportul International Chisinau",
+      "airport_short_name": "Chisinau",
+      "airport_code": "KIV"
+    },
+    {
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "city_code": "SOF",
+      "airport_name": "Aeroportul International Sofia",
+      "airport_short_name": "Sofia",
+      "airport_code": "SOF"
+    },
+    {
+      "country": "Bulgaria",
+      "city": "Burgas",
+      "city_code": "BOJ",
+      "airport_name": "Aeroportul Burgas",
+      "airport_short_name": "Burgas",
+      "airport_code": "BOJ"
+    },
+    {
+      "country": "Bulgaria",
+      "city": "Varna",
+      "city_code": "VAR",
+      "airport_name": "Aeroportul International Varna",
+      "airport_short_name": "Varna",
+      "airport_code": "VAR"
+    },
+    {
+      "country": "Turcia",
+      "city": "Istanbul",
+      "city_code": "IST",
+      "airport_name": "Aeroportul Istanbul",
+      "airport_short_name": "Istanbul",
+      "airport_code": "IST"
+    },
+    {
+      "country": "Turcia",
+      "city": "Istanbul",
+      "city_code": "IST",
+      "airport_name": "Aeroportul Sabiha Gokcen",
+      "airport_short_name": "Istanbul",
+      "airport_code": "SAW"
+    },
+    {
+      "country": "Turcia",
+      "city": "Istanbul",
+      "city_code": "IST",
+      "airport_name": "Aeroportul Ataturk",
+      "airport_short_name": "Istanbul",
+      "airport_code": "ISL"
+    },
+    {
+      "country": "Turcia",
+      "city": "Antalya",
+      "city_code": "AYT",
+      "airport_name": "Aeroportul Antalya",
+      "airport_short_name": "Antalya",
+      "airport_code": "AYT"
+    },
+    {
+      "country": "Turcia",
+      "city": "Izmir",
+      "city_code": "IZM",
+      "airport_name": "Aeroportul Izmir Adnan Menderes",
+      "airport_short_name": "Izmir",
+      "airport_code": "ADB"
+    },
+    {
+      "country": "Turcia",
+      "city": "Izmir",
+      "city_code": "IZM",
+      "airport_name": "Aeroportul Cigli Military",
+      "airport_short_name": "Izmir",
+      "airport_code": "IGL"
+    },
+    {
+      "country": "Turcia",
+      "city": "Ankara",
+      "city_code": "ANK",
+      "airport_name": "Aeroportul Etimesgut Air Base",
+      "airport_short_name": "Ankara",
+      "airport_code": "ANK"
+    },
+    {
+      "country": "Turcia",
+      "city": "Ankara",
+      "city_code": "ANK",
+      "airport_name": "Aeroportul Esenboga",
+      "airport_short_name": "Ankara",
+      "airport_code": "ESB"
+    },
+    {
+      "country": "Turcia",
+      "city": "Dalaman",
+      "city_code": "DLM",
+      "airport_name": "Aeroportul Dalaman",
+      "airport_short_name": "Dalaman",
+      "airport_code": "DLM"
+    },
+    {
+      "country": "Turcia",
+      "city": "Konya",
+      "city_code": "KYA",
+      "airport_name": "Aeroportul Konya",
+      "airport_short_name": "Konya",
+      "airport_code": "KYA"
+    },
+    {
+      "country": "Turcia",
+      "city": "Adana",
+      "city_code": "ADA",
+      "airport_name": "Aeroportul Adana Sakirpasa",
+      "airport_short_name": "Adana",
+      "airport_code": "ADA"
+    },
+    {
+      "country": "Turcia",
+      "city": "Kayseri",
+      "city_code": "ASR",
+      "airport_name": "Aeroportul Erkilet",
+      "airport_short_name": "Kayseri",
+      "airport_code": "ASR"
+    },
+    {
+      "country": "Turcia",
+      "city": "Denizli",
+      "city_code": "DNZ",
+      "airport_name": "Aeroportul Denizli Cardak",
+      "airport_short_name": "Denizli",
+      "airport_code": "DNZ"
+    },
+    {
+      "country": "Turcia",
+      "city": "Gaziantep",
+      "city_code": "GZT",
+      "airport_name": "Aeroportul Oguzeli",
+      "airport_short_name": "Gaziantep",
+      "airport_code": "GZT"
+    },
+    {
+      "country": "Turcia",
+      "city": "Bodrum",
+      "city_code": "BJV",
+      "airport_name": "Aeroportul Imsik",
+      "airport_short_name": "Bodrum",
+      "airport_code": "BXN"
+    },
+    {
+      "country": "Turcia",
+      "city": "Bodrum",
+      "city_code": "BJV",
+      "airport_name": "Aeroportul Milas-Bodrum",
+      "airport_short_name": "Bodrum",
+      "airport_code": "BJV"
+    },
+    {
+      "country": "Grecia",
+      "city": "Alexandria",
+      "city_code": "AXD",
+      "airport_name": "Aeroportul International Alexandroupolis",
+      "airport_short_name": "Alexandria",
+      "airport_code": "AXD"
+    },
+    {
+      "country": "Grecia",
+      "city": "Kavala",
+      "city_code": "KVA",
+      "airport_name": "Aeroportul Kavala Alexandru Cel Mare",
+      "airport_short_name": "Kavala",
+      "airport_code": "KVA"
+    },
+    {
+      "country": "Grecia",
+      "city": "Salonic",
+      "city_code": "SKG",
+      "airport_name": "Aeroportul International Macedonia",
+      "airport_short_name": "Salonic",
+      "airport_code": "SKG"
+    },
+    {
+      "country": "Grecia",
+      "city": "Place Milos",
+      "city_code": "MLO",
+      "airport_name": "Aeroportul Insulele Milos",
+      "airport_short_name": "Milos",
+      "airport_code": "MLO"
+    },
+    {
+      "country": "Grecia",
+      "city": "Preveza",
+      "city_code": "PVK",
+      "airport_name": "Aeoportul Aktion",
+      "airport_short_name": "Lefkada",
+      "airport_code": "PVK"
+    },
+    {
+      "country": "Grecia",
+      "city": "Kefalonia",
+      "city_code": "EFL",
+      "airport_name": "Aeoportul International Kephalonia",
+      "airport_short_name": "Kefalonia",
+      "airport_code": "EFL"
+    },
+    {
+      "country": "Grecia",
+      "city": "Kato Achaia",
+      "city_code": "GPA",
+      "airport_name": "Aeroportul Araxos",
+      "airport_short_name": "Kato Achaia",
+      "airport_code": "GPA"
+    },
+    {
+      "country": "Grecia",
+      "city": "Zakynthos",
+      "city_code": "ZTH",
+      "airport_name": "Aeroportul Zakynthos",
+      "airport_short_name": "Zakynthos",
+      "airport_code": "ZTH"
+    },
+    {
+      "country": "Grecia",
+      "city": "Atena",
+      "city_code": "ATH",
+      "airport_name": "Aeroportul International Eleftherios Venizelos",
+      "airport_short_name": "Atena",
+      "airport_code": "ATH"
+    },
+    {
+      "country": "Grecia",
+      "city": "Corfu",
+      "city_code": "CFU",
+      "airport_name": "Aeroportul Corfu",
+      "airport_short_name": "Corfu",
+      "airport_code": "CFU"
+    },
+    {
+      "country": "Grecia",
+      "city": "Mykonos",
+      "city_code": "JMK",
+      "airport_name": "Aeroportul International Mikonos",
+      "airport_short_name": "Mykonos",
+      "airport_code": "JMK"
+    },
+    {
+      "country": "Grecia",
+      "city": "Naxos",
+      "city_code": "JNX",
+      "airport_name": "Aeroportul National Insula Naxos",
+      "airport_short_name": "Naxos",
+      "airport_code": "JNX"
+    },
+    {
+      "country": "Grecia",
+      "city": "Paros",
+      "city_code": "PAS",
+      "airport_name": "Aeroportul Paros",
+      "airport_short_name": "Paros",
+      "airport_code": "PAS"
+    },
+    {
+      "country": "Grecia",
+      "city": "Santorini",
+      "city_code": "JTR",
+      "airport_name": "Aeroportul Santorini Thira",
+      "airport_short_name": "Santorini",
+      "airport_code": "JTR"
+    },
+    {
+      "country": "Grecia",
+      "city": "Chios",
+      "city_code": "JKH",
+      "airport_name": "Aeroportul Insula Chios",
+      "airport_short_name": "Chios",
+      "airport_code": "JKH"
+    },
+    {
+      "country": "Grecia",
+      "city": "Kos",
+      "city_code": "KGS",
+      "airport_name": "Aeroportul International Insula Kos",
+      "airport_short_name": "Kos",
+      "airport_code": "KGS"
+    },
+    {
+      "country": "Grecia",
+      "city": "Rhodos",
+      "city_code": "RHO",
+      "airport_name": "Aeroportul International Diagoras Rodos",
+      "airport_short_name": "Rhodos",
+      "airport_code": "RHO"
+    },
+    {
+      "country": "Grecia",
+      "city": "Chania",
+      "city_code": "CHQ",
+      "airport_name": "Aeroportul International Ioannis Daskalogiannis",
+      "airport_short_name": "Chania",
+      "airport_code": "CHQ"
+    },
+    {
+      "country": "Grecia",
+      "city": "Heraklion",
+      "city_code": "HER",
+      "airport_name": "Aeroportul International N. Kazantzakis",
+      "airport_short_name": "Heraklion",
+      "airport_code": "HER"
+    },
+    {
+      "country": "Albania",
+      "city": "Tirana",
+      "city_code": "TIA",
+      "airport_name": "Aeroportul International Nene Tereza",
+      "airport_short_name": "Tirana",
+      "airport_code": "TIA"
+    },
+    {
+      "country": "Albania",
+      "city": "Kukes",
+      "city_code": "KFZ",
+      "airport_name": "Aeroportul International Shaikh Zayed",
+      "airport_short_name": "Kukes",
+      "airport_code": "KFZ"
+    },
+    {
+      "country": "Bosnia și Hertegovina",
+      "city": "Sarajevo",
+      "city_code": "SJJ",
+      "airport_name": "Aeroportul International Sandnessjoen",
+      "airport_short_name": "Sarajevo",
+      "airport_code": "SJJ"
+    },
+    {
+      "country": "Bosnia și Hertegovina",
+      "city": "Banja Luka",
+      "city_code": "BNX",
+      "airport_name": "Aeroportul International Banja Luka",
+      "airport_short_name": "Banja Luka",
+      "airport_code": "BNX"
+    },
+    {
+      "country": "Muntenegru",
+      "city": "Tivat",
+      "city_code": "TIV",
+      "airport_name": "Aeroportul Tivat",
+      "airport_short_name": "Tivat",
+      "airport_code": "TIV"
+    },
+    {
+      "country": "Muntenegru",
+      "city": "Podgorica",
+      "city_code": "TGD",
+      "airport_name": "Aeroportul Podgorica",
+      "airport_short_name": "Podgorica",
+      "airport_code": "TGD"
+    },
+    {
+      "country": "Macedonia",
+      "city": "Ohrid",
+      "city_code": "OHD",
+      "airport_name": "Aeroporul Sfantul Apostol Paul",
+      "airport_short_name": "Ohrid",
+      "airport_code": "OHD"
+    },
+    {
+      "country": "Macedonia",
+      "city": "Skopje",
+      "city_code": "SKP",
+      "airport_name": "Aeroportul International Alexandru cel Mare",
+      "airport_short_name": "Skopje",
+      "airport_code": "SKP"
+    },
+    {
+      "country": "Cipru",
+      "city": "Larnaca",
+      "city_code": "LCA",
+      "airport_name": "Aeoportul International Larnaca",
+      "airport_short_name": "Larnaca",
+      "airport_code": "LCA"
+    },
+    {
+      "country": "Cipru",
+      "city": "Paphos",
+      "city_code": "PFO",
+      "airport_name": "Aeoportul International Paphos",
+      "airport_short_name": "Paphos",
+      "airport_code": "PFO"
+    },
+    {
+      "country": "Kosovo",
+      "city": "Pristina",
+      "city_code": "PRN",
+      "airport_name": "Aeoportul International Adem Jashari",
+      "airport_short_name": "Pristina",
+      "airport_code": "PRN"
+    },
+    {
+      "country": "Slovenia",
+      "city": "Ljubljana",
+      "city_code": "LJU",
+      "airport_name": "Aeroportul  Joze Pucnik ",
+      "airport_short_name": "Ljubljana",
+      "airport_code": "LJU"
+    },
+    {
+      "country": "Serbia",
+      "city": "Belgrad",
+      "city_code": "BEG",
+      "airport_name": "Aeroportul Nikola Tesla ",
+      "airport_short_name": "Belgrad",
+      "airport_code": "BEG"
+    },
+    {
+      "country": "Serbia",
+      "city": "Nis",
+      "city_code": "INI",
+      "airport_name": "Aeroportul Constantin cel Mare",
+      "airport_short_name": "Nis",
+      "airport_code": "INI"
+    },
+    {
+      "country": "Austria",
+      "city": "Viena",
+      "city_code": "VIE",
+      "airport_name": "Aeroportul International Viena",
+      "airport_short_name": "Viena",
+      "airport_code": "VIE"
+    },
+    {
+      "country": "Austria",
+      "city": "Salzburg",
+      "city_code": "SZG",
+      "airport_name": "Aeroportul Salzburg",
+      "airport_short_name": "Salzburg",
+      "airport_code": "SZG"
+    },
+    {
+      "country": "Austria",
+      "city": "Graz",
+      "city_code": "GRZ",
+      "airport_name": "Aeroportul Graz",
+      "airport_short_name": "Graz",
+      "airport_code": "GRZ"
+    },
+    {
+      "country": "Austria",
+      "city": "Innsbruck",
+      "city_code": "INN",
+      "airport_name": "Aeroportul Innsbruck",
+      "airport_short_name": "Innsbruck",
+      "airport_code": "INN"
+    },
+    {
+      "country": "Austria",
+      "city": "Klagenfurt",
+      "city_code": "KLU",
+      "airport_name": "Klagenfurt Airport",
+      "airport_short_name": "Klagenfurt",
+      "airport_code": "KLU"
+    },
+    {
+      "country": "Belgia",
+      "city": "Bruxelles",
+      "city_code": "BRU",
+      "airport_name": "Aeroportul Bruxelles",
+      "airport_short_name": "Bruxelles",
+      "airport_code": "BRU"
+    },
+    {
+      "country": "Belgia",
+      "city": "Bruxelles",
+      "city_code": "BRU",
+      "airport_name": "Aeroportul Bruxelles Sud Charleroi",
+      "airport_short_name": "Charleroi",
+      "airport_code": "CRL"
+    },
+    {
+      "country": "Belgia",
+      "city": "Bruxelles",
+      "city_code": "BRU",
+      "airport_name": "Aeoportul Antwerp",
+      "airport_short_name": "Anvers",
+      "airport_code": "ANR"
+    },
+    {
+      "country": "Belgia",
+      "city": "Zoersel",
+      "city_code": "OBL",
+      "airport_name": "Aeroportul Zoersel",
+      "airport_short_name": "Zoersel",
+      "airport_code": "OBL"
+    },
+    {
+      "country": "Belgia",
+      "city": "Liege",
+      "city_code": "LGG",
+      "airport_name": "Aeroportul Liege",
+      "airport_short_name": "Liege",
+      "airport_code": "LGG"
+    },
+
+    {
+      "country": "Belgia",
+      "city": "Ostend",
+      "city_code": "OST",
+      "airport_name": "Aeoportul Ostend-Bruges",
+      "airport_short_name": "Ostend",
+      "airport_code": "OST"
+    },
+    {
+      "country": "Belgia",
+      "city": "Wevelgem",
+      "city_code": "KJK",
+      "airport_name": "Aeoportul Kortrijk",
+      "airport_short_name": "Wevelgem",
+      "airport_code": "KJK"
+    },
+    {
+      "country": "Ungaria",
+      "city": "Budapesta",
+      "city_code": "BUD",
+      "airport_name": "Aeoportul International Liszt Ferenc",
+      "airport_short_name": "Budapetsa",
+      "airport_code": "BUD"
+    },
+    {
+      "country": "Ungaria",
+      "city": "Debrecen",
+      "city_code": "DEB",
+      "airport_name": "Aeroportul International Debrecen",
+      "airport_short_name": "Debrecen",
+      "airport_code": "DEB"
+    },
+    {
+      "country": "Slovacia",
+      "city": "Bratislava",
+      "city_code": "BTS",
+      "airport_name": "Aeroportul Invaska Cesta",
+      "airport_short_name": "Bratislava",
+      "airport_code": "BTS"
+    },
+    {
+      "country": "Slovacia",
+      "city": "Kosice",
+      "city_code": "KSC",
+      "airport_name": "Aeroportul International Kosice",
+      "airport_short_name": "Kosice",
+      "airport_code": "KSC"
+    },
+    {
+      "country": "Polonia",
+      "city": "Varsovia",
+      "city_code": "WAW",
+      "airport_name": "Aeroportul Warsaw Chopin",
+      "airport_short_name": "Varsovia",
+      "airport_code": "WAW"
+    },
+    {
+      "country": "Polonia",
+      "city": "Varovia",
+      "city_code": "WAW",
+      "airport_name": "Aeroportul Warsaw Modlin",
+      "airport_short_name": "Varsovia",
+      "airport_code": "WMI"
+    },
+    {
+      "country": "Polonia",
+      "city": "Cracovia",
+      "city_code": "KRK",
+      "airport_name": "Aeoportul International John Paul II",
+      "airport_short_name": "Cracovia",
+      "airport_code": "KRK"
+    },
+    {
+      "country": "Polonia",
+      "city": "Gdansk",
+      "city_code": "GDN",
+      "airport_name": "Aeroportul Gdansk Lech Walesa",
+      "airport_short_name": "Gdansk",
+      "airport_code": "GDN"
+    },
+    {
+      "country": "Polonia",
+      "city": "Katowice",
+      "city_code": "KTW",
+      "airport_name": "Aeoportul International Katowice",
+      "airport_short_name": "Katowice",
+      "airport_code": "KTW"
+    },
+    {
+      "country": "Polonia",
+      "city": "Wroclaw",
+      "city_code": "WRO",
+      "airport_name": "Aeroportul Nicolaus Copernicus",
+      "airport_short_name": "Wroclaw",
+      "airport_code": "WRO"
+    },
+    {
+      "country": "Polonia",
+      "city": "Poznan",
+      "city_code": "POZ",
+      "airport_name": "Aeroportul Poznan",
+      "airport_short_name": "Poznan",
+      "airport_code": "POZ"
+    },
+
+    {
+      "country": "Polonia",
+      "city": "Rzesziw",
+      "city_code": "RZE",
+      "airport_name": "Aeroportul Rzeszow-Jasionka",
+      "airport_short_name": "Rzeszow",
+      "airport_code": "RZE"
+    },
+    {
+      "country": "Polonia",
+      "city": "Szczecin ",
+      "city_code": "SZZ",
+      "airport_name": "Aeroportul Goleniow",
+      "airport_short_name": "Szczecin",
+      "airport_code": "SZZ"
+    },
+    {
+      "country": "Polonia",
+      "city": "Bydgoszcz",
+      "city_code": "BZG",
+      "airport_name": "Aeroportul Ignacy Jan Paderewski ",
+      "airport_short_name": "Bydgoszcz",
+      "airport_code": "BZG"
+    },
+    {
+      "country": "Polonia",
+      "city": "Lublin",
+      "city_code": "LUZ",
+      "airport_name": "Aeroportul Lublin",
+      "airport_short_name": "Lublin",
+      "airport_code": "LUZ"
+    },
+    {
+      "country": "Polonia",
+      "city": "Szymany",
+      "city_code": "SZY",
+      "airport_name": "Aeroportul Olsztyn Mazury",
+      "airport_short_name": "Szymany",
+      "airport_code": "SZY"
+    },
+    {
+      "country": "Cehia",
+      "city": "Praga",
+      "city_code": "PRG",
+      "airport_name": "Aeroportul Vaclav Havel",
+      "airport_short_name": "Praga",
+      "airport_code": "PRG"
+    },
+    {
+      "country": "Cehia",
+      "city": "Brno",
+      "city_code": "BRQ",
+      "airport_name": "Aeroportul Brno Turany",
+      "airport_short_name": "Brno",
+      "airport_code": "BRQ"
+    },
+    {
+      "country": "Cehia",
+      "city": "Ostrava",
+      "city_code": "OSR",
+      "airport_name": "Aeroportul Leos Janacek",
+      "airport_short_name": "Ostrava",
+      "airport_code": "OSR"
+    },
+    {
+      "country": "Lituania",
+      "city": "Vilnius",
+      "city_code": "VNO",
+      "airport_name": "Aeroportul International Vilnius",
+      "airport_short_name": "Vilnius",
+      "airport_code": "VNO"
+    },
+    {
+      "country": "Lituania",
+      "city": "Kaunas",
+      "city_code": "KUN",
+      "airport_name": "Aeroportul International Kaunas",
+      "airport_short_name": "Kaunas",
+      "airport_code": "KUN"
+    },
+    {
+      "country": "Lituania",
+      "city": "Palanga",
+      "city_code": "PLQ",
+      "airport_name": "Aeroportul Palangos Oro Uostas",
+      "airport_short_name": "Palanga",
+      "airport_code": "PLQ"
+    },
+    {
+      "country": "Estonia",
+      "city": "Tallinn",
+      "city_code": "TLL",
+      "airport_name": "Aeroportul Tallinn",
+      "airport_short_name": "Tallinn",
+      "airport_code": "TLL"
+    },
+    {
+      "country": "Estonia",
+      "city": "Tartu",
+      "city_code": "TAY",
+      "airport_name": "Aeroportul Ulenurme",
+      "airport_short_name": "Tartu",
+      "airport_code": "TAY"
+    },
+    {
+      "country": "Estonia",
+      "city": "Kuressare",
+      "city_code": "URE",
+      "airport_name": "Aeroportul Kuressaare",
+      "airport_short_name": "Kuressare",
+      "airport_code": "URE"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Helsinki",
+      "city_code": "HEL",
+      "airport_name": "Aeroportul Helsinki Vantaa",
+      "airport_short_name": "Helsinki",
+      "airport_code": "HEL"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Helsinki",
+      "city_code": "HEL",
+      "airport_name": "Aeroportul Helsinki Malm",
+      "airport_short_name": "Helsinki",
+      "airport_code": "HEM"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Oulu",
+      "city_code": "OUL",
+      "airport_name": "Aeroportul Oulu",
+      "airport_short_name": "Oulu",
+      "airport_code": "OUL"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Turku",
+      "city_code": "TKU",
+      "airport_name": "Aeroportul Turku",
+      "airport_short_name": "Turku",
+      "airport_code": "TKU"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Tampere",
+      "city_code": "TMP",
+      "airport_name": "Aeroportul Tampere-Pirkkala ",
+      "airport_short_name": "Tampere",
+      "airport_code": "TMP"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Rovaniemi",
+      "city_code": "RVN",
+      "airport_name": "Aeroportul Rovaniemi",
+      "airport_short_name": "Rovaniemi",
+      "airport_code": "RVN"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Vaasa",
+      "city_code": "VAA",
+      "airport_name": "Aeroportul Vaasa",
+      "airport_short_name": "Vaasa",
+      "airport_code": "VAA"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Pori",
+      "city_code": "POR",
+      "airport_name": "Aeroportul Pori",
+      "airport_short_name": "Pori",
+      "airport_code": "POR"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Kuopio",
+      "city_code": "KUO",
+      "airport_name": "Aeroportul Kuopio",
+      "airport_short_name": "Kuopio",
+      "airport_code": "KUO"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Mariehamn",
+      "city_code": "MHQ",
+      "airport_name": "Aeroportul Mariehamn",
+      "airport_short_name": "Mariehamn",
+      "airport_code": "MHQ"
+    },
+    {
+      "country": "Finlanda",
+      "city": "Kokkola",
+      "city_code": "KOK",
+      "airport_name": "Aeroportul Kokkola-Pietarsaari",
+      "airport_short_name": "Kokkola",
+      "airport_code": "KOK"
+    },
+    {
+      "country": "Suedia",
+      "city": "Stockholm",
+      "city_code": "STO",
+      "airport_name": "Aeroportul International Stockholm Aarlanda",
+      "airport_short_name": "Stockholm",
+      "airport_code": "ARN"
+    },
+    {
+      "country": "Suedia",
+      "city": "Stockholm",
+      "city_code": "STO",
+      "airport_name": "Aeroportul International Skavsta",
+      "airport_short_name": "Stockholm",
+      "airport_code": "NYO"
+    },
+    {
+      "country": "Suedia",
+      "city": "Stockholm",
+      "city_code": "STO",
+      "airport_name": "Aeroportul Vasteras",
+      "airport_short_name": "Stockholm",
+      "airport_code": "VST"
+    },
+    {
+      "country": "Suedia",
+      "city": "Stockholm",
+      "city_code": "STO",
+      "airport_name": "Aeroportul Bromma",
+      "airport_short_name": "Stockholm",
+      "airport_code": "BMA"
+    },
+    {
+      "country": "Suedia",
+      "city": "Goteborg",
+      "city_code": "GOT",
+      "airport_name": "Aeroportul International Landvetter",
+      "airport_short_name": "Gothenburg",
+      "airport_code": "GOT"
+    },
+    {
+      "country": "Suedia",
+      "city": "Goteborg",
+      "city_code": "GOT",
+      "airport_name": "Aeroportul Gothenburg Oras",
+      "airport_short_name": "Stockholm",
+      "airport_code": "GSE"
+    },
+    {
+      "country": "Suedia",
+      "city": "Malmo",
+      "city_code": "MMX",
+      "airport_name": "Aeroportul Malmo",
+      "airport_short_name": "Malmo",
+      "airport_code": "MMX"
+    },
+    {
+      "country": "Suedia",
+      "city": "Umea",
+      "city_code": "UME",
+      "airport_name": "Aeroportul Umea",
+      "airport_short_name": "Umea",
+      "airport_code": "UME"
+    },
+    {
+      "country": "Suedia",
+      "city": "Lulea",
+      "city_code": "LLA",
+      "airport_name": "Aeroportul Lulea",
+      "airport_short_name": "Lulea",
+      "airport_code": "LLA"
+    },
+    {
+      "country": "Suedia",
+      "city": "Visby",
+      "city_code": "VBY",
+      "airport_name": "Aeroportul Visby",
+      "airport_short_name": "Visby",
+      "airport_code": "VBY"
+    },
+    {
+      "country": "Suedia",
+      "city": "Angelholm",
+      "city_code": "AGH",
+      "airport_name": "Aeroportul Angelholm-Helsingborg",
+      "airport_short_name": "Angelholm",
+      "airport_code": "AGH"
+    },
+    {
+      "country": "Suedia",
+      "city": "Ostersund",
+      "city_code": "OSD",
+      "airport_name": "Aeroportul Are Ostersund",
+      "airport_short_name": "Ostersund",
+      "airport_code": "OSD"
+    },
+    {
+      "country": "Suedia",
+      "city": "Kalmar",
+      "city_code": "KLR",
+      "airport_name": "Aeroportul Kalmar Oland ",
+      "airport_short_name": "Kalmar",
+      "airport_code": "KLR"
+    },
+    {
+      "country": "Suedia",
+      "city": "Orebro",
+      "city_code": "ORB",
+      "airport_name": "Aeroportul Orebro",
+      "airport_short_name": "Orebro",
+      "airport_code": "ORB"
+    },
+    {
+      "country": "Suedia",
+      "city": "Linkoping",
+      "city_code": "LPI",
+      "airport_name": "Aeroportul Linkoping City ",
+      "airport_short_name": "Linkoping",
+      "airport_code": "LPI"
+    },
+    {
+      "country": "Suedia",
+      "city": "Ronneby",
+      "city_code": "RNB",
+      "airport_name": "Aeroportul Ronneby",
+      "airport_short_name": "Ronneby",
+      "airport_code": "RNB"
+    },
+    {
+      "country": "Suedia",
+      "city": "Jonkoping",
+      "city_code": "JKG",
+      "airport_name": "Aeroportul Jonkoping",
+      "airport_short_name": "Jonkoping",
+      "airport_code": "JKG"
+    },
+    {
+      "country": "Suedia",
+      "city": "Skelleftea",
+      "city_code": "SFT",
+      "airport_name": "Aeroportul Skelleftea",
+      "airport_short_name": "Skelleftea",
+      "airport_code": "SFT"
+    },
+    {
+      "country": "Suedia",
+      "city": "Vaxjo",
+      "city_code": "VXO",
+      "airport_name": "Aeroportul Vaxjo Smaland",
+      "airport_short_name": "Vaxjo",
+      "airport_code": "VXO"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Oslo",
+      "city_code": "OSL",
+      "airport_name": "Aeroportul International Gardermoen",
+      "airport_short_name": "Oslo",
+      "airport_code": "OSL"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Oslo",
+      "city_code": "OSL",
+      "airport_name": "Aeroportul Sandefjord Corp",
+      "airport_short_name": "Oslo",
+      "airport_code": "TRF"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Oslo",
+      "city_code": "OSL",
+      "airport_name": "Aeroportul Moss Rygge",
+      "airport_short_name": "Oslo",
+      "airport_code": "RYG"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Bergen",
+      "city_code": "BGO",
+      "airport_name": "Aeroportul Bergen Flesland",
+      "airport_short_name": "Bergen",
+      "airport_code": "BGO"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Trondheim",
+      "city_code": "TRD",
+      "airport_name": "Aeroportul Trondheim",
+      "airport_short_name": "Trondheim",
+      "airport_code": "TRD"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Stavanger",
+      "city_code": "SVG",
+      "airport_name": "Aeroportul Stavanger",
+      "airport_short_name": "Stavanger",
+      "airport_code": "SVG"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Tromso",
+      "city_code": "TOS",
+      "airport_name": "Aeroportul Tromso",
+      "airport_short_name": "Tromso",
+      "airport_code": "TOS"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Bodo",
+      "city_code": "BOO",
+      "airport_name": "Aeroportul Bodo",
+      "airport_short_name": "Bodo",
+      "airport_code": "BOO"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Alesund",
+      "city_code": "AES",
+      "airport_name": "Aeroportul Alesund",
+      "airport_short_name": "Alesund",
+      "airport_code": "AES"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Kristiansand",
+      "city_code": "KRS",
+      "airport_name": "Aeroportul Kristiansand",
+      "airport_short_name": "Kristiansand",
+      "airport_code": "KRS"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Haugesund",
+      "city_code": "HAU",
+      "airport_name": "Aeroportul Haugesund",
+      "airport_short_name": "Haugesund",
+      "airport_code": "HAU"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Alta",
+      "city_code": "ALF",
+      "airport_name": "Aeroportul Alta",
+      "airport_short_name": "Alta",
+      "airport_code": "ALF"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Hammerfest",
+      "city_code": "HFT",
+      "airport_name": "Aeroportul Hammerfest",
+      "airport_short_name": "Hammerfest",
+      "airport_code": "HFT"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Kristiansund",
+      "city_code": "KSU",
+      "airport_name": "Aeroportul Kristiansund",
+      "airport_short_name": "Kristiansund",
+      "airport_code": "KSU"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Molde",
+      "city_code": "MOL",
+      "airport_name": "Aeroportul Molde",
+      "airport_short_name": "Molde",
+      "airport_code": "MOL"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Kirkenes",
+      "city_code": "KKN",
+      "airport_name": "Aeroportul Kirkenes",
+      "airport_short_name": "Kirkenes",
+      "airport_code": "KKN"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Floro",
+      "city_code": "FRO",
+      "airport_name": "Aeroportul Floro",
+      "airport_short_name": "Floro",
+      "airport_code": "FRO"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Bronnoysund ",
+      "city_code": "BNN",
+      "airport_name": "Aeroportul Bronnoysund ",
+      "airport_short_name": "Bronnoysund ",
+      "airport_code": "BNN"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Vadso",
+      "city_code": "VDS",
+      "airport_name": "Aeroportul Vadso",
+      "airport_short_name": "Vadso",
+      "airport_code": "VDS"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Leknes",
+      "city_code": "LKN",
+      "airport_name": "Aeroportul Leknes",
+      "airport_short_name": "Leknes",
+      "airport_code": "LKN"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Stokmarknes",
+      "city_code": "SKN",
+      "airport_name": "Aeroportul Stokmarknes",
+      "airport_short_name": "Stokmarknes",
+      "airport_code": "SKN"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Bardufoss",
+      "city_code": "BDU",
+      "airport_name": "Aeroportul Bardufoss",
+      "airport_short_name": "Bardufoss",
+      "airport_code": "BDU"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Mo I rana",
+      "city_code": "MQN",
+      "airport_name": "Aeroportul Mo I Rana",
+      "airport_short_name": "Mo I rana",
+      "airport_code": "MQN"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Svolvaer",
+      "city_code": "SVJ",
+      "airport_name": "Aeroportul Svolvaer",
+      "airport_short_name": "Svolvaer",
+      "airport_code": "SVJ"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Sandnessjoen",
+      "city_code": "SSJ",
+      "airport_name": "Aeroportul Sandnessjoen",
+      "airport_short_name": "Sandnessjoen",
+      "airport_code": "SSJ"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Forde",
+      "city_code": "FDE",
+      "airport_name": "Aeroportul Bringeland",
+      "airport_short_name": "Forde",
+      "airport_code": "FDE"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Mosjoen",
+      "city_code": "MJF",
+      "airport_name": "Aeroportul Mosjoen",
+      "airport_short_name": "Mosjoen",
+      "airport_code": "MJF"
+    },
+    {
+      "country": "Norvegia",
+      "city": "Mehamn",
+      "city_code": "MEH",
+      "airport_name": "Aeroportul Mehamn",
+      "airport_short_name": "Mehamn",
+      "airport_code": "MEH"
+    },
+    {
+      "country": "Danemarca",
+      "city": "Copenhaga",
+      "city_code": "CPH",
+      "airport_name": "Aeroportul International Copenhaga",
+      "airport_short_name": "Copenhaga",
+      "airport_code": "CPH"
+    },
+    {
+      "country": "Danemarca",
+      "city": "Copenhaga",
+      "city_code": "CPH",
+      "airport_name": "Aeroportul International Roskilde",
+      "airport_short_name": "Copenhaga",
+      "airport_code": "RKE"
+    },
+    {
+      "country": "Danemarca",
+      "city": "Billund",
+      "city_code": "BLL",
+      "airport_name": "Aeroportul Billund",
+      "airport_short_name": "Billund",
+      "airport_code": "BLL"
+    },
+    {
+      "country": "Danemarca",
+      "city": "Aalborg",
+      "city_code": "AAL",
+      "airport_name": "Aeroportul Aalborg",
+      "airport_short_name": "Aalborg",
+      "airport_code": "AAL"
+    },
+    {
+      "country": "Danemarca",
+      "city": "Aarhus ",
+      "city_code": "AAR",
+      "airport_name": "Aeroportul Aarhus",
+      "airport_short_name": "Aarhus ",
+      "airport_code": "AAR"
+    },
+    {
+      "country": "Danemarca",
+      "city": "Ronne",
+      "city_code": "RNN",
+      "airport_name": "Aeroportul Bornholm",
+      "airport_short_name": "Ronne",
+      "airport_code": "RNN"
+    },
+    {
+      "country": "Danemarca",
+      "city": "Karup",
+      "city_code": "KRP",
+      "airport_name": "Aeroportul Midtjyllands ",
+      "airport_short_name": "Karup",
+      "airport_code": "KRP"
+    },
+    {
+      "country": "Danemarca",
+      "city": "Esbjerg",
+      "city_code": "EBJ",
+      "airport_name": "Aeroportul Esbjerg",
+      "airport_short_name": "Esbjerg",
+      "airport_code": "EBJ"
+    },
+    {
+      "country": "Danemarca",
+      "city": "Sonderborg",
+      "city_code": "SGD",
+      "airport_name": "Aeroportul Sonderborg",
+      "airport_short_name": "Sonderborg",
+      "airport_code": "SGD"
+    },
+    {
+      "country": "Germania",
+      "city": "Frankfurt",
+      "city_code": "FRA",
+      "airport_name": "Aeroportul International Frankfurt",
+      "airport_short_name": "Frankfurt",
+      "airport_code": "FRA"
+    },
+    {
+      "country": "Germania",
+      "city": "Frankfurt",
+      "city_code": "FRA",
+      "airport_name": "Aeroportul International Frankfurt-Hahn",
+      "airport_short_name": "Frankfurt",
+      "airport_code": "HHN"
+    },
+    {
+      "country": "Germania",
+      "city": "Munchen",
+      "city_code": "MUC",
+      "airport_name": "Aeroportul International Franz Josepf Straub",
+      "airport_short_name": "Munich",
+      "airport_code": "MUC"
+    },
+    {
+      "country": "Germania",
+      "city": "Munchen",
+      "city_code": "MUC",
+      "airport_name": "Aeroportul International Muehlhaausen",
+      "airport_short_name": "Munich",
+      "airport_code": "AGB"
+    },
+    {
+      "country": "Germania",
+      "city": "Dusseldorf ",
+      "city_code": "DUS",
+      "airport_name": "Aeoportul International Dusseldorf",
+      "airport_short_name": "Dusseldorf ",
+      "airport_code": "DUS"
+    },
+    {
+      "country": "Germania",
+      "city": "Dusseldorf ",
+      "city_code": "DUS",
+      "airport_name": "Aeoportul Dusseldorf",
+      "airport_short_name": "Dusseldorf ",
+      "airport_code": "QDU"
+    },
+    {
+      "country": "Germania",
+      "city": "Dusseldorf ",
+      "city_code": "DUS",
+      "airport_name": "Aeoportul Weeze",
+      "airport_short_name": "Dusseldorf ",
+      "airport_code": "NRN"
+    },
+    {
+      "country": "Germania",
+      "city": "Dusseldorf ",
+      "city_code": "DUS",
+      "airport_name": "Aeoportul Moenchengladbach",
+      "airport_short_name": "Dusseldorf ",
+      "airport_code": "MGL"
+    },
+    {
+      "country": "Germania",
+      "city": "Koln",
+      "city_code": "CGN",
+      "airport_name": "Aeroportul Koln-Bonn ",
+      "airport_short_name": "Koln",
+      "airport_code": "CGN"
+    },
+    {
+      "country": "Germania",
+      "city": "Koln",
+      "city_code": "CGN",
+      "airport_name": "Aeroportul Bonn Hangelar ",
+      "airport_short_name": "Koln",
+      "airport_code": "BNJ"
+    },
+    {
+      "country": "Germania",
+      "city": "Hamburg",
+      "city_code": "HAM",
+      "airport_name": "Aeroportul Hamburg",
+      "airport_short_name": "Hamburg",
+      "airport_code": "HAM"
+    },
+    {
+      "country": "Germania",
+      "city": "Hamburg",
+      "city_code": "HAM",
+      "airport_name": "Aeroportul Finken",
+      "airport_short_name": "Hamburg",
+      "airport_code": "XFW"
+    },
+    {
+      "country": "Germania",
+      "city": "Hamburg",
+      "city_code": "HAM",
+      "airport_name": "Aeroportul Lubeck Blankensee",
+      "airport_short_name": "Hamburg",
+      "airport_code": "LBC"
+    },
+    {
+      "country": "Germania",
+      "city": "Stuttgart ",
+      "city_code": "STR",
+      "airport_name": "Aeroportul Stuttgart",
+      "airport_short_name": "Stuttgart ",
+      "airport_code": "STR"
+    },
+    {
+      "country": "Germania",
+      "city": "Stuttgart ",
+      "city_code": "STR",
+      "airport_name": "Aeroportul Strasbourg",
+      "airport_short_name": "Stuttgart ",
+      "airport_code": "ZWS"
+    },
+    {
+      "country": "Germania",
+      "city": "Leipzig",
+      "city_code": "LEJ",
+      "airport_name": "Aeroportul Leipzig/Halle ",
+      "airport_short_name": "Leipzig",
+      "airport_code": "LEJ"
+    },
+    {
+      "country": "Germania",
+      "city": "Berlin",
+      "city_code": "BER",
+      "airport_name": "Aeroportul International Berlin Brandenburg ",
+      "airport_short_name": "Berlin",
+      "airport_code": "BER"
+    },
+    {
+      "country": "Germania",
+      "city": "Hanovra",
+      "city_code": "HAJ",
+      "airport_name": "Aeroportul International Hanovra ",
+      "airport_short_name": "Hanovra",
+      "airport_code": "HAJ"
+    },
+    {
+      "country": "Germania",
+      "city": "Nurnberg",
+      "city_code": "NUE",
+      "airport_name": "Aeroportul International Nuremberg ",
+      "airport_short_name": "Nuremberg",
+      "airport_code": "NUE"
+    },
+    {
+      "country": "Germania",
+      "city": "Bremen",
+      "city_code": "BRE",
+      "airport_name": "Aeroportul International Bremen",
+      "airport_short_name": "Bremen",
+      "airport_code": "BRE"
+    },
+    {
+      "country": "Germania",
+      "city": "Dortmund",
+      "city_code": "DTM",
+      "airport_name": "Aeroportul International Dortmund",
+      "airport_short_name": "Dortmund",
+      "airport_code": "DTM"
+    },
+    {
+      "country": "Germania",
+      "city": "Dresda",
+      "city_code": "DRS",
+      "airport_name": "Aeroportul International Dresden",
+      "airport_short_name": "Dresden",
+      "airport_code": "DRS"
+    },
+    {
+      "country": "Germania",
+      "city": "Munster",
+      "city_code": "FMO",
+      "airport_name": "Aeroportul International Munster Osnabruck ",
+      "airport_short_name": "Munster",
+      "airport_code": "FMO"
+    },
+    {
+      "country": "Germania",
+      "city": "Karlsruhe",
+      "city_code": "FKB",
+      "airport_name": "Aeroportul Karlsruhe/Baden-Baden",
+      "airport_short_name": "Karlsruhe",
+      "airport_code": "FKB"
+    },
+    {
+      "country": "Germania",
+      "city": "Memmingen",
+      "city_code": "FMM",
+      "airport_name": "Aeroportul Memmingen",
+      "airport_short_name": "Memmingen",
+      "airport_code": "FMM"
+    },
+    {
+      "country": "Germania",
+      "city": "Friedrichshafen",
+      "city_code": "FDH",
+      "airport_name": "Aeroportul Bodensee",
+      "airport_short_name": "Friedrichshafen",
+      "airport_code": "FDH"
+    },
+    {
+      "country": "Germania",
+      "city": "Mannheim",
+      "city_code": "MHG",
+      "airport_name": "Aeroportul Mannheim",
+      "airport_short_name": "Mannheim",
+      "airport_code": "MHG"
+    },
+    {
+      "country": "Germania",
+      "city": "Paderborn",
+      "city_code": "PAD",
+      "airport_name": "Aeroportul Paderborn Lippstadt",
+      "airport_short_name": "Paderborn",
+      "airport_code": "PAD"
+    },
+    {
+      "country": "Elvetia",
+      "city": "Zurich",
+      "city_code": "ZRH",
+      "airport_name": "Aeroportul Zurich",
+      "airport_short_name": "Zurich",
+      "airport_code": "ZRH"
+    },
+    {
+      "country": "Elvetia",
+      "city": "Geneva",
+      "city_code": "GVA",
+      "airport_name": "Aeroportul Geneva",
+      "airport_short_name": "Geneva",
+      "airport_code": "GVA"
+    },
+    {
+      "country": "Elvetia",
+      "city": "Mulhouse",
+      "city_code": "EAP",
+      "airport_name": "Aeroportul Basel-Mulhouse-Freiburg",
+      "airport_short_name": "Mulhouse",
+      "airport_code": "BSL"
+    },
+    {
+      "country": "Elvetia",
+      "city": "Berna",
+      "city_code": "BRN",
+      "airport_name": "Aeroportul Bern",
+      "airport_short_name": "Berna",
+      "airport_code": "BRN"
+    },
+    {
+      "country": "Elvetia",
+      "city": "Thal",
+      "city_code": "ACH",
+      "airport_name": "Aeroportul St. Gallen-Altenrhein",
+      "airport_short_name": "Thal",
+      "airport_code": "ACH"
+    },
+    {
+      "country": "Elvetia",
+      "city": "Sion",
+      "city_code": "SIR",
+      "airport_name": "Aeroportul Sion",
+      "airport_short_name": "Sion",
+      "airport_code": "SIR"
+    },
+    {
+      "country": "Elvetia",
+      "city": "Lugano",
+      "city_code": "LUG",
+      "airport_name": "Aeroportul Lugano",
+      "airport_short_name": "Lugano",
+      "airport_code": "LUG"
+    },
+    {
+      "country": "Elvetia",
+      "city": "Buochs",
+      "city_code": "BXO",
+      "airport_name": "Aeroportul Buochs",
+      "airport_short_name": "Buochs",
+      "airport_code": "BXO"
+    },
+    {
+      "country": "Italia",
+      "city": "Roma",
+      "city_code": "ROM",
+      "airport_name": "Aeroportul Leonardo da Vinci-Fiumicino",
+      "airport_short_name": "Roma",
+      "airport_code": "FCO"
+    },
+    {
+      "country": "Italia",
+      "city": "Roma",
+      "city_code": "ROM",
+      "airport_name": "Aeroportul Ciampino",
+      "airport_short_name": "Roma",
+      "airport_code": "CIA"
+    },
+    {
+      "country": "Italia",
+      "city": "Milano",
+      "city_code": "MIL",
+      "airport_name": "Aeroportul Milan Malpensa ",
+      "airport_short_name": "Milano",
+      "airport_code": "MXP"
+    },
+    {
+      "country": "Italia",
+      "city": "Milano",
+      "city_code": "MIL",
+      "airport_name": "Aeroportul International Bergamo",
+      "airport_short_name": "Milano",
+      "airport_code": "BGY"
+    },
+    {
+      "country": "Italia",
+      "city": "Milano",
+      "city_code": "MIL",
+      "airport_name": "Aeroportul Linate",
+      "airport_short_name": "Milano",
+      "airport_code": "LIN"
+    },
+    {
+      "country": "Italia",
+      "city": "Milano",
+      "city_code": "MIL",
+      "airport_name": "Aeroportul Parma",
+      "airport_short_name": "Milano",
+      "airport_code": "PMF"
+    },
+    {
+      "country": "Italia",
+      "city": "Venetia",
+      "city_code": "VCE",
+      "airport_name": "Aeroportul Venice Marco Polo",
+      "airport_short_name": "Venetia",
+      "airport_code": "VCE"
+    },
+    {
+      "country": "Italia",
+      "city": "Salerno",
+      "city_code": "QSR",
+      "airport_name": "Aeroportul Pontecagnano",
+      "airport_short_name": "Salerno",
+      "airport_code": "QSR"
+    },
+    {
+      "country": "Italia",
+      "city": "Rimini",
+      "city_code": "RMI",
+      "airport_name": "Aeroportul Federico Fellini",
+      "airport_short_name": "Rimini",
+      "airport_code": "RMI"
+    },
+    {
+      "country": "Italia",
+      "city": "Venetia",
+      "city_code": "VCE",
+      "airport_name": "Aeroportul Sant'Angelo Treviso",
+      "airport_short_name": "Venetia",
+      "airport_code": "TSF"
+    },
+    {
+      "country": "Italia",
+      "city": "Napoli",
+      "city_code": "NAP",
+      "airport_name": "Aeroportul Napoli",
+      "airport_short_name": "Napoli",
+      "airport_code": "NAP"
+    },
+    {
+      "country": "Italia",
+      "city": "Bologna",
+      "city_code": "BLQ",
+      "airport_name": "Aeroportul Guglielmo Marconi ",
+      "airport_short_name": "Bologna",
+      "airport_code": "BLQ"
+    },
+    {
+      "country": "Italia",
+      "city": "Sicilia Catania",
+      "city_code": "CTA",
+      "airport_name": "Aeroportul Catania Fontanarossa ",
+      "airport_short_name": "Sicilia Catania",
+      "airport_code": "CTA"
+    },
+    {
+      "country": "Italia",
+      "city": "Sicilia Palermo",
+      "city_code": "PMO",
+      "airport_name": "Aeroportul Palermo",
+      "airport_short_name": "Sicilia Palermo",
+      "airport_code": "PMO"
+    },
+    {
+      "country": "Italia",
+      "city": "Pisa",
+      "city_code": "PSA",
+      "airport_name": "Aeroportul International Pisa",
+      "airport_short_name": "Pisa",
+      "airport_code": "PSA"
+    },
+    {
+      "country": "Italia",
+      "city": "Bari",
+      "city_code": "BRI",
+      "airport_name": "Aeroportul International Bari Karol Wojtyla",
+      "airport_short_name": "Bari",
+      "airport_code": "BRI"
+    },
+    {
+      "country": "Italia",
+      "city": "Torino",
+      "city_code": "TRN",
+      "airport_name": "Aeroportul Torino",
+      "airport_short_name": "Torino",
+      "airport_code": "TRN"
+    },
+    {
+      "country": "Italia",
+      "city": "Sardinia Cagliari",
+      "city_code": "CAG",
+      "airport_name": "Aeroportul Cagliari Elmas",
+      "airport_short_name": "Sardinia Cagliari",
+      "airport_code": "CAG"
+    },
+    {
+      "country": "Italia",
+      "city": "Florenta",
+      "city_code": "FLR",
+      "airport_name": "Aeroportul Florența ",
+      "airport_short_name": "Florenta",
+      "airport_code": "FLR"
+    },
+    {
+      "country": "Italia",
+      "city": "Sardinia Olbia",
+      "city_code": "OLB",
+      "airport_name": "Aeroportul Olbia Costa Smeralda",
+      "airport_short_name": "Sardinia Olbia",
+      "airport_code": "OLB"
+    },
+    {
+      "country": "Italia",
+      "city": "Verona",
+      "city_code": "VRN",
+      "airport_name": "Aeroportul Valerio Catullo VillaFranca",
+      "airport_short_name": "Verona",
+      "airport_code": "VRN"
+    },
+    {
+      "country": "Italia",
+      "city": "Lecce",
+      "city_code": "LCC",
+      "airport_name": "Aeroportul Galatina",
+      "airport_short_name": "Lecce",
+      "airport_code": "LCC"
+    },
+    {
+      "country": "Italia",
+      "city": "Brindisi",
+      "city_code": "BDS",
+      "airport_name": "Aeroportul Brindisi",
+      "airport_short_name": "Brindisi",
+      "airport_code": "BDS"
+    },
+    {
+      "country": "Italia",
+      "city": "Taranto",
+      "city_code": "tAR",
+      "airport_name": "Aeroportul M A Grottag",
+      "airport_short_name": "Taranto",
+      "airport_code": "TAR"
+    },
+    {
+      "country": "Italia",
+      "city": "Reggio Calabria",
+      "city_code": "REG",
+      "airport_name": "Aeroportul Reggio Calabria",
+      "airport_short_name": "Reggio Calabria",
+      "airport_code": "REG"
+    },
+    {
+      "country": "Italia",
+      "city": "Lamezia",
+      "city_code": "SUF",
+      "airport_name": "Aeroportul Lamezia Terme",
+      "airport_short_name": "Lamezia",
+      "airport_code": "SUF"
+    },
+    {
+      "country": "Italia",
+      "city": "Genova",
+      "city_code": "GOA",
+      "airport_name": "Aeroportul Genova Cristoforo Colombo",
+      "airport_short_name": "Genova",
+      "airport_code": "GOA"
+    },
+    {
+      "country": "Italia",
+      "city": "Sardinia Alghero",
+      "city_code": "AHO",
+      "airport_name": "Aeroportul Alghero",
+      "airport_short_name": "Sardinia Alghero",
+      "airport_code": "AHO"
+    },
+    {
+      "country": "Italia",
+      "city": "Brescia",
+      "city_code": "VBS",
+      "airport_name": "Aeroportul Brescia",
+      "airport_short_name": "Brescia",
+      "airport_code": "VBS"
+    },
+    {
+      "country": "Italia",
+      "city": "Ancona",
+      "city_code": "AOI",
+      "airport_name": "Aeroportul Marche",
+      "airport_short_name": "Ancona",
+      "airport_code": "AOI"
+    },
+    {
+      "country": "Italia",
+      "city": "Pescara",
+      "city_code": "PSR",
+      "airport_name": "Aeroportul Abruzzo",
+      "airport_short_name": "Pescara",
+      "airport_code": "PSR"
+    },
+    {
+      "country": "Italia",
+      "city": "Perugia",
+      "city_code": "PEG",
+      "airport_name": "Aeroportul San Francesco d'Assisi",
+      "airport_short_name": "Perugia",
+      "airport_code": "PEG"
+    },
+    {
+      "country": "Italia",
+      "city": "Foggia",
+      "city_code": "FOG",
+      "airport_name": "Aeroportul Foggia Gino Lisa",
+      "airport_short_name": "Foggia",
+      "airport_code": "FOG"
+    },
+    {
+      "country": "Italia",
+      "city": "Bolzano",
+      "city_code": "BZO",
+      "airport_name": "Aeroportul Bolzano",
+      "airport_short_name": "Bolzano",
+      "airport_code": "BZO"
+    },
+    {
+      "country": "Italia",
+      "city": "Comiso",
+      "city_code": "CIY",
+      "airport_name": "Aeroportul Comiso",
+      "airport_short_name": "Comiso",
+      "airport_code": "CIY"
+    },
+    {
+      "country": "Italia",
+      "city": "Sicilia",
+      "city_code": "LMP",
+      "airport_name": "Aeroportul Lampedusa",
+      "airport_short_name": "Lampedusa",
+      "airport_code": "LMP"
+    },
+    {
+      "country": "Italia",
+      "city": "Pantelleria",
+      "city_code": "PNL",
+      "airport_name": "Aeroportul Pantelleria",
+      "airport_short_name": "Pantelleria",
+      "airport_code": "PNL"
+    },
+    {
+      "country": "Olanda",
+      "city": "Amsterdam",
+      "city_code": "AMS",
+      "airport_name": "Aeroportul Schiphol Amsterdam",
+      "airport_short_name": "Amsterdam",
+      "airport_code": "AMS"
+    },
+    {
+      "country": "Olanda",
+      "city": "Eindhoven",
+      "city_code": "EIN",
+      "airport_name": "Aeroportul Eindhoven",
+      "airport_short_name": "Eindhoven",
+      "airport_code": "EIN"
+    },
+    {
+      "country": "Olanda",
+      "city": "Rotterdam",
+      "city_code": "RTM",
+      "airport_name": "Aeroportul Rotterdam Haga",
+      "airport_short_name": "Rotterdam",
+      "airport_code": "RTM"
+    },
+    {
+      "country": "Saint Martin",
+      "city": "Saint Martin",
+      "city_code": "SXM",
+      "airport_name": "Aeroportul International Princess Juliana",
+      "airport_short_name": "Saint Martin",
+      "airport_code": "SXM"
+    },
+    {
+      "country": "Olanda",
+      "city": "Eelde",
+      "city_code": "GRQ",
+      "airport_name": "Aeroportul Groningen",
+      "airport_short_name": "Eelde",
+      "airport_code": "GRQ"
+    },
+    {
+      "country": "Olanda",
+      "city": "Lelystad",
+      "city_code": "LEY",
+      "airport_name": "Aeroportul Lelystad",
+      "airport_short_name": "Lelystad",
+      "airport_code": "LEY"
+    },
+    {
+      "country": "Olanda",
+      "city": "Maastricht",
+      "city_code": "MST",
+      "airport_name": "Aeroportul Maastricht Aachen ",
+      "airport_short_name": "Maastricht",
+      "airport_code": "MST"
+    },
+    {
+      "country": "Caraibe Olandeze",
+      "city": "Kralendijk",
+      "city_code": "BON",
+      "airport_name": "Aeroportul International Bonaire",
+      "airport_short_name": "Kralendijk",
+      "airport_code": "BON"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Londra",
+      "city_code": "LON",
+      "airport_name": "Aeroportul Heathrow",
+      "airport_short_name": "Londra",
+      "airport_code": "LHR"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Londra",
+      "city_code": "LON",
+      "airport_name": "Aeroportul London Gatwick ",
+      "airport_short_name": "Londra",
+      "airport_code": "LGW"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Londra",
+      "city_code": "LON",
+      "airport_name": "Aeroportul Luton",
+      "airport_short_name": "Luton",
+      "airport_code": "LTN"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Londra",
+      "city_code": "LON",
+      "airport_name": "Aeroportul London Stansted ",
+      "airport_short_name": "Londra",
+      "airport_code": "STN"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Londra",
+      "city_code": "LON",
+      "airport_name": "Aeroportul London Biggin Hill ",
+      "airport_short_name": "Londra",
+      "airport_code": "BQH"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Londra",
+      "city_code": "LON",
+      "airport_name": "Aeroportul London City",
+      "airport_short_name": "Londra",
+      "airport_code": "LCY"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Londra",
+      "city_code": "LON",
+      "airport_name": "Aeroportul London Southend ",
+      "airport_short_name": "Londra",
+      "airport_code": "SEN"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Manchester",
+      "city_code": "MAN",
+      "airport_name": "Aeroportul Manchester",
+      "airport_short_name": "Manchester",
+      "airport_code": "MAN"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Dundee",
+      "city_code": "DND",
+      "airport_name": "Aeroportul Dundee",
+      "airport_short_name": "Dundee",
+      "airport_code": "DND"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Doncaster",
+      "city_code": "DSA",
+      "airport_name": "Aeroportul Doncaster Sheffield",
+      "airport_short_name": "Doncaster",
+      "airport_code": "DSA"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Edinburgh",
+      "city_code": "EDI",
+      "airport_name": "Aeroportul Edinburgh",
+      "airport_short_name": "Edinburgh",
+      "airport_code": "EDI"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Birmingham",
+      "city_code": "BHX",
+      "airport_name": "Aeroportul Birmingham",
+      "airport_short_name": "Birmingham",
+      "airport_code": "BHX"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Glasgow",
+      "city_code": "GLA",
+      "airport_name": "Aeroportul Glasgow Prestwick",
+      "airport_short_name": "Glasgow",
+      "airport_code": "PIK"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Glasgow",
+      "city_code": "GLA",
+      "airport_name": "Aeroportul Glasgow",
+      "airport_short_name": "Glasgow",
+      "airport_code": "GLA"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Nottingham",
+      "city_code": "NQT",
+      "airport_name": "Aeroportul East Midlands",
+      "airport_short_name": "Nottingham",
+      "airport_code": "EMA"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Nottingham",
+      "city_code": "NQT",
+      "airport_name": "Aeroportul Nottingham",
+      "airport_short_name": "Nottingham",
+      "airport_code": "NQT"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Bristol",
+      "city_code": "BRS",
+      "airport_name": "Aeroportul Bristol",
+      "airport_short_name": "Bristol",
+      "airport_code": "BRS"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Aberdeen",
+      "city_code": "ABZ",
+      "airport_name": "Aeroportul International Aberdeen",
+      "airport_short_name": "Aberdeen",
+      "airport_code": "ABZ"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Belfast",
+      "city_code": "BFS",
+      "airport_name": "Aeroportul International Belfast",
+      "airport_short_name": "Belfast",
+      "airport_code": "BFS"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Liverpool",
+      "city_code": "LPL",
+      "airport_name": "Aeroportul  John Lennon ",
+      "airport_short_name": "Liverpool",
+      "airport_code": "LPL"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Newcastle-upon-Tyne",
+      "city_code": "NCL",
+      "airport_name": "Aeroportul Newcastle",
+      "airport_short_name": "Newcastle",
+      "airport_code": "NCL"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Leeds",
+      "city_code": "LBA",
+      "airport_name": "Aeroportul Bradford",
+      "airport_short_name": "Leeds",
+      "airport_code": "LBA"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Farnborough ",
+      "city_code": "FAB",
+      "airport_name": "Aeroportul Farnborough ",
+      "airport_short_name": "Farnborough ",
+      "airport_code": "FAB"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Southampton",
+      "city_code": "SOU",
+      "airport_name": "Aeroportul Southampton",
+      "airport_short_name": "Southampton",
+      "airport_code": "SOU"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Swansea",
+      "city_code": "SWS",
+      "airport_name": "Aeroportul Fairwood Comm",
+      "airport_short_name": "Swansea",
+      "airport_code": "SWS"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Belfast",
+      "city_code": "BHD",
+      "airport_name": "Aeroportul Belfast City ",
+      "airport_short_name": "Belfast",
+      "airport_code": "BHD"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Oxford",
+      "city_code": "OXF",
+      "airport_name": "Aeroportul Oxord",
+      "airport_short_name": "Oxford",
+      "airport_code": "OXF"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Bournemouth",
+      "city_code": "BOH",
+      "airport_name": "Aeroportul International Bournemouth",
+      "airport_short_name": "Bournemouth",
+      "airport_code": "BOH"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Northampton",
+      "city_code": "ORM",
+      "airport_name": "Aeroportul Northampton",
+      "airport_short_name": "Northampton",
+      "airport_code": "ORM"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Norwich",
+      "city_code": "NWI",
+      "airport_name": "Aeroportul Norwich",
+      "airport_short_name": "Norwich",
+      "airport_code": "NWI"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Exeter",
+      "city_code": "EXT",
+      "airport_name": "Aeroportul International Exeter",
+      "airport_short_name": "Exeter",
+      "airport_code": "EXT"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Inverness",
+      "city_code": "INV",
+      "airport_name": "Aeroportul International Inverness",
+      "airport_short_name": "Inverness",
+      "airport_code": "INV"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Cardiff",
+      "city_code": "CWL",
+      "airport_name": "Cardiff Airport",
+      "airport_short_name": "Cardiff",
+      "airport_code": "CWL"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Plymouth",
+      "city_code": "PLH",
+      "airport_name": "Cardiff Plymouth City",
+      "airport_short_name": "Plymouth",
+      "airport_code": "PLH"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Shetland island",
+      "city_code": "LSI",
+      "airport_name": "Aeroportul Sumburgh ",
+      "airport_short_name": "Shetland island",
+      "airport_code": "LSI"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Kirmington",
+      "city_code": "HUY",
+      "airport_name": "Aeroportul Humberside ",
+      "airport_short_name": "Kirmington",
+      "airport_code": "HUY"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Newquay",
+      "city_code": "NQY",
+      "airport_name": "Aeroportul Cornwall Newquay",
+      "airport_short_name": "Newquay",
+      "airport_code": "NQY"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Isles of Scilly",
+      "city_code": "ISC",
+      "airport_name": "Aeroportul Saint Mary's",
+      "airport_short_name": "Isles of Scilly",
+      "airport_code": "ISC"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Kirkwall",
+      "city_code": "KOI",
+      "airport_name": "Aeroportul Kirkwall",
+      "airport_short_name": "Kirkwall",
+      "airport_code": "KOI"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Durham",
+      "city_code": "MME",
+      "airport_name": "Aeroportul Durham Tees Valley",
+      "airport_short_name": "Durham",
+      "airport_code": "MME"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Carlisle",
+      "city_code": "CAX",
+      "airport_name": "Aeroportul Carlisle",
+      "airport_short_name": "Carlisle",
+      "airport_code": "CAX"
+    },
+    {
+      "country": "Regatul Unit",
+      "city": "Stornoway",
+      "city_code": "SYY",
+      "airport_name": "Aeroportul International Stornoway ",
+      "airport_short_name": "Stornoway",
+      "airport_code": "SYY"
+    },
+    {
+      "country": "Franta",
+      "city": "Reims",
+      "city_code": "RHE",
+      "airport_name": "Aeroportul Champagne",
+      "airport_short_name": "Reims",
+      "airport_code": "RHE"
+    },
+
+    {
+      "country": "Franta",
+      "city": "Paris",
+      "city_code": "PAR",
+      "airport_name": "Aeroportul Charles de Gaulle",
+      "airport_short_name": "Paris",
+      "airport_code": "CDG"
+    },
+    {
+      "country": "Franta",
+      "city": "Paris",
+      "city_code": "PAR",
+      "airport_name": "Aeroportul Paris Beauvais Tille",
+      "airport_short_name": "Paris",
+      "airport_code": "BVA"
+    },
+    {
+      "country": "Franta",
+      "city": "Paris",
+      "city_code": "PAR",
+      "airport_name": "Aeroportul Paris-Orly",
+      "airport_short_name": "Paris",
+      "airport_code": "ORY"
+    },
+    {
+      "country": "Franta",
+      "city": "Paris",
+      "city_code": "PAR",
+      "airport_name": "Aeroportul Le Bourget",
+      "airport_short_name": "Paris",
+      "airport_code": "LBG"
+    },
+    {
+      "country": "Franta",
+      "city": "Paris",
+      "city_code": "PAR",
+      "airport_name": "Aeroportul Villa Coublay",
+      "airport_short_name": "Paris",
+      "airport_code": "VIY"
+    },
+    {
+      "country": "Franta",
+      "city": "Paris",
+      "city_code": "PAR",
+      "airport_name": "Aeroportul Cormeille En Vexin",
+      "airport_short_name": "Paris",
+      "airport_code": "POX"
+    },
+    {
+      "country": "Franta",
+      "city": "Paris",
+      "city_code": "PAR",
+      "airport_name": "Aeroportul Chalons Vary",
+      "airport_short_name": "Paris",
+      "airport_code": "XCR"
+    },
+    {
+      "country": "Franta",
+      "city": "Nisa",
+      "city_code": "NCE",
+      "airport_name": "Aeroportul Coasta de Azur Nisa",
+      "airport_short_name": "Nisa",
+      "airport_code": "NCE"
+    },
+    {
+      "country": "Franta",
+      "city": "Toulouse",
+      "city_code": "TLS",
+      "airport_name": "Aeroportul Toulouse-Blagnac",
+      "airport_short_name": "Toulouse",
+      "airport_code": "TLS"
+    },
+    {
+      "country": "Franta",
+      "city": "Dijon",
+      "city_code": "DIJ",
+      "airport_name": "Aeroportul Longvic",
+      "airport_short_name": "Dijon",
+      "airport_code": "DIJ"
+    },
+    {
+      "country": "Franta",
+      "city": "Saint-Etienne",
+      "city_code": "EBU",
+      "airport_name": "Aeroportul Boutheon",
+      "airport_short_name": "Saint-Etienne",
+      "airport_code": "EBU"
+    },
+    {
+      "country": "Franta",
+      "city": "Marsilia",
+      "city_code": "MRS",
+      "airport_name": "Aeroportul Marsilia Provence",
+      "airport_short_name": "Marsilia",
+      "airport_code": "MRS"
+    },
+    {
+      "country": "Franta",
+      "city": "Lyon",
+      "city_code": "LYS",
+      "airport_name": "Aeroportul Lyon Saint Exupery",
+      "airport_short_name": "Lyon",
+      "airport_code": "LYS"
+    },
+    {
+      "country": "Franta",
+      "city": "Lyon",
+      "city_code": "LYN",
+      "airport_name": "Aeroportul Bron ",
+      "airport_short_name": "Lyon",
+      "airport_code": "LYN"
+    },
+    {
+      "country": "Franta",
+      "city": "Lyon",
+      "city_code": "GNB",
+      "airport_name": "Aeroportul Alpes-Isere",
+      "airport_short_name": "Lyon",
+      "airport_code": "GNB"
+    },
+    {
+      "country": "Franta",
+      "city": "Bordeaux",
+      "city_code": "BOD",
+      "airport_name": "Aeroportul Bordeaux-Merignac",
+      "airport_short_name": "Bordeaux",
+      "airport_code": "BOD"
+    },
+    {
+      "country": "Franta",
+      "city": "Nantes",
+      "city_code": "NTE",
+      "airport_name": "Aeroportul Nantes Atlantique",
+      "airport_short_name": "Nantes",
+      "airport_code": "NTE"
+    },
+    {
+      "country": "Franta",
+      "city": "Orleans",
+      "city_code": "ORE",
+      "airport_name": "Aeroportul Orleans",
+      "airport_short_name": "Orleans",
+      "airport_code": "ORE"
+    },
+    {
+      "country": "Franta",
+      "city": "Montpellier",
+      "city_code": "MPL",
+      "airport_name": "Aeroportul Montpellier-Mediterranee",
+      "airport_short_name": "Montpellier",
+      "airport_code": "MPL"
+    },
+    {
+      "country": "Franta",
+      "city": "Angers",
+      "city_code": "ANE",
+      "airport_name": "Aeroportul Marce",
+      "airport_short_name": "Angers",
+      "airport_code": "ANE"
+    },
+    {
+      "country": "Franta",
+      "city": "Ajaccio",
+      "city_code": "AJA",
+      "airport_name": "Aeroportul Ajaccio Napoleon Bonaparte",
+      "airport_short_name": "Ajaccio",
+      "airport_code": "AJA"
+    },
+    {
+      "country": "Franta",
+      "city": "Bourges",
+      "city_code": "BOU",
+      "airport_name": "Aeroportul Bourges",
+      "airport_short_name": "Bourges",
+      "airport_code": "BOU"
+    },
+    {
+      "country": "Franta",
+      "city": "Bastia",
+      "city_code": "BIA",
+      "airport_name": "Aeroportul Bastia-Poretta",
+      "airport_short_name": "Bastia",
+      "airport_code": "BIA"
+    },
+    {
+      "country": "Franta",
+      "city": "Strasbourg",
+      "city_code": "SXB",
+      "airport_name": "Aeroportul Strasbourg",
+      "airport_short_name": "Strasbourg",
+      "airport_code": "SXB"
+    },
+    {
+      "country": "Franta",
+      "city": "Strasbourg",
+      "city_code": "SXB",
+      "airport_name": "Aeroportul Strasbourg",
+      "airport_short_name": "Strasbourg",
+      "airport_code": "XER"
+    },
+    {
+      "country": "Franta",
+      "city": "Brest",
+      "city_code": "BES",
+      "airport_name": "Aeroportul Brest Bretagne",
+      "airport_short_name": "Brest",
+      "airport_code": "BES"
+    },
+    {
+      "country": "Franta",
+      "city": "Cannes",
+      "city_code": "CEQ",
+      "airport_name": "Aeroportul Cannes-Mandelieu",
+      "airport_short_name": "Cannes",
+      "airport_code": "CEQ"
+    },
+    {
+      "country": "Franta",
+      "city": "Biarritz",
+      "city_code": "BIQ",
+      "airport_name": "Aeroportul Biarritz Pays Basque",
+      "airport_short_name": "Biarritz",
+      "airport_code": "BIQ"
+    },
+    {
+      "country": "Franta",
+      "city": "Rennes",
+      "city_code": "RNS",
+      "airport_name": "Aeroportul Rennes-Saint_Jacques",
+      "airport_short_name": "Rennes",
+      "airport_code": "RNS"
+    },
+    {
+      "country": "Franta",
+      "city": "Pau Pyrenees-Atlantiques",
+      "city_code": "PUF",
+      "airport_name": "Aeroportul Pau-Pyrenees ",
+      "airport_short_name": "Pau Pyrenees-Atlantiques",
+      "airport_code": "PUF"
+    },
+    {
+      "country": "Franta",
+      "city": "Figari",
+      "city_code": "FSC",
+      "airport_name": "Aeroportul Figari-Sud Corse",
+      "airport_short_name": "Figari",
+      "airport_code": "FSC"
+    },
+    {
+      "country": "Franta",
+      "city": "Marck",
+      "city_code": "CQF",
+      "airport_name": "Aeroportul Calais",
+      "airport_short_name": "<arcl",
+      "airport_code": "CQF"
+    },
+    {
+      "country": "Franta",
+      "city": "Toulon",
+      "city_code": "TLN",
+      "airport_name": "Aeroportul Toulon-Hyeres",
+      "airport_short_name": "Toulon",
+      "airport_code": "TLN"
+    },
+    {
+      "country": "Franta",
+      "city": "Lourdes",
+      "city_code": "LDE",
+      "airport_name": "Aeroportul Tarbes-Lourdes-Pyrenees",
+      "airport_short_name": "Lourdes",
+      "airport_code": "LDE"
+    },
+    {
+      "country": "Franta",
+      "city": "Chambery",
+      "city_code": "CMF",
+      "airport_name": "Aeroportul Chambery",
+      "airport_short_name": "Chambery",
+      "airport_code": "CMF"
+    },
+    {
+      "country": "Franta",
+      "city": "Perpignan",
+      "city_code": "PGF",
+      "airport_name": "Aeroportul Perpignan-Rivesaltes",
+      "airport_short_name": "Perpignan",
+      "airport_code": "PGF"
+    },
+    {
+      "country": "Franta",
+      "city": "Clermont-Ferrand",
+      "city_code": "CFE",
+      "airport_name": "Aeroportul Clermont-Ferrand Auvergne",
+      "airport_short_name": "Clermont-Ferrand",
+      "airport_code": "CFE"
+    },
+    {
+      "country": "Franta",
+      "city": "Nimes",
+      "city_code": "FNI",
+      "airport_name": "Aeroportul Nimes-Ales-Camargue-Cavennes",
+      "airport_short_name": "Nimes",
+      "airport_code": "FNI"
+    },
+    {
+      "country": "Franta",
+      "city": "Calvi",
+      "city_code": "CLY",
+      "airport_name": "Aeroportul Calvi Sainte-Catherine",
+      "airport_short_name": "Calvi",
+      "airport_code": "CLY"
+    },
+    {
+      "country": "Franta",
+      "city": "Le Mans",
+      "city_code": "LME",
+      "airport_name": "Aeroportul Arnage",
+      "airport_short_name": "Le Mans",
+      "airport_code": "LME"
+    },
+    {
+      "country": "Franta",
+      "city": "La Rochelle",
+      "city_code": "LRH",
+      "airport_name": "Aeroportul La Rochelle -Ile de Re",
+      "airport_short_name": "La Rochelle ",
+      "airport_code": "LRH"
+    },
+    {
+      "country": "Franta",
+      "city": "Carcassonne ",
+      "city_code": "CCF",
+      "airport_name": "Aeroportul Carcassonne",
+      "airport_short_name": "Carcassonne ",
+      "airport_code": "CCF"
+    },
+    {
+      "country": "Franta",
+      "city": "Tours",
+      "city_code": "TUF",
+      "airport_name": "Aeroportul Tours Val de Loire",
+      "airport_short_name": "Tours",
+      "airport_code": "TUF"
+    },
+    {
+      "country": "Franta",
+      "city": "Limoges",
+      "city_code": "LIG",
+      "airport_name": "Aeroportul Limoges-Bellegarde",
+      "airport_short_name": "Limoges",
+      "airport_code": "LIG"
+    },
+    {
+      "country": "Franta",
+      "city": "Annecy",
+      "city_code": "NCY",
+      "airport_name": "Aeroportul Annecy-Meythet",
+      "airport_short_name": "Annecy",
+      "airport_code": "NCY"
+    },
+    {
+      "country": "Franta",
+      "city": "Beziers",
+      "city_code": "BZR",
+      "airport_name": "Aeroportul Beziers Cap d'Agde ",
+      "airport_short_name": "Beziers",
+      "airport_code": "BZR"
+    },
+    {
+      "country": "Franta",
+      "city": "Metz",
+      "city_code": "ETZ",
+      "airport_name": "Aeroportul Metz-Nancy-Lorraine",
+      "airport_short_name": "Metz",
+      "airport_code": "ETZ"
+    },
+    {
+      "country": "Franta",
+      "city": "Metz",
+      "city_code": "ETZ",
+      "airport_name": "Aeroportul Frescaty",
+      "airport_short_name": "Metz",
+      "airport_code": "MZM"
+    },
+    {
+      "country": "Franta",
+      "city": "Metz",
+      "city_code": "ETZ",
+      "airport_name": "Aeroportul Essey",
+      "airport_short_name": "Metz",
+      "airport_code": "ENC"
+    },
+    {
+      "country": "Franta",
+      "city": "Caen",
+      "city_code": "CFR",
+      "airport_name": "Aeroportul Caen-Carpiquet",
+      "airport_short_name": "Caen",
+      "airport_code": "CFR"
+    },
+    {
+      "country": "Franta",
+      "city": "Lille",
+      "city_code": "LIL",
+      "airport_name": "Aeroportul Lille",
+      "airport_short_name": "Lille",
+      "airport_code": "LIL"
+    },
+    {
+      "country": "Franta",
+      "city": "Saint Nazaire",
+      "city_code": "SNR",
+      "airport_name": "Aeroportul Saint-Nazaire Montoir",
+      "airport_short_name": "Saint Nazaire",
+      "airport_code": "SNR"
+    },
+    {
+      "country": "Franta",
+      "city": "Bergerac",
+      "city_code": "EGC",
+      "airport_name": "Aeroportul Bergerac Dordogne Perigord",
+      "airport_short_name": "Bergerac",
+      "airport_code": "EGC"
+    },
+    {
+      "country": "Franta",
+      "city": "Poitiers",
+      "city_code": "PIS",
+      "airport_name": "Aeroportul Poitiers-Biard",
+      "airport_short_name": "Poitiers",
+      "airport_code": "PIS"
+    },
+    {
+      "country": "Franta",
+      "city": "Brive-la-Gaillarde",
+      "city_code": "BVE",
+      "airport_name": "Aeroportul Brive-Souillac",
+      "airport_short_name": "Brive-la-Gaillarde",
+      "airport_code": "BVE"
+    },
+    {
+      "country": "Franta",
+      "city": "Quimper",
+      "city_code": "UIP",
+      "airport_name": "Aeroportul Quimper-Cornouaille",
+      "airport_short_name": "Quimper",
+      "airport_code": "UIP"
+    },
+    {
+      "country": "Franta",
+      "city": "Deauville",
+      "city_code": "DOL",
+      "airport_name": "Aeroportul Deauville-Normandie",
+      "airport_short_name": "Deauville",
+      "airport_code": "DOL"
+    },
+    {
+      "country": "Franta",
+      "city": "Chateauroux",
+      "city_code": "CHR",
+      "airport_name": "Aeroportul Chateauroux",
+      "airport_short_name": "Chateauroux",
+      "airport_code": "CHR"
+    },
+    {
+      "country": "Franta",
+      "city": "Rouen",
+      "city_code": "URO",
+      "airport_name": "Aeroportul Rouen",
+      "airport_short_name": "Rouen",
+      "airport_code": "URO"
+    },
+    {
+      "country": "Franta",
+      "city": "Aurillac",
+      "city_code": "AUR",
+      "airport_name": "Aeroportul Aurillac-Tronquieres",
+      "airport_short_name": "Aurillac",
+      "airport_code": "AUR"
+    },
+    {
+      "country": "Spania",
+      "city": "Madrid",
+      "city_code": "MAD",
+      "airport_name": "Aeroportul Madrid-Barajas",
+      "airport_short_name": "Madrid",
+      "airport_code": "MAD"
+    },
+    {
+      "country": "Spania",
+      "city": "Barcelona",
+      "city_code": "BCN",
+      "airport_name": "Aeroportul El-Prat",
+      "airport_short_name": "Barcelona",
+      "airport_code": "BCN"
+    },
+    {
+      "country": "Spania",
+      "city": "Barcelona",
+      "city_code": "BCN",
+      "airport_name": "Aeroportul Girona Costa Brava",
+      "airport_short_name": "Barcelona",
+      "airport_code": "GRO"
+    },
+    {
+      "country": "Spania",
+      "city": "Palma de Mallorca",
+      "city_code": "PMI",
+      "airport_name": "Aeroportul Palma de Mallorca",
+      "airport_short_name": "Palma de Mallorca",
+      "airport_code": "PMI"
+    },
+    {
+      "country": "Spania",
+      "city": "Malaga",
+      "city_code": "AGP",
+      "airport_name": "Aeroportul Costa del Sol",
+      "airport_short_name": "Malaga",
+      "airport_code": "AGP"
+    },
+    {
+      "country": "Spania",
+      "city": "Las Palmas de Gran Canaria",
+      "city_code": "LPA",
+      "airport_name": "Aeroportul Gran Canaria",
+      "airport_short_name": "Las Palmas de Gran Canaria",
+      "airport_code": "LPA"
+    },
+    {
+      "country": "Spania",
+      "city": "Alicante",
+      "city_code": "ALC",
+      "airport_name": "Aeroportul Alicante-Elche",
+      "airport_short_name": "Alicante",
+      "airport_code": "ALC"
+    },
+    {
+      "country": "Spania",
+      "city": "Ibiza",
+      "city_code": "IBZ",
+      "airport_name": "Aeroportul Ibiza",
+      "airport_short_name": "Ibiza",
+      "airport_code": "IBZ"
+    },
+    {
+      "country": "Spania",
+      "city": "Valencia",
+      "city_code": "VLC",
+      "airport_name": "Aeroportul Valencia",
+      "airport_short_name": "Valencia",
+      "airport_code": "VLC"
+    },
+    {
+      "country": "Spania",
+      "city": "Sevilia",
+      "city_code": "SVQ",
+      "airport_name": "Aeroportul Sevilia",
+      "airport_short_name": "Sevilia",
+      "airport_code": "SVQ"
+    },
+    {
+      "country": "Spania",
+      "city": "Bilbao",
+      "city_code": "BIO",
+      "airport_name": "Aeroportul Bilbao",
+      "airport_short_name": "Bilbao",
+      "airport_code": "BIO"
+    },
+    {
+      "country": "Spania",
+      "city": "Menorca",
+      "city_code": "MAH",
+      "airport_name": "Aeroportul Menorca",
+      "airport_short_name": "Menorca",
+      "airport_code": "MAH"
+    },
+    {
+      "country": "Spania",
+      "city": "Santiago de Compostela",
+      "city_code": "SCQ",
+      "airport_name": "Aeroportul Santiago de Compostela",
+      "airport_short_name": "Santiago de Compostela",
+      "airport_code": "SCQ"
+    },
+    {
+      "country": "Spania",
+      "city": "Oviedo",
+      "city_code": "OVD",
+      "airport_name": "Aeroportul Asturias",
+      "airport_short_name": "Oviedo",
+      "airport_code": "OVD"
+    },
+    {
+      "country": "Spania",
+      "city": "La Coruna",
+      "city_code": "LCG",
+      "airport_name": "Aeroportul A Coruna ",
+      "airport_short_name": "La Coruna",
+      "airport_code": "LCG"
+    },
+    {
+      "country": "Spania",
+      "city": "Vitoria Gasteiz",
+      "city_code": "VIT",
+      "airport_name": "Aeroportul Vitoria",
+      "airport_short_name": "Vitoria Gasteiz",
+      "airport_code": "VIT"
+    },
+    {
+      "country": "Spania",
+      "city": "Granada",
+      "city_code": "GRX",
+      "airport_name": "Aeroportul Federico Garcia Lorca ",
+      "airport_short_name": "Granada",
+      "airport_code": "GRX"
+    },
+    {
+      "country": "Spania",
+      "city": "Vigo",
+      "city_code": "VGO",
+      "airport_name": "Aeroportul Vigo Peinador",
+      "airport_short_name": "Vigo",
+      "airport_code": "VGO"
+    },
+    {
+      "country": "Spania",
+      "city": "Zaragoza",
+      "city_code": "ZAZ",
+      "airport_name": "Aeroportul Zaragoza",
+      "airport_short_name": "Zaragoza",
+      "airport_code": "ZAZ"
+    },
+    {
+      "country": "Spania",
+      "city": "Santander",
+      "city_code": "SDR",
+      "airport_name": "Aeroportul Santander",
+      "airport_short_name": "Santander",
+      "airport_code": "SDR"
+    },
+    {
+      "country": "Spania",
+      "city": "Melilla",
+      "city_code": "MLN",
+      "airport_name": "Aeroportul Melilla",
+      "airport_short_name": "Melilla",
+      "airport_code": "MLN"
+    },
+    {
+      "country": "Spania",
+      "city": "Reus",
+      "city_code": "REU",
+      "airport_name": "Aeroportul Reus",
+      "airport_short_name": "Reus",
+      "airport_code": "REU"
+    },
+    {
+      "country": "Spania",
+      "city": "San Sebastian",
+      "city_code": "EAS",
+      "airport_name": "Aeroportul San Sebastian",
+      "airport_short_name": "San Sebastian",
+      "airport_code": "EAS"
+    },
+    {
+      "country": "Spania",
+      "city": "Valverde",
+      "city_code": "VDE",
+      "airport_name": "Aeroportul El Hierro",
+      "airport_short_name": "Valverde",
+      "airport_code": "VDE"
+    },
+    {
+      "country": "Spania",
+      "city": "Murcia",
+      "city_code": "MJV",
+      "airport_name": "Aeroportul San Javier",
+      "airport_short_name": "Murcia",
+      "airport_code": "MJV"
+    },
+    {
+      "country": "Spania",
+      "city": "Corvera",
+      "city_code": "RMU",
+      "airport_name": "Aeroportul Region de Murcia ",
+      "airport_short_name": "Corvera",
+      "airport_code": "RMU"
+    },
+    {
+      "country": "Spania",
+      "city": "Castellon de la Plana",
+      "city_code": "CDT",
+      "airport_name": "Aeroportul Castellon-Costa Azahar ",
+      "airport_short_name": "Castellon de la Plana",
+      "airport_code": "CDT"
+    },
+    {
+      "country": "Spania",
+      "city": "Pamplona",
+      "city_code": "PNA",
+      "airport_name": "Aeroportul Pamplona ",
+      "airport_short_name": "Pamplona",
+      "airport_code": "PNA"
+    },
+    {
+      "country": "Spania",
+      "city": "San Sebastián De La Gomera",
+      "city_code": "GMZ",
+      "airport_name": "Aeroportul La Gomera ",
+      "airport_short_name": "San Sebastián De La Gomera",
+      "airport_code": "GMZ"
+    },
+    {
+      "country": "Spania",
+      "city": "Badajoz",
+      "city_code": "BJZ",
+      "airport_name": "Aeroportul Badajoz ",
+      "airport_short_name": "Badajoz",
+      "airport_code": "BJZ"
+    },
+    {
+      "country": "Spania",
+      "city": "Almeria",
+      "city_code": "LEI",
+      "airport_name": "Aeroportul Almeria",
+      "airport_short_name": "Almeria",
+      "airport_code": "LEI"
+    },
+    {
+      "country": "Spania",
+      "city": "Jerez de la Frontera",
+      "city_code": "XRY",
+      "airport_name": "Aeroportul Jerez",
+      "airport_short_name": "Jerez de la Frontera",
+      "airport_code": "XRY"
+    },
+    {
+      "country": "Spania",
+      "city": "Santa Cruz De la Palma",
+      "city_code": "SPC",
+      "airport_name": "Aerportul La Palma",
+      "airport_short_name": "Santa Cruz De la Palma",
+      "airport_code": "SPC"
+    },
+    {
+      "country": "Spania",
+      "city": "Tenerife",
+      "city_code": "TCI",
+      "airport_name": "Aeroportul Tenerife Sud",
+      "airport_short_name": "Tenerife",
+      "airport_code": "TFS"
+    },
+    {
+      "country": "Spania",
+      "city": "Tenerife",
+      "city_code": "TCI",
+      "airport_name": "Ae",
+      "airport_short_name": "Aeroportul Tenerife Nord",
+      "airport_code": "TFN"
+    },
+    {
+      "country": "Spania",
+      "city": "Puerto del Losario",
+      "city_code": "FUE",
+      "airport_name": "Aeroportul Fuerteventura",
+      "airport_short_name": "Puerto del Losario",
+      "airport_code": "FUE"
+    },
+    {
+      "country": "Spania",
+      "city": "Lanzarote",
+      "city_code": "ACE",
+      "airport_name": "Aeroportul Lanzarote",
+      "airport_short_name": "Lanzarote",
+      "airport_code": "ACE"
+    },
+    {
+      "country": "Portugalia",
+      "city": "Lisabona",
+      "city_code": "LIS",
+      "airport_name": "Aeroportul Humberto Delgado",
+      "airport_short_name": "Lisabona",
+      "airport_code": "LIS"
+    },
+    {
+      "country": "Portugalia",
+      "city": "Porto",
+      "city_code": "OPO",
+      "airport_name": "Aeroportul Francisco Sa Carneiro",
+      "airport_short_name": "Porto",
+      "airport_code": "OPO"
+    },
+    {
+      "country": "Portugalia",
+      "city": "Faro",
+      "city_code": "FAO",
+      "airport_name": "Aeroportul Faro",
+      "airport_short_name": "Faro",
+      "airport_code": "FAO"
+    },
+    {
+      "country": "Portugalia",
+      "city": "Funchal",
+      "city_code": "FNC",
+      "airport_name": "Aeroportul Madeira",
+      "airport_short_name": "Funchal",
+      "airport_code": "FNC"
+    },
+    {
+      "country": "Portugalia",
+      "city": "Ponta Delgada",
+      "city_code": "PDL",
+      "airport_name": "Aeroportul João Paulo II",
+      "airport_short_name": "Ponta Delgada",
+      "airport_code": "PDL"
+    },
+    {
+      "country": "Portugalia",
+      "city": "Porto Santo",
+      "city_code": "PXO",
+      "airport_name": "Aeroportul Porto Santo",
+      "airport_short_name": "Porto Santo",
+      "airport_code": "PXO"
+    },
+    {
+      "country": "Irlanda",
+      "city": "Dublin",
+      "city_code": "DUB",
+      "airport_name": "Aeroportul Internațional Dublin",
+      "airport_short_name": "Dublin",
+      "airport_code": "DUB"
+    },
+    {
+      "country": "Irlanda",
+      "city": "Cork",
+      "city_code": "ORK",
+      "airport_name": "Aeroportul Internațional Cork",
+      "airport_short_name": "Cork",
+      "airport_code": "ORK"
+    },
+    {
+      "country": "Irlanda",
+      "city": "Shannon",
+      "city_code": "SNN",
+      "airport_name": "Aeroportul Internațional Shannon",
+      "airport_short_name": "Shannon",
+      "airport_code": "SNN"
+    },
+    {
+      "country": "Irlanda",
+      "city": "Knock",
+      "city_code": "NOC",
+      "airport_name": "Aeroportul Ireland West Airport Knock",
+      "airport_short_name": "Knock",
+      "airport_code": "NOC"
+    },
+    {
+      "country": "Irlanda",
+      "city": "Comitatul Kerry",
+      "city_code": "KIR",
+      "airport_name": "Aeroportul Kerry",
+      "airport_short_name": "Kerry",
+      "airport_code": "KIR"
+    },
+    {
+      "country": "Irlanda",
+      "city": "Donegal",
+      "city_code": "CFN",
+      "airport_name": "Aeroportul Donegal",
+      "airport_short_name": "Donegal",
+      "airport_code": "CFN"
+    },
+    {
+      "country": "Irlanda",
+      "city": "Waterford",
+      "city_code": "WAT",
+      "airport_name": "Aeroportul Waterford",
+      "airport_short_name": "Waterford",
+      "airport_code": "WAT"
+    },
+    {
+      "country": "Islanda",
+      "city": "Reykjavik",
+      "city_code": "REK",
+      "airport_name": "Aeroportul Keflavik",
+      "airport_short_name": "Reykjavik",
+      "airport_code": "KEF"
+    },
+    {
+      "country": "Islanda",
+      "city": "Reykjavik",
+      "city_code": "REK",
+      "airport_name": "Aeroportul Reykjavik",
+      "airport_short_name": "Reykjavik",
+      "airport_code": "RKV"
+    },
+    {
+      "country": "Islanda",
+      "city": "Akureyri",
+      "city_code": "AEY",
+      "airport_name": "Aeroportul Akureyri",
+      "airport_short_name": "Akureyri",
+      "airport_code": "AEY"
+    },
+    {
+      "country": "Islanda",
+      "city": "Egilsstaoir",
+      "city_code": "EGS",
+      "airport_name": "Aeroportul Egilsstaoir",
+      "airport_short_name": "Egilsstaoir",
+      "airport_code": "EGS"
+    },
+    {
+      "country": "Islanda",
+      "city": "Isafjorour",
+      "city_code": "IFJ",
+      "airport_name": "Aeroportul Isafjorour",
+      "airport_short_name": "Isafjorour",
+      "airport_code": "IFJ"
+    },
+    {
+      "country": "Islanda",
+      "city": "Vestmannaeyjar",
+      "city_code": "VEY",
+      "airport_name": "Aeroportul Vestmannaeyjar",
+      "airport_short_name": "Vestmannaeyjar",
+      "airport_code": "VEY"
+    },
+    {
+      "country": "Islanda",
+      "city": "Hornafjordur",
+      "city_code": "HFN",
+      "airport_name": "Aeroportul Hornafjordur",
+      "airport_short_name": "Hornafjordur",
+      "airport_code": "HFN"
+    },
+    {
+      "country": "Croatia",
+      "city": "Zagreb",
+      "city_code": "ZAG",
+      "airport_name": "Aeroportul Zagreb",
+      "airport_short_name": "Zagreb",
+      "airport_code": "ZAG"
+    },
+    {
+      "country": "Croatia",
+      "city": "Dubrovnik",
+      "city_code": "DBV",
+      "airport_name": "Aeroportul Dubrovnik",
+      "airport_short_name": "Dubrovnik",
+      "airport_code": "DBV"
+    },
+    {
+      "country": "Croatia",
+      "city": "Split",
+      "city_code": "SPU",
+      "airport_name": "Aeroportul Split",
+      "airport_short_name": "Split",
+      "airport_code": "SPU"
+    },
+    {
+      "country": "Croatia",
+      "city": "Zadar",
+      "city_code": "ZAD",
+      "airport_name": "Aeroportul Zadar",
+      "airport_short_name": "Zadar",
+      "airport_code": "ZAD"
+    },
+    {
+      "country": "Croatia",
+      "city": "Pula",
+      "city_code": "PUY",
+      "airport_name": "Aeroportul Pula",
+      "airport_short_name": "Pula",
+      "airport_code": "PUY"
+    },
+    {
+      "country": "Croatia",
+      "city": "Rijeka",
+      "city_code": "RJK",
+      "airport_name": "Aeroportul Rijeka",
+      "airport_short_name": "Rijeka",
+      "airport_code": "RJK"
+    },
+    {
+      "country": "Croatia",
+      "city": "Osijek",
+      "city_code": "OSI",
+      "airport_name": "Aeroportul Osijek",
+      "airport_short_name": "Osijek",
+      "airport_code": "OSI"
+    },
+    {
+      "country": "Croatia",
+      "city": "Bol",
+      "city_code": "BWK",
+      "airport_name": "Aeroportul Brač",
+      "airport_short_name": "Bol",
+      "airport_code": "BWK"
+    },
+    {
+      "country": "Croatia",
+      "city": "Losinj",
+      "city_code": "LSZ",
+      "airport_name": "Aeroportul Losinj",
+      "airport_short_name": "Losinj",
+      "airport_code": "LSZ"
+    },
+    {
+      "country": "Letonia",
+      "city": "Riga",
+      "city_code": "RIX",
+      "airport_name": "Aeroportul Riga",
+      "airport_short_name": "Riga",
+      "airport_code": "RIX"
+    },
+    {
+      "country": "Letonia",
+      "city": "Liepaja",
+      "city_code": "LPX",
+      "airport_name": "Aeroportul Liepaja",
+      "airport_short_name": "Liepaja",
+      "airport_code": "LPX"
+    },
+    {
+      "country": "Letonia",
+      "city": "Ventspils",
+      "city_code": "VNT",
+      "airport_name": "Aeroportul Ventspils",
+      "airport_short_name": "Ventspils",
+      "airport_code": "VNT"
+    },
+    {
+      "country": "Letonia",
+      "city": "Daugavpils",
+      "city_code": "DGP",
+      "airport_name": "Aeroportul Daugavpils",
+      "airport_short_name": "Daugavpils",
+      "airport_code": "DGP"
+    },
+    {
+      "country": "Cipru",
+      "city": "Larnaca",
+      "city_code": "LCA",
+      "airport_name": "Aeroportul Internațional Larnaca",
+      "airport_short_name": "Larnaca",
+      "airport_code": "LCA"
+    },
+    {
+      "country": "Cipru",
+      "city": "Paphos",
+      "city_code": "PFO",
+      "airport_name": "Aeroportul Internațional Paphos",
+      "airport_short_name": "Paphos",
+      "airport_code": "PFO"
+    },
+    {
+      "country": "Cipru",
+      "city": "Akrotiri",
+      "city_code": "AKT",
+      "airport_name": "Aeroportul Akrotiri",
+      "airport_short_name": "Akrotiri",
+      "airport_code": "AKT"
+    },
+    {
+      "country": "Cipru",
+      "city": "Gecitkale",
+      "city_code": "GEC",
+      "airport_name": "Aeroportul Geçitkale",
+      "airport_short_name": "Geçitkale",
+      "airport_code": "GEC"
+    },
+    {
+      "country": "Cipru",
+      "city": "Ercan",
+      "city_code": "ECN",
+      "airport_name": "Aeroportul Ercan",
+      "airport_short_name": "Ercan",
+      "airport_code": "ECN"
+    },
+    {
+      "country": "Gibraltar",
+      "city": "Gibraltar",
+      "city_code": "GIB",
+      "airport_name": "Aeroportul Gibraltar",
+      "airport_short_name": "Gibraltar",
+      "airport_code": "GIB"
+    },
+    {
+      "country": "Malta",
+      "city": "Malta",
+      "city_code": "MLA",
+      "airport_name": "Aeroportul Malta",
+      "airport_short_name": "Malta",
+      "airport_code": "MLA"
+    },
+    {
+      "country": "Luxembourg",
+      "city": "Luxembourg",
+      "city_code": "LUX",
+      "airport_name": "Aeroportul Luxembourg Findel",
+      "airport_short_name": "Luxembourg",
+      "airport_code": "LUX"
+    }
+  ],
+
+
+  "GIVEAWAY": {
+    "GIVEAWAY_INFO": "Petrece 1 Mai Alǎturi de prietenii tǎi la Loft Mamaia !",
+    "GIVEAWAY_INFO_RULES": "Giveaway - Petrecere 1 Mai Loft Mamaia",
+    "HOTEL": "Cazare Hotel Nyota 1-3 Mai 2 Pers.",
+    "CONSUME": "Consumație de 7500 lei incl. la LOFT Mamaia",
+    "BRACELETS": "8 Brǎțǎri acces LOFT incl.",
+    "REGISTRATION_PERIOD": "Perioada de înscriere",
+    "REGISTRATION_PERIOD_DATE": "8 - 24 Aprilie 2024",
+    "DRAW": "Date de extragere",
+    "DRAW_DATE": "25 Aprilie 2024",
+    "PASSWORD_CRITERIA": "Parola trebuie să îndeplinească următoarele criterii:",
+    "REGISTRATION_FORM": "Formular de înscriere",
+    "REGISTRATION_FORM_DESCRIPTION": "Pentru a participa la campania de giveaway, creeazǎ-ti cont gratuit pe platforma Bestinform.",
+    "CONSENT": "Sunt de acord cu",
+    "READ_CONSENT": "Am citit si sunt de acord cu",
+    "CONFIDENTIALITY_TERMS": "Politică de confidențialitate",
+    "TERMS_CONDITIONS": "Termenii si Condițiile",
+    "AND_WITH": "și cu",
+    "GIVEAWAY_RULES": "Regulamentul Giveaway-ului",
+    "REQUIRED_1": "* Câmpurile destinate [Parolǎ] și [Confirmǎ Parola] sunt necesare pentru a crea parola contului tǎu în platforma Bestinform.",
+    "REQUIRED_2": "* Dupǎ transmiterea formularului de generare cont, nu uita sǎ validezi contul prin accesarea link-ului de validare primit prin adresa de email.",
+    "REGISTER": "Înscrie-te",
+    "REGISTER_PARTNER": "Înscrie-ți afacerea aici.",
+    "CONTACT": "Vrei sǎ intri în contact cu noi ?",
+    "CONTEST_RULES": "Regulament concurs"
+  }
+}
+

@@ -1,0 +1,778 @@
+<div class="airplane-tickets-header">
+</div>
+<div *ngIf="selectedOffer" class="background-white">
+    <div class="booking-container max-width-wrapper">
+        <div class="booking-wrapper col-9">
+            <div class="trip-summary">
+                <div class="trip-title d-flex flex-row w-100">
+                    <div class="s24 fw-bolder">
+                        Sumar de calatorie&nbsp;
+                    </div>
+                    <div *ngIf="selectedOffer.itineraries.length === 1" class="d-flex align-items-center">
+                        <div class="s24 fw-bolder">{{getCity(selectedOffer.itineraries[0].segments[0].departure.iataCode)}}</div>
+                        <div class="s16">&nbsp;(dus)</div>
+                    </div>
+                    <div *ngIf="selectedOffer.itineraries.length > 1" class="d-flex align-items-center">
+                        <div class="s24 fw-bolder">{{getCity(selectedOffer.itineraries[0].segments[0].departure.iataCode) + " - " +
+                        getCity(selectedOffer.itineraries[0].segments[selectedOffer.itineraries[0].segments.length - 1].arrival.iataCode)}}</div>
+                        <div class="s16">&nbsp;(dus - intors)</div>
+                    </div>
+
+                </div>
+                <div class="itineraries" *ngFor="let itinerary of selectedOffer.itineraries; let i = index">
+                    <div class="s24 fw-bold">
+                        {{i === 0 ? "Plecare" : "Intoarcere"}}
+                    </div>
+
+                    <div class="itinerary" *ngFor="let segment of itinerary.segments; let i = index">
+                        <div class="itinerary-info-wrap">
+                            <div class="itinerary-info">
+
+                                <div class="itinerary-info-city"> {{ getCity(segment.departure.iataCode) + ' '}}
+                                    <img src="../../../../../assets/icons/arrow-right.svg">
+                                    {{getCity(segment.arrival.iataCode)}}
+                                </div>
+                            </div>
+
+                            <div class="itinerary-plane">
+                                <div class="plane-info">
+                                    <div class="plane-info-company">
+                                        <div class="plane-info-company-logo">
+                                            <img class="company-logo"
+                                                 [src]="airCompaniesLibrary[segment.carrierCode]">
+                                        </div>
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div>
+                                        {{segment.carrierCode + segment.number}}
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div class="plane-info-model">
+                                        <img src="assets/icons/plane.svg">
+                                        {{aircraftsLibrary[segment.aircraft.code] || segment.aircraft.code}}
+                                    </div>
+
+                                    <img src="assets/icons/Ellipse.svg">
+
+                                    <div>
+                                        <div class="itinerary-duration d-flex flex-row align-items-center gap-4px">
+                                            <div>Durata zbor</div>
+                                            <img src="assets/icons/clock-2.svg"/>
+                                            <div>{{calculateDuration(segment.duration)}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="segment-wrapper mt-3">
+                            <div class="bags-segment">
+                                <div class="segment-container">
+                                    <div class="hours-dates">
+                                        <div class="date-time">
+                                            <div class="hour">{{segment.departure.dateTime | date:'HH:mm':''}}</div>
+                                            <div class="date">{{segment.departure.dateTime | date:'EEE dd/MM':'':'ro-RO'}}</div>
+                                        </div>
+                                        <div class="segment-duration">
+                                            <!-- {{itinerary.segments[i].duration.split("PT")[1]}} -->
+                                        </div>
+                                        <div class="date-time">
+                                            <div class="hour">{{segment.arrival.dateTime | date:'HH:mm':''}}</div>
+                                            <div class="date">{{segment.arrival.dateTime | date:'EEE dd/MM':'':'ro-RO'}}</div>
+                                        </div>
+                                    </div>
+                                    <img src="../../../../../assets/icons/airline.svg">
+                                    <div class="hours-dates-reverse">
+                                        <div class="date-time-reverse">
+                                            <div class="hour">{{ getCity(segment.departure.iataCode) + ' ' + segment.departure.iataCode}}</div>
+                                            <div class="date">{{ getAirportName(segment.departure.iataCode) + ' (' + segment.departure.iataCode + ')'}}</div>
+                                        </div>
+                                        <div class="aircompany">
+                                            <div class="logo-container">
+                                                <img class="company-logo-mini"
+                                                     src="../../../../../../assets/icons/clock-2.svg">
+                                            </div>
+                                            {{getFlightTime(itinerary.segments[i].duration)}}
+                                        </div>
+                                        <div class="date-time-reverse">
+                                            <div class="hour">{{getCity(segment.arrival.iataCode) + ' ' + segment.arrival.iataCode}}</div>
+                                            <div class="date">{{getAirportName(segment.arrival.iataCode) + ' (' + segment.arrival.iataCode + ')'}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="segment-divider">
+<!--                                <div class="bags-row">-->
+<!--                                    <div class="bags-row-right">Inclus: 1</div>-->
+<!--                                    <div class="bugs-icon"><img src="../../../../../assets/icons/baggage.svg"></div>-->
+<!--                                    <div class="bugs-text">bagaj mic mana (10kg)</div>-->
+
+<!--                                </div>-->
+                                <!-- <hr class="segment-divider">
+                                <div class="bags-row">Inclus: {{selectedOffer.travelerPricings[]}}</div> -->
+                            </div>
+                            <!-- <hr class="segment-divider"> -->
+                            <!-- <div class="segment-bags">
+                                <div class="passenger-bags" *ngFor="let travelerPricing of selectedOffer.travelerPricings"></div>
+                                <div>Inclus</div>
+                                <div>{{getIncludedCheckedBagsQuantity(segment.id, travelerPricing)}}</div>
+                            </div> -->
+                        </div>
+                        <div class="layover-wrapper mt-3"
+                             *ngIf="itinerary.segments.length > 1 && i < itinerary.segments.length - 1">
+                            <div class="layover-image"><img src="../../../../../assets/icons/escalation.svg"></div>
+                            <div>
+                                <div class="layover-title">Escala</div>
+                                <div class="layover-text">Escala
+                                    in {{getAirportName(itinerary.segments[i].arrival.iataCode)}}
+                                    ({{calculateInterval(itinerary.segments[i].arrival.dateTime, itinerary.segments[i + 1].departure.dateTime)}})
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nights-spent"
+                         *ngIf="selectedOffer.itineraries.length > 1 && i < selectedOffer.itineraries.length - 1">
+                        <hr class="width">
+                    </div>
+                </div>
+            </div>
+            <div class="trip-summary">
+                <h3>Informatii utile de calatorie</h3>
+                <span class="information">
+                    <p>Pregătește-te pentru aventura ta următoare cu aceste sfaturi rapide:</p>
+                    <ul>
+                        <li><strong>Documente:</strong> Asigură-te că ai toate documentele necesare, inclusiv pașaport și biletul de avion.</li>
+                        <li><strong>Ambalare eficientă:</strong> Ține la îndemână în bagajul de mână esențialele: medicamente, o schimbare de haine și articole de igienă.</li>
+                        <li><strong>La Aeroport:</strong> Verifică-te online și pregătește-te pentru controlul de securitate.</li>
+                        <li><strong>Confort în Zbor:</strong> Nu uita de hidratare și consideră să aduci accesorii pentru confort, cum ar fi o pernă de gât.</li>
+                        <li><strong>Sănătate:</strong> Respectă protocoalele de sănătate și siguranță, inclusiv purtarea măștii și utilizarea dezinfectantului.</li>
+                        <li><strong>Explorare:</strong> Informează-te despre destinație și descarcă hărți și aplicații utile pentru o navigare ușoară.</li>
+                    </ul>
+                    <p>Siguranță și distracție în călătoria ta!</p>
+                </span>
+            </div>
+
+            <div *ngIf="contactUser" class="trip-summary">
+                <form [formGroup]="contactUser" class="w-100">
+                    <h3>Confirmare Date de Contact</h3>
+                    <div class="passanger-form">
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Email</mat-label>
+                                    <input formControlName="email" matInput>
+                                    <mat-error *ngIf="contactUser.controls.email.errors?.required">
+                                        {{ 'ERROR.REQUIRED' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field appearance="outline" class="col-6">
+                                    <mat-label>Numar Telefon</mat-label>
+                                    <input formControlName="telephone" matInput>
+                                    <mat-error *ngIf="contactUser.controls.telephone.errors?.required">
+                                        {{ 'ERROR.REQUIRED' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <ng-container *ngIf="flightOffersWithBags$ | withLoading | async as flightOffersWithBags">
+                <div class="trip-summary" *ngFor="let traveler of travelersForm.controls; index as formGroupIndex">
+                    <div class="between-container">
+                        <h3>Detalii
+                            Pasager {{formGroupIndex + 1 + getTravelerType(traveler.controls.travelerType.value)}} </h3>
+                        <!--                    <p-dropdown [options]="passengerOptions" [(ngModel)]="selectedPassengerOption"-->
+                        <!--                                optionLabel="name"></p-dropdown>-->
+                    </div>
+                    <div class="passenger-form">
+                        <h4>Detalii generale</h4>
+                        <div [formGroup]="traveler" class="row">
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nume</mat-label>
+                                    <input formControlName="lastName" matInput>
+                                    <mat-error *ngIf="traveler.controls.lastName.errors?.required">
+                                        {{ 'ERROR.REQUIRED' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Prenume</mat-label>
+                                    <input formControlName="firstName" matInput>
+                                    <mat-error *ngIf="traveler.controls.firstName.errors?.required">
+                                        {{ 'ERROR.REQUIRED' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{'USER.BIRTHDAY' | translate}}</mat-label>
+                                    <input formControlName="dateOfBirth" matInput
+                                           [matDatepicker]="dateOfBirthPicker">
+                                    <mat-error *ngIf="traveler.controls.dateOfBirth.errors?.required">
+                                        {{ 'ERROR.REQUIRED' | translate }}
+                                    </mat-error>
+                                    <mat-datepicker-toggle matSuffix
+                                                           [for]="dateOfBirthPicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #dateOfBirthPicker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <!--                        <div class="col-12 col-lg-6">-->
+                            <!--                            <mat-form-field appearance="outline">-->
+                            <!--                                <mat-label>Sex</mat-label>-->
+                            <!--                                <mat-select formControlName="gender">-->
+                            <!--                                    <mat-option [value]="'MALE'">-->
+                            <!--                                        Barbat-->
+                            <!--                                    </mat-option>-->
+                            <!--                                    <mat-option [value]="'FEMALE'">-->
+                            <!--                                        Femeie-->
+                            <!--                                    </mat-option>-->
+                            <!--                                    &lt;!&ndash;                                        <mat-option [value]="'UNSPECIFIED'">&ndash;&gt;-->
+                            <!--                                    &lt;!&ndash;                                            Nespecificat&ndash;&gt;-->
+                            <!--                                    &lt;!&ndash;                                        </mat-option>&ndash;&gt;-->
+                            <!--                                </mat-select>-->
+                            <!--                                <mat-error *ngIf="traveler.controls.gender.errors?.required">-->
+                            <!--                                    {{ 'ERROR.REQUIRED' | translate }}-->
+                            <!--                                </mat-error>-->
+                            <!--                            </mat-form-field>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="col-12 col-lg-6">-->
+                            <!--                            <mat-form-field appearance="outline">-->
+                            <!--                                <mat-label>Tip dizpozitiv</mat-label>-->
+                            <!--                                <mat-select formControlName="deviceTypeEnum">-->
+                            <!--                                    <mat-option [value]="'MOBILE'">-->
+                            <!--                                        Telefon Mobil-->
+                            <!--                                    </mat-option>-->
+                            <!--                                    <mat-option [value]="'LANDLINE '">-->
+                            <!--                                        Telefon Fix-->
+                            <!--                                    </mat-option>-->
+                            <!--                                    <mat-option [value]="'FAX'">-->
+                            <!--                                        Fax-->
+                            <!--                                    </mat-option>-->
+                            <!--                                </mat-select>-->
+                            <!--                                <mat-error *ngIf="traveler.controls.deviceTypeEnum.errors?.required">-->
+                            <!--                                    {{ 'ERROR.REQUIRED' | translate }}-->
+                            <!--                                </mat-error>-->
+                            <!--                            </mat-form-field>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="col-12 col-lg-6">-->
+                            <!--                            <ngx-intl-tel-input-->
+                            <!--                                    [preferredCountries]="[CountryISO.Romania]"-->
+                            <!--                                    [enablePlaceholder]="true"-->
+                            <!--                                    [searchCountryFlag]="true"-->
+                            <!--                                    [searchCountryField]="[-->
+                            <!--                                        SearchCountryField.Iso2,-->
+                            <!--                                        SearchCountryField.Name-->
+                            <!--                                        ]"-->
+                            <!--                                    [selectedCountryISO]="CountryISO.Romania"-->
+                            <!--                                    [maxLength]="15"-->
+                            <!--                                    [phoneValidation]="true"-->
+                            <!--                                    [separateDialCode]="true"-->
+                            <!--                                    [numberFormat]="PhoneNumberFormat.National"-->
+                            <!--                                    formControlName="phone"-->
+                            <!--                            ></ngx-intl-tel-input>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="col-12 col-lg-6">-->
+                            <!--                            <mat-form-field appearance="outline">-->
+                            <!--                                <mat-label>Email</mat-label>-->
+                            <!--                                <input matInput formControlName="email" required>-->
+                            <!--                                <mat-error-->
+                            <!--                                        *ngIf="traveler.controls.email.errors?.email">{{'ERROR.EMAIL' | translate}}</mat-error>-->
+                            <!--                                <mat-error *ngIf="traveler.controls.email.errors?.required">-->
+                            <!--                                    {{ 'ERROR.REQUIRED' | translate }}-->
+                            <!--                                </mat-error>-->
+                            <!--                            </mat-form-field>-->
+                            <!--                        </div>-->
+
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nationalitate</mat-label>
+                                    <mat-select formControlName="nationality">
+                                        <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="traveler.controls.nationality.errors?.required">
+                                        {{ 'ERROR.REQUIRED' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <!--                        <div class="col-12 col-lg-6">-->
+                            <!--                            <mat-form-field appearance="outline">-->
+                            <!--                                <mat-label>Oras</mat-label>-->
+                            <!--                                <input matInput formControlName="cityName">-->
+                            <!--                                <mat-error *ngIf="traveler.controls.cityName.errors?.required">-->
+                            <!--                                    {{ 'ERROR.REQUIRED' | translate }}-->
+                            <!--                                </mat-error>-->
+                            <!--                            </mat-form-field>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="col-12 col-lg-6">-->
+                            <!--                            <mat-form-field appearance="outline">-->
+                            <!--                                <mat-label>Cod postal</mat-label>-->
+                            <!--                                <input matInput formControlName="postalCode">-->
+                            <!--                                <mat-error *ngIf="traveler.controls.postalCode.errors?.required">-->
+                            <!--                                    {{ 'ERROR.REQUIRED' | translate }}-->
+                            <!--                                </mat-error>-->
+                            <!--                            </mat-form-field>-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="col-12">-->
+                            <!--                            <mat-form-field appearance="outline">-->
+                            <!--                                <mat-label>Adresa</mat-label>-->
+                            <!--                                <input matInput formControlName="address">-->
+                            <!--                                <mat-error *ngIf="traveler.controls.address.errors?.required">-->
+                            <!--                                    {{ 'ERROR.REQUIRED' | translate }}-->
+                            <!--                                </mat-error>-->
+                            <!--                            </mat-form-field>-->
+                            <!--                        </div>-->
+                            <h4 class="text-left">Documente</h4>
+                            <ng-container *ngFor="let document of traveler.controls.documents?.controls">
+                                <ng-container [formGroup]="document">
+
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Tip document</mat-label>
+                                            <mat-select formControlName="documentTypeEnum">
+                                                <mat-option [value]="'PASSPORT'">
+                                                    Pasaport
+                                                </mat-option>
+                                                <mat-option [value]="'IDENTITY_CARD'">
+                                                    Card de identitate
+                                                </mat-option>
+                                                <mat-option [value]="'VISA'">
+                                                    Viza
+                                                </mat-option>
+                                                <mat-option [value]="'KNOWN_TRAVELER'">
+                                                    Calator cunoscut
+                                                </mat-option>
+                                                <mat-option [value]="'REDRESS'">
+                                                    Despagubire
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="document.controls.documentTypeEnum.errors?.required">
+                                                {{ 'ERROR.REQUIRED' | translate }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Numar document</mat-label>
+                                            <input formControlName="documentNumber" matInput>
+                                            <mat-error *ngIf="document.controls.documentNumber.errors?.required">
+                                                {{ 'ERROR.REQUIRED' | translate }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Data expirare document</mat-label>
+                                            <input formControlName="documentExpiryDate" matInput
+                                                   [min]="currentDay"
+                                                   [matDatepicker]="documentExpiryDatePicker">
+                                            <mat-error *ngIf="document.controls.documentExpiryDate.errors?.required">
+                                                {{ 'ERROR.REQUIRED' | translate }}
+                                            </mat-error>
+                                            <mat-datepicker-toggle matSuffix
+                                                                   [for]="documentExpiryDatePicker"></mat-datepicker-toggle>
+                                            <mat-datepicker #documentExpiryDatePicker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Tara emitere document</mat-label>
+                                            <mat-select formControlName="documentIssuanceCountry">
+                                                <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="document.controls.documentIssuanceCountry.errors?.required">
+                                                {{ 'ERROR.REQUIRED' | translate }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <p-card class="best-advice w-100" style="height: 4.5rem">
+                        <div class="d-flex flex-row">
+                            <img src="assets/images/others/planes/luggage_img.png" width="48" height="48"/>
+                            <div class="d-flex flex-column ms-5">
+                                <h4>Sfatul Bestinform</h4>
+                                <p>Adauga bagajul de cala acum si economiseste pana la 70% fata de pretul din
+                                    aeroport</p>
+                            </div>
+                        </div>
+                    </p-card>
+                    <ng-container *ngIf="flightOffersWithBags.loading" [ngTemplateOutlet]="loader">
+                    </ng-container>
+                    <ng-container *ngIf="flightOffersWithBags.error">
+                        <h5>A aparut o eroare</h5>
+                    </ng-container>
+                    <ng-container *ngIf="!flightOffersWithBags.loading && !flightOffersWithBags?.error">
+                        <h5>Bagaje de cala (dus-intors):</h5>
+                        <mat-selection-list class="baggage-selection-list"
+                                            [ngClass]="{'w-33': flightOffersWithBags.baggageAllowance && flightOffersWithBags.baggageAllowance.length === 0}"
+                                            (selectionChange)="handleBaggageChange($event, traveler.controls.travelerId.value)"
+                                            [disableRipple]="true">
+
+                            <mat-list-option #baggageListOption class="baggage-list-option"
+                                             [selected]="true"
+                                             [value]="null"
+                                             *ngIf="travelerMap[traveler.controls.travelerId.value][0]"
+                                             (click)="ifSelectedPreventEvent(baggageListOption.selected, $event); updateTotalPrice(null, travelerMap[traveler.controls.travelerId.value][0], traveler.controls.travelerId.value)">
+                                <div [ngClass]="{'selected-panel' : baggageListOption.selected}"
+                                     (click)="ifSelectedPreventEvent(baggageListOption.selected, $event)"
+                                     class="custom-card p-3 baggage-card">
+                                    <div class="d-flex flex-column">
+                                        <div class="baggage-title">Fara bagaj aditional de cala</div>
+                                        <div class="d-flex flex-row mt-4">
+                                            <img [src]="getImage(baggageListOption.selected, 0, traveler.controls.travelerId.value, 'personal')"/>
+                                            <div class="d-flex flex-column ms-3">
+                                                <div class="baggage-type">{{getDescription(0, traveler.controls.travelerId.value, 'personal')}}</div>
+                                                <div class="baggage-details">{{getDimensions(0, traveler.controls.travelerId.value, 'personal')}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row mt-4 mb-5" *ngIf="travelerMap[traveler.controls.travelerId.value][0]['carryOn']">
+                                            <img [src]="getImage(baggageListOption.selected, 0, traveler.controls.travelerId.value, 'carryOn')"/>
+                                            <div class="d-flex flex-column ms-3">
+                                                <div class="baggage-type">{{getDescription(0, traveler.controls.travelerId.value, 'carryOn')}}</div>
+                                                <div class="baggage-details">{{getDimensions(0, traveler.controls.travelerId.value, 'carryOn')}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3 class="luggage-option-price">{{travelerMap[traveler.controls.travelerId.value][0].altName || ('0' + flightOffersWithBags.flightOffer.currency)}}</h3>
+                                </div>
+                            </mat-list-option>
+
+                            <ng-container *ngFor="let baggage of flightOffersWithBags.baggageAllowance; index as i">
+                                <mat-list-option #baggageListOption class="baggage-list-option"
+                                                 *ngIf="travelerMap[traveler.controls.travelerId.value][i + 1] && (baggage.travelerIds | includes : traveler.controls.travelerId.value)"
+                                                 (click)="updateTotalPrice(baggage, travelerMap[traveler.controls.travelerId.value][i + 1], traveler.controls.travelerId.value)"
+                                                 [value]="{name: baggage.name, quantity: baggage.quantity, segmentIds: baggage.segmentIds}">
+                                    <div [ngClass]="{'selected-panel' : baggageListOption.selected}"
+                                         class="custom-card p-3">
+                                        <div class="baggage-title">Bagaj aditional de cala</div>
+                                        <div class="d-flex flex-row mt-4">
+                                            <img [src]="getImage(baggageListOption.selected, i + 1, traveler.controls.travelerId.value, 'personal')"/>
+                                            <div class="d-flex flex-column ms-3">
+                                                <div class="baggage-type">{{getDescription(i + 1, traveler.controls.travelerId.value, 'personal')}}</div>
+                                                <div class="baggage-details">{{getDimensions(i + 1, traveler.controls.travelerId.value, 'personal')}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row mt-4" *ngIf="travelerMap[traveler.controls.travelerId.value][i + 1]['carryOn']">
+                                            <img [src]="getImage(baggageListOption.selected, i + 1, traveler.controls.travelerId.value, 'carryOn')"/>
+                                            <div class="d-flex flex-column ms-3">
+                                                <div class="baggage-type">{{getDescription(i + 1, traveler.controls.travelerId.value, 'carryOn')}}</div>
+                                                <div class="baggage-details">{{getDimensions(i + 1, traveler.controls.travelerId.value, 'carryOn')}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row mt-4 mb-5" *ngIf="travelerMap[traveler.controls.travelerId.value][i + 1]['checkIn']">
+                                            <img [src]="getImage(baggageListOption.selected, i + 1, traveler.controls.travelerId.value, 'checkIn')"/>
+                                            <div class="d-flex flex-column ms-3">
+                                                <div class="baggage-type">{{getDescription(i + 1, traveler.controls.travelerId.value, 'checkIn')}}</div>
+                                                <div class="baggage-details">{{getDimensions(i + 1, traveler.controls.travelerId.value, 'checkIn')}}</div>
+                                            </div>
+                                        </div>
+                                        <h3 class="luggage-option-price">
+                                            {{travelerMap[traveler.controls.travelerId.value][i + 1].price.amount + ' ' + travelerMap[traveler.controls.travelerId.value][i + 1].price.currencyCode}}
+                                        </h3>
+
+                                    </div>
+                                </mat-list-option>
+                            </ng-container>
+                        </mat-selection-list>
+                    </ng-container>
+                </div>
+            </ng-container>
+
+            <div class="trip-summary">
+                <h3>Optiuni pe asistenta de zbor</h3>
+                <mat-selection-list class="baggage-selection-list" [disableRipple]="true" #selectionList>
+                    <mat-list-option #offersListOption class="baggage-list-option"
+                                     [selected]="true"
+                                     [value]="null"
+                                     (click)="selectOption(0)">
+                        <div [ngClass]="{'selected-panel' : offersListOption.selected}"
+                             (click)="ifSelectedPreventEvent(offersListOption.selected, $event)"
+                             class="custom-card offers p-3 h-100">
+                            <div class="d-flex flex-column h-100">
+                                <!--                                <div class="oferta-title">Oferta 1</div>-->
+                                <div class="fw-bolder d-flex">Optiunea asistenta&nbsp;<span class="bst-grey">Silver</span></div>
+                                <ul class="s14">
+                                    <li class="mt-2">Asistenta prin chatbox si email - <span class="bst-green">inclus</span></li>
+                                    <li class="mt-2">Check-in online operat de Bestinform - <span class="bst-pink">nu este inclus</span></li>
+                                    <li class="mt-2">Rambursare imediata pentru zbor anulat - <span class="bst-pink">nu este inclus</span></li>
+                                    <li class="mt-2">Anulare a zborului la dorinta pasagerului - <span class="bst-pink">nu este inclus</span></li>
+                                    <li class="mt-2">Modificarea datelor de zbor gratuita -  <span class="bst-pink">nu este inclus</span></li>
+                                </ul>
+                                <div class="color-price h-100 align-content-end">Pret 0 € / Pasager</div>
+                            </div>
+                        </div>
+                    </mat-list-option>
+                    <mat-list-option #offersListOption1 class="baggage-list-option" (click)="selectOption(1)">
+                        <div [ngClass]="{'selected-panel' : offersListOption1.selected}"
+                             class="custom-card offers p-3 h-100">
+                            <div class="d-flex flex-column h-100">
+                                <div class="oferta-title d-flex">Optiunea asistenta &nbsp;<span class="bst-gold">Gold</span></div>
+                                <ul class="s14">
+                                    <li class="mt-2">Asistenta prin chatbox si email - <span class="bst-green">inclus</span></li>
+                                    <li class="mt-2">Check-in online operat de Bestinform - <span class="bst-green">inclus</span></li>
+                                    <li class="mt-2">Rambursare imediata daca compania aeriana anuleaza zborul - <div class="bst-green">inclus</div></li>
+                                    <li class="mt-2">Asistenta prin telefon - <span class="bst-green">inclus</span></li>
+                                    <li class="mt-2">Anulare a zborului la dorinta pasagerului - <span class="bst-pink">nu este inclus</span></li>
+                                    <li class="mt-2">Modificarea datelor de zbor gratuita - <span class="bst-pink">nu este inclus</span></li>
+                                </ul>
+                                <div class="color-price  h-100 align-content-end">Pret 30 € / Pasager</div>
+                                <!-- <div>Bilet Premium</div>
+                                <ul>
+                                    <li>Asistenta prin chatbox si email - inclus</li>
+                                    <li>Check-in online operat de Bestinform - inclus</li>
+                                    <li>Rambursare imediata daca compania aeriana anuleaza zborul - inclus</li>
+                                    <li>Anulare a zborului la dorinta pasagerului - inclus (in limitele politicilor companiei aeriene)</li>
+                                    <li>Modificarea datelor de zbor gratuita - inclus (in limitele politicilor companiei aeriene)</li>
+                                </ul> -->
+                            </div>
+                        </div>
+                    </mat-list-option>
+                    <mat-list-option #offersListOption2 class="baggage-list-option" (click)="selectOption(2)">
+                        <div [ngClass]="{'selected-panel' : offersListOption2.selected}"
+                             class="custom-card offers p-3 h-100">
+                            <div class="d-flex flex-column h-100">
+                                <div class="oferta-title d-flex">Optiunea asistenta &nbsp;<div [ngClass]="{'bst-blue': !offersListOption2.selected, 'bst-white': offersListOption2.selected}">Platinum</div></div>
+                                <ul class="s14">
+                                    <li class="mt-2">Asistenta prin chatbox si email - <span class="bst-green">inclus</span></li>
+                                    <li class="mt-2">Check-in online operat de Bestinform - <span class="bst-green">inclus</span></li>
+                                    <li class="mt-2">Rambursare imediata daca compania aeriana anuleaza zborul - <span class="bst-green">inclus</span></li>
+                                    <li class="mt-2">Asistenta prin telefon - <span class="bst-green">inclus</span></li>
+                                    <li class="mt-2">Anulare a zborului la dorinta pasagerului - <span class="bst-green">inclus</span></li>
+                                    <li class="mt-2">Modificarea datelor de zbor gratuita - <span class="bst-green">inclus</span></li>
+                                </ul>
+                                <div class="color-price  h-100 align-content-end">Pret 100 € / Pasager</div>
+                            </div>
+                        </div>
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+
+
+            <!--        <div class="w-100" *ngIf="flightOffers as offers">-->
+            <!--            <div class="w-100" *ngIf="offers.length > 1">-->
+            <!--                <div class="offers">-->
+            <!--                    <h3>Pachete aditionale</h3>-->
+            <!--                    <span>*Pachetele sunt valabile pentru toți pasagerii aleși, pe întreaga durată a itinerarului oferit.</span>-->
+            <!--                    <p-carousel-->
+            <!--                            class="w-100"-->
+            <!--                            [value]="offers"-->
+            <!--                            [numVisible]="visibilityOptions.numVisible"-->
+            <!--                            [numScroll]="visibilityOptions.numScroll"-->
+            <!--                            [responsiveOptions]="responsiveOptions"-->
+            <!--                            [showIndicators]="false"-->
+            <!--                            [orientation]="'horizontal'"-->
+            <!--                    >-->
+            <!--                        <ng-template let-offer let-i="index" pTemplate="offer">-->
+            <!--                            <div *ngIf="offer.travelerPricings[0].fareDetailsBySegment[0].amenities"-->
+            <!--                                 class="offer-card"-->
+            <!--                                 [ngClass]="{'selected-offer': offer === selectedPackage}"-->
+            <!--                                 (click)="handleOfferChange(offer)">-->
+            <!--                                <div class="offer-card-header">-->
+            <!--                                    <h5>Beneficii incluse:</h5>-->
+            <!--                                    <div class="amenity-rows">-->
+            <!--                                        <ng-container-->
+            <!--                                                *ngFor="let amenity of offer.travelerPricings[0].fareDetailsBySegment[0].amenities">-->
+            <!--                                            <div class="amenity-row">-->
+            <!--                                                <img style="width: 16px;" [src]="getAmenityIcon(amenity.amenityType)">-->
+            <!--                                                <span class="amenity-description">{{amenity.description}}</span>-->
+            <!--                                            </div>-->
+            <!--                                        </ng-container>-->
+            <!--                                    </div>-->
+            <!--                                </div>-->
+            <!--                                <div class="offer-price">-->
+            <!--                                    {{(offer.totalPrice) + ' ' + offer.currency}}-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </ng-template>-->
+            <!--                    </p-carousel>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <div class="buttons">
+                <div>
+                    <button
+                            pButton
+                            class="reserve-back"
+                            icon="pi pi-angle-left"
+                            label="Inapoi"
+                            (click)="history.back()"
+                    ></button>
+                </div>
+
+                <div>
+                    <button
+                            pButton
+                            class="reserve bst-gold"
+                            icon="pi pi-angle-right"
+                            iconPos="right"
+                            label="Rezerva biletele"
+                            (click)="confirmSelection()"
+                    ></button>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="flight-details col-3">
+            <div class="details">
+                <h3>Detalii Plata</h3>
+                <div class="bags-container">
+                    <ng-container *ngIf="!selectedPackage">
+                        <div class="passenger-details"
+                             *ngFor="let travelerPricing of selectedOffer?.travelerPricings; let i = index">
+                            <div class="fw-bold bst-blue s20">Bilet {{i + 1}}</div>
+                            <div class="passenger-price">
+                                <span class="passenger-text">Pasager {{getTravelerType(travelerPricing.travelerType)}}</span>
+                                <span class="passenger-text">{{travelerPricing.price.total + ' ' + travelerPricing.price.currency}}</span>
+                            </div>
+                            <div *ngIf="baggageWithInfo && baggageWithInfo[travelerPricing.travelerId]">
+                                <span class="d-flex align-items-center flex-row" *ngIf="baggageWithInfo[travelerPricing.travelerId] && baggageWithInfo[travelerPricing.travelerId]['personal']">
+                                        <img [src]="baggageWithInfo[travelerPricing.travelerId]['personal'].icon">
+                                        <span class="ms-3 mt-2">{{getBaggageDescription(travelerPricing.travelerId,'personal')}}</span>
+                                    </span>
+                                <span class="d-flex align-items-center flex-row" *ngIf="baggageWithInfo[travelerPricing.travelerId] && baggageWithInfo[travelerPricing.travelerId]['carryOn']">
+                                        <img [src]="baggageWithInfo[travelerPricing.travelerId]['carryOn'].icon">
+                                        <span class="ms-3 mt-2">{{getBaggageDescription(travelerPricing.travelerId, 'carryOn')}}</span>
+                                    </span>
+                                <span class="d-flex align-items-center flex-row" *ngIf="baggageWithInfo[travelerPricing.travelerId] && baggageWithInfo[travelerPricing.travelerId]['checkIn']">
+                                        <img [src]="baggageWithInfo[travelerPricing.travelerId]['checkIn'].icon">
+                                        <span class="ms-3 mt-2">{{getBaggageDescription(travelerPricing.travelerId, 'checkIn')}}</span>
+                                </span>
+                            </div>
+
+                            <!--                            <div class="bags">-->
+                            <!--                                <div class="offers-amenities">-->
+                            <!--                                    <ng-container>-->
+                            <!--                                        <ng-container-->
+                            <!--                                                *ngFor="let amenity of selectedPackage.travelerPricings[0].fareDetailsBySegment[0].amenities">-->
+                            <!--                                            <div class="amenity-row">-->
+                            <!--                                                <img style="width: 16px;" [src]="getAmenityIcon(amenity.amenityType)">-->
+                            <!--                                                <span class="amenity-description">{{amenity.description}}</span>-->
+                            <!--                                            </div>-->
+                            <!--                                        </ng-container>-->
+                            <!--                                    </ng-container>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="selectedPackage">
+                        <div class="fw-bold bst-blue s20">Bilet {{i + 1}}</div>
+                        <div class="passenger-details"
+                             *ngFor="let travelerPricing of selectedOffer?.travelerPricings; let i = index">
+                            <div class="passenger-price">
+                                <span class="passenger-text">Pasager {{i + 1 + getTravelerType(travelerPricing.travelerType)}}</span>
+                                <span class="passenger-text">{{travelerPricing.price.total + ' ' + travelerPricing.currency}}</span>
+                            </div>
+                            <div class="bags">
+                                <div class="included-bags">
+                                    <div class="width">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <img class="bag-icon" src="assets/icons/travel_bag.svg">
+                                            <span class="bags-text ms-3"
+                                                  *ngIf="travelerPricing.fareDetailsBySegment[0].includedCheckedBags && travelerPricing.fareDetailsBySegment[0].includedCheckedBags.quantity > 0">
+                                            {{ travelerPricing.fareDetailsBySegment[0].includedCheckedBags.quantity + 'x bagaje incluse' +
+                                            (travelerPricing.fareDetailsBySegment[0].includedCheckedBags.weight ?
+                                                ' de ' + travelerPricing.fareDetailsBySegment[0].includedCheckedBags.weight :
+                                                "") +
+                                            (travelerPricing.fareDetailsBySegment[0].includedCheckedBags.weightUnit ?
+                                                travelerPricing.fareDetailsBySegment[0].includedCheckedBags.weightUnit :
+                                                "")}}
+                                        </span>
+                                            <span class="bags-text ms-3"
+                                                  *ngIf="!travelerPricing.fareDetailsBySegment[0].includedCheckedBags || travelerPricing.fareDetailsBySegment[0].includedCheckedBags.quantity === 0">
+                                            0x Bagaje incluse
+                                        </span>
+                                            <span class="bags-text ms-3"
+                                                  *ngIf="travelerPricing.fareDetailsBySegment[0].includedCheckedBags && travelerPricing.fareDetailsBySegment[0].includedCheckedBags.quantity > 0">{{"0 " + travelerPricing.currency}}</span>
+                                        </div>
+                                        <div
+                                                *ngIf="baggagePrice > 0 && baggagePrice === 110"
+                                        >
+                                            <div class="d-flex flex-row align-items-center mt-3">
+                                                <img class="bag-icon" src="assets/icons/backpack.svg">
+                                                <div class="bags-text ms-3">1x Bagaj Personal</div>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center mt-3">
+                                                <img class="bag-icon" src="assets/icons/travel_bag.svg">
+                                                <div class="bags-text ms-3">1x Bagaj Cabina</div>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center mt-3">
+                                                <img class="bag-icon" src="assets/icons/luggage.svg">
+                                                <div class="bags-text ms-3">1x Bagaj Check-in</div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="baggagePrice > 0 && baggagePrice === 300">
+                                            <div class="d-flex flex-row align-items-center mt-3">
+                                                <img class="bag-icon" src="assets/icons/backpack.svg">
+                                                <div class="bags-text ms-3">2x Bagaj Personal</div>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center mt-3">
+                                                <img class="bag-icon" src="assets/icons/travel_bag.svg">
+                                                <div class="bags-text ms-3">2x Bagaj Cabina</div>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center mt-3">
+                                                <img class="bag-icon" src="assets/icons/luggage.svg">
+                                                <div class="bags-text ms-3">2x Bagaj Check-in</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div *ngIf="selectedOffer.extraOffer" class="d-flex fw-bold s20 w-100">
+                    <span>Asistenta</span><span [class]="selectedOffer.extraOffer.class">&nbsp;{{selectedOffer.extraOffer.type}}</span>
+                    <span class="d-flex w-100 justify-content-end">{{selectedOffer.extraOffer.price * travelers}} EUR</span>
+                </div>
+                <span class="passenger-text tax w-100">Taxa de serviciu {{selectedOffer.travelersServiceTax}} EUR <img
+                        class="bag-icon" src="assets/icons/info-gray.svg"
+                        pTooltip="Taxa de serviciu acopera costurile de procesare și asigura o experienta de rezervare sigura și eficienta. "
+                        tooltipPosition="top"></span>
+
+            </div>
+            <div class="passenger-price total">
+                <span class="passenger-text">Pret total</span>
+                <span class="final"
+                      *ngIf="selectedPackage">{{price1 + ' ' + selectedPackage.price.currency}}</span>
+                <span class="final"
+                      *ngIf="!selectedPackage">{{price2 + ' ' + selectedOffer.price.currency}}</span>
+            </div>
+            <!--        <div class="recommendations">-->
+            <!--            <app-image-card-->
+            <!--                *ngFor="let recommendation of recommendations"-->
+            <!--                class="image-card"-->
+            <!--                [card]="recommendation"-->
+            <!--                [listing]="true"-->
+            <!--                [alwaysVertical]="true"-->
+            <!--                [smallerButton]="true"-->
+            <!--                [smallerTitle]="true"-->
+            <!--            ></app-image-card>-->
+            <!--        </div>-->
+        </div>
+    </div>
+</div>

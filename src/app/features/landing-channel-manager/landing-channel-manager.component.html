@@ -1,0 +1,136 @@
+<!--<div class="d-flex justify-content-center align-items-center w-100 eu-header">-->
+<!--    <img src="assets/images/logos/fonduri-ue.png" class="w-25">-->
+<!--    <p class="w-25 mb-0 text-small">Pentru informaţii-->
+<!--        detaliate despre celelalte programe cofinanţate de Uniunea-->
+<!--        Europeană, vă invităm să vizitaţi <a href="https://www.fonduri-ue.ro/" target="_blank">www.fonduri-ue.ro-->
+<!--        </a></p>-->
+<!--</div>-->
+<div id="landing-header-bar" class="container-fluid">
+    <div class="container">
+        <div class="py-4 d-flex justify-content-between align-items-center">
+            <a>
+                <img src="assets/Bestinform_logo.png" width="200px">
+            </a>
+            <select class="language" [(ngModel)]="pageLang" (change)="changeRoute(pageLang)">
+                <option value="en">EN</option>
+                <option value="ro">RO</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div id="partners-features" class="container-fluid">
+    <div class="feature-section channel-manager-wrap big-px">
+        <div class="row text-center big-pb">
+            <h2>{{channelManager.title}}</h2>
+            <h3>{{channelManager.subtitle}}</h3>
+        </div>
+        <div class="d-flex align-items-center content-wrap">
+            <div class="col left-column">
+                <img src="assets/images/others/landing-partners/channel-manager-illustration-2x.png" class="img-fluid img-web">
+            </div>
+            <div class="col right-column">
+                <p> {{channelManager.contentOne}}</p>
+                <img src="assets/images/others/landing-partners/channel-manager-illustration-2x.png" class="img-fluid img-mobile">
+                <p>{{channelManager.contentTwo}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="feature-section bookings-wrap big-pb">
+        <div class="content-wrap d-flex align-items-center">
+            <div class="col left-column">
+                <h2>{{bookings.title}}</h2>
+                <h3>{{bookings.subtitle}}</h3>
+                <img src="assets/images/others/landing-partners/bookings-illustration-2x.png" class="img-fluid img-mobile">
+                <p>{{bookings.content}}</p>
+            </div>
+            <div class="col right-column">
+                <img src="assets/images/others/landing-partners/bookings-illustration-2x.png" class="img-fluid img-web">
+            </div>
+        </div>
+    </div>
+    <div class="feature-section users-wrap big-pb">
+        <div class="d-flex align-items-center content-wrap">
+            <div class="col left-column">
+                <img src="assets/images/others/landing-partners/users-illustration-2x.png" class="img-fluid img-web">
+            </div>
+            <div class="col right-column">
+                <h2>{{users.title}}</h2>
+                <h3>{{users.subtitle}}</h3>
+                <img src="assets/images/others/landing-partners/users-illustration-2x.png" class="img-fluid img-mobile">
+                <p>{{users.content}}</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div id="perfect-partnership" class="container-fluid big-pb">
+    <div class="row text-center">
+        <h2>
+            {{perfectPartnership.title}}
+        </h2>
+        <h3>
+            {{perfectPartnership.subtitle}}
+        </h3>
+    </div>
+    <div class="d-flex align-items-center content-wrap big-px">
+        <div class="col left-column">
+            <div class="content-item" *ngFor="let item of perfectPartnership.items">
+                <h3>{{item.title}}</h3>
+                <p>{{item.content}}</p>
+            </div>
+        </div>
+        <div class="col right-column">
+            <img src="assets/images/others/landing-partners/perfect-partnership-2x.png" class="img-fluid">
+        </div>
+    </div>
+</div>
+<div id="business-impact" class="container-fluid">
+    <div class="content-wrap big-px">
+        <div class="text-center">
+            <h2 class="medium-pb">
+                {{businessImpact.title}}
+            </h2>
+        </div>
+        <div class="impact-items">
+            <div class="d-flex item" *ngFor="let item of businessImpact.items">
+                <div class="col-md-3 custom-height-col dark-blue">
+                    <div class="overflow-container">
+                        <img [src]="item.icon"
+                             class="overflow-image img-fluid">
+                    </div>
+                </div>
+                <div class="col-md-9 custom-height-col white">
+                    <h3>
+                        {{item.title}}
+                    </h3>
+                    <p>
+                        {{item.content}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer d-flex flex-column justify-content-between align-items-center">
+    <img src="assets/images/logos/Logo%20-%20White.png" width="165px">
+    <div class="social-media">
+        <a href="https://www.facebook.com/profile.php?id=100076116217462" target="_blank">
+            <i class="fab fa-facebook-f me-3"></i>
+        </a>
+
+        <a href="https://www.instagram.com/bestinform.eu " target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+    <p *ngIf="pageLang === 'en'">© 2023 Bestinform | All rights reserved.</p>
+    <p *ngIf="pageLang === 'ro'">© 2023 Bestinform | Toate drepturile rezervate.</p>
+</div>
+
+<div class="d-flex justify-content-center align-items-center w-100 eu-header">
+    <img src="assets/images/logos/fonduri-ue.png" class="w-25">
+    <p class="w-25 mb-0 text-small">Pentru informaţii
+        detaliate despre celelalte programe cofinanţate de Uniunea
+        Europeană, vă invităm să vizitaţi <a href="https://www.fonduri-ue.ro/" target="_blank">www.fonduri-ue.ro
+        </a></p>
+</div>

@@ -1,0 +1,157 @@
+<!--Title bar-->
+<div class="container-fluid client-general-box">
+
+    <div  class="container" >
+        <app-dashboard-header pageTitleOne="{{ 'MY_BOOKINS' | translate }}"
+                                routeTitleOne="../../dashboard/my-bookings"
+                                pageTitleTwo=" {{ 'TITLES.TRIP-BOOKINGS' | translate }}"
+                                routeTitleTwo="../../dashboard/trip-bookings"
+                                pageTitleThree="{{'FLIGHT-BOOKINGS' | translate}}"
+                                routeTitleThree="../../dashboard/flight-bookings"
+                              [buttonBackRoute]="'../../dashboard/profile'">
+        </app-dashboard-header>
+    </div>
+
+
+<div class="container my-bookings-container px-0 mb-4">
+    <div class="px-10">
+
+            <!--Active tab-->
+            <mat-tab-group mat-stretch-tabs="false" class="remove-border-bottom" dynamicHeight>
+                <mat-tab label="Active" >
+                    <!--if booking list is empty-->
+                    <div *ngIf="activeTripList.length===0" class="py-4"><p>{{"RESERVATION.EMPTY-LIST-MSG" | translate}}</p>
+                    </div>
+                    <!--list of bookings-->
+                    <div *ngFor="let booking of activeTripList" class="my-2 experiences-card-class d-flex">
+                        <div class="col-6 col-sm-6 col-md-7 col-lg-9 p-2 align-items-center">
+                            <h4><a routerLink="../../dashboard/my-booking/view-trip-reservation/{{booking.id}}">{{booking.name}}</a></h4>
+                            <p>{{booking.checkIn | date: 'dd MMM y'}} - {{booking.checkOut | date: 'dd MMM y'}}</p>
+                            <p>{{booking.countryName}}, {{booking.locationName}}</p>
+                        </div>
+                        <div class="d-flex blue col-4 col-sm-3 col-md-3 col-lg-2 justify-content-center align-items-center p-3">
+                            <div  class="d-flex col-lg-9 justify-content-center">
+                                <h4>€ {{booking.totalPrice}}</h4>
+                            </div>
+                        </div>
+                        <div class="d-flex col-2 col-sm-3 col-md-2 col-lg-1 align-items-center justify-content-center px-0 py-3" [matMenuTriggerFor]="activeTripMenu">
+                            <div  class="col-lg-3 d-flex justify-content-center">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                        <mat-menu #activeTripMenu="matMenu">
+                            <button mat-menu-item routerLink="../../dashboard/my-booking/view-trip-reservation/{{booking.id}}">
+                                <i class="fas fa-eye"></i>
+                            Vezi rezervare
+                            </button>
+                            <!-- <button mat-menu-item>
+                                <i class="fas fa-times"></i>
+                                Remove
+                            </button> -->
+                        </mat-menu>
+                    </div>
+
+                    <!--Pagination-->
+                    <mat-paginator
+                    [pageSizeOptions]="pageItems"
+                    [length]="totalActiveElements"
+                    [pageSize]="size"
+                    (page)="pageChanged($event, 'active')"
+                    >
+                    </mat-paginator>
+            </mat-tab>
+
+            <!--past tab-->
+            <mat-tab label="Past" >
+                <!--if booking list is empty-->
+                <div *ngIf="pastTripList.length===0" class="py-4"><p>{{"RESERVATION.EMPTY-LIST-MSG" | translate}}</p>
+                </div>
+                <!--list of bookings-->
+                <div *ngFor="let booking of pastTripList" class="my-2 experiences-card-class d-flex">
+                    <div class="col-6 col-sm-6 col-md-7 col-lg-9 p-2 align-items-center">
+                        <h4><a routerLink="../../dashboard/my-booking/view-trip-reservation/{{booking.id}}">{{booking.name}}</a></h4>
+                        <p>{{booking.checkIn | date: 'dd MMM y'}} - {{booking.checkOut | date: 'dd MMM y'}}</p>
+                        <p>{{booking.countryName}}, {{booking.locationName}}</p>
+                    </div>
+                    <div class="d-flex blue col-4 col-sm-3 col-md-3 col-lg-2 justify-content-center align-items-center p-3">
+                        <div  class="d-flex col-lg-9 justify-content-center">
+                            <h4>€ {{booking.totalPrice}}</h4>
+                        </div>
+                    </div>
+                    <div class="d-flex col-2 col-sm-3 col-md-2 col-lg-1 align-items-center justify-content-center px-0 py-3" [matMenuTriggerFor]="pastTripMenu">
+                        <div  class="col-lg-3 d-flex justify-content-center">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <mat-menu #pastTripMenu="matMenu">
+                        <button mat-menu-item routerLink="../../dashboard/my-booking/view-trip-reservation/{{booking.id}}">
+                            <i class="fas fa-eye"></i>
+                        Vezi rezervare
+                        </button>
+                        <!-- <button mat-menu-item>
+                            <i class="fas fa-times"></i>
+                            Remove
+                        </button> -->
+                    </mat-menu>
+                </div>
+
+                <!--Pagination-->
+                <mat-paginator
+                [pageSizeOptions]="pageItems"
+                [length]="totalPastElements"
+                [pageSize]="size"
+                (page)="pageChanged($event, 'past')"
+                >
+                </mat-paginator>
+            </mat-tab>
+
+
+            <!--cancelled tab-->
+            <mat-tab label="Cancelled" >
+                <!--if booking list is empty-->
+                <div *ngIf="cancelledTripList.length===0" class="py-4"><p>{{"RESERVATION.EMPTY-LIST-MSG" | translate}}</p>
+                </div>
+                <!--list of bookings-->
+                <div *ngFor="let booking of cancelledTripList" class="my-2 experiences-card-class d-flex">
+                    <div class="col-6 col-sm-6 col-md-7 col-lg-9 p-2 align-items-center">
+                        <h4><a routerLink="../../dashboard/my-booking/view-trip-reservation/{{booking.id}}">{{booking.name}}</a></h4>
+                        <p>{{booking.checkIn | date: 'dd MMM y'}} - {{booking.checkOut | date: 'dd MMM y'}}</p>
+                        <p>{{booking.countryName}}, {{booking.locationName}}</p>
+                    </div>
+                    <div class="d-flex blue col-4 col-sm-3 col-md-3 col-lg-2 justify-content-center align-items-center p-3">
+                        <div  class="d-flex col-lg-9 justify-content-center">
+                            <h4>€ {{booking.totalPrice}}</h4>
+                        </div>
+                    </div>
+                    <div class="d-flex col-2 col-sm-3 col-md-2 col-lg-1 align-items-center justify-content-center px-0 py-3" [matMenuTriggerFor]="cancelledTripMenu">
+                        <div  class="col-lg-3 d-flex justify-content-center">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <mat-menu #cancelledTripMenu="matMenu">
+                        <button mat-menu-item routerLink="../../dashboard/my-booking/view-trip-reservation/{{booking.id}}">
+                            <i class="fas fa-eye"></i>
+                        Vezi rezervare
+                        </button>
+                        <!-- <button mat-menu-item>
+                            <i class="fas fa-times"></i>
+                            Remove
+                        </button> -->
+                    </mat-menu>
+                </div>
+
+                <!--Pagination-->
+                <mat-paginator
+                [pageSizeOptions]="pageItems"
+                [length]="totalCancelledElements"
+                [pageSize]="size"
+                (page)="pageChanged($event, 'cancelled')"
+                >
+                </mat-paginator>
+            </mat-tab>
+
+
+        </mat-tab-group>
+    </div>
+</div>
+</div>

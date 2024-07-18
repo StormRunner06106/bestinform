@@ -1,0 +1,138 @@
+<div class="container-experience">
+    <div class="event-title d-flex justify-content-between align-items-center">
+        <h4>Event</h4>
+        <div *ngIf="isHost && showMenu" class="menu-host">
+            <button type="button" mat-icon-button  [matMenuTriggerFor]="menuHost" class="btn-round btn-no-outline"><i class="fas fa-ellipsis-v" ></i></button>
+            <mat-menu #menuHost="matMenu">
+<!--                <button mat-menu-item><i class="fas fa-user-plus me-2"></i>Invite participant </button>-->
+<!--                <button mat-menu-item><i class="fas fa-share me"></i> Share experience</button>-->
+                <button *ngIf="!isProvider" mat-menu-item routerLink="../../edit/{{experience.slug}}"><i class="fas fa-pen me"></i> Modify experience</button>
+                <button mat-menu-item (click)="openModal(cancelExperienceModal)"><i class="fas fa-ban me"></i> Cancel experience</button>
+            </mat-menu>
+
+            <ng-template #cancelExperienceModal let-c="close" let-d="dismiss">
+                <div class="modal-card card">
+                    <div class="card-header border-0">
+                        <h3 class="m-0">Sure you want to cancel your shared experience?
+                        </h3>
+                    </div>
+
+                    <div class="card-body">
+                        <p>This action will remove the event from the shared experiences section and all the data from chat.</p>
+                    </div>
+
+                    <div class="card-footer border-0">
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <button class="btn-auto btn-color-outline w-100"
+                                        id="btn-dismiss-cancel"
+                                        (click)="d()">
+                                    <i class="fas fa-times"></i>
+                                    {{ 'BTN.CANCEL' | translate}}
+                                </button>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <button class="btn-auto btn-color-fill w-100"
+                                        id="btn-confirm-cancel"
+                                        (click)="cancelExperience()"
+                                >
+                                    <i class="fas fa-check"></i>
+                                    {{ 'BTN.CONFIRM' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-template>
+        </div>
+        <div *ngIf="!isHost && showMenu" class="menu-guest">
+            <button mat-icon-button [matMenuTriggerFor]="menuGuest" class="btn-round btn-no-outline"><i class="fas fa-ellipsis-v" ></i></button>
+            <mat-menu #menuGuest="matMenu">
+<!--                <button mat-menu-item><i class="fas fa-share me"></i> Share Experience</button>-->
+                <button mat-menu-item (click)="openModal(leaveExperienceModal)"><i class="fas fa-running me"></i> Leave Experience</button>
+            </mat-menu>
+
+            <ng-template #leaveExperienceModal let-c="close" let-d="dismiss">
+                <div class="modal-card card">
+                    <div class="card-header border-0">
+                        <h3 class="m-0">Are you sure you want to leave the experience?
+                        </h3>
+                    </div>
+
+                    <div class="card-body">
+                        <p>This action will remove yourself from the shared experience, but the messages in the chat will remain.</p>
+                    </div>
+
+                    <div class="card-footer border-0">
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <button class="btn-auto btn-color-outline w-100"
+                                        id="btn-dismiss-leave"
+                                        (click)="d()">
+                                    <i class="fas fa-times"></i>
+                                    {{ 'BTN.CANCEL' | translate}}
+                                </button>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <button class="btn-auto btn-color-fill w-100"
+                                        id="btn-confirm-leave"
+                                        (click)="leaveExperience()"
+                                >
+                                    <i class="fas fa-check"></i>
+                                    {{ 'BTN.CONFIRM' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="short-info d-flex justify-content-between">
+        <div class="left-side w-75 d-flex flex-column justify-content-between">
+            <h4 class="mb-0">{{experience?.name}}</h4>
+            <p class="mb-0 time"><i class="far fa-clock me-2"></i>{{experience.startHour}}</p>
+        </div>
+        <div class="right-side d-flex justify-content-center align-items-center flex-column">
+            <div *ngIf="experience?.endDate === null">
+                <p class="mb-0 month d-flex justify-content-center">{{experience?.startDate | date:'MMM'}}</p>
+                <p class="mb-0 day">{{experience?.startDate | date:'dd'}}</p>
+            </div>
+            <!--if the event lasts several days -->
+            <div *ngIf="experience?.endDate !== null" >
+                <div *ngIf="experience?.endDate !== null" class="d-flex justify-content-center align-items-center gap-2">
+                    <p class="mb-0 month d-flex justify-content-center">{{experience?.startDate | date:'MMM'}}</p>
+                    <p *ngIf="(experience?.endDate | date:'MMM') !==(experience?.startDate | date:'MMM')" class="mb-0 month"> {{experience?.endDate | date:'MMM'}}</p>
+                </div>
+                <div *ngIf="experience?.endDate !== null" class="d-flex align-items-center gap-2">
+                    <p class="mb-0 day">{{experience?.startDate | date:'d'}} - {{experience?.endDate | date:'d'}} </p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <h4 *ngIf="experience?.description">About</h4>
+    <div *ngIf="experience?.description" class="description">
+        <p [ngClass]="readMore ? 'descr-text mb-0' : 'mb-0'">{{experience?.description}}</p>
+        <p class="more" (click)="changeReadMore()">{{readMore ? 'Read more' : 'Show less'}}</p>
+    </div>
+    <h4 *ngIf="!isProvider">Location</h4>
+    <div class="location-info d-flex justify-content-between" *ngIf="!isProvider">
+        <div class="left-side w-75 d-flex flex-column justify-content-between">
+            <h4 class="mb-0">{{resource?.title}}</h4>
+            <p class="mb-0">{{currentLanguage === 'ro' ? resType?.nameRo : resType?.nameEn}}</p>
+            <p class="mb-0"><i class="fas fa-map-marker-alt"></i> {{resource?.address+', ' + resource?.city+', '+ resource?.country}}</p>
+        </div>
+        <button class="map-button" (click)="openMap()"><i class="fas fa-map-marked-alt"></i> See map</button>
+    </div>
+</div>
+
+
+<ng-template #after>
+    <app-after-create-delete [create]="false" ></app-after-create-delete>
+</ng-template>

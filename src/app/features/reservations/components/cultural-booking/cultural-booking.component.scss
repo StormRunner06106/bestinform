@@ -1,0 +1,54 @@
+
+@import "/src/app/theme/styles/components/colors";
+
+   //titles
+   h4{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 140%;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: $primary-color;
+    margin-bottom: 16px;
+
+    span {
+        color: $paragraph;
+        padding-right: 5px;
+
+      }
+   }
+
+   p{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+         display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        color: $paragraph;
+        margin-bottom:0px;
+   }
+   .bold{
+     font-weight: 700;
+     font-size: 20px;
+     span{
+       font-size: 20px;
+     }
+   }
+
+   p span{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 140%;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: $primary-color;
+    padding: 0 5px;
+   }
+   i{
+     margin-right: 5px;
+   }
+

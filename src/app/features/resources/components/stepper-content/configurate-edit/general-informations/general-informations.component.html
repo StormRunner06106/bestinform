@@ -1,0 +1,455 @@
+<div class="save-btn d-flex justify-content-end align-items-center mb-3" *ngIf="resourceId">
+    <button *ngIf="resourceId"
+            (click)="saveResource()"
+            [disabled]="isSubmitLoading || !form.valid"
+            matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+            class="btn-long btn-color-fill" type="button">
+        <ng-container *ngIf="isSubmitLoading===false">
+            <i class="fas fa-save"></i>
+            Salvează
+        </ng-container>
+        <ng-container *ngIf="isSubmitLoading === true">
+                      <span [style.display]="'block'" class="indicator-progress">
+                        Salvare...{{ " " }}
+                          <span
+                                  class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                      </span>
+        </ng-container>
+    </button>
+</div>
+
+
+<div [formGroup]="form" id="general-info">
+    <!--    *ngIf="dataLoaded"-->
+    <!--Title-->
+    <div class="section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Informatii generale</h2>
+    </div>
+
+    <!--Content-->
+    <div class="section-content">
+        <div class="row">
+
+            <div class="col-12">
+                <app-dynamic-inputs [control]="form.get('title')"
+                                    [inputFormData]="{name:'Nume locație', valueType:'text', valuePlaceholder:'Titlu'}"/>
+            </div>
+
+            <div class="col-12">
+                <app-dynamic-inputs [control]="form.get('description')"
+                                    [inputFormData]="{name:'Descriere', valueType:'textarea', valuePlaceholder:'Descriere'}"/>
+            </div>
+
+            <div class="col-12">
+                <mat-form-field *ngIf="resourceType === 'menu'" appearance="standard" class="w-100">
+                    <mat-label>Currency</mat-label>
+                    <mat-select formControlName="currency" (selectionChange)="getCurrency($event)">
+                        <mat-option *ngFor="let currency of currencyEnums" [value]="currency">
+                            {{currency}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+<!--                <app-dynamic-inputs *ngIf="resourceType === 'menu'" [control]="form.get('currency')"-->
+<!--                                    [inputFormData]="{name:'Currency', valueType:'textarea', valuePlaceholder:'Currency'}"/>-->
+            </div>
+
+            <div class="col-12">
+                <mat-form-field *ngIf="resourceType === 'menu'" appearance="standard" class="w-100">
+                    <mat-label>Specific</mat-label>
+                    <mat-select formControlName="specific" (selectionChange)="getSpecific($event)">
+                        <mat-option *ngFor="let specific of specificEnums" [value]="specific">
+                            {{specific}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+<!--                <app-dynamic-inputs *ngIf="resourceType === 'menu'"  [control]="form.get('specific')"-->
+<!--                                    [inputFormData]="{name:'Specific', valueType:'textarea', valuePlaceholder:'Specific'}"/>-->
+            </div>
+
+            <ng-container *ngIf="hasStartEndDates">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Data de început</mat-label>
+                        <input matInput [min]="!resourceId ? currentDay : ''" [ngxMatDatetimePicker]="startPicker"
+                               placeholder="Choose a date" formControlName="startDate">
+                        <mat-datepicker-toggle matSuffix
+                                               [for]="startPicker"></mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker #startPicker [stepMinute]="15">
+                        </ngx-mat-datetime-picker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Data de final</mat-label>
+                        <input matInput [min]="currentDay" [ngxMatDatetimePicker]="endPicker"
+                               placeholder="Choose a date" formControlName="endDate">
+                        <mat-datepicker-toggle matSuffix
+                                               [for]="endPicker"></mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker #endPicker [stepMinute]="15">
+                        </ngx-mat-datetime-picker>
+                    </mat-form-field>
+                </div>
+            </ng-container>
+
+            <div *ngFor="let section of formSections">
+                <div class="row" *ngIf="section.tabName === 'general_info'">
+                    <div *ngFor="let inputForm  of section.tabAttributes | orderBy : 'order'"
+                         [className]="columnSize(inputForm.size)"
+                         [ngClass]="!tripsAndItineraries.includes(inputForm.categoryId) ? '': 'd-none'">
+                        <app-dynamic-inputs [control]="form.get(inputForm.name)"
+                                            [inputFormData]="inputForm"/>
+                    </div>
+
+                    <div class="col-6 py-4" *ngIf="!hasForItinerary">
+                        <app-dynamic-inputs [control]="form.get('forItinerary')"
+                                            [inputFormData]="{name:'Folosit pentru itinerarii', valueType:'checkbox'}"/>
+                    </div>
+
+                    <div *ngIf="form.get('forItinerary').value">
+                        <div *ngFor="let category of tripsItinObj | keyvalue" class="row">
+                            <div [ngSwitch]="category.key">
+                                <h5 *ngSwitchCase="'journeyThemeCategoryId'">Journey Theme</h5>
+                                <h5 *ngSwitchCase="'typeOfDestinationCategoryId'">Type Of Destination</h5>
+                                <h5 *ngSwitchCase="'typeOfJourneyCategoryId'">Type of Journey</h5>
+                            </div>
+                            <div *ngFor="let inputForm  of section.tabAttributes | orderBy : 'categoryId'"
+                                 [className]="columnSize(inputForm.size)"
+                                 [ngClass]="category.value === inputForm.categoryId ? 'col-md-6': 'd-none'">
+                                <app-dynamic-inputs [control]="form.get(inputForm.name)"
+                                                    [inputFormData]="inputForm"/>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-6" *ngIf="hasSharedExperience">
+                <app-dynamic-inputs [control]="form.get('sharedExperience')"
+                                    [inputFormData]="{name:'Shared experience', valueType:'checkbox'}"/>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--Title-->
+    <div *ngIf="tripsAndItinAttributes.length > 0 && form.get('forItinerary').value" class="section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Itineraries</h2>
+    </div>
+
+    <!--Content-->
+    <div *ngIf="tripsAndItinAttributes.length > 0 && form.get('forItinerary').value" class="section-content">
+        <div class="row">
+
+
+            <h5 class="mb-2">Journey Theme</h5>
+            <div *ngFor="let inputForm  of tripsAndItinAttributes"
+                 [className]="inputForm.categoryId === tripsItinObj.journeyThemeCategoryId ? columnSize(inputForm.size) : 'd-none' ">
+
+                <app-dynamic-inputs *ngIf="inputForm.categoryId === tripsItinObj.journeyThemeCategoryId"
+                                    [control]="form.get(inputForm.name)"
+                                    [inputFormData]="inputForm"/>
+            </div>
+
+            <h5 class="mb-2">Type Of Journey</h5>
+
+            <div *ngFor="let inputForm  of tripsAndItinAttributes"
+                 [className]="inputForm.categoryId === tripsItinObj.typeOfJourneyCategoryId ? columnSize(inputForm.size) : 'd-none' ">
+                <app-dynamic-inputs *ngIf="inputForm.categoryId === tripsItinObj.typeOfJourneyCategoryId"
+                                    [control]="form.get(inputForm.name)"
+                                    [inputFormData]="inputForm"/>
+            </div>
+
+
+            <h5 class="mb-2">Type Of Destination</h5>
+            <div *ngFor="let inputForm  of tripsAndItinAttributes;"
+                 [className]="inputForm.categoryId === tripsItinObj.typeOfDestinationCategoryId ? columnSize(inputForm.size) : 'd-none' ">
+                <app-dynamic-inputs *ngIf="inputForm.categoryId === tripsItinObj.typeOfDestinationCategoryId"
+                                    [control]="form.get(inputForm.name)"
+                                    [inputFormData]="inputForm"/>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--Title-->
+    <div class="section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>About</h2>
+    </div>
+
+    <!--Content-->
+    <div class="section-content">
+        <div class="row">
+            <div *ngFor="let section of formSections">
+                <div class="row" *ngIf="section.tabName === 'about'">
+                    <ng-container *ngFor="let inputForm  of section.tabAttributes | orderBy : 'order'">
+                            <div [ngClass]="{'hidden-content' : inputForm.hide}" id="testId"
+                                  [className]="columnSize(inputForm.size)">
+                                <app-dynamic-inputs [control]="form.get(inputForm.name)"
+                                                    [inputFormData]="inputForm"/>
+
+                            </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+
+        <form [formGroup]="avgPriceForm">
+            <mat-form-field>
+                <mat-label>Avg price</mat-label>
+                <input matInput formControlName="avgPriceControl" type="number">
+            </mat-form-field>
+        </form>
+
+
+        <div class="transport-section">
+            <h2>Public transport section</h2>
+
+            <form [formGroup]="publicTransportForm" class="information-container-form">
+                <div formArrayName="transports">
+                    <div *ngFor="let transport of publicTransportForm.get('transports').controls; let i = index" [formGroupName]="i" class="transport-item">
+                        <mat-form-field>
+                            <mat-label>Transport Type</mat-label>
+                            <input matInput formControlName="transportType">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Station Name</mat-label>
+                            <input matInput formControlName="stationName">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Distance To</mat-label>
+                            <input matInput formControlName="distanceTo">
+                        </mat-form-field>
+
+                        <!-- Add the remove button here -->
+                        <button mat-icon-button (click)="removeTransport(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <button mat-raised-button color="primary" (click)="addTransport()">Add Transport</button>
+        </div>
+
+
+
+        <div class="transport-section">
+            <h2>Near by</h2>
+
+            <form [formGroup]="nearByForm" class="information-container-form">
+                <div formArrayName="nearBy">
+                    <div *ngFor="let transport of nearByForm.get('nearBy').controls; let i = index" [formGroupName]="i" class="transport-item">
+                        <mat-form-field>
+                            <mat-label>Location name</mat-label>
+                            <input matInput formControlName="location">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Distance To</mat-label>
+                            <input matInput formControlName="distanceTo">
+                        </mat-form-field>
+
+                        <!-- Add the remove button here -->
+                        <button mat-icon-button (click)="removeNearBy(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <button mat-raised-button color="primary" (click)="addNearBy()">Add Near By</button>
+        </div>
+
+
+        <div class="transport-section">
+            <h2>Airports</h2>
+
+            <form [formGroup]="airportsForm" class="information-container-form">
+                <div formArrayName="airports">
+                    <div *ngFor="let transport of airportsForm.get('airports').controls; let i = index" [formGroupName]="i" class="transport-item">
+                        <mat-form-field>
+                            <mat-label>Airport name</mat-label>
+                            <input matInput formControlName="airportName">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Distance To</mat-label>
+                            <input matInput formControlName="distanceTo">
+                        </mat-form-field>
+
+                        <!-- Add the remove button here -->
+                        <button mat-icon-button (click)="removeAirport(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <button mat-raised-button color="primary" (click)="addAirport()">Add Airport</button>
+        </div>
+
+        <div class="transport-section">
+            <h2>Attraction</h2>
+
+            <form [formGroup]="attractionsForm" class="information-container-form">
+                <div formArrayName="attractions">
+                    <div *ngFor="let transport of attractionsForm.get('attractions').controls; let i = index" [formGroupName]="i" class="transport-item">
+                        <mat-form-field>
+                            <mat-label>Attraction name</mat-label>
+                            <input matInput formControlName="attractionName">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Distance To</mat-label>
+                            <input matInput formControlName="distanceTo">
+                        </mat-form-field>
+
+                        <!-- Add the remove button here -->
+                        <button mat-icon-button (click)="removeAttraction(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <button mat-raised-button color="primary" (click)="addAttraction()">Add attraction</button>
+        </div>
+
+    </div>
+
+    <!--Title-->
+    <div class="section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Contact</h2>
+    </div>
+
+    <!--Content-->
+    <div class="section-content">
+        <div class="row">
+            <div *ngFor="let section of formSections">
+                <div class="row" *ngIf="section.tabName === 'contact'">
+
+                    <ng-container *ngFor="let inputForm  of section.tabAttributes | orderBy : 'order'">
+                        <div [className]="columnSize(inputForm.size)">
+
+                            <app-dynamic-inputs [control]="form.get(inputForm.name)"
+                                                [inputFormData]="inputForm"/>
+
+                        </div>
+                    </ng-container>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Location-->
+    <section>
+        <div class="section-title">
+            <i class="fas fa-info-circle"></i>
+            <h2>Locatia</h2>
+        </div>
+
+        <div class="section-content">
+            <div class="row">
+
+                <div class="col-12">
+                    <mat-form-field  class="w-100">
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="address" type="text" #autocomplete id="autocomplete" class="input-field" />
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Country</mat-label>
+                        <mat-select formControlName="country" (selectionChange)="getCities($event)">
+                            <mat-option *ngFor="let country of countries" [value]="country">
+                                {{country}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>City</mat-label>
+                        <mat-select formControlName="city" (selectionChange)="getCoordinates($event)">
+                            <mat-option *ngFor="let city of cities" [value]="city.name">
+                                {{city.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <!--                <div class="col-md-6">-->
+                <!--                    <app-dynamic-inputs [control]="form.get('city')"-->
+                <!--                                        [inputFormData]="{name:'City', valueType:'text', valuePlaceholder:'City'}"></app-dynamic-inputs>-->
+                <!--                </div>-->
+
+                <div class="col-md-6">
+                    <app-dynamic-inputs [control]="form.get('latitude')"
+                                        [inputFormData]="{name:'Latitudine', valueType:'coord', valuePlaceholder:'Latitude'}"></app-dynamic-inputs>
+                </div>
+
+                <div class="col-md-6">
+                    <app-dynamic-inputs [control]="form.get('longitude')"
+                                        [inputFormData]="{name:'Longitudine', valueType:'coord', valuePlaceholder:'Longitude'}"></app-dynamic-inputs>
+                </div>
+
+                <div class="maps-rest">
+                    <google-map
+                            height="30vh"
+                            width="100%"
+                            [options]="googlemapOptions">
+                        <map-marker *ngFor="let markerPosition of markerPositions"
+                                    [position]="markerPosition"
+
+                        ></map-marker>
+                    </google-map>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+
+<!--Stepper Controller-->
+<div class="stepper-step-controller">
+    <!--Prev Step-->
+    <!--    <div class="next-step">-->
+    <!--        <button class="btn-long btn-color-fill" type="button" (click)="prevStep()">-->
+    <!--            <i class="fas fa-arrow-left"></i>-->
+    <!--            Înapoi-->
+    <!--        </button>-->
+    <!--    </div>-->
+    <!--Next Step-->
+    <div class="next-step">
+        <button class="btn-long btn-color-fill" type="button" (click)="nextStep()" [disabled]="!form.valid"
+                matTooltip="{{form.valid ? '' : 'Trebuie să completați toate câmpurile obligatorii!'}}"
+        >
+            Urmatorul
+            <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+</div>

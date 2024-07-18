@@ -1,0 +1,115 @@
+<!-- <div *ngIf="resourceData" class="d-flex flex-column position-relative" [ngClass]="isItineraryModal ? 'itinerary-modal' : null">
+    <button *ngIf="isItineraryModal" mat-dialog-close
+            type="button"
+            class="btn-round btn-color-outline btn-close-modal">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div class="background-container">
+        <img [src]="resourceData.featuredImage?.filePath" alt="resource-background-image">
+    </div>
+
+    <div class="content-container">
+
+        <div class="container">
+            <div class="resource-title-bar">
+                <h3 class="resource-title me-auto">
+                    {{ resourceData.title | titlecase }}
+                </h3>
+
+                <button class="favorite-btn me-2" [ngClass]="resourceData?.favorite ? 'active' : 'inactive'"
+                        (click)="$event.stopPropagation(); toggleFavorite()">
+                    <i [ngClass]="resourceData?.favorite ? 'fas fa-star' : 'far fa-star'"></i>
+                </button>
+
+                <button *ngIf="resourceData.bookingType !== 'externalUrl' && resourceData.bookingType !== 'noBooking'"
+                        (click)="navigateToBookingTypeTab()"
+                        class="btn-auto btn-color-fill">
+                    {{ "RESOURCE.BOOK_NOW" | translate }}
+                    <i class="fas fa-angle-right"></i>
+                </button>
+
+                <a *ngIf="resourceData.bookingType === 'externalUrl' && resourceData?.externalUrl"
+                        [href]="resourceData.externalUrl"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="btn-auto btn-color-fill">
+                    Vezi mai mult
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="resource-subtitle">
+                <span>{{resourceTypeName}}</span>
+
+            </div>
+        </div>
+
+        <app-images-gallery *ngIf="resourceData?.images?.length > 0" [images]="resourceData?.images"></app-images-gallery>
+
+        <div class="container">
+            <div class="row">
+                <div #resourceTabs class="col-12 col-lg-8">
+                    <app-resource-tabs [activeTabId]="activeResourceTabId" (activeTabHasChangedEvent)="activeResourceTabId = $event"></app-resource-tabs>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <app-resource-information></app-resource-information>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div> -->
+
+<ng-container *ngTemplateOutlet="searchSectionTemplate"></ng-container>
+<ng-container *ngTemplateOutlet="resourceRepresentationTemplate"></ng-container>
+
+<ng-template #searchSectionTemplate>
+    <app-search-section
+            [title]="restaurantName"
+            [restaurantInfo]="restaurantInfo$ | async"
+            [isBiggerThan981]="isBiggerThan981"
+            [imagesTemplate]="imagesTemplate"
+            [backgroundImage]="featuredRestaurantImage ? featuredRestaurantImage : ''"
+            [selected]="selected"
+            [listingSearch]="true"
+            [imageCardSize]="'small'"
+            [listingCards]="listingCards"
+            [disableHover]="false"
+            [rating]="resourceData?.rating"
+            (selectedChange)="setSelectedCard($event)"
+    ></app-search-section>
+</ng-template>
+<ng-template #resourceRepresentationTemplate>
+    <app-resource-presentation
+            [isBiggerThan981]="isBiggerThan981"
+            [selected]="selected"
+            [selectedMenu]="selectedMenu"
+            [resourceId]="resourceId"
+    ></app-resource-presentation>
+</ng-template>
+
+<ng-template #imagesTemplate>
+    <app-image-grid [images]="imageUrls"></app-image-grid>
+</ng-template>
+
+
+<!-- <div class="description-container">
+    <div class="schedule">
+        <div class="schedule-details">
+            <div class="hours-title">
+                <i class="pi pi-clock"></i>
+                <span class="text">Ore de lucru</span>
+            </div>
+            <span></span>
+        </div>
+        <button pButton class="reserve" label="Rezerva acum"></button>
+    </div>
+    <div class="description"></div>
+</div> -->
+
+

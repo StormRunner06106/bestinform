@@ -1,0 +1,26 @@
+<div class="d-flex flex-column">
+
+    <div *ngIf="(resourceType$ | async) as resourceType" class="background-container">
+        <img [src]="resourceType?.image?.filePath" alt="category-background-image">
+    </div>
+
+    <div class="content-container">
+
+        <h1 class="text-center m-0">
+            {{ myJobOffers ? ("JOBS.MY_JOB_OFFERS" | translate) : ("JOBS.ALL_JOB_OFFERS" | translate) }}
+        </h1>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    <app-jobs-sidebar (filtersSubmitted)="scrollResourcesListIntoView()"></app-jobs-sidebar>
+                </div>
+
+                <div class="col-12 col-lg-9" #jobsList>
+                    <app-jobs-list></app-jobs-list>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,49 @@
+.card {
+  background-color: #edeff5;
+  border: none;
+}
+
+.card .card-header {
+  color: #24398A;
+  font-size: 32px;
+  font-weight: 700;
+  border: none;
+  background-color: #edeff5;
+}
+
+.card .card-body {
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+  border-bottom: none;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 48px 100px;
+}
+
+.card .card-body .subtitle {
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.card .card-body .form-column mat-form-field {
+  width: 100%;
+}
+
+.card .card-body img {
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .card .card-body {
+    padding: 24px 50px;
+  }
+}
+
+.card .card-footer {
+  padding: 24px;
+  background-color: #FFFFFF;
+  border-top: none;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+/*# sourceMappingURL=change-pass.component.css.map */

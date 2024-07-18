@@ -1,0 +1,58 @@
+<!--Title bar-->
+<div *ngIf="user" class="container-fluid">
+    <div class="container">
+        <app-dashboard-header pageTitleOne="Notificari"
+        [buttonBackRoute]="isAdmin ? '../dashboard'
+        : isStaff ? '../dashboard'
+        : isProvider ? '../dashboard'
+        : isClient? '/client/domain' : '/' ">
+        </app-dashboard-header>
+    </div>
+
+    <div class="container content" *ngIf="listNotification && listNotification.length>0">
+        <!--header-->
+        <div class="header-notifications d-flex justify-content-between align-item-center">
+            <h5>{{unreadMessagesNumber}} notifications unread</h5>
+            <h6 (click)="markAllAsRead()"><i class="fas fa-check-double"></i> Mark as read</h6>
+        </div>
+
+        <!--notifications-->
+        <div class="all-notifications py-2">
+            <div *ngFor="let notification of listNotification"
+                 (click)="goToNotificationObject(notification)"
+                 class="notification-single-card"
+                 [ngClass]="{'read-bkg' : notification.read === true,
+                             'unread-bkg' : notification.read === false}" >
+                <div class="d-flex justify-content-between">
+                    <!--notification data-->
+                    <div class="d-flex justify-content-start align-item-center">
+                        <img class="icon-notif" src="{{notification?.icon?.filePath}}">
+                        <!-- <i class="fas fa-check icon-notif"></i> -->
+    
+                        <div>
+                            <p class="message-notif"> {{notification?.message}}</p>
+                            <p class="time-notif">{{notification?.date | date: 'EEEE, d MMMM, HH:mm'}}</p>
+                        </div>
+                    </div>
+                    <!--check notif as read-->
+                    <div *ngIf="notification?.read === false" class="check-notif"
+                    matTooltip="Mark as read" (click)="markAsRead(notification.id); $event.stopPropagation()">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+            </div>
+
+            <mat-paginator [length]="totalElements"
+                           [pageSize]="pageSize"
+                           [pageSizeOptions]="pageSizeArray"
+                           (page)="pageChanged($event)"
+                           aria-label="Select page">
+            </mat-paginator>
+
+        </div>
+    </div>
+    <!--there are no notification at the moment-->
+    <div *ngIf='listNotification && listNotification.length===0' class="container second-content">
+        <h4>There are no notifications at the moment</h4>
+    </div>
+</div> 

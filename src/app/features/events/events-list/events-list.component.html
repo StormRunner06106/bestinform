@@ -1,0 +1,392 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="{{ 'EVENTS.LIST' | translate }}"
+                          [buttonBackRoute]="'../../dashboard'"
+                          [buttonAddRoute]="'../../events/add'">
+    </app-dashboard-header>
+
+    <div class="row filterRow" (keydown.enter)="callSubmitButton($event)">
+        <div class="col-7">
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>{{'FIELD.TITLE' | translate}}</mat-label>
+                        <input id="inputFilterByTitle" matInput [(ngModel)]=filterTitle
+                               placeholder="Ex. expozitie"
+                               #inputTitle>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>{{'FIELD.COUNTRY' | translate}}</mat-label>
+                        <mat-select id="selectFilterByCountry" [(ngModel)]=filterCountry
+                                    (selectionChange)="getCities($event)">
+                            <mat-option *ngFor="let country of countries"
+                                        [value]="country">{{country}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>{{'FIELD.CITY' | translate}}</mat-label>
+                        <mat-select id="selectFilterByCity" [(ngModel)]=filterCity>
+                            <mat-option *ngFor="let city of cities" [value]="city.name">{{city.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>{{'EVENTS.EVENT-TYPE'|translate}}</mat-label>
+                        <mat-select [(ngModel)]="filterEventType"
+                                    (selectionChange)="selectedResourceType($event.value)">
+                            <mat-option *ngFor="let resType of resourceTypes"
+                                        [value]="resType.id">{{currentLanguage === 'ro' ? resType.nameRo : resType.nameEn}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-5 d-flex align-items-center justify-content-end gap-2">
+            <button type="button" class="btn-round btn-color-outline" id="clearFilterBtn" (click)="clearFields()"><i class="fas fa-sync"></i></button>
+            <button type="button" class="btn-long btn-color-outline" id="advancedFilterBtn" (click)="advancedClick()"><i [ngClass]="isAdvanced ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>{{'BTN.ADVANCED-FILTER' | translate}}</button>
+            <button type="button" class="btn-long btn-color-fill" (click)="applyFilter()">{{'BTN.FILTER' | translate}} <i class="fas fa-filter"></i></button>
+        </div>
+
+        <div [ngClass]="{'d-none': !isAdvanced}">
+            <div class="advanced-filter-first row">
+                    <!-- <div class="col-3">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>{{'EVENTS.SHARED-EXPERIENCE' | translate}}</mat-label>
+                            <mat-select id="selectSharedExperience" [(ngModel)]="filterSharedExperience">
+                                <mat-option value="true">{{'BTN.YES' | translate}}</mat-option>
+                                <mat-option value="false">{{'BTN.NO' | translate}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    <div class="col-3">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>Status</mat-label>
+                            <mat-select id="statusFilter" [(ngModel)]="filterStatus">
+                                <mat-option value="Active"
+                                            id="ActiveStatusFilter">{{'STATUS.ACTIVE' | translate}}</mat-option>
+                                <mat-option value="Pending"
+                                            id="PendingStatusFilter">{{'STATUS.PENDING' | translate}}</mat-option>
+                                <mat-option value="Inactive"
+                                            id="InactiveStatusFilter">{{'STATUS.INACTIVE' | translate}}</mat-option>
+                                <mat-option value="Draft"
+                                            id="DraftStatusFilter">{{'STATUS.DRAFT' | translate}}</mat-option>
+                                <mat-option value="Archived"
+                                            id="ArchivedStatusFilter">{{'STATUS.ARCHIVED' | translate}}</mat-option>
+                                <mat-option value="In progress"
+                                            id="In progressStatusFilter">{{'STATUS.IN_PROGRESS' | translate}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3" *ngFor="let attribute of attributesArray">
+
+                        <app-dynamic-inputs [control]="form.get(attribute?.name)"
+                                            [inputFormData]="attribute"
+                        ></app-dynamic-inputs>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div class="row tableContent">
+
+            <table mat-table matSort appMatTableResponsive [dataSource]="dataSource" (matSortChange)=applySort($event)>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
+                    <td data-column-name="#" mat-cell
+                        *matCellDef="let row; let i = index;"> {{ (i + 1) + pageSize * (pageNumber)}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Denumire</th>
+                    <td data-column-name="Denumire" mat-cell *matCellDef="let row" class="custom-column-w"><a
+                            routerLink="/client/events/view/{{row.slug}}" class="view-event">{{row.title}} </a>
+                    </td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Data</th>
+                    <td data-column-name="Date" mat-cell *matCellDef="let row"> {{row.date | date}} </td>
+                </ng-container>
+
+                <!-- Location Column -->
+                <ng-container matColumnDef="location">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Location</th>
+                    <td data-column-name="Location" mat-cell
+                        *matCellDef="let row"> {{(row.city || 'necompletat') + ', ' + (row.country || 'necompletat')}} </td>
+                </ng-container>
+
+                <!--            Status Column-->
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'FIELD.STATUS'|translate}}</th>
+                    <td mat-cell *matCellDef="let row" attr.data-column-name="{{'FIELD.STATUS'|translate}}">
+        <span class="custom-label"
+              [ngClass]="{
+                            'label-pending' : row.status === 'pending_review',
+                            'label-active' : row.status === 'active',
+                            'label-inactive' : row.status === 'inactive'
+                        }"><span [ngSwitch]="row.status">
+                                   <span *ngSwitchCase="'pending_review'">În așteptare</span>
+                                   <span *ngSwitchCase="'active'">Activ</span>
+                                   <span *ngSwitchCase="'inactive'">Inactiv</span>
+                                </span></span>
+                        <!-- {{element.status}} -->
+
+                    </td>
+                </ng-container>
+
+                <!--Views column-->
+                <ng-container matColumnDef="views">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Vizualizari </th>
+                    <td attr.data-column-name="Vizualizari" mat-cell *matCellDef="let row"><span
+                            class="d-flex justify-content-end me-3">{{row.views}}</span></td>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="actions-class"> Acțiuni</th>
+                    <td mat-cell *matCellDef="let row; let i = index;">
+                        <div *ngIf="( currentUserId === row.userId ||  (currentUserRole === 'ROLE_STAFF') || (currentUserRole === 'ROLE_SUPER_ADMIN') )" class="d-flex actions-container flex-wrap py-2">
+                            <!--                        <button class="btn-round btn-no-outline"-->
+                            <!--                                matTooltip="Vizualizează"-->
+                            <!--                                id="btnListViewEvent-{{i}}"-->
+                            <!--                                routerLink="../../events/view/{{ row.id }}">-->
+                            <!--                            <i class="far fa-eye"></i>-->
+                            <!--                        </button>-->
+
+                            <button class="btn-round btn-no-outline"
+                                    matTooltip="Editează"
+                                    id="btnListEditEvent-{{i}}"
+                                    routerLink="../../events/edit/{{ row.id }}">
+                                <i class="fas fa-pen"></i>
+                            </button>
+
+                            <!--Reservation-->
+                            <button class="btn-round btn-no-outline"
+                                    matTooltip="Rezervari"
+                                    [routerLink]="'../../reservations/list'"
+                                    [queryParams]="{eventid: row.id}">
+                                <i class="fas fa-list"></i>
+                            </button>
+
+                            <button class="btn-round btn-no-outline"
+                                    matTooltip="Schimba status"
+                                    id="btnListEditEvent-{{i}}"
+
+                                    (click)="openModalData(changeStatus, row.userId, row.status)">
+                                <i class="fas fa-toggle-on"></i>
+                            </button>
+
+                            <button class="btn-round btn-no-outline"
+                                    matTooltip="Arhivare"
+                                    id="btnOpenModalArchiveEvent-{{i}}"
+                                    (click)="openModal(archiveResourceModal, row.userId)">
+                                <i class="fas fa-archive"></i>
+                            </button>
+
+                            <button class="btn-round btn-no-outline"
+                                    matTooltip="Șterge"
+                                    id="btnOpenModalDeleteEvent-{{i}}"
+                                    *ngIf="currentUserRole !== 'ROLE_PROVIDER'"
+                                    (click)="openModal(deleteEvent, row.userId)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+
+                        </div>
+
+
+
+                        <!--Modal Delete Resource-->
+                        <ng-template #deleteEvent let-c="close" let-d="dismiss">
+                            <div class="modal-card card">
+                                <div class="card-header border-0">
+                                    <h3 class="m-0">
+                                        {{ 'GENERAL.DELETE_EVENT' | translate }}
+                                    </h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <p>{{ 'MESSAGE.EVENT_DELETE_WARNING' | translate}}</p>
+
+                                    <div class="card-event card">
+                                        <div class="card-body d-flex justify-content-center align-items-start flex-column">
+                                            <h3>#{{ (i + 1) + pageSize * (pageNumber - 1)}} {{row.title}}</h3>
+                                            <p class="m-0">{{userName}}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer border-0">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-outline w-100"
+                                                    id="btnModalEventDismissDelete-{{i}}"
+                                                    (click)="d()">
+                                                <i class="fas fa-times"></i>
+                                                {{ 'BTN.CANCEL' | translate}}
+                                            </button>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-fill w-100"
+                                                    id="btnModalEventConfirmDelete-{{i}}"
+                                                    (click)="deleteResource(row.id)">
+                                                <i class="fas fa-check"></i>
+                                                {{ 'BTN.CONFIRM' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <!--Change Status -->
+                        <ng-template #changeStatus let-c="close" let-d="dismiss">
+                            <div class="modal-card card">
+                                <div class="card-header border-0">
+                                    <h3 class="m-0">
+                                        {{'EDITORIALS.CHANGE-STATUS-TITLE' | translate}}
+                                    </h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <p>{{ 'MESSAGE.EVENT_DELETE_WARNING' | translate}}</p>
+
+                                    <div class="card-event card">
+                                        <div class="card-body d-flex justify-content-center align-items-start flex-column">
+                                            <h3>#{{ (i + 1) + pageSize * (pageNumber - 1)}} {{row.title}}</h3>
+                                            <p class="m-0">{{userName}}</p>
+                                        </div>
+                                    </div>
+
+                                    <form [formGroup]="changeStatusForm">
+                                        <mat-form-field appearance="outline" class="w-100 pt-3">
+                                            <mat-label>Status</mat-label>
+                                            <mat-select formControlName="status" id="statusChange">
+                                                <mat-option *ngIf="currentUserRole !== 'ROLE_PROVIDER'" value="active"
+                                                            id="Active">{{'STATUS.ACTIVE' | translate}}</mat-option>
+                                                <mat-option value="pending_review"
+                                                            id="Pending">{{'STATUS.PENDING' | translate}}</mat-option>
+                                                <mat-option value="inactive"
+                                                            id="Inactive">{{'STATUS.INACTIVE' | translate}}</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="changeStatusForm.controls.status.hasError('required')">
+                                                {{'ERROR.REQUIRED' | translate}}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </form>
+                                </div>
+
+                                <div class="card-footer border-0">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-outline w-100"
+                                                    id="btnModalEventDismissDelete-{{i}}"
+                                                    (click)="closeModal()">
+                                                <i class="fas fa-times"></i>
+                                                {{ 'BTN.CANCEL' | translate}}
+                                            </button>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-fill w-100"
+                                                    id="btnModalEventConfirmDelete-{{i}}"
+                                                    (click)="changeEventStatus(row.id, changeStatusForm.controls.status.value)">
+                                                <i class="fas fa-check"></i>
+                                                {{ 'BTN.CONFIRM' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <!--                    Modal Archive Resource-->
+                        <ng-template #archiveResourceModal let-c="close" let-d="dismiss">
+                            <div class="modal-card card">
+                                <div class="card-header border-0">
+                                    <h3 class="m-0">
+                                        Arhivare eveniment
+                                    </h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <p>Acțiunea de ascundere eveniment nu este permanentă și complet irevocabilă.</p>
+
+                                    <div class="card-event card">
+                                        <div class="card-body d-flex justify-content-between align-items-center flex-row">
+                                            <h3 class="mb-0">#{{ (i + 1) + pageSize * (pageNumber) }} {{row.title}}</h3>
+                                            <!--                                        <p class="m-0">{{userData?.firstName+' '+userData?.lastName}}</p>-->
+                                            <span class="custom-label"
+                                                  [ngClass]="{
+                            'label-pending' : row.status === 'pending_review',
+                            'label-active' : row.status === 'active',
+                            'label-inactive' : row.status === 'inactive'
+                        }"><span [ngSwitch]="row.status">
+                                   <span *ngSwitchCase="'pending_review'">În așteptare</span>
+                                   <span *ngSwitchCase="'active'">Activ</span>
+                                   <span *ngSwitchCase="'inactive'">Inactiv</span>
+                                </span></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer border-0">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-outline w-100"
+                                                    id="btnModalEventDismissDelete-{{i}}"
+                                                    (click)="closeModal()">
+                                                <i class="fas fa-times"></i>
+                                                {{ 'BTN.CANCEL' | translate}}
+                                            </button>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn-auto btn-color-fill w-100"
+                                                    id="btnModalTemplateConfirmDelete-{{i}}"
+                                                    (click)="archiveResource(row.id)">
+                                                <i class="fas fa-check"></i>
+                                                {{ 'BTN.CONFIRM' | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{inputTitle.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="pageSizeArray"
+                           [pageSize]="pageSize"
+                           [length]="totalElements"
+                           (page)="pageChanged($event)"
+                           aria-label="Select page of events">
+            </mat-paginator>
+
+        </div>
+
+        <div class="card-footer border-0">
+
+        </div>
+</div>

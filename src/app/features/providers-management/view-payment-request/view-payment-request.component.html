@@ -1,0 +1,114 @@
+
+
+<div class="container-fluid">
+    <div class="container modal-content">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-between">
+        <h4 class="modal-title">{{"PROVIDER.VIEW-PAYMENT-REQUEST" | translate}}</h4>
+        <i class="fas fa-times" (click)="closeModal()"></i>
+      </div>
+      <!--Body-->
+      <div class="modal-body mb-3">
+        <span class="modal-body-text">Această acțiune este permanentă și complet irevocabilă.</span>
+      </div>
+  
+      <!--Info card blue-->
+      <div class="blue-card mb-4">
+        <div class="modal-blue-container d-flex row">
+              <div class="d-flex justify-content-between row">
+                <h4 class="col-6 primary-color">{{providerName}}</h4>
+                <h4 class="col-6 d-flex justify-content-end paragraph-color">{{amount | number: '1.0-2'}} {{currency}}</h4>
+              </div>
+
+            <div class="d-flex justify-content-between row align-items-baseline">
+                <div class="col-6 d-flex align-items-baseline">
+                    
+                    <h6 class="primary-color">IBAN:</h6>
+                    <p class="paragraph-color mb-0">{{providerIBAN}}</p>
+                </div>
+                <div class="col-6 d-flex align-items-end flex-column">
+                    <div class="d-flex align-items-baseline">
+                        <h6 class="primary-color">{{"PROVIDER.REQUEST-DATE" | translate}}: </h6>
+                        <p class="paragraph-color mb-0">{{requestDate | date: 'd MMM y'}}</p>
+                        <!-- <p class="paragraph-color mb-0">{{requestDate}}</p> -->
+
+                    </div>
+                    <div class="d-flex align-items-baseline" *ngIf="paymentDate !== null">
+                        <h6 class="primary-color">{{"PROVIDER.PAID-PAYMENT" | translate}}: </h6>
+                        <p class="paragraph-color mb-0">{{paymentDate | date: 'd MMM y'}}</p>
+                    </div>
+                    
+                </div>
+            </div>
+        
+
+              <!--File buttons----------------------------------------------->
+              <!--Invoice-->
+              <!-- <div class="invoice-report-container-class">
+                <div class="d-flex justify-content-between align-items-baseline text">
+                    <h6 class="primary-color">
+                        <i class="fas fa-file"></i>
+                        Invoice
+                    </h6>
+                    <p class="paragraph-color">{{paymentBill?.fileName}}</p>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn-long btn-color-fill w-100" (click)="download(paymentBill.filePath,paymentBill.fileName)">
+                            <i class="fas fa-download"></i>
+                            {{"PROVIDER.DOWNLOAD-BILL" | translate}}
+                    </button>
+                </div>
+
+              </div> -->
+              <!--Report-->
+
+              <!-- <div class="invoice-report-container-class">
+                <div class="d-flex justify-content-between align-items-baseline text">
+                    <h6 class="primary-color">
+                        <i class="fas fa-file"></i>
+                        Report
+                    </h6>
+                    <p class="paragraph-color">{{paymentReport?.fileName}}</p>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn-long btn-color-fill w-100" (click)="download(paymentReport.filePath,paymentReport.fileName)">
+                            <i class="fas fa-download"></i>
+                            {{"PROVIDER.DOWNLOAD-REPORT" | translate}}
+                    </button>
+                </div>
+
+              </div> -->
+
+          </div>
+      </div>
+      <!--Footer-->
+      <div *ngIf="(providerId && status==='new')" class="d-flex flex-wrap">
+          <div class="col-6 d-flex justify-content-center">
+                <button type="button" class="btn-long btn-color-outline"
+            (click)="confirmAction('rejected')">
+            <i class="fas fa-times"></i>
+            {{"PROVIDER.REJECT" | translate}}
+            </button>
+            </div>
+            
+            <div class="col-6 d-flex justify-content-center">
+                <button type="button" class="btn-long btn-color-fill"  id="confirmDelete"
+            (click)="confirmAction('approved')">
+            <i class="fas fa-check"></i>
+            {{ 'BTN.CONFIRM' | translate}}
+            </button>
+            </div>
+        </div>
+
+        <div *ngIf="(providerId===undefined && status==='new')" class="d-flex flex-wrap justify-content-end">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn-long btn-color-outline"
+            (click)="confirmAction('cancelled')">
+            <i class="fas fa-times"></i>
+            {{"PROVIDER.CANCEL-REQUEST" | translate}}
+            </button>
+            </div>
+        </div>
+    </div>
+    </div>
+  

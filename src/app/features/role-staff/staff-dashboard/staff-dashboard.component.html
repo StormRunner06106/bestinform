@@ -1,0 +1,63 @@
+<div class="container">
+<div *ngIf="isStaff" class="row dashboard-staff">
+    <p class="title-p">
+        {{'TITLES.CONTROL-PANEL' | translate}}
+    </p>
+
+    <div class="dashboard-cards">
+        <div class="row">
+            <div class="col-12 col-md-6" *ngIf="user.roles.includes('ROLE_PROVIDERS_EDIT')">
+                <div class="resources" role="button" routerLink="../resources/list">
+                    <p class="title-for-card mb-0">{{'TITLES.RESOURCES' | translate}}</p>
+                </div>
+            </div>
+            <div class="{{user.roles.includes('ROLE_PROVIDERS_EDIT') ? 'col-12 col-md-6' : 'col-12'}}">
+                <div class="templates"  role="button" routerLink="../templates" id="toTemplates">
+                    <p class="title-for-card mb-0">{{'TITLES.TEMPLATES' | translate}}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="{{user.roles.includes('ROLE_EVENTS_EDIT') && !user.roles.includes('ROLE_EDITORIALS_EDIT') ? 'col-12 col-md-6' : 'col-12 col-lg-4'}}" *ngIf="user.roles.includes('ROLE_EVENTS_EDIT')">
+                <div class="events" role="button" routerLink="../events" id="toEvents">
+                    <p class="title-for-card  mb-0">{{'TITLES.EVENTS' | translate}}</p>
+                </div>
+            </div>
+            <div class="{{!user.roles.includes('ROLE_EVENTS_EDIT') && !user.roles.includes('ROLE_EDITORIALS_EDIT') ? 'col-12' : ((user.roles.includes('ROLE_EVENTS_EDIT') && !user.roles.includes('ROLE_EDITORIALS_EDIT') || (!user.roles.includes('ROLE_EVENTS_EDIT') && user.roles.includes('ROLE_EDITORIALS_EDIT')) ? 'col-12 col-md-6' : 'col-12 col-lg-4'))}}">
+                <div class="trips">
+                    <p class="title-for-card  mb-0">{{'TITLES.TRIPS-OFFERS' | translate}}</p>
+                </div>
+            </div>
+            <div class="{{user.roles.includes('ROLE_EDITORIALS_EDIT') && !user.roles.includes('ROLE_EVENTS_EDIT') ? 'col-12 col-md-6' : 'col-12 col-lg-4'}}" *ngIf="user.roles.includes('ROLE_EDITORIALS_EDIT')" >
+                <div class="editorials" role="button" routerLink="../editorials" id="toEditorials">
+                    <p class="title-for-card  mb-0">{{'TITLES.EDITORIALS' | translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div *ngIf="isAdmin" class="row dashboard-admin">
+        <p class="title-p">
+            {{'TITLES.CONTROL-PANEL' | translate}}
+        </p>
+
+        <div class="dashboard-cards-admin">
+            <div class="row">
+                <div class="col-12 col-md-6" role="button" routerLink="../staff-management/list">
+                    <div class="staff-list">
+                        <p class="title-for-card mb-0">{{'TITLES.STAFF-LIST' | translate}}</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="history-log">
+                        <p class="title-for-card mb-0">{{'TITLES.HISTORY-LOG' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

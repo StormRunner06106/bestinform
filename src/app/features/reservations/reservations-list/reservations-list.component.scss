@@ -1,0 +1,39 @@
+@import "/src/app/theme/styles/components/colors";
+
+.table_container{
+    background-color: var(--primary-background);
+    border: 1px solid rgba(36, 57, 138, 0.16);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.advanced-display{
+    display: none;
+}
+
+.title-link{
+    text-decoration: none;
+    color:$primary-color;
+    font-weight: 500;
+  }
+
+.total-price{
+    text-decoration: none;
+    color:$primary-color;
+    font-weight: 700;
+}
+
+.title-name{
+    text-decoration: none;
+    color:#4257EE;
+    font-weight: 700;
+}
+
+.mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-tns-c194-10{
+    opacity: 0.2;
+}
+
+.highlight-row {
+    background-color: #EAF1FF;
+}

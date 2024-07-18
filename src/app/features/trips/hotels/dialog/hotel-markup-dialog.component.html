@@ -1,0 +1,45 @@
+<div class="w-100 h-100 p-5 d-flex flex-column justify-content-between">
+
+    <div mat-dialog-title *ngIf="data.add" class="d-flex justify-content-center">
+        <h3>Adauga markup pentru hotel</h3>
+    </div>
+    <div mat-dialog-title *ngIf="!data.add" class="d-flex justify-content-center">
+        <h3>Editeaza markup pentru hotel</h3>
+    </div>
+
+    <mat-dialog-content>
+        <div class="d-flex flex-row">
+            <div class="col-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Id Hotel</mat-label>
+                    <input matInput [(ngModel)]="data.hotelMarkup.id"
+                           (ngModelChange)="showMarkup = false; data.hotelMarkup.bestinform_markup = undefined">
+                </mat-form-field>
+            </div>
+            <div class="col-3 offset-3 d-flex align-items-center justify-content-end" *ngIf="data.add">
+                <button mat-flat-button class="mat-primary w-100" (click)="verificaHotel()">Verifica hotel</button>
+            </div>
+        </div>
+        <div class="d-flex flex-row">
+            <div class="col-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Aplica Markup (%)</mat-label>
+                    <input matInput [(ngModel)]="data.hotelMarkup.bestinform_markup" [disabled]="!showMarkup"
+                           type="number">
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+
+
+    <mat-dialog-actions align="end">
+        <div class="row col-12">
+            <div class="col-6 col-xl-3 offset-xl-6">
+                <button class="col-12" mat-flat-button (click)="close()">Inchide</button>
+            </div>
+            <div class="col-6 col-xl-3">
+                <button mat-flat-button class="mat-primary col-12" (click)="applyMarkup()">Aplica</button>
+            </div>
+        </div>
+    </mat-dialog-actions>
+</div>

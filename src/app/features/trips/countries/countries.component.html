@@ -1,0 +1,52 @@
+<div class="container">
+    <app-dashboard-header
+            [pageTitleOne]="'Țări'"
+            [buttonAddRoute]="'add'"
+    >
+    </app-dashboard-header>
+
+    <ng-container *ngIf="countries$ | async as countries">
+        <div class="row row-gap-24">
+            <div *ngFor="let country of countries; let index = index"
+                 class="col-12 col-md-6">
+
+                <div class="country-card"
+                     role="button"
+                     [routerLink]="['edit', country.id]">
+                    <img [ngSrc]="country?.image?.filePath" alt="country image" fill priority>
+                    <p>
+                        {{ country.name | titlecase }}
+                    </p>
+                    <button type="button"
+                            (click)="modalService.open(confirmDeleteCountry, {centered: true}); $event.stopPropagation()"
+                            class="open-modal btn-round btn-no-outline">
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                    <ng-template #confirmDeleteCountry let-dismiss = dismiss>
+                        <div class="custom-card">
+                            <h2>
+                                Are you sure you want to delete this country?
+                            </h2>
+
+                            <div class="d-flex align-items-center justify-content-center gap-4 mt-5">
+                                <button type="button"
+                                        (click)="dismiss()"
+                                        class="btn-auto btn-color-outline">
+                                    No
+                                </button>
+
+                                <button type="button"
+                                        (click)="deleteCountry(country.id, index, countries)"
+                                        class="btn-auto btn-color-fill">
+                                    Yes
+                                </button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+
+            </div>
+        </div>
+    </ng-container>
+</div>

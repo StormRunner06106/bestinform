@@ -1,0 +1,555 @@
+@import "/src/app/theme/styles/components/colors";
+
+.my-profile-container{
+    background-color: var(--primary-background);
+    border: 1px solid rgba(36, 57, 138, 0.16);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}
+
+// owl-carousel-o{
+//     .owl-carousel{
+//         .owl-item{
+//             width:250px!important;
+//         }
+//     }
+// }
+
+.client-general-box .page-header{
+    h2{
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 140%;
+        /* identical to box height, or 45px */
+
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+
+        /* Primary */
+
+        color: $primary-color;
+    }
+}
+//tabs style in _general.scss
+
+
+//my-experiences-card-style / shared experiences-card-style------------------------------------------------
+.shared-exp-card{
+    border: 1px solid rgba($primary-color, 0.16);
+    border-radius: 8px;
+    // width: 392px;
+    height: 120px;
+
+    .info{
+        padding: 8px 12px;
+        width: 90%;
+        .name{
+            color:$primary-color;
+            font-size: 16px;
+            font-weight: 700;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            /* autoprefixer: ignore next */
+            -webkit-box-orient: vertical;
+        }
+
+        .row{
+            p{
+                margin-bottom: 0;
+                font-size: 12px;
+                line-height: 15px;
+                color: $primary-color;
+                font-weight: 700;
+
+                span{
+                    color:$title;
+                    font-weight: 400;
+                }
+            }
+        }
+
+    }
+
+    .menu-button{
+        width: 10%;
+        background-color: $primary-color;
+        color:var(--primary-background);
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        cursor:pointer;}
+
+}
+.experiences-card-class{
+    border: 1px $background-secondary solid;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 392px;
+    height: 84px;
+    //diminuate paragraph bottom margin
+    p{
+        margin-bottom: 2px!important;
+    }
+
+
+    //white part of the card
+    //title, date, location
+    .my-exp-details{
+        h4{
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 140%;
+
+            /* or 22px */
+            align-items: center;
+            color: #24398A;
+            flex-grow: 1;
+
+            max-width: 400px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            /* autoprefixer: ignore next */
+            -webkit-box-orient: vertical;
+        }
+        p{
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 140%;
+            /* identical to box height, or 17px */
+
+            display: flex;
+            align-items: center;
+            text-align: center;
+
+            /* Title */
+
+            color: $paragraph;
+        }
+    }
+
+    //blue part
+    .my-exp-price{
+        background-color: $primary-color;
+        border-right: 1px white dotted;
+
+        //price and completed/canceled
+        .col-lg-9{
+            h4{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 140%;
+                /* or 22px */
+                display: flex;
+                align-items: center;
+                text-align: center;
+                color: #FFFFFF;
+            }
+            p{
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 140%;
+                /* identical to box height, or 17px */
+                display: flex;
+                align-items: center;
+                text-align: center;
+                color: #2CCEA7;
+            }
+        }
+    }
+
+     // ... dots
+     .my-exp-options{
+        background-color: $primary-color;
+
+        .col-lg-3{
+            color: white;
+            font-weight: 900;
+            font-size: 14px;
+            line-height: 140%;
+            /* identical to box height, or 20px */
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+     }
+}
+
+//Applied jobs card-style / My courses card-style-----------------------------------------------------------------------------------
+
+.applied-jobs-card-class{
+    border: 1px $background-secondary solid;
+    border-radius: 8px;
+    overflow: hidden;
+
+    img{
+
+        overflow: hidden;
+        object-fit: cover;
+        height: 100%;
+        width: 76px;
+    }
+   //text col
+   .applied-jobs-details{
+    width:270px;
+    .green{
+        color: #34A853;;
+    }
+    h4{
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 120%;
+        /* or 19px */
+        letter-spacing: -0.02em;
+        /* Primary */
+        color: $primary-color;
+        flex: none;
+        order: 0;
+        flex-grow: 1;
+    }
+
+    h5{
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 126%;
+        letter-spacing: -0.02em;
+        color: $paragraph;
+        // margin-bottom:0px;
+
+    }
+    p{
+        margin-bottom:0px;
+        font-weight: 400;
+        font-size: 8px;
+        line-height: 140%;
+        /* or 11px */
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        color: $paragraph;
+
+
+    }
+   }
+
+   .menu-button-jobs{
+    // width: 10%;
+    height: 100px;
+    width:36px;
+    background-color: $primary-color;
+    color:var(--primary-background);
+    // border-top-right-radius: 8px;
+    // border-bottom-right-radius: 8px;
+    cursor:pointer;}
+
+    //date col
+    .col-4.col-sm-4.col-md-3.col-lg-3.col-xl-3.d-flex.justify-content-end.align-self-end.p-2{
+        p{
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 140%;
+            /* identical to box height, or 17px */
+            text-align: right;
+            letter-spacing: -0.02em;
+            color: $primary-color;
+
+            margin-bottom: 2px!important;
+        }
+    }
+
+}
+
+.courses-class{
+    border: 1px $background-secondary solid;
+    border-radius: 8px;
+    overflow: hidden;
+
+    img{
+
+        overflow: hidden;
+        object-fit: cover;
+        height: 100%;
+        width: 76px;
+    }
+
+    .cours-details{
+        width:270px;
+
+        h4{
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 140%;
+            letter-spacing: -0.02em;
+             color: $paragraph;
+             margin-bottom: 0px;
+
+             overflow: hidden;
+             text-overflow: ellipsis;
+             display: -webkit-box;
+             -webkit-line-clamp: 1;
+             /* autoprefixer: ignore next */
+             -webkit-box-orient: vertical;
+        }
+
+        p{
+            font-weight: 700;
+            font-size: 8px;
+            line-height: 126%;
+            letter-spacing: -0.02em;
+            color: #24398A;
+            margin-bottom:0px;
+
+            span{
+                font-weight: 400;
+                font-size: 8px;
+                line-height: 126%;
+                letter-spacing: -0.02em;
+                color: #231F20;
+            }
+            i{
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .menu-button-courses{
+        // width: 10%;
+        height: 80px;
+        width:36px;
+        background-color: $primary-color;
+        color:var(--primary-background);
+        // border-top-right-radius: 8px;
+        // border-bottom-right-radius: 8px;
+        cursor:pointer;}
+}
+
+//My Friends card-style / Friends request card-style-----------------------------------------------------------------------------------
+.friends-notification{
+    background-color: $secondary-color;
+    border-radius: 50%;
+
+}
+
+.firends-card{
+    border: 1px $background-secondary solid;
+    border-radius: 8px;
+    overflow: hidden;
+
+    img{
+        height: 66px;
+        width: 66px;
+        border-radius: 50%;
+    }
+
+    //text column
+    .col-8.col-sm-8.col-md-9.col-lg-9.col-xl-10{
+        h4{
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 140%;
+            /* or 22px */
+            display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: -0.02em;
+            /* Title */
+            color: $paragraph;
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+        }
+
+        p{
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 140%;
+            /* identical to box height, or 17px */
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.02em;
+            /* Title */
+            color: rgba(35, 31, 32, 0.5);
+            flex: none;
+            order: 0;
+            flex-grow: 1;
+        }
+    }
+
+    //dots column
+    .col-2.col-sm-2.col-md-1.col-lg-1.col-xl-1{
+        font-weight: 900;
+        font-size: 12px;
+        line-height: 140%;
+        /* or 17px */
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.1px;
+        color: $primary-color;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+    }
+
+
+}
+
+//Loialty points
+
+.loialty-points-card{
+
+    .loialty-rectangle{
+        border: 1px $background-secondary solid;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    img{
+        height: 40px;
+        width: 40px;
+        margin-right: 4px;
+    }
+
+    h4{
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 140%;
+        /* identical to box height, or 28px */
+        display: flex;
+        align-items: center;
+        text-align: center;
+        /* Primary */
+        color: $primary-color;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        margin:8px 0px 0px!important;
+
+        span{
+            color: $secondary-color;
+            padding: 0px 4px;
+        }
+    }
+    h5{
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 140%;
+        /* or 22px */
+        display: flex;
+        align-items: center;
+        color: $primary-color;
+        flex: none;
+        order: 0;
+        flex-grow: 1;
+    }
+    li ul{
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 140%;
+        /* or 20px */
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+        /* Title */
+        color: #231F20;
+        flex: none;
+        order: 0;
+        flex-grow: 1;
+    }
+
+
+}
+
+@media only screen and (min-width:320px) and (max-width: 480px){
+    .mobile-header{
+        display: block;
+        background-color: var(--primary-background);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    }
+    .web-header{
+        display: none;
+    }
+
+    .my-profile-container .px-10{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .container.my-profile-container{
+        background: white;
+        margin-top:20px!important;
+    }
+
+    //no margin/padding for container-fluid
+    .client-general-box{
+        padding:0px;
+    }
+
+    .my-profile-container{
+        //background-color: transparent;
+        border: none;
+        box-shadow:none;
+        border-radius: 0px;
+    }
+
+    //applied jobs
+    .applied-jobs-card-class{
+        img{
+           display: none;
+        }
+    }
+}
+
+@media only screen and (min-width:481px) and (max-width: 768px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+
+    .my-profile-container .px-10{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    //applied jobs
+    .applied-jobs-card-class{
+        img{
+           display: none;
+        }
+    }
+}
+
+@media only screen and (min-width:769px) and (max-width: 1023px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+
+    .my-profile-container .px-10{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+}
+
+@media only screen and (min-width:1024px) and (max-width: 1200px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+}
+
+@media only screen and (min-width:1200px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+
+}
+
+

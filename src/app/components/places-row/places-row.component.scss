@@ -1,0 +1,17 @@
+.places-block{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    h1{
+        font-size: 30px;
+        font-weight: 700;
+        margin: 0;
+    }
+}
+.places-content {
+    display: flex;
+    flex-direction: row;
+    // gap: 8px;
+}

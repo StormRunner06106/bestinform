@@ -1,0 +1,37 @@
+@import "/src/app/theme/styles/components/colors";
+
+.content {
+  text-align: center;
+  align-self: center;
+
+  p.upper {
+    font-size: 16px;
+  }
+
+  p {
+    color: var(--primary-background);
+    font-size: 24px;
+  }
+
+  h1 {
+    color: $secondary-color;
+    font-size: 48px;
+    font-weight: 700;
+  }
+
+  .next-btn {
+    margin-bottom: 60px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: var(--primary-background);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    i.fas {
+      line-height: unset;
+    }
+  }
+}

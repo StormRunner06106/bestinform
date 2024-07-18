@@ -1,0 +1,45 @@
+<div class="resource-container">
+
+    <div class="sort-filter">
+        <button class="btn-long btn-color-fill me-3" *ngIf="jobOffersState" [routerLink]="['../create']"><i class="fas fa-plus"></i>Add
+            new job
+        </button>
+        <mat-form-field appearance="outline">
+            <mat-label>Sort By</mat-label>
+            <mat-select (selectionChange)="onSortChange($event)">
+                <mat-option [value]="'title'">Name</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="resource-list">
+        <ng-container *ngFor="let resource of resourcesList">
+            <app-resource-card-with-template
+                    [routerLink]="['../view', resource.id]"
+                    [cardType]="'long'"
+                    [htmlDescription]="true"
+                    [resourceTypeName]="currentLanguage === 'ro' ? resourceType.nameRo : resourceType.nameEn"
+                    [resourceTemplate]="resourceTemplate"
+                    [resourceData]="resource"
+                    [isMyJob]="jobOffersState">
+            </app-resource-card-with-template>
+        </ng-container>
+    </div>
+
+    <div *ngIf="resourcesList.length === 0"
+         class="d-flex no-data-class justify-content-center flex-column align-items-center gap-3">
+        <img src="../../../../../assets/images/others/no_data_icon.png">
+        <h4>{{'GENERAL.NO_DATA'|translate}}</h4>
+    </div>
+
+    <div class="resource-pagination">
+        <mat-paginator [length]="paginationInfo?.totalElements"
+                       [pageSize]="pageSize"
+                       [pageSizeOptions]="[5, 10, 15, 20]"
+                       (page)="onPaginationChange($event)"
+                       #resourcesPaginator
+                       aria-label="Select page">
+        </mat-paginator>
+    </div>
+
+</div>

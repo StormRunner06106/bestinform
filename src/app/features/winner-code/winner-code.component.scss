@@ -1,0 +1,458 @@
+/* giveaway-footer.component.scss */
+.giveaway-footer {
+    background-color: #4257EE;
+    color: white;
+    padding: 80px 60px!important;
+    bottom: 0;
+    width: 100%;
+    padding: 3vw;
+
+    .container-footer {
+        display: flex; flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 40px;
+    }
+
+    .menu-items {
+        display: flex; flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+    }
+
+.menu-item {
+    font-size: 16px;
+    font-family: "Roboto", Helvetica, sans-serif;
+    color:#FBFFFE;
+    text-decoration: unset;
+}
+
+.width {
+    color: white;
+    opacity: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+    .container {
+        display: flex; flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-and-social {
+        display: flex; flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+
+        .contact {
+            h1 {
+                font-size: 20px; // Adjust font size
+                margin-bottom: 10px; // Add spacing between heading and paragraph
+            }
+
+            p {
+                margin: 0; // Reset default margin
+                a {
+                    color: white; // Ensure links are visible on #4257EE background
+                    text-decoration: none; // Remove underlines from links
+                    &:hover {
+                        text-decoration: underline; // Add underline on hover
+                    }
+                }
+            }
+        }
+
+        .social-media-icons {
+            display: flex; flex-wrap: wrap;
+            justify-content: flex-end; // Align icons to the right
+            margin-top: 10px;
+            
+                    // Styles for social media icons
+            i {
+                justify-content: space-between;
+                color: white; // Adjust icon color for visibility
+                font-size: 40px; // Increase icon size
+                margin-left: 20px; // Add spacing between icons
+                cursor: pointer; // Change cursor to pointer on hover
+                &:hover {
+                    opacity: 0.8;
+            }}
+        }
+    }
+
+    .menu-links {
+        // Styles for menu links section
+        display: flex; flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 40px; // Add spacing between sections
+
+        a {
+            font-size: 16px; // Adjust font size for menu links
+            text-decoration: none; // Remove underlines from links
+            color: white; // Link color
+            margin: 0 10px; // Add spacing between links
+            &:hover {
+                text-decoration: underline; // Add underline on hover
+            }
+        }
+    }
+
+    .additional-info {
+        // Styles for additional info like language selector
+        margin-top: 20px; // Add spacing between sections
+        select {
+            background-color: #111; // Adjust background color for select element
+            color: white; // Text color
+            border: none; // Remove border
+            padding: 5px; // Add padding
+            font-size: 16px; // Adjust font size
+        }
+    }
+
+    a {
+        color: white; // General link color
+    }
+    // Additional styling as needed
+  }
+
+  @media (max-width: 1032px) {
+
+    .container-footer {
+        gap: 20px;
+        padding-bottom: 20px!important;
+    }
+    .giveaway-footer {
+        padding: 39px 40px !important; 
+        .menu-items {
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+        .menu-item {
+            margin: 0!important;
+        }
+        .menu-links {
+            margin-top: 20px;
+        }
+    }
+    
+  }
+/* header.component.scss */
+@import "../../../app/theme/styles/components/_colors.scss";
+
+
+
+.logo {
+  top: 15px;
+  position: absolute;
+  display: flex; flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  width: 100%;
+  z-index: 2;
+}
+
+.card {
+  border: unset;
+  display: flex; flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.icon-header {
+  width: 20px!important;
+}
+
+.header-card-text {
+  font-weight: 200;
+}
+
+.image-card {
+  display: flex; flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #D7E0FE;
+}
+
+.text-hero {
+  font-family: "Roboto", Helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 150%;
+  font-weight: 600;
+  color: rgba(251, 255, 254, 0.8);
+  text-align: center;
+  padding: 0px 5vw;
+}
+
+h1 {
+  color: #4257EE;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 40px;
+  text-align: center;
+}
+
+.container-text {
+  text-align: center;
+  color: white; /* Example text color for visibility against dark overlay */
+  display: flex; flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Centers text horizontally and vertically */
+  padding: 20px; /* Adds some padding around the text */
+}
+
+.container2-cards {
+  gap: 10px;
+  display: flex; flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-cards {
+  gap: 10px;
+  z-index: 3; /* Ensures text is above the overlay */
+  color: white; /* Example text color for visibility against dark overlay */
+  display: flex; flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Centers text horizontally and vertically */
+  padding: 20px; /* Adds some padding around the text */
+}
+
+.card-icon {
+  width: 30px;
+}
+
+.card {
+  padding: 20px;
+}
+
+.image-card {
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.card-text {
+  font-family: "Roboto", Helvetica, sans-serif;
+  color: #010514;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.image-container {
+  position: relative;
+  padding: 0vw 22vw;
+  height: 100vh;
+  background-size: cover;
+  display: flex!important;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  display: inline-block; /* or block depending on layout */
+  background-image: url("../../../assets/images/others/SL_050721_42770_15.jpg");
+}
+
+.logo-text-black {
+  font-family: "Avenir", Helvetica, sans-serif;
+  font-size: 32px;
+  text-decoration: none;
+  font-weight: 900;
+  color: #4257EE;
+}
+
+
+.message {
+  font-size: 20px;
+  color: rgb(39, 39, 39);
+  font-weight: 400;
+}
+
+.header-info {
+  display: flex; flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 30px;
+  padding: 100px;
+}
+
+.image-container img {
+  display: block; /* Remove any space below the image */
+  width: 100%; /* Adjust as needed */
+  height: auto; /* Adjust as needed */
+}
+
+// .image-container::before {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   background-color: rgba(1, 5, 20, 0.5); /* Your color with 60% opacity */
+//   z-index: 1; /* Ensure it's above the image */
+// }
+
+
+@media (max-width: 1032px) {
+  .container-cards {
+    display: none;
+  }
+  .image-container {
+    padding: 0vw 7vw;
+  }
+  .header-info {
+    padding: 7vw;
+    gap: 15px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo img.not-mobile {
+    display: flex!important;
+  } 
+  
+}
+.img-logo {
+  width: 100%;
+  background-color: rgba(1, 5, 20, 0.6);
+}
+
+.site-header {
+  width: 100%;
+  position: sticky;
+
+
+  .blue-bar {
+    background-color: $primary-color; // Example blue color
+    padding: 1rem 0;
+
+    .container {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-content {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      width: 86;
+
+      a {
+        display: flex; flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .cta-button {
+        background-color: yellow;
+        border: none;
+        padding: 10px 20px;
+        color: #4257EE; // Text color for the button
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px; // Optional: for rounded corners
+
+        &:hover {
+          background-color: darken(yellow, 10%); // Slightly darker on hover
+        }
+      }
+      .header-image {
+        position: relative;
+        .header-bg-image {
+            width: auto;
+            height: auto; // Maintain aspect ratio
+        }
+        .header-image {
+          position: relative;
+        }
+        
+        
+        
+        
+        .header-title {
+          margin: 0;
+          font-size: 24px;
+        }
+        
+        ul.header-info-list {
+          list-style: none;
+          display: flex; flex-wrap: wrap;
+          flex-wrap: wrap; /* Display items in a row and wrap to the next row */
+          padding: 0;
+          margin: 0;
+        }
+        
+        ul.header-info-list li {
+          display: flex; flex-wrap: wrap;
+          flex-direction: column;
+          align-items: center;
+          margin-right: 2rem;
+          margin-bottom: 1rem; /* Add spacing between items */
+        }
+        
+        ul.header-info-list img {
+          margin-bottom: 0.5rem;
+        }
+        
+        .header-latin {
+          font-size: 14px;
+          margin-top: 1rem;
+        }
+    }
+    }
+  }
+}
+
+//
+
+
+/* Update the import URL to match the FontAwesome version you need */
+@import url('https://use.fontawesome.com/releases/v5.15.1/css/all.css');
+
+.social-icons .icon {
+  position: relative; /* This makes z-index applicable */
+  z-index: 3; /* Higher than overlay and content to ensure clickability */
+  font-size: 24px; /* Adjust the size as needed */
+  color: #ffffff; /* Change color if needed */
+  padding: 0 10px; /* Adjust padding as needed */
+}
+
+
+.content {
+  position: relative;
+  z-index: 2; /* Higher than overlay z-index */
+  /* Rest of your styles */
+}
+
+h3{
+  color: #4257EE;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../../../assets/images/others/SL_050721_42770_15.jpg'); /* Update this path */
+  background-size: cover; /* Add this to cover the area */
+  z-index: 1; /* Make sure it's behind the content */
+}
+
+

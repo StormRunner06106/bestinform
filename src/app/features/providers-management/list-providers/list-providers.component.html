@@ -1,0 +1,200 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="{{'PROVIDER.ACTIVE-PROVIDERS' | translate}}"
+                          pageTitleTwo="{{'PROVIDER.PENDING-PROVIDERS' | translate}}"
+                          routeTitleOne="../../manage-providers/active"
+                          routeTitleTwo="../../manage-providers/pending"
+                          [buttonBackRoute]="'../../dashboard'"
+                          [buttonAddRoute]="'../../manage-providers/add'">
+    </app-dashboard-header>
+
+<div class="providers-list" *ngIf="dataLoaded">
+    <div class="row filterRow">
+        <mat-form-field appearance="legacy" class="w-100">
+            <input matInput type="text" [formControl]="searchFilter" (keydown.enter)="filterData()" placeholder="Căutare">
+        </mat-form-field>
+    </div>
+
+    <div class="row tableContent">
+        <table mat-table matSort appMatTableResponsive [dataSource]="providersList" (matSortChange) = applyFilter($event)>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+                <td data-column-name="#" mat-cell *matCellDef="let row; let i = index;">   {{ (pageNumber) * pageSize + i + 1 }} </td>
+            </ng-container>
+
+            <!-- Company Column -->
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> {{'PROVIDER.PROVIDER_NAME'|translate}} </th>
+                <td attr.data-column-name="{{'PROVIDER.PROVIDER_NAME'|translate}}" mat-cell *matCellDef="let row" routerLink="../view/{{row.id}}"> {{row.companyName}} </td>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Email </th>
+                <td attr.data-column-name="email" mat-cell *matCellDef="let row"> {{row.email}} </td>
+            </ng-container>
+
+            <!-- Domain Column -->
+            <ng-container matColumnDef="cui">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> CUI </th>
+                <td data-column-name="CUI" mat-cell *matCellDef="let row">
+                    <!-- <span class="d-flex justify-content-end me-3"> </span> -->
+                        <span class="d-flex justify-content-end me-4" >{{row.cui}}</span>
+                    </td>
+            </ng-container>
+
+            <!-- Domain Column -->
+            <ng-container matColumnDef="country">
+                <th mat-header-cell *matHeaderCellDef disableClear>Țară</th>
+                <td data-column-name="Țară" mat-cell *matCellDef="let row">
+                    <!-- <span class="d-flex justify-content-end me-3"> </span> -->
+                    {{row.billingAddress?.country}}
+                </td>
+            </ng-container>
+
+            <!-- Domain Column -->
+            <ng-container matColumnDef="city">
+                <th mat-header-cell *matHeaderCellDef disableClear>Oraș</th>
+                <td data-column-name="Oraș" mat-cell *matCellDef="let row">
+                    {{row.billingAddress?.city}}
+                </td>
+            </ng-container>
+
+
+            <!-- Domain Column -->
+            <ng-container matColumnDef="domain">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> {{'PROVIDER.DOMAIN'|translate}} </th>
+                <td attr.data-column-name="{{'PROVIDER.DOMAIN'|translate}}" mat-cell *matCellDef="let row"> {{row.domain}} </td>
+            </ng-container>
+
+            <!--Status-->
+            <ng-container matColumnDef="activeStatus" *ngIf="isApprovedStatus.includes('new')">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Status Cont</th>
+                <td data-column-name="Status Cont" mat-cell *matCellDef="let row" [ngSwitch]="row.activeStatus">
+                    <span *ngSwitchCase="true">Confirmat</span>
+                    <span *ngSwitchCase="false">Neconfirmat</span>
+                </td>
+            </ng-container>
+
+            <!--Status-->
+            <ng-container matColumnDef="approvedStatus">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Status Provider</th>
+                <td attr.data-column-name="{{'PROVIDER.STATUS'|translate}}" mat-cell *matCellDef="let row" [ngSwitch]="row.approvedStatus">
+                    <span *ngSwitchCase="'new'" class="custom-label label-draft">Nou</span>
+                    <span *ngSwitchCase="'draft'" class="custom-label label-pending">Schita</span>
+                    <span *ngSwitchCase="'pending'" class="custom-label label-pending">In asteptare</span>
+                    <span *ngSwitchCase="'active'" class="custom-label label-active">Activ</span>
+                    <span *ngSwitchCase="'inactive'" class="custom-label label-inactive">Inactiv</span>
+                    <span *ngSwitchCase="'refused'" class="custom-label label-refused">Refuzat</span>
+                    <span *ngSwitchCase="'archived'" class="custom-label label-archived">Arhivat</span>
+                </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions" *ngIf="!isApprovedStatus.includes('new')">
+                <th mat-header-cell *matHeaderCellDef class="actions-class"> {{'PROVIDER.ACTIONS'|translate}} </th>
+                <td mat-cell *matCellDef="let row; let i = index;">
+                    <div class="d-flex actions-container flex-wrap">
+
+                        <!--                TO DO - de vazut ce e cu statusul asta-->
+                                        <button class="btn-round btn-no-outline"
+                                        matTooltip="Schimbă status"
+                                        (click)="changeStatusModal(row.id, row.providerStatus)"
+                                        id="changeProviderStatus_{{i}}">
+                                            <i class="fas fa-toggle-on"></i>
+                                        </button>
+
+
+                        <button class="btn-round btn-no-outline"
+                                matTooltip="Adauga resursa"
+                                routerLink="../../resources/add"
+                                id="addResourceForProvider{{i}}"
+                        (click)="sendProviderData(row.id, row.companyName, row.cui)">
+                            <i class="fas fa-folder-plus"></i>
+                        </button>
+
+                        <button class="btn-round btn-no-outline"
+                                matTooltip="Adauga eveniment"
+                                routerLink="../../events/add"
+                                id="addEventForProvider{{i}}"
+                                (click)="sendProviderData(row.id, row.companyName, row.cui)">
+                            <i class="fas fa-calendar-plus"></i>
+                        </button>
+
+                        <button class="btn-round btn-no-outline"
+                                matTooltip="Edit"
+                                routerLink="../edit/{{row.id}}"
+                                id="changeProviderStatus_{{i}}">
+                            <i class="fas fa-pen"></i>
+                        </button>
+
+                        <button class="btn-round btn-no-outline"
+                                matTooltip="Resurse"
+                                [routerLink]="'../../resources/list'"
+                                [queryParams]="{providerid: row.id}">
+                            <i class="fas fa-folder"></i>
+                        </button>
+
+                        <button class="btn-round btn-no-outline"
+                                matTooltip="Rapoarte Resurse"
+                                [routerLink]="'../../reports/resources/' + row.id">
+                            <i class="fas fa-chart-pie"></i>
+                        </button>
+
+                        <!--                <button class="btn-round btn-no-outline"-->
+                        <!--                        routerLink="../view/{{row.id}}"-->
+                        <!--                        id="btn-open-modal-delete-event-{{i}}">-->
+                        <!--                    <i class="fas fa-chevron-right"></i>-->
+                        <!--                </button>-->
+
+                        <button class="btn-round btn-no-outline"
+                                matTooltip="Arhivare"
+                                id="btn-open-modal-archive-provider-{{i}}"
+                                (click)="blockProvider(row.id)"
+                        >
+                            <i class="fas fa-archive"></i>
+                        </button>
+
+
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container *ngIf="isApprovedStatus.includes('new')" matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="actions-class"> {{'PROVIDER.ACTIONS'|translate}} </th>
+                <td mat-cell *matCellDef="let row; let i = index;">
+                    <div class="d-flex actions-container flex-wrap py-2">
+                        <button class="btn-round btn-no-outline"
+                                id="btn-edit-event-{{i}}"
+                                (click)="providerRequest(row.id)">
+
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">{{'PROVIDER.NO_DATA'|translate}}</td>
+            </tr>
+        </table>
+
+        <!--Pagination-->
+        <mat-paginator [pageSizeOptions]="pageSizeArray"
+                       [length]="totalElements"
+                       [pageSize]="pageSize"
+                       (page)="pageChanged($event)">
+        </mat-paginator>
+    </div>
+
+
+</div>
+</div>

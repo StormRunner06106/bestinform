@@ -1,0 +1,29 @@
+.success {
+  background-color: #198754;
+}
+
+.error {
+  background-color: #dc3545;
+}
+
+.warning {
+  background-color: #FFCC29;
+}
+
+.info {
+  background-color: #2F9DF4;
+}
+
+p{
+  margin-bottom:0px;
+  color: white;
+
+}
+i{
+  margin:0 15px;
+  color: white;
+}
+
+i.fas.fa-times{
+  cursor: pointer;
+}

@@ -1,0 +1,47 @@
+<div class="room-card">
+    <div class="img-container">
+        <img [src]="tripRoom?.image?.filePath" alt="room image">
+    </div>
+
+    <div class="info-container">
+        <p class="room-name">
+            {{ tripRoom?.name }}
+        </p>
+
+        <div class="room-size">
+            Fits: {{ tripRoom?.people }} x <i class="fas fa-user"></i>
+            |
+            <span *ngIf="tripRoom?.bedType?.quantity > 0">
+                {{ tripRoom.bedType.quantity }} x {{ tripRoom.bedType.type }}
+            </span>
+        </div>
+
+        <p class="price-for">
+            Price for <ng-container *ngIf="tripRoom.people">{{ tripRoom.people }}</ng-container>
+        </p>
+
+        <div class="d-flex justify-content-between">
+            <p *ngIf="nrOfNights" class="bold-blue-text">
+                {{ nrOfNights }} Nights
+            </p>
+
+            <p *ngIf="tripRoom.price && nrOfNights" class="bold-blue-text">
+                € {{ tripRoom.price }}
+            </p>
+        </div>
+
+        <div class="guests-selector">
+            <button [disabled]="roomsNr.value === 0"
+                    (click)="decreaseRoomsNr()">
+                <i class="fas fa-angle-left"></i>
+            </button>
+            <p>
+                {{ roomsNr.value }}
+                {{ "RESOURCE.RES-FILTERS.NR_ROOMS" | translate }}
+            </p>
+            <button [disabled]="roomsNr.value === tripRoom.available" (click)="increaseRoomsNr()">
+                <i class="fas fa-angle-right"></i>
+            </button>
+        </div>
+    </div>
+</div>

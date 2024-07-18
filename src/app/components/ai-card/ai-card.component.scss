@@ -1,0 +1,110 @@
+:host ::ng-deep{
+    .ai-button-disabled{
+        .p-button{
+           background-color: #D5D6E2;
+           color: #FCFCFD;
+           border: 0;
+           span{
+            font-size: 20px;
+            font-weight: 700;
+           }
+        }  
+    }
+}
+.ai-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid #D5D6E2;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    width: 100%;
+    max-width: 646px;
+    
+}
+.ai-card-image{
+    position: relative;
+    img {
+        object-fit: cover;
+        flex-shrink: 0;
+        width: 243px;
+        height: 300px;
+      }
+      object-fit: cover;
+      flex-shrink: 0;
+}
+.ai-card-description{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 16px 32px 16px 32px;
+}
+.ai-description-info{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 10px;
+    .ai-description-title{
+        font-size: 30px;
+        font-weight: 700;
+        color: #111118;
+    }
+    .ai-description-text{
+        font-size: 20px;
+        color: #393A53;
+    }
+}
+.ai-button-disabled{
+    .p-button{
+       background-color: #D5D6E2; 
+    }  
+}
+.ai-event-disabled {
+    position: absolute;
+    background-color: rgba(000, 000, 000, 0.6);
+    height: 100%;
+      width: 100%;
+    .ai-disabled-message {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      color: #fff;
+  
+      .ai-image-disabled {
+          background-image: url("../../../assets/icons/lock.svg");
+          background-position: center;
+          background-repeat: no-repeat;
+          height: 30%;
+          width: 100%;
+      }
+    }
+  }
+@media (max-width: 800px){
+    .ai-card{
+        flex-direction: column;
+        align-items: center;
+        border: 0;
+        border-radius: 0;
+        padding: 32px 16px 32px 16px;
+        .ai-card-image{
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 92vw;
+            max-height: 256px;
+            img{
+                width: 92vw;
+                height: 256px;
+            }
+        }
+        .ai-description-title{
+            color: #4257EE;
+        }
+        .ai-card-description{
+            padding: 0;
+        }
+    }
+}

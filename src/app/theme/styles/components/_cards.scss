@@ -1,0 +1,316 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+//Card class, white gradient- <div>
+.card-custom {
+  padding: 0;
+  margin-bottom: 20px;
+  width: 272px;
+  border: 1px solid rgba($primary-color, 0.24);
+  border-radius: 8px;
+  background-color: var(--primary-background);
+
+  //Card image container - <div>
+  .image-container {
+    position: relative;
+
+    //Star button right corner - <i class="far fa-star"></i>
+    .favourite {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      border-radius: 8px;
+      border: 1px $background-secondary solid;
+      padding: 0 8px;
+      color: var(--secondary-background);
+      background: transparent;
+      z-index: 200;
+      height: 32px;
+      width: 32px;
+
+      &:hover {
+        color: $secondary-color;
+        border-color: var(--primary-background);
+      }
+
+      &:active, &:focus {
+        border-color: var(--primary-background);
+        color: var(--primary-background);
+        background-color: $primary-color;
+
+      }
+    }
+
+    //Image - <img>
+    .card-img-custom {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 270px;
+      height: 166px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+  }
+
+  .image-container::after {
+    display: block;
+    position: relative;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, #fff 100%);
+    margin-top: -166px;
+    height: 166px;
+    width: 100%;
+    content: '';
+
+  }
+
+
+  //Card body - <div>
+  .card-body-custom {
+    background-color: var(--primary-background);
+    padding: 12px 12px 8px 12px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    //Title card - <p>
+    .title-custom {
+      padding-bottom: 4px;
+      color: $title;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 0;
+    }
+
+    //Location <p> with <i class="fas fa-map-marker-alt mr-2"> for icon
+    .location-custom {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      color: $primary-color;
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+
+    //Description - <p>
+    .description-custom {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      color: $paragraph;
+      font-size: 12px;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+
+    //Date time section - <div>
+    .date-time {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+
+      //Paragraph for directions - <p>
+      .start {
+        font-weight: 400;
+        color: $paragraph;
+        margin-bottom: 0;
+      }
+
+      //Time - <span>
+      .time {
+        font-weight: 500;
+        color: $primary-color;
+        margin-bottom: 0;
+      }
+
+      //Date - <p>
+      .date {
+        font-weight: 500;
+        color: $primary-color;
+        margin-bottom: 0;
+      }
+
+    }
+
+    //Tags section - <div>
+    .tags-section {
+      padding-bottom: 4px;
+      padding-top: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      color: $primary-color;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+
+    //Publication details - <div>
+    .details {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+
+      //Author details - <p>
+      .by {
+        font-weight: 400;
+        color: $paragraph;
+        margin-bottom: 0;
+
+        //Author name - <span>
+        .author {
+          font-weight: 500;
+          color: $primary-color;
+          margin-bottom: 0;
+        }
+      }
+
+      //Date of publication
+      .date {
+        font-weight: 500;
+        color: $primary-color;
+        margin-bottom: 0;
+      }
+    }
+
+    //Price and rating section - <div>
+    .price-rating {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+
+      //Price section - <div>
+      //If price is checked - <span>
+      .checked {
+        color: $primary-color;
+        font-weight: 700;
+        padding-right: 2px;
+      }
+
+      //If price is not checked - <span>
+      .not-checked {
+        color: rgba($primary-color, 0.24);
+        font-weight: 700;
+        padding-right: 2px;
+      }
+
+      .rating {
+        color: $primary-color;
+        font-weight: 500;
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+
+    }
+
+
+  }
+}
+
+//Card class, blue gradient - <div>
+.card-custom-blue {
+  padding: 0;
+  margin-bottom: 24px;
+  //max-width: 272px;
+  border: 1px solid rgba($primary-color, 0.24);
+  border-radius: 8px;
+
+  //Card image container - <div>
+  .image-container-blue {
+    position: relative;
+
+    //Star button right corner - <i class="far fa-star"></i>
+    .favourite {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      border-radius: 8px;
+      border: 1px $background-secondary solid;
+      padding: 0 8px;
+      color: var(--secondary-background);
+      background: transparent;
+      z-index: 200;
+      height: 32px;
+      width: 32px;
+
+      &:hover {
+        color: $secondary-color;
+        border-color: var(--primary-background);
+      }
+
+      &:active, &:focus {
+        border-color: var(--primary-background);
+        color: var(--primary-background);
+        background-color: $primary-color;
+
+      }
+    }
+
+    //Image - <img>
+    .card-img-custom {
+      object-fit: cover;
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      //max-width: 271px;
+      height: 166px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+  }
+
+  .image-container-blue::after {
+    display: block;
+    position: relative;
+    background-image: linear-gradient(to bottom, rgba(#fff, 0) 50%, $primary-color 100%);
+    margin-top: -166px;
+    height: 166px;
+    width: 100%;
+    content: '';
+
+  }
+
+  //Card body - <div>
+  .card-body-custom-blue {
+    background-color: $primary-color;
+    padding: 12px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    //Title card - <p>
+    .title-custom-blue {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--primary-background);
+      text-align: center;
+    }
+
+
+    //Description - <p>
+    .description-custom-blue {
+      color: var(--primary-background);
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 0;
+      text-align: center;
+    }
+
+
+  }
+}
+
+
+
+
+

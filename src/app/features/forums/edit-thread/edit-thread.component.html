@@ -1,0 +1,118 @@
+<div class="containter-fluid">
+    <div class="container">
+        <app-dashboard-header pageTitleOne="{{'THREAD.EDIT_THREAD' | translate}}"
+        [buttonBackRoute]="'../../'"
+        [buttonCallName]="'Save'"
+        (buttonCall)="saveThread()"
+        ><!--de adaugat linkul catre adaga thread-->
+        </app-dashboard-header>
+    </div>
+
+        <!-- Tabs -->
+    <div class="container">
+        <div  class="content thread-container">
+            <ul class="nav nav-tabs" id="threadTab" role="tablist" >
+                <!-- General info -->
+                <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="general-info-tab" data-bs-toggle="tab" data-bs-target="#generalInfo" type="button" role="tab" aria-controls="generalInfo" aria-selected="false">{{'THREAD.GENERAL_INFO' | translate}}</button>
+                </li>
+
+                <!-- Comments -->
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="thread-comments-tab" data-bs-toggle="tab" data-bs-target="#threadComments" type="button" role="tab" aria-controls="threadComments" aria-selected="false">{{'THREAD.THREAD_COMMENTS' | translate}}</button>
+                </li>
+            </ul>
+
+            <!-- Content of tabs -->
+            <div class="tab-content" id="myTabContent">
+                <!-- General info -->
+                <div class="tab-pane fade show active p-4" id="generalInfo" role="tabpanel" aria-labelledby="general-info-tab">
+                <h3>{{'THREAD.GENERAL_INFO' | translate}}</h3>
+                <!--thread info-->
+                    <div [formGroup]="editThreadForm">
+                        <div class="row">
+                            <!-- Title Column-->
+                            <mat-form-field appearance="legacy" class="col-1 col-md-3">
+                                <mat-label>{{'FIELD.TITLE' | translate}}</mat-label>
+                                <input matInput formControlName="title" placeholder="{{'FIELD.TITLE' | translate}}">
+                                <i class="fas fa-times clear-form" type="button" *ngIf="editThreadForm.get('title').value"
+                                    (click)="editThreadForm.get('title').patchValue('')" matSuffix></i>
+                                <mat-error *ngIf="editThreadForm.get('title').errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            </mat-form-field>
+
+                            <!-- Slug Column-->
+                            <mat-form-field appearance="legacy" class="col-1 col-md-3">
+                                <mat-label>{{'FIELD.SLUG' | translate}}</mat-label>
+                                <input matInput formControlName="slug" placeholder="{{'FIELD.SLUG' | translate}}">
+                                <i class="fas fa-times clear-form" type="button" *ngIf="editThreadForm.get('title').value"
+                                    (click)="editThreadForm.get('SLUG').patchValue('')" matSuffix></i>
+                                <mat-error *ngIf="editThreadForm.get('slug').errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            </mat-form-field>
+
+
+                            <!--status-->
+                            <mat-form-field appearance="legacy" class="col-1 col-md-3">
+                                <mat-label>{{'FIELD.STATUS' | translate}}</mat-label>
+                                <mat-select formControlName="status" id="status" value="pending_review" >
+                                  <mat-option value="active" >{{'STATUS.ACTIVE' | translate}}</mat-option>
+                                  <mat-option value="pending_review">{{'STATUS.PENDING' | translate}}</mat-option>
+                                  <mat-option value="archived">{{'STATUS.ARCHIVED' | translate}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="editThreadForm.get('status').errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                              </mat-form-field>
+
+                            <!--status-->
+                            <mat-form-field appearance="legacy" class="col-1 col-md-3">
+                                <mat-label>Categorie</mat-label>
+                                <mat-select formControlName="category" id="category" >
+                                    <mat-option value="medical" >Medical</mat-option>
+                                    <mat-option value="fitness">Fitness</mat-option>
+                                    <mat-option value="nutrition">Nutrition</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="editThreadForm.get('status').errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <!--Tags-->
+                        <div class="row">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{'FIELD.TAGS' | translate}}</mat-label>
+                                <mat-chip-list #tagList aria-label="Tags">
+                                    <mat-chip *ngFor="let tag of addedTags" (removed)="remove(tag)">
+                                    {{tag}}
+                                    <button matChipRemove>
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    </mat-chip>
+                                    <input
+                                        id="tagList"
+                                        placeholder="Add new..."
+                                        [matChipInputFor]="tagList"
+                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                        [matChipInputAddOnBlur]="addOnBlur"
+                                        (matChipInputTokenEnd)="addTag($event)">
+                                </mat-chip-list>
+                            </mat-form-field>
+                        </div>
+                        <!--description-->
+                        <div>
+                            <h3>Descriere</h3>
+                            <angular-editor
+                            formControlName="description"
+                            name="description"
+                            [config]="editorConfig">
+                            </angular-editor>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comments -->
+                <div class="tab-pane fade p-4" id="threadComments" role="tabpanel" aria-labelledby="thread-comments-tab">
+                    <app-thread-comments-list [threadId]="idThread"></app-thread-comments-list>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

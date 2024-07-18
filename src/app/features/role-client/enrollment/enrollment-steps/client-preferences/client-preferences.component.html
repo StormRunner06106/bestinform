@@ -1,0 +1,28 @@
+<div class="content d-flex flex-column align-items-center h-100 w-100">
+    <p class="p-4 mb-0 upper">STEP 1 OF 3</p>
+    <h1>{{'ENROLLMENT.CHOOSE-PREFERENCES' | translate}}</h1>
+
+    <div class="preferences container">
+        <div *ngFor="let attribute of allAttributes" class="row">
+            <p *ngIf="attribute?.valueOptions.length > 0" class="attribute-name col-12">{{attribute.name | titlecase}}</p> <br>
+            <div *ngFor="let value of attribute?.valueOptions" class="col-3 mb-3">
+                <div (click)="value.selected ? deleteValue(attribute.id, value.val) : addValue(attribute.id, value)" [ngClass]="value.selected ? 'selected' : 'not-selected'" class="attribute-chip d-flex justify-content-between align-items-center">
+                    <span>{{value.selected ? (value.val | titlecase) : (value | titlecase)}}</span>
+                    <i *ngIf="!value.selected" class="fas fa-plus"></i>
+                    <i *ngIf="value.selected" class="fas fa-times"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-btns w-100 d-flex justify-content-between">
+        <button class="back-btn" type="button" (click)="prevStep()"><i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="skip-btn" type="button" (click)="skipStep()">Skip
+        </button>
+        <button class="next-btn" type="button" (click)="nextStep()"><i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+</div>

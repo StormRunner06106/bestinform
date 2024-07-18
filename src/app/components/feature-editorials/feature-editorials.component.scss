@@ -1,0 +1,38 @@
+.component-image {
+  background-image: url(../../../assets/images/others/hero-section/hero-section.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  @media (max-width: 800px) {
+    padding: 70vw 20vw 20vw 20vw;
+  }
+
+  @media (max-width: 980px) {
+    padding: 50vw 20vw 20vw 20vw;
+  }
+  padding: 20vw 20vw 20vw 20vw;
+
+  &__title {
+    width: 100%;
+    position: absolute;
+    @media (max-width: 640px) {
+      bottom: 45%;
+      font-size: 30px;
+    }
+
+    @media (max-width: 900px) {
+      bottom: 60%;
+      font-size: 45px;
+    }
+    //
+    //@media (max-width: 980px) {
+    //  bottom: 45%;
+    //  font-size: 45px;
+    //}
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    font-size: 72px;
+  }
+}

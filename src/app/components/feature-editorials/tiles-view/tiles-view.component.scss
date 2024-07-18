@@ -1,0 +1,244 @@
+
+
+.parent-container {
+  @media (max-width: 980px) {
+    width: 100%
+  }
+  width: 75%
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+
+  .search-bar-container {
+    width: calc(100% - 60px);
+    margin-left: 0px;
+    margin-top: 40px;
+  }
+}
+.background-white {
+  background-color: #ffffff;
+}
+.editorials-container {
+  @media (max-width: 980px) {
+    display: block;
+    padding: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  display: flex;
+  padding: 0;
+  margin-left: 100px;
+  margin-right: 100px;
+  background: white;
+
+  &__category-filters {
+    @media (max-width: 980px) {
+      display: none;
+    }
+    width: 25%;
+    margin-top: 40px;
+    border: 1px solid #D5D6E2;
+    height: 100%;
+    padding: 15px;
+    border-radius: 8px;
+
+    &__title {
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    &__category-titles {
+      cursor: pointer;
+      color: #515478;
+      font-size: 16px;
+      padding: 5px;
+    }
+
+    &__category-titles.active {
+      background-color: #ECECF2;
+      font-weight: 400;
+      color: #393A53;
+      padding: 5px;
+    }
+  }
+}
+
+.container {
+  @media (max-width: 980px) {
+    display: block;
+  }
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.image {
+  @extend .background-properties;
+  width: 100%;
+  height: 300px;
+  background-color: lightgray;
+
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+
+
+.category-title {
+  top: 260px;
+  left: 40px;
+  position: absolute;
+  background: #F8CC50;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 5px;
+  color: #4257EE;
+}
+
+.redirection-text {
+  font-size: 14px;
+  position: absolute;
+  bottom: 25px;
+  color: #213A83;
+  padding-left: 15px;
+  cursor: pointer;
+}
+
+.child {
+  @extend .background-properties;
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  color: #FFF;
+  text-align: center;
+  border-radius: 6px;
+  padding: 20px;
+  @media (max-width: 980px) {
+    width: 100%;
+  }
+  width: calc(50% - 5px);
+  //height: 300px;
+
+  .description {
+    //padding: 50px;
+    background: white;
+    color: #4257EE;
+    text-align: left;
+    padding: 15px;
+    height: 170px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: 1px solid #D5D6E2;
+
+
+    .tsss1 {
+      font-size: 20px;
+      color: #4257EE;
+      max-height: 50px;
+      white-space: normal;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+    }
+
+    .tsss {
+      color: #393A53;
+      font-size: 16px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.child:first-child {
+  @extend .background-properties;
+  position: relative;
+  width: 100%;
+  height: auto;
+  .description {
+    //padding: 50px;
+    background: white;
+    color: #4257EE;
+    text-align: left;
+    padding: 15px;
+    height: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border: 1px solid #D5D6E2;
+
+    .tsss1 {
+      font-size: 20px;
+      color: #4257EE;
+
+    }
+
+    .tsss {
+      color: #393A53;
+      font-size: 16px;
+      max-height: 50px;
+      white-space: pre;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.search-bar-listing {
+  display: flex;
+  width: 100%; /* Ensure the container takes the full width */
+}
+
+.background-properties {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+
+.pagination {
+  display: flex;
+  align-items: center;
+}
+
+.pagination__button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.page-link {
+  color: #8588AB;
+  border-radius: 3px;
+  font-size: 16px;
+}
+.page-link:hover {
+  background: #D5D6E2;
+  color: #ECECF2;
+}
+.page-item.active .page-link {
+  background: #D5D6E2;
+  border-color: #ECECF2;
+  color: #fff;
+}
+
+.pagination__button:hover {
+  background-color: #f0f0f0;
+}
+
+.bottom-container {
+  @media (max-width: 980px) {
+    justify-content: center;
+  }
+  display: flex;
+  padding: 30px;
+  justify-content: space-between;
+  align-items: baseline;
+}

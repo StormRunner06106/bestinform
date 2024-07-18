@@ -1,0 +1,13 @@
+@import "/src/app/theme/styles/components/colors";
+
+.dialog-container {
+  background-color: $background-secondary;
+  height: 100%;
+  padding: 36px 48px;
+
+  .container-header{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 49.49%, rgba(36, 57, 138, 0.08) 100%), #FFFFFF;
+    padding: 12px;
+    border-radius: 8px 8px 0px 0px;
+  }
+}

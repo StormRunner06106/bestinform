@@ -1,0 +1,190 @@
+<div class="save-btn d-flex justify-content-end align-items-center mb-3" *ngIf="resourceId">
+    <button  *ngIf="resourceId"
+             (click)="saveResource()"
+             [disabled]="isSubmitLoading"
+             class="btn-long btn-color-fill" type="button">
+        <ng-container *ngIf="isSubmitLoading===false">
+            <i class="fas fa-save"></i>
+            Salvează
+        </ng-container>
+        <ng-container *ngIf="isSubmitLoading === true">
+                      <span [style.display]="'block'" class="indicator-progress">
+                        Salvare...{{ " " }}
+                          <span
+                                  class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                      </span>
+        </ng-container>
+    </button>
+</div>
+
+<div id="rental-booking">
+
+    <div class="tab-section-title">
+        <i class="fas fa-info-circle"></i>
+        <h2>Resurse asociate</h2>
+    </div>
+
+    <!--Content-->
+    <div class="section-content">
+        <h5 class="panel-title mb-3" *ngIf="resToBeAdded.length > 0">
+            Resurse asociate: <span class="related-resource"
+                                                  *ngFor="let res of resToBeAdded">{{res?.title}}</span>
+        </h5>
+
+
+        <h5 class="panel-title mb-3">
+            Alege din resursele urmatoare:
+        </h5>
+
+        <div class="container mb-3">
+            <div class="row filteRow">
+                <mat-form-field appearance="standard">
+                    <mat-label>Cauta</mat-label>
+                    <input matInput type="text" [(ngModel)]="filterTitleChoose"
+                           (keydown.enter)="applyFilter()">
+                    <i class="fas fa-times-circle clear-form"
+                       *ngIf="filterTitleChoose"
+                       (click)="filterTitleChoose = ''; applyFilter()"
+                       id="btnEventClearSearchBar"
+                       type="button" matSuffix></i>
+                </mat-form-field>
+            </div>
+
+            <div class="row tableContent">
+                <!--Table start-->
+                <table mat-table matSort appMatTableResponsive [dataSource]="dataSourceChoose"
+                       class="w-100">
+
+                    <!-- Resource Name Column -->
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef
+                            mat-sort-header> {{'RESOURCES.NAME' | translate}} </th>
+                        <td attr.attr.data-column-name="{{'RESOURCES.NAME' | translate}}" mat-cell
+                            *matCellDef="let row">
+                            <i class="fas fa-users shared" *ngIf="row.sharedExperience"></i>
+                            {{row.title}}
+                        </td>
+                    </ng-container>
+
+                    <!-- toress column -->
+                    <ng-container matColumnDef="address">
+                        <th mat-header-cell *matHeaderCellDef
+                            mat-sort-header> {{'RESOURCES.LOCATION' | translate}} </th>
+                        <td attr.data-column-name="{{'RESOURCES.LOCATION' | translate}}" mat-cell
+                            *matCellDef="let row"> {{row.address}} {{row.city}} </td>
+                    </ng-container>
+
+                    <!--Category column-->
+                    <ng-container matColumnDef="category">
+                        <th mat-header-cell *matHeaderCellDef
+                            mat-sort-header> {{'RESOURCES.CATEGORY' | translate}} </th>
+                        <td attr.data-column-name="{{'RESOURCES.CATEGORY' | translate}}" mat-cell
+                            *matCellDef="let row">{{row.resourceCategoryName}}</td>
+                    </ng-container>
+
+                    <!--Purchase column-->
+                    <ng-container matColumnDef="purchase">
+                        <th mat-header-cell *matHeaderCellDef
+                            mat-sort-header> {{'RESOURCES.PURCHASE' | translate}} </th>
+                        <td attr.data-column-name="{{'RESOURCES.PURCHASE' | translate}}" mat-cell
+                            *matCellDef="let row"><span
+                                class="d-flex justify-content-end me-3">{{row.totalBookingNumber}}</span>
+                        </td>
+                    </ng-container>
+
+                    <!--Status column-->
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef
+                            mat-sort-header> {{'RESOURCES.STATUS' | translate}} </th>
+                        <td attr.data-column-name="{{'RESOURCES.STATUS' | translate}}" mat-cell
+                            *matCellDef="let row">
+                            <span class="custom-label"
+                                  [ngClass]="{
+                            'label-pending' : row.status === 'pending_review',
+                            'label-active' : row.status === 'active',
+                            'label-inactive' : row.status === 'inactive'
+                        }">
+                                <span [ngSwitch]="row.status">
+                                   <span *ngSwitchCase="'pending_review'">În așteptare</span>
+                                   <span *ngSwitchCase="'active'">Activ</span>
+                                   <span *ngSwitchCase="'inactive'">Inactiv</span>
+                                </span>
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Actions Column -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef
+                            class="actions-class"> {{'RESOURCES.ACTIONS' | translate}}</th>
+                        <td mat-cell *matCellDef="let row; let i = index;">
+                            <div class="d-flex actions-container">
+
+                                <!--Add-->
+                                <button *ngIf="resToBeAdded[0]?.id !== row.id"
+                                        [disabled]="resToBeAdded.length > 0 || row.id === resourceId"
+                                        class="btn-round btn-no-outline"
+                                        type="button"
+                                        matTooltip="Adauga resursa"
+                                        (click)="addToRelatedRes(row)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+
+                                <!--Remove related resource-->
+                                <button *ngIf="resToBeAdded[0]?.id === row.id"
+                                        class="btn-round btn-no-outline"
+                                        type="button"
+                                        matTooltip="Elimina resursa"
+                                        (click)="removeRelatedResource()">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedResourcesColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedResourcesColumns;"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+
+                        <td class="mat-cell" colspan="4">{{'PROVIDER.NO_DATA'|translate}}</td>
+                    </tr>
+                </table>
+
+                <!--Pagination-->
+                <mat-paginator
+                        [pageSizeOptions]="pageSizeArray"
+                        [length]="totalElements"
+                        [pageSize]="pageSizeChoose"
+                        (page)="pageChanged($event)">
+                </mat-paginator>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--Stepper Controller-->
+    <div class="stepper-step-controller">
+        <!--Prev Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="prevStep()">
+                <i class="fas fa-arrow-left"></i>
+                Înapoi
+            </button>
+        </div>
+        <!--Next Step-->
+        <div class="next-step">
+            <button class="btn-long btn-color-fill" type="button" (click)="nextStep()">
+                Urmatorul
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+
+</div>

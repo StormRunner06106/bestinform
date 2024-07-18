@@ -1,0 +1,58 @@
+<div class="hotels-overview-container">
+  <div class="hotels-container">
+    <div class="hotels">
+      <h2 class="title">
+        {{ allHotelsCount }} Proprietati disponibile in {{ city }}
+      </h2>
+
+      <p-skeleton class="w-100" height="50px" *ngIf="hideFilters"></p-skeleton>
+
+      <div class="search-bar-listing" *ngIf="!hideFilters">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Cauta Denumire</mat-label>
+          <input matInput placeholder="Cauta..." [(ngModel)]="searchName" (change)="onSearchChange()">
+          <mat-icon matPrefix class="me-3">search</mat-icon>
+          <button mat-icon-button matSuffix (click)="searchName = undefined; onSearchChange()">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-form-field>
+<!--        <span class="search-container p-input-icon-left">-->
+<!--          <i class="pi pi-search"></i>-->
+<!--          <input-->
+<!--                  [(ngModel)]="searchName"-->
+<!--                  (change)="onSearchChange($event)"-->
+<!--            type="text"-->
+<!--            pInputText-->
+<!--            [formControl]="hotelsSearch"-->
+<!--            [placeholder]="'Cauta...'"-->
+<!--          />-->
+<!--        </span>-->
+
+        <span class="sort-container">
+          <p-dropdown
+            [options]="sortBy"
+            [(ngModel)]="selectedSort"
+            (onChange)="onSortChange($event)"
+            optionLabel="name"
+            placeholder="Sort By"
+          ></p-dropdown>
+        </span>
+      </div>
+
+      <ng-container *ngIf="hotelListResponse?.content?.length">
+        <ng-container *ngFor="let hotel of hotelListResponse.content">
+          <app-hotel-card
+            [hotel]="hotel"
+            [city]="city"
+            [country]="country"
+            (click)="navigateToDetails(hotel)"
+          ></app-hotel-card>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="!hotelListResponse?.content?.length">
+        <div class="d-flex justify-content-center">no hotels around.</div>
+      </ng-container>
+    </div>
+  </div>
+</div>

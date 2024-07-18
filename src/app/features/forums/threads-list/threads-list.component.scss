@@ -1,0 +1,143 @@
+@import "/src/app/theme/styles/components/colors";
+
+
+.content{
+    background-color: var(--primary-background);
+    margin-bottom:34px;
+    border: 1px solid rgba(36, 57, 138, 0.16);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 24px;
+}
+
+.content{
+
+    p, h6, h4{
+        margin-bottom: 0px;
+    }
+
+    .pointer{
+        cursor: pointer;
+    }
+
+    .header-class{
+        border-bottom: solid 1px $primary-color;
+
+        h4{
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 140%;
+            /* or 22px */
+
+            display: flex;
+            align-items: center;
+            text-align: center;
+            letter-spacing: -0.02em;
+
+            /* Primary */
+
+            color: #24398A;
+
+        }
+    }
+
+
+    .thread-card{
+        border-bottom: solid 1px var(--secondary-background);
+        img{
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+        }
+
+        button.btn-round.btn-white-fill{
+            padding: 8px!important;
+            height: 30px;
+            width:30px;
+            i{
+                font-style: normal;
+                font-weight: 900;
+                font-size: 12px;
+                line-height: 140%!important;
+                /* identical to box height, or 17px */
+
+                display: flex;
+                align-items: center;
+                justify-self: center;
+
+            }
+        }
+
+        h4{
+            font-weight: 300;
+            font-size: 24px;
+            line-height: 140%;
+            /* identical to box height, or 34px */
+            color: $paragraph;
+            display: -webkit-box;
+            align-items: center;
+            letter-spacing: -0.02em;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 1;
+            /* autoprefixer: ignore next */
+            -webkit-box-orient: vertical;
+        }
+
+        p{
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 140%;
+            /* or 22px */
+
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.02em;
+
+            /* Title */
+            color: rgba($paragraph, 0.5);
+            b{
+                margin-right: 5px;
+                color: $paragraph;
+
+            }
+
+        }
+
+        .reply-view-class{
+            h6{
+                font-weight: 400;
+                font-size: 24px;
+                line-height: 140%;
+                /* identical to box height, or 34px */
+
+                display: flex;
+                align-items: center;
+                letter-spacing: -0.02em;
+
+                /* Title */
+
+                color: $paragraph;
+            }
+
+            p{
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 140%;
+                /* or 22px */
+
+                display: flex;
+                align-items: center;
+                letter-spacing: -0.02em;
+
+                /* Title */
+
+                color: $paragraph;
+
+            }
+        }
+
+    }
+}

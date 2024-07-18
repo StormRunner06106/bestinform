@@ -1,0 +1,277 @@
+/* header.component.scss */
+@import "src/app/theme/styles/components/_colors.scss";
+
+
+
+.logo {
+  top: 15px;
+  position: absolute;
+  display: flex; flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  width: 100%;
+  z-index: 2;
+}
+
+.card {
+  border: unset;
+  display: flex; flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.icon-header {
+  width: 20px!important;
+}
+
+.header-card-text {
+  font-weight: 200;
+}
+
+.image-card {
+  display: flex; flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #D7E0FE;
+}
+
+.text-hero {
+  font-family: "Roboto", Helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 150%;
+  font-weight: 600;
+  color: rgba(251, 255, 254, 0.8);
+  text-align: center;
+  padding: 0px 5vw;
+}
+
+h1 {
+  color: white;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 40px;
+  text-align: center;
+}
+
+.container-text {
+  text-align: center;
+  color: white; /* Example text color for visibility against dark overlay */
+  display: flex; flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Centers text horizontally and vertically */
+  padding: 20px; /* Adds some padding around the text */
+}
+
+.container2-cards {
+  gap: 10px;
+  display: flex; flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-cards {
+  gap: 10px;
+  z-index: 3; /* Ensures text is above the overlay */
+  color: white; /* Example text color for visibility against dark overlay */
+  display: flex; flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Centers text horizontally and vertically */
+  padding: 20px; /* Adds some padding around the text */
+}
+
+.card-icon {
+  width: 30px;
+}
+
+.card {
+  padding: 20px;
+}
+
+.image-card {
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.card-text {
+  font-family: "Roboto", Helvetica, sans-serif;
+  color: #010514;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.image-container {
+  position: relative;
+  padding: 0vw 22vw;
+  height: 100vh;
+  background-size: cover;
+  display: flex!important;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  display: inline-block; /* or block depending on layout */
+  background-image: url("../../../../../assets/images/others/giveaway-hero.png");
+}
+
+.header-info {
+  display: flex; flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 30px;
+  padding: 100px;
+}
+
+.image-container img {
+  display: block; /* Remove any space below the image */
+  width: 100%; /* Adjust as needed */
+  height: auto; /* Adjust as needed */
+}
+
+// .image-container::before {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   background-color: rgba(1, 5, 20, 0.5); /* Your color with 60% opacity */
+//   z-index: 1; /* Ensure it's above the image */
+// }
+
+
+@media (max-width: 1032px) {
+  .container-cards {
+    display: none;
+  }
+  .image-container {
+    padding: 0vw 7vw 7vw;
+    height: 376px;
+    justify-content: flex-end;
+  }
+  .header-info {
+    padding: 7vw;
+    gap: 15px;
+  }
+  .card {
+    flex-wrap: nowrap;
+    padding: 10px 0px;
+  }
+  .text-hero {
+    font-size: 21px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo img.not-mobile {
+    display: flex!important;
+  } 
+  .container-text {
+    padding: 20px 0px 55px;
+  }
+  .image-container {
+    padding: 0vw 2vw;
+  }
+}
+.img-logo {
+  width: 100%;
+  background-color: rgba(1, 5, 20, 0.6);
+}
+
+.site-header {
+  width: 100%;
+  position: sticky;
+
+
+  .blue-bar {
+    background-color: $primary-color; // Example blue color
+    padding: 1rem 0;
+
+    .container {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-content {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      width: 86;
+
+      a {
+        display: flex; flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .cta-button {
+        background-color: yellow;
+        border: none;
+        padding: 10px 20px;
+        color: #4257EE; // Text color for the button
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px; // Optional: for rounded corners
+
+        &:hover {
+          background-color: darken(yellow, 10%); // Slightly darker on hover
+        }
+      }
+      .header-image {
+        position: relative;
+        .header-bg-image {
+            width: auto;
+            height: auto; // Maintain aspect ratio
+        }
+        .header-image {
+          position: relative;
+        }
+        
+        
+        
+        
+        .header-title {
+          margin: 0;
+          font-size: 24px;
+        }
+        
+        ul.header-info-list {
+          list-style: none;
+          display: flex; flex-wrap: wrap;
+          flex-wrap: wrap; /* Display items in a row and wrap to the next row */
+          padding: 0;
+          margin: 0;
+        }
+        
+        ul.header-info-list li {
+          display: flex; flex-wrap: wrap;
+          flex-direction: column;
+          align-items: center;
+          margin-right: 2rem;
+          margin-bottom: 1rem; /* Add spacing between items */
+        }
+        
+        ul.header-info-list img {
+          margin-bottom: 0.5rem;
+        }
+        
+        .header-latin {
+          font-size: 14px;
+          margin-top: 1rem;
+        }
+    }
+    }
+  }
+}
+

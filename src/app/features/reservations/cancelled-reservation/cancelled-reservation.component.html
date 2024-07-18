@@ -1,0 +1,11 @@
+<div class="container container-box my-2 py-4 d-flex flex-column align-items-center">
+    <div class="circle-cancelled-reservation d-flex justify-content-center align-items-center mb-4">
+        <i class="fas fa-times"></i>
+    </div>
+    <h3>Rezervarea a fost anulata cu succes!</h3>
+
+    <button class="btn-long btn-color-fill mt-auto"
+    [routerLink]=" (userRole === 'ROLE_STAFF')|| (userRole==='ROLE_SUPER_ADMIN') ? '../../list/': (userRole === 'ROLE_PROVIDER') ? '../../list' : '/'"  [queryParams]="{resourceId:resourceId}">
+        Continuă <i class="fas fa-arrow-right"></i>
+    </button>
+</div>

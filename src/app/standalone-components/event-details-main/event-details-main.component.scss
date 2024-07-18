@@ -1,0 +1,307 @@
+.event-placeholder {
+  height: 300px;
+  background-color: grey;
+}
+.event-wrapper {
+  padding-left: 4vw;
+  padding-right: 4vw;
+  gap: 4vw;
+}
+.event-block {
+  h2 {
+    font-family: 'Avenir', serif;
+    font-size: 30px;
+    line-height: 38px;
+    font-weight: 900;
+    color: #22222F;
+  }
+}
+
+.event-styled-block {
+  background-color: #FCFCFD;
+  border: 1px solid #D5D6E2;
+  border-radius: 8px;
+  padding: 32px;
+  h3 {
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 900;
+    color: #22222F;
+    //color: #F8CC50;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+}
+
+.info-pills {
+  gap: 8px;
+  margin-bottom: 1rem;
+  .info-pill {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px 8px 16px;
+    background-color: #ECECF2;
+    border: 1px solid #D5D6E2;
+    background-color: #4257EE;
+    color: #F8CC50;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #393A53;
+    color: #ffffff;
+    height: 36px;
+    i {
+      font-size: 14px;
+      font-weight: 600;
+      margin-right: 0.4rem;
+    }
+  }
+  .info-pill-color {
+    color: #F8CC50;
+  }
+}
+
+.small-block {
+  gap: 1rem;
+  flex-grow: 1;
+  background-color: #4257EE;
+
+  p {
+    color: #ffffff;
+    margin-bottom: 0;
+  }
+
+  h3 {
+    color: #F8CC50;
+  }
+}
+
+.cards-row {
+  gap: 1rem;
+}
+
+.person-cards {
+  flex-wrap: wrap;
+  row-gap: 2rem;
+  .person-card {
+    display: flex;
+    flex-grow: 1;
+    width: 25%;
+    font-size: 18px;
+    line-height: 28px;
+    color: #424462;
+    img {
+      border-radius: 4px;
+      margin-right: 1rem;
+    }
+    .lastname {
+      font-weight: 900;
+      color: #22222F;
+    }
+  }
+}
+//p-accordion::ng-deep {
+//  .p-accordion-header-link {
+//    background: transparent !important;
+//    border-bottom: 0 !important;
+//  }
+//}
+:host ::ng-deep {
+  .p-accordion .p-accordion-content {
+    border: none !important;
+    padding-top: 0 !important;
+  }
+
+  .p-accordion
+  .p-accordion-header:not(.p-disabled)
+  .p-accordion-header-link:focus {
+    box-shadow: none !important;
+  }
+  .p-accordion p-accordiontab .p-accordion-tab {
+    margin: 0 !important;
+  }
+  .custom-accordion .accordion-container {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .p-accordion-content {
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
+  .custom-accordion .accordion-item {
+    margin-bottom: 0;
+  }
+
+  .p-accordion-header-text {
+    color: black;
+    font-weight: 700;
+  }
+  .p-accordion p-accordiontab:first-child {
+    .p-accordion-header a {
+      border-top: 0;
+    }
+  }
+
+  .p-accordion-header-text {
+    font-size: 20px !important;
+    line-height: 30px !important;
+    font-weight: 900 !important;
+  }
+
+  .p-accordion-header {
+    background: white;
+  }
+
+  .p-accordion-header-link {
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+
+    .p-icon-wrapper {
+      position: absolute;
+      right: 5px;
+      color: black;
+    }
+  }
+
+  .second-accordion-item {
+    .p-accordion-header-link {
+      border-top: none !important;
+    }
+  }
+
+  .p-accordion
+  .p-accordion-header:not(.p-disabled).p-highlight
+  .p-accordion-header-link {
+    background: transparent;
+  }
+
+  .p-accordion .p-accordion-header .p-accordion-header-link {
+    background: transparent;
+    border-radius: unset !important;
+  }
+}
+
+.map {
+  width: 288px;
+  height: 130px;
+  background-image: url("https://s3-alpha-sig.figma.com/img/8dc7/c7a6/7c067d04697d04e32d0dc518a2414caf?Expires=1713744000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LYz8-NnXTNIPa-pIdVy901eUL2t2tXWskNwovhbJQcmHAsMV32mE4jD1GVrGlR6ajjnl7dnu5IUAV1qr67jCK~Y336KjoaHfwKGug584LNihUXMS7eQjrNxKQTrGApI4mmzNV18bGSP2ENgUNNQZ1vTv-dDuLQnu40GC5W2ujS~Bg~vjKKQaCNqrZsEmwhaoxMaDywkihFflhjQ~-hc~3nPZ2g-goHCNPLzZCXYndhsbRNjtcWZ4iUZvaA84zOGPpGRc4EyITPFNz0CZKlXE1FS7Jmo0jSsT~PXcVQzxKMFmT~bSvD8OFJjWYC8u7dVnis12kkqXa4ubUvm09L33Tw__");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-radius: 8px;
+}
+
+.right-block {
+  h4 {
+    font-size: 18px;
+    color: black;
+    line-height: 28px;
+  }
+  span {
+    color: #4257EE;
+  }
+  .buy {
+    color: #F8CC50;
+    cursor: pointer;
+    background-color: #4257EE;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    font-family: 'ALICE';
+  }
+  i {
+    margin-right: 5px;
+  }
+}
+.maps-rest {
+  position: relative;
+  flex: 0;
+  .map-container {
+    border-radius: 8px;
+    width: 100%;
+    position: relative;
+  }
+}
+.map-template {
+  ::ng-deep {
+    .map-container {
+      border-radius: 8px;
+      box-shadow: 0px 8px 16px 0px hsla(0, 0%, 0%, 0.04);
+    }
+  }
+}
+.overlay {
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(225deg, 60%, 32%, 0.12);
+  pointer-events: auto;
+  z-index: 2;
+}
+.show-on-map-button {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  background-color: #F8CC50;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 2;
+}
+span {
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.maps-modal-container {
+  position: relative;
+}
+
+.modal-map-container {
+  width: 80vw;
+  height: 50vh;
+  position: relative; /* Ensure the container is positioned */
+}
+
+.google-map-modal {
+  width: 100%;
+  height: 100%;
+  position: absolute; /* Make the Google Maps component absolute */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.close-button:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.google-map {
+  width: 100%;
+  height: 100%;
+}

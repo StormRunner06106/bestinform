@@ -1,0 +1,32 @@
+<div *ngFor="let ticket of reservation.ticketBooking.tickets; let i=index;">
+    <!-- Ticket number-->
+    <p>{{i+1}}. {{"RESERVATION.TICKET-NUMBER" | translate}}</p>
+    <h4>{{ticket?.itemId}} </h4>
+
+    <!-- Seat number-->
+    <p> {{"RESERVATION.SEAT-NUMBER" | translate}}</p>
+    <h4>{{ticket?.seatNumber ? ticket?.seatNumber : 'Unknown'}} </h4>
+
+    <!-- Ticket quantity-->
+    <p>{{"RESERVATION.TICKET-QUANTITY" | translate}}</p>
+    <h4>{{ticket?.quantity}} </h4>
+
+
+    <!-- FREE CANCELLATION-->
+    <p>{{"RESERVATION.FREE-CANCELLATION" | translate}}</p>
+    <h4>{{ticket?.changePolicies?.freeCancellation?.freeCancellation === true ? 'Da' : 'Nu'}} </h4>
+
+    <!-- FREE CANCELLATION-->
+    <p>{{"RESERVATION.DEADLINE-HOURS" | translate}}</p>
+    <h4>{{ticket?.changePolicies?.freeCancellation?.deadlineDays ?( ticket?.changePolicies?.freeCancellation?.deadlineDays)  :'Unknown' }} </h4>
+</div>
+
+<p>{{"RESERVATION.BOOKED-DAY" | translate}}</p>
+<h4>{{ reservation?.ticketBooking?.date | date: 'dd/MM/YYYY HH:mm'}}</h4>
+
+<!-- <div *ngIf="reservation.ticketBooking.specialRequest.trim() !== ''"> -->
+<div>
+    <h3>Cerințe speciale</h3>
+    <p>{{reservation?.ticketBooking ? reservation?.ticketBooking?.specialRequest : ("RESERVATIONS.NO_SPECIAL_REQUESTS" | translate)}}</p>
+</div>
+

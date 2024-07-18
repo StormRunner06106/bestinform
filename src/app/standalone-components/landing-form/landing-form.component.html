@@ -1,0 +1,279 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div  class="container-xl">
+        <a class="navbar-brand me-0" href="/parteneri"><img src="assets/images/logos/logo_blue_1.png" alt="bestinform logo"></a>
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <a class="navbar-toggler" href="tel:+40722673283"><i class="fas fa-phone"></i></a>-->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link fs-16" aria-current="page" (click)="goToHome()">{{menu.home[pageLang]}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-16" aria-current="page" (click)="goToHome()">{{menu.char[pageLang]}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-16" aria-current="page" (click)="goToHome()">{{menu.offer[pageLang]}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-16" aria-current="page" (click)="goToHome()">{{menu.benefits[pageLang]}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-16" aria-current="page" (click)="goToHome()">FAQs</a>
+                </li>
+                <li class="nav-item">
+<!--                    <a class="nav-link fs-16" aria-current="page" (click)="scroll(contact)">Contact</a>-->
+                </li>
+                <li class="nav-item align-self-start align-self-sm-center">
+                    <select class="language" [(ngModel)]="pageLang" (change)="changeRoute()">
+                        <option [value]="LangOptions.RO">RO</option>
+                        <option [value]="LangOptions.EN">EN</option>
+                    </select>
+                </li>
+            </ul>
+<!--            <button class="btn-partner" type="submit">{{menu.join[pageLang]}}</button>-->
+        </div>
+    </div>
+</nav>
+
+<div class="section-form w-100">
+<!--    <p class="title-signup mb-0">{{pageTitle.title[pageLang]}}</p>-->
+    <div class="stepper-form-container">
+        <div class="stepper-header">
+            <div class="step-number dark-blue" (click)="changeStep(0)">1</div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="2" viewBox="0 0 34 2" fill="none"
+                 [ngClass]="currentStep < 1? 'dark-line' : 'light-line'">
+                <path d="M1 1H33" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 4"/>
+            </svg>
+            <div class="step-number" [ngClass]="currentStep > 0 ? 'dark-blue' : 'light-blue'" (click)="changeStep(1)">2
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="2" viewBox="0 0 34 2" fill="none" class="line"
+                 [ngClass]="currentStep < 2 ? 'dark-line' : 'light-line'">
+                <path d="M1 1H33" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 4"/>
+            </svg>
+            <div class="step-number" [ngClass]="currentStep > 1 ? 'dark-blue' : 'light-blue'" (click)="changeStep(2)">3
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="2" viewBox="0 0 34 2" fill="none" class="line"
+                 [ngClass]="currentStep < 3 ? 'dark-line' : 'light-line'">
+                <path d="M1 1H33" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 4"/>
+            </svg>
+            <div class="step-number" [ngClass]="currentStep > 2 ? 'dark-blue' : 'light-blue'" (click)="changeStep(3)">4
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="2" viewBox="0 0 34 2" fill="none" class="line"
+                 [ngClass]="currentStep < 4 ? 'dark-line' : 'light-line'">
+                <path d="M1 1H33" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 4"/>
+            </svg>
+            <div class="step-number" [ngClass]="currentStep > 3 ? 'dark-blue' : 'light-blue'" (click)="changeStep(4)">5
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="2" viewBox="0 0 34 2" fill="none" class="line"
+                 [ngClass]="currentStep < 5 ? 'dark-line' : 'light-line'">
+                <path d="M1 1H33" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 4"/>
+            </svg>
+            <div class="step-number" [ngClass]="currentStep > 4 ? 'dark-blue' : 'light-blue'" (click)="changeStep(5)">6
+            </div>
+        </div>
+
+        <div class="stepper-text" *ngIf="currentStep === 0">
+            <p class="mb-0 title-text">{{form.firstStep.title[pageLang]}}</p>
+            <p class="mb-0 text">{{form.firstStep.content[pageLang]}}</p>
+        </div>
+
+        <div class="stepper-text" *ngIf="currentStep === 1">
+            <p class="mb-0 title-text">{{form.secondStep.title[pageLang]}}</p>
+            <p class="mb-0 text">{{form.secondStep.content[pageLang]}}</p>
+        </div>
+
+        <div class="stepper-text" *ngIf="currentStep === 2">
+            <p class="mb-0 title-text">{{form.thirdStep.title[pageLang]}}</p>
+            <p class="mb-0 text">{{form.thirdStep.content[pageLang]}}</p>
+        </div>
+
+        <div class="stepper-text" *ngIf="currentStep === 3">
+            <p class="mb-0 title-text">{{form.fourthStep.title[pageLang]}}</p>
+            <p class="mb-0 text">{{form.fourthStep.content[pageLang]}}</p>
+        </div>
+
+        <div class="stepper-text" *ngIf="currentStep === 4">
+            <p class="mb-0 title-text">{{form.fifthStep.title[pageLang]}}</p>
+            <p class="mb-0 text">{{form.fifthStep.content[pageLang]}}</p>
+        </div>
+
+        <div class="stepper-text" *ngIf="currentStep === 5">
+            <p class="mb-0 title-text">{{form.sixthStep.title[pageLang]}}</p>
+            <p class="mb-0 text">{{form.sixthStep.content[pageLang]}}</p>
+        </div>
+
+        <form class="w-100" [formGroup]="contentForm">
+            <mat-form-field class="w-100 landing-form-field" *ngIf="currentStep === 0" appearance="legacy">
+                <mat-label>{{form.firstStep.field[pageLang]}}</mat-label>
+                <input matInput formControlName="initName">
+                <mat-error *ngIf="contentForm.get('initName').hasError('required')">{{errorMsg.requiredMsg[pageLang]}}
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 landing-form-field" *ngIf="currentStep === 1">
+                <mat-label>{{form.secondStep.field[pageLang]}}</mat-label>
+                <input matInput formControlName="initEmail">
+                <mat-error *ngIf="contentForm.get('initEmail').hasError('required')">{{errorMsg.requiredMsg[pageLang]}}
+                </mat-error>
+                <mat-error *ngIf="contentForm.get('initEmail').hasError('email')">{{errorMsg.emailMsg[pageLang]}}</mat-error>
+            </mat-form-field>
+
+            <div formGroupName="locationType" class="location-type-section" *ngIf="currentStep === 2">
+                <label class="container-check">Restaurant
+                    <input type="radio" name="locationType" value="Restaurant" formControlName="locationType">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">Hotel
+                    <input type="radio" name="locationType" value="Hotel" formControlName="locationType">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">{{form.thirdStep.field.club[pageLang]}}
+                    <input type="radio" name="locationType" value="{{form.thirdStep.field.club[pageLang]}}" formControlName="locationType">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">{{form.thirdStep.field.museum[pageLang]}}
+                    <input type="radio" name="locationType" value="Muzeu" formControlName="locationType">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">{{form.thirdStep.field.sport[pageLang]}}
+                    <input type="radio" name="locationType" value="{{form.thirdStep.field.sport[pageLang]}}" formControlName="locationType">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">{{form.thirdStep.field.cinema[pageLang]}}
+                    <input type="radio" name="locationType" value="{{form.thirdStep.field.cinema[pageLang]}}" formControlName="locationType">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">{{form.thirdStep.field.other[pageLang]}}
+                    <input type="radio" name="locationType" value="{{form.thirdStep.field.other[pageLang]}}" formControlName="locationType">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+
+            <div class="w-100" *ngIf="currentStep === 3">
+                <select class="w-100 county-select" formControlName="county">
+                    <option value="">{{form.fourthStep.field[pageLang]}}</option>
+                    <option *ngFor="let county of counties" [value]="county">{{county}}</option>
+                </select>
+            </div>
+
+            <div formGroupName="salesVolume" class="location-capacity-section" *ngIf="currentStep === 4">
+                <label class="container-check">{{form.fifthStep.field[pageLang]}}
+                    <input type="radio" name="salesVolume" value="Sub 50" formControlName="salesVolume">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">50 - 100
+                    <input type="radio" name="salesVolume" value="50 - 100" formControlName="salesVolume">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">100 - 500
+                    <input type="radio" name="salesVolume" value="100 - 500" formControlName="salesVolume">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">500 - 1000
+                    <input type="radio" name="salesVolume" value="500 - 1000" formControlName="salesVolume">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">1000 - 5000
+                    <input type="radio" name="salesVolume" value="1000 - 5000" formControlName="salesVolume">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container-check">5000+
+                    <input type="radio" name="salesVolume" value="5000+" formControlName="salesVolume">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+
+            <div formGroupName="lastForm" class="form-section w-100" *ngIf="currentStep === 5">
+                <mat-form-field class="w-100 landing-form-field" appearance="legacy">
+                    <mat-label>{{form.sixthStep.field.name[pageLang]}}</mat-label>
+                    <input matInput formControlName="name">
+                    <mat-error *ngIf="contentForm.get('lastForm.name').hasError('required')">{{errorMsg.requiredMsg[pageLang]}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100 landing-form-field" appearance="legacy">
+                    <mat-label>{{form.sixthStep.field.location[pageLang]}}</mat-label>
+                    <input matInput formControlName="locationName">
+                </mat-form-field>
+
+                <mat-form-field class="w-100 landing-form-field" appearance="legacy">
+                    <mat-label>{{form.sixthStep.field.phone[pageLang]}}</mat-label>
+                    <input matInput formControlName="telephone">
+                    <mat-error *ngIf="contentForm.get('lastForm.telephone').hasError('required')">{{errorMsg.requiredMsg[pageLang]}}
+                    </mat-error>
+                    <mat-error *ngIf="contentForm.get('lastForm.telephone').hasError('pattern')">{{errorMsg.phoneMsg[pageLang]}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100 landing-form-field" appearance="legacy">
+                    <mat-label>{{form.sixthStep.field.email[pageLang]}}</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error *ngIf="contentForm.get('lastForm.email').hasError('required')">{{errorMsg.requiredMsg[pageLang]}}
+                    </mat-error>
+                    <mat-error *ngIf="contentForm.get('lastForm.email').hasError('email')">{{errorMsg.emailMsg[pageLang]}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+        </form>
+        <div class="stepper-buttons">
+            <button class="btn-prev" *ngIf="currentStep > 0" (click)="changeStep(currentStep-1)">{{buttons.back[pageLang]}}</button>
+            <button class="btn-next" *ngIf="currentStep < 5" (click)="changeStep(currentStep+1)">{{buttons.next[pageLang]}}</button>
+            <button class="btn-next" *ngIf="currentStep === 5" (click)="sendForm();"
+                    [disabled]="isSubmitLoading">
+                <ng-container *ngIf="isSubmitLoading===false">
+                    {{buttons.finish[pageLang]}}
+                </ng-container>
+                <ng-container *ngIf="isSubmitLoading === true">
+                      <span [style.display]="'block'" class="indicator-progress">
+                        {{buttons.finishing[pageLang] + ' '}}
+                          <span
+                                  class="spinner-border spinner-border-sm align-middle ms-2"
+                          ></span>
+                      </span>
+                </ng-container>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!--<footer class="footer-section" #contact>-->
+<!--    <div class="container">-->
+<!--        <div class="mx-auto">-->
+<!--            <img [src]="'assets/images/others/partner-landing/Betsinform_logo.png'" alt="bestinform white logo">-->
+
+<!--            <p>{{footer.text[pageLang]}}</p>-->
+
+<!--            <div class="d-flex justify-content-between align-items-center">-->
+<!--                <p class="fs-16 cursor" (click)="goToHome()">{{menu.home[pageLang]}}</p>-->
+<!--                <p class="fs-16 cursor" (click)="goToHome()">{{menu.offer[pageLang]}}</p>-->
+<!--                <p class="fs-16 cursor" (click)="goToHome()">{{menu.char[pageLang]}}</p>-->
+<!--                <p class="fs-16 cursor" (click)="goToHome()">{{menu.benefits[pageLang]}}</p>-->
+<!--                <p class="fs-16 cursor" (click)="goToHome()">FAQs</p>-->
+<!--&lt;!&ndash;                <p class="fs-16" (click)="scroll(contact)">Contact</p>&ndash;&gt;-->
+<!--            </div>-->
+
+<!--            <div class="d-flex justify-content-between align-items-center">-->
+<!--                <a target="_blank" href="https://www.facebook.com/profile.php?id=100076116217462"><i class="fab fa-facebook-f"></i></a>-->
+<!--                <a href="tel:+40722673283"><i class="fas fa-phone"></i></a>-->
+<!--                <a target="_blank" href="https://www.tiktok.com/@bestinform"><i class="fab fa-tiktok"></i></a>-->
+<!--                <a target="_blank" href="https://www.instagram.com/bestinform.app/?igshid=OGQ5ZDc2ODk2ZA%3D%3D"><i class="fab fa-instagram"></i></a>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <p class="fs-16">-->
+<!--            © Bestinform 2023. All Rights Reserved.-->
+<!--        </p>-->
+<!--    </div>-->
+<!--</footer>-->
+
+<div class="ue-logo d-flex justify-content-center align-items-center w-100 flex-wrap">
+    <img src="assets/images/logos/fonduri-ue.png" class="w-25">
+    <p class="w-25 mb-0">Pentru informaţii
+        detaliate despre celelalte programe cofinanţate de Uniunea
+        Europeană, vă invităm să vizitaţi <a href="https://www.fonduri-ue.ro/" target="_blank">www.fonduri-ue.ro
+        </a></p>
+</div>
+

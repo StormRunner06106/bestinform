@@ -1,0 +1,85 @@
+.info-container {
+  @media(max-width: 992px){
+    flex-direction: column;
+  }
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 6px;
+
+  h2 {
+    font-weight: 900;
+    color: #4257EE;
+  }
+}
+
+.dotari-item {
+}
+
+.dotari-item h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.info-category {
+  @media(max-width: 992px){
+    border-bottom: 1px solid #e8e8e8;
+    border-right: none;
+  }
+  padding: 10px;
+  flex: 1;
+  margin-right: 20px;
+  border-right: 1px solid #e8e8e8;
+}
+
+.right-gray {
+  border-right: 1px solid #e8e8e8;
+}
+
+.info-category:last-child {
+  border-right: none; /* Remove border-right from the last .info-category */
+  border-bottom: none; /* Remove border-right from the last .info-category */
+}
+
+.info-category:last-child {
+  margin-right: 0;
+}
+
+.info-category h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.info-category ul {
+  list-style: none;
+  padding: 0;
+}
+
+  .info-category ul li {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+  }
+
+.info-category ul li i {
+  margin-right: 5px;
+  color: #4257EE;
+}
+
+
+.icon-container {
+  font-size: 15px;
+}
+
+.custom-icon {
+  width: 15px;
+}
+
+.dotari-category {
+  min-width: 250px;
+}

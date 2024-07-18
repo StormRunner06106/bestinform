@@ -1,0 +1,92 @@
+<div class="header-modal">
+    <p>Activity Places</p>
+</div>
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <!-- <div class="col-4 col-filter">
+
+        </div> -->
+        <!-- <div class="col-8 col-places"> -->
+        <div class="location-list-container">
+            <div class="row ">
+                <mat-form-field appearance="outline" class="w-100 mb-2">
+                    <input matInput type="text" [formControl]="searchFilter" (keydown.enter)="getActivityResources()"
+                           placeholder="Caută experiență">
+                </mat-form-field>
+            </div>
+
+
+            <div class="resource-list w-100" *ngFor="let resource of resourcesArray">
+                <!--                <app-card-activity-place [resource] = resource (click)="sendResource(resource)" ></app-card-activity-place>-->
+                <app-card-activity-place [resource]=resource
+                                         (click)="openModal(setTime,resource)"></app-card-activity-place>
+            </div>
+
+            <mat-paginator [pageSizeOptions]="pageSizeArray"
+                           [pageSize]="pageSize"
+                           [length]="paginationInfo?.totalElements"
+                           (page)="pageChanged($event)"
+                           aria-label="Select page of resources">
+            </mat-paginator>
+        </div>
+
+
+    </div>
+</div>
+
+<ng-template #setTime>
+    <div class="modal-content-time d-flex flex-column justify-content-between p-4">
+        <h4 class="mb-3">Configurare experienta la locatia {{chosenResource?.title}}</h4>
+        <p *ngIf="showErrorMsg" class="error-msg">Alegeti categoria, ziua si ora pentru experienta dumneavoastra!</p>
+
+        <div class="content-body">
+            <p class="subtitle"><i class="fas fa-icons me-2"></i>Selectati o categorie</p>
+            <div class="choose-activity d-flex flex-wrap mb-3">
+                <div  *ngFor="let activity of timeslotsArray">
+                    <div>
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" hidden id="flexRadioDefault-{{activity.id}}" (click)="bookingTimeslotChanged(activity.id)">
+                        <label class="form-check-label activity" for="flexRadioDefault-{{activity.id}}" [ngClass]="bookingTimeslotId === activity.id ? 'selected-btn' : ''">
+                            {{activity.name}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="bookingTimeslotId">
+                <p class="subtitle"><i class="fas fa-calendar-alt me-2"></i> Selectati data</p>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Selectati data</mat-label>
+                    <input matInput [min]="today" [matDatepicker]="picker" [(ngModel)]="date" (ngModelChange)="dateChanged()">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <p><i class="fas fa-clock me-2"></i> Selectati ora</p>
+                <div *ngIf="chosenResourceTimeslots.length > 0" class="timeslots-container mb-3">
+                    <mat-radio-group
+                            aria-label="Select a time slot" color="primary" [(ngModel)]="slotChosen">
+                        <div *ngFor="let slot of chosenResourceTimeslots" class="time-slot">
+                            <mat-radio-button [value]="slot" [labelPosition]="'after'">
+                                {{ slot.startHour }} - {{slot.endHour}}
+                            </mat-radio-button>
+                        </div>
+                    </mat-radio-group>
+                </div>
+
+                <div class="no-slots mb-3" *ngIf="chosenResourceTimeslots.length === 0">
+                    <p>Nu exista sloturi</p>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+        <button class="btn-long btn-color-fill w-100" (click)="confirm()">Confirma locatia</button>
+    </div>
+</ng-template>

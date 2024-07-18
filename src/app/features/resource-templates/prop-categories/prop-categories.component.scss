@@ -1,0 +1,153 @@
+@import "/src/app/theme/styles/components/colors";
+
+.page-header {
+  margin-top: 64px;
+  margin-bottom: 40px;
+  row-gap: 1rem;
+
+  h2 {
+    margin: 0;
+    color: $primary-color;
+    font-weight: 700;
+  }
+
+  div {
+    row-gap: 1rem;
+  }
+}
+
+
+.card > div {
+  background-color: var(--primary-background);
+}
+
+.card-prop-categories.card {
+  margin-bottom: 1rem;
+
+  // .card-header {
+
+  // }
+
+  .card-body {
+    table{
+      .mat-row .img-table{
+        object-position: center;
+        object-fit: cover;
+        width:45px;
+        max-width: 45px;
+        aspect-ratio : 1 / 1;
+      }
+    }
+
+
+    .row {
+      row-gap: 1.5rem;
+    }
+
+    .p-title{
+      font-weight: 600;
+      font-size: 24px;
+      color: $primary-color;
+    }
+
+    .add-form{
+      .fa-times-circle{
+        color:rgba($primary-color, 0.48 );
+        background-color:var(--primary-background);
+        border-radius: 100%;
+      }
+    }
+
+
+
+  }
+
+  .card-footer {
+
+    p {
+      margin: 0;
+      color: $primary-color;
+      font-weight: 400;
+      font-size: 16px;
+    }
+  }
+}
+
+
+//--------------Modal----------------
+
+.modal-card.card > div {
+  background-color: var(--primary-background);
+}
+
+.card-category.card > div {
+  background: linear-gradient(0deg, rgba($primary-color, 0.04), rgba($primary-color, 0.04)), var(--primary-background);
+}
+
+.card-category.card {
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .card-body {
+    gap: 1rem;
+    letter-spacing: -0.02em;
+    line-height: 140%;
+    color: $primary-color;
+
+    h3 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 140%;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 140%;
+      margin-bottom: 5px;
+    }
+
+  }
+
+  .card-footer {
+
+    .row {
+      row-gap: 1rem;
+    }
+  }
+}
+
+.modal-card.card {
+  padding: 1.5rem;
+
+  .card-header {
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: $primary-color;
+    }
+  }
+
+  .card-body {
+    & > p {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: $paragraph;
+    }
+  }
+
+  .card-footer {
+
+    .row {
+      row-gap: 1rem;
+    }
+  }
+}
+
+
+

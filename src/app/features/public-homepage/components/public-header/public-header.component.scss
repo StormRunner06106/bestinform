@@ -1,0 +1,95 @@
+.card {
+  height: 100%;
+  & div {
+    background-color: white;
+  }
+}
+
+.logo img.not-mobile{
+  width: 200px;
+  height:auto;
+}
+
+#main-toolbar {
+  position: absolute;
+}
+
+.left-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+}
+
+.vanish {
+  font-weight: 600;
+  margin-right: 7px;
+  color: #4257EE;
+}
+
+@media only screen and (max-width: 768px) {
+  #main-toolbar {
+    //display: none;
+  }
+  .language-name {
+    display: none;
+  }
+  .vanish {
+    display: none;
+  }
+  .connect {
+    padding: 8px!important;
+  }
+}
+
+::ng-deep .lang-dropdown { 
+
+  .p-dropdown.p-component {
+    border-color: rgba(1, 5, 20, 0.15);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 100px;
+    .p-element.p-dropdown-label {
+      padding: 0.25rem;
+    }
+    .p-dropdown-trigger {
+      padding-right: 0.25rem;
+      width: 1.5rem;
+    }
+    .p-overlay.p-component {
+      // width: 100%;
+    }
+    .p-dropdown-panel.p-component {
+      background-color: rgba(255, 255, 255, 0.5);
+      .p-dropdown-item.p-highlight {
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+}
+
+::ng-deep .lang-dropdown-web {
+
+  .p-dropdown.p-component {
+    border-color: rgba(1, 5, 20, 0.15);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 100px;
+    .p-element.p-dropdown-label {
+      padding: 0.25rem;
+    }
+    .p-dropdown-trigger {
+      padding-right: 0.25rem;
+      width: 1.5rem;
+    }
+    .p-overlay.p-component {
+      // width: 100%;
+    }
+    .p-dropdown-panel.p-component {
+      background-color: rgba(255, 255, 255, 0.5);
+      .p-dropdown-item.p-highlight {
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+}
+

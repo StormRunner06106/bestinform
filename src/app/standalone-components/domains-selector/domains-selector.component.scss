@@ -1,0 +1,64 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.btn-open-modal {
+  //background-color: var(--primary-background);
+  width: 55px;
+  height: 44px;
+
+  .fa-th-large{
+    font-size:24px;
+    color:$primary-color;
+  }
+}
+
+.row {
+  row-gap: 24px
+}
+
+.mat-mdc-card-title {
+  color:$primary-color;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.domain-container {
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+
+  &:hover img {
+    transition: transform .2s;
+    transform: scale(1.05);
+  }
+
+  &:after {
+    content: '';
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 49.83%, #000000 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  height: 40vw;
+  max-height: 500px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  h2 {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 8px;
+    color: var(--primary-background);
+    z-index: 1;
+    margin: 0;
+    word-break: break-word;
+  }
+}

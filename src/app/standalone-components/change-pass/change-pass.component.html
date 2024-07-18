@@ -1,0 +1,96 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="{{'TITLES.NEW-PASS' | translate}}"
+                          [buttonBackRoute]="'..'">
+    </app-dashboard-header>
+<div class="card mb-6">
+    <div class="card-body">
+        <p class="subtitle mb-0">{{'TITLES.SECURITY' | translate}}</p>
+        <p>{{'TITLES.SECURITY-DIRECTIONS' | translate}}</p>
+
+        <mat-slide-toggle [(ngModel)]="twoFA" class="w-100" (ngModelChange)="updateTwoFA()">{{"GENERAL.2FA" | translate}}</mat-slide-toggle>
+
+        <div class="row">
+            <div class="form-column col-12 col-md-6">
+                <form [formGroup]="changePassForm">
+
+                    <mat-form-field appearance="legacy" class="p-0 mb-14">
+                        <mat-label>{{'FIELD.OLD-PASSWORD'| translate}}</mat-label>
+                        <input matInput placeholder="{{'FIELD.OLD-PASSWORD'| translate}}" formControlName="oldPassword" id="oldPassword"
+                               [type]="hideOld ? 'password' : 'text'" required tabindex="1">
+
+                        <button mat-icon-button matSuffix (click)="hideOld = !hideOld" type="button"
+                                class="text-muted">
+                            <mat-icon>{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+
+                        <mat-error *ngIf="changePassForm.controls.oldPassword.errors?.required">{{'ERROR.REQUIRED' | translate}}
+                        </mat-error>
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="legacy" class="p-0 mb-14">
+                        <mat-label>{{'FIELD.NEW-PASSWORD' | translate}}</mat-label>
+                        <input matInput placeholder="{{'FIELD.NEW-PASSWORD' | translate}}" formControlName="newPassword"
+                               [type]="hide ? 'password' : 'text'" required tabindex="2" autocomplete="false" id="newPassword">
+
+
+                        <mat-error *ngIf="changePassForm.get('newPassword').hasError('samePass')">{{'ERROR.SAME-PASS-WARN' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('newPassword').hasError('requiredPass')">{{'ERROR.REQUIRED' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('newPassword').hasError('passMin')">{{'ERROR.PASS-MIN-LENGTH' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('newPassword').hasError('passMax')">{{'ERROR.PASS-MAX-LENGTH' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('newPassword').hasError('emptyFirst')">{{'ERROR.REQUIRED' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('newPassword').hasError('specialCharacter')">{{'ERROR.PASS-SPECIAL-CHAR' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('newPassword').hasError('number')">{{'ERROR.PASS-DIGIT' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('newPassword').hasError('upper')">{{'ERROR.PASS-UPPERCASE' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('newPassword').hasError('lower')">{{'ERROR.PASS-LOWERCASE' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('newPassword').hasError('whiteSpace')">{{'ERROR.PASS-WHITESPACE' | translate}}
+                        </mat-error>
+
+                        <button mat-icon-button matSuffix (click)="hide = !hide" type="button" class="text-muted">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="legacy" class="p-0 mb-14">
+                        <mat-label>{{'FIELD.CONFIRM-NEW-PASSWORD' | translate}}</mat-label>
+                        <input matInput placeholder="{{'FIELD.CONFIRM-NEW-PASSWORD' | translate}}"
+                               formControlName="confPassword"  id="confirmNewPassword"
+                               [type]="hideCurrent ? 'password' : 'text'" required tabindex="3">
+
+                        <button mat-icon-button matSuffix (click)="hideCurrent = !hideCurrent" type="button"
+                                class="text-muted">
+                            <mat-icon>{{hideCurrent ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+
+                        <mat-error *ngIf="changePassForm.get('confPassword').hasError('requiredConf')">{{'ERROR.REQUIRED' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('confPassword').hasError('passInvalid')">{{'ERROR.SAME-PASS-REQ' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="changePassForm.get('confPassword').hasError('emptySecond')">{{'ERROR.REQUIRED' | translate}}
+                        </mat-error>
+
+                    </mat-form-field>
+                </form>
+            </div>
+            <div class="col-12 col-md-6">
+                <img src="../../../assets/images/others/changepass.png">
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer d-flex justify-content-end align-items-center">
+        <button class="btn-long btn-color-fill" (click)="onSaveClick()" id="submitChangePwd">{{'BTN.NEXT' | translate}}<i
+                class="fas fa-arrow-right"></i></button>
+    </div>
+</div>
+</div>

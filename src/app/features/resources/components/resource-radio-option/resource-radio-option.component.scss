@@ -1,0 +1,48 @@
+.form-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: solid 2px rgba(36, 57, 138, 0.24);
+  border-radius: 8px;
+  padding: 25px;
+  text-align: center;
+  width: 280px;
+  height: 324px;
+  transition: ease-out 0.3s;
+
+
+  &.option-selected {
+    border: solid 2px #24398A;
+  }
+  
+  &.option-disabled {
+    border: solid 2px rgba(36, 57, 138, 0.5); /* Adjusted to indicate disabled */
+    opacity: 0.5; /* Make it look "grayed out" */
+    pointer-events: none; /* Makes the element unclickable */
+  }
+
+
+  .radio-img {
+    width: 114px;
+    height: 114px;
+    margin-top: 25px;
+    margin-bottom: 75px;
+  }
+
+  .radio-title {
+    font-size: 21px;
+    font-weight: 700;
+  }
+
+  input[type="radio"] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    appearance: none;
+    /* For iOS < 15 to remove gradient background */
+    background-color: #fff;
+    /* Not removed via appearance */
+    margin: 0;
+
+  }
+}

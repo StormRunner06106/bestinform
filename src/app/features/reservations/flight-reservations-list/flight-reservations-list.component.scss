@@ -1,0 +1,7 @@
+@import "/src/app/theme/styles/components/colors";
+
+.clickable-name{
+  cursor: pointer;
+  font-weight: 700;
+  color: $primary-color!important;
+}

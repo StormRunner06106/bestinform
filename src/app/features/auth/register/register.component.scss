@@ -1,0 +1,102 @@
+@import "../../../theme/styles/components/colors";
+
+/* Button Styles */
+.btn-long.btn-white-fill.ml-2, .col.btn-long.btn-color-fill.ml-2 {
+  border-radius: 100px !important; /* Ensures border radius is applied */
+  width: 95pt; /* Sets a fixed width */
+  margin: 10px; /* Sets margin around the buttons */
+  box-sizing: border-box; /* Ensures padding and border are included in the width */
+  min-width: 200px; /* Adjust the min-width as needed to fit the content */
+}
+
+/* Ensure border and border-radius for .mat-button if needed */
+.mat-button {
+  border: 1px solid $primary-color; /* Adjust the color variable as per your theme */
+}
+
+/* Additional styles based on your structure */
+:host::ng-deep .mat-checkbox-label {
+  white-space: normal !important;
+}
+
+.btn-close-modal {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.container {
+  .register {
+    .logo {
+      width: 100%;
+      margin: auto;
+      margin-top: 48px;
+      margin-bottom: 48px;
+    }
+
+    .title {
+      margin-bottom: 48px;
+
+      .title-text {
+        font-size: 24px;
+        font-weight: 700;
+        color: $primary-color; /* Adjust the color variable as per your theme */
+      }
+
+      .subtitle-text {
+        font-size: 16px;
+        font-weight: 400;
+        color: $title; /* Adjust the color variable as per your theme */
+      }
+    }
+
+    .register-body {
+      padding: 20px 0;
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: auto;
+
+        .mat-form-field {
+          width: 100%;
+        }
+
+        .container-buttons {
+          margin-top: 48px;
+          width: 100%;
+
+          button {
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .image {
+      display: none;
+    }
+  }
+
+  @media (max-width: 576px) {
+    width: 320px;
+
+    .register {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .image {
+      display: none;
+    }
+  }
+}
+
+.image {
+  background: url("../../../../assets/images/login/client_register.png") center no-repeat;
+  background-size: cover;
+}

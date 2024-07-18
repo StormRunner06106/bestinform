@@ -1,0 +1,174 @@
+<div *ngIf="newItinerary" class="card step-card">
+    <div class="card-header">
+        <span class="step-name">Step III</span>
+        <span class="step-separator">-</span>
+        <span class="step-category">Eat & Drink Plan</span>
+    </div>
+    <div class="card-body d-flex flex-column">
+        <div class="row align-items-center step-card-title">
+            <div class="col">
+                <p class="step-title">Eat & Drink</p>
+            </div>
+            <div class="col text-right step-details">
+                <p>{{ newItinerary.resources[0].startDate }} - {{ newItinerary.resources[newItinerary.resources.length - 1].endDate }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="item">
+                    <p class="item-title">Breakfast</p>
+                    <p class="item-hour">{{ itineraryExtraInfo.breakfastHour }}</p>
+                        <ng-container *ngFor="let resourceGroup of newItinerary.resources[destinationIndex].eatAndDrinkResourcesRecommended">
+                            <ng-container *ngFor="let date of resourceGroup.dates">
+                                <p class="item-resource overflow-ellipsis mb-0">
+                                    {{ (date.date === dayState && date.hour === itineraryExtraInfo.breakfastHour) ? resourceGroup.resourceName : null }}
+                                </p>
+                            </ng-container>
+                        </ng-container>
+                    <p *ngIf="!selectedResources[destinationIndex]?.[dayState]?.['Breakfast']" class="item-resource overflow-ellipsis mb-0">
+                        Unassigned
+                    </p>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="item">
+                    <p class="item-title">Lunch</p>
+                    <p class="item-hour">{{ itineraryExtraInfo.lunchHour }}</p>
+                        <ng-container *ngFor="let resourceGroup of newItinerary.resources[destinationIndex].eatAndDrinkResourcesRecommended">
+                            <ng-container *ngFor="let date of resourceGroup.dates">
+                                <p class="item-resource overflow-ellipsis mb-0">
+                                    {{ (date.date === dayState && date.hour === itineraryExtraInfo.lunchHour) ? resourceGroup.resourceName : null }}
+                                </p>
+                            </ng-container>
+                        </ng-container>
+                    <p *ngIf="!selectedResources[destinationIndex]?.[dayState]?.['Lunch']" class="item-resource overflow-ellipsis mb-0">
+                        Unassigned
+                    </p>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="item">
+                    <p class="item-title">Dinner</p>
+                    <p class="item-hour">{{ itineraryExtraInfo.dinnerHour }}</p>
+                        <ng-container *ngFor="let resourceGroup of newItinerary.resources[destinationIndex].eatAndDrinkResourcesRecommended">
+                            <ng-container *ngFor="let date of resourceGroup.dates">
+                                <p class="item-resource overflow-ellipsis mb-0">
+                                    {{ (date.date === dayState && date.hour === itineraryExtraInfo.dinnerHour) ? resourceGroup.resourceName : null }}
+                                </p>
+                            </ng-container>
+                        </ng-container>
+                    <p *ngIf="!selectedResources[destinationIndex]?.[dayState]?.['Dinner']" class="item-resource overflow-ellipsis mb-0">
+                        Unassigned
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row time-period mt-auto">
+            <div class="col time-period-type">
+                <span>Day</span>
+            </div>
+            <div class="col d-flex align-items-center justify-content-end time-period-number">
+                <div *ngFor="let day of days; let index = index"
+                     [ngClass]="day === dayState ? 'selected' : null"
+                     class="day-box"
+                     (click)="setDayState(day)"
+                >
+                    <span>{{ index + 1 }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="newItinerary.resources[destinationIndex]?.eatAndDrinkResourcesRecommended?.length > 0 || itineraryExtraInfo.itineraryType === 'manual'; else noAvailableResourcesForLocation"
+         class="card-footer"
+         (click)="openModal(editResources)">
+        <a >View more</a>
+    </div>
+
+    <ng-template #noAvailableResourcesForLocation>
+        <div class="card-footer pe-none">
+            <p class="m-0 text-white">
+                No available restaurants for the current day
+            </p>
+        </div>
+    </ng-template>
+</div>
+
+<ng-template #editResources let-c="close" let-d="dismiss">
+    <div mat-dialog-content>
+        <h2 class="step-title pb-4">Step III</h2>
+
+        <ng-container *ngIf="eatAndDrinksResources?.[destinationIndex]?.length > 0; else noResourcesFound">
+            <ul ngbNav #nav="ngbNav" [activeId]="dayState" class="nav-pills mb-4">
+                <ng-container *ngFor="let dayResourcesGroup of eatAndDrinksResources?.[destinationIndex]; let groupIndex = index">
+                    <li [ngbNavItem]="dayResourcesGroup?.day">
+                        <a ngbNavLink>Day {{ daysDictionary[dayResourcesGroup?.day] + 1 }}</a>
+                        <ng-template ngbNavContent>
+                            <h3 class="step-category">Eat & Drinks</h3>
+                            <p class="mb-3">Choose the best way to get to your destinations by adding your favourite routes and type of transportation.</p>
+                            <ul ngbNav #mealNav="ngbNav" [(activeId)]="activeaMealId" class="nav-pills">
+                                <ng-container *ngFor="let momentOfDay of dayResourcesGroup.dayMoments">
+                                    <li [ngbNavItem]="momentOfDay.dayMoment">
+                                        <a ngbNavLink>{{ momentOfDay.dayMoment }}</a>
+                                        <ng-template ngbNavContent>
+                                            <div class="res-container">
+                                                <ng-container *ngIf="momentOfDay.resources?.length > 0; else noResourcesForMomentOfDay">
+                                                    <div class="res-item" *ngFor="let res of momentOfDay.resources; index as i" (click)="openResourceModal(res, dayResourcesGroup?.day, momentOfDay.dayMoment)">
+                                                        <div class="res-item-image">
+                                                            <img [src]="res?.featuredImage?.filePath" alt=""/>
+                                                        </div>
+                                                        <div class="res-item-content">
+                                                            <div class="res-main-info d-flex align-items-center justify-content-between">
+                                                                <span class="res-title">{{res.title}}</span>
+                                                                <span class="res-review">{{res.proReviewsPercentage}}%
+                                                            <i class="fa fa-smile"></i>
+                                                        </span>
+                                                            </div>
+                                                            <div class="res-address">
+                                                                <span>{{res.address}}</span>
+                                                                <span>{{res.city}}</span>
+                                                                <span>{{res.country}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="res-check">
+                                                            <i *ngIf="temporarySelectedResources[destinationIndex]?.[dayResourcesGroup?.day]?.[momentOfDay.dayMoment] === res.id" class="fa fa-check"></i>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+
+                                                <ng-template #noResourcesForMomentOfDay>
+                                                    <h3 class="mt-4 mb-4 mb-0 text-center">
+                                                        No restaurants found for this time of day
+                                                    </h3>
+                                                </ng-template>
+                                            </div>
+                                        </ng-template>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                            <div [ngbNavOutlet]="mealNav" class="mt-2"></div>
+
+                        </ng-template>
+                    </li>
+                </ng-container>
+            </ul>
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </ng-container>
+
+        <ng-template #noResourcesFound>
+            <p class="mt-4 mb-0 text-center">
+                No restaurants found for this location
+            </p>
+        </ng-template>
+
+        <div class="row buttons-row">
+            <div class="col">
+                <button class="btn-auto btn-color-outline w-100" matDialogClose>Anulare</button>
+            </div>
+            <div class="col">
+                <button class="btn-auto btn-color-fill w-100" [matDialogClose]="temporaryModalItinerary">Check options</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

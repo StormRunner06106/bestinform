@@ -1,0 +1,169 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>Adăugare produs</h2>
+        <button type="button" (click)="close()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+        <form [formGroup]="productForm">
+            <div class="row mb-5">
+
+                <div class="col-12">
+                    <!--                    <h3 class="section-name">Tip bilet</h3>-->
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>Denumire</mat-label>
+                        <input matInput placeholder="Denumire" formControlName="name">
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>Descriere</mat-label>
+                        <input matInput placeholder="Descriere" formControlName="description">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-2">
+                    <h3 class="section-name">Pret</h3>
+
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>EUR</mat-label>
+                        <input matInput placeholder="Pret" type="number" [min]="0" formControlName="price">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-10">
+                    <h3 class="section-name">Preview</h3>
+
+                    <app-product-preview [productData]="productForm.value"></app-product-preview>
+                </div>
+
+            </div>
+            <!--Upload Images-->
+            <div class="row mb-5" id="photo-upload">
+
+                <!--Section Name-->
+                <div class="col-12">
+                    <h3 class="section-name">Upload Files</h3>
+                </div>
+
+                <!--Image Type Section-->
+                <div class="col-12 mt-3">
+                    <h5 class="photo-type-title">Thumbnail</h5>
+                </div>
+
+
+                <!--Image Preview-->
+
+                <div class="image-container mb-5 p-0">
+                    <input type="file"
+                           hidden
+                           accept="image/*"
+                           #thumbnail
+                           id="thumbnailInput"
+                           (change)="onThumbnailChange($event)">
+                    <div *ngIf="!thumbnail.value && !thumbnailUrl?.filePath" class="no-image"
+                         attr.translatedContent="{{ 'GENERAL.INSERT_IMAGE' | translate}}"
+                         (click)="thumbnail.click()"></div>
+
+                    <img *ngIf="thumbnail.value || thumbnailUrl?.filePath" class="img-fluid w-100 object-fit-cover"
+                         [src]="thumbnailUrl.filePath" alt="thumbnail">
+                    <button *ngIf="thumbnail.value || thumbnailUrl?.filePath"
+                            (click)="removeThumbnail(); thumbnail.value=''"
+                            type="button"
+                            id="btnRemoveFeaturedImage"
+                            class="btn-thumbnail">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+
+                <div class="attchement-section p-0">
+                    <h3 class="section-name">Attachment</h3>
+
+                    <div *ngIf="!attachmentUrl?.filePath" class="no-attachment"
+                         (click)="uploadAttachment.click()"><i class="fas fa-upload"></i>Upload attachment
+                    </div>
+                    <input type="file"
+                           hidden
+                           accept="file/*"
+                           #uploadAttachment
+                           id="uploadFile"
+                           (change)="uploadAttachmentFile($event)"
+                    >
+                </div>
+
+
+                <div class="attachment-container d-flex justify-content-between p-3 align-items-center"
+                     *ngIf="attachmentUrl?.filePath">
+                    <p class="mb-0" *ngIf="attachmentUrl?.filePath !== ''">{{attachmentUrl?.fileName}}</p>
+                    <button class="btn-round btn-no-outline btn-color-fill" *ngIf="attachmentUrl?.filePath"
+                            (click)="deleteAttachment()"><i class="fas fa-trash"></i>
+                    </button>
+                </div>
+
+
+                <!--                &lt;!&ndash;Image Type Section&ndash;&gt;-->
+                <!--                <div class="col-12 mt-3">-->
+                <!--                    <h5 class="photo-type-title">Gallery</h5>-->
+                <!--                </div>-->
+
+
+                <!--                &lt;!&ndash;Gallery Preview&ndash;&gt;-->
+                <!--                <div class="row gallery-container">-->
+                <!--                    <div class="col-12 col-lg-6">-->
+                <!--                        <div class="image-container">-->
+                <!--                            <input type="file"-->
+                <!--                                   accept="image/*"-->
+                <!--                                   hidden-->
+                <!--                                   #add_image-->
+                <!--                                   id="galleryInput"-->
+                <!--                                   multiple-->
+                <!--                                   (change)="onImageChange($event, add_image)">-->
+                <!--                            <div class="no-image"-->
+                <!--                                 attr.translatedContent="{{ 'GENERAL.INSERT_IMAGE' | translate}}"-->
+                <!--                                 (click)="add_image.click()"></div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+
+                <!--                    <div *ngFor="let image of galleryUrls; let i = index" class="col-6 col-lg-2">-->
+                <!--                        <div class="image-container">-->
+                <!--                            <img class="img-fluid gallery-img"-->
+                <!--                                 [src]="image.filePath" alt="image-{{i}}">-->
+                <!--                            <button (click)="removeImage(i)"-->
+                <!--                                    id="btnRemoveGalleryImage-{{i}}"-->
+                <!--                                    type="button"-->
+                <!--                                    class="btn-gallery">-->
+                <!--                                <i class="fas fa-times"></i>-->
+                <!--                            </button>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </div>
+        </form>
+
+
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill" (click)="confirm()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>
+

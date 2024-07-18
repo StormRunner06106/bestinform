@@ -1,0 +1,153 @@
+.grid-container {
+  display: grid;
+  gap: 10px;
+}
+
+.grid-item {
+  width: 100%;
+  position: relative;
+  padding-top: 100%; /* This creates a square cell, adjust as needed */
+}
+
+.grid-item img {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  height: 100%;
+
+  position: relative;
+}
+.grid-hotels {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  height: 100%;
+
+  position: relative;
+
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.image-counter {
+  background: rgba(81, 76, 79, 0.5);
+  position: absolute;
+  right: 30px;
+  top: 460px;
+  text-align: center;
+  padding: 4px 12px 4px 12px;
+  color: rgba(252, 252, 253, 0.8);
+  border-radius: 4px;
+  border: 1px solid darkgrey;
+}
+
+.fullscreen {
+  width: 42rem;
+}
+
+.gallery-image {
+  max-width: 100%;
+  display: block;
+  height: 450px;
+}
+
+:host ::ng-deep {
+  // Since we have a bug with carousel arrows ( it's visible in search component ), we need to increase z-index of gallery modal
+  .p-galleria-mask {
+    z-index: 99999!important;
+  }
+
+  .p-galleria .p-galleria-item-nav {
+    transform: translateY(-50%);
+  }
+  .p-galleria .p-galleria-item-nav .p-galleria-item-prev-icon,
+  .p-galleria .p-galleria-item-nav .p-galleria-item-next-icon {
+    color: white;
+  }
+  .custom-galleria.p-galleria .p-galleria-thumbnail-wrapper {
+    display: none;
+  }
+  .custom-galleria {
+    &.p-galleria {
+      .p-galleria-content {
+        position: relative;
+      }
+
+      .p-galleria-thumbnail-wrapper {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+
+      .p-galleria-thumbnail-items-container {
+        width: 100%;
+      }
+
+      .custom-galleria-footer {
+        display: flex;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.9);
+        color: #ffffff;
+
+        button {
+          background-color: transparent;
+          color: #ffffff;
+          border: 0 none;
+          border-radius: 0;
+          margin: 0.2rem 0;
+
+          &.fullscreen-button {
+            margin-left: auto;
+          }
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+        }
+      }
+
+      .title-container {
+        > span {
+          font-size: 0.9rem;
+          padding-left: 0.829rem;
+
+          &.title {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+.last-row {
+  height: 136px;
+}
+.action-overlay {
+  opacity: 0.6;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  align-content: center;
+  color: white;
+  position: relative;
+  transform: translate(0, -100%);
+}

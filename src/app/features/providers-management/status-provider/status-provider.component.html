@@ -1,0 +1,64 @@
+
+
+<div class="container-fluid">
+    <div class="container modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <h4 class="modal-title">Schimbare status -
+            <span *ngIf="actionType === 'inactive'">Inactiv</span>
+            <span *ngIf="actionType === 'archived'">Arhivat</span>
+        </h4>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+<!--        <span class="modal-body-text">{{'PROVIDER.MESSAGE.BLOCK-PROVIDER-PARAGRAPH' | translate}}</span>-->
+      </div>
+
+      <!--Info card blue-->
+      <div class="blue-card">
+          <div class="modal-blue-container d-flex">
+              <div class="p-3">
+                <img src="{{providerAvatar}}">
+              </div>
+              <div>
+                <h4>{{providerName}}</h4>
+                <p>{{providerEmail}}</p>
+                <h5>
+                  <i class="fas fa-concierge-bell me-2"></i>
+                  Provider
+                </h5>
+              </div>
+
+          </div>
+      </div>
+      <!--Footer-->
+      <div class="p-3">
+        <div class="row gap-2 gap-xl-0">
+            <div class="col-12 col-xl-6">
+                <button type="button" class="btn-long btn-color-outline w-100"
+                        (click)="closeModal()">
+                    <i class="fas fa-times"></i>
+                    {{ 'BTN.CANCEL' | translate}}
+                    <!-- <ng-container *ngIf="isDeleteLoading === true">
+                      <span
+                        class="spinner-border spinner-border-sm align-middle ms-2"
+                      ></span>
+                    </ng-container>   -->
+                </button>
+            </div>
+            <div class="col-12 col-xl-6">
+                <button type="button" class="btn-long btn-color-fill w-100"  id="confirmDelete"
+                        (click)="confirmAction()">
+                    <i class="fas fa-check"></i>
+                    {{ 'BTN.CONFIRM' | translate}}
+                    <!-- <ng-container *ngIf="isDeleteLoading === true">
+                      <span
+                        class="spinner-border spinner-border-sm align-middle ms-2"
+                      ></span>
+                    </ng-container>   -->
+                </button>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>

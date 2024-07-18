@@ -1,0 +1,56 @@
+<div>
+
+    <p>{{"RESERVATION.NAME" | translate}}</p>
+    <h4>{{reservation?.name}}</h4>
+
+    <p>{{"RESERVATION.START-DATE" | translate}}</p>
+    <h4>{{reservation?.checkIn | date: 'dd/MM/YYYY HH:mm'}}</h4>
+
+    <p>{{"RESERVATION.END-DATE" | translate}}</p>
+    <h4>{{reservation?.checkOut | date: 'dd/MM/YYYY HH:mm'}}</h4>
+
+    <p>Locuri selectate</p>
+    <div class="mb-3">
+        <p *ngFor="let seat of reservation?.culturalBooking?.seats" class="bold">Randul <span> {{seat.rowLabel}}</span>- locul <span> {{seat.seatColumnLabel}}</span></p>
+    </div>
+
+    <p>{{"RESERVATION.TOTAL-PRICE" | translate}}</p>
+    <h4>{{reservation?.totalPrice}} {{reservation.currency}}</h4>
+
+
+</div>
+<!-- <p>{{"RESERVATION.ROOM" | translate}}</p>
+<h4>{{culturalBooking.roomNameId}}</h4> -->
+
+<!-- <p>{{"RESERVATION.TICKETS" | translate}}</p>-->
+<!--<div *ngFor="let ticket of culturalBooking?.tickets" class="ms-2">-->
+
+<!--    <p>{{"RESERVATION.TICKET-NUMBER" | translate}}</p>-->
+<!--    <h4>{{culturalBooking.ticketNumber}}</h4>-->
+
+<!--    <p>{{"EVENTS.TICKET-TYPE" | translate}}</p>-->
+<!--    <h4>{{culturalBooking.ticketType}}</h4>-->
+
+<!--    <p>{{"RESERVATION.SEAT-NUMBER" | translate}}</p>-->
+<!--    <h4>{{culturalBooking.seatNumber}}</h4>-->
+
+<!--    <p>{{"RESERVATION.PRICE" | translate}}</p>-->
+<!--    <h4>{{culturalBooking.price}} {{culturalBooking.currency}}</h4>-->
+
+<!--    <p>{{"RESERVATION.DATE" | translate}}</p>-->
+<!--    <h4>{{culturalBooking.date | date: 'dd/MM/YYYY HH:mm'}}</h4>-->
+
+<!--    &lt;!&ndash; <p>{{"RESERVATION.TICKET-USED" | translate}}</p>-->
+<!--    <h4>{{ticket.ticketUsed === true? 'Yes' : 'No'}}</h4> &ndash;&gt;-->
+
+<!--    <p>{{"RESERVATION.WEEKEND" | translate}}</p>-->
+<!--    <h4>{{ticket.weekend=== true? 'Yes' : 'No'}}</h4>-->
+<!--&lt;!&ndash; </div> &ndash;&gt;-->
+
+<!--&lt;!&ndash; <div *ngIf="rentalBooking.specialRequest.trim() !== ''"> &ndash;&gt;-->
+<!--<div>-->
+<!--    <h3>Cerințe speciale</h3>-->
+<!--    <p>{{culturalBooking.specialRequest ? culturalBooking.specialRequest : ("RESERVATIONS.NO_SPECIAL_REQUESTS" | translate)}}</p>-->
+<!--</div>-->
+
+<!--</div>-->

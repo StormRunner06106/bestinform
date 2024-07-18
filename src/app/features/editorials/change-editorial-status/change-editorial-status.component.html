@@ -1,0 +1,60 @@
+<div class="container-fluid">
+<div class="container modal-content">
+
+    <!--Header-->
+    <div class="modal-header">
+      <h4 class="modal-title">{{'EDITORIALS.CHANGE-STATUS-TITLE' | translate}}</h4>
+      <i class="fas fa-times" (click)="closeModal()"></i>
+    </div>
+
+    <!--Body-->
+    <div class="modal-body">
+      <!--Form - Start-->
+      <form [formGroup]="changeEditorialStatusForm">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" id="status">
+            <mat-option value="active" id="Active">{{'STATUS.ACTIVE' | translate}}</mat-option>
+            <mat-option value="pending_review" id="Pending">{{'STATUS.PENDING' | translate}}</mat-option>
+            <mat-option value="inactive" id="Inactive">{{'STATUS.INACTIVE' | translate}}</mat-option>
+            <mat-option value="draft" id="Draft">{{'STATUS.DRAFT' | translate}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="changeEditorialStatusForm.controls.status.hasError('required')">
+            {{'ERROR.REQUIRED' | translate}}
+          </mat-error>
+        </mat-form-field>
+      </form>
+      <!--Form - End-->
+    </div>
+
+    <!--  Footer-->
+    <div class="modal-footer">
+        <div class="d-flex button-wrapper">
+            <button type="button" class="btn-long btn-color-outline"
+            (click)="closeModal()">
+            <i class="fas fa-times"></i>
+            {{ 'BTN.CANCEL' | translate}}
+            <!-- <ng-container *ngIf="isStatusChangeLoading === true">
+                [disabled]="isStatusChangeLoading"
+                <span
+                class="spinner-border spinner-border-sm align-middle ms-2"
+                ></span>
+            </ng-container> -->
+            </button>
+
+            <button type="button" class="btn-long btn-color-fill" id="submitChangeStatus"
+            (click)="changeEditorialStatus()" >
+                {{ 'BTN.CONFIRM' | translate}}
+                <i class="fa fa-check"></i>
+
+                <!-- <ng-container *ngIf="isStatusChangeLoading === true">
+                    [disabled]="isStatusChangeLoading"
+                    <span
+                    class="spinner-border spinner-border-sm align-middle ms-2"
+                    ></span>
+                </ng-container> -->
+            </button>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,92 @@
+<div class="container h-100 position-relative">
+    <button class="btn-close-modal btn-round btn-white-fill" type="button" mat-dialog-close="true">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div class="row h-100">
+        <div class="col-md-6 login">
+            <div class="p-3">
+                <div class="logo">
+                    <img src="assets/Logo-blue.svg" alt="bestinform-logo" height="40" />
+                </div>
+                <div class="login-body">
+                    <form [formGroup]="loginForm">
+                        <mat-form-field appearance="legacy" class="p-0 mb-14">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Email" formControlName="email" id="emailInput">
+                            <mat-error
+                                    *ngIf="loginForm.controls.email.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <mat-error *ngIf="loginForm.controls.email.hasError('email')">{{'ERROR.EMAIL'|translate}}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="legacy" class="p-0 mb-14">
+                            <mat-label>{{'FIELD.PASSWORD'| translate}}</mat-label>
+                            <input matInput placeholder="{{'FIELD.PASSWORD'| translate}}" formControlName="password"
+                                   id="passwordInput"
+                                   [type]="hide ? 'password' : 'text'">
+                            <mat-error
+                                    *ngIf="loginForm.controls.password.errors?.required">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            <button mat-icon-button matSuffix (click)="hide = !hide" type="button" class="text-muted">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <mat-form-field *ngIf="twoFA ===true" appearance="legacy" class="p-0 mb-14">
+                            <mat-label>Code</mat-label>
+                            <input matInput placeholder="Code" formControlName="twoFA" id="twoFAInput">
+                        </mat-form-field>
+                        <div class="d-flex justify-content-end flex-row w-100 py-3">
+                            <!--                            <mat-checkbox>{{'FIELD.REMEMBER-ME' | translate}}</mat-checkbox>-->
+                            <a (click)="openForgotPwd()" id="toForgotPwdBtn"
+                               role="button">{{'FIELD.FORGOT-PASS' | translate}}</a>
+                        </div>
+                        <div class="text-center" *ngIf="twoFA !==true">
+                            <button (click)="onLoginClick()" id="submitLoginBtn" class="btn-long btn-color-fill"
+                                    type="submit" [disabled]="isLoginLoading">{{'BTN.LOGIN' | translate}}<i
+                                    class="fas fa-arrow-right"></i></button>
+                        </div>
+                        <div class="text-center" *ngIf="twoFA ===true">
+                            <button id="submitLoginBtn" class="btn-long btn-color-fill" (click)="twoFALogin()"
+                                    [disabled]="!loginForm.get('twoFA').value || isLoginLoading">{{'BTN.LOGIN' | translate}}<i
+                                    class="fas fa-arrow-right"></i></button>
+                        </div>
+
+                    </form>
+
+                    <div class="row d-flex justify-content-between container-hr my-2 mx-0">
+                        <hr class="col-md-5 col-sm-5 col-5">
+                        <p class="ws-nowrap p-2 m-0 col-md-2 col-sm-2 col-2">{{'GENERAL.OR' | translate}}</p>
+                        <hr class="col-md-5 col-sm-5 col-5">
+                    </div>
+
+                    <div class="container-btn d-flex flex-column">
+                        <button class="btn-long btn-white-fill d-flex justify-content-between" type="button"
+                                (click)="loginWithFacebook()" [disabled]="isFacebookLoading">
+                            <ng-container *ngIf="isFacebookLoading===false">
+                                <i class="fab fa-facebook"></i>{{'BTN.FACEBOOK-LOGIN' | translate}}<i></i>
+                            </ng-container>
+                            <ng-container *ngIf="isFacebookLoading === true">
+                                <i class="fab fa-facebook"></i>{{'GENERAL.LOAD_AUTHENTICATION'| translate}}
+                                <span
+                                        class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </ng-container>
+                        </button>
+                        <!--                        <button class="btn-long btn-white-fill d-flex justify-content-between" type="button"><i class="fab fa-google"></i>{{'BTN.GOOGLE-LOGIN' | translate}}<i></i></button>-->
+                    </div>
+
+                    <div class="register d-flex flex-row justify-content-between">
+                        <p>{{'GENERAL.ACCOUNT' | translate}}</p>
+                        <a class="ml-2" (click)="openRegister()" role="button">{{'GENERAL.SIGNUP' | translate}}</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="image col-md-6">
+            <!--            <img class="img-fluid" src="../../../assets/images/login/Image.png" alt=""/>-->
+            <!--            <div class="close">-->
+            <!--                <button class="btn-round btn-white-fill"><i class="fas fa-times"></i></button>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+.toaster {
+  z-index: 2000;
+  right: 0;
+  top: calc(76px + 0.5rem);
+}
+/*# sourceMappingURL=toaster.component.css.map */

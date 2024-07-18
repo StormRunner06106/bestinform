@@ -1,0 +1,132 @@
+@import "/src/app/theme/styles/components/colors";
+@import "/src/app/theme/styles/components/buttons";
+@import "/src/app/theme/styles/components/fonts";
+@import "src/assets/fonts/font-awesome/css/all.css";
+
+.container{
+  padding: 48px 52px;
+  border: none;
+}
+
+@media screen and (min-width:1020px){
+  .container.modal-content{
+    border: none;
+  }
+}
+
+.m-header{
+    h4, i{
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 140%;
+        color:$primary-color;
+    }
+
+    i.fas.fa-times.col-2{
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    p{
+
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 140%;
+            /* or 22px */
+
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.02em;
+            color: rgba($paragraph,0.5);
+
+    }
+
+}
+
+
+.blue-card{
+    border:1px $primary-color solid;
+    border-radius: 8px;
+    padding:16px;
+    background:linear-gradient(0deg, rgba(36, 57, 138, 0.08), rgba(36, 57, 138, 0.08)), #FFFFFF;
+
+
+    h3{
+        line-height: 34px;
+        font-size: 24px;
+    }
+
+    h4{
+        line-height: 22px;
+        font-size: 16px;
+    }
+
+    h3,h4{
+        font-weight: 700;
+        color:$primary-color;
+    }
+
+    p{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color:$primary-color;
+        opacity: .6;
+        word-break: break-word;
+    }
+
+    @media only screen and (min-width:320px) and (max-width: 768px){
+        .row.d-flex.flex-wrap{
+            flex-direction: column;
+        }
+    }
+
+
+}
+
+//reason text area
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-outline{
+    color:$primary-color!important;
+}
+
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-label{
+    color:$primary-color!important;
+    opacity: .6!important;
+}
+
+textarea.mat-input-element{
+    font-weight: 400!important;
+    font-size: 16px!important;
+    line-height: 22px!important;
+    color:$paragraph!important;
+}
+
+
+//buttons
+
+.modal-footer{
+    border: none;
+
+    @media only screen and (min-width:320px) and (max-width: 480px){
+        .btn-long{
+           min-width:100%;
+        }
+    }
+
+    @media only screen and (min-width:481px) and (max-width: 768px){
+        .d-flex.flex-wrap.justify-content-between.w-100{
+            justify-content: center!important;
+        }
+    }
+
+    @media only screen and (min-width:769px) and (max-width: 1023px){
+        .d-flex.flex-wrap.justify-content-between.w-100{
+            justify-content: center!important;
+        }
+    }
+
+}
+
+.fa-times{
+    cursor: pointer;
+}

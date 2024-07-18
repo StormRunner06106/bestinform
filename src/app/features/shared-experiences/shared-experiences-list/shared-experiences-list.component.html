@@ -1,0 +1,49 @@
+<div class="d-flex flex-column">
+  <div class="background-container">
+    <img
+      src="/assets/images/others/shared%20exp.jpg"
+      alt="Shared Experiences"
+    />
+  </div>
+
+  <div class="content-container">
+    <p class="title-shared mb-0">Shared Experiences</p>
+
+    <div class="container">
+      <div class="row">
+        <mat-form-field appearance="legacy" class="w-100">
+          <input
+            matInput
+            type="text"
+            [formControl]="searchFilter"
+            (keydown.enter)="getSharedExperiences()"
+            placeholder="Caută experiență"
+          />
+        </mat-form-field>
+      </div>
+
+      <app-button-create></app-button-create>
+
+      <div class="row list-experiences mt-3">
+        <!--                <div class="col-4 col-filters">-->
+
+        <!--                </div>-->
+        <div class="col-12 col-list">
+          <div class="row gap-2" *ngFor="let experience of sharedExperiences">
+            <app-shared-experiences-card
+              [experience]="experience"
+            ></app-shared-experiences-card>
+          </div>
+        </div>
+
+        <mat-paginator
+          [pageSizeOptions]="pageSizeArray"
+          [pageSize]="pageSize"
+          [length]="paginationInfo?.totalElements"
+          (page)="pageChanged($event)"
+          aria-label="Select page of resources"
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.container-experience{
+  .short-info{
+    border: 1px solid rgba($primary-color, 0.16);
+    border-radius: 8px;
+    padding:8px;
+    margin-bottom: 24px;
+
+    .left-side{
+      h4{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .time{
+        color:rgba($primary-color, 0.72);
+        font-weight: 400;
+      }
+    }
+
+    .right-side{
+      width: 96px;
+      aspect-ratio: 1/1;
+      border-radius: 8px;
+      background: radial-gradient(100% 787.93% at 0% 100%, rgba(0, 178, 255, 0.48) 0%, rgba(0, 178, 255, 0) 100%),  url('~src/assets/images/others/images-client/backgr-shared-exp.jpeg'), $primary-color;
+      //background: linear-gradient(to right, rgba(0, 178, 255, 0.48),rgba( $primary-color, 0.8)), url('~src/assets/images/others/images-client/backgr-shared-exp.jpeg');
+      background-blend-mode: normal, luminosity, normal;
+      background-position: center;
+      background-size: cover;
+
+      box-shadow: 0 12px 16px rgba(13, 68, 148, 0.48);
+
+      .month{
+        color: rgba($background-primary, 0.72);
+        font-weight: 400;
+      }
+
+      .day{
+        font-size:24px;
+        font-weight: 800;
+        color: $secondary-color;
+      }
+    }
+  }
+
+  .description{
+    margin-bottom: 24px;
+
+    .descr-text{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+
+    .more{
+      cursor: pointer;
+      color: $primary-color;
+      font-weight: 700;
+    }
+  }
+
+  .location-info{
+    border: 1px solid rgba($primary-color, 0.16);
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 24px;
+
+    .left-side{
+      h4{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+    }
+
+    button.map-button{
+      width: 96px;
+      height: 96px;
+      color: var(--primary-background);
+      background: radial-gradient(100% 787.93% at 0% 100%, rgba(0, 178, 255, 0.48) 0%, rgba(0, 178, 255, 0) 100%), $primary-color;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border:none;
+      font-size: 14px;
+      i{
+        font-size: 24px;
+      }
+    }
+  }
+}

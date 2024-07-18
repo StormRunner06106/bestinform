@@ -1,0 +1,132 @@
+<!-- Angular Template - giveaway-form.component.html -->
+<!-- giveaway-form.component.html -->
+<div class="giveaway-form-container">
+  <form (ngSubmit)="onSubmit()" #giveawayForm="ngForm">
+    <div class="container-header">
+      <h2>Înscrie-te la Giveaway</h2>
+      <p class="text-hero">
+        Crează-ți un cont pe Bestinform pentru a te înscrie în 
+giveaway-ul nostru de 8 Martie.
+      </p>
+    </div>
+    <div class="form-field">
+      <mat-form-field class="width">
+        <mat-label class="label">Nume</mat-label>
+        <input
+          [(ngModel)]="firstName"
+          name="fistName"
+          type="text"
+          matInput
+          required
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field class="width">
+        <mat-label class="label">Prenume</mat-label>
+        <input
+          [(ngModel)]="lastName"
+          name="lastName"
+          type="text"
+          matInput
+          required
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field class="width">
+        <mat-label class="label">Email</mat-label>
+        <input
+          [(ngModel)]="email"
+          name="email"
+          type="email"
+          matInput
+          required
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field class="width">
+        <mat-label class="label">Parolă</mat-label>
+        <input
+          [(ngModel)]="password"
+          name="password"
+          (ngModelChange)="(passwordsDoNotMatch)"
+          type="password"
+          maxlength="16"
+          matInput
+          required
+        />
+        <div class="password-tooltip">
+          <p>Parola trebuie să îndeplinească următoarele criterii:</p>
+          <ul>
+            <li>Lunigmea intre 8 si 16 caractere</li>
+            <li>Conține cel puțin o literă mare (majusculă)</li>
+            <li>Conține cel puțin o literă mică (minusculă)</li>
+            <li>Conține cel puțin un număr</li>
+            <li>Conține cel puțin un caracter special</li>
+          </ul>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field class="width">
+        <mat-label class="label">Confirmă Parola</mat-label>
+        <input
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          (ngModelChange)="(passwordsDoNotMatch)"
+          type="password"
+          maxlength="16"
+          matInput
+          required
+          (blur)="checkPasswords()"
+        />
+        <div *ngIf="passwordsDoNotMatch" class="custom-error-message">
+          Parolele nu se potrivesc.
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="checkbox-field">
+      <mat-checkbox
+        [(ngModel)]="termsConditions"
+        name="termsConditions"
+        class="example-margin"
+        required
+        [ngModelOptions]="{ standalone: true }"
+        #termsConditionsCheck="ngModel"
+      >
+        <span class="white-space"
+          >Sunt de acord cu
+          <a href="/content/privacy-policy">Politică de confidențialitate</a> și
+          cu
+          <a href="/content/giveaway-rules">Regulamentul Giveaway-ului</a>
+        </span>
+      </mat-checkbox>
+    </div>
+
+    <div class="button-container">
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="
+          !giveawayForm.form.valid || !termsConditions || passwordsDoNotMatch
+        "
+      >
+        Inscrie-te Acum
+      </button>
+    </div>
+
+    <div *ngIf="responseMessage" class="alert alert-success">
+      {{ responseMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

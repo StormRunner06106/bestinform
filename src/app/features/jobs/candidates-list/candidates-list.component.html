@@ -1,0 +1,35 @@
+<div class="d-flex flex-column">
+
+    <div class="background-container">
+        <img [src]="candidatesListSettings?.image?.filePath" alt="category-background-image">
+    </div>
+
+    <div class="content-container">
+
+        <h1 class="text-center m-0">
+            {{"JOBS.CANDIDATES_LIST" | translate}}
+        </h1>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3">
+<!--                    <app-jobs-sidebar (filtersSubmitted)="scrollResourcesListIntoView()"></app-jobs-sidebar>-->
+                </div>
+
+                <div class="col-12 col-lg-9">
+                    <div class="candidates-list" *ngFor="let candidate of candidatesList">
+                        <app-display-user [candidate]="candidate" [showMenu]="true" [menuType]="'candidate'"></app-display-user>
+                    </div>
+                </div>
+            </div>
+            <mat-paginator [length]="totalElements"
+                           [pageSize]="pageSize"
+                           [pageSizeOptions]="[5, 10, 15, 20]"
+                           (page)="onPaginationChange($event)"
+                           #candidatesPaginator
+                           aria-label="Select page">
+            </mat-paginator>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,94 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>Stergere Card</h2>
+        <p>Acțiunea de stergere card este permanentă și complet irevocabilă.</p>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+
+        <div class="row">
+
+            <!--Name-->
+            <div class="col-md-4 col-12">
+                <h5 class="section-title">Numele: <span>{{room.roomData.name}}</span></h5>
+            </div>
+
+            <!--Regular Price-->
+            <div class="col-md-4 col-12">
+                <h5 class="section-title">Regular price: <span>{{room.roomData.price.regularPrice}} EUR/Noapte</span></h5>
+            </div>
+
+            <!--Weekend Price-->
+            <div class="col-md-4 col-12">
+                <h5 class="section-title">Weekend price: <span>{{room.roomData.price.weekendPrice}} EUR/Noapte</span></h5>
+            </div>
+
+            <!--Bathdatas-->
+            <div class="col-md-4 col-12">
+                <h5 class="section-title">Numar bai: <span>{{room.roomData.bathrooms}}</span></h5>
+            </div>
+
+            <!--Adults-->
+            <div class="col-md-4 col-12">
+                <h5 class="section-title">Locuri adulti: <span>{{room.roomData.maximumAdultPeople}}</span></h5>
+            </div>
+
+            <!--Children-->
+            <div class="col-md-4 col-12">
+                <h5 class="section-title">Locuri copii: <span>{{room.roomData.maximumChildren}}</span></h5>
+            </div>
+
+        </div>
+
+
+        <!--Description-->
+        <div class="col-12 mt-2">
+            <h5 class="section-title mb-2">Descriere:</h5>
+            <p class="m-0">{{room.roomData.description}}</p>
+        </div>
+
+        <!--Beds Type-->
+        <div class="col-12 mt-2">
+            <h5 class="section-title mb-2">Paturi:</h5>
+            <div class="row">
+                <div class="col-md-4 col-12 mb-2" *ngFor="let bed of room.roomData.bedType">
+                    <div class="bed-type">
+                        <i class="bed-icon fas fa-bed me-2"></i>
+                        <span>{{bed.type}}: {{bed.quantity}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Benefits-->
+        <div class="col-12 mt-2">
+            <h5 class="section-title mb-2">Beneficii:</h5>
+            <div class="d-flex flex-row flex-wrap">
+                <div *ngFor="let benefit of room.roomData.benefits" class="me-2 mb-2">
+                    <app-bf-chips *ngIf="benefit.attributeValue === 'true'"  [name]="benefit.name" [icon]="benefit.icon"/>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline w-100" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill w-100" (click)="deleteRoom()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>
+

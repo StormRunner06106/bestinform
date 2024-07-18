@@ -1,0 +1,72 @@
+<div class="car-rentals-header">
+</div>
+
+<div class="content-container">
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center my-4">
+            <h2>{{'TRANSPORT.CAR_RENT' | translate}}</h2>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6 form-col">
+
+                <form [formGroup]="rentalForm">
+
+                    <h4 class="mb-0"><i class="fas fa-car me-2"></i> {{'TRANSPORT.SET-PICK-LOCATION'| translate}}</h4>
+                    <mat-form-field appearance="standard" class="w-100 mb-2">
+                        <mat-label>{{'TRANSPORT.PICK-LOCATION'| translate}}</mat-label>
+                        <input matInput placeholder="Pick-up location" formControlName="pickUpLocation">
+                        <i matSuffix class="fas fa-globe"></i>
+                        <mat-error *ngIf="rentalForm.get('pickUpLocation').hasError('required')">
+                            {{'ERROR.REQUIRED'| translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <h4 class="mb-0"><i class="fas fa-car me-2"></i> {{'TRANSPORT.SET-DROP-OFF-LOCATION'| translate}}</h4>
+                    <mat-form-field appearance="standard" class="w-100 mb-2">
+                        <mat-label> {{'TRANSPORT.DROP-OFF-LOCATION'| translate}}</mat-label>
+                        <input matInput placeholder="Drop off location" formControlName="dropOffLocation">
+                        <i matSuffix class="fas fa-globe"></i>
+                        <mat-error *ngIf="rentalForm.get('dropOffLocation').hasError('required')">
+                            {{'ERROR.REQUIRED'| translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <h4 class="mb-0"><i class="fas fa-calendar-alt me-2"></i> {{'TRANSPORT.SELECT-DATES'| translate}}</h4>
+
+                    <mat-form-field appearance="standard" class="mb-2 w-100">
+                        <mat-label>{{'TRANSPORT.DEPARTURE-DATE'| translate}}</mat-label>
+                        <input [min]="minDate" formControlName="pickUpDate" matInput [matDatepicker]="pickerDepartureDate">
+                        <mat-datepicker-toggle matSuffix [for]="pickerDepartureDate">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #pickerDepartureDate></mat-datepicker>
+                        <mat-error *ngIf="rentalForm.get('pickUpDate').hasError('required')">
+                            {{'ERROR.REQUIRED'| translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!--Return date-->
+                    <mat-form-field appearance="standard" class="w-100  mb-2">
+                        <mat-label>{{'TRANSPORT.RETURN-DATE'| translate}}</mat-label>
+                        <input [min]="rentalForm.get('pickUpDate').value" formControlName="dropOffDate" matInput [matDatepicker]="pickerReturnDate">
+                        <mat-datepicker-toggle matSuffix [for]="pickerReturnDate">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #pickerReturnDate></mat-datepicker>
+                        <mat-error *ngIf="rentalForm.get('dropOffDate').hasError('required')">
+                            {{'ERROR.REQUIRED'| translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <button type="button" class="btn-long btn-color-fill w-100" (click)="checkAvailability()" >
+                        <i class="fas fa-search"></i>
+                        {{'TRANSPORT.CHECK-AVAILABILITY'| translate}}
+                    </button>
+                </form>
+            </div>
+            <div class="col-12 col-lg-6 img-col">
+                <img src="assets/images/others/images-client/car-rentals.png">
+            </div>
+        </div>
+    </div>
+</div>

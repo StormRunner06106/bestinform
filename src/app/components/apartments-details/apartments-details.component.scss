@@ -1,0 +1,311 @@
+.apartments-details-container {
+  .apartments-title {
+    font-weight: 900;
+  }
+
+  .filter-option {
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px 16px;
+    border: 1px solid #d5d6e2;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 2px 2px 14px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+::ng-deep {
+  .room-group .p-card .p-card-body {
+      padding: 0;
+    }
+  .room-group {
+    .p-card-body {
+      height: 450px;
+    }
+    .p-card-content, .room-card {
+      height: 100%;
+    }
+  }
+
+  .room-group .p-card .p-card-body .p-card-content {
+      padding: 0;
+  }
+  .room-group .p-card.p-component {
+    border-radius: 16px;
+  }
+  .room-option-details .p-carousel-item {
+    margin: 0!important;
+  }
+  .room-option-details .p-carousel-container .p-carousel-prev {
+    transform: translate(calc(-50% - 0.5rem), 0px);
+    left: 0!important;
+  }
+  .room-option-details .no-carousel-2 .p-carousel-items-content {
+    display: flex;
+    justify-content: center;
+  }
+  .room-option-details .no-carousel-2 .p-carousel-items-container {
+    width: 66%;
+  }
+  .room-option-details .p-carousel-container .p-carousel-next {
+    transform: translate(calc(50% + 0.5rem), 0px);
+    right: 0!important;
+  }
+  .room-option-details .rezerva {
+      background: #4257EE !important;
+  }
+  //.room-option-details .p-card.p-component {
+  //  height: 100%;
+  //}
+  //.room-option-details .p-card .p-card-body .p-card-content  {
+  //  padding: 1.5rem;
+  //}
+  //.room-option-details .p-card .p-card-body {
+  //  padding: 1.5rem;
+  //}
+  //.room-option-details .p-card.p-component {
+  //  border-radius: 0px;
+  //}
+  //.room-option-details .p-carousel-items-container {
+  //  padding: 1.5rem;
+  //}
+
+}
+
+.room-image-main-radius {
+  border-radius: 16px 0 0 16px;
+}
+
+:host ::ng-deep {
+  .p-carousel-item {
+      border: 1px solid var(--surface-d);
+      border-radius: 1rem;
+      margin: .3rem;
+      text-align: left;
+      padding: 2rem;
+      font-size: 16px;
+      //height: 320px;
+    }
+
+    .product-image {
+      width: 50%;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+}
+.no-carousel-item {
+  border: 1px solid var(--surface-d);
+  border-radius: 3px;
+  margin: .3rem;
+  text-align: center;
+  padding: 2rem 0;
+}
+::ng-deep .no-carousel-items-1 .p-carousel-container {
+  width: 33% !important;
+}
+::ng-deep .no-carousel-items-2 .p-carousel-container {
+  width: 66% !important;
+}
+::ng-deep .no-carousel-items-1 .p-carousel-content {
+  align-items: center;
+}
+::ng-deep .no-carousel-items-2 .p-carousel-content {
+  align-items: center;
+}
+::ng-deep font-16 {
+  font-size: 16px!important;
+}
+::ng-deep font-14 {
+  font-size: 14px!important;
+}
+.rezerva {
+  background: #4257EE !important;
+}
+::ng-deep .rooms-dropdown .p-dropdown {
+  width: 100%;
+  height: 100%;
+}
+.action {
+  position: relative;
+  bottom: 10%;
+  left: 55%;
+}
+:host ::ng-deep {
+  // Since we have a bug with carousel arrows ( it's visible in search component ), we need to increase z-index of gallery modal
+  .p-galleria-mask {
+    z-index: 99999!important;
+  }
+
+  .p-galleria .p-galleria-item-nav {
+    transform: translateY(-50%);
+  }
+  .p-galleria .p-galleria-item-nav .p-galleria-item-prev-icon,
+  .p-galleria .p-galleria-item-nav .p-galleria-item-next-icon {
+    color: white;
+  }
+  .custom-galleria.p-galleria .p-galleria-thumbnail-wrapper {
+    display: none;
+  }
+  .custom-galleria {
+    &.p-galleria {
+      .p-galleria-content {
+        position: relative;
+      }
+
+      .p-galleria-thumbnail-wrapper {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+
+      .p-galleria-thumbnail-items-container {
+        width: 100%;
+      }
+
+      .custom-galleria-footer {
+        display: flex;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.9);
+        color: #ffffff;
+
+        button {
+          background-color: transparent;
+          color: #ffffff;
+          border: 0 none;
+          border-radius: 0;
+          margin: 0.2rem 0;
+
+          &.fullscreen-button {
+            margin-left: auto;
+          }
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+        }
+      }
+
+      .title-container {
+        > span {
+          font-size: 0.9rem;
+          padding-left: 0.829rem;
+
+          &.title {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+.custom-chip {
+  background: hsla(240, 19%, 94%, 1);
+  color: #495057;
+  border-radius: 4px;
+  padding: 6px;
+  gap: 4px;
+  height: 1.25rem;
+  align-items: center;
+}
+.room-amenity-description {
+  height: 2rem;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  align-content: center;
+}
+h4, h5, h2 {
+  color: #4257EE!important;
+}
+.action-overlay {
+  background: linear-gradient(360deg, rgba(17, 17, 24, 0.7) 0%, rgba(37, 57, 138, 0) 140.43%);
+  width: 100%;
+  height: 48px;
+  text-align: center;
+  align-content: center;
+  color: white;
+  transform: translate(0, -100%);
+  border-radius: 0 0 0 16px;
+}
+
+.room-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.size-adjust {
+  flex: 0 0 auto;
+}
+
+
+.images-text {
+  font-size: 1rem;
+}
+
+.adjust-padding {
+  padding: 1rem;
+}
+
+.room-amenities {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+
+}
+
+
+@media(max-width: 981px) {
+  .room-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .size-adjust {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 262px;
+  }
+  .room-image-main-radius {
+    border-radius: 16px 16px 0 0;
+  }
+  .action-overlay {
+    text-align: left;
+  }
+  .images-text {
+    margin-left: 16px;
+  }
+  .width {
+    width: 100%;
+  }
+  .w-70 {
+    width: 70%;
+  }
+  .adjust-padding {
+    padding: 16px;
+  }
+}
+
+.amenities {
+  overflow-x: auto;
+  width: 100%;
+  overflow-y: hidden;
+  height: 2rem;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,.8);
+    border-radius: 10px;
+
+    &:hover {
+      background: rgba(255,255,255,.8);
+    }
+    &:active{
+      background: #888888;
+    }
+  }
+}

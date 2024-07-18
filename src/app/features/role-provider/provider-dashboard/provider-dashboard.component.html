@@ -1,0 +1,36 @@
+<div class="container my-5">
+        <p class="title-p">
+            {{'TITLES.CONTROL-PANEL' | translate}}
+        </p>
+
+        <div class="dashboard-cards">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="balance" role="button" id="toBalance" [routerLink]="'../reservations/list'" [queryParams]="{resourceid: resourcesList[0]?.id}">
+                        <p class="title-for-card m-0">{{'TITLES.BOOKINGS' | translate}}</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <!-- <div class="bookings"  role="button" id="toBookings" routerLink="../reservations/my-list"> -->
+                        <div class="bookings"  role="button" id="toBookings" routerLink="../profile/view">
+                        <p class="title-for-card m-0">{{'GENERAL.MY-PROFILE' | translate}}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-6" *ngIf="user?.approvedStatus === 'active'">
+                    <div class="resources" role="button" id="toResources" routerLink="../resources/my-list">
+                        <p class="title-for-card m-0">{{'TITLES.RESOURCES' | translate}}</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6" *ngIf="user?.approvedStatus === 'active'">
+                    <div class="events" role="button" id="toEvents" routerLink="../events/list">
+                        <p class="title-for-card m-0">{{'TITLES.EVENTS' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>

@@ -1,0 +1,115 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>{{isEditMode ? 'Editare bilet' : 'Adăugare bilet'}}</h2>
+        <button type="button" class="btn-long btn-color-fill" (click)="close()">
+            <i class="fas fa-arrow-left me-2"></i> Înapoi
+        </button>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+        <form [formGroup]="ticketForm">
+            <div class="row mb-3">
+                <h3 class="section-name">Informatii generale</h3>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>Denumire</mat-label>
+                        <input matInput placeholder="Denumire" formControlName="name">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                    <mat-label>Nr. tickete disponibile</mat-label>
+                    <input matInput placeholder="Nr. tickete disponibile" formControlName="ticketsLimit" type="number">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="w-100" appearance="legacy">
+                        <mat-label>Pret (EUR/persoana)</mat-label>
+                        <input matInput placeholder="Pret obisnuit" type="number" formControlName="regularPrice">
+                    </mat-form-field>
+                </div>
+
+<!--                <div class="col-12 col-md-6">-->
+<!--                    <mat-form-field class="w-100" appearance="legacy">-->
+<!--                        <mat-label>Pret de weekend (EUR/persoana)</mat-label>-->
+<!--                        <input matInput placeholder="Pret pentru weekend" type="number" formControlName="weekendPrice">-->
+<!--                    </mat-form-field>-->
+<!--                </div>-->
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6 col-12">
+                    <!--Category Name-->
+                    <h3 class="section-name">Politici de rezervare</h3>
+                    <mat-error *ngIf="ticketForm.get('bookingPolicies').hasError('requireCheckboxesToBeChecked') && ticketForm.get('bookingPolicies').touched">
+                        You have to check one
+                    </mat-error>
+
+                    <!--Checkboxes-->
+                    <div class="d-flex flex-column" formGroupName="bookingPolicies">
+                        <mat-checkbox formControlName="depositRequired" (change)="bookingPolicyEdit($event.checked, 'depositRequired')">Se cere depozit</mat-checkbox>
+                        <div class="row" *ngIf="ticketForm.get('bookingPolicies').get('depositRequired').value === true">
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Depozit (%)</mat-label>
+                                <input matInput type="text" formControlName="depositRequiredPercentage" (ngModelChange)="checkDepositType('percentage')">
+                                <mat-error *ngIf="ticketForm.get('bookingPolicies').get('depositRequiredPercentage').hasError('pattern')">
+                                    Sunt acceptate doar numere cuprinse între 1 și 100.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Depozit (EUR)</mat-label>
+                                <input matInput type="text" formControlName="depositRequiredAmount" (ngModelChange)="checkDepositType('amount')">
+                                <mat-error *ngIf="ticketForm.get('bookingPolicies').get('depositRequiredAmount').hasError('pattern')">
+                                    Sunt acceptate doar numere mai mari ca 0.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                        <mat-checkbox formControlName="advanceFullPayment" (change)="bookingPolicyEdit($event.checked, 'advanceFullPayment')">Plata completa in avans</mat-checkbox>
+                        <mat-checkbox formControlName="advancePartialPayment" (change)="bookingPolicyEdit($event.checked, 'advancePartialPayment')">Plata partiala in avans</mat-checkbox>
+
+                        <mat-form-field appearance="standard" class="w-100" *ngIf="ticketForm.get('bookingPolicies').get('advancePartialPayment').value">
+                            <mat-label>Avans (%)</mat-label>
+                            <input matInput type="text" formControlName="advancePartialPaymentPercentage">
+                            <mat-error *ngIf="ticketForm.get('bookingPolicies').get('advancePartialPaymentPercentage').hasError('pattern')">
+                                Sunt acceptate doar numere cuprinse între 1 și 100.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+
+
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill" (click)="confirm()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>

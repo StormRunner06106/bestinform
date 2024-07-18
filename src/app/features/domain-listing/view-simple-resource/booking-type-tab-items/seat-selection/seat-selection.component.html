@@ -1,0 +1,38 @@
+<ng-container *ngIf="culturalRoom && resourceData; else noCulturalRoomFound">
+    <p class="booking-section-title">
+        Select your seats
+    </p>
+
+    <app-seats-viewer [culturalRoom]="culturalRoom" (seatSelection)="handleSeatSelection($event)"></app-seats-viewer>
+
+    <div *ngIf="selectedSeats.length > 0" class="seat-price-footer d-flex justify-content-between align-items-center">
+        <div class="d-flex flex-column align-items-start">
+            <p>
+                Total price: €{{ totalPrice }}
+            </p>
+
+            <p>
+                Selected seats:
+                <ng-container *ngFor="let seat of selectedSeats; let last = last">
+                    {{ seat.rowLabel + '_' + seat.seatColumnLabel }}
+                    <ng-container *ngIf="!last">
+                        ,
+                    </ng-container>
+                </ng-container>
+            </p>
+        </div>
+
+        <button type="button" class="btn-auto btn-color-fill"
+                (click)="confirmSeats()">
+            <i class="fas fa-check"></i>
+            Reserve now
+        </button>
+    </div>
+
+</ng-container>
+
+<ng-template #noCulturalRoomFound>
+    <h3 class="text-center">
+        {{ "TOAST.BOOKING.NOT_FOUND" | translate }}
+    </h3>
+</ng-template>

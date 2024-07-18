@@ -1,0 +1,67 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="{{'TITLES.STAFF-MEMBERS-LIST' | translate}}"
+                          [buttonBackRoute]="'../../dashboard'"
+                          [buttonAddRoute]="'../../manage-staff/add'">
+    </app-dashboard-header>
+
+    <div *ngIf="usersLoaded" class="card">
+        <div class="card-header border-0 d-flex w-100 justify-content-between align-items-center">
+            <mat-form-field class="example-full-width w-100" appearance="legacy">
+                <mat-label>{{'GENERAL.SEARCH' | translate}}</mat-label>
+                <input #searchBar (keydown.enter)="search(searchBar.value, $event)" matInput placeholder="{{'GENERAL.SEARCH' | translate}}"
+                       type="text">
+                <mat-icon matSuffix (click)="search(searchBar.value, $event)">search</mat-icon>
+            </mat-form-field>
+
+            <!-- <mat-form-field appearance="standard">
+                <mat-select [(value)]="pageSize" (selectionChange)="getUsers()">
+                    <mat-option *ngFor="let size of pageSizeArray" [value]="size">
+                        {{size}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+
+            <!--<a mat-button [matMenuTriggerFor]="countsMenu" #countsMenuTrigger="matMenuTrigger">
+                {{pageSize}}<mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+            </a>
+            <mat-menu #countsMenu="matMenu" xPosition="after" overlapTrigger="true">
+                    <span (mouseleave)="countsMenuTrigger.closeMenu()">
+                        <button mat-menu-item *ngFor="let size of pageSizeArray" (click)="changeCount(count)">
+                            <span>{{size}}</span>
+                        </button>
+                    </span>
+            </mat-menu>-->
+
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div *ngFor="let user of usersList; let i = index" class="col-12 col-md-6 col-lg-4">
+                    <app-staff-card [user]="user" [index]="i" (accountDeactivated)="getUsers()"
+                                    (accountDeleted)="getUsers()" (accountActivated)="getUsers()"></app-staff-card>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer border-0 d-flex justify-content-between align-items-center">
+            <!-- <p>Showing {{pageSize}} of {{paginationInfo.totalElements}} entries</p> -->
+
+            <!-- <ngb-pagination [collectionSize]="paginationInfo.totalElements"
+                            [pageSize]="pageSize"
+                            [(page)]="pageNumber"
+                            [maxSize]="3"
+                            [boundaryLinks]="false"
+                            (pageChange)="getUsers()"
+            ></ngb-pagination> -->
+
+            <!--Pagination-->
+            <mat-paginator class="w-100"
+                           [pageSizeOptions]="pageSizeArray"
+                           [length]="paginationInfo.totalElements"
+                           [pageSize]="pageSize"
+                           (page)="pageChanged($event)">
+            </mat-paginator>
+        </div>
+    </div>
+
+</div>

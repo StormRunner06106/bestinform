@@ -1,0 +1,70 @@
+.menu-filter {
+  @media (max-width: 980px) {
+    padding: 0px 0px 0px 5px;
+
+  }
+  padding: 15px 0px 0px 40px;
+}
+
+.card-content {
+  padding: 40px;
+  display: grid;
+  justify-items: start;
+  grid-template-columns: 50% 50%;
+  gap: 30px;
+}
+
+@media (max-width: 980px) {
+  .card-content {
+    padding: 0;
+    grid-template-columns: 100%;
+  }
+
+  .menu-filter {
+    display: flex;
+    overflow: auto;
+    flex-direction: row;
+    /* Hide scrollbar for Webkit and Blink browsers like Safari, Chrome, and newer versions of Edge */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge, and Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+
+.p-card .p-card-content {
+
+  padding: 0px 0px 0px 15px;
+}
+:host .menu-filter {
+  ::ng-deep .menu-filter-items {
+    .p-component,
+    .p-component {
+      display: flex;
+      gap: 20px;
+      justify-content: start;
+    }
+
+    .p-buttonset .p-button {
+      border-right: 1px solid #ced4da;
+      border-radius: 8px;
+      width: fit-content;
+      height: 36px;
+    }
+
+    .p-selectbutton .p-button.p-highlight:hover {
+      background: #a2add0;
+      border-color: #4257EE;
+      color: #4257EE;
+    }
+    .p-selectbutton .p-button.p-highlight {
+      background: #a2add0;
+      border-color: #4257EE;
+      color: #4257EE;
+    }
+  }
+}

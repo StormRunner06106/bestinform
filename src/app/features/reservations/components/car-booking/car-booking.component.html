@@ -1,0 +1,24 @@
+<p>{{ "RESERVATION.START-DATE" | translate}}</p>
+<h4>{{carRentList.time.start | date: 'dd/MM/YYYY HH:mm'}}</h4>
+
+<p>{{ "RESERVATION.END-DATE" | translate}}</p>
+<h4>{{carRentList.time.end| date: 'dd/MM/YYYY HH:mm'}}</h4>
+
+    <div *ngFor="let carItem of carRentList.cars">
+
+        <p>{{ "RESERVATION.CAR-NUMBER" | translate}}</p>
+        <h4>{{carItem.itemId}}</h4>
+
+        <p>{{ "RESERVATION.TICKET-QUANTITY" | translate}}</p>
+        <h4>{{carItem.quantity}}</h4>
+
+        <p>{{ "RESERVATION.PRICE" | translate}}</p>
+        <h4>{{carItem.price}}</h4>
+    </div>
+
+    <!-- <div *ngIf="carRentList.specialRequest.trim() !== ''"> -->
+    <div>
+        <h3>Cerințe speciale</h3>
+        <p>{{carRentList.specialRequest !== null ? carRentList.specialRequest : 'Nu exista cerințe speciale!'}}</p>
+    </div>
+

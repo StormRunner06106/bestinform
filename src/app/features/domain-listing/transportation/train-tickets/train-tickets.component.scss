@@ -1,0 +1,143 @@
+
+@import "src/app/theme/styles/components/_colors.scss";
+
+.content-container {
+    background-color: var(--primary-background);
+    padding-top: 48px;
+    padding-bottom: 48px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    row-gap: 64px;
+  }
+  .train-tickets-header{
+    background: url("../../../../../assets/images/others/images-client/train-ticket-hp.jpg") center no-repeat;
+    background-size: cover;
+    height:768px;
+  }
+
+  h4{
+    font-weight: 700;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #231F20;
+    margin-bottom: 13px;
+    i{
+      margin-right:5px;
+    }
+  }
+
+.img-container{
+        background: url("../../../../../assets/images/others/images-client/train-side.jpg") center no-repeat;
+        background-size: cover;
+  }
+
+  .ticket-type-group{
+    mat-button-toggle-group{
+      // width: 100%;
+      border: 1px solid $primary-color;
+      border-radius: 8px;
+      background: var(--primary-background);
+      margin-bottom: 48px;
+
+      .mat-button-toggle{
+        // width: 50%;
+        color: $primary-color;
+        border:1px solid var(--primary-background);
+
+
+        &:focus, &:active, &:checked {
+          border:1px solid var(--primary-background);
+          background: $primary-color!important;
+          border-radius: 100px;
+          color:var(--primary-background);
+        }
+
+      }
+    }
+
+    .mat-button-toggle-checked {
+    background-color: $primary-color !important;
+    color: $background-primary !important;
+    border: 1px solid var(--primary-background);
+    border-radius: 8px;
+    }
+  }
+
+  //set travel class
+  .travel-class-group{
+    display: flex;
+    justify-content: space-between;
+    border:none!important;
+    margin-bottom: 13px;
+    flex-wrap: wrap;
+
+    .mat-button-toggle{
+      color: $primary-color;
+      background-color: white;
+      border: 1px solid $primary-color!important;
+      border-radius: 8px;
+      min-width: 120px;
+
+    }
+    .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+      background-color: $primary-color;
+      color: white;
+    }
+  }
+
+  .noPassengers{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 12px;
+    margin-bottom: 13px;
+    gap: 56px;
+    // width: 756px;
+    height: 52px;
+    background: #FFFFFF;
+    border: 1px solid rgba(36, 57, 138, 0.24);
+    border-radius: 8px;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+
+    button{
+      background-color: white;
+      color: $primary-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 35px;
+      width: 35px;
+      border: 1px solid rgba(36, 57, 138, 0.24);
+      border-radius: 8px;
+
+      &:hover {
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+        transition: ease-in-out 0.3s;
+      }
+
+     &:focus, &:active, &:checked {
+        background-color: $primary-color;
+        color: var(--primary-background);
+        transition: 0s;
+      }
+    }
+
+    p{
+      margin: 0px;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 0.1px;
+      color: $paragraph;
+    }
+  }
+
+.mat-form-field {
+  width: 100%;
+}

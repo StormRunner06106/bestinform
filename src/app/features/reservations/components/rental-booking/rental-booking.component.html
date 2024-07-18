@@ -1,0 +1,57 @@
+
+<p>{{"RESERVATION.CHECK-IN" | translate}}</p>
+<h4>{{rentalBooking?.start | date: 'dd/MM/YYYY'}}</h4>
+
+
+<p>{{"RESERVATION.CHECK-OUT" | translate}}</p>
+<h4>{{rentalBooking?.end | date: 'dd/MM/YYYY'}}</h4>
+
+<p>{{"RESERVATION.TOTAL-GUESTS" | translate}}</p>
+<h4>{{rentalBooking?.adults}} {{"RESERVATION.ADULTS" | translate}}, {{rentalBooking?.children}} {{"RESERVATION.CHILDREN" | translate}}</h4><!-- (13 {{"RESERVATION.YEARS-OLD" | translate}})-->
+
+<!-- <p>{{"RESERVATION.CHECK-OUT" | translate}}</p>
+<h4>{{rentalBooking?.end | date: 'dd/MM/YYYY'}}</h4> -->
+
+<div *ngFor="let item of rentalBooking?.items; let i = index;">
+    <h4>{{"RESERVATION.ROOM-INFO" | translate}} {{i+1}}: </h4>
+
+    <!-- <p>{{"RESERVATION.CODE" | translate}}</p>
+    <h4>{{item?.itemId}} </h4> -->
+
+    <p *ngIf="item?.name">{{"RESERVATION.NAME" | translate}}</p>
+    <h4 *ngIf="item?.name">{{item?.name}} </h4>
+
+    <p>{{"RESERVATION.QUANTITY" | translate}}</p>
+    <h4>{{item?.quantity}} </h4>
+    <!-- <p>{{"RESERVATION.TOTAL-PRICE" | translate}}</p>
+    <h4>{{item?.price}} RON</h4> -->
+</div>
+
+<!-- <div *ngIf="rentalBooking.specialRequest.trim() !== ''"> -->
+    <div>
+    <h3>Cerințe speciale</h3>
+    <p>{{rentalBooking?.specialRequest ? rentalBooking?.specialRequest : ("RESERVATIONS.NO_SPECIAL_REQUESTS" | translate)}}</p>
+</div>
+
+<!-- <p>{{"RESERVATION.LENGTH-OF-STAY" | translate}}</p>
+<h4>{{lengthOfStay}} {{"RESERVATION.NIGHTS" | translate}}</h4>
+
+<p>{{"RESERVATION.TOTAL-GUESTS" | translate}}</p>
+<h4>{{reservation?.rentalBooking?.adults}} {{"RESERVATION.ADULTS" | translate}}, {{reservation?.rentalBooking?.adults}} {{"RESERVATION.CHILDREN" | translate}} (13 {{"RESERVATION.YEARS-OLD" | translate}})</h4>
+
+<p>{{"RESERVATION.TOTAL-ROOMS" | translate}}</p>
+<h4>{{totalRooms}}</h4>
+
+<p>{{"RESERVATION.TOTAL-PRICE" | translate}}</p>
+<h4>{{reservation?.totalPrice}} RON</h4>
+
+
+<p>{{"RESERVATION.CHECK-IN" | translate}}</p>
+<h4>{{checkIn | date: 'd/M/y'}}</h4>
+
+<p *ngIf="checkOut">{{"RESERVATION.CHECK-OUT" | translate}}</p>
+<h4>{{checkOut | date: 'd/M/y'}}</h4>
+
+<p>{{"RESERVATION.TOTAL-GUESTS" | translate}}</p>
+<h4>{{rentalBooking?.adults}} {{"RESERVATION.ADULTS" | translate}}, {{rentalBooking?.adults}} {{"RESERVATION.CHILDREN" | translate}} (13 {{"RESERVATION.YEARS-OLD" | translate}})</h4>
+-->

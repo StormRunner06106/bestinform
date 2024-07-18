@@ -1,0 +1,66 @@
+@import "/src/app/theme/styles/components/colors";
+
+.content {
+  text-align: center;
+  align-self: center;
+
+  p.upper {
+    font-size: 16px;
+    color: var(--primary-background);
+  }
+
+  h1 {
+    color: $secondary-color;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 48px;
+  }
+
+  .preferences{
+
+    .attribute-name{
+      color: var(--primary-background);
+      font-size: 16px;
+      font-weight: 700;
+      text-align: start;
+    }
+
+    .attribute-chip{
+      border: 1px solid var(--primary-background);
+      border-radius: 100px;
+      padding: 16px 24px;
+      font-size: 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      color:var(--primary-background);
+
+      i.fa-plus{
+        color:var(--primary-background);
+      }
+
+      i.fa-times{
+        color: $primary-color;
+      }
+    }
+
+    .selected{
+      background: var(--primary-background);
+      color: $primary-color;
+    }
+  }
+
+  .footer-btns{
+    button{
+      margin-bottom: 60px;
+      border: none;
+      background: transparent;
+      color: var(--primary-background);
+      font-size: 24px;
+    }
+
+    i.fas {
+      line-height: unset;
+    }
+  }
+
+}

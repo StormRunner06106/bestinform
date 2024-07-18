@@ -1,0 +1,52 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne="{{ 'GENERAL.DELETE_ACCOUNT' | translate }}"
+                          [buttonBackRoute]="'..'">
+    </app-dashboard-header>
+    <div class="card">
+        <div class="card-header border-0">
+            <h3>
+                {{ 'GENERAL.DELETE_ACCOUNT' | translate }}
+            </h3>
+
+            <p class="mb-6">
+                {{ 'GENERAL.DELETE_ACCOUNT_WARNING' | translate }}
+            </p>
+        </div>
+
+        <div class="card-body">
+
+            <div *ngIf="currentUser$ | async as currentUser" class="user-info-container d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-2">
+                    <img class="profile-picture" [src]="currentUser.avatar.filePath" alt="profile-picture">
+
+                    <div class="user-info d-flex flex-column align-items-start justify-content-center">
+                        <h3>
+                            {{ currentUser.firstName + ' ' + currentUser.lastName}}
+                        </h3>
+
+                        <p>
+                            {{ currentUser.email }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="action-buttons d-flex gap-2">
+                    <button class="btn-long btn-color-outline" type="button" routerLink="..">
+                        <i class="fas fa-arrow-left"></i>
+                        {{ "BTN.DELETE_ABORT" | translate }}
+                    </button>
+
+                    <button class="btn-long btn-color-fill" type="button" (click)="deleteAccount(currentUser.id)">
+                        {{ "BTN.DELETE_CONFIRM" | translate }}
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer border-0">
+
+        </div>
+    </div>
+</div>

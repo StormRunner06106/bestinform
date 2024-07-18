@@ -1,0 +1,22 @@
+@import "/src/app/theme/styles/components/colors";
+
+.container-box{
+    background-color: var(--primary-background);
+    border: 1px solid rgba(36, 57, 138, 0.16);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    height: 524px;
+}
+.circle-cancelled-reservation{
+    background-color: var(--secondary-background);
+    border-radius: 50%;
+    height: 150px;
+    width:150px;
+    i{
+        font-style: normal;
+        font-weight: 900;
+        font-size: 48px;
+        color: #EA4335;
+    }
+}

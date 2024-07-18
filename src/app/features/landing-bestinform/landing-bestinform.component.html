@@ -1,0 +1,421 @@
+<!--                <div class="d-flex justify-content-center align-items-center w-100 eu-header">-->
+<!--                    <img src="assets/images/logos/fonduri-ue.png" class="w-25">-->
+<!--                    <p class="w-25 mb-0 text-small">Pentru informaţii-->
+<!--                        detaliate despre celelalte programe cofinanţate de Uniunea-->
+<!--                        Europeană, vă invităm să vizitaţi <a href="https://www.fonduri-ue.ro/" target="_blank">www.fonduri-ue.ro-->
+<!--                        </a></p>-->
+<!--                </div>-->
+<div id="landing-header-bar" class="container-fluid">
+    <div class="container">
+        <div class="py-4 d-flex justify-content-between align-items-center">
+            <a>
+                <img src="assets/Bestinform_logo.png" width="200px">
+            </a>
+            <select class="language" [(ngModel)]="pageLang" (change)="changeRoute(pageLang)">
+                <option value="en">EN</option>
+                <option value="ro">RO</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div  id="heroSection">
+    <div class="hero-background"></div>
+    <div class="container-fluid custom-container hero-content">
+        <div class="row justify-content-between align-items-center hero-wrap">
+            <div class="col-xl-8 hero-info">
+                <p class="hero-subtitle mb-0">{{hero.subtitle}}</p>
+                <h1 class="hero-title">{{hero.title}}</h1>
+                <p class="hero-text mb-0">{{hero.content}}</p>
+                <img src="assets/images/others/landing/blue-sep.png" alt="Rounded Shape Blue" class="rounded-shape-blue">
+
+            </div>
+            <div class="col-xl-4 hero-form">
+                <div class="form-box">
+                    <p class="form-title mb-0">{{form.title}}</p>
+                    <p class="form-subtitle mb-0">{{form.subtitle}}</p>
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form-inputs">
+                        <mat-form-field>
+                            <mat-label>{{form.name}}</mat-label>
+                            <input matInput formControlName="name" required>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>{{form.email}}</mat-label>
+                            <input matInput type="email" formControlName="email" required>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>{{form.phone}}</mat-label>
+                            <input matInput formControlName="telephone" required placeholder="Ex. 40756645342 / +40756645342">
+
+                        </mat-form-field>
+
+                        <p class="form-gdpr mb-0">
+                            <mat-checkbox formControlName="gdpr" color="primary" required>{{form.gdprInfo}}<span><a href="/content/privacy-policy" target="_blank">{{form.gdprBtn}}</a></span>
+                            </mat-checkbox>
+                        </p>
+
+
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+                        </div>
+                    </div>
+
+                    <button class="form-button" type="submit" (click)="onSubmit()" [disabled]="!contactForm.valid || isFormLoading || recaptcha.invalid">
+                        <ng-container *ngIf="isFormLoading===false">
+                            {{form.button}}
+                        </ng-container>
+                        <ng-container *ngIf="isFormLoading === true">
+                          <span [style.display]="'block'" class="indicator-progress">
+                            {{form.button}}...{{ " " }}
+                              <span
+                                      class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                          </span>
+                        </ng-container>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <img src="assets/images/others/landing/round-shape.png" alt="Rounded Shape" class="rounded-shape-white">
+
+    </div>
+</div>
+<div id="whoWeAre">
+    <div class="custom-container">
+        <h2>{{whoWeAre.title}}</h2>
+        <h3>{{whoWeAre.subtitle}}</h3>
+        <p class="main-content">{{whoWeAre.content}}</p>
+
+        <div class="carousel-wrap">
+            <owl-carousel-o [options]="customOptions">
+                <ng-container *ngFor = "let item of whoWeAre.carouselItems; let i=index">
+                    <ng-template carouselSlide>
+                        <div class="carousel-item-box">
+                            <div class="img-wrap">
+                                <img [src]="item.icon" alt="icon resource types" class="img-fluid" />
+                            </div>
+                            <p class="mb-0">{{item.text}}</p>
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+        </div>
+
+    </div>
+
+</div>
+<div id="benefits">
+    <div class="custom-container">
+        <h2>{{benefits.title}}</h2>
+        <img src="assets/images/others/landing/bestinform-app.png" alt="bestinform app" class="app-photo" />
+        <div class="desktop-benefits">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 benefit-item" *ngFor="let item of benefits.items; let i = index">
+                    <p class="b-counter">{{i+1}}</p>
+                    <h5>{{item.title}}</h5>
+                    <p class="b-content">{{item.content}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-benefits">
+            <div class="row">
+                <div class="col-6 benefit-col">
+                    <div *ngFor="let item of benefits.items; let i = index">
+                        <ng-container *ngIf="i % 2 === 0"> <!-- Check if index is even -->
+                            <p class="b-counter">{{i+1}}</p>
+                            <h5>{{item.title}}</h5>
+                            <p class="b-content">{{item.content}}</p>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-6 benefit-col">
+                    <div *ngFor="let item of benefits.items; let i = index">
+                        <ng-container *ngIf="i % 2 === 1"> <!-- Check if index is odd -->
+                            <p class="b-counter">{{i+1}}</p>
+                            <h5>{{item.title}}</h5>
+                            <p class="b-content">{{item.content}}</p>
+                        </ng-container>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="formSection">
+    <div class="custom-container">
+        <div class="row">
+            <div class="col ctaCol">
+                <div class="ctaContent">
+                    <h2>{{cta.title}}</h2>
+                    <h3>{{cta.subtitle}}</h3>
+                </div>
+            </div>
+            <div class="col formCol">
+                <div class="form-box">
+                    <p class="form-title mb-0">{{form.title}}</p>
+                    <p class="form-subtitle mb-0">{{form.subtitle}}</p>
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form-inputs">
+                        <mat-form-field>
+                            <mat-label>{{form.name}}</mat-label>
+                            <input matInput formControlName="name" required>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>{{form.email}}</mat-label>
+                            <input matInput type="email" formControlName="email" required>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>{{form.phone}}</mat-label>
+                            <input matInput formControlName="telephone" required placeholder="Ex. 40756645342 / +40756645342">
+                        </mat-form-field>
+
+                        <p class="form-gdpr mb-0">
+                            <mat-checkbox formControlName="gdpr" color="primary" required>{{form.gdprInfo}}<span><a href="/content/privacy-policy" target="_blank">{{form.gdprBtn}}</a></span>
+                            </mat-checkbox>
+                        </p>
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+                        </div>
+                    </div>
+                    <button class="form-button" type="submit" (click)="onSubmit()"  [disabled]="!contactForm.valid || isFormLoading || recaptcha.invalid">
+                        <ng-container *ngIf="isFormLoading===false">
+                            {{form.button}}
+                        </ng-container>
+                        <ng-container *ngIf="isFormLoading === true">
+                          <span [style.display]="'block'" class="indicator-progress">
+                            {{form.button}}...{{ " " }}
+                              <span
+                                      class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                          </span>
+                        </ng-container>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="aboutUs">
+    <div class="custom-container">
+        <div class="title-area">
+            <h2 class="text-center">{{aboutUs.title}}</h2>
+            <h3 class="text-center">{{aboutUs.subtitle}}</h3>
+            <h4 class="text-center">{{aboutUs.subSubtitle}}</h4>
+        </div>
+        <div class="d-flex square-info">
+            <div class="column left-column">
+                <div class="item" *ngFor="let item of aboutUs.items.slice(0, 2)">
+                    <h5>{{item.title}}</h5>
+                    <p>{{item.content}}</p>
+                </div>
+            </div>
+            <div class="center-image">
+                <img src="assets/images/others/landing/Layer_1.png" alt="about us square" />
+            </div>
+            <div class="column right-column">
+                <div class="item" *ngFor="let item of aboutUs.items.slice(2, 4)">
+                    <h5>{{item.title}}</h5>
+                    <p>{{item.content}}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="services">
+    <div class="custom-container">
+        <h3>{{services.title}}</h3>
+        <h4>{{services.subtitle}}</h4>
+        <div class="row services-row">
+            <div class="col service-col" *ngFor="let item of services.items">
+                <div class="img-wrapper">
+                    <img [src]="item.photo" alt="service image"/>
+                </div>
+                <div class="service-content">
+                    <h5>{{item.title}}</h5>
+                    <p>{{item.content}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="features">
+    <div class="custom-container">
+        <div class="row align-items-center main-features">
+            <div class="col image-col">
+                <img [src]="features.image" alt="app photo" class="img-fluid"/>
+            </div>
+            <div class="col info-col">
+                <h5>{{features.smallTitle}}</h5>
+                <h2>{{features.title}}</h2>
+                <p>{{features.content}}</p>
+            </div>
+        </div>
+        <div class="row features-items">
+            <div class="col feature-item" *ngFor="let item of features.items">
+                <div class="d-flex">
+                    <div class="icon-wrapp">
+                        <img [src]="item.icon" alt="feature icon" class="img-fluid" />
+                    </div>
+                    <div class="feature-info">
+                        <h5>{{item.title}}</h5>
+                        <p>{{item.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="experience">
+    <div class="custom-container">
+        <div class="experience-box">
+            <div class="exp-title">
+                <h2>{{experience.title}}</h2>
+            </div>
+            <div class="exp-content">
+                <p class="mb-0">
+                    {{experience.mainContent}}
+                </p>
+            </div>
+        </div>
+        <div class="experience-info">
+            <p>{{experience.secondContent}}</p>
+        </div>
+        <div class="experience-items">
+            <div class="item" *ngFor="let item of experience.items">
+                <div class="item-content">
+                    <div class="point"></div>
+                    <div class="item-text">
+                        <h5>{{item.title}}</h5>
+                        <p>{{item.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="dataGrid" class="grid-container">
+    <div class="col percent-col light-blue-col">
+        <div>
+            <img [src]="dataBlocks.icon" alt="percent icon" class="img-fluid"/>
+            <h5>{{dataBlocks.titleOne}}</h5>
+            <p>{{dataBlocks.contentOne}}</p>
+        </div>
+    </div>
+    <div class="col title-col dark-blue-col">
+        <div>
+            <h2>{{dataBlocks.titleTwo}}</h2>
+        </div>
+    </div>
+    <div class="col points-col dark-blue-col">
+        <div>
+            <div class="item" *ngFor="let item of dataBlocks.points">
+                <div class="item-content">
+                    <div class="point"></div>
+                    <div class="item-text">
+                        <h5>{{item.title}}</h5>
+                        <p>{{item.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col graph-col light-blue-col">
+        <div>
+            <h2>{{dataBlocks.titleThree}}</h2>
+            <img [src]="dataBlocks.image" alt="graph image" class="img-fluid" />
+            <p>{{dataBlocks.contentTwo}}</p>
+        </div>
+    </div>
+</div>
+<div id="formSectionTwo">
+    <div class="custom-container">
+        <div class="row">
+            <div class="col ctaCol">
+                <div class="ctaContent">
+                    <h2>{{cta.title}}</h2>
+                    <h3>{{cta.subtitle}}</h3>
+                </div>
+            </div>
+            <div class="col formCol">
+                <div class="form-box">
+                    <p class="form-title mb-0">{{form.title}}</p>
+                    <p class="form-subtitle mb-0">{{form.subtitle}}</p>
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form-inputs">
+                        <mat-form-field>
+                            <mat-label>{{form.name}}</mat-label>
+                            <input matInput formControlName="name" required>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>{{form.email}}</mat-label>
+                            <input matInput type="email" formControlName="email" required>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>{{form.phone}}</mat-label>
+                            <input matInput formControlName="telephone" required placeholder="Ex. 40756645342 / +40756645342">
+                        </mat-form-field>
+
+                        <p class="form-gdpr mb-0">
+                            <mat-checkbox formControlName="gdpr" color="primary" required>{{form.gdprInfo}}<span><a href="/content/privacy-policy" target="_blank">{{form.gdprBtn}}</a></span>
+                            </mat-checkbox>
+                        </p>
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+                        </div>
+                    </div>
+                    <button class="form-button" type="submit" (click)="onSubmit()"  [disabled]="!contactForm.valid || isFormLoading || recaptcha.invalid">
+                        <ng-container *ngIf="isFormLoading===false">
+                            {{form.button}}
+                        </ng-container>
+                        <ng-container *ngIf="isFormLoading === true">
+                          <span [style.display]="'block'" class="indicator-progress">
+                            {{form.button}}...{{ " " }}
+                              <span
+                                      class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                          </span>
+                        </ng-container>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="cta">
+    <div class="custom-container">
+        <h4>{{ctaFooter.title}}</h4>
+    </div>
+</div>
+<div class="footer d-flex flex-column justify-content-between align-items-center">
+    <img src="assets/images/logos/Logo%20-%20White.png" width="165px">
+    <div class="social-media">
+        <a href="https://www.facebook.com/profile.php?id=100076116217462" target="_blank">
+            <i class="fab fa-facebook-f me-3"></i>
+        </a>
+
+        <a href="https://www.instagram.com/bestinform.eu " target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+    <p *ngIf="pageLang === 'en'" class="mb-0">© 2023 Bestinform | All rights reserved.</p>
+    <p *ngIf="pageLang === 'ro'" class="mb-0">© 2023 Bestinform | Toate drepturile rezervate.</p>
+</div>
+<div class="d-flex justify-content-center align-items-center w-100 eu-header">
+    <img src="assets/images/logos/fonduri-ue.png" class="w-25">
+    <p class="w-25 mb-0 text-small">Pentru informaţii
+        detaliate despre celelalte programe cofinanţate de Uniunea
+        Europeană, vă invităm să vizitaţi <a href="https://www.fonduri-ue.ro/" target="_blank">www.fonduri-ue.ro
+        </a></p>
+</div>

@@ -1,0 +1,104 @@
+@import "../../../theme/styles/components/colors";
+
+p{
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 140%;
+    /* identical to box height, or 17px */
+
+    display: flex;
+    align-items: center;
+    color: #4257EE;
+    margin-bottom: 0px;
+}
+
+.conv-item-card{
+    //align-items: center;
+    padding: 8px 16px 8px 8px;
+    gap: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 4px 4px 12px 8px rgba(35, 31, 32, 0.08);
+    border-radius: 8px;
+
+    .first-half-conv-item{
+        img{
+            width: 58px;
+            height: 58px;
+            border-radius: 100px;
+        }
+
+        h4{
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 140%;
+            display: flex;
+            align-items: center;
+            color:$paragraph;
+        }
+
+        p{
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 140%;
+            display: flex;
+            align-items: center;
+            opacity: 0.5;
+            max-width: 600px;
+        }
+    }
+
+    .second-half-conv-item{
+        p{
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 140%;
+            display: flex;
+            align-items: center;
+            color: $paragraph;
+            opacity: 0.5;
+        }
+
+
+    }
+    //the part with leave and join buttons
+    .conv-handling-class{
+
+        h5{
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 140%;
+            /* or 22px */
+
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.02em;
+
+            &.chat-controlled-by-you{
+                color: $primary-color;
+            }
+
+            &.chat-controlled-by-others{
+                color: $paragraph;
+            }
+        }
+
+        p{
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 140%;
+            display: flex;
+            align-items: center;
+            opacity: 0.5;
+            max-width: 600px;
+        }
+
+        button{
+            min-width:110px;
+            // min-width:auto;
+            // max-width: 120px;
+        }
+    }
+
+
+}

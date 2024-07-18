@@ -1,0 +1,169 @@
+@import "/src/app/theme/styles/components/colors";
+
+.page-header {
+  margin-top: 64px;
+  margin-bottom: 40px;
+  row-gap: 1rem;
+
+  h2 {
+    margin: 0;
+    color: $primary-color;
+    font-weight: 700;
+  }
+
+  div {
+    row-gap: 1rem;
+  }
+}
+
+.card > div {
+  background-color: var(--primary-background);
+}
+
+.events-list.card {
+  margin-bottom: 1rem;
+
+  // .card-header {
+
+  // }
+
+  .card-body {
+
+    .row {
+      row-gap: 1.5rem;
+    }
+  }
+
+  .card-footer {
+
+    p {
+      margin: 0;
+      color: $primary-color;
+      font-weight: 400;
+      font-size: 16px;
+    }
+  }
+}
+
+table {
+  width: 100%;
+
+  .custom-column-w{
+
+    @media(min-width: 1400px){
+      width:40%;
+    }
+  }
+
+  .view-event{
+    text-decoration: none;
+    color: $primary-color;
+    font-weight: 500 ;
+  }
+}
+
+.mat-form-field {
+  font-size: 14px;
+ // width: 100%;
+}
+
+//--------------Modal----------------
+
+.modal-card.card > div {
+  background-color: var(--primary-background);
+}
+
+.card-event.card > div {
+  background: linear-gradient(0deg, rgba($primary-color, 0.04), rgba($primary-color, 0.04)), var(--primary-background);
+}
+
+.card-event.card {
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .card-body {
+    gap: 1rem;
+    letter-spacing: -0.02em;
+    line-height: 140%;
+    color: $primary-color;
+
+    h3 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 140%;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 140%;
+      margin-bottom: 5px;
+    }
+
+
+  }
+
+  .card-footer {
+
+    .row {
+      row-gap: 1rem;
+    }
+  }
+}
+
+.modal-card.card {
+  padding: 1.5rem;
+
+  .card-header {
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: $primary-color;
+    }
+  }
+
+  .card-body {
+    & > p {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: -0.02em;
+      color: $paragraph;
+    }
+
+    .mat-error{
+      color: red;
+    }
+  }
+
+  .card-footer {
+
+    .row {
+      row-gap: 1rem;
+    }
+  }
+}
+
+
+
+.advanced-display{
+  display: none;
+}
+
+.advanced-filter-first{
+  margin-top:10px;
+  mat-form-field{
+    width:20%;
+  }
+}
+
+.advanced-filter-second{
+  margin-top:10px;
+  mat-form-field{
+    width:100%;
+  }
+}
+

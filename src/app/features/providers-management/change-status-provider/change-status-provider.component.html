@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="container modal-content">
+
+        <!--Header-->
+        <div class="modal-header">
+            <h4 class="modal-title">Schimbă statusul providerului</h4>
+            <!-- <i class="fas fa-times" (click)="closeModal()"></i> -->
+        </div>
+
+        <!--Body-->
+        <div class="modal-body">
+<!--          <p>Actiunea de schimbare status nu este permanenta si complet irevocabila. Datele cu caracter personal vor fi criptate si arhivate.</p>-->
+          <!--Form - Start-->
+          <form [formGroup]="changeProviderStatusForm">
+            <mat-form-field class="w-100"  appearance="outline">
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status" id="status">
+
+                <mat-option value="new" id="new">Nou</mat-option>
+                  <mat-option value="draft" id="draft">{{'STATUS.DRAFT' | translate}}</mat-option>
+                  <mat-option value="pending" id="pending">{{'STATUS.PENDING' | translate}}</mat-option>
+                  <mat-option value="active" id="active">{{'STATUS.ACTIVE' | translate}}</mat-option>
+                <mat-option value="inactive" id="inactive">{{'STATUS.INACTIVE' | translate}}</mat-option>
+                <mat-option value="archived" id="archived">{{'STATUS.ARCHIVED' | translate}}</mat-option>
+                <mat-option value="refused" id="refused">Refuzat</mat-option>
+              </mat-select>
+              <mat-error *ngIf="changeProviderStatusForm.controls.status.hasError('required')">
+                Câmpul este obligatoriu.
+              </mat-error>
+            </mat-form-field>
+          </form>
+          <!--Form - End-->
+        </div>
+
+        <!--  Footer-->
+        <div class="modal-footer d-flex justify-content-center justify-content-lg-between align-items-center">
+              <div>
+                <button type="button" class="btn-long btn-color-outline">
+                <i class="fas fa-times"></i>
+                {{ 'BTN.CANCEL' | translate}}
+                <!-- <ng-container *ngIf="isStatusChangeLoading === true">
+                    [disabled]="isStatusChangeLoading"
+                    <span
+                    class="spinner-border spinner-border-sm align-middle ms-2"
+                    ></span>
+                </ng-container> -->
+                </button>
+              </div>
+
+              <div>
+                <button type="button" class="btn-long btn-color-fill" id="submitChangeStatus"
+                (click)="changeProviderStatus()" >
+                    {{ 'BTN.CONFIRM' | translate}}
+                    <i class="fa fa-check"></i>
+
+                    <!-- <ng-container *ngIf="isStatusChangeLoading === true">
+                        [disabled]="isStatusChangeLoading"
+                        <span
+                        class="spinner-border spinner-border-sm align-middle ms-2"
+                        ></span>
+                    </ng-container> -->
+                </button>
+              </div>
+
+        </div>
+    </div>
+</div>

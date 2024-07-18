@@ -1,0 +1,27 @@
+<div class="modal-wrapper">
+  <div class="card-wrapper">
+    <ng-container *ngFor="let notification of notifications">
+      <div
+        class="notif_item_wrapper"
+        [ngClass]="notification.isNew ? 'isNew' : ''"
+      >
+        <div class="notif_item_sup">
+          <div class="notif_item_title">
+            {{ notification.title }}
+          </div>
+
+          <span
+            *ngIf="notification.isNew"
+            matBadgeColor="warn"
+            matBadgeSize="small"
+            matBadge="&#8288;"
+            matBadgePosition="after"
+          >
+          </span>
+        </div>
+
+        <div class="notif_item_date">{{ notification.date }}</div>
+      </div>
+    </ng-container>
+  </div>
+</div>

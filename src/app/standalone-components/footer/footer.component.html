@@ -1,0 +1,18 @@
+<div class="footer container-fluid private-footer">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+        <p class="m-0"><strong> © BestInform Romania. All rights reserved.  {{currentApplicationVersion}}</strong></p>
+        <mat-form-field appearance="outline">
+            <mat-select [(ngModel)]="selectedValue" name="food" (selectionChange)="changeLang(selectedValue)">
+                <mat-option [value]="'ro'">Română</mat-option>
+                <mat-option [value]="'en'">Engleză</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="d-flex justify-content-center align-items-center w-100">
+        <img src="assets/images/logos/fonduri-ue.png" class="w-25" alt="fonduri-ue">
+        <p class="w-25 mb-0">Pentru informaţii
+            detaliate despre celelalte programe cofinanţate de Uniunea
+            Europeană, vă invităm să vizitaţi <a href="https://www.fonduri-ue.ro/" target="_blank">www.fonduri-ue.ro
+            </a></p>
+    </div>
+</div>

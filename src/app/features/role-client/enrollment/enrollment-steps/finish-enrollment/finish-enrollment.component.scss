@@ -1,0 +1,42 @@
+@import "/src/app/theme/styles/components/colors";
+
+.content {
+  text-align: center;
+  align-self: center;
+
+  p.upper {
+    font-size: 16px;
+    color: var(--primary-background);
+  }
+
+  h1 {
+    color: $secondary-color;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 48px;
+  }
+
+  .welcome{
+    color: var(--primary-background);
+    font-size: 24px;
+    font-weight: 400;
+    .name{
+      color: $secondary-color;
+    }
+  }
+
+  .footer-btns{
+    button{
+      margin-bottom: 60px;
+      border: none;
+      background: transparent;
+      color: var(--primary-background);
+      font-size: 24px;
+    }
+
+    i.fas {
+      line-height: unset;
+    }
+  }
+
+}

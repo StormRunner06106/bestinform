@@ -1,0 +1,61 @@
+<ng-container [ngSwitch]="inputFormData.valueType">
+
+    <!--Simple Text-->
+    <mat-form-field class="w-100" appearance="standard" *ngSwitchCase="'text'">
+        <mat-label>{{inputFormData.name | titlecase}}</mat-label>
+        <input matInput
+               type="text"
+               [formControl]="control"
+               [placeholder]="inputFormData.valuePlaceholder">
+    </mat-form-field>
+
+    <!--Textarea-->
+    <mat-form-field class="w-100" appearance="standard" *ngSwitchCase="'textarea'">
+        <mat-label>{{inputFormData.name | titlecase}}</mat-label>
+        <textarea matInput
+                  [formControl]="control"
+                  [placeholder]="inputFormData.valuePlaceholder">
+        </textarea>
+    </mat-form-field>
+
+    <!--Number-->
+    <mat-form-field class="w-100" appearance="standard" *ngSwitchCase="'number'">
+        <mat-label>{{inputFormData.name | titlecase}}</mat-label>
+        <input type="number" matInput
+               [placeholder]="inputFormData.valuePlaceholder"
+               [formControl]="control">
+    </mat-form-field>
+
+    <!--Select-->
+    <mat-form-field class="w-100" appearance="standard" *ngSwitchCase="'select'">
+        <mat-label>{{inputFormData.name | titlecase}}</mat-label>
+        <mat-select [formControl]="control">
+            <mat-option *ngFor="let option of inputFormData.valueOptions"
+                        [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <div *ngSwitchCase="'toggle'" class="w-100 d-flex align-items-center justify-content-between mb-2">
+        <label class="custom-control-label d-flex align-items-center"
+               for="switch">{{inputFormData.name | titlecase}}</label>
+        <label class="switch">
+            <input type="checkbox" [formControl]="control" id="switch" checked>
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+
+    <mat-form-field appearance="standard" *ngSwitchCase="'datetime'" class="w-100">
+        <mat-label>{{inputFormData.name | titlecase}}</mat-label>
+        <input matInput [matDatepicker]="picker" [formControl]="control" [placeholder]="inputFormData.valuePlaceholder">
+<!--        <mat-hint>MM/DD/YYYY</mat-hint>-->
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+</ng-container>
+

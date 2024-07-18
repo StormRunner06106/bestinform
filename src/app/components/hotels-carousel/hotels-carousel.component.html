@@ -1,0 +1,25 @@
+<h3 class="h3-#4257EE">Hoteluri recomandate in <span style="color: hsla(233, 83%, 60%, 1); font-weight: 900;">Bucuresti</span></h3>
+<p-carousel
+  [value]="hotelListResponse.content"
+  [numVisible]="visibilityOptions.numVisible"
+  [numScroll]="visibilityOptions.numScroll"
+  [responsiveOptions]="responsiveOptions"
+  [showIndicators]="false"
+>
+  <ng-template let-card pTemplate="card">
+    <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '100%' }">
+      <ng-template pTemplate="header">
+          <img style="object-fit: cover;height: 268px;" alt="Card" [src]="card.hotelsImages[0]" />
+      </ng-template>
+      <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+          quas!
+      </p>
+      <ng-template pTemplate="footer">
+          <p-button label="Save" icon="pi pi-check"></p-button>
+          <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
+      </ng-template>
+    </p-card>
+  
+  </ng-template>
+</p-carousel>

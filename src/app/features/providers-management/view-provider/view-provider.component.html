@@ -1,0 +1,191 @@
+<!--mobile title bar-->
+<!-- <div class="page-header mobile-header py-3 d-flex align-items-center">
+
+    <div class="d-flex justify-content-center justify-content-lg-between align-items-center flex-wrap">
+        <i class="fas fa-arrow-left d-flex px-3"
+        routerLink="{{isProvider ? '/private/provider/dashboard':
+        isStaff  ? '../../../manage-providers/active' : '/'}}"></i>
+    </div>
+    <h2 class="d-flex m-auto">{{"BTN.BACK" | translate}}</h2>
+</div> -->
+
+<!--Title bar-->
+<div class="container-fluid client-general-box"  *ngIf="allDomains">
+    <div class="container py-4 px-0 web-header">
+        <div class="page-header d-flex justify-content-end align-items-center flex-wrap">
+            <div class="d-flex justify-content-center justify-content-lg-end align-items-center flex-wrap">
+                <button id="btnBackHeaderViewProvider" class="btn-long btn-color-outline mr-2"
+                        routerLink="{{isProvider ? '/private/provider/dashboard':
+                        isStaff  ? '../../../manage-providers/active' : '/'}}">
+                    <i class="fas fa-arrow-left"></i>
+                    {{ 'BTN.BACK' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container provider-header-container px-0 mb-4"  >
+        <!--header section-->
+        <div class="cover-provider">
+            <img src="{{coverImagePath}}">
+            <div class="title-toolbar px-4 py-4 w-100">
+                <div class="d-flex align-text-bottom">
+                    <h2>{{companyName}}</h2>
+                    <span class="provider-status-label"
+                    [ngClass]="{
+                    'label-pending': status === 'pending',
+                    'label-active': status === 'active',
+                    'label-draft': status === 'draft',
+                    'label-new': status === 'new',
+                    'label-archived': status === 'archived',
+                    'label-refused': status === 'refused'}">
+                    <!-- {{element.status}} -->
+                    {{status === 'pending' ? 'Pending' :
+                    status === 'active' ? 'Active' :
+                    status === 'draft' ? 'Draft' :
+                    status === 'new' ? 'New' :
+                    status === 'archived' ? 'Archived' :
+                    status === 'refused' ? 'Refused':
+                    'Unknown status'
+                 }}
+                    </span>
+                    <!-- <button class="btn-label active-label-button justify-content-start align-items-center">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Active
+                    </button>
+
+                     <button class="btn-label inactive-label-button">
+                        <i class="fas fa-exclamation"></i>
+                        Inactive
+                    </button>
+
+                    <button class="btn-label disabled-label-button">
+                        <i class="fas fa-times"></i>
+                        Disabled
+                    </button> -->
+                </div>
+                <!--location-->
+                <p *ngIf="city || county"><i class="fas fa-map-marker-alt"></i> {{city}} {{county}}</p>
+                <!--Domains-->
+                <div *ngIf="userDomain !== undefined" class="d-flex w-100">
+                        <!-- <div *ngSwitchCase="'Travel & Entertainment'" class="chips-label chips-primary-label">
+                            <i class="fas fa-plan"></i>  Travel & Entertainment
+                        <div *ngSwitchCase="'Education'" class="chips-label chips-primary-label">
+                            <i class="fas fa-suitcase"></i> Education
+                        </div>
+                        <div *ngSwitchCase="'Healthcare'" class="chips-label chips-primary-label">
+                            <i class="fas fa-heart"></i> Healthcare
+                        </div>
+                        <div *ngSwitchCase="'Culture & Arts'" class="chips-label chips-primary-label">
+                            <i class="fas fa-theater-masks"></i> Culture & Arts
+                        </div>
+                        <div *ngSwitchCase="'Jobs Market'" class="chips-label chips-primary-label">
+                            <i class="fas fa-user-tie"></i> Jobs Market
+                        </div> -->
+
+                    <div *ngIf="userDomain === 'Travel & Entertainment'" class="chips-label chips-primary-label">
+                        <i class='fas fa-plane'></i>
+                        Travel & Entertainment
+                    </div>
+                    <div *ngIf="userDomain === 'Education'" class="chips-label chips-primary-label"><i class="fas fa-suitcase"></i> Education</div>
+                    <div *ngIf="userDomain === 'Healthcare'" class="chips-label chips-primary-label"><i class="fas fa-heart"></i> Healthcare</div>
+                    <div *ngIf="userDomain === 'Culture & Arts'" class="chips-label chips-primary-label"><i class="fas fa-theater-masks"></i> Culture&Arts</div>
+                    <div *ngIf="userDomain === 'Jobs Market'" class="chips-label chips-primary-label"><i class="fas fa-user-tie"></i> JobsMarket</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="menu-header-bar d-flex row justify-content-end">
+            <div class="col-6 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center align-items-center py-3"
+                 [routerLink]="providerId ? '../../edit/' + providerId : '../edit'" role="button">
+                 <i class="fas fa-pen"></i>
+                <h4>{{"GENERAL.EDIT" | translate}}</h4>
+            </div>
+
+            <div class="col-6 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center align-items-center py-3"
+                 [routerLink]="providerId ? '../../../resources/list' : '../../resources/my-list'" [queryParams]="providerId ? {providerId: providerId}: ''" role="button">
+                <i class="fas fa-bars"></i>
+                <h4>{{"STAFF.RESOURCES" | translate}}</h4>
+            </div>
+            <div class="col-6 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center align-items-center py-3"
+                 [routerLink]="providerId ? '../../balance/' + providerId : '../balance'" role="button">
+                <i class="fas fa-credit-card"></i>
+                <h4>{{"PROVIDER.BALANCE" | translate}}</h4>
+            </div>
+            <div *ngIf="providerId" (click)="changeStatusModal(providerId)" class="col-6 col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center align-items-center py-3">
+                <i class="fas fa-cog"></i>
+                <h4>{{"FIELD.STATUS" | translate}}</h4>
+            </div>
+
+
+        </div>
+        <!--End header-->
+    </div>
+
+    <!--Content-->
+    <div class="container view-provider-container my-4 px-0 mb-4 w-100">
+        <!-- balance and trades-->
+        <div class="balance-class row flex-wrap">
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+                 <!--available balance -->
+                 <app-available-balance-card [providerId]="providerId" [currency]="currency"></app-available-balance-card>
+                 <!--recent transactions-->
+                 <app-recently-reservation-card [recentTransactionList]="recentTransactionList" [currency]="currency"></app-recently-reservation-card>
+
+            </div>
+
+
+            <!--transaction history-->
+            <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                <app-history-reservation-card [providerId]="providerId" [currency]="currency"></app-history-reservation-card>
+            </div>
+        </div>
+
+        <!--Resources container-->
+
+        <div class="resources-class">
+            <div class="row flex-wrap d-flex my-4 ">
+                <h2 class="col-12 col-md-6">{{"PROVIDER.RESOURCES" | translate}}</h2>
+                <div class="col-12 col-md-6 d-flex justify-content-start justify-content-md-end">
+                    <button *ngIf="finalResourcesList.length!==0" class="btn-long btn-color-fill" [routerLink]="providerId ? '../../../resources/list' : '../../resources/my-list'" [queryParams]="providerId ? {providerId: providerId}: ''">
+                        {{"PROVIDER.SEE-MORE" | translate}} <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="finalResourcesList.length===0">
+                <p>Momentan nu exista resurse.</p>
+            </div>
+
+            <owl-carousel-o [options]="customOptions">
+                <ng-container *ngFor="let resource of finalResourcesList;" >
+                    <!--start-card-->
+                    <ng-template carouselSlide>
+                        <div class="resource-card">
+                    <!--Title and location-->
+                    <div class="title-n-location">
+                        <h4 [routerLink]="isProvider ? '../../reservations/list' : isStaff ? '../../../reservations/list' : '/'" [queryParams]="{resourceid: resource.resourceId}" >{{resource?.title}}</h4>
+                        <p *ngIf="resource.address!== null"><i class="fas fa-map-marker-alt"></i> {{resource?.address}}</p>
+                    </div>
+                    <!--IMG-->
+                    <div class="resource-img d-flex align-items-center justify-content-center">
+                        <!-- <i class="fas fa-utensils"></i> -->
+                        <img src="{{resource?.icon?.filePath}}" />
+                    </div>
+                    <!--Price, number of sales -->
+                    <div>
+                        <h4 class="price-resource-class text-right">€ {{resource?.price | number: '1.0-2'}}</h4>
+                        <!-- <p class="pb-0 d-flex align-items-baseline"><i class="far fa-user"></i> 24 Vânzări astăzi</p> -->
+                    </div>
+                </div>
+                    </ng-template>
+
+                </ng-container>
+            </owl-carousel-o>
+
+        </div><!--resources-class-->
+
+
+    </div>
+</div>

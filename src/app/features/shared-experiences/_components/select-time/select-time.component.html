@@ -1,0 +1,13 @@
+<div class="modal-content-time p-4">
+    <h4>Selectati data si ora pentru experienta</h4>
+    <p><i class="fas fa-calendar-alt me-2"></i> Selectati data</p>
+    <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <p><i class="fas fa-clock me-2"></i> Selectati ora</p>
+
+    <button class="btn-long btn-color-fill w-100">Confirma locatia</button>
+</div>

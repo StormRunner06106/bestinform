@@ -1,0 +1,79 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+
+.container-apply {
+  overflow: hidden;
+
+ .row{
+   height: 750px;
+   .container-user {
+     padding: 50px 120px;
+     background-color: var(--primary-background);
+
+     img {
+       height: 45px;
+       width: 194px;
+     }
+   }
+
+   .cv-data {
+     background-color: var(--secondary-background);
+     height: 100%;
+
+     .container-cv {
+       padding: 50px 120px;
+
+
+       .cv-completion {
+         margin-bottom: 50px;
+         padding: 24px;
+         background-color: var(--primary-background);
+         border: 1px solid rgba(36, 57, 138, 0.16);
+         box-shadow: 0 4px 8px rgba(35, 31, 32, 0.08);
+         border-radius: 24px;
+
+         .directions {
+           color: $title;
+           font-weight: 400;
+         }
+
+         .progress {
+           width: 96px;
+           height: 96px;
+           border-radius: 100%;
+           border: 8px solid $secondary-color;
+           background-color: var(--primary-background);
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           font-size: 20px;
+           font-weight: 700;
+         }
+
+         p {
+           color: $primary-color;
+           font-weight: 700;
+           font-size: 16px;
+         }
+
+         i {
+           font-size: 16px;
+           font-weight: 900;
+           line-height: unset;
+         }
+
+         i.fa-times {
+           color: $dislike-color;
+         }
+
+         i.fa-check {
+           color: $like-color;
+         }
+
+
+       }
+     }
+   }
+ }
+
+}

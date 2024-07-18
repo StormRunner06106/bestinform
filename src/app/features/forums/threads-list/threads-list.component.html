@@ -1,0 +1,85 @@
+<div class="containter-fluid">
+    <div class="container">
+        <app-dashboard-header pageTitleOne="{{forumCategory | titlecase}} Forum"
+                              [buttonBackRoute]="'../../'"
+                              [buttonAddRoute]="'add'"
+                          ><!--de adaugat linkul catre adaga thread-->
+        </app-dashboard-header>
+    </div>
+    <div class="container content">
+
+
+        <!--Search bar-->
+
+        <!--Card list-->
+        <div>
+
+           <!------------------------------------------------------------------------------------->
+
+           <div *ngIf="dataLoaded">
+                <div>
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <input matInput type="text" [formControl]="searchFilter" (keydown.enter)="filterData()" placeholder="Căutare">
+                    </mat-form-field>
+                </div>
+
+                <!-- <div class="header-class my-3 pb-3 d-flex justify-content-between align-items-center">
+                    <h4>Topic</h4>
+                    <div class="d-flex justify-content-end align-items-center gap-2">
+                        <h4>Replies</h4>
+                        <h4>View</h4>
+                    </div>
+                </div> -->
+                
+
+                <div *ngFor="let forum of dataList; let i = index">
+
+                    <div class="thread-card py-3 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                        <!--image / buttons / title / author / time-->
+                        <div class ="d-flex align-items-center justify-content-start gap-3">
+                            <!-- <img src="{{forum?.featuredImage ? forum?.featuredImage?.filePath : '../../../../../../assets/images/login/provider_img.png'}}"> -->
+                            
+                            <div class="d-flex justify-content-center flex-column gap-2">
+                                <div class="d-flex justify-content-start align-items-center gap-2 flex-wrap flex-sm-nowrap">
+<!--                                    <div class="forum-buttons d-flex justify-content-start align-items-center gap-1">-->
+<!--                                        <button class="btn-round btn-white-fill"><i class="fas fa-thumbtack"></i></button>-->
+<!--                                        <button class="btn-round btn-white-fill"><i class="fas fa-star"></i></button>-->
+<!--                                    </div>-->
+                                        <h4 class="pointer" routerLink="view/{{forum.id}}">#{{ (i + 1) + pageSize * page}} {{forum?.title}}</h4>
+                                </div>
+                                <p><b>{{forum?.userName}}</b> {{forum?.date | date: 'dd/MMM/y'}}</p>
+                            </div>
+                        </div>
+                        <!--replies / views -->
+                        <div class="reply-view-class d-flex justify-content-end align-items-center gap-3">
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <h6>{{forum?.replies}}</h6>
+                                <p>Replies</p>
+                            </div>
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <h6>{{forum?.views}}</h6>
+                                <p>Views</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Pagination-->
+                <mat-paginator
+                        [pageSizeOptions]="pageItems"
+                        [length]="totalElements"
+                        [pageSize]="pageSize"
+                        (page)="pageChanged($event)"
+                >
+                </mat-paginator>
+            </div>
+
+
+
+        </div>
+
+        <!--Card list-->
+
+    </div>
+</div>

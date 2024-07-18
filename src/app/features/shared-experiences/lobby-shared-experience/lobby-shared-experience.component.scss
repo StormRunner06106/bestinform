@@ -1,0 +1,67 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+.background-container {
+  width: 100%;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(0deg, rgba($title, 0.24), rgba($title, 0.24));
+  }
+
+  img {
+    height: auto;
+    max-height: 560px;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.view-container{
+  background-color: var(--primary-background);
+  padding: 48px 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  h1{
+    text-align: center;
+  }
+
+  .col-info{
+
+    .chat-button{
+      padding: 6px 24px;
+      background: radial-gradient(100% 787.93% at 0% 100%, rgba(0, 178, 255, 0.48) 0%, rgba(0, 178, 255, 0) 100%), #24398A;
+      border-radius: 8px;
+      color:var(--primary-background);
+      border: none;
+    }
+
+    .lobby-host{
+      p{
+        color:$primary-color;
+        margin-bottom: 10px;
+      }
+    }
+
+    .lobby-guest{
+      .creator{
+        border: 1px solid rgba($primary-color, 0.16);
+        border-radius: 8px;
+        padding: 8px;
+        margin-bottom: 10px;
+      }
+      p{
+        color:$primary-color;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+

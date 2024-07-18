@@ -1,0 +1,288 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Roboto:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Roboto:wght@300;400;500;700&display=swap");
+@import url(d:\angular\BestInform\bestinform-landing-page\src\assets\fonts\font-awesome\css\all.css);
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 140%;
+  color: #24398A;
+}
+
+.btn-long {
+  min-width: 240px;
+}
+
+.btn-auto {
+  width: auto;
+}
+
+.btn-long, .btn-auto {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  gap: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 32px;
+  height: 50px;
+  border: 1px solid;
+  border-radius: 100px;
+}
+
+.btn-long span, .btn-long i, .btn-auto span, .btn-auto i {
+  font-size: 12px;
+  /*font-family: 'Font Awesome 5 Free';
+    font-weight: 900;*/
+}
+
+.btn-long:hover, .btn-auto:hover {
+  -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+  -webkit-transition: ease-in-out 0.3s;
+  transition: ease-in-out 0.3s;
+}
+
+.btn-long:focus, .btn-long:active, .btn-auto:focus, .btn-auto:active {
+  -webkit-transition: 0s;
+  transition: 0s;
+  outline: none;
+}
+
+.btn-round {
+  height: 50px;
+  width: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 100px;
+  border: 1px solid;
+}
+
+.btn-round span, .btn-round i {
+  font-size: 12px;
+  /*font-family: 'Font Awesome 5 Free';
+    font-weight: 900;*/
+}
+
+.btn-round:hover {
+  -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+  -webkit-transition: ease-in-out 0.3s;
+  transition: ease-in-out 0.3s;
+}
+
+.btn-round:focus, .btn-round:active {
+  -webkit-transition: 0s;
+  transition: 0s;
+  outline: none;
+}
+
+.btn-color-fill {
+  background-color: #24398A;
+  color: #FFFFFF;
+  border: none;
+}
+
+.btn-color-fill span, .btn-color-fill i {
+  color: #FFFFFF;
+}
+
+.btn-color-fill:hover {
+  background: #24398a;
+}
+
+.btn-color-fill:focus, .btn-color-fill:active {
+  background: #24398a;
+}
+
+.btn-white-fill {
+  background-color: #FFFFFF;
+  color: #24398A;
+  border: none;
+}
+
+.btn-white-fill span, .btn-white-fill i {
+  color: #24398A;
+}
+
+.btn-white-fill:hover {
+  background: white;
+}
+
+.btn-white-fill:focus, .btn-white-fill:active {
+  background: white;
+}
+
+.btn-color-fill:disabled, .btn-white-fill:disabled {
+  background-color: #E6E7E8;
+  color: #231f20;
+  cursor: not-allowed;
+}
+
+.btn-color-fill:disabled span, .btn-color-fill:disabled i, .btn-white-fill:disabled span, .btn-white-fill:disabled i {
+  color: #231f20;
+}
+
+.btn-color-fill:disabled:hover, .btn-white-fill:disabled:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.btn-color-outline {
+  background: rgba(36, 57, 138, 0);
+  color: #24398A;
+  border-color: #24398A;
+}
+
+.btn-color-outline span, .btn-color-outline i {
+  color: #24398A;
+}
+
+.btn-color-outline:hover {
+  background: #24398a;
+}
+
+.btn-color-outline:focus, .btn-color-outline:active {
+  background: #24398a;
+}
+
+.btn-white-outline {
+  background: rgba(36, 57, 138, 0);
+  color: #FFFFFF;
+  border-color: #24398A;
+}
+
+.btn-white-outline span, .btn-white-outline i {
+  color: #24398A;
+}
+
+.btn-white-outline:hover {
+  background: #24398a;
+}
+
+.btn-white-outline:focus, .btn-white-outline:active {
+  background: #24398a;
+}
+
+.btn-color-outline:disabled, .btn-white-outline:disabled {
+  background: rgba(36, 57, 138, 0);
+  color: #231f20;
+  border-color: #231f20;
+  cursor: not-allowed;
+}
+
+.btn-color-outline:disabled span, .btn-color-outline:disabled i, .btn-white-outline:disabled span, .btn-white-outline:disabled i {
+  color: #231f20;
+}
+
+.btn-color-outline:disabled:hover, .btn-white-outline:disabled:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 140%;
+  color: #24398A;
+}
+
+.container {
+  padding: 32px 52px;
+  border: none;
+}
+
+@media screen and (min-width: 1020px) {
+  .container.modal-content {
+    border: none;
+  }
+}
+
+.modal-header {
+  border: none;
+  max-width: 615.95px;
+}
+
+.modal-header h4.modal-title {
+  color: #24398A !important;
+  font-size: 24px;
+  font-weight: 600;
+  color: #231F20;
+  line-height: 33.6px;
+  text-align: left;
+}
+
+.modal-body {
+  max-width: 615.95px;
+}
+
+.modal-body .modal-body-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #231F20;
+  line-height: 22.4px;
+  text-align: left;
+}
+
+.modal-footer {
+  max-width: 615.95px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: none;
+}
+
+.modal-footer .button-wrapper {
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  max-width: 615.95px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.modal-footer button.btn-long {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 303px !important;
+  height: 50px;
+  margin: 0px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #24398A !important;
+  opacity: 0.5 !important;
+}
+
+::ng-deep .mat-select-arrow-wrapper.ng-tns-c244-13 {
+  color: #24398A !important;
+}
+/*# sourceMappingURL=change-editorial-status.component.css.map */

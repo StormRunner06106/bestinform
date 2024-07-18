@@ -1,0 +1,18 @@
+<div class="events-block">
+  <div class="events-content">
+    <div class="events-title">
+      <h1>{{title}}</h1>
+    </div>
+    <ng-container *ngFor="let event of events">
+      
+      <app-event-card [event]="event">
+      </app-event-card>
+    </ng-container>
+  </div>
+  <div class="button-wrapper">
+    <p-button
+      label="Vezi mai multe evenimente"
+      styleClass="p-button-yellow"
+    ></p-button>
+  </div>
+</div>

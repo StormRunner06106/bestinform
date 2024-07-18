@@ -1,0 +1,79 @@
+@import "/src/app/theme/styles/components/colors";
+
+.dashboard-staff{
+  margin-top:40px;
+  margin-bottom: 40px;
+
+  .dashboard-cards {
+    .row{
+      row-gap: 24px;
+      margin-bottom: 24px;
+      .resources{
+        border-radius: 8px;
+        background: linear-gradient(to right, $primary-color, transparent),
+        url("../../../../assets/images/others/staff/resourcess.jpg");
+        background-size: cover;
+        height: 300px;
+        position: relative;
+      }
+
+      .templates{
+        border-radius: 8px;
+        background: linear-gradient(to right, $primary-color, transparent),
+        url("~src/assets/images/others/staff/templates.jpg");
+        background-size: cover;
+        height: 300px;
+        position: relative;
+
+      }
+
+      .editorials{
+        border-radius: 8px;
+        background: linear-gradient(to right, $primary-color, transparent),
+        url("~src/assets/images/others/staff/editorials.jpg") center;
+        background-size: cover;
+        height: 300px;
+        position: relative;
+
+      }
+
+      .events{
+        border-radius: 8px;
+        background: linear-gradient(to right, $primary-color, transparent),
+        url("~src/assets/images/others/staff/events.jpg");
+        background-size: cover;
+        height: 300px;
+        position: relative;
+
+      }
+
+      .trips{
+        border-radius: 8px;
+        background: linear-gradient(to right, $primary-color, transparent),
+        url("~src/assets/images/others/staff/trips.jpg");
+        background-size: cover;
+        height: 300px;
+        position: relative;
+
+      }
+
+      .title-for-card{
+        position:absolute;
+        bottom: 8px;
+        left:16px;
+        color:var(--primary-background);
+        font-size: 36px;
+        font-weight: 500;
+      }
+
+    }
+  }
+
+
+
+}
+.title-p{
+  color:$primary-color;
+  font-size: 48px;
+  font-weight: 700;
+}

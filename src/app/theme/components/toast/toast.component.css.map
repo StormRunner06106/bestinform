@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,CAAC;EACP,gBAAgB,EAAE,OAAO;CAC1B;;AAED,AAAA,MAAM,CAAC;EACL,gBAAgB,EAAE,OAAO;CAC1B",
+    "sources": [
+        "toast.component.scss"
+    ],
+    "names": [],
+    "file": "toast.component.css"
+}

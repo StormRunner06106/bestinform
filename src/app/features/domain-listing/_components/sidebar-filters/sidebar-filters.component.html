@@ -1,0 +1,66 @@
+<div class="sidebar-container d-flex flex-column-reverse flex-lg-column">
+    <p class="m-0">
+        <mat-form-field appearance="outline">
+            <mat-label>Search title</mat-label>
+            <input (keyup.enter)="searchByTitle()" [(ngModel)]="resourceTitleToSearch" matInput placeholder="Search in {{resouceTypeNameEn}}">
+            <mat-icon role="button" *ngIf="!resourceTitleToSearch" matSuffix (click)="searchByTitle()">search</mat-icon>
+            <mat-icon role="button" *ngIf="resourceTitleToSearch" matSuffix (click)="resourceTitleToSearch = null">clear</mat-icon>
+        </mat-form-field>
+    </p>
+
+    <div *ngIf="filterAttributes && showFilters" class="filters-container">
+        <form (ngSubmit)="applyFilters()" [formGroup]="filtersForm">
+            <mat-accordion [multi]="true">
+                <mat-expansion-panel *ngFor="let attribute of filterAttributes" [expanded]="attribute.valueOptions.length <= 4">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="fw-bold">
+                            {{ attribute.name }}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <!-- DO NOT DELETE -->
+                    <!--<ng-container *ngIf="attribute.valueType === 'select'">
+                        <mat-radio-group
+                                [formControlName]="attribute.name">
+                            <mat-radio-button *ngFor="let valueOption of attribute.valueOptions" [value]="valueOption" color="primary">
+                                {{valueOption}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </ng-container>
+
+                    <ng-container *ngIf="attribute.valueType === 'multiple-select'" [formGroupName]="attribute.name">
+                        <p *ngFor="let valueOption of attribute.valueOptions" class="m-0">
+                            <mat-checkbox [formControlName]="valueOption" color="primary">{{ valueOption }}</mat-checkbox>
+                        </p>
+                    </ng-container>-->
+
+                    <ng-container [formGroupName]="attribute.name">
+                        <p *ngFor="let valueOption of attribute.valueOptions" class="m-0">
+                            <mat-checkbox [formControlName]="valueOption" color="primary">{{ valueOption | titlecase }}</mat-checkbox>
+                        </p>
+                    </ng-container>
+
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <div class="btn-container" *ngIf="filterAttributes.length !== 0">
+                <button *ngIf="anyFilterSelected" (click)="resetFilters()"
+                        type="button"
+                        class="btn-auto btn-color-fill btn-reset">
+                    <i class="fas fa-times"></i>
+                    Clear Filters
+                </button>
+
+                <button type="submit" class="btn-auto btn-color-fill">
+                    <i class="fas fa-check"></i>
+                    Apply
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <button *ngIf="screenWidth < 992" (click)="showFilters = !showFilters" type="button" class="btn-auto btn-color-fill">
+        {{ showFilters ? 'Hide Filters' : 'Show Filters' }}
+    </button>
+
+</div>

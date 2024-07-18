@@ -1,0 +1,143 @@
+<div class="d-flex flex-column" >
+    <div *ngIf="currentDomain" class="background-container">
+        <div *ngIf="!domainLoaded">
+            <!-- Show a loading spinner or placeholder -->
+            <p>Loading domain...</p>
+          </div>
+
+        <video *ngIf="domainLoaded" autoplay loop muted plays-inline>
+            <source [src]="videoPath" type="video/mp4"  class="domain-background-video">
+        </video>
+
+        <!-- <img [src]="currentDomain.image.filePath" alt="domain-background-image" > -->
+        <div class="search-bar">
+            <mat-form-field class="w-100" appearance="standard">
+                <mat-label>{{"GENERAL.SEARCH-RESOURCES" | translate}}</mat-label>
+                <input [ngModel]="resourceTitle"
+                       (ngModelChange)="onTitleChange($event)"
+                       #titleInputText
+                       (keyup.enter)="searchResourcesByTitle(titleInputText.value)"
+                       matInput placeholder="Search in {{currentDomain.nameEn}}">
+                <mat-icon role="button" *ngIf="!resourceTitle && !fetchingFilteredResources" matSuffix (click)="searchResourcesByTitle(titleInputText.value)">search</mat-icon>
+                <mat-icon role="button" *ngIf="resourceTitle && !fetchingFilteredResources" matSuffix (click)="resourceTitle = null; filteredResources = null; categoryId = null">clear</mat-icon>
+                <mat-spinner *ngIf="fetchingFilteredResources" [diameter]="21" matSuffix></mat-spinner>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <ng-container *ngIf="!filteredResources; else filteredResourcesResults">
+        <div class="content-container">
+
+            <div *ngIf="listOfCategories" class="container categories-container">
+                <div class="row">
+                    <ng-container *ngFor="let category of listOfCategories; let i = index">
+                        <div class="col-12 col-md-6 col-lg-{{equalizedMatrix[i]}}">
+                            <app-category-card [imgPath]="category?.image?.filePath"
+                                               [nameEn]="category?.nameEn"
+                                               [nameRo]="category?.nameRo"
+                                               [routerLink]="category.nextRoute ? [category.nextRoute] : ['category', category.id]"></app-category-card>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <app-events-carousel *ngIf="isTravelDomain && currentUser && eventsList"
+                                 [currentUser]="currentUser" 
+                                 [eventsList]="eventsList" 
+                                 [categoryId]="systemSettingData.eventCategoryId"
+                                 (resourceTypeEvent)="setEventType($event)">
+            </app-events-carousel>
+
+            <app-editorials-carousel *ngIf="isTravelDomain && currentUser && editorialsList"
+                                     [currentUser]="currentUser" 
+                                     [editorialsList]="editorialsList"
+                                     (editorialTypeEvent)="setEditorialType($event)">
+            </app-editorials-carousel>
+        </div>
+
+        <app-experiences *ngIf="isTravelDomain"></app-experiences>
+
+        <app-popular-locations *ngIf="isTravelDomain"></app-popular-locations>
+
+        <app-sale *ngIf="isTravelDomain"></app-sale>
+    </ng-container>
+
+    <ng-template #filteredResourcesResults>
+        <div class="content-container">
+            <div class="container">
+                <mat-tab-group class="search-results-tabs" mat-align-tabs="start" [selectedIndex]="0"
+                               (selectedTabChange)="
+                                   pageSize = 10;
+                                   pageIndex = 0;
+                                   $event.index === 0
+                                   ? categoryId = null
+                                   : categoryId = listOfCategories[$event.index - 1].id;
+                                   searchResourcesByTitle()">
+                    <mat-tab [label]="currentLanguage === 'en' ? 'All results' : 'Toate rezultatele'" (click)="searchResourcesByTitle()">
+                        <ng-container *ngIf="!filteredResources?.empty; else noSearchResults">
+                            <div class="resource-cards-container pt-5">
+                                <ng-container *ngFor="let resource of filteredResources.content">
+                                    <app-resource-card-with-template
+                                            [routerLink]="currentDomain.key !== 'jobs'
+                                                            ? ['category', resource.categoryId, 'resource-type', resource.resourceTypeId, 'view', resource.id]
+                                                            : ['jobs', 'view', resource.id]"
+                                            [cardType]="'long'"
+                                            [htmlDescription]="currentDomain.key === 'jobs'"
+                                            [resourceData]="resource">
+                                    </app-resource-card-with-template>
+                                </ng-container>
+                            </div>
+
+                            <mat-paginator [length]="filteredResources?.totalElements"
+                                           [pageSize]="pageSize"
+                                           [pageSizeOptions]="pageSizeOptions"
+                                           (page)="pageSize = $event.pageSize; pageIndex = $event.pageIndex; searchResourcesByTitle()"
+                                           aria-label="Select page">
+                            </mat-paginator>
+                        </ng-container>
+                    </mat-tab>
+
+                    <ng-container *ngIf="currentDomain.key !== 'jobs'">
+                        <ng-container *ngFor="let category of listOfCategories">
+                            <ng-container *ngIf="category?.id">
+                                <mat-tab [label]="currentLanguage === 'en' ? category?.nameEn : category?.nameRo" (click)="searchResourcesByTitle()">
+                                    <ng-container *ngIf="!filteredResources?.empty; else noSearchResults">
+                                        <div class="resource-cards-container pt-5">
+                                            <ng-container *ngFor="let resource of filteredResources.content">
+                                                <app-resource-card-with-template
+                                                        [routerLink]="['category', resource.categoryId, 'resource-type', resource.resourceTypeId, 'view', resource.id]"
+                                                        [cardType]="'long'"
+                                                        [resourceData]="resource">
+                                                </app-resource-card-with-template>
+                                            </ng-container>
+                                        </div>
+
+                                        <mat-paginator [length]="filteredResources?.totalElements"
+                                                       [pageSize]="pageSize"
+                                                       [pageSizeOptions]="pageSizeOptions"
+                                                       (page)="pageSize = $event.pageSize; pageIndex = $event.pageIndex; searchResourcesByTitle()"
+                                                       aria-label="Select page">
+                                        </mat-paginator>
+                                    </ng-container>
+                                </mat-tab>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+
+                </mat-tab-group>
+
+                <ng-template #noSearchResults>
+                    <h4 class="text-center pt-5">
+                        <span *ngIf="currentLanguage === 'ro'">
+                            Niciun rezultat potrivit pentru "{{ resourceTitle }}"
+                        </span>
+                        <span *ngIf="currentLanguage === 'en'">
+                            No matching results for "{{ resourceTitle }}"
+                        </span>
+                    </h4>
+                </ng-template>
+            </div>
+        </div>
+    </ng-template>
+
+</div>

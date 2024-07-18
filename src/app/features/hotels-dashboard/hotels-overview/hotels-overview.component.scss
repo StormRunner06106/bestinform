@@ -1,0 +1,53 @@
+.hotels-overview-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+
+  .hotels-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+
+    .hotels {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 16px;
+      width: 100%;
+      app-hotel-card{
+        width: 100%;
+      }
+
+      .title {
+        font-weight: 900;
+        line-height: 1.4em;
+        color: black;
+      }
+    }
+  }
+
+  .search-bar-listing {
+    width: calc(100% - 32px);
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    justify-content: space-between;
+    gap: 32px;
+
+    @media (max-width: 700px) {
+      display: none;
+    }
+  }
+
+  .p-input-icon-left > .p-inputtext {
+    width: 100%;
+  }
+  .p-input-icon-left,
+  .p-input-icon-right {
+    width: 95%;
+  }
+}

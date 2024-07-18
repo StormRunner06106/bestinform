@@ -1,0 +1,214 @@
+<div class="d-flex flex-column">
+  <div class="background-container">
+    <img
+      src="/assets/images/others/createSE%20(1).jpg"
+      alt="Shared Experiences"
+    />
+  </div>
+
+  <div class="content-container">
+    <div class="container">
+      <h1 class="mb-5">
+        {{
+          isEditMode
+            ? "Editeaza-ti experienta"
+            : ("SHARED-EXPERIENCES.CREATE" | translate)
+        }}
+      </h1>
+
+      <div class="row shared-experience">
+        <div class="col-12 col-md-6 col-form">
+          <p *ngIf="!isEditMode" class="directions">
+            {{ "SHARED-EXPERIENCES.CREATE-INFO" | translate }}
+          </p>
+          <p class="section-title">
+            <i class="me-2 fas fa-archive"></i>
+            {{ "SHARED-EXPERIENCES.PLACE-DETAILS" | translate }}
+          </p>
+          <div
+            *ngIf="!gotResource"
+            class="place w-100 mb-3 d-flex justify-content-center align-items-center"
+            (click)="openModal(activity)"
+          >
+            <p class="mb-0">
+              <i class="fas fa-search"></i>
+              {{ "SHARED-EXPERIENCES.SEARCH-PLACE" | translate }}
+            </p>
+          </div>
+
+          <div *ngIf="gotResource" class="resource position-relative">
+            <app-card-activity-place
+              [resource]="chosenResource"
+            ></app-card-activity-place>
+            <button
+              *ngIf="!isEditMode"
+              type="button"
+              class="btn-del-place position-absolute"
+              (click)="clickDeletePlace()"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <mat-error
+            *ngIf="sharedExperienceForm.controls.resourceId.errors?.required"
+            >Pentru a putea crea o experienta impartasita, trebuie sa alegeti un
+            spatiu pentru desfasurarea acesteia.
+          </mat-error>
+
+          <form [formGroup]="sharedExperienceForm">
+            <!--                        DATE-TIME-->
+            <div *ngIf="gotResource">
+              <p class="section-title">
+                <i class="me-2 fas fa-clock"></i
+                >{{ "SHARED-EXPERIENCES.DATE&HOUR" | translate }}
+              </p>
+
+              <div class="date-display">
+                <span>Date: {{ sharedExperienceForm.get("date").value }}</span>
+              </div>
+
+              <div class="hour-display">
+                <span>Time: {{ sharedExperienceForm.get("hour").value }}</span>
+              </div>
+            </div>
+
+            <!--                        <div class="row">-->
+            <!--                            <div class="col-12">-->
+            <!--                                <mat-form-field appearance="legacy" class="w-100">-->
+            <!--                                    <mat-label>{{'SHARED-EXPERIENCES.DATE' | translate}}</mat-label>-->
+            <!--                                    <input matInput formControlName="date" [min]="today">-->
+            <!--                                </mat-form-field>-->
+            <!--                            </div>-->
+
+            <!--                            <div class="col-12">-->
+            <!--                                <mat-form-field appearance="legacy" class="w-100">-->
+            <!--                                    <mat-label>{{'SHARED-EXPERIENCES.TIME' | translate}}</mat-label>-->
+            <!--                                    <input matInput type="time" formControlName="hour">-->
+            <!--                                </mat-form-field>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+
+            <p class="section-title"><i class="me-2 fas fa-pen"></i> Details</p>
+
+            <mat-form-field appearance="legacy" class="w-100">
+              <mat-label>{{
+                "SHARED-EXPERIENCES.EXPERIENCE-NAME" | translate
+              }}</mat-label>
+              <input
+                matInput
+                formControlName="name"
+                placeholder="{{
+                  'SHARED-EXPERIENCES.EXPERIENCE-NAME' | translate
+                }}"
+                required
+              />
+              <mat-error
+                *ngIf="sharedExperienceForm.controls.name.errors?.required"
+                >{{ "ERROR.REQUIRED" | translate }}
+              </mat-error>
+              <mat-error *ngIf="'whitespace'"
+                >{{ "ERROR.PASS-WHITESPACE" | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="legacy" class="w-100">
+              <mat-label>{{ "USER.DESCRIPTION" | translate }}</mat-label>
+              <textarea
+                matInput
+                formControlName="description"
+                rows="2"
+                placeholder="{{ 'USER.DESCRIPTION' | translate }}"
+              ></textarea>
+            </mat-form-field>
+
+            <div class="row">
+              <div
+                class="col-12 col-xl-6 d-flex justify-content-between align-items-center"
+              >
+                <mat-form-field appearance="legacy" class="w-75">
+                  <mat-label>{{
+                    "SHARED-EXPERIENCES.MAX-GUESTS" | translate
+                  }}</mat-label>
+                  <input
+                    type="number"
+                    pattern="[0-9]*"
+                    inputmode="numeric"
+                    min="0"
+                    title="Non-negative integral number"
+                    placeholder="0"
+                    matInput
+                    formControlName="participantsMaxNumber"
+                    #guestsNumber
+                  />
+                </mat-form-field>
+
+                <label class="switch">
+                  <input
+                    type="checkbox"
+                    [checked]="guestsNumber.value > 0"
+                    formControlName="hasParticipantsLimit"
+                  />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+
+              <div
+                class="col-12 col-xl-6 d-flex justify-content-between align-items-center"
+              >
+                <mat-form-field appearance="legacy" class="w-75">
+                  <mat-label>{{
+                    "SHARED-EXPERIENCES.DRESSCODE" | translate
+                  }}</mat-label>
+                  <input matInput formControlName="dressCode" #dressCodeInput />
+                </mat-form-field>
+
+                <label class="switch">
+                  <input type="checkbox" [checked]="!!dressCodeInput.value" />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+          </form>
+
+          <button
+            *ngIf="!isEditMode"
+            type="button"
+            class="btn-long btn-color-fill w-100"
+            (click)="onCreateClick()"
+          >
+            {{ "SHARED-EXPERIENCES.CREATE" | translate
+            }}<i class="ms-2 fas fa-arrow-right"></i>
+          </button>
+          <button
+            *ngIf="isEditMode"
+            type="button"
+            class="btn-long btn-color-fill w-100"
+            (click)="onEditClick()"
+          >
+            Editeaza-ti experienta<i class="ms-2 fas fa-arrow-right"></i>
+          </button>
+        </div>
+        <div class="col-md-6 col-img d-none d-md-block img-fluid">
+          <img
+            src="/assets/images/others/createSE%20(1).jpg"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL-->
+
+<ng-template #activity>
+  <app-activity-place
+    (sentResource)="getResourceFromModal($event)"
+  ></app-activity-place>
+</ng-template>
+
+<ng-template #after>
+  <app-after-create-delete
+    [create]="true"
+    [sharedExperienceId]="sharedId"
+  ></app-after-create-delete>
+</ng-template>

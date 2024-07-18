@@ -1,0 +1,45 @@
+<!-- <div *ngIf="(resourceListObs$ | async) as resourceList" class="resource-container">
+
+    <div class="sort-filter">
+        <mat-form-field appearance="outline">
+            <mat-label>Sort By</mat-label>
+            <mat-select (selectionChange)="onSortChange($event)">
+                <mat-option [value]="'titleAsc'">Name asacending</mat-option>
+                <mat-option [value]="'titleDesc'">Name descending</mat-option>
+
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+
+    <div class="resource-list">
+        <ng-container *ngFor="let resource of resourceList.content">
+            <app-resource-card-with-template
+                    [routerLink]="['view', resource.id]"
+                    [state]="resource"
+                    [cardType]="screenWidth < 992 ? 'short-w-100' : 'long'"
+                    [resourceTypeName]="currentLanguage === 'ro' ? resourceType.nameRo : resourceType.nameEn"
+                    [resourceTemplate]="resourceTemplate"
+                    [resourceData]="resource">
+            </app-resource-card-with-template>
+        </ng-container>
+    </div>
+
+    <div *ngIf="resourceList.content.length === 0" class="d-flex no-data-class justify-content-center flex-column align-items-center gap-3">
+        <img src="../../../../../assets/images/others/no_data_icon.png" >
+        <h4 class="text-center">{{'GENERAL.NO_DATA'|translate}}</h4>
+    </div>
+
+    <div class="resource-pagination">
+        <mat-paginator [length]="paginationInfo?.totalElements"
+                       [pageSize]="pageSize"
+                       [pageSizeOptions]="[10, 15, 20]"
+                       (page)="onPaginationChange($event)"
+                       #resourcesPaginator
+                       aria-label="Select page">
+        </mat-paginator>
+    </div>
+
+</div> -->
+
+<app-listing></app-listing>

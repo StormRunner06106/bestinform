@@ -1,0 +1,83 @@
+<ng-container *ngIf="isBiggerThan981; else smallDisplayTemplate">
+  <div
+    [ngClass]="'hero-container'"
+    [ngStyle]="{
+      'background-image': !showDefaultImg && backgroundImage
+    }"
+  >
+  </div>
+  <div class="offset max-width-wrapper">
+    <ng-container *ngIf="increaseImage">
+      <!-- add height to bar for increase image -->
+    </ng-container>
+
+    <!-- <h1 *ngIf="!listingCards" class="h1-white">
+      Exploreaza Universul Bestinform
+    </h1> -->
+    <ng-container *ngTemplateOutlet="searchTemplate"></ng-container>
+  </div>
+</ng-container>
+
+<ng-template #smallDisplayTemplate>
+  <ng-container *ngTemplateOutlet="imagesTemplate"></ng-container>
+
+  <div class="search-container-items">
+    <h1 *ngIf="!listingCards" class="h1-white">
+      Exploreaza Universul Bestinform
+    </h1>
+    <ng-container *ngTemplateOutlet="searchTemplate"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #searchTemplate>
+  <div class="search-container">
+    <ng-container *ngIf="title">
+      <div class="d-flex justify-content-between offset-container">
+        <div class="d-flex align-items-center">
+          <h1 class="fs-1">{{ title }}</h1>
+
+          <ng-container *ngIf="selected !== 'restaurants'">
+            <div
+              class="hotel-star-container"
+              title="{{ starRating }} Stars Hotel"
+            >
+              <div style="margin-right: 5px">{{ starRating ?? 0 }}</div>
+              <i class="bi bi-star"></i>
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="rating fs-6">
+          <span class="rating-text">Rating</span>
+          <span class="rating-score">{{ itemRating ?? 0 }}+</span>
+        </div>
+      </div>
+    </ng-container>
+
+    <app-card-slider
+      (selected)="setSelected($event, mainSearchComponent)"
+      [sliderCards]="sliderCards"
+      [size]="'small'"
+      [inputType]="selected"
+      [listingCards]="listingCards"
+      [ngClass]="{ noDisplay: listingCards }"
+    ></app-card-slider>
+    <app-main-search
+            #mainSearchComponent
+      [selected]="selected"
+      [listingCards]="listingCards"
+      (updatePlaneOffers)="updatePlaneOffers($event)"
+    ></app-main-search>
+    <app-card-slider
+      [disableCarouselAnimation]="disableCarouselAnimation$ | async"
+      (selected)="setSelectedCard($event)"
+      [sliderCards]="listingCards"
+      [size]="'small'"
+      [inputType]="selected"
+      [listingPage]="true"
+      [listingCards]="listingCards"
+      [ngClass]="{ noDisplay: !listingCards }"
+      [disableHover]="disableHover"
+    ></app-card-slider>
+  </div>
+</ng-template>

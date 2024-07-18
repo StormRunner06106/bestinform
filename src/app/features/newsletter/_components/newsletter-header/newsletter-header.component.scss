@@ -1,0 +1,25 @@
+@import "src/app/theme/styles/components/_colors.scss";
+* {
+  font-family: "Helvetica", sans-serif !important;
+}
+
+.blue-bar{
+  background-color: $primary-color;
+
+  .language{
+    background-color: $primary-color;
+    color: var(--primary-background);
+    border: none;
+  }
+}
+
+
+
+
+@media only screen and (max-width: 767px) {
+  p {
+    font-size: 14px !important;
+    line-height: 20px !important;
+  }
+}
+

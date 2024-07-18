@@ -1,0 +1,22 @@
+<div id="app" class="app" [dir]="(settings.rtl) ? 'rtl' : 'ltr'"
+            [ngClass]="[settings.theme, 'toolbar-'+settings.toolbar]"
+            [class.main-toolbar-fixed]="settings.mainToolbarFixed">
+            <!-- Toaster -->
+    <app-toaster></app-toaster>
+    <div class="app-content">
+        <router-outlet></router-outlet>
+    </div>
+    <ng-progress
+        [spinner]="false"
+        [meteor]="false"
+        color="#e91e63"></ng-progress>
+        <!--hide chat if coming-soon page-->
+    <!-- <df-messenger *ngIf="router.url.includes('/client')"
+            intent="WELCOME"
+            chat-title="Events"
+            agent-id="d4e6cb7e-652b-4925-a4b6-761d914217cb"
+            language-code="en"
+    ></df-messenger> -->
+</div>
+
+

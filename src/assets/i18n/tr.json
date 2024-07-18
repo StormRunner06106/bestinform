@@ -1,0 +1,53 @@
+{   
+  "LOGIN": "Oturum aç", 
+  "LOGOUT": "Çıkış", 
+  "REGISTER": "Kayıt ol",
+  "ACCOUNT": "Hesap",
+  "SUBMIT_PROPERTY": "Emlak ekle",
+  "MENU": "Menü",
+  "MY_PROPERTIES": "Mülklerim",
+  "FAVORITES": "Favoriler",
+  "COMPARE": "Karşılaştırmak",
+  "EDIT_PROFILE": "Profili Düzenle",
+  "LOCK_SCREEN": "Ekranı kilitle",
+  "HELP": "Yardım",
+  "NAV": {  
+    "HOME": "Ana Sayfa",
+    "PROPERTIES": "Emlaklar",   
+    "PAGES": "Sayfalar", 
+    "AGENTS": "Ajanlar",
+    "AGENT": "Ajan", 
+    "FAQS": "Faqs",
+    "PRICING": "Fiyatlandırma",
+    "TERMS_CONDITIONS": "Şartlar ve Koşullar",
+    "LANDING": "Landing", 
+    "404_PAGE": "404 Page",
+    "OTHERS": "Diğerleri",
+    "EXTERNAL_LINK": "Harici Bağlantı",
+    "MENU_ITEM": "Menü",
+    "CONTACT": "İletişim",
+    "ABOUT_US": "Hakkımızda",
+    "ADMIN": "Admin"
+  }, 
+  "BTN": {
+    "ADD": "Ekle",
+    "SAVE": "Kaydet",
+    "SUBMIT": "Sunmak",
+    "CANCEL": "İptal",
+    "UPLOAD": "Yükle",
+    "REMOVE": "Kaldırmak",
+    "YES": "Evet",
+    "NO": "Hayır",
+    "OK": "Tamam",
+    "CLEAR": "Temizle",
+    "ADVANCED": "Gelişmiş Arama",
+    "HIDE": "Gizle"
+  },
+  "MESSAGE": {
+    "SURE_DELETE": "Silmek istediğine emin misin?",
+    "FILE_SIZE": "Dosya boyutu {{param}} kb'yi aşamaz."
+  },
+  "FIELD": { 
+    "NAME": "İsim" 
+  }
+}

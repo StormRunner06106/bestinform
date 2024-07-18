@@ -1,0 +1,902 @@
+<div class="page-background">
+    <h1 class="page-title">
+        Checkout
+    </h1>
+
+    <div class="container">
+        <div class="row row-gap-24">
+            <!--Booking Details-->
+            <div class="col-12 col-lg-8">
+                <div class="column-container">
+
+                    <!--User Details Section-->
+                    <div *ngIf="currentUserData" class="user-details-container">
+                        <h2 class="section-title">
+                            <i class="fas fa-check-circle"></i>Check your information
+                        </h2>
+
+                        <form [formGroup]="userDetailsForm">
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <p>
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>First Name</mat-label>
+                                            <input matInput formControlName="firstName" placeholder="First Name">
+                                            <mat-icon matSuffix>
+                                                <i class="fas fa-user"></i>
+                                            </mat-icon>
+                                        </mat-form-field>
+                                    </p>
+                                </div>
+
+                                <div class="col-12 col-lg-6">
+                                    <p>
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Last Name</mat-label>
+                                            <input matInput formControlName="lastName" placeholder="Last Name">
+                                            <mat-icon matSuffix>
+                                                <i class="fas fa-user"></i>
+                                            </mat-icon>
+                                        </mat-form-field>
+                                    </p>
+                                </div>
+
+                                <div class="col-12 col-lg-6">
+                                    <p>
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Email</mat-label>
+                                            <input matInput formControlName="email" placeholder="Email">
+                                            <mat-icon matSuffix>
+                                                <i class="fas fa-envelope"></i>
+                                            </mat-icon>
+                                        </mat-form-field>
+                                    </p>
+                                </div>
+
+                                <div class="col-12 col-lg-6">
+                                    <p>
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Phone</mat-label>
+                                            <input matInput formControlName="telephone" placeholder="Phone">
+                                            <mat-icon matSuffix>
+                                                <i class="fas fa-phone-alt"></i>
+                                            </mat-icon>
+                                        </mat-form-field>
+                                    </p>
+                                </div>
+
+                                <div class="col-12">
+                                    <p>
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Country/Region</mat-label>
+                                            <mat-select formControlName="country">
+                                                <mat-option [value]="'Romania'">Romania</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--Special Request Section-->
+                    <div *ngIf="resourceData" class="special-request-container">
+                        <h3>
+                            <i class="fas fa-star"></i>
+                            <span>
+                                Special request (optional)
+                            </span>
+                        </h3>
+
+                        <p>
+                            Special requests can’t be guaranteed, but the property will do its best to meet your needs.
+                            You can always make a special request after your booking is complete.
+                        </p>
+
+                        <p class="fw-bold">
+                            Please write your request in English or Romanian.
+                        </p>
+
+                        <p>
+                            <mat-form-field appearance="standard">
+                                <mat-label>Description</mat-label>
+                                <textarea [(ngModel)]="specialRequest"
+                                          placeholder="Description"
+                                          matInput
+                                          cdkTextareaAutosize
+                                          cdkAutosizeMinRows="1"
+                                          cdkAutosizeMaxRows="20"
+                                ></textarea>
+                                <mat-icon *ngIf="specialRequest"
+                                          (click)="specialRequest = null"
+                                          role="button" matSuffix>clear
+                                </mat-icon>
+                            </mat-form-field>
+                        </p>
+                    </div>
+
+                    <!--Booking Details Section - For Resources-->
+                    <div *ngIf="resourceData && filterFormValues" class="booking-details-container">
+                        <h2 class="section-title">
+                            <i class="fas fa-clipboard-list"></i>Booking details
+                        </h2>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+
+                                <div class="details-group-container">
+                                    <div class="details-group">
+                                        <p>Name:</p>
+                                        <p>{{ resourceData?.title | titlecase }}</p>
+                                    </div>
+
+                                    <!--ticketBooking-->
+                                    <ng-container *ngIf="resourceData.bookingType === 'ticketBooking'">
+                                        <div class="details-group">
+                                            <p>Date:</p>
+                                            <p>{{ filterFormValues?.dateAsDay.toDate() | date : 'd MMMM, y' }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Number of tickets:</p>
+                                            <p>{{ numberOfTickets }}</p>
+                                        </div>
+                                    </ng-container>
+
+                                    <!--culturalBooking-->
+                                    <ng-container *ngIf="resourceData.bookingType === 'culturalBooking'">
+                                        <div class="details-group">
+                                            <p>Date:</p>
+                                            <p>{{ resourceData?.startDate | date : 'd MMMM HH:mm, y' }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Number of tickets:</p>
+                                            <p>{{ selectedSeats.length }}</p>
+                                        </div>
+                                    </ng-container>
+
+                                    <!--rentalBooking-->
+                                    <ng-container *ngIf="resourceData.bookingType === 'rentalBooking'">
+                                        <div class="details-group">
+                                            <p>Check-in:</p>
+                                            <p>{{ filterFormValues?.startDate.toDate() | date : 'd MMMM, y' }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Check-out:</p>
+                                            <p>{{ filterFormValues?.endDate.toDate() | date : 'd MMMM, y' }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Number of rooms:</p>
+                                            <p>{{ numberOfRooms }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Max number of adults:</p>
+                                            <p>{{ numberOfAdults }}</p>
+                                        </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="resourceData.bookingType === 'serviceBookingTimeSlots'">
+                                        <div class="details-group">
+                                            <p>Date:</p>
+                                            <p>{{ filterFormValues?.dateAsDay.toDate() | date : 'd MMMM, y' }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Time:</p>
+                                            <p>{{ selectedAvailableTimeSlot.startHour }}
+                                                - {{ selectedAvailableTimeSlot.endHour }}</p>
+                                        </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="resourceData.bookingType === 'menu'">
+                                        <div class="details-group">
+                                            <p>Date:</p>
+                                            <p>{{ filterFormValues?.dateAsHour.toDate() | date : 'd MMMM, y' }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Time:</p>
+                                            <p>{{ filterFormValues?.dateAsHour.toDate() | date : 'HH:mm' }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Adults number:</p>
+                                            <p>{{ guestsState.adultsNumber }}</p>
+                                        </div>
+
+                                        <div *ngIf="guestsState?.childrenNumber > 0" class="details-group">
+                                            <p>Children number:</p>
+                                            <p>{{ guestsState.childrenNumber }}</p>
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <div class="resource-img-container">
+                                    <img [src]="resourceData?.featuredImage?.filePath" alt="resource featured image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Booking Details Section - For Trips-->
+                    <div *ngIf="tripState" class="booking-details-container">
+                        <h2 class="section-title">
+                            <i class="fas fa-clipboard-list"></i>Booking details
+                        </h2>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+
+                                <div class="details-group-container">
+                                    <div class="details-group">
+                                        <p>Name:</p>
+                                        <p>{{ tripState?.name | titlecase }}</p>
+                                    </div>
+
+                                    <div class="details-group">
+                                        <p>Start Date:</p>
+                                        <p>{{ tripState?.startDate | date : 'd MMMM, y' }}</p>
+                                    </div>
+
+                                    <div class="details-group">
+                                        <p>End Date:</p>
+                                        <p>{{ tripState?.endDate | date : 'd MMMM, y' }}</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <div class="resource-img-container">
+                                    <img [src]="tripState?.featuredImage?.filePath" alt="trip featured image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Booking Details Section - For Itineraries-->
+                    <div *ngIf="itineraryState && itineraryExtraInfo" class="booking-details-container">
+                        <h2 class="section-title">
+                            <i class="fas fa-clipboard-list"></i>Booking details
+                        </h2>
+
+                        <div class="row">
+                            <div class="col-12"
+                                 [ngClass]="itineraryState?.featuredImage?.filePath ? 'col-lg-6' : 'col-lg-12'"
+                            >
+
+                                <div class="details-group-container">
+                                    <div class="details-group">
+                                        <p>Itinerary Name:</p>
+                                        <p>{{ itineraryState?.name | titlecase }}</p>
+                                    </div>
+
+                                    <div class="details-group">
+                                        <p>Start Date:</p>
+                                        <p>
+                                            {{ itineraryExtraInfo?.itineraryType === 'ai' ? (itineraryExtraInfo?.startDate?.toDate() | date : 'd MMMM, y')
+                                            : (itineraryExtraInfo?.destinations?.[0]?.startDate.toDate() | date : 'd MMMM, y') }}
+                                        </p>
+                                    </div>
+
+                                    <div class="details-group">
+                                        <p>End Date:</p>
+                                        <p>
+                                            {{ itineraryExtraInfo?.itineraryType === 'ai' ? (itineraryExtraInfo?.endDate?.toDate() | date : 'd MMMM, y')
+                                            : (itineraryExtraInfo?.destinations?.[itineraryExtraInfo?.destinations.length - 1]?.endDate.toDate() | date : 'd MMMM, y') }}
+                                        </p>
+                                    </div>
+
+                                    <ng-container *ngFor="let destination of itineraryState?.resources">
+                                        <h4 class="mt-4 mb-0">
+                                            {{ destination.city }}
+                                        </h4>
+
+                                        <!--accommodation-->
+                                        <ng-container
+                                                *ngIf="destination?.accommodationResourceRecommended?.items?.length > 0">
+                                            <div class="details-group">
+                                                <p>{{destination?.accommodationResourceRecommended?.resourceName}}</p>
+                                                <ng-container
+                                                        *ngFor="let room of destination?.accommodationResourceRecommended?.items">
+                                                    <p>
+                                                        {{ room?.itemName }}:
+                                                        €{{ room.pricePerItem | priceBookingPolicies : room.bookingPolicies : room.quantity }}
+                                                    </p>
+                                                </ng-container>
+                                            </div>
+                                        </ng-container>
+
+                                        <!--eat and drinks-->
+                                        <ng-container *ngIf="destination?.eatAndDrinkResourcesRecommended?.length > 0">
+                                            <ng-container
+                                                    *ngFor="let resource of destination?.eatAndDrinkResourcesRecommended">
+                                                <div class="details-group">
+                                                    <p>{{ resource?.resourceName }}</p>
+                                                    <p>Price:
+                                                        €{{ resource?.dates?.length * resource?.depositAmount }}</p>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+
+                                        <!--day activities-->
+                                        <ng-container *ngIf="destination?.dayActivityResourcesRecommended?.length > 0">
+                                            <ng-container
+                                                    *ngFor="let resource of destination?.dayActivityResourcesRecommended">
+                                                <div class="details-group">
+                                                    <p>{{resource?.resourceName}}</p>
+                                                    <ng-container *ngFor="let dateGroup of resource?.items">
+                                                        <ng-container *ngFor="let item of dateGroup?.items">
+                                                            <p>
+                                                                {{ item?.itemName }}:
+                                                                €{{ item?.price | priceBookingPolicies : item?.bookingPolicies : item?.quantity }}
+                                                            </p>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+
+                                        <!--evening activities-->
+                                        <ng-container
+                                                *ngIf="destination?.eveningActivityResourcesRecommended?.length > 0">
+                                            <ng-container
+                                                    *ngFor="let resource of destination?.eveningActivityResourcesRecommended">
+                                                <div class="details-group">
+                                                    <p>{{resource?.resourceName}}</p>
+                                                    <ng-container *ngFor="let dateGroup of resource?.items">
+                                                        <ng-container *ngFor="let item of dateGroup?.items">
+                                                            <p>
+                                                                {{ item?.itemName }}:
+                                                                €{{ item?.price | priceBookingPolicies : item?.bookingPolicies : item?.quantity }}
+                                                            </p>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+
+                                </div>
+
+                            </div>
+
+                            <div *ngIf="itineraryState?.featuredImage?.filePath" class="col-12 col-lg-6">
+                                <div class="resource-img-container">
+                                    <img [src]="itineraryState?.featuredImage?.filePath" alt="trip featured image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="carState" class="car-container">
+                        <h2 class="section-title">
+                            <i class="fas fa-clipboard-list"></i>Booking details
+                        </h2>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+
+                                <div class="details-group-container">
+                                    <div class="details-group">
+                                        <p>Name:</p>
+                                        <p>{{ currentCar?.name | titlecase }}</p>
+                                    </div>
+
+                                    <!--ticketBooking-->
+                                    <ng-container>
+                                        <div class="details-group">
+                                            <p>Description:</p>
+                                            <p>{{ currentCar?.description }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Consumption:</p>
+                                            <p>{{ currentCar?.consumption }}</p>
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <div class="resource-img-container">
+                                    <img [src]="currentCar?.image?.filePath" alt="featured image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="ticketsState" class="car-container">
+                        <h2 class="section-title">
+                            <i class="fas fa-clipboard-list"></i>Booking details
+                        </h2>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+
+                                <div class="details-group-container">
+                                    <div class="details-group">
+                                        <p>Transport number:</p>
+                                        <p>{{ currentTicket?.transportNumber | titlecase }}</p>
+                                    </div>
+
+                                    <!--ticketBooking-->
+                                    <ng-container>
+                                        <div class="details-group">
+                                            <p>Location:</p>
+                                            <p>From {{ currentTicket?.from }} to {{ currentTicket?.to }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Date:</p>
+                                            <p>{{ currentTicket?.departureDate | date:'dd-MM-yyy' }} - {{ currentTicket.arrivalDate  | date:'dd-MM-yyy' }}</p>
+                                        </div>
+
+                                        <div class="details-group">
+                                            <p>Travel class:</p>
+                                            <p>{{ currentTicket?.travelClass }}</p>
+                                        </div>
+
+
+                                    </ng-container>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <div class="resource-img-container">
+                                    <img [src]="currentTicket?.iconPath" alt="featured image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Payment details-->
+                    <div class="payment-details-container">
+                        <h2 *ngIf="resourceData?.bookingType !== 'menu'" class="section-title">
+                            <i class="fas fa-credit-card"></i>Payment details
+                        </h2>
+                        <mat-radio-group>
+                            <mat-radio-button>Plata online rapidă și ușoară cu ajutorul cardului bancar.
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <div class="d-block mt-4" *ngIf="checkoutType !== 'transport'">
+                            <button type="button" class="btn-auto btn-color-fill" (click)="checkReservationType()">
+                                <i class="fas fa-check"></i>
+                                Confirm checkout
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Checkout details - For Resources-->
+            <div *ngIf="resourceData" class="col-12 col-lg-4">
+                <div class="checkout-details-container">
+                    <div class="checkout-items">
+                        <h2 class="section-title">
+                            <i class="fas fa-shopping-cart"></i>Your checkout details
+                        </h2>
+
+                        <div class="details-group-container">
+
+                            <!--ticketBooking-->
+                            <ng-container *ngIf="resourceData.bookingType === 'ticketBooking'">
+                                <div *ngFor="let ticket of ticketState | keyvalue" class="details-group">
+                                    <p>Field name:</p>
+                                    <p>{{ ticket.value }} x {{ ticket.key.name }}</p>
+                                </div>
+                            </ng-container>
+
+                            <!--culturalBooking-->
+                            <ng-container *ngIf="resourceData.bookingType === 'culturalBooking'">
+                                <div *ngFor="let seat of selectedSeats" class="details-group">
+                                    <p>Field name:</p>
+                                    <p>Row: {{ seat.rowLabel }}, Seat: {{ seat.seatColumnLabel }}: €{{ seat.price }}</p>
+                                </div>
+                            </ng-container>
+
+                            <!--rentalBooking-->
+                            <ng-container *ngIf="resourceData.bookingType === 'rentalBooking'">
+                                <div *ngFor="let room of roomState | keyvalue" class="details-group">
+                                    <p>Field name:</p>
+                                    <p>{{ room.value }} x {{ room.key.name }}</p>
+                                </div>
+                            </ng-container>
+
+                            <!--serviceBookingTimeSlots-->
+                            <ng-container *ngIf="resourceData.bookingType === 'serviceBookingTimeSlots'">
+                                <div class="details-group">
+                                    <p>Field name:</p>
+                                    <p>{{ selectedTimeSlot.name }}</p>
+                                </div>
+
+                                <div class="details-group">
+                                    <p>Total length of the reservation:</p>
+                                    <p>{{ selectedTimeSlotMinutes }}</p>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="resourceData.bookingType === 'productsList'">
+                                <div class="details-group">
+                                    <p>Course name:</p>
+                                    <p>{{ selectedProduct.name }}</p>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="resourceData.bookingType === 'menu'">
+                                <div class="details-group">
+                                    <p>Reservation: {{ resourceData.title }}</p>
+                                </div>
+
+                                <div class="details-group">
+                                    <p>Time:</p>
+                                    <p>{{ filterFormValues?.dateAsHour.toDate() | date : 'd MMMM, HH:mm' }}</p>
+                                </div>
+                            </ng-container>
+
+                            <p *ngIf="resourceData.bookingType !== 'menu'" class="text-you-selected">
+                                You selected
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-total-items">
+                        <ng-container *ngIf="resourceData.bookingType === 'ticketBooking'">
+                            <h5 class="pt-2">Subtotal</h5>
+                            <div class="total-items-bold">
+                                <p>{{ numberOfTickets }} tickets</p>
+                                <p>€ {{ ticketsPrice }}</p>
+                            </div>
+                            <p class="text-right" *ngIf="totalPrice > 0 && totalPrice !== ticketsPrice">Acum veți achita
+                                doar € {{totalPrice}}</p>
+                            <p class="text-right" *ngIf="totalPrice === 0">Acum nu trebuie să achitați nimic. :)</p>
+
+                        </ng-container>
+
+                        <ng-container *ngIf="resourceData.bookingType === 'culturalBooking'">
+                            <h5 class="pt-2">Subtotal</h5>
+                            <div class="total-items-bold">
+                                <p>{{ selectedSeats.length }} tickets</p>
+                                <p>€ {{ culturalTicketsPrice }}</p>
+                            </div>
+                            <p class="text-right" *ngIf="totalPrice > 0 && totalPrice !== culturalTicketsPrice">Acum veți achita doar € {{totalPrice}}</p>
+                            <p class="text-right" *ngIf="totalPrice === 0">Acum nu trebuie să achitați nimic. :)</p>
+
+                        </ng-container>
+
+                        <ng-container *ngIf="resourceData.bookingType === 'rentalBooking'">
+                            <h5 class="pt-2">Subtotal</h5>
+                            <div class="total-items-bold">
+                                <p>{{ numberOfRooms }} rooms</p>
+                                <p>€ {{ roomsPrice }}</p>
+                            </div>
+                            <p class="text-right" *ngIf="totalPrice > 0 && totalPrice !== roomsPrice">Acum veți achita
+                                doar € {{totalPrice}}</p>
+                            <p class="text-right" *ngIf="totalPrice === 0">Acum nu trebuie să achitați nimic. :)</p>
+
+                        </ng-container>
+
+                        <ng-container *ngIf="resourceData.bookingType === 'serviceBookingTimeSlots' && timeSlotState">
+                            <h5>Subtotal</h5>
+                            <div class="total-items-bold">
+                                <p>{{ selectedTimeSlot.name }} </p>
+                                <p>€ {{ selectedTimeSlot.price }}</p>
+                            </div>
+                            <p class="text-right" *ngIf="totalPrice > 0 && totalPrice !== selectedTimeSlot.price">Acum
+                                veți achita doar € {{totalPrice}}
+                                <span *ngIf="selectedTimeSlot.bookingPolicies.advancePartialPaymentPercentage">(avans)</span>
+                                <span *ngIf="selectedTimeSlot.bookingPolicies.depositRequiredPercentage">(depozit)</span>
+                                <span *ngIf="selectedTimeSlot.bookingPolicies.depositRequiredAmount">(depozit)</span>
+                            </p>
+                            <p class="text-right" *ngIf="totalPrice === 0">Acum nu trebuie să achitați nimic. :)</p>
+
+                        </ng-container>
+
+                        <ng-container *ngIf="resourceData.bookingType === 'productsList'">
+                            <div class="total-items-bold">
+                                <p>{{ selectedProduct.name }}</p>
+                                <p>€ {{ selectedProduct.price }}</p>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="checkout-total-price">
+                        <div class="total-price-bold">
+                            <p>Total Price:</p>
+
+                            <div class="d-flex align-items-center justify-content-end gap-2"
+                                 *ngIf="loyaltyPointsInCurrencySpent < totalPrice">
+                                <p>€ {{ totalPrice - (loyaltyPointsInCurrencySpent | number : '1.0-2') }}</p>
+                                <p *ngIf="useLoyaltyPoints" class="line-through-price">{{ totalPrice }}</p>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-end gap-2"
+                                 *ngIf="loyaltyPointsInCurrencySpent > totalPrice">
+                                <p>€0</p>
+                                <p *ngIf="useLoyaltyPoints" class="line-through-price">{{ totalPrice }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template [ngTemplateOutlet]="loyaltyPoints"></ng-template>
+            </div>
+
+            <!--Checkout details - For Trips-->
+            <div *ngIf="tripState" class="col-12 col-lg-4">
+                <div class="checkout-details-container">
+                    <div class="checkout-items">
+                        <h2 class="section-title">
+                            <i class="fas fa-shopping-cart"></i>Your checkout details
+                        </h2>
+
+                        <div class="details-group-container">
+
+                            <div class="details-group">
+                                <p>Trip name:</p>
+                                <p>{{ tripState.name }}</p>
+                            </div>
+
+                            <div class="details-group">
+                                <p>Hotel name:</p>
+                                <p>{{ hotelState }}</p>
+                            </div>
+
+                            <div class="details-group">
+                                <p>Adults:</p>
+                                <p>{{ tripGuestsState.adultsNumber }}</p>
+                            </div>
+
+                            <div class="details-group">
+                                <p>Children:</p>
+                                <p>{{ tripGuestsState.childrenNumber }}</p>
+                            </div>
+
+                            <div class="details-group">
+                                <p>Rooms:</p>
+
+                                <ng-container *ngFor="let tripRoom of tripRoomsState | keyvalue">
+                                    <p>{{ tripRoom.value }} x {{ tripRoom.key.name }}</p>
+                                </ng-container>
+                            </div>
+
+
+                            <p class="text-you-selected">
+                                You selected
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-total-items">
+
+                        <div class="total-items-bold" *ngFor="let tripRoom of tripRoomsState | keyvalue">
+                            <p>{{ tripRoom.key.name }}</p>
+                            <p>€ {{ tripRoom.key.price * tripRoom.value }}</p>
+                        </div>
+
+                    </div>
+
+                    <div class="checkout-total-price">
+
+                        <div class="total-price-bold">
+                            <p>Total Price:</p>
+
+                            <div class="d-flex align-items-center justify-content-end gap-2">
+                                <p>€ {{ totalPrice - (loyaltyPointsInCurrencySpent | number : '1.0-2') }}</p>
+                                <p *ngIf="useLoyaltyPoints" class="line-through-price">{{ totalPrice }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <ng-template [ngTemplateOutlet]="loyaltyPoints"></ng-template>
+            </div>
+
+            <!--Checkout details - For Itineraries-->
+            <div *ngIf="itineraryState && itineraryExtraInfo" class="col-12 col-lg-4">
+                <div class="checkout-details-container">
+                    <div class="checkout-items">
+                        <h2 class="section-title">
+                            <i class="fas fa-shopping-cart"></i>Your checkout details
+                        </h2>
+
+                        <div class="details-group-container">
+
+                            <div class="details-group">
+                                <p>Itinerary name:</p>
+                                <p>{{ itineraryState.name }}</p>
+                            </div>
+
+                            <div class="details-group">
+                                <p>Adults:</p>
+                                <p>{{ itineraryExtraInfo.adultsNumber }}</p>
+                            </div>
+
+                            <div class="details-group">
+                                <p>Children:</p>
+                                <p>{{ itineraryExtraInfo.childrenNumber }}</p>
+                            </div>
+
+                            <p class="text-you-selected">
+                                You selected
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-total-items">
+                        <h5 class="pt-2">Subtotal</h5>
+                        <div class="total-items-bold">
+                            <p>{{ itineraryState?.name }}</p>
+                            <p>€ {{ itineraryTotalPrice }}</p>
+                        </div>
+                        <p class="text-right" *ngIf="totalPrice > 0 && totalPrice !== itineraryTotalPrice">Acum veți
+                            achita doar € {{totalPrice}}</p>
+                        <p class="text-right" *ngIf="totalPrice === 0">Acum nu trebuie să achitați nimic. :)</p>
+
+                    </div>
+
+                    <div class="checkout-total-price">
+
+                        <div class="total-price-bold">
+                            <p>Total Price:</p>
+                            <p>€{{ totalPrice }}</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--<ng-template [ngTemplateOutlet]="loyaltyPoints"></ng-template>-->
+
+            </div>
+
+            <!--Checkout details - For Cars-->
+            <div *ngIf="carState" class="col-12 col-lg-4">
+                <div class="checkout-details-container">
+                    <div class="checkout-items">
+                        <h2 class="section-title">
+                            <i class="fas fa-shopping-cart"></i>Your checkout details
+                        </h2>
+
+                        <div class="details-group-container">
+
+                            <p class="text-you-selected">
+                                You selected
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-total-items">
+
+                        <ng-container>
+                            <!--                            <h5>Subtotal</h5>-->
+                            <div class="total-items-bold">
+                                <p>{{ currentCar?.name }} </p>
+                                <p>€ {{ currentCar?.price }}</p>
+                            </div>
+                            <p class="text-right" *ngIf="totalPrice === 0">Acum nu trebuie să achitați nimic. :)</p>
+
+                        </ng-container>
+                    </div>
+
+                    <div class="checkout-total-price">
+                        <div class="total-price-bold">
+                            <p>Total Price:</p>
+
+                            <!--                            <div class="d-flex align-items-center justify-content-end gap-2" *ngIf="carState">-->
+                            <!--                                <p>€ {{ totalPrice }}</p>-->
+                            <!--                            </div>-->
+
+                            <div class="d-flex align-items-center justify-content-end gap-2"
+                                 *ngIf="loyaltyPointsInCurrencySpent < totalPrice">
+                                <p>€ {{ totalPrice - (loyaltyPointsInCurrencySpent | number : '1.0-2') }}</p>
+                                <p *ngIf="useLoyaltyPoints" class="line-through-price">{{ totalPrice }}</p>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-end gap-2"
+                                 *ngIf="loyaltyPointsInCurrencySpent > totalPrice">
+                                <p>€0</p>
+                                <p *ngIf="useLoyaltyPoints" class="line-through-price">{{ totalPrice }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template [ngTemplateOutlet]="loyaltyPoints"></ng-template>
+            </div>
+
+            <!--Checkout details - For Tickets-->
+            <div *ngIf="ticketsState" class="col-12 col-lg-4">
+                <div class="checkout-details-container">
+                    <div class="checkout-items">
+                        <h2 class="section-title">
+                            <i class="fas fa-shopping-cart"></i>Your checkout details
+                        </h2>
+
+                        <div class="details-group-container">
+
+                            <p class="text-you-selected">
+                                You selected
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-total-items">
+
+                        <ng-container>
+                            <!--                            <h5>Subtotal</h5>-->
+                            <div class="total-items-bold">
+                                <p>{{ currentTicket?.from }} - {{currentTicket?.to}} </p>
+                                <p>€ {{ currentTicket?.price }}</p>
+                            </div>
+                            <p class="text-right" *ngIf="totalPrice === 0">Acum nu trebuie să achitați nimic. :)</p>
+
+                        </ng-container>
+                    </div>
+
+                    <div class="checkout-total-price">
+                        <div class="total-price-bold">
+                            <p>Total Price:</p>
+
+                            <!--                            <div class="d-flex align-items-center justify-content-end gap-2" *ngIf="carState">-->
+                            <!--                                <p>€ {{ totalPrice }}</p>-->
+                            <!--                            </div>-->
+
+                            <div class="d-flex align-items-center justify-content-end gap-2"
+                                 *ngIf="loyaltyPointsInCurrencySpent < totalPrice">
+                                <p>€ {{ totalPrice - (loyaltyPointsInCurrencySpent | number : '1.0-2') }}</p>
+                                <p *ngIf="useLoyaltyPoints" class="line-through-price">{{ totalPrice }}</p>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-end gap-2"
+                                 *ngIf="loyaltyPointsInCurrencySpent > totalPrice">
+                                <p>€0</p>
+                                <p *ngIf="useLoyaltyPoints" class="line-through-price">{{ totalPrice }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template [ngTemplateOutlet]="loyaltyPoints"></ng-template>
+            </div>
+
+            <!--Loyalty Points Toggle-->
+            <ng-template #loyaltyPoints>
+                <div *ngIf="currentUserData && systemSettings" class="loyalty-points-container column-container mt-4">
+                    <mat-slide-toggle [(ngModel)]="useLoyaltyPoints"
+                                      [color]="'primary'"
+                                      [labelPosition]="'before'"
+                                      [disabled]="disabledLoyaltyPoints"
+                                      (ngModelChange)="recalculateTotalPrice()">
+                        Use your loyalty points: {{currentUserData.loyaltyPoints}}
+                    </mat-slide-toggle>
+
+                    <p *ngIf="useLoyaltyPoints">Your loyalty points are equivalent to:
+                        € {{ loyaltyPointsInCurrencySpent | number : '1.0-2' }}.
+                        <span *ngIf="totalPrice < loyaltyPointsInCurrencySpent"> Today you will spend only {{(totalPrice / systemSettings.percentageLoyaltyPointsSpend) | number : '1.0-2' }}
+                            points, equivalent to
+                            €{{totalPrice}}.</span>
+
+                    </p>
+
+                    <p *ngIf="useLoyaltyPoints && loyaltyPointsInCurrencySpent < totalPrice">
+                        You will gain:
+                        {{ loyaltyPointsInCurrencyGained | number : '1.0-2' }}
+                        loyalty points, after completing your order
+                    </p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

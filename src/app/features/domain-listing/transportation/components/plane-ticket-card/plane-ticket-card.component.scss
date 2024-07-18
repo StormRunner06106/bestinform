@@ -1,0 +1,498 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+// h4 {
+//   font-weight: 700;
+//   font-size: 20px;
+//   letter-spacing: -0.02em;
+//   color: #231F20;
+// }
+
+// .general-ticket-card {
+//   margin-bottom: 25px;
+//   display: flex;
+//   flex-direction: column;
+//   border: 1px solid rgba(13, 68, 148, 0.24);
+//   box-shadow: 0px 4px 8px rgba(35, 31, 32, 0.08);
+//   border-radius: 25px;
+//   overflow: hidden;
+
+//   .bkg-grey {
+//     background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), #FFFFFF;
+
+//     .hour-1 {
+//       font-weight: 700;
+//       font-size: 16px;
+//       letter-spacing: -0.02em;
+//       color: #231F20;
+//       opacity: 0.72;
+//       margin-bottom: 0px;
+//     }
+
+//     .hour-2 {
+//       font-weight: 400;
+//       font-size: 14px;
+//       display: flex;
+//       align-items: flex-end;
+//       text-align: center;
+//       letter-spacing: -0.02em;
+//       color: #24398A;
+//       margin-bottom: 0px;
+
+//       i {
+//         margin-right: 5px;
+//       }
+//     }
+
+//     .type-flight {
+//       font-weight: 700;
+//       font-size: 16px;
+//       line-height: 140%;
+//       letter-spacing: -0.02em;
+//       margin-bottom: 0px;
+
+//       span {
+//         color: $paragraph;
+//       }
+
+//       &.red {
+//         color: #EA4335;
+//       }
+
+//       &.green {
+//         color: #34A853;
+//       }
+//     }
+
+//     .class-flight {
+//       font-weight: 400;
+//       font-size: 16px;
+//       letter-spacing: -0.02em;
+//       color: #231F20;
+//       margin-bottom: 0px;
+
+//     }
+//   }
+
+//   .bkg-white {
+//     background: #FFFFFF;
+//     border-top-left-radius: 8px;
+//     border-top-right-radius: 8px;
+
+//     img {
+//       width: 67px;
+//       height: 39px;
+//       margin-right: 24px;
+//     }
+
+//     .car-img {
+//       height: auto;
+//       min-width: 364px;
+//       object-fit: cover;
+//       border-top-left-radius: 8px;
+
+//       @media(max-width: 992px) {
+//         width: 100%;
+//         height: 200px;
+//       }
+//     }
+
+//     .car-info {
+//       padding: 10px 16px;
+
+//       .description {
+//         font-size: 16px;
+//         line-height: 22px;
+//         opacity: 0.56;
+//       }
+
+//       .small-info {
+//         gap: 8px;
+
+//         span {
+//           color: $primary-color;
+//           font-size: 16px;
+//           line-height: 22px;
+
+//           .car-door {
+//             width: 15px;
+//             height: 15px;
+//           }
+//         }
+//       }
+//     }
+
+
+//   }
+
+//   .bkg-last-line {
+//     background: rgba(36, 57, 138, 0.08);
+
+//     h4 {
+//       font-weight: 500;
+//       font-size: 28px;
+//       text-align: right;
+//       letter-spacing: -0.02em;
+//       color: #34A853;
+//       padding: 8px 50px;
+//       margin-bottom: 0px;
+
+//       span {
+//         padding: 0 5px;
+//         font-weight: 400;
+//         font-size: 16px;
+//         text-align: right;
+//         letter-spacing: -0.02em;
+//         color: #24398A;
+//         opacity: 0.48;
+//       }
+//     }
+
+//     button {
+//       border-radius: 0;
+//     }
+
+//   }
+
+//   // first line labels
+
+//   .label {
+//     border-radius: 8px;
+//     padding: 10px;
+//     width: 33%;
+
+//     p {
+//       font-weight: 700;
+//       font-size: 16px;
+//       margin: 0px;
+//       text-align: center;
+//       align-items: center;
+
+//       i {
+//         margin-right: 10px
+//       }
+//     }
+//   }
+
+//   .label-recommended {
+//     background: linear-gradient(0deg, rgba(254, 212, 0, 0.08), rgba(254, 212, 0, 0.08));
+//     border: 1px solid rgba(254, 212, 0, 0.48);
+
+//     p {
+//       color: #FFCC04;
+
+//     }
+//   }
+
+//   .label-cheapest {
+//     background: rgba(44, 206, 167, 0.08);
+//     border: 1px solid rgba(44, 206, 167, 0.48);
+
+//     p {
+//       color: #2CCEA7;
+//     }
+
+//   }
+
+//   .label-fastest {
+//     background: rgba(36, 57, 138, 0.08);
+//     border: 1px solid rgba(36, 57, 138, 0.48);
+
+//     p {
+//       color: #24398A;
+//     }
+//   }
+
+//   //first-line
+//   .first-label-line {
+//     padding: 10px;
+//   }
+
+//   .first-line {
+//     height: 56px;
+//   }
+
+// }
+
+// .itinerary-row {
+//   padding-top: 15px;
+//   padding-bottom: 15px;
+
+//   &:not(:last-child) {
+//     border-bottom: 2px solid lightgrey;
+//   }
+// }
+
+// .flight-row {
+//   padding-top: 5px;
+//   padding-bottom: 5px;
+// }
+
+// .flight-row:not(:last-child) {
+//   border-bottom: 1px solid lightgrey;
+// }
+
+// .direct-flight-label {
+//   background: #d1edd3;
+//   padding: 5px 15px;
+//   border-radius: 5px;
+//   font-size: 12px;
+// }
+
+// .indirect-flight-label {
+//   background: #edd3d1;
+//   padding: 5px 15px;
+//   border-radius: 5px;
+//   font-size: 12px;
+// }
+
+:host ::ng-deep {
+  .cautare {
+    background: #E2BD63!important;
+    border: none;
+    border-radius: 0px 8px 8px 0px;
+    padding: 0.75rem 2.25rem;
+
+    .p-button-label {
+      color: #4257EE;
+    }
+  }
+  .p-chip.direct-chip {
+    background: #C5CEEA;
+    color: #4257EE;
+    .p-chip-text{
+      font-size: 14px;
+      white-space: nowrap;
+      text-wrap: nowrap;
+      -webkit-white-space: nowrap;
+    }
+  }
+  .p-chip.stop-chip {
+    background: #FEE6D7;
+    color: #F66A13;
+    .p-chip-text{
+      font-size: 14px;
+      white-space: nowrap;
+      text-wrap: nowrap;
+      -webkit-white-space: nowrap;
+    }
+  }
+}
+.ticket-logo{
+  padding-right: 9px;
+  padding-top: 4px;
+}
+.flight-info-block{
+  justify-content: center;
+}
+.flight-info-right, .flight-info-left {
+  width:100%;
+}
+.date-times{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.plane-ticket {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #D5D6E2;
+  background: white;
+  padding: 16px;
+  .bag-icon{
+    width: 16px;
+    height: 16px;
+    margin: 0 4px;
+  }
+}
+
+.ticket-container {
+  display: grid;
+  grid-template-columns: auto 26%;
+  gap: 2px;
+  box-shadow: 0px 8px 16px 0px #0000000A;
+}
+
+.ticket {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  justify-content: space-between;
+  gap: 8px
+}
+
+.date-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  img{
+    margin: 0 4px;
+  }
+}
+
+.date-text {
+  color: #393A53;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.flight-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo-company {
+  width: 64px;
+  height: 33px;
+  border-radius: 20px;
+  border: 1px solid #CAD2E3;
+  padding: 2px 4px 2px 4px;
+
+  img {
+    width: 56px;
+    height: 29px;
+    border-radius: 20px;
+  }
+}
+.logo-container {
+  border: 1px solid #D5D6E2;
+  border-radius: 100px;
+}
+
+.provider {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+.book-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  border: 1px solid #D5D6E2;
+  background: white;
+  height: 100%;
+  width: 100%;
+}
+
+.available-seats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  height: 100%;
+}
+
+.free-seats {
+  font-size: 1rem;
+  font-weight: bolder;
+  text-align: center;
+}
+.service-tax {
+  font-size: 1rem;
+  font-weight: normal;;
+  text-align: center;
+  color: #9199AC;
+}
+
+.other {
+  font-size: 1.875rem;
+  font-weight: bolder;
+  color:#36DD23;
+  text-align: center;
+}
+
+
+.cautare {
+  border-radius: 8px;
+  width: 100%;
+  background-color: #F8CC50;
+
+}
+
+.hours {
+  font-size: 16px;
+  font-weight: 800;
+  color: #111118
+}
+
+.duration {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.flight-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.itinerary-divider {
+  color: #666fcf;
+  height: 0.5px;
+  width: 100%;
+}
+
+@media (max-width: 981px) {
+  .ticket-container {
+    grid-template-columns: unset;
+  }
+}
+
+@media (max-width: 481px) {
+  :host ::ng-deep {
+    .p-chip .p-chip-text {
+      font-size: 12px;
+    }
+  }
+  .date-text {
+    font-size: 14px;
+  }
+  .time {
+    font-size: 12px;
+  }
+  .hours {
+    font-size: 14px;
+  }
+  .company {
+    width: 87px;
+  }
+}
+.ticket-dash {
+  border-bottom: 1px dashed #4257EE;
+  width: 100%;
+}
+.text-align-end {
+  text-align: end;
+}
+.text-align-center {
+  text-align: center;
+}
+.ticket-city {
+  font-size: 1rem;
+  font-weight: bolder;
+}
+.ticket-airport {
+  font-size: 12px;
+  font-weight: bold;
+}

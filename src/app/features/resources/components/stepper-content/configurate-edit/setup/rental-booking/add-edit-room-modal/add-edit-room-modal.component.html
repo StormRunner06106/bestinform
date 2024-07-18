@@ -1,0 +1,445 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>Adăugare cameră</h2>
+        <button type="button" (click)="close()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!--Body-->
+    <mat-dialog-content class="dialog-content">
+
+        <form [formGroup]="formRoom">
+
+            <!--General Inputs-->
+            <div class="row mb-5">
+
+                <!--Section Name-->
+                <div class="col-12">
+                    <h3 class="section-name">Cameră - General info</h3>
+                </div>
+
+
+                <!--Form Inputs-->
+                <div class="col-lg-3 col-md-4 col-12">
+                    <app-dynamic-inputs [control]="formRoom.get('name')"
+                                        [inputFormData]="{name:'Denumire tip cameră', valueType:'text', valuePlaceholder:'Nume camera'}"/>
+                </div>
+
+                <div class="col-lg-9 col-md-8 col-12">
+                    <app-dynamic-inputs [control]="formRoom.get('description')"
+                                        [inputFormData]="{name:'Prezentare text cameră', valueType:'text', valuePlaceholder:'Scurta descriere'}"/>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-12">
+                    <app-dynamic-inputs [control]="formRoom.get('minimumStay')"
+                                        [inputFormData]="{name:'Minimum stay (nights)', valueType:'number'}"/>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-12">
+                    <app-dynamic-inputs [control]="formRoom.get('roomSize')"
+                                        [inputFormData]="{name:'How big is this apartment?', valueType:'number'}"/>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-12">
+                    <app-dynamic-inputs [control]="formRoom.get('bathrooms')"
+                                        [inputFormData]="{name:'How many bathrooms are there?', valueType:'select',  valueOptions:selectOptions}"/>
+                </div>
+                <div class="col-lg-3 col-md-4 col-12">
+                    <app-dynamic-inputs [control]="formRoom.get('maximumAdultPeople')"
+                                        [inputFormData]="{name:'How many adults can stay?', valueType:'select',  valueOptions:selectOptions}"/>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-12">
+                    <app-dynamic-inputs [control]="formRoom.get('maximumChildren')"
+                                        [inputFormData]="{name:'How many children can stay?', valueType:'select',  valueOptions:selectOptions}"/>
+                </div>
+
+
+                <!--Added Room Numbers-->
+                <div class="row my-4" formArrayName="itemsForBooking">
+                    <div class="d-flex flex-row align-items-center mb-4">
+
+                        <!--Section SubTitle-->
+                        <h5 class="section-subtitle mb-0 me-4">Numarul de camere (de acest tip)</h5>
+
+                        <!--Action Buttons & Room Added-->
+                        <div class="add-remove-rooms d-flex align-items-center justify-content-between">
+                            <!--Remove Room-->
+                            <button class="add-remove-btn" type="button" (click)="removeRoom()">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!--Number of Rooms Added-->
+                            <span>{{formRoom.get('itemsForBooking').value.length}}</span>
+                            <!--Add Room-->
+                            <button class="add-remove-btn" type="button" (click)="addRoom()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <p *ngIf="formRoom.controls.itemsForBooking.hasError('required') && formSubmitClicked" class="mat-error mb-0 ms-4">
+                            Minim o camera este necesara
+                        </p>
+
+                    </div>
+
+
+                    <!--Room Number-->
+                    <div class="col-md-3 col-12"
+                         *ngFor="let room of formRoom.get('itemsForBooking').controls; let i = index"
+                         [formGroupName]="i">
+
+                        <app-dynamic-inputs [control]="room.get('itemNumber')"
+                                            [inputFormData]="{name:'Nr. camerei', valueType:'text'}"/>
+
+                    </div>
+
+
+                    <!--Section SubTitle-->
+                    <h5 class="section-subtitle my-4">Bed / Beds</h5>
+
+
+                </div>
+
+                <!--Bet type-->
+                <div class="row" formArrayName="bedType" id="beds-types">
+
+                    <div class="col-md-6 col-12"
+                         *ngFor="let bedType of formRoom.get('bedType').controls; let index = index"
+                    >
+
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+
+                            <div class="d-flex align-items-center">
+                                <i class="bed-icon fas fa-bed me-4"></i>
+                                <span class="bed-new-name">{{bedType.value.type}}</span>
+                            </div>
+
+
+                            <div class="add-remove-rooms d-flex align-items-center justify-content-between">
+                                <!--Remove Room-->
+                                <button class="add-remove-btn" type="button" (click)="removeBedType(index)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <!--Number of Rooms Added-->
+                                <span>{{bedType.value.quantity}}</span>
+                                <!--Add Room-->
+                                <button class="add-remove-btn" type="button" (click)="addBedType(index)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Price & Preview-->
+            <div class="row">
+                <!--Price-->
+                <div class="col-md-3 col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 class="section-name">Regular price</h3>
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>EUR/noapte</mat-label>
+                                <input matInput placeholder="EUR/noapte"
+                                       type="text"
+                                       [formControl]="formRoom.get('price').get('regularPrice')">
+                                <mat-error *ngIf="formRoom.get('price').get('regularPrice').invalid">Valoarea introdusa trebuie sa fie un numar mai mare ca 0 de maxim 6 cifre!</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <h3 class="section-name">Weekend price</h3>
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>EUR/noapte</mat-label>
+                                <input matInput placeholder="EUR/noapte"
+                                       type="text"
+                                       [formControl]="formRoom.get('price').get('weekendPrice')">
+                                <mat-error *ngIf="formRoom.get('price').get('weekendPrice').invalid">Valoarea introdusa trebuie sa fie un numar mai mare ca 0 de maxim 6 cifre!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Preview-->
+                <div class="col-md-9 col-12">
+                    <h3 class="section-name">Preview</h3>
+                    <div id="prev-container">
+                        <div class="prev-header">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 class="prev-title">Double</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prev-content">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-6 col-12">
+                                    <div class="d-flex justify-content-between h-100 align-items-center">
+                                        <div class="prev-info">
+                                            <span class="info-name">Nr.mp:</span>
+                                            <span class="info-value">{{formRoom.get('roomSize').value}}</span>
+                                        </div>
+                                        <div class="prev-info">
+                                            <span class="info-name">Locuri adulti:</span>
+                                            <span class="info-value mx-1">{{formRoom.get('maximumAdultPeople').value}}
+                                                x</span>
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="prev-info">
+                                            <span class="info-name">Locuri copii:</span>
+                                            <span class="info-value mx-1">{{formRoom.get('maximumChildren').value}}
+                                                x</span>
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="prev-info">
+                                            <span class="info-name">Numar bai:</span>
+                                            <span class="info-value mx-1">{{formRoom.get('bathrooms').value}}x</span>
+                                            <i class="fas fa-shower"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 col-12">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="prev-price">
+                                                <span class="title-info">Pret normal</span>
+                                                <span class="price-info">{{formRoom.get('price').get('regularPrice').value}}</span>
+                                                <span class="currency-per">EUR/Noapte</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="prev-price">
+                                                <span class="title-info">Pret weekend</span>
+                                                <span class="price-info">{{formRoom.get('price').get('weekendPrice').value}}</span>
+                                                <span class="currency-per">EUR/Noapte</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Benefits-->
+            <div class="row mb-5" id="benefits" formArrayName="benefits">
+                <!--Section Name-->
+                <div class="col-12">
+                    <h3 class="section-name">Facilities</h3>
+                </div>
+
+                <div class="col-xl-3 col-lg-6 col-sm-6 col-12 mb-6"
+                     *ngFor="let facility of activeFacilitiesByCategory">
+                    <h5 class="facility-category-name">{{facility.categoryZone}}</h5>
+                    <div class="row">
+                        <div *ngFor="let inputForm of facility.tabAttributes | orderBy : 'order'">
+                            <app-dynamic-inputs [control]="formRoom.get(inputForm.name)"
+                                                [inputFormData]="inputForm"/>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--Applicable Politics-->
+            <div class="row mb-5" id="applicable-politics">
+
+                <div class="col-12">
+                    <h3 class="section-name">Politici aplicabile</h3>
+                </div>
+
+                <!--Left Side-->
+                <div class="col-md-6 col-12">
+                    <!--Category Name-->
+                    <h5 class="politics-category-name">Politici de modificare</h5>
+                    <mat-error *ngIf="formRoom.get('changePolicies').hasError('invalidPolicy') && (formRoom.get('changePolicies').dirty || formRoom.get('changePolicies').touched)">
+                        Trebuie să alegi o variantă între "Nerambursabil" și "Anulare Gratuită".
+                    </mat-error>
+                    <!--Checkboxes-->
+                    <div class="d-flex flex-column">
+                        <mat-checkbox [formControl]="formRoom.get('changePolicies').get('nonRefundable')"
+                                      (change)="changePolicyEdit($event, 'nonRefundable')">
+                            Nerambursabil
+                        </mat-checkbox>
+                        <mat-checkbox [formControl]="formRoom.get('changePolicies').get('modifiable')">Se poate
+                            modifica
+                        </mat-checkbox>
+                        <mat-checkbox
+                                [formControl]="formRoom.get('changePolicies').get('freeCancellation').get('freeCancellation')"
+                                (change)="changePolicyEdit($event, 'freeCancellation')">Anulare gratuită
+                        </mat-checkbox>
+                        <mat-form-field appearance="standard" class="w-100"   *ngIf="formRoom.get('changePolicies').get('freeCancellation').get('freeCancellation').value">
+                            <mat-label>Timp limita (zile)</mat-label>
+                            <input matInput type="text" [formControl]="formRoom.get('changePolicies').get('freeCancellation').get('deadlineDays')">
+                            <mat-error *ngIf="formRoom.get('changePolicies').get('freeCancellation').get('deadlineDays').hasError('pattern')">
+                                Sunt acceptate doar numere mai mari decât 0.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!--Right Side-->
+                <div class="col-md-6 col-12">
+                    <!--Category Name-->
+                    <h5 class="politics-category-name">Politici de rezervare</h5>
+                    <mat-error *ngIf="formRoom.get('bookingPolicies').hasError('requireCheckboxesToBeChecked') && formRoom.get('bookingPolicies').touched">
+                        You have to check one
+                    </mat-error>
+
+                    <!--Checkboxes-->
+                    <div class="d-flex flex-column">
+                        <mat-checkbox [formControl]="formRoom.get('bookingPolicies').get('depositRequired')"
+                                      (change)="bookingPolicyEdit($event.checked, 'depositRequired')">Se cere depozit
+                        </mat-checkbox>
+
+                        <div class="row" *ngIf="formRoom.get('bookingPolicies').get('depositRequired').value">
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="standard" class="w-100">
+                                    <mat-label>Depozit (%)</mat-label>
+                                    <input matInput type="text" [max]="100" [formControl]="formRoom.get('bookingPolicies').get('depositRequiredPercentage')"
+                                           (ngModelChange)="checkDepositType('percentage')">
+                                    <mat-error *ngIf="formRoom.get('bookingPolicies').get('depositRequiredPercentage').hasError('pattern')">
+                                        Sunt acceptate doar numere cuprinse între 1 și 100.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="standard" class="w-100">
+                                    <mat-label>Depozit (EUR)</mat-label>
+                                    <input matInput type="text" [formControl]="formRoom.get('bookingPolicies').get('depositRequiredAmount')"
+                                           (ngModelChange)="checkDepositType('amount')">
+                                    <mat-error *ngIf="formRoom.get('bookingPolicies').get('depositRequiredAmount').hasError('pattern')">
+                                        Sunt acceptate doar numere mai mari ca 0.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                        <mat-checkbox [formControl]="formRoom.get('bookingPolicies').get('advanceFullPayment')"
+                                      (change)="bookingPolicyEdit($event.checked, 'advanceFullPayment')">Plata completa in avans
+                        </mat-checkbox>
+                        <mat-checkbox [formControl]="formRoom.get('bookingPolicies').get('advancePartialPayment')"
+                                      (change)="bookingPolicyEdit($event.checked, 'advancePartialPayment')">Plata partiala in avans
+                        </mat-checkbox>
+                        <div class="row" *ngIf="formRoom.get('bookingPolicies').get('advancePartialPayment').value">
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="standard" class="w-100">
+                                    <mat-label>Avans (%)</mat-label>
+                                    <input matInput type="text" [formControl]="formRoom.get('bookingPolicies').get('advancePartialPaymentPercentage')" >
+                                    <mat-error *ngIf="formRoom.get('bookingPolicies').get('advancePartialPaymentPercentage').hasError('pattern')">
+                                        Sunt acceptate doar numere cuprinse între 1 și 100.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Upload Images-->
+            <div class="row mb-5" id="photo-upload">
+
+                <!--Section Name-->
+                <div class="col-12">
+                    <h3 class="section-name">Upload Images</h3>
+                </div>
+
+                <!--Image Type Section-->
+                <div class="col-12 mt-3">
+                    <h5 class="photo-type-title">Thumbnail</h5>
+                </div>
+
+
+                <!--Image Preview-->
+
+                <div class="image-container mb-5 p-0">
+                    <input type="file"
+                           hidden
+                           accept="image/*"
+                           #thumbnail
+                           id="thumbnailInput"
+                           (change)="onThumbnailChange($event)">
+                    <div *ngIf="!thumbnail.value && !thumbnailUrl?.filePath" class="no-image"
+                         attr.translatedContent="{{ 'GENERAL.INSERT_IMAGE' | translate}}"
+                         (click)="thumbnail.click()"></div>
+
+                    <img *ngIf="thumbnail.value || thumbnailUrl?.filePath" class="img-fluid w-100 object-fit-cover"
+                         [src]="thumbnailUrl.filePath" alt="thumbnail">
+                    <button *ngIf="thumbnail.value || thumbnailUrl?.filePath"
+                            (click)="removeThumbnail(); thumbnail.value=''"
+                            type="button"
+                            id="btnRemoveFeaturedImage"
+                            class="btn-thumbnail">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!--Image Type Section-->
+                <div class="col-12 mt-3">
+                    <h5 class="photo-type-title">Gallery</h5>
+                </div>
+
+
+                <!--Gallery Preview-->
+                <div class="row gallery-container">
+                    <div class="col-12 col-lg-6">
+                        <div class="image-container">
+                            <input type="file"
+                                   accept="image/*"
+                                   hidden
+                                   #add_image
+                                   id="galleryInput"
+                                   multiple
+                                   (change)="onImageChange($event, add_image)">
+                            <div class="no-image"
+                                 attr.translatedContent="{{ 'GENERAL.INSERT_IMAGE' | translate}}"
+                                 (click)="add_image.click()"></div>
+                        </div>
+                    </div>
+
+                    <div *ngFor="let image of galleryUrls; let i = index" class="col-6 col-lg-2">
+                        <div class="image-container">
+                            <img class="img-fluid gallery-img"
+                                 [src]="image.filePath" alt="image-{{i}}">
+                            <button (click)="removeImage(i)"
+                                    id="btnRemoveGalleryImage-{{i}}"
+                                    type="button"
+                                    class="btn-gallery">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </mat-dialog-content>
+
+    <!--Footer-->
+    <mat-dialog-actions class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline" (click)="close()">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill" (click)="submitRoom()">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </mat-dialog-actions>
+
+</div>
+

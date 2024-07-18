@@ -1,0 +1,144 @@
+<div class="train-tickets-header">
+</div>
+
+<div class="content-container">
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center my-4">
+            <h2>{{"TRANSPORT.TRAIN_TICKET"|translate}}</h2>
+        </div>
+
+        <div class="row d-flex">
+            <!--form col-->
+            <div class="form-container col-lg-6">
+
+                <mat-button-toggle-group class="ticket-type-group w-100" aria-label="Train tickets"  value="oneWay">
+                    <mat-button-toggle class="w-50" (change)="changeTab($event.value)" value="oneWay">One way</mat-button-toggle>
+                    <mat-button-toggle class="w-50" (change)="changeTab($event.value)" value="roundTrips">Round trips</mat-button-toggle>
+                </mat-button-toggle-group>
+
+                <form [formGroup]="trainTicketForm" class="my-4">
+                    <!--Departure Train station -->
+                    <h4><i class="fas fa-subway"></i>{{"TRANSPORT.SET-DEPARTURE-TRAIN-STATION"|translate}}</h4>
+                    <mat-form-field>
+                        <mat-label>{{"TRANSPORT.DEPARTURE-TRAIN-STATION"|translate}}</mat-label>
+                        <input matInput placeholder="Departure Train station" formControlName="departureTrainStation">
+                            <i matSuffix class="fas fa-globe"></i>
+                        <mat-error *ngIf="trainTicketForm.controls.departureTrainStation.hasError('required')">
+                            {{"ERROR.REQUIRED"|translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Arrival Train station-->
+                    <h4><i class="fas fa-subway"></i> {{"TRANSPORT.SET-ARRIVAL-TRAIN-STATION"|translate}}</h4>
+                    <mat-form-field>
+                        <mat-label> {{"TRANSPORT.ARRIVAL-TRAIN-STATION"|translate}}</mat-label>
+                        <input matInput placeholder="Arrival Train station" formControlName="arrivalTrainStation">
+                        <i matSuffix class="fas fa-globe"></i>
+                        <mat-error *ngIf="trainTicketForm.controls.arrivalTrainStation.hasError('required')">
+                            {{"ERROR.REQUIRED"|translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <!--Departure date-->
+                    <h4><i class="fas fa-calendar-alt"></i>{{"TRANSPORT.SELECT-DATES"|translate}} </h4>
+
+                    <mat-form-field class="mb-2">
+                        <mat-label>{{"TRANSPORT.DEPARTURE-DATE"|translate}} </mat-label>
+                        <input [min]="minDate" formControlName="departureDate" matInput [matDatepicker]="pickerDepartureDate">
+                        <mat-hint>dd-MM-yyyy</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="pickerDepartureDate">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #pickerDepartureDate></mat-datepicker>
+                        <mat-error *ngIf="trainTicketForm.controls.departureDate.hasError('required')">
+                            {{"ERROR.REQUIRED"|translate}}
+                        </mat-error>
+                        <mat-error *ngIf="trainTicketForm.controls.departureDate.hasError('min')">
+                            {{"ERROR.PAST-DATE"|translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!--Return date-->
+                    <mat-form-field *ngIf="!oneWay">
+                        <mat-label>{{"TRANSPORT.RETURN-DATE-PLANE"|translate}}</mat-label>
+                        <input formControlName="returnDate" matInput [matDatepicker]="pickerReturnDate">
+                        <mat-datepicker-toggle matSuffix [for]="pickerReturnDate">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #pickerReturnDate></mat-datepicker>
+                         <!-- <mat-error *ngIf="(oneWay===false) && (trainTicketForm.controls.returnDate.hasError('required'))">  -->
+                        <mat-error *ngIf="trainTicketForm.controls.returnDate.hasError('required')"> 
+                            {{"ERROR.REQUIRED"|translate}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!--Set travel class-->
+                    <h4><i class="fas fa-star"></i>{{"TRANSPORT.SET-CLASS"|translate}}</h4>
+
+                    <mat-button-toggle-group class="travel-class-group" formControlName="travelClass" mat-raised-button color="primary">
+                        <mat-button-toggle value="Economy">Economy</mat-button-toggle>
+                        <mat-button-toggle value="Economy +">Economy +</mat-button-toggle>
+                        <mat-button-toggle value="Business">Business</mat-button-toggle>
+                        <mat-button-toggle value="First">First</mat-button-toggle>
+                    </mat-button-toggle-group>
+                    <!-- <mat-error *ngIf="(trainTicketForm.get('travelClass').value === '') &&(trainTicketForm.get('travelClass').touched)">
+                        {{"ERROR.REQUIRED"|translate}}
+                    </mat-error> -->
+                    <mat-error *ngIf="travelClass">
+                        {{"ERROR.REQUIRED"|translate}}
+                    </mat-error>
+
+                    <!--Select passengers-->
+                    <!--adults-->
+                    <h4><i class="fas fa-users"></i> {{"TRANSPORT.SELECT-PASSENGERS"|translate}}</h4>
+                    <div class="noPassengers">
+
+                        <button class="btnPassangers " (click)="decrementNumberAdults()"><i class="fas fa-chevron-left"></i></button>
+                        <p>
+                            {{trainTicketForm.get('passengersAdults').value === null ? 0 : trainTicketForm.get('passengersAdults').value}} {{"RESERVATION.ADULTS"|translate}}
+                        </p>
+                        <button class="btnPassangers" (click)="incrementNumberAdults()"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <mat-error *ngIf="trainTicketForm.controls.passengersAdults.hasError('min')">
+                        {{"ERROR.REQUIRED"|translate}}
+                    </mat-error>
+                    <div class="noPassengers">
+                        <button class="btnPassangers " (click)="decrementNumberChildren()"><i class="fas fa-chevron-left"></i></button>
+                        <p>
+                            {{trainTicketForm.get('passengersChildren').value === null ? 0 : trainTicketForm.get('passengersChildren').value}} {{"RESERVATION.CHILDREN"|translate}}
+                        </p>
+                        <button class="btnPassangers" (click)="incrementNumberChildren()"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <mat-error *ngIf="trainTicketForm.controls.passengersChildren.hasError('min')">
+                        {{"ERROR.NEGATIVE-NUMBER"|translate}}
+                    </mat-error>
+                    <mat-error *ngIf="(trainTicketForm.get('passengersChildren').value === 0 || trainTicketForm.get('passengersChildren').value === null) && (trainTicketForm.get('passengersAdults').value === 0 || trainTicketForm.get('passengersAdults').value === null) ">
+                        {{"ERROR.PASSENGERS-NUMBER"|translate}}
+                    </mat-error>
+                    <!--submit Button roundTrip form-->
+                    <div *ngIf="oneWay">
+                        <button type="button" class="btn-long btn-color-fill w-100"
+                        (click)="checkAvilability()" >
+                        <i class="fas fa-search"></i>
+                        {{"TRANSPORT.CHECK-AVAILABILITY"|translate}}
+                        </button>
+                    </div>
+
+                    <!--submit Button oneWay from-->
+                    <div *ngIf="!oneWay">
+                        <button type="button" class="btn-long btn-color-fill w-100"
+                        (click)="checkAvilability()" >
+                        <i class="fas fa-search"></i>
+                        {{"TRANSPORT.CHECK-AVAILABILITY"|translate}}
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!--Image col-->
+            <div class="img-container col-lg-6">
+            </div>
+                
+        </div>
+    </div>
+</div>

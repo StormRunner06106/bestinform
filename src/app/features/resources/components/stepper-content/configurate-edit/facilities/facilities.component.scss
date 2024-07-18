@@ -1,0 +1,116 @@
+:host ::ng-deep {
+  .p-inputtext {
+    width: 100%;
+  }
+}
+
+
+.save-btn{
+  margin-top: -90px;
+
+  button:disabled{
+    border: 2px solid rgba(#231F20, 48%);
+    background: rgba(#24398A, 0%) !important;
+    color: rgba(#231F20, 48%);
+  }
+}
+
+.service {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.service-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.services-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  gap: 20px;
+}
+
+.services {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  gap: 10px;
+}
+
+#facilities {
+
+  //margin-bottom: 50px;
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 16px 25px;
+    border-bottom: solid rgba(36, 57, 138, 0.1607843137) 1px;
+
+    i {
+      font-size: 32px;
+      color: #24398A;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #24398A;
+      margin-left: 10px;
+      margin-bottom: 0;
+    }
+  }
+
+  .section-content {
+    padding: 46px 100px;
+    background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), #FFFFFF;
+  }
+
+  // Facility Section
+  .facility-category-name {
+    font-size: 24px;
+    color: #231F20;
+    font-weight: 700;
+  }
+
+}
+
+.stepper-step-controller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 25px 40px;
+
+  .next-step {
+    display: flex;
+    justify-content: center;
+  }
+
+}
+
+
+
+
+
+
+
+
+

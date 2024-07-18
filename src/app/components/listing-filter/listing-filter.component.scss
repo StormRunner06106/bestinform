@@ -1,0 +1,131 @@
+:host ::ng-deep {
+  .pi {
+    color: #101828;
+  }
+  .p-accordion {
+    border: 1px solid #d5d6e2;
+    box-shadow: 0px 8px 16px 0px #00000014;
+    border-radius: 8px;
+  }
+  .p-accordion-header-link {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .p-accordion .p-accordion-content {
+    color: #22222f;
+    background: white;
+    border: unset;
+  }
+  .p-accordion {
+    .p-accordion-header {
+      .p-accordion-header-link {
+        border: unset;
+        background: white;
+        color: #101828 !important;
+        justify-content: space-between;
+        font-weight: 600 !important;
+      }
+      .p-accordion-header-text {
+        font-weight: 900!important;
+      }
+    }
+  }
+
+  .custom-icon-click {
+    cursor: pointer;
+  }
+
+  .p-chips .p-chips-multiple-container .p-chips-input-token input {
+    font-size: 0.8rem;
+  }
+  .p-accordion
+    .p-accordion-header:not(.p-disabled)
+    .p-accordion-header-link:focus {
+    box-shadow: unset;
+  }
+  .p-accordion-toggle-icon {
+    order: 1;
+  }
+  .p-checkbox-box {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #22222f;
+    border-radius: 2px;
+  }
+  .p-checkbox {
+    width: 16px;
+    height: 16px;
+  }
+  .p-checkbox {
+    .p-highlight {
+      border-color: #4257EE !important;
+      background: #4257EE !important;
+      box-shadow: unset !important;
+    }
+  }
+  .p-checkbox-icon {
+    font-size: 10px !important;
+  }
+
+  .filter-tab-row > div:first-child {
+    width: 100%;
+  }
+}
+
+.filter-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 14px;
+}
+
+.filter-tab-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 14px;
+}
+
+.slider-filter {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+}
+
+.range {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.range-text {
+  font-size: 14px;
+  color: #424462;
+  font-weight: 400;
+}
+
+.range-title {
+  font-size: 14px;
+  color: #333447;
+  font-weight: 800;
+}
+.p-125 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+::ng-deep .mat-slider {
+  .mat-slider-track-fill {
+    border-color: #4257EE!important;
+    background-color: #4257EE!important;
+  }
+  .mat-slider-thumb {
+    background-color: #4257EE!important;
+    border-color: #4257EE!important;
+  }
+}
+

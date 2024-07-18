@@ -1,0 +1,43 @@
+<ng-container *ngIf="products; else noProductsAvailable">
+    <p class="booking-section-title">
+        See your options
+    </p>
+
+    <div class="product-cards-container">
+        <div *ngFor="let product of products" class="product-card">
+            <div class="img-container">
+                <img *ngIf="product?.images?.length > 0"
+                     [src]="product?.images[0]?.filePath" alt="product picture">
+                <button class="favorite-btn">
+                    <i class="far fa-star"></i>
+                </button>
+            </div>
+
+            <div class="top-half d-flex justify-content-between align-items-center">
+                <p>
+                    {{ product.name }}
+                </p>
+<!--                <button class="btn-no-outline" matTooltip="Descarca atasament" (click)="downloadProduct(product)"><i class="fas fa-download"></i></button>-->
+            </div>
+
+            <div class="bottom-half">
+                <button class="btn-auto btn-color-fill" (click)="selectProduct(product)">
+                    {{ "RESOURCE.BUY_NOW" | translate }}
+                </button>
+
+                <p>
+                    €{{ product.price }}
+                    <i class="far fa-question-circle"
+                       matTooltip="This price is limited only for this option"
+                       matTooltipPosition="above"></i>
+                </p>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #noProductsAvailable>
+    <h3 class="text-center">
+        {{ "TOAST.BOOKING.NOT_ENOUGH" | translate }}
+    </h3>
+</ng-template>

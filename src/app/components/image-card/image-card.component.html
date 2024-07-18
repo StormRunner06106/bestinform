@@ -1,0 +1,126 @@
+<div
+  class="card-wrapper"
+  [ngClass]="{
+    column: events || listing,
+    listing: listing,
+    events: events,
+    'always-vertical': alwaysVertical,
+    'bigger-card': listing
+  }"
+>
+  <div *ngIf="locked" class="image-card-disabled">
+    <div class="image-card-disabled-message">
+      <div class="image-card-image-disabled"></div>
+      <div class="disabled-message-text">
+        Disponibil in curand
+      </div>
+    </div>
+  </div>
+  <div class="reserve-container" [ngClass]="{ addPadding: listing || events }">
+    <div
+      class="card-container"
+      [ngStyle]="
+        !events && !listing
+          ? { 'background-image': 'url(' + card.imageUrl + ')' }
+          : { 'justify-content': 'center' }
+      "
+      [class.small]="size === 'small'"
+      [class.big]="size === 'big'"
+      [class.selected]="isSelected"
+      [ngClass]="{
+        'disable-hover': events || listing || disableHover,
+        expandTextArea: listing,
+        verySmallContainer: listingPage
+      }"
+    >
+      <div class="text-container" *ngIf="card?.cardText">
+        <ng-container *ngIf="card.cardText.title">
+          <span class="card-title"
+                [ngStyle]="events || listing ? { color: '#22222F', 'font-size': '18px' } : {}"
+                [ngClass]="{
+                  'disable-hover': events || listing || disableHover,
+                  'smaller-title': smallerTitle,
+                  'disable-animation' : disableCarouselAnimation
+                }"
+          >
+          {{ card.cardText?.title }}
+        </span>
+        </ng-container>
+        <span class="card-additional" *ngIf="card?.cardText?.description">
+          {{ card.cardText?.description }}
+        </span>
+        <span class="card-additional" *ngIf="card?.cardText?.address">
+          <i class="pi pi-map-marker"></i>
+          {{ card.cardText?.address }}
+        </span>
+        <span class="card-additional description" *ngIf="card?.cardText?.date">
+          <i class="pi pi-calendar"></i>
+          {{ card.cardText?.date }}
+        </span>
+        <span class="card-additional" *ngIf="card?.cardText?.specific">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M6.09589 0.550049C3.81689 0.550049 1.96289 2.40405 1.96289 4.68305V9.12855C1.96289 9.63755 2.37689 10.052 2.88589 10.052H3.46889V13.9125C3.46868 14.1362 3.51728 14.3573 3.61131 14.5603C3.70533 14.7632 3.84251 14.9433 4.01328 15.0877C4.18405 15.2322 4.38429 15.3377 4.60003 15.3968C4.81577 15.456 5.04182 15.4673 5.26239 15.43C5.99439 15.311 6.54589 14.6335 6.54589 13.8545V1.00005C6.54589 0.880701 6.49848 0.766242 6.41409 0.681851C6.3297 0.597459 6.21524 0.550049 6.09589 0.550049ZM5.64589 13.8535C5.64589 14.1965 5.41889 14.4915 5.11739 14.5405C5.02559 14.5566 4.9314 14.5524 4.84141 14.5282C4.75142 14.5039 4.66781 14.4604 4.59645 14.4004C4.52509 14.3405 4.4677 14.2657 4.4283 14.1812C4.38891 14.0968 4.36846 14.0047 4.36839 13.9115V9.60105C4.36839 9.4817 4.32098 9.36724 4.23659 9.28285C4.1522 9.19846 4.03774 9.15105 3.91839 9.15105L2.86239 9.12805V4.68255C2.86325 3.90336 3.14519 3.15063 3.65643 2.5626C4.16767 1.97458 4.87389 1.59073 5.64539 1.48155V13.8535H5.64589ZM13.0684 0.551549H9.04539C8.78848 0.551814 8.54216 0.653989 8.3605 0.835655C8.17883 1.01732 8.07666 1.26364 8.07639 1.52055L8.07839 6.20305C8.16539 7.15105 8.67239 7.76955 9.51939 7.98055V13.912C9.51939 14.76 10.2089 15.45 11.0569 15.45C11.9049 15.45 12.5944 14.76 12.5944 13.912V7.98005C13.4414 7.76905 13.9484 7.14555 14.0374 6.16155V1.52055C14.0371 1.26364 13.935 1.01732 13.7533 0.835655C13.5716 0.653989 13.3253 0.551814 13.0684 0.551549ZM12.1044 7.15155C11.9925 7.16154 11.8883 7.21305 11.8124 7.29596C11.7366 7.37887 11.6944 7.48716 11.6944 7.59955V13.912C11.6944 14.2635 11.4084 14.5495 11.0569 14.5495C10.7054 14.5495 10.4194 14.2635 10.4194 13.912V7.59955C10.4195 7.48713 10.3774 7.37877 10.3015 7.29584C10.2256 7.21291 10.1214 7.16143 10.0094 7.15155C9.34489 7.09255 9.03539 6.78405 8.97639 6.16205V1.52055C8.97639 1.48255 9.00739 1.45155 9.04539 1.45155H9.76339V5.13855C9.76339 5.2579 9.8108 5.37235 9.89519 5.45675C9.97958 5.54114 10.094 5.58855 10.2134 5.58855C10.3327 5.58855 10.4472 5.54114 10.5316 5.45675C10.616 5.37235 10.6634 5.2579 10.6634 5.13855V1.45155H11.4504V5.13855C11.4504 5.2579 11.4978 5.37235 11.5822 5.45675C11.6666 5.54114 11.781 5.58855 11.9004 5.58855C12.0197 5.58855 12.1342 5.54114 12.2186 5.45675C12.303 5.37235 12.3504 5.2579 12.3504 5.13855V1.45155H13.0689C13.0872 1.45168 13.1047 1.45897 13.1177 1.47187C13.1307 1.48477 13.1381 1.50224 13.1384 1.52055L13.1404 6.12005C13.0784 6.78355 12.7689 7.09255 12.1044 7.15155Z"
+              fill="#4257EE"
+            />
+          </svg>
+          {{ card.cardText?.specific }}
+        </span>
+        <ng-container *ngIf="showAvailability">
+          <span class="card-additional available" *ngIf="card.available">
+            <i class="pi pi-clock pi_clock_available"></i>
+            {{ "RESTAURANTS.SEATS_AVAILABLE" | translate }}
+          </span>
+          <span class="card-additional not_available" *ngIf="!card.available">
+            <i class="pi pi-clock pi_clock_not_available"></i>
+            {{ "RESTAURANTS.NO_SEATS_AVAILABLE" | translate }}
+          </span>
+        </ng-container>
+        <div class="discount" *ngIf="card?.cardText?.discount">Discount 5% din nota de plata</div>
+      </div>
+      <div *ngIf="card.cardText?.rating">
+        <div class="rating">
+          <span class="rating-text">Rating</span>
+          <span class="rating-score">{{ card.cardText?.rating }}</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="listing" class="reserve-wrapper">
+      <button
+        [ngClass]="{ 'smaller-button': smallerButton }"
+        pButton
+        class="reserve"
+        label="{{ 'RESTAURANTS.RESERVE_NOW' | translate }}"
+        [routerLink]="[
+          '/client/domain/63bfcca765dc3f3863af755c/category/63dbb183df393f737216183c/resource-type/63dbb18cdf393f737216183d/view/',
+          card.id
+        ]"
+      ></button>
+      <div class="price">
+        <span *ngIf="card.cardText?.priceCategory" class="priceCategory">
+          {{ card.cardText?.priceCategory | translate }}
+          <span *ngIf="card.cardText?.price" class="price">{{
+            card.cardText?.price
+          }}</span>
+        </span>
+        <span *ngIf="card.cardText?.otherInfo" class="otherInfo">{{
+          card.cardText?.otherInfo
+        }}</span>
+      </div>
+    </div>
+  </div>
+
+  <img
+    class="sidePic"
+    *ngIf="events || listing"
+    [ngClass]="{ listingPic: listing, eventsPic: events }"
+    (error)="handleImageError($event, card.imageUrl)"
+    [src]="card?.imageUrl ? card.imageUrl : '../../../assets/images/others/empty-menu-image.png' "
+  />
+</div>

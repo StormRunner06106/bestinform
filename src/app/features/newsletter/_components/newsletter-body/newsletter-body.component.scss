@@ -1,0 +1,234 @@
+@import "src/app/theme/styles/components/_colors.scss";
+
+* {
+  font-family: "Helvetica", sans-serif !important;
+  letter-spacing: -0.408px;
+}
+
+body {
+  background: #F0F0F0;
+}
+
+.p-full {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.pb-full {
+  padding-bottom: 120px;
+}
+
+.strengthsArea {
+  position: relative;
+  background: #F0F0F0 url("~src/assets/images/others/newsletter/strengths.png") right top -80px no-repeat;
+  @media (max-width: 1200px) {
+    background-size: 70%;
+  }
+  @media (max-width: 768px) {
+    background-image: none;
+    background-color: #F0F0F0;
+  }
+}
+
+.benefitsArea {
+  background: #F0F0F0 url("~src/assets/images/others/newsletter/partners.png") left bottom  no-repeat;
+
+}
+
+.container-text {
+  border-bottom: 2px solid $primary-color;
+
+}
+
+.strengths {
+  width: 100%;
+
+  h1 {
+    font-size: 60px;
+    margin-bottom: 100px;
+  }
+
+  .section-strength {
+    align-self: start;
+    margin-bottom: 65px;
+
+    .circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .checkmark {
+
+     position: absolute;
+      top: 20%;
+      left: 40%;
+      width: 10px;
+      height: 20px;
+      border: solid $title;
+      border-width: 0 2px 2px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    .circle {
+      background-color: #D8D8D8;
+    }
+
+    .checkmark {
+      border-color: $primary-color;
+    }
+
+    h5 {
+      font-size: 30px;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 24px;
+      font-weight: 400;
+      margin-left: 50px;
+      color: #7B7B7B;
+      margin-bottom: 0;
+      max-width: 535px;
+      line-height: 30px;
+      letter-spacing: -0.408px;
+
+    }
+
+  }
+
+  .section-strength:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+p.conclusion {
+  font-size: 30px;
+  font-weight: 400;
+  color: $primary-color;
+  padding-top: 120px;
+}
+
+
+.benefits {
+  h1 {
+    font-size: 60px;
+    margin-bottom: 100px;
+  }
+
+  img.benefit-img {
+    width: 30%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .section-benefit {
+    align-self: end;
+    width: 75%;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+
+    ol {
+      list-style: none;
+      counter-reset: my-awesome-counter;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+      align-self: end;
+    }
+
+    ol li {
+      counter-increment: my-awesome-counter;
+      display: flex;
+      font-size: 24px;
+      line-height: 30px;
+      color: #7B7B7B;
+      margin-bottom: 30px;
+      max-width: 835px;
+    }
+
+    ol li::before {
+      content: "0" counter(my-awesome-counter);
+      font-weight: 500;
+      font-size: 30px;
+      margin-right: 0.5rem;
+      line-height: 30px;
+      color: $primary-color;
+    }
+
+    ol li:nth-child(n+10)::before {
+      content: counter(my-awesome-counter);
+      font-weight: 500;
+      font-size: 30px;
+      margin-right: 0.5rem;
+      line-height: 30px;
+      color: $primary-color;
+    }
+  }
+}
+
+
+.section-benefit ol li:last-child {
+  margin-bottom: 0px !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .benefitsArea {
+    background: #F0F0F0;
+  }
+
+  h1 {
+    font-size: 30px !important;
+    margin-bottom: 45px !important;
+  }
+
+
+
+  .section-strength {
+
+    h5 {
+      font-size: 20px !important;
+      line-height: 30px !important;
+    }
+
+    p {
+      font-size: 16px !important;
+      line-height: 22px !important;
+    }
+  }
+
+
+  .p-full {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+  }
+
+  .pb-full {
+    padding-bottom: 80px;
+  }
+
+  p.conclusion {
+    font-size: 20px !important;
+    line-height: 30px !important;
+    padding-top: 80px !important;
+  }
+
+  .section-benefit ol li {
+    font-size: 16px !important;
+    line-height: 22px !important;
+  }
+
+  .section-benefit ol li:before {
+    font-size: 20px !important;
+    line-height: 30px !important;
+    font-weight: 500;
+  }
+}

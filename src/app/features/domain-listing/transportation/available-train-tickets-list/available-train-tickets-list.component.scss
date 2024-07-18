@@ -1,0 +1,31 @@
+
+@import "src/app/theme/styles/components/_colors.scss";
+
+.content-container {
+    background-color: var(--primary-background);
+    padding-top: 48px;
+    padding-bottom: 48px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    row-gap: 64px;
+  }
+  .train-tickets-header{
+    background-image:
+    linear-gradient(0deg,rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)),url("../../../../../assets/images/others/images-client/train-list-avb.jpg");
+    background-size: cover;
+    height:768px;
+  }
+
+  h4{
+    font-weight: 700;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: #231F20;
+    margin-bottom: 13px;
+    i{
+      margin-right:5px;
+    }
+  }

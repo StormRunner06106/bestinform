@@ -1,0 +1,35 @@
+<div>
+    <p class="mb-0">Număr rezervare</p>
+    <h6>{{reservation?.reservationNumber}}</h6>
+
+    <p class="mb-0">Rezervare pentru</p>
+    <h4>{{reservation?.name}}</h4>
+
+    <p class="mb-0">Adulți</p>
+    <h4>{{reservation?.reservationTimePicker?.adults}}</h4>
+
+    <p class="mb-0">Copii</p>
+    <h4>{{reservation?.reservationTimePicker?.children}}</h4>
+
+    <p class="mb-0">{{"RESERVATION.START-DATE" | translate}}</p>
+    <h4>{{formatReservationTime(reservation?.reservationTimePicker?.['dateTime']) | date: 'dd/MM/YYYY HH:mm'}}</h4>
+
+    <p class="mb-0">Cost rezervare</p>
+    <h4>
+        <del class="me-2" *ngIf="reservation?.reservationTimePicker?.paymentDetails?.paidAmountBefore !== reservation?.reservationTimePicker?.paymentDetails?.paidAmount">€{{(reservation?.reservationTimePicker?.paymentDetails?.paidAmountBefore) | number: '1.0-2'}}</del>
+        €{{(reservation?.reservationTimePicker?.paymentDetails?.paidAmount) | number: '1.0-2'}} -
+        <span *ngIf="reservation?.reservationTimePicker?.paymentDetails?.paymentType === 'deposit'">depozit</span>
+        <span *ngIf="reservation?.reservationTimePicker?.paymentDetails?.paymentType === 'advance'">avans</span>
+        <span *ngIf="reservation?.reservationTimePicker?.paymentDetails?.paymentType === 'fullPayment'">plată integrală</span>
+    </h4>
+
+    <!-- <div *ngIf="reservation.reservationTimePicker.specialRequest.trim() !== ''"> -->
+    <div>
+        <p class="mb-0">Cerințe speciale</p>
+        <h4>{{reservation?.reservationTimePicker?.specialRequest ? reservation?.reservationTimePicker?.specialRequest : ("RESERVATIONS.NO_SPECIAL_REQUESTS" | translate)}}</h4>
+    </div>
+    <div>
+        <p class="mb-0">Seat preference</p>
+        <h4>{{reservation?.reservationTimePicker?.seatPreferences}}</h4>
+    </div>
+</div>

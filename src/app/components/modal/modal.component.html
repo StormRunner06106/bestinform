@@ -1,0 +1,70 @@
+<div *ngIf="isVisible" class="modal" [class.is-visible]="isVisible">
+    <!-- Your modal content here -->
+
+
+    <div *ngIf="type === 'search'">
+        <div class="custom-modal-content">
+            <div class="custom-modal-header">
+                <span></span>
+                <h2>{{title}}</h2>
+                <!-- X icon -->
+                <span class="close" (click)="close()">&times;</span>
+            </div>
+            <div class="custom-modal-body">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input type="text" pInputText [(ngModel)]="searchInput" (input)="onUserType()" />
+                </span>
+            </div>
+            <div class="restaurant-list">
+                <!-- Restaurant name list after the result -->
+                <div *ngFor="let restaurant of restaurants; let i = index" class="restaurant-item"
+                    (click)="navigateToRestaurant(restaurant)">
+                    <span> {{ restaurant.name }}</span>
+                    <!-- Conditional line separator, not shown after the last item -->
+                    <div *ngIf="i < restaurants.length - 1" class="separator-line"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div *ngIf="type === 'filter'">
+        <div class="custom-modal-content">
+            <div class="custom-modal-header">
+                <span></span>
+                <h2>{{title}}</h2>
+                <!-- X icon -->
+                <span class="close" (click)="close()">&times;</span>
+            </div>
+            <div>
+                <app-listing-filter class="listing-filter"></app-listing-filter>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div *ngIf="type === 'map'">
+        <div class="custom-modal-content">
+            <div class="custom-modal-header">
+                <span></span>
+                <h2>{{title}}ss</h2>
+                <!-- X icon -->
+                <span class="close" (click)="close()">&times;</span>
+            </div>
+            <div>
+                <google-map 
+                height="90vh"
+                 width="100vw" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)"
+                    (mapMousemove)="move($event)">
+                </google-map>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>

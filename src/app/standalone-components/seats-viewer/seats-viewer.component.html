@@ -1,0 +1,84 @@
+<ng-container *ngIf="culturalRoom">
+    <div class="cultural-room-container">
+        <div class="stage" [ngStyle]="{
+                                'width.px': (maxZoneWidth - 2) * 30 + (maxZoneWidth - 3) * 4,
+                                'margin-right.px': maxZoneWidth <= 3 ? 0 : 'auto'
+                                }">
+            <p>Stage</p>
+        </div>
+
+        <div *ngFor="let zone of culturalRoom?.zones; let zoneIndex = index"
+             class="booking-zone">
+            <p>
+                Price: €{{ zone?.price }}
+            </p>
+
+            <div *ngFor="let row of zone?.rowsForBooking; let rowIndex = index"
+                 class="booking-row">
+                <ng-container *ngIf="row?.rowLabel">
+                    Row: {{ row.rowLabel }}
+                </ng-container>
+
+                <ng-container *ngFor="let seat of row?.seats; let seatIndex = index; let last = last">
+                    <ng-container *ngIf="isEditMode">
+                        <div [ngClass]="{
+                            'booked' : seat?.seatStatus === 'booked',
+                            'booked-with-reservation' : seat?.seatStatus === 'bookedWithReservation',
+                            'available' : seat?.seatStatus === 'available',
+                            'empty' : seat?.seatStatus === 'empty',
+                            'selected' : seat?.seatStatus === 'selected',
+                            'on-edit' : isEditMode && seat?.seatStatus !== 'bookedWithReservation',
+                            'not-allowed' : isEditMode && hasBookedWithReservation && seat?.seatStatus === 'empty'
+                         }"
+                             [style.margin-right.px]="
+                            ((maxZoneWidth - zone?.columns) >= 2 && last)
+                            ? (((maxZoneWidth - zone?.columns) - (maxZoneWidth - zone?.columns) % 2) / 2 * 30 + ((maxZoneWidth - zone?.columns) - (maxZoneWidth - zone?.columns) % 2) / 2 * 4)
+                            : 0"
+                             class="seat">
+                            <p *ngIf="seat.seatStatus !== 'empty'">
+                                {{ seat?.seatColumnLabel }}
+                            </p>
+
+                            <div *ngIf="(hasBookedWithReservation && seat.seatStatus !== 'empty') || !hasBookedWithReservation"
+                                 class="seat-change-menu">
+                                <ng-container *ngIf="seat.seatStatus !== 'bookedWithReservation'; else seatHasBeenBooked">
+                                    <p>Select seat type:</p>
+                                    <mat-radio-group [(ngModel)]="seat.seatStatus" (change)="onChangeSeatStatus($event, zoneIndex, rowIndex, seatIndex)">
+                                        <mat-radio-button value="available">Available</mat-radio-button>
+                                        <mat-radio-button *ngIf="!hasBookedWithReservation" value="empty">Empty</mat-radio-button>
+                                        <mat-radio-button value="booked">Booked</mat-radio-button>
+                                    </mat-radio-group>
+                                </ng-container>
+
+                                <ng-template #seatHasBeenBooked>
+                                    This seat has been booked by a client.
+                                </ng-template>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="!isEditMode">
+                        <div [matTooltip]="row?.rowLabel + '_' + seat?.seatColumnLabel + ', ' +
+                         '                 status: ' + (seat?.seatStatus === 'bookedWithReservation' || seat?.seatStatus === 'booked' ? 'booked' : 'available')"
+                             [ngClass]="{
+                            'booked' : (seat?.seatStatus === 'booked' || seat?.seatStatus === 'bookedWithReservation'),
+                            'available' : seat?.seatStatus === 'available',
+                            'empty' : seat?.seatStatus === 'empty',
+                            'selected' : seat?.seatStatus === 'selected'
+                         }"
+                             (click)="toggleSeat(zoneIndex, rowIndex, seatIndex)"
+                             [style.margin-right.px]="
+                            ((maxZoneWidth - zone?.columns) >= 2 && last)
+                            ? (((maxZoneWidth - zone?.columns) - (maxZoneWidth - zone?.columns) % 2) / 2 * 30 + ((maxZoneWidth - zone?.columns) - (maxZoneWidth - zone?.columns) % 2) / 2 * 4)
+                            : 0"
+                             class="seat">
+                            <p *ngIf="seat.seatStatus !== 'empty'">
+                                {{ seat?.seatColumnLabel }}
+                            </p>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>

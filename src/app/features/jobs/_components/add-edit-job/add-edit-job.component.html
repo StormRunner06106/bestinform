@@ -1,0 +1,289 @@
+<div class="d-flex flex-column">
+
+    <div class="background-container">
+        <img [src]="jobSettings?.image?.filePath" alt="category-background-image">
+    </div>
+
+    <div class="content-container">
+        <div class="container">
+            <app-dashboard-header pageTitleOne="{{ isEditMode
+                        ? ('JOBS.EDIT-JOB' | translate)
+                        : ('JOBS.ADD-JOB' | translate) }}"
+                                  [buttonBackRoute]="isEditMode ? '../../my-job-offers' : '../my-job-offers'"
+                                  (buttonCall)="submitJob()"></app-dashboard-header>
+            <div class="row" [formGroup]="jobForm">
+                <div class="col-12">
+                    <mat-form-field class="w-100">
+                        <mat-label>{{'EVENTS.TITLE' | translate}}</mat-label>
+                        <input matInput formControlName="title">
+                        <i class="fas fa-times" type="button" *ngIf="jobForm.get('title').value"
+                           (click)="clearForm('title')" matSuffix></i>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12">
+                    <mat-form-field class="w-100">
+                        <mat-label>{{'EVENTS.SHORT-DESCRIPTION' | translate}}</mat-label>
+                        <input matInput formControlName="shortDescription">
+                        <i class="fas fa-times" type="button" *ngIf="jobForm.get('shortDescription').value"
+                           (click)="clearForm('shortDescription')" matSuffix></i>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 mb-4">
+                    <angular-editor
+                            formControlName="description"
+                            name="content"
+                            id="postContent"
+                            [config]="editorConfig">
+
+                    </angular-editor>
+                </div>
+
+
+                <mat-accordion class="custom-accordion" multi>
+
+                    <div formGroupName="attributesForm">
+                        <ng-container *ngFor="let tab of attributeTabs">
+
+                            <!--                    general info-->
+                            <mat-expansion-panel *ngIf="tab.tabName === 'general_info' && tab.tabAttributes?.length > 0">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title [ngClass]="formBtnClicked && jobForm.get('attributesForm').get(tab.tabName).invalid
+                                                                ? 'panel-warning' : null">
+                                        {{'EVENTS.GENERAL-INFO' | translate}}
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <!--<div *ngFor="let tab of attributeTabs">
+                                    <div class="row" *ngIf="tab.tabName === 'general_info'">
+                                        <div *ngFor="let attribute  of tab.tabAttributes"
+                                             [className]="columnSize(attribute.size)"
+                                        >
+                                            <app-dynamic-inputs
+                                                    [control]="jobForm.get('attributesForm').get(attribute.name)"
+                                                    [inputFormData]="attribute"/>
+
+                                        </div>
+                                    </div>
+                                </div>-->
+
+                                <div class="row">
+                                    <div *ngFor="let attribute  of tab.tabAttributes"
+                                         [className]="columnSize(attribute.size)"
+                                    >
+                                        <app-dynamic-inputs
+                                                [control]="jobForm.get('attributesForm').get(tab.tabName).get(attribute.name)"
+                                                [inputFormData]="attribute"/>
+
+                                    </div>
+                                </div>
+
+
+                            </mat-expansion-panel>
+
+                            <!--                    about-->
+                            <mat-expansion-panel *ngIf="tab.tabName === 'about' && tab.tabAttributes?.length > 0">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title [ngClass]="formBtnClicked && jobForm.get('attributesForm').get(tab.tabName).invalid
+                                                                ? 'panel-warning' : null">
+                                        Criterii
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <!--<div *ngFor="let tab of attributeTabs">
+                                    <div class="row" *ngIf="tab.tabName === 'about'">
+                                        <div *ngFor="let attribute  of tab.tabAttributes"
+                                             [className]="columnSize(attribute.size)"
+                                        >
+                                            <app-dynamic-inputs
+                                                    [control]="jobForm.get('attributesForm').get(attribute.name)"
+                                                    [inputFormData]="attribute"/>
+
+                                        </div>
+                                    </div>
+                                </div>-->
+
+                                <div class="row">
+                                    <div *ngFor="let attribute  of tab.tabAttributes"
+                                         [className]="columnSize(attribute.size)"
+                                    >
+                                        <app-dynamic-inputs
+                                                [control]="jobForm.get('attributesForm').get(tab.tabName).get(attribute.name)"
+                                                [inputFormData]="attribute"/>
+
+                                    </div>
+                                </div>
+
+
+                            </mat-expansion-panel>
+
+                            <!--                    facilities-->
+                            <mat-expansion-panel *ngIf="tab.tabName === 'facilities' && tab.tabAttributes?.length > 0">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title [ngClass]="formBtnClicked && jobForm.get('attributesForm').get(tab.tabName).invalid
+                                                                ? 'panel-warning' : null">
+                                        {{'EVENTS.BENEFITS' | translate}}
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <!--<div *ngFor="let tab of attributeTabs">
+                                    <div class="row" *ngIf="tab.tabName === 'facilities'">
+                                        <div *ngFor="let attribute  of tab.tabAttributes"
+                                             [className]="columnSize(attribute.size)"
+                                        >
+                                            <app-dynamic-inputs
+                                                    [control]="jobForm.get('attributesForm').get(attribute.name)"
+                                                    [inputFormData]="attribute"/>
+
+                                        </div>
+                                    </div>
+                                </div>-->
+
+                                <div class="row">
+                                    <div *ngFor="let attribute  of tab.tabAttributes"
+                                         [className]="columnSize(attribute.size)"
+                                    >
+                                        <app-dynamic-inputs
+                                                [control]="jobForm.get('attributesForm').get(tab.tabName).get(attribute.name)"
+                                                [inputFormData]="attribute"/>
+
+                                    </div>
+                                </div>
+
+
+                            </mat-expansion-panel>
+
+                            <!--                    contact-->
+                            <mat-expansion-panel *ngIf="tab.tabName === 'contact' && tab.tabAttributes?.length > 0">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title [ngClass]="formBtnClicked && jobForm.get('attributesForm').get(tab.tabName).invalid
+                                                                ? 'panel-warning' : null">
+                                        Contact
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <!--<div *ngFor="let tab of attributeTabs">
+                                    <div class="row" *ngIf="tab.tabName === 'contact'">
+                                        <div *ngFor="let attribute  of tab.tabAttributes"
+                                             [className]="columnSize(attribute.size)"
+                                        >
+                                            <app-dynamic-inputs
+                                                    [control]="jobForm.get('attributesForm').get(attribute.name)"
+                                                    [inputFormData]="attribute"/>
+
+                                        </div>
+                                    </div>
+                                </div>-->
+
+                                <div class="row">
+                                    <div *ngFor="let attribute  of tab.tabAttributes"
+                                         [className]="columnSize(attribute.size)"
+                                    >
+                                        <app-dynamic-inputs
+                                                [control]="jobForm.get('attributesForm').get(tab.tabName).get(attribute.name)"
+                                                [inputFormData]="attribute"/>
+
+                                    </div>
+                                </div>
+
+
+                            </mat-expansion-panel>
+                        </ng-container>
+                    </div>
+
+                    <!--                    location-->
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title [ngClass]="formBtnClicked && (jobForm.get('address').invalid || jobForm.get('country').invalid || jobForm.get('city').invalid)
+                                                                ? 'panel-warning' : null">
+                                {{'JOBS.LOCATION' | translate}}
+                                <i class="fas fa-exclamation-circle"></i>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <mat-form-field class="w-100">
+                                    <mat-label>{{'EVENTS.ADDRESS' | translate}}</mat-label>
+                                    <input matInput formControlName="address">
+                                    <i class="fas fa-times" type="button" *ngIf="jobForm.get('address').value"
+                                       (click)="clearForm('address')" matSuffix></i>
+                                    <mat-error *ngIf="jobForm.get('address').hasError('required')">Input is required!</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field class="w-100">
+                                    <mat-label>{{'EVENTS.COUNTRY' | translate}}</mat-label>
+                                    <mat-select formControlName="country" (selectionChange)="getCities($event)">
+                                        <mat-option *ngFor="let country of countries"
+                                                    [value]="country">{{country}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="jobForm.get('country').hasError('required')">Input is required!</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field class="w-100">
+                                    <mat-label>{{'EVENTS.CITY' | translate}}</mat-label>
+                                    <mat-select formControlName="city">
+                                        <mat-option *ngFor="let city of cities"
+                                                    [value]="city.name">{{city.name}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="jobForm.get('city').hasError('required')">Input is required!</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                    </mat-expansion-panel>
+
+
+                    <!--                    FEATURED IMAGE-->
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{ 'FIELD.FEATURED_IMAGE' | translate}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <div class="thumbnail d-flex justify-content-center">
+                            <div class="image-container">
+                                <input type="file"
+                                       hidden
+                                       accept="image/*"
+                                       #thumbnail
+                                       id="thumbnailInput"
+                                       (change)="onThumbnailChange($event)">
+                                <div *ngIf="!thumbnail.value && !thumbnailUrl?.filePath" class="no-image"
+                                     attr.translatedContent="{{ 'GENERAL.INSERT_IMAGE' | translate}}"
+                                     (click)="thumbnail.click()"></div>
+
+                                <img *ngIf="thumbnail.value || thumbnailUrl?.filePath" class="img-fluid featured-image"
+                                     [src]="thumbnailUrl.filePath" alt="thumbnail">
+                                <button *ngIf="thumbnail.value || thumbnailUrl?.filePath"
+                                        (click)="removeThumbnail(); thumbnail.value=''"
+                                        type="button"
+                                        id="btnRemoveFeaturedImage"
+                                        class="btn-thumbnail">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

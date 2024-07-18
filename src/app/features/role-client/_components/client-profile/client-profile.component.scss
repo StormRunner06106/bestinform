@@ -1,0 +1,136 @@
+@import "/src/app/theme/styles/components/colors";
+
+.my-profile-container{
+  background-color: var(--primary-background);
+  border: 1px solid rgba(36, 57, 138, 0.16);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.profile-rectangle{
+  background-color: var(--primary-background);
+  max-height: 66px;
+  margin-bottom: 24px;
+  border: 1px solid var(--secondary-background);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top: none;
+}
+
+.profile-picture {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  position: relative;
+  object-fit: cover;
+  transform: translateY(-33px);
+}
+
+.user-information {
+  h2 {
+    color: $primary-color;
+    margin: 0;
+  }
+
+  p {
+    color: $paragraph;
+    margin: 0;
+  }
+}
+
+.intro-class{
+  h2{
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    color: #231F20;
+  }
+
+  p{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgba(35, 31, 32, 0.5);
+  }
+
+  p.intro-add-details{
+    color: rgba(36, 57, 138, 0.5);
+  }
+
+  span{
+    padding-right:10px;
+  }
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  min-height: 7.5rem;
+  height: 100%;
+  border: 1px solid rgba($primary-color, 0.08);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: none;
+  // border-radius: 8px;
+  overflow: hidden;
+
+  & .no-image {
+    width: 100%;
+    min-height: inherit;
+    background: rgba($primary-color, 0.04);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary-color;
+    cursor: pointer;
+    gap: 0.75rem;
+
+    &:before {
+      content: '\f03e';
+      font-family: 'Font Awesome 5 Free';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 2.25rem;
+    }
+
+    &:after {
+      font-size: 1rem;
+      content: attr(translatedContent);
+    }
+  }
+
+  .cover-img{
+    max-height: 350px;
+    object-fit: cover;
+  }
+
+  .btn-thumbnail, .btn-gallery {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($primary-color, 0.16);
+    border-radius: 100%;
+    border: none;
+
+    i {
+      color: var(--primary-background);
+      font-weight: 900;
+      font-size: 16px;
+    }
+  }
+
+  .btn-thumbnail {
+    position: absolute;
+    top: 2.125rem;
+    right: 2.125rem;
+  }
+
+  .btn-gallery {
+    position: absolute;
+    top: 0.875rem;
+    right: 0.875rem;
+  }
+}

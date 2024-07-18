@@ -1,0 +1,48 @@
+<div class="container-fluid app blue">
+    <div class="container modal-content">
+        <!--Header-->
+        <div class="modal-header">
+            <h4 class="modal-title">{{'RESERVATION.CANCELLATION-RESERVATION' | translate}}</h4>
+            <i class="fas fa-times" (click)="closeModal()"></i>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+            <span class="modal-body-text">{{'RESERVATION.CANCEL-MSG' | translate}}</span>
+
+            <p class="mb-0 mt-4">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Motiv anulare</mat-label>
+                    <input [formControl]="reason"
+                           matInput placeholder="Motiv anulare...">
+                    <mat-error *ngIf="reason.hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                    <mat-error *ngIf="reason.hasError('minlength')">Trebuie sa contina cel putin 20 caractere</mat-error>
+                    <mat-error *ngIf="reason.hasError('whitespace')">Campul nu poate conține doar spații goale.
+                    </mat-error>
+                    <mat-icon role="button" *ngIf="reason.value" matSuffix (click)="reason.setValue(null)">clear</mat-icon>
+                </mat-form-field>
+            </p>
+        </div>
+        <!--Footer-->
+        <div class="p-3">
+            <div class="row gap-2 gap-xl-0">
+                <div class="col-12 col-xl-6">
+                    <button type="button" class="btn-long btn-color-outline w-100"
+                            (click)="closeModal()">
+                        <i class="fas fa-times"></i>
+                        {{ 'BTN.CANCEL' | translate}}
+                    </button>
+                </div>
+
+                <div class="col-12 col-xl-6">
+                    <button type="button" class="btn-long btn-color-fill w-100"
+                            (click)="confirmCancellation()"
+                            routerLinkActive="active">
+                        <i class="fas fa-check"></i>
+                        {{ 'BTN.CONFIRM' | translate}}
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

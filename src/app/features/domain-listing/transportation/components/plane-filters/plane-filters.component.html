@@ -1,0 +1,206 @@
+<form class="filter-tickets-container" [formGroup]="filters" (ngSubmit)="changeFilters()">
+    <ng-container *ngIf="flightsFilters$ | async as flightsFilters">
+        <!-- <ng-container *ngIf="departureAirports$ | async as departureAirports">
+            <mat-form-field appearance="outline">
+                <mat-label>Aeroport plecare</mat-label>
+                <mat-select formControlName="turIataCode">
+                    <mat-option [value]="departureAirports[0].cityCode">
+                        {{ departureAirports[0].cityNameRo || departureAirports[0].cityNameEn }} - Toate Aeroporturile ({{ departureAirports[0].cityCode }})
+                    </mat-option>
+                    <ng-container *ngFor="let airport of departureAirports[0].airports">
+                        <mat-option [value]="airport.airportCode">
+                            {{ airport.airportNameRo || airport.airportNameEn }} ({{ airport.airportCode }})
+                        </mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngIf="arrivalAirports$ | async as arrivalAirports">
+            <mat-form-field appearance="outline">
+                <mat-label>Aeroport destinatie</mat-label>
+                <mat-select formControlName="returnIataCode">
+                    <mat-option [value]="arrivalAirports[0].cityCode">
+                        {{ arrivalAirports[0].cityNameRo || arrivalAirports[0].cityNameEn }} - Toate Aeroporturile ({{ arrivalAirports[0].cityCode }})
+                    </mat-option>
+                    <ng-container *ngFor="let airport of arrivalAirports[0].airports">
+                        <mat-option [value]="airport.airportCode">
+                            {{ airport.airportNameRo || airport.airportNameEn }} ({{ airport.airportCode }})
+                        </mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+        </ng-container> -->
+
+        <div class="hour-selection">
+            <h4 class="mt-0">
+                Plecare {{ flightsFilters.departureDate | date : 'dd MMM, yyyy' }}
+            </h4>
+
+            <mat-expansion-panel class="mat-elevation-z">
+                <mat-expansion-panel-header>
+                    <mat-panel-title> <h4 id="tur-departure-label">Orar de plecare - {{ flightsFilters.originLocationCode }}</h4> </mat-panel-title>
+                </mat-expansion-panel-header>
+
+
+                <div class="hour-radio-group">
+                    <mat-checkbox color="primary" #turDepartureAll
+                    (change)="setFilters($event.checked, 'turDepartureHour', 'null'); turDepartureAfter.checked = false; turDepartureBefore.checked = false"
+                    >
+                        Toate
+                    </mat-checkbox>
+                    <mat-checkbox color="primary" #turDepartureBefore
+                    (change)="setFilters($event.checked, 'turDepartureHour', 'beforeMidDay');turDepartureAfter.checked = false; turDepartureAll.checked = false "
+                    >
+                        00:00 - 12:00
+                    </mat-checkbox>
+                    <mat-checkbox color="primary" #turDepartureAfter
+                    (change)="setFilters($event.checked, 'turDepartureHour', 'afterMidDay');turDepartureAll.checked = false; turDepartureBefore.checked = false"
+                    >
+                        12:00 - 00:00
+                    </mat-checkbox>
+                </div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel class="mat-elevation-z">
+                <mat-expansion-panel-header>
+                    <mat-panel-title><h4 id="tur-arrival-label">Orar de sosire - {{ flightsFilters.destinationLocationCode }}</h4></mat-panel-title>
+                </mat-expansion-panel-header>
+                
+
+            
+                <div class="hour-radio-group">
+                    <mat-checkbox color="primary" #turArrivalAll
+                    (change)="setFilters($event.checked, 'turArrivalHour', 'null');turArrivalAfter.checked = false; turArrivalBefore.checked = false"
+                    >
+                        Toate
+                    </mat-checkbox>
+                    <mat-checkbox color="primary" #turArrivalBefore
+                    (change)="setFilters($event.checked, 'turArrivalHour', 'beforeMidDay');turArrivalAfter.checked = false; turArrivalAll.checked = false"
+                    >
+                        00:00 - 12:00
+                    </mat-checkbox>
+                    <mat-checkbox color="primary" #turArrivalAfter
+                    (change)="setFilters($event.checked, 'turArrivalHour', 'afterMidDay');turArrivalAll.checked = false; turArrivalBefore.checked = false"
+                    >
+                        12:00 - 00:00
+                    </mat-checkbox>
+                </div>
+            </mat-expansion-panel>
+
+            <ng-container *ngIf="flightsFilters?.returnDate">
+                <h4 class="mt-3">
+                    Retur {{ flightsFilters.returnDate | date : 'dd MMM, yyyy' }}
+                </h4>
+
+                <mat-expansion-panel class="mat-elevation-z">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title><h4 id="return-departure-label">Orar de plecare - {{ flightsFilters.destinationLocationCode }}</h4></mat-panel-title>
+                    </mat-expansion-panel-header>
+                
+                
+                    <div class="hour-radio-group">
+                        <mat-checkbox color="primary" #returnDepartureAll
+                        (change)="setFilters($event.checked, 'returnDepartureHour', 'null');returnDepartureAfter.checked = false; returnDepartureBefore.checked = false"
+                        >
+                            Toate
+                        </mat-checkbox>
+                        <mat-checkbox color="primary" #returnDepartureBefore
+                        (change)="setFilters($event.checked, 'returnDepartureHour', 'beforeMidDay');returnDepartureAfter.checked = false; returnDepartureAll.checked = false"
+                        >
+                            00:00 - 12:00
+                        </mat-checkbox>
+                        <mat-checkbox color="primary" #returnDepartureAfter
+                        (change)="setFilters($event.checked, 'returnDepartureHour', 'afterMidDay');returnDepartureAll.checked = false; returnDepartureBefore.checked = false"
+                        >
+                            12:00 - 00:00
+                        </mat-checkbox>
+                    </div>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="mat-elevation-z">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title><h4 id="return-arrival-label">Orar de sosire - {{ flightsFilters.originLocationCode }}</h4></mat-panel-title>
+                    </mat-expansion-panel-header>
+                
+
+
+                    <div class="hour-radio-group">
+                        <mat-checkbox color="primary" #returnArrivalAll
+                        (change)="setFilters($event.checked, 'returnArrivalHour', 'null');returnArrivalAfter.checked = false; returnArrivalBefore.checked = false"
+                        >
+                            Toate
+                        </mat-checkbox>
+                        <mat-checkbox color="primary" #returnArrivalBefore
+                        (change)="setFilters($event.checked, 'returnArrivalHour', 'beforeMidDay');returnArrivalAfter.checked = false; returnArrivalAll.checked = false"
+                        >
+                            00:00 - 12:00
+                        </mat-checkbox>
+                        <mat-checkbox color="primary" #returnArrivalAfter
+                        (change)="setFilters($event.checked, 'returnArrivalHour', 'afterMidDay');returnArrivalAll.checked = false; returnArrivalBefore.checked = false"
+                        >
+                            12:00 - 00:00
+                        </mat-checkbox>
+                    </div>
+                </mat-expansion-panel>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <h4 id="layover">Escale</h4>
+    
+    <mat-radio-group
+            aria-labelledby="layover-label"
+            class="hour-radio-group"
+            formControlName="layover">
+        <mat-radio-button [value]="null" class="hour-radio-button">
+            Toate
+        </mat-radio-button>
+        <mat-radio-button [value]="'none'" class="hour-radio-button">
+            Direct
+        </mat-radio-button>
+        <mat-radio-button [value]="'one'" class="hour-radio-button">
+            1 Escala
+        </mat-radio-button>
+    </mat-radio-group>
+
+<!--    <h4>Pret: {{filters.value.price}} {{currency}}</h4>-->
+<!--    <div class="d-flex flex-row">Pret bilet: <div class="text-color ms-2">{{slidersData.minPrice}} - {{ slidersData.maxPrice }}{{currency}}</div></div>-->
+<!--    <mat-slider-->
+<!--            class="me-3 mb-4"-->
+<!--            [max]="slidersData.maxPrice"-->
+<!--            [min]="slidersData.minPrice">-->
+<!--        <input matSliderThumb formControlName="price">-->
+<!--    </mat-slider>-->
+
+    <h4>Durata: {{filters.value.maxDuration}}</h4>
+    <div class="d-flex flex-row">Durata maxima de calatorit: <div class="text-color ms-2">{{slidersData.minDuration}} - {{ slidersData.maxDuration }}h</div></div>
+    <mat-slider
+            class="me-3 mb-4"
+            step="1"
+            [max]="slidersData.maxDuration"
+            [min]="slidersData.minDuration">
+        <input matSliderThumb formControlName="maxDuration" [value]="slidersData.maxDuration">
+    </mat-slider>
+
+    <mat-form-field *ngIf="!loading; else loader" appearance="outline">
+        <mat-label>Companii aeriene</mat-label>
+        <mat-select formControlName="airlines" multiple>
+            <mat-option *ngFor="let airline of airlines"
+                        [value]="airline">
+                {{ airline | titlecase}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <ng-template #loader>
+        <div class="d-flex align-items-center justify-content-center mb-4">
+            <mat-spinner [diameter]="32"></mat-spinner>
+        </div>
+    </ng-template>
+
+    <!--<button type="submit"
+            class="btn-long btn-color-fill my-2">
+        <i class="fas fa-check"></i> Apply
+    </button>-->
+</form>

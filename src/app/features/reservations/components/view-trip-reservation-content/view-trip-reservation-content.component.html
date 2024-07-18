@@ -1,0 +1,250 @@
+<div class="container content_container" *ngIf="dataLoaded">
+
+    <!--Booking section PROVIDER-->
+    <div  id="htmlData" #htmlData>
+
+        <!--Booking section CLIENT and status active-->
+        <!-- <div *ngIf="(userRole==='ROLE_CLIENT')" class="header-title-section d-flex justify-content-between align-items-center">
+            <h3>{{ "RESERVATION.BOOKING-NR" | translate }} {{tripReservation?.reservationNumber}}</h3>
+        </div> -->
+
+        <!-- <div *ngIf="(userRole==='ROLE_CLIENT')  && (tripReservation?.status === 'active')" class="middle-content-section d-flex justify-content-between align-items-center flex-wrap">
+            <div>
+                <h3>{{ "RESERVATION.RESERVATION-CHANGE" | translate }}</h3>
+                <p class="d-flex flex-wrap">{{ "RESERVATION.LAST-UPDATED" | translate }}  <span>{{tripReservation.date | date :'dd/MM/YYYY HH:mm'}}</span></p>
+            </div>
+             <div class="d-flex justify-content-between gap-2">
+                <button class="btn-long btn-color-outline"
+                (click)="cancelReservationModal(tripReservation.id)"><i class="fas fa-times"></i> {{ "RESERVATION.CANCEL-RESERVATION" | translate }}</button>
+            </div>
+        </div> -->
+
+
+
+        <!--QR section-->
+
+        <div *ngIf="(userRoles.includes('ROLE_PROVIDER') || userRoles.includes('ROLE_STAFF') || userRoles.includes('ROLE_SUPER_ADMIN'))" class="header-title-section d-flex justify-content-between align-items-center">
+            <h3>{{ "RESERVATION.BOOKING-NR" | translate }} {{tripReservation?.reservationNumber}}</h3>
+            <!-- <img src="../../../../../assets/images/others/images-client/hardcoded_qr.png" height="60px" width="60px"/>  -->
+            <!-- <ngx-qrcode
+                    [elementType]="elementType"
+                    [value]="value"
+                    cssClass="aclass"
+                    errorCorrectionLevel="L">
+            </ngx-qrcode> -->
+            <!-- <ngx-qrcode-styling [config]="config"></ngx-qrcode-styling> -->
+
+        </div>
+
+
+
+        <!--Booking section CLIENT and status active-->
+        <div *ngIf="(userRoles.includes('ROLE_CLIENT')) && (tripReservation?.status !== 'past')" class="header-title-section d-flex justify-content-between align-items-center">
+            <h3>{{ "RESERVATION.BOOKING-NR" | translate }} {{tripReservation?.reservationNumber}}</h3>
+            <!-- <img src="../../../../../assets/images/others/images-client/hardcoded_qr.png" height="60px" width="60px"/> -->
+            <!-- <ngx-qrcode-styling [config]="config"></ngx-qrcode-styling> -->
+            <!-- <ngx-qrcode
+                    [elementType]="elementType"
+                    [value]="value"
+                    cssClass="aclass"
+                    errorCorrectionLevel="L">
+            </ngx-qrcode> -->
+        </div>
+
+        <!--Booking section CLIENT and status past-->
+        <div *ngIf="(userRoles.includes('ROLE_CLIENT')) && (tripReservation?.status === 'past')" class="header-title-section d-flex justify-content-between align-items-center">
+            <h3>{{ "RESERVATION.BOOKING-NR" | translate }} {{tripReservation?.reservationNumber}}</h3>
+            <!-- <img src="../../../../../assets/images/others/images-client/hardcoded_qr.png" height="60px" width="60px"/> -->
+            <!-- <ngx-qrcode-styling [config]="config"></ngx-qrcode-styling> -->
+            <!-- <ngx-qrcode
+                    [elementType]="elementType"
+                    [value]="value"
+                    cssClass="aclass"
+                    errorCorrectionLevel="L">
+            </ngx-qrcode> -->
+        </div>
+
+        <!--Modifica rezervare provider-->
+        <div data-html2canvas-ignore><!--ignore for screenshot-->
+
+        <div *ngIf="(userRoles.includes('ROLE_PROVIDER') || (userRoles.includes('ROLE_STAFF')) || (userRoles.includes('ROLE_SUPER_ADMIN'))) && (tripReservation?.status === 'active')" class="middle-content-section d-flex justify-content-between align-items-center flex-wrap">
+            <!--de modificat cu variabile-->
+            <div>
+                <h3>Detalii rezervare trip</h3>
+                <p class="d-flex flex-wrap">{{ "RESERVATION.LAST-UPDATED" | translate }} <span>{{tripReservation.date | date :'dd/MM/YYYY HH:mm'}}</span></p>
+            </div>
+            <div class="d-flex justify-content-between gap-2 flex-wrap">
+                <button class="btn-long btn-color-outline" *ngIf="tripReservation.paymentStatus==='paid'" (click)="downloadBill()"><i class="fas fa-file"></i>Descarcă factura</button>
+
+                <!-- <button class="btn-long btn-color-outline" (click)="cancelReservationModal(tripReservation.id)"><i class="fas fa-times"></i> {{ "RESERVATION.CANCEL-RESERVATION" | translate }}</button> -->
+                <!-- <button *ngIf="(tripReservation.bookingType === 'menu' || (tripReservation.bookingType === 'rentalBooking' && reservationIsModifiable)) && resource"
+                        (click)="openEditReservationModal()"
+                        class="btn-long btn-color-fill">
+                    <i class="fas fa-pen"></i>
+                    {{ "RESERVATION.EDIT-RESERVATION" | translate }}
+                </button> -->
+            </div>
+        </div>
+
+        <div *ngIf="(userRoles.includes('ROLE_CLIENT'))  && (tripReservation?.status === 'active')" class="middle-content-section d-flex justify-content-between align-items-center flex-wrap">
+            <!--de modificat cu variabile-->
+            <div>
+                <h3>Detalii rezervare trip</h3>
+                <p class="d-flex flex-wrap">{{ "RESERVATION.LAST-UPDATED" | translate }}  <span>{{tripReservation.date | date :'dd/MM/YYYY HH:mm'}}</span></p>
+            </div>
+            <div class="d-flex justify-content-between gap-2">
+                <button class="btn-long btn-color-outline" *ngIf="tripReservation.paymentStatus==='paid'" (click)="downloadBill()"><i class="fas fa-file"></i>Descarcă factura</button>
+
+
+                <!-- <button class="btn-long btn-color-outline" (click)="cancelReservationModal(tripReservation.id)"><i class="fas fa-times"></i> {{ "RESERVATION.CANCEL-RESERVATION" | translate }}</button> -->
+
+                <!-- <button *ngIf="((tripReservation.bookingType === 'menu' && reservationIsModifiable) || (tripReservation.bookingType === 'rentalBooking' && reservationIsModifiable)) && resource"
+                        (click)="openEditReservationModal()"
+                        class="btn-long btn-color-fill">
+                    <i class="fas fa-pen"></i>
+                    {{ "RESERVATION.EDIT-RESERVATION" | translate }}
+                </button> -->
+            </div>
+        </div>
+        </div>
+
+        <div class="content-section">
+
+
+        <!--butoane status-->
+        <div class="d-flex justify-content-between mb-4">
+            <div class="d-flex align-items-baseline gap-2">
+                <h2 class="me-3">Informatii rezervare</h2>
+            </div>
+            <div class="d-flex justify-content-between gap-2">
+                <p>
+                <span class="custom-provider-status-label" [ngClass]="{
+                    'label-accepted' : tripReservation?.paymentStatus === 'paid',
+                    'label-new' : tripReservation?.paymentStatus === 'waiting',
+                    'label-rejected' : tripReservation?.paymentStatus === 'unpaid'
+                    }">{{(tripReservation?.paymentStatus === 'paid') ? 'Paid' : (tripReservation?.status === 'waiting') ? 'Waiting payment' : 'Unpaid'}}</span>
+                </p>
+                <p>
+                <span class="custom-provider-status-label" [ngClass]="{
+                    'label-accepted' : tripReservation?.status === 'active',
+                    'label-new' : tripReservation?.status === 'past',
+                    'label-rejected' : tripReservation?.status === 'canceled'
+                    }">{{(tripReservation?.status === 'active') ? 'Active' : (tripReservation?.status === 'past') ? 'Past' : 'Cancelled'}}</span>
+                </p>
+            </div>
+        </div>
+
+
+        <!--coloane-->
+
+
+
+            <!--Title & statsus label-->
+            <!--<div class="d-flex justify-content-between mb-4">
+                 <div class="d-flex align-items-baseline gap-2">
+                    <h2 class="me-3">Informatii rezervare trip</h2>
+                </div>
+                 <div class="d-flex justify-content-between gap-2">
+                <p>
+                    <span class="custom-provider-status-label" [ngClass]="{
+                        'label-accepted' : tripReservation?.status === 'active',
+                        'label-new' : tripReservation?.status === 'past',
+                        'label-rejected' : tripReservation?.status === 'canceled'
+                        }">{{(tripReservation?.status === 'active') ? 'Active' : (tripReservation?.status === 'past') ? 'Past' : 'Cancelled'}}</span>
+                </p>
+                </div>
+            </div>-->
+
+            <!--details columns-->
+            <div class="d-flex justify-content-between gap-2 flex-wrap flex-md-nowrap">
+                <div class="col-md-4">
+                    <h3>Rezervare:</h3>
+
+                    <!-- rentalBooking -->
+                    <div *ngIf="tripReservation?.reservationItems">
+
+                        <p><b>Informatii cazare:</b></p>
+                        <p>Nume cazare</p>
+                        <h4>{{tripReservation?.reservationItems?.hotelName}} </h4>
+
+                        <p>Adresa cazare</p>
+                        <h4>{{tripReservation?.reservationItems?.hotelAddress}} </h4>
+
+                        <p><b>{{"RESERVATION.ROOM-INFO" | translate}}</b></p>
+                        <div *ngFor="let item of tripReservation?.reservationItems?.items">
+                            <p>{{"RESERVATION.NAME" | translate}}</p>
+                            <h4 *ngIf="item?.name">{{item?.name}} </h4>
+
+                            <p>{{"RESERVATION.QUANTITY" | translate}}</p>
+                            <h4>{{item?.quantity}} </h4>
+
+                        </div>
+
+                        <p>{{"RESERVATION.TOTAL-GUESTS" | translate}}</p>
+                        <h4>{{tripReservation?.reservationItems?.adults}} {{"RESERVATION.ADULTS" | translate}}, {{tripReservation?.reservationItems?.children}} {{"RESERVATION.CHILDREN" | translate}}</h4><!-- (13 {{"RESERVATION.YEARS-OLD" | translate}})-->
+                    </div>
+
+                </div>
+                <!-- client date -->
+                <div class="col-md-4">
+                    <h3>{{ "RESERVATION.GUEST-DETAILS" | translate }}:</h3>
+
+                    <p>{{ "RESERVATION.NAME" | translate }}</p>
+                    <h4>{{tripUser?.firstName}} {{tripUser?.lastName}}</h4>
+
+                    <p>{{ "RESERVATION.PHONE" | translate }}</p>
+                    <h4>{{tripUser?.telephone}}</h4>
+
+                    <p>{{ "RESERVATION.EMAIL" | translate }}</p>
+                    <h4>{{tripUser?.email}}</h4>
+                </div>
+                <!--Bestinform details-->
+                <div class="col-md-4">
+                    <h3>{{ "RESERVATION.OTHER-DETAILS" | translate }}:</h3>
+
+                    <p>{{ "RESERVATION.CHANNEL" | translate }}:</p>
+                    <h4>Bestinform.ro</h4>
+
+                    <p>{{ "RESERVATION.BOOKING-NUMBER" | translate }}:</p>
+                    <h4>{{tripReservation?.reservationNumber}}</h4>
+
+                    <p>{{ "RESERVATION.DATE-RECIVED" | translate }}</p>
+                    <h4>{{tripReservation?.date | date: "dd/MMM/y"}}</h4>
+
+                    <p>{{ "RESERVATION.PAYMENT-STATUS" | translate }}</p>
+                    <h4><span>Handled by</span> Bestinform.ro</h4>
+                </div>
+            </div>
+        </div>
+
+        <!--Booking details section-->
+        <div class="header-title-section">
+            <h3>{{ "RESERVATION.BOOKING-DETAILS" | translate }}</h3>
+        </div>
+
+        <div class="content-section">
+
+            <div class="booking-details-img mb-2">
+                <img src="{{tripReservation?.featuredImage ? tripReservation?.featuredImage?.filePath : defaultImagePath}}">
+            </div>
+            <h3 class="mb-2">{{tripReservation?.name}}</h3>
+            <p class="mb-2">{{countryName}}, {{locationName}}</p>
+
+
+            <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+                <p class="d-flex align-items-baseline flex-wrap" >
+                    <span><i class="fas fa-sign-in-alt"></i>Dată început:</span>
+                    {{tripReservation?.checkIn | date: 'dd/MM/YYYY'}}
+                </p>
+                <p class="d-flex align-items-baseline flex-wrap" *ngIf="tripReservation?.checkOut">
+                    <span><i class="fas fa-sign-out-alt"></i>Dată sfârsit:</span>
+                    {{tripReservation?.checkOut | date: 'dd/MM/YYYY'}}
+                </p>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="mb-0">{{ "RESERVATION.TOTAL-PAYMENT" | translate }}:</h4>
+                <h3>€ {{tripReservation?.totalPrice | number: '1.0-2'}}</h3>
+            </div>
+        </div>
+</div>

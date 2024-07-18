@@ -1,0 +1,118 @@
+<div class="d-flex flex-column">
+
+    <div *ngIf="country" class="background-container">
+        <img [src]="country?.image?.filePath" alt="category-background-image">
+    </div>
+
+    <div class="content-container">
+
+        <div class="container categories-container">
+
+            <h1 *ngIf="country" class="text-center">
+                {{ country.name | titlecase }} Packages
+            </h1>
+
+            <h2 class="text-left">
+                {{ "ITINERARIES.SELECT-REGION" |translate}}
+            </h2>
+
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div *ngIf="cities" class="cities-container">
+                        <mat-radio-group [(ngModel)]="selectedCity"
+                                         (change)="filterTripsByCityId(selectedCity.id)">
+                            <mat-radio-button *ngFor="let city of cities" [value]="city">
+                                <app-category-card [imgPath]="city?.image?.filePath"
+                                                   [nameRo]="city?.name"
+                                                   [nameEn]="city?.name"
+                                                   [height]="160"
+                                                   [selected]="selectedCity?.id === city.id"
+                                ></app-category-card>
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-8">
+                    <div *ngIf="trips && cities" class="trips-container">
+                        <h2>
+                            {{"ITINERARIES.CHOSEN-CITY" | translate}} <span>{{ selectedCity.name }}!</span>
+                        </h2>
+
+                        <h3>
+                            {{"ITINERARIES.CHOOSE-PACKAGE" | translate}}
+                        </h3>
+
+                        <ng-container *ngIf="filteredTripsByCityId?.length > 0; else noTripsForSelectedCity">
+                            <ngb-accordion [closeOthers]="true" [destroyOnHide]="false">
+                                <ngb-panel *ngFor="let trip of filteredTripsByCityId">
+                                    <ng-template ngbPanelHeader let-opened="opened">
+                                        <button (click)="selectTrip(trip)" ngbPanelToggle [class.opened]="opened" class="trip-item">
+                                            <p class="trip-title">
+                                                {{ trip.name }}
+                                            </p>
+
+                                            <p class="trip-price">
+                                                {{"ITINERARIES.STARTING-PRICE" | translate}} <span>€{{ trip.estimatedPrice }}</span> <span> ({{"ITINERARIES.ONE-PERSON" | translate}})</span>
+                                            </p>
+                                        </button>
+                                    </ng-template>
+                                    <ng-template ngbPanelContent>
+
+                                        <div class="guests-container">
+                                            <div class="guests-selector" [ngClass]="confirmBtnClicked && guestsForm.invalid ? 'invalid' : null">
+                                                <button [disabled]="guestsForm.controls.adultsNumber.value === 0"
+                                                        (click)="decreaseNrGuests('adultsNumber')"
+                                                        type="button"
+                                                >
+                                                    <i class="fas fa-angle-left"></i>
+                                                </button>
+                                                <p>
+                                                    {{ guestsForm.controls.adultsNumber.value }}
+                                                    {{ "RESOURCE.RES-FILTERS.NR_ADULTS" | translate }}
+                                                </p>
+                                                <button (click)="increaseNrGuests('adultsNumber')" type="button">
+                                                    <i class="fas fa-angle-right"></i>
+                                                </button>
+                                            </div>
+
+                                            <div class="guests-selector">
+                                                <button [disabled]="guestsForm.controls.childrenNumber.value === 0"
+                                                        (click)="decreaseNrGuests('childrenNumber')"
+                                                        type="button"
+                                                >
+                                                    <i class="fas fa-angle-left"></i>
+                                                </button>
+                                                <p>
+                                                    {{ guestsForm.controls.childrenNumber.value }}
+                                                    {{ "RESOURCE.RES-FILTERS.NR_CHILDREN" | translate }}
+                                                </p>
+                                                <button (click)="increaseNrGuests('childrenNumber')" type="button">
+                                                    <i class="fas fa-angle-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-panel>
+                            </ngb-accordion>
+                        </ng-container>
+
+                        <ng-template #noTripsForSelectedCity>
+                            <p class="text-center">
+                                {{"ITINERARIES.NO-TRIPS-AVAILABLE" | translate}}
+                            </p>
+                        </ng-template>
+
+                        <button *ngIf="selectedTrip"
+                                (click)="confirmSelection()"
+                                class="continue btn-auto btn-color-fill">
+                            {{"BTN.CONTINUE" | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

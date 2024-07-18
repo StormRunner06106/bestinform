@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Choose location</h4>
+    <button
+            type="button"
+            class="btn-close"
+            aria-describedby="modal-title"
+            (click)="modal.dismiss()"
+    ></button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <!-- <p>
+            <strong>Is this your location
+                <span class="text-primary">
+                    "{{ filterForm.controls.location.value }}, {{ filterForm.controls.country.value }}"
+                </span> ?</strong>
+        </p> -->
+
+        <p>
+            Select a location from below:
+        </p>
+
+        <p>
+            <mat-form-field class="w-50" appearance="outline">
+                <mat-label>Search city</mat-label>
+                <input [(ngModel)]="cityToSearch"
+                       (ngModelChange)="searchForCities()" matInput placeholder="Search city...">
+                <mat-icon role="button" *ngIf="!cityToSearch" matSuffix>search</mat-icon>
+                <mat-icon role="button" *ngIf="cityToSearch" matSuffix
+                          (click)="cityToSearch = null;
+                                   recommendedCities = null;"
+                >clear</mat-icon>
+            </mat-form-field>
+        </p>
+
+        <div class="destinations-container">
+            <div *ngFor="let city of recommendedCities | slice : 0 : 5"
+                 (click)="updateFormValue('location', city.city);
+                          updateFormValue('geographicalCoordinates', city.geographicalCoordinates);
+                          updateFormValue('country', city.country)"
+                 [tabindex]="0"
+                 class="destination-element">
+                            <span class="destination-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+
+                <p>{{ city.city }}, {{ city.country }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer justify-content-between">
+    <button type="button" class="btn-auto btn-dislike-fill" (click)="modal.dismiss()">No</button>
+    <button type="button" class="btn-auto btn-color-fill" (click)="modal.close(filterForm.value)">Yes</button>
+</div>

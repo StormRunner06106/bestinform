@@ -1,0 +1,116 @@
+<div class="event-wrapper d-flex justify-content-between">
+    <div>
+        <div class="event-block mb-4" *ngIf="event.images">
+            <h2 class="mb-3">Gallery</h2>
+            <app-image-grid [images]="images"></app-image-grid>
+        </div>
+        <div class="event-block mb-4">
+            <h2 class="mb-3">Informatii</h2>
+            <div class="event-styled-block mb-5">
+                <h3>Descriere piesa</h3>
+                <div class="info-pills d-flex">
+                    <div class="info-pill info-pill-color"><i class="pi pi-clock"></i>Durata: 2 ore</div>
+                    <div class="info-pill"><i class="pi pi-hashtag"></i>Varsta: peste 3 ani</div>
+                    <div class="info-pill"><i class="pi pi-tag"></i>Gen: Comedie, Psichologic</div>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur. Purus euismod sagittis praesent facilisi mauris. Eu non egestas mi platea viverra metus. Quis blandit nascetur aliquam lorem lacus ut suspendisse tempor neque. A ultrices scelerisque in aliquet at montes est blandit purus. Eget in duis leo in lorem urna pretium purus lectus. Nisl etiam et eros tincidunt elementum enim lorem lobortis at. Diam vitae duis amet lectus dictum. Et cursus pulvinar risus vel ullamcorper sed. Sed odio eleifend cursus gravida eget felis ullamcorper ut. Potenti lacus pellentesque sit neque. Facilisi mi et ipsum ultrices magna nisl scelerisque massa. Odio leo porttitor in magna fringilla posuere donec ornare.</p>
+                <p>Et eu nunc pellentesque est praesent rutrum. Feugiat lectus gravida eu consectetur at. Id vulputate malesuada potenti fermentum. Amet faucibus donec nisi lorem proin massa interdum diam. Ornare risus ullamcorper commodo eu. Donec ut auctor id lacus risus nulla adipiscing nam tortor. Et eu nunc pellentesque est praesent rutrum. Feugiat lectus gravida eu consectetur at. Id vulputate malesuada potenti fermentum. Amet faucibus donec nisi lorem proin massa interdum diam. Ornare risus</p>
+                <p>Donec ut auctor id lacus risus nulla adipiscing nam tortor. Et eu nunc pellentesque est praesent rutrum. Donec ut auctor id lacus risus .</p>
+            </div>
+            <div class="d-flex justify-content-around cards-row mb-5">
+                <div class="event-styled-block small-block d-flex flex-column">
+                    <img src="assets/icons/Chair.svg" alt="" height="32px" width="32px">
+                    <h3 class="mb-1">Regia</h3>
+                    <p>Nume Prenume</p>
+                </div>
+                <div class="event-styled-block small-block d-flex flex-column">
+                    <img src="assets/icons/theatery.svg" alt="" height="32px" width="32px">
+                    <h3 class="mb-1">Scenografia</h3>
+                    <p>Nume Prenume</p>
+                </div>
+                <div class="event-styled-block small-block d-flex flex-column">
+                    <img src="assets/icons/music.svg" alt="" height="32px" width="32px">
+                    <h3 class="mb-1">Muzica si Sonorizare</h3>
+                    <p>Nume Prenume</p>
+                </div>
+            </div>
+            <div class="event-styled-block mb-5">
+                <h3>Distributie</h3>
+                <div class="person-cards d-flex">
+                    <div class="person-card d-flex" *ngFor="let item of iterateNumber">
+                        <img width="64" height="64" src="https://s3-alpha-sig.figma.com/img/366d/ed1c/cfb4eb058d7aaaa8316691b317bda737?Expires=1713744000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TpfZbxDKRVUo4jBXBOYTH4ZEJzbrO8qOEDMhRcxKHSQaAfxQ6UChqEKs5WJ7nUOKxMVDlMXLKQcm5C7Y~3EY26r0IyMPU8wtqzqP6CDQ1LSIOZV9XPT87mLZji0vRxDTNfLAK6OyJUuYhs90Bj72QFUsskJga95t0fgck49~sxETF4ECeZplXHkaD2ITFBwRSa5FeGUDittn8xdTyo87EYwf-YRbc3ynKxQnus4d8q6xPCl0pbVb6Otp-vWnCdFi-0mYFDigDVoHFV8ddaB35J6RPCvdNtQismAF7P4Z7yZd6Xj7mz~rfprCeRohHKTPn2XBKfDa8nIrVyXMMkUbPw__" alt="">
+                        <div class="d-flex flex-column justify-content-around">
+                            <div class="firstname">Prenume</div>
+                            <div class="lastname">Nume</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="event-styled-block mb-5">
+                <p-accordion [multiple]="true">
+                    <p-accordionTab header="Politici" [selected]="true">
+                        <ng-template pTemplate="content">
+                            <p>Descriere Lorem ipsum dolor sit amet consectetur. Purus euismod sagittis praesent facilisi mauris. Eu non egestas mi platea viverra metus. Quis blandit nascetur aliquam lorem lacus ut suspendisse tempor neque. Descriere Lorem ipsum dolor sit amet consectetur. Purus euismod sagittis praesent facilisi mauris. Eu non egestas mi platea viverra metus. Quis blandit nascetur aliquam lorem lacus ut suspendisse tempor neque. Descriere Lorem ipsum dolor sit amet consectetur. Purus euismod sagittis praesent facilisi mauris. Eu non egestas mi platea viverra metus. Quis blandit nascetur aliquam lorem lacus ut suspendisse tempor neque. </p>
+                        </ng-template>
+                    </p-accordionTab>
+                    <p-accordionTab header="Politica anulari">
+                        <ng-template pTemplate="content">
+                            <p>Descriere Lorem ipsum dolor sit amet consectetur. Purus euismod sagittis praesent facilisi mauris. Eu non egestas mi platea viverra metus. Quis blandit nascetur aliquam lorem lacus ut suspendisse tempor neque. Descriere Lorem ipsum dolor sit amet consectetur. Purus euismod sagittis praesent facilisi mauris. Eu non egestas mi platea viverra metus. Quis blandit nascetur aliquam lorem lacus ut suspendisse tempor neque. Descriere Lorem ipsum dolor sit amet consectetur. Purus euismod sagittis praesent facilisi mauris. Eu non egestas mi platea viverra metus. Quis blandit nascetur aliquam lorem lacus ut suspendisse tempor neque. </p>
+                        </ng-template>
+                    </p-accordionTab>
+                    <p-accordionTab header="Informatii suplimentare">
+                        <ng-template pTemplate="content">
+                            <p>Descriere Lorem ipsum dolor sit amet consectetur. Purus euismod sagittis praesent facilisi mauris. Eu non egestas mi platea viverra metus. Quis blandit nascetur aliquam lorem lacus ut suspendisse tempor neque. Descriere Lorem ipsum dolor sit amet consectetur. Purus euismod sagittis praesent facilisi mauris. Eu non egestas mi platea viverra metus. Quis blandit nascetur aliquam lorem lacus ut suspendisse tempor neque. Descriere Lorem ipsum dolor sit amet consectetur. Purus euismod sagittis praesent facilisi mauris. Eu non egestas mi platea viverra metus. Quis blandit nascetur aliquam lorem lacus ut suspendisse tempor neque. </p>
+                        </ng-template>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column">
+<!--        <div class="map mb-2"></div>-->
+        <div class="maps-rest mb-3">
+            <div class="map-container">
+                <google-map class="map"
+                            height="180px"
+                            width="400px"
+                            [className]="'map-template'"
+                            [options]="googlemapOptions"
+                            [center]="center"
+                            [zoom]="12"
+                >
+                    <map-marker [position]="markerPosition"></map-marker>
+                </google-map>
+                <div class="overlay"></div>
+                <button (click)="openModal(mapsModalTemplate)" class="show-on-map-button">
+                    <span>Arata pe harta</span>
+                </button>
+            </div>
+        </div>
+        <div class="event-styled-block right-block">
+            <h4><i class="pi pi-map-marker left"></i>Adresa</h4>
+            <p>{{event?.venue?.name}} {{event?.venue?.city}}, {{event?.venue?.address}}</p>
+            <h4><i class="pi pi-ticket left"></i>Bilete</h4>
+            <p class="mb-4">de la <span>25 RON/pers</span></p>
+            <div class="buy" (click)="navigateToTickets()">Cumpara Bilet</div>
+        </div>
+    </div>
+</div>
+<ng-template #mapsModalTemplate>
+    <div class="maps-modal-container">
+        <div style="text-align: right; margin-right: 15px;">
+            <div class="close-button" (click)="closeModal()">
+                <mat-icon>close</mat-icon>
+            </div>
+        </div>
+        <google-map
+                width="80vw"
+                height="90vh"
+                [options]="googlemapOptions"
+                [center]="center"
+                [zoom]="12">
+            <map-marker [position]="markerPosition"
+            ></map-marker>
+        </google-map>
+    </div>
+</ng-template>

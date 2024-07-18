@@ -1,0 +1,111 @@
+<div class="d-flex flex-column">
+
+    <div class="background-container">
+        <img [src]="job?.featuredImage?.filePath" alt="category-background-image">
+    </div>
+
+    <div class="content-container">
+        <div class="container">
+            <div class="resource-title-bar">
+                <div class="job-title">
+                    <h3 class="resource-title">
+                        {{ job?.title | titlecase }}
+                    </h3>
+
+                    <p class="resource-subtitle mb-0">{{job?.date | date : "dd.MM.yyyy"}}</p>
+                </div>
+
+
+                <button *ngIf="!isJobProvider && !alreadyApplied && !isStaff && !isAdmin"
+                        (click)="openApplyModal()"
+                        class="btn-auto btn-color-fill">
+                    Aplica acum
+                    <i class="fas fa-angle-right"></i>
+                </button>
+
+                <button *ngIf="isJobProvider"
+                        (click)="navigateToEditJob()"
+                        class="btn-auto btn-color-fill">
+                    Editeaza jobul
+                    <i class="fas fa-angle-right"></i>
+                </button>
+
+                <p class="label-applied" *ngIf="alreadyApplied">Ai aplicat la acest job!</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="job-section mb-3">
+                <p class="title-section">Despre</p>
+                <p class="section-subtitle">Descrierea Job-ului</p>
+                <p class="text-data" [innerHTML]="job?.description"></p>
+                <p class="section-subtitle">Locatie</p>
+                <p class="text-data"><i
+                        class="fas fa-map-marker-alt me-2"></i>{{job?.address + ', ' + job?.city + ', ' + job?.country}}
+                </p>
+
+            </div>
+
+            <div class="job-section">
+                <p class="title-section">Informatii generale</p>
+                <div *ngFor="let tab of job?.attributes" class="mb-3">
+                    <div class="row" *ngIf="tab.tabName === 'general_info'">
+                        <p class="section-subtitle" *ngIf="tab.tabAttributes.length > 0">Informatii generale</p>
+                        <div *ngFor="let attribute  of tab.tabAttributes">
+                            <div class="d-flex justify-content-start align-items-center">
+                                <img [src]="attribute.attributeIconPath" class="img-icon">
+                                <p class="mb-0"><span class="label-name">{{attribute.attributeName}}
+                                    : </span>{{attribute.attributeValue}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="tab.tabName === 'about'">
+                        <p class="section-subtitle" *ngIf="tab.tabAttributes.length > 0">Criterii</p>
+                        <div *ngFor="let attribute  of tab.tabAttributes">
+                            <div class="d-flex justify-content-start align-items-center">
+                                <img [src]="attribute.attributeIconPath" class="img-icon">
+                                <p class="mb-0"><span class="label-name">{{attribute.attributeName}}
+                                    : </span>{{attribute.attributeValue}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="tab.tabName === 'facilities'">
+                        <p class="section-subtitle" *ngIf="tab.tabAttributes.length > 0">Beneficii</p>
+                        <div class="mb-0" *ngFor="let attribute  of tab.tabAttributes">
+                            <div class="d-flex justify-content-start align-items-center">
+                                <img [src]="attribute.attributeIconPath" class="img-icon">
+                                <p class="mb-0"><span class="label-name">{{attribute.attributeName}}
+                                    : </span>{{attribute.attributeValue}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="tab.tabName === 'contact'">
+                        <p class="section-subtitle" *ngIf="tab.tabAttributes.length > 0">Contact</p>
+                        <div *ngFor="let attribute  of tab.tabAttributes">
+                            <div class="d-flex justify-content-start align-items-center">
+                                <img [src]="attribute.attributeIconPath" class="img-icon">
+                                <p class="mb-0"><span class="label-name">{{attribute.attributeName}}
+                                    : </span>{{attribute.attributeValue}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="job-section" *ngIf="isJobProvider && candidatesList?.length > 0">
+                <p class="title-section">Candidati</p>
+                <div *ngFor="let candidate of candidatesList">
+                    <app-display-user class="w-100" [userId]="candidate.id" [showMenu]="true" [menuType]="'job'"></app-display-user>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,51 @@
+.dialog-container {
+  padding: 48px 52px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  // Header
+  .dialog-header {
+
+    h2 {
+      color: #24398A;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 16px;
+      color: #231F20;
+    }
+
+  }
+
+  // Content
+  .dialog-content {
+    border: 1px solid #24398A;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 48px;
+
+    .section-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: #231F20;
+
+      span {
+        font-weight: 400;
+        font-size: 14px;
+      }
+    }
+
+  }
+
+  // Footer
+  .dialog-footer {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+}

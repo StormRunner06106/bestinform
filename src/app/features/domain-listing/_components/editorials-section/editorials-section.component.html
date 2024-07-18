@@ -1,0 +1,38 @@
+<div class="row container-fluid mx-0">
+    <div class="col">
+        <div class="container">
+            <p class="p-title m-0">{{'GENERAL.EDITORIALS' | translate}}</p>
+            <div class="divider">
+            </div>
+            <p class="description">{{'GENERAL.COMMUNITY-REVIEW' | translate}}</p>
+            <div class="row">
+                <div *ngFor="let editorial of editorials" class="col-12 col-md-6 col-xl-3" >
+                    <div class="card-custom">
+                        <div class="image-container">
+                            <button class="favourite"><i class="far fa-star"></i></button>
+                            <img class="card-img-custom" src="{{editorial.imgPath}}">
+                        </div>
+
+                        <div class="card-body-custom">
+                            <p class="title-custom">{{editorial.title}}</p>
+                            <div class="tags-section">
+                                <p *ngFor="let tag of editorial.tags">
+                                   {{" "+ tag| titlecase}}
+                                </p>
+                            </div>
+
+                            <div class="details">
+                                <p class="by">by <span class="author">{{editorial.author}}</span></p>
+                                <p class="date">{{editorial.date | date}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="more d-flex justify-content-end">
+                <a>{{'GENERAL.SEE-MORE' | translate}} <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+    </div>
+</div>

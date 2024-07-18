@@ -1,0 +1,15 @@
+<!--Title bar-->
+<div class="container-fluid client-general-box">
+    <div class="container">
+        <app-dashboard-header pageTitleOne="{{ 'RESERVATION.VIEW-RESERVATION' | translate}}"
+                              (buttonCall)="downloadAsPDF()"
+                              [buttonCallName]="'Descarcă Voucher'">
+        </app-dashboard-header>
+    </div>
+
+    <div>
+        <app-view-trip-reservation-content [reservationTripId]="reservationTripId"></app-view-trip-reservation-content>
+    </div>
+
+
+</div>

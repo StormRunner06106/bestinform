@@ -1,0 +1,60 @@
+<div class="modal-container">
+    <div class="img-container">
+        <img *ngIf="gallery.length > 0; else noImages" [src]="gallery[galleryIndex].filePath" alt="room-image">
+
+        <ng-template #noImages>
+            <h2 class="text-center">
+                No Images
+            </h2>
+        </ng-template>
+
+        <button class="btn-close-modal" [mat-dialog-close]="true">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <button class="btn-arrow btn-left" (click)="cycleGallery(-1)">
+            <i class="fas fa-angle-left"></i>
+        </button>
+
+        <button class="btn-arrow btn-right" (click)="cycleGallery(1)">
+            <i class="fas fa-angle-right"></i>
+        </button>
+    </div>
+
+    <div class="title-container">
+        <p class="room-name">
+            {{ room.name }}
+        </p>
+
+        <div class="room-size">
+            Fits: {{ room.maximumAdultPeople }} x <i class="fas fa-user"></i>
+            |
+            <ng-container *ngFor="let bed of room?.bedType">
+                <span *ngIf="bed.quantity > 0">
+                    {{ bed.quantity }} x {{ bed.type }}
+                </span>
+
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="price-container d-flex flex-column align-items-start">
+        <p>
+            Current price for
+        </p>
+
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <p>{{ nights }} Nights</p>
+            <p>€ {{room.totalPrice}}</p>
+        </div>
+    </div>
+
+    <div class="benefits-container">
+        <ng-container *ngFor="let benefit of room.benefits">
+            <div *ngIf="(benefit.attributeValue | uppercase) === 'TRUE'" class="benefit">
+                <img [src]="benefit?.attributeIconPath" alt="benefit-icon">
+                <p class="m-0">{{ benefit.attributeName }}</p>
+            </div>
+        </ng-container>
+    </div>
+</div>

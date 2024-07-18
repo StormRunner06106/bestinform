@@ -1,0 +1,138 @@
+// .main_wrapper {
+//   height: 100vh;
+//   width: 100%;
+//   overflow-x: hidden;
+//   background-image: url('../../../assets/images/others/landing/hero_image.png');
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// }
+
+.search-container {
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 16px;
+  background-color: #fcfcfd;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.08);
+  h1 {
+    color: #22222f;
+  }
+
+  .offset-container {
+    padding: 8px 7px 0px 7px
+  }
+}
+
+.hotel-star-container {
+  display: flex;
+  align-items: center;
+  background: #f8cc50;
+  padding: 10px 9px;
+  border-radius: 16px;
+  width: fit-content;
+  height: 30px;
+  margin-left: 15px;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 16px;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.rating-text {
+  font-weight: 800;
+  color: hsla(233, 83%, 60%, 1);
+}
+
+.rating-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  background-color: hsla(233, 83%, 60%, 1);
+  color: white;
+  font-weight: 800;
+  border-radius: 8px;
+}
+
+.empty-container {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 10vw 4vw 15vw 4vw;
+  margin-bottom: 6.25rem;
+}
+
+.hero-container {
+  position: relative;
+  background-image: url(../../../assets/images/others/hero-section/hero-section.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;  
+  padding: 0 4vw 0 4vw;
+  height: 600px;
+  align-items: center;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-bottom: -140px;
+}
+
+.noDisplay {
+  display: none !important;
+}
+
+.search-container-items {
+  position: relative;
+  bottom: 15px;
+}
+
+.offset {
+  position: relative;
+  max-width: 1312px;
+  width: 100%;
+  @media (min-width: 1455px) {
+    width: 1312px;
+  }
+}
+
+app-nav-bar {
+  width: 100%;
+  position: absolute;
+  .main_wrapper {
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    background-image: url("../../../assets/images/others/landing/hero_image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+@media (max-width: 980px) {
+  .search-container {
+    padding: 16px;
+  }
+
+  .hero-container {
+    margin-top: -89px;
+    padding: 0px 16px 16px 16px;
+  }
+}
+.font-48 {
+  font-size: 48px;
+}

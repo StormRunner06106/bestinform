@@ -1,0 +1,341 @@
+<p-card>
+  <ng-template pTemplate="content">
+    <h3>Informatii Rezervare</h3>
+    <form [formGroup]="reservationForm" (ngSubmit)="submitReservation()">
+      <div class="reservation-content">
+        <div class="reservation-information-part1">
+          <div>
+            <div class="reservation-section-header">
+              <span
+                ><i
+                  class="pi pi-info-circle"
+                  style="font-size: 1rem"
+                  pTooltip="Tooltip empty"
+                  tooltipPosition="top"
+                ></i>
+                {{ "RESTAURANTS.HOUR_AND_DATE" | translate }}
+              </span>
+            </div>
+
+            <div class="reservation-date-and-time">
+              <span class="calendar-validation-span">
+                <p-calendar
+                  formControlName="date"
+                  selectionMode="{{ calendarOption }}"
+                  [readonlyInput]="true"
+                  [minDate]="minimumDate"
+                  [showIcon]="true"
+                  placeholder="Data"
+                  dateFormat="yy-mm-dd"
+                >
+                </p-calendar>
+
+                <!-- Error Message for Surname -->
+                <div
+                  *ngIf="
+                    reservationForm.get('date').errors &&
+                    reservationForm.get('date').touched
+                  "
+                >
+                  <small
+                    class="reservation-error"
+                    *ngIf="reservationForm.get('date').errors.required"
+                  >
+                    {{ "ERRORS.DATE-REQUIRED" | translate }}
+                  </small>
+                </div>
+              </span>
+
+              <span class="calendar-validation-span">
+                <p-calendar
+                  formControlName="time"
+                  selectionMode="{{ calendarOption }}"
+                  [showIcon]="true"
+                  placeholder="Ora"
+                  [timeOnly]="true"
+                  [showTime]="true"
+                >
+                </p-calendar>
+                <!-- Error Message for Surname -->
+                <div
+                  *ngIf="
+                    reservationForm.get('time').errors &&
+                    reservationForm.get('time').touched
+                  "
+                >
+                  <small
+                    class="reservation-error"
+                    *ngIf="reservationForm.get('time').errors.required"
+                  >
+                    {{ "ERRORS.TIME-REQUIRED" | translate }}
+                  </small>
+                </div>
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <div class="reservation-section-header">
+              <span
+                ><i
+                  class="pi pi-info-circle"
+                  style="font-size: 1rem"
+                  pTooltip="Tooltip empty"
+                  tooltipPosition="top"
+                ></i>
+                {{ "RESTAURANTS.NUMBER_OF_PEOPLE" | translate }} ({{
+                  adults + children
+                }}
+                / {{ availablePlaces }})</span
+              >
+            </div>
+
+            <div class="reservation-date-and-time">
+              <div class="input-row">
+                <span class="label">
+                  {{ "RESTAURANTS.GUESTS" | translate }}
+                </span>
+                <p-inputNumber
+                  [min]="0"
+                  formControlName="adults"
+                  [showButtons]="true"
+                  buttonLayout="horizontal"
+                  inputId="horizontal"
+                  spinnerMode="horizontal"
+                  [step]="1"
+                  incrementButtonIcon="pi pi-angle-right"
+                  decrementButtonClass="arrow"
+                  incrementButtonClass="arrow"
+                  decrementButtonIcon="pi pi-angle-left"
+                  (ngModelChange)="onAdultsChange($event)"
+                  [ngClass]="{
+                    'ng-invalid ng-dirty':
+                      reservationForm.get('adults').errors &&
+                      reservationForm.get('adults').touched
+                  }"
+                ></p-inputNumber>
+                <div
+                  *ngIf="
+                    reservationForm.get('adults').errors &&
+                    reservationForm.get('adults').touched
+                  "
+                >
+                  <small
+                    class="reservation-error"
+                    *ngIf="reservationForm.get('adults').errors.required"
+                  >
+                    {{ "ERRORS.ADULTS-REQUIRED" | translate }}
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="reservation-section-header center-header">
+            <span
+              ><mat-icon>toggle_on</mat-icon>
+              {{ "RESTAURANTS.PREFERENCES" | translate }}
+            </span>
+          </div>
+          <div class="reservation-preferences">
+            <div class="reservation-preference">
+              <span class="preferential"
+                >Alegerea este preferențială. Restaurantul iși rezervă dreptul
+                de a modifica această opțiune.</span
+              >
+              <p-dropdown
+                [options]="preferences"
+                formControlName="selectedPreference"
+                placeholder="Unde Vrei sa Stai"
+                [editable]="true"
+                optionLabel="name"
+                [ngClass]="{
+                  'ng-invalid ng-dirty':
+                    reservationForm.get('selectedPreference').errors &&
+                    reservationForm.get('selectedPreference').touched
+                }"
+              ></p-dropdown>
+              <div
+                *ngIf="
+                  reservationForm.get('selectedPreference').errors &&
+                  reservationForm.get('selectedPreference').touched
+                "
+              >
+                <small
+                  class="reservation-error"
+                  *ngIf="
+                    reservationForm.get('selectedPreference').errors.required
+                  "
+                >
+                  {{ "ERRORS.PREFERENCE-REQUIRED" | translate }}
+                </small>
+              </div>
+            </div>
+            <div class="reservation-preference">
+              <input
+                type="text"
+                pInputText
+                formControlName="specialRequest"
+                placeholder="Request Special"
+                class="special-request-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="reservation-section-header padding-5">
+            <span>{{ "RESTAURANTS.YOUR_INFORMATION" | translate }}</span>
+          </div>
+          <div class="reservation-personal-info">
+            <div class="reservation-info-1">
+              <span class="p-float-label">
+                <input
+                  pInputText
+                  id="surname"
+                  formControlName="surname"
+                  [ngClass]="{
+                    'ng-invalid ng-dirty':
+                      reservationForm.get('surname').errors &&
+                      reservationForm.get('surname').touched
+                  }"
+                />
+                <label htmlFor="surname">{{
+                  "RESTAURANTS.NAME" | translate
+                }}</label>
+                <!-- Error Message for Surname -->
+                <div
+                  *ngIf="
+                    reservationForm.get('surname').errors &&
+                    reservationForm.get('surname').touched
+                  "
+                >
+                  <small
+                    class="reservation-error"
+                    *ngIf="reservationForm.get('surname').errors.required"
+                  >
+                    {{ "ERRORS.LASTNAME-REQUIRED" | translate }}
+                  </small>
+                </div>
+              </span>
+
+              <span class="p-float-label">
+                <input pInputText id="name" formControlName="name" />
+                <label htmlFor="name">{{
+                  "RESTAURANTS.SURNAME" | translate
+                }}</label>
+                <div
+                  *ngIf="
+                    reservationForm.get('name').errors &&
+                    reservationForm.get('name').touched
+                  "
+                >
+                  <small
+                    class="reservation-error"
+                    *ngIf="reservationForm.get('name').errors.required"
+                  >
+                    {{ "ERRORS.FIRSTNAME-REQUIRED" | translate }}
+                  </small>
+                </div>
+              </span>
+            </div>
+
+            <div class="reservation-info-1">
+              <span class="p-float-label">
+                <input pInputText id="email" formControlName="email" />
+                <label htmlFor="email">{{
+                  "RESTAURANTS.EMAIL" | translate
+                }}</label>
+                <div
+                  *ngIf="
+                    reservationForm.get('email').errors &&
+                    reservationForm.get('email').touched
+                  "
+                >
+                  <small
+                    class="reservation-error"
+                    *ngIf="reservationForm.get('email').errors.required"
+                  >
+                    {{ "ERRORS.EMAIL-REQUIRED" | translate }}
+                  </small>
+                </div>
+              </span>
+
+              <span class="p-float-label-phone">
+                <ngx-intl-tel-input
+                  style="width: 100%; height: 100%"
+                  [preferredCountries]="[CountryISO.Romania]"
+                  [enablePlaceholder]="true"
+                  [searchCountryFlag]="true"
+                  [searchCountryField]="[
+                    SearchCountryField.Iso2,
+                    SearchCountryField.Name
+                  ]"
+                  [selectedCountryISO]="CountryISO.Romania"
+                  [maxLength]="15"
+                  [phoneValidation]="true"
+                  [separateDialCode]="true"
+                  [numberFormat]="PhoneNumberFormat.National"
+                  formControlName="phone"
+                >
+                </ngx-intl-tel-input>
+              </span>
+            </div>
+
+<!--            <form [formGroup]="form">-->
+<!--              <div class="reservation-preference">-->
+<!--                <p-autoComplete-->
+<!--                        formControlName="selectedCountry"-->
+<!--                        [suggestions]="filteredCountries"-->
+<!--                        (completeMethod)="filterCountries($event.query)"-->
+<!--                        placeholder="{{ 'RESTAURANTS.COUNTRY_REGION' | translate }}"-->
+<!--                        field="name"-->
+<!--                ></p-autoComplete>-->
+<!--              </div>-->
+<!--            </form>-->
+<!--            <div class="reservation-preference">-->
+<!--              <p-dropdown-->
+<!--                [options]="countries"-->
+<!--                formControlName="selectedCountry"-->
+<!--                placeholder="{{ 'RESTAURANTS.COUNTRY_REGION' | translate }}"-->
+<!--                [editable]="true"-->
+<!--                optionLabel="name"-->
+<!--              ></p-dropdown>-->
+<!--            </div>-->
+          </div>
+        </div>
+
+<!--       Don't remove this one, maybe will be helpful in future -->
+<!--        <div class="reservation-loyalty-points">-->
+<!--          <div class="reservation-section-header">-->
+<!--            <span>{{ "RESTAURANTS.LOYALTY_POINTS" | translate }}</span>-->
+<!--          </div>-->
+<!--          <div class="loyalty-points-box">-->
+<!--            <div class="toggle-switch">-->
+<!--              <label for="loyalty-points-switch" class="loyalty-points-label">{{-->
+<!--                "RESTAURANTS.USE_LOYALTY_POINTS" | translate-->
+<!--              }}</label>-->
+<!--              <p-inputSwitch formControlName="loyaltyPoints"></p-inputSwitch>-->
+<!--            </div>-->
+<!--            <div class="points-display">-->
+<!--              <span-->
+<!--                >{{ "RESTAURANTS.LOYALTY_POINTS" | translate }}: 855680-->
+<!--                (€85,568)</span-->
+<!--              >-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <div *ngIf="!buttonHidden">
+          <p-button
+            label="Rezerva Acum"
+            (onClick)="submitReservation()"
+            class="reservation-button"
+          ></p-button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</p-card>

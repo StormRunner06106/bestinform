@@ -1,0 +1,154 @@
+@import '/src/app/theme/styles/components/colors';
+
+.responsive-header-text {
+    font-size: 24px;
+    @media (width >= 768px) {
+        font-size: 32px;
+    }
+    @media (width >= 1200px) {
+        font-size: 48px;
+    }
+}
+
+.white-background {
+    background-color: var(--primary-background);
+}
+
+.thumbnail {
+    width: 100%;
+    max-height: 600px;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+}
+
+/*Spacing*/
+h1 {
+    margin-bottom: 12px;
+}
+
+i{
+    //padding-right: 8px;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.editorial-banner-class{
+    // background-image: url('/assets/images/others/editorial-banner-min.jpg');
+    height: 566px;
+    overflow: hidden;
+    img{
+        object-fit: cover;
+        height: 566px;
+        width: 100%;
+    }
+
+}
+
+//header
+.details-editorial-class{
+    div span{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        /* identical to box height, or 150% */
+        letter-spacing: -0.006em;
+        color: $paragraph;
+    }
+
+    i{
+        //padding-right: 8px;
+        font-weight: 900;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    button i{
+        padding: 0px;
+        font-size: 12px;
+        .fa-star{
+            padding: 0px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 32px;
+        }
+
+
+    }
+}
+
+.modal-title{
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: $paragraph;
+}
+
+//conent
+.content-class{
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-divider {
+    width: 128px;
+    height: 0;
+    border: 1px solid #231F20;
+    border-radius: 8px;
+    margin: 12px auto;
+}
+
+.social-media-icons {
+    padding: 12px 0px;
+    gap: 32px;
+    i {
+        color: $paragraph;
+        font-size: 32px;
+        line-height: 140%;
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    }
+}
+
+//suggestion cards
+
+.container.d-flex.py-6.column-editorials{
+    flex-wrap: wrap!important;
+    display: flex;
+}
+
+.editotials-suggestion{
+
+    background-color: rgba(13, 68, 148, 0.08);
+
+    h1{
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 140%;
+        letter-spacing: -0.02em;
+        color: #000000;
+
+    }
+}
+
+//author section
+.author-class{
+    background: rgba($primary-color, 0.04);
+    border: 1px solid rgba($primary-color, 0.16);
+    border-radius: 8px;
+    padding: 24px;
+    gap: 24px;
+    margin-bottom: 64px;
+
+    img{
+        border-radius: 50%;
+    }
+
+    * {
+        margin-bottom: 0;
+    }
+}

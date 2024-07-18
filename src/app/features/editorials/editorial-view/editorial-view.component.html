@@ -1,0 +1,121 @@
+<div class="white-background d-flex flex-column">
+    <img *ngIf="featuredImage"
+         [src]="featuredImage" class="thumbnail" alt="thumbnail">
+
+    <!-- <div class="container-fluid mb-6"> -->
+    <div class="container">
+
+        <!--Header-->
+        <div class="card-header flex-column justify-content-center pt-4">
+            <div class="d-flex justify-content-between flex-wrap">
+                <!--Title bar-->
+                <h1 class="modal-title responsive-header-text">{{title}}</h1>
+            </div>
+
+            <!--Editorial details-->
+            <div class="details-editorial-class">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="tags">
+                        <i class="fas fa-tag" aria-hidden="true"></i>
+                        <span *ngFor="let tag of tags; let last = last">
+                                {{last ? (tag | titlecase) : (tag | titlecase) + ', '}}
+                    </span>
+                    </div>
+
+
+                    <div class="d-flex gap-3">
+                        <span>
+                            <i class="fas fa-list me-2"></i>
+                            {{category}}
+                        </span>
+                        <span>
+                            <i class="far fa-clock me-2"></i>
+                            {{'FIELD.PUBLICATION_DATE' | translate}}: {{publishedDate | date: 'd/MM/YYYY'}}
+                        </span>
+                    </div>
+                </div>
+
+<!--                <div class="d-flex justify-content-end gap-3">-->
+<!--                    <button class="btn-round btn-color-outline" matTooltip="Share"><i class="fas fa-share" aria-hidden="true"></i></button>-->
+<!--                    <button class="btn-round btn-color-outline" matTooltip="Save"><i class="far fa-star" aria-hidden="true"></i></button>-->
+<!--                </div>-->
+            </div>
+        </div><!--End Header-->
+
+        <!--content-->
+        <div class="py-3 content-class">
+            <em>{{shortDescription}}</em>
+        </div>
+
+        <div [innerHTML]="contentEditorial" class="py-3 content-class">
+        </div>
+
+        <div class="custom-divider"></div>
+
+        <div class="social-media-icons d-flex align-items-center justify-content-center flex-wrap">
+            <share-buttons theme="circles-dark"
+                           [include]="['twitter', 'facebook', 'whatsapp','pinterest','email','copy']"
+                           [showIcon]="true"
+                           [showText]="false"
+                           url="{{currentRoute}}"
+                           description="See more on BESTINFORM!">
+            </share-buttons>
+        </div>
+
+        <div class="social-media">
+
+        </div>
+
+        <!-- authors -->
+        <div class="author-class d-flex align-items-center justify-content-between flex-wrap flex-md-nowrap">
+            <img src="{{userData?.avatar.filePath}}" (error)="$event.target.src = '/assets/images/others/user.jpg'" height="96px" width="96px"/>
+
+            <div class="">
+                <h4>{{userData?.firstName + ' ' + userData?.lastName}}</h4>
+                <p>Jonah West is an award-winning food and travel writer. His work appears in publications like Travel + Leisure, Fortune and Food & Wine and he is the co-author of The Cocktail Workshop; Dinner at the Club: 100 Years of Recipes and Stories from South Philly's Palizzi Social Club; and Laurel: Modern American Flavors in Boston.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Suggested editorials-->
+
+<div class="container-fluid editotials-suggestion">
+    <div class="container">
+        <div class="row editotials-suggestion-section-title py-8">
+            <h1>
+             You might also like...
+            </h1>
+         </div>
+
+        <div class="row pb-10">
+            <div *ngFor="let editorial of editorialsList" class="col-12 col-md-6 col-xl-3 d-flex justify-content-center" >
+                <div class="card-custom">
+                    <div class="image-container">
+                        <button class="favourite"><i class="far fa-star"></i></button>
+                            <img class="card-img-custom" src="{{editorial.imgPath}}">
+                    </div>
+
+                    <div class="card-body-custom">
+                        <p class="title-custom"><a href="{{editorial.link}}">{{editorial.title}}</a></p>
+                        <div class="tags-section">
+                            <p *ngFor="let tag of editorial.tags">
+                               {{" "+ tag| titlecase}}
+                            </p>
+                        </div>
+
+                        <div class="details">
+                            <p class="by">by <span class="author">{{editorial.author}}</span></p>
+                            <p class="date">{{editorial.date | date}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+

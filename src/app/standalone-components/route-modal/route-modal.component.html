@@ -1,0 +1,25 @@
+<div class="dialog-container">
+
+    <!--Header-->
+    <div class="dialog-header">
+        <h2>Parasire pagina</h2>
+        <p>Esti sigur ca doresti sa parasesti aceasta pagina?</p>
+    </div>
+
+    <!--Footer-->
+    <div class="dialog-footer">
+        <!--Cancel Button-->
+        <button class="btn-long btn-color-outline w-100" (click)="close(false)">
+            <i class="fas fa-times"></i>
+            Anulează
+        </button>
+
+        <!--Confirm Button-->
+        <button class="btn-long btn-color-fill w-100" (click)="close(true)">
+            Confirmă
+            <i class="fas fa-check"></i>
+        </button>
+    </div>
+
+</div>
+

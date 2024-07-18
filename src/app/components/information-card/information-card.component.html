@@ -1,0 +1,43 @@
+<ng-container *ngIf="selected === 'restaurants'">
+  <p-card header="{{ title | translate }}">
+    <ng-template pTemplate="body">
+      <div class="title-flex" *ngIf="itemsTitle">
+        <i class="pi pi-clock"></i>
+        <p class="items-title">{{ itemsTitle | translate }}</p>
+      </div>
+
+      <!-- Loop through days -->
+      <div *ngFor="let dayItem of items" class="d-flex justify-content-between">
+        <div class="day-label">{{ dayItem.label | translate }}:</div>
+        <!-- Nested loop for hours within each day -->
+        <div
+          *ngFor="let hourItem of dayItem.value"
+          class="d-flex justify-content-between"
+        >
+<!--          {{hourItem | json}}-->
+          <span *ngIf="hourItem.startHour && hourItem.endHour; else emptyTimeSlot">{{ hourItem.startHour }} - {{ hourItem.endHour }}</span>
+
+          <ng-template #emptyTimeSlot>
+            Închis
+          </ng-template>
+        </div>
+      </div>
+
+      <p class="m-0">{{ description }}</p>
+    </ng-template>
+  </p-card>
+</ng-container>
+
+<ng-container *ngIf="selected === 'hotels'">
+  <p-card>
+    <ng-container *ngFor="let desc of hotelDescription">
+      <div class="d-flex flex-column" style="margin-bottom: 30px">
+        <div class="hotels-description-title">
+          {{ desc.title }}
+        </div>
+
+        <div class="">{{ desc.paragraphs }}</div>
+      </div>
+    </ng-container>
+  </p-card>
+</ng-container>

@@ -1,0 +1,7 @@
+@import '/src/app/theme/styles/components/colors';
+
+td.mat-column-title {
+    font-weight: 400 !important;
+    color: $paragraph!important;
+    cursor: context-menu;
+}

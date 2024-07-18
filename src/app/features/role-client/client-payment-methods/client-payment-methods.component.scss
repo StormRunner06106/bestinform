@@ -1,0 +1,410 @@
+
+@import "/src/app/theme/styles/components/colors";
+
+.payment-methods-container{
+    background-color: var(--primary-background);
+    border: 1px solid rgba(36, 57, 138, 0.16);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}
+
+//right margin
+.payment-methods-container.mr-billing{
+    margin-right: 16px;
+}
+
+//title
+.web-header .page-header h2{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 140%;
+    /* identical to box height, or 45px */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.payment-methods-container p.subscribe-mention{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 160%;
+    /* or 19px */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    /* Title */
+    color:rgba(35, 31, 32, 0.3);
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+}
+
+.payment-methods-container p.lock-encrypted{
+    i{
+       padding-right: 6px;
+    }
+    font-weight: 900;
+    font-size: 12px;
+    line-height: 160%;
+    /* or 19px */
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    /* Title */
+    color: $paragraph;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+//titles from divs
+.payment-methods-container h2{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 20px;
+    /* identical to box height, or 83% */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+//my subscription
+.subcription-class p{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+
+    /* identical to box height, or 26px */
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+
+    /* Title */
+    color: $paragraph;
+}
+
+.subcription-class p span{
+    color: $primary-color;
+    padding: 0 5px;
+}
+
+//subscription details
+.subcription-class .d-flex.justify-content-between.subscription-details p{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 140%;
+    /* or 22px */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+
+    /* Primary */
+
+    color: rgba($primary-color, 0.8);
+}
+
+.subcription-class .d-flex.justify-content-between.subscription-details p.subscription-date{
+    color: rgba($paragraph, 0.8);
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    /* or 22px */
+
+    display: block!important;
+    align-items: center;
+    letter-spacing: -0.02em;
+}
+
+//cancel subscription
+.subcription-class .d-flex.justify-content-end p.subscription-cancel{
+    cursor: pointer;
+    i{
+        padding-right: 6px;
+    }
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    /* identical to box height, or 20px */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1px;
+
+    /* Primary */
+
+    color: $primary-color;
+
+
+}
+.colored-bck-subscription{
+    background: linear-gradient(0deg, rgba($background-secondary,0.8) 0%, rgba($background-secondary,0.2) 100%);
+}
+//icons color
+i.fas.fa-times-circle,
+i.fa-chevron-down{
+    color: rgba($paragraph, 0.3);
+}
+
+h2{
+    color:$primary-color;
+}
+
+//my-experiences-card-style / shared experiences-card-style------------------------------------------------
+.experiences-card-class{
+    border: 1px $background-secondary solid;
+    border-radius: 8px;
+    overflow: hidden;
+
+    //diminuate paragraph bottom margin
+    p{
+        margin-bottom: 2px!important;
+    }
+
+
+    //white part of the card
+    //title, date, location
+    // .col-lg-9.p-2.align-items-center{
+    h4,a{
+        font-weight: 600;
+        font-size: 16px;
+
+        display: flex;
+        align-items: center;
+        color: #24398A;
+        flex-grow: 1;
+        text-decoration: none;
+    }
+    p{
+        font-weight: 400;
+        font-size: 12px;
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        /* Title */
+
+        color: $paragraph;
+    }
+    // }
+
+
+
+
+
+    .rate-button{
+        // background: linear-gradient(0deg, rgba(36, 57, 138, 0.04), rgba(36, 57, 138, 0.04)), white;
+
+        .btn-rate-booking {
+            border: none;
+            height: 100%;
+
+            i.active-thumbs-up{
+                font-style: normal;
+                font-weight: 900;
+                font-size: 24px;
+                line-height: 140%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: #34A853;
+            }
+
+            i.active-thumbs-down{
+                font-style: normal;
+                font-weight: 900;
+                font-size: 24px;
+                line-height: 140%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: #EA4335;
+            }
+
+            &:hover {
+                background: rgba($background-secondary, 80%);
+            }
+
+            &:focus, &:active {
+                background: rgba($background-secondary, 48%);
+            }
+        }
+
+        .btn-rate-booking:disabled{
+            cursor: not-allowed;
+
+            i.active-thumbs-up{
+                opacity: 50%;
+            }
+
+            i.active-thumbs-down{
+                opacity: 50%
+            }
+
+            &:hover {
+                box-shadow: none;
+            }
+        }
+    }
+
+    //blue part
+    .blue.align-items-center.col-lg-2{
+        background-color: $primary-color;
+        border-right: 1px white dotted;
+
+        //price and completed/canceled
+        .col-lg-9{
+            h4{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 140%;
+                /* or 22px */
+                display: flex;
+                align-items: center;
+                text-align: center;
+                color: #FFFFFF;
+            }
+            p{
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 140%;
+                /* identical to box height, or 17px */
+                display: flex;
+                align-items: center;
+                text-align: center;
+                color: #2CCEA7;
+            }
+        }
+    }
+
+    // ... dots
+    .align-items-center.py-3.col-lg-1{
+        background-color: $primary-color;
+
+        .col-lg-3{
+            color: white;
+            font-weight: 900;
+            font-size: 14px;
+            line-height: 140%;
+            /* identical to box height, or 20px */
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+    }
+}
+
+@media only screen and (min-width:320px) and (max-width: 480px){
+    .mobile-header{
+        display: block;
+        background-color: var(--primary-background);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    }
+    .web-header{
+        display: none;
+    }
+
+    .my-profile-container .px-10{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .container.my-profile-container{
+        background: white;
+        margin-top:20px!important;
+    }
+
+    //right margin
+.payment-methods-container.mr-billing{
+    margin-right: 0px;
+}
+
+
+}
+
+@media only screen and (min-width:481px) and (max-width: 768px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+
+
+
+    .payment-methods-container .px-8{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    //applied jobs
+    .applied-jobs-card-class{
+        img{
+           display: none;
+        }
+    }
+
+        //right margin
+.payment-methods-container.mr-billing{
+    margin-right: 0px;
+}
+}
+
+@media only screen and (min-width:769px) and (max-width: 1023px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+
+    .payment-methods-container .px-8{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+}
+
+@media only screen and (min-width:1024px) and (max-width: 1200px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+}
+
+@media only screen and (min-width:1200px){
+    //hide mobile header for this screen
+    .mobile-header{
+        display: none!important;
+    }
+
+}

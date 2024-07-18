@@ -1,0 +1,63 @@
+<ng-container *ngIf="availableTickets; else noTicketsAvailable">
+    <p class="booking-section-title">
+        See your options
+    </p>
+
+    <div class="tickets-container">
+        <div *ngFor="let ticket of availableTickets" class="ticket-container d-flex justify-content-between align-items-center">
+            <p class="ticket-name m-0">
+                {{ ticket.name }} {{ticket?.description !== null ? '- '+ ticket?.description : ''}}
+            </p>
+
+            <div class="d-flex align-items-center">
+                <div class="item-number-selector minWidth">
+                    <button [disabled]="selectedTickets.get(ticket) === 0"
+                            (click)="decreaseNrTickets(ticket)">
+                        <i class="fas fa-angle-left"></i>
+                    </button>
+                    <p>
+                        {{ selectedTickets.get(ticket) }}
+                        tickets
+                    </p>
+                    <button [disabled]="ticket.limit && selectedTickets.get(ticket) === ticket.ticketsLimit"
+                            (click)="increaseNrTickets(ticket)">
+                        <i class="fas fa-angle-right"></i>
+                    </button>
+                </div>
+
+                <p class="ticket-name m-0 minWidthPrice">
+                    €{{ ticket.price }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="ticket-price-footer d-flex justify-content-between align-items-center">
+        <div class="d-flex flex-column align-items-start">
+            <p>
+                €{{ selectedTicketsPrice }}
+                <span class="payment-details" *ngIf="optionsTodayPayment > 0 && optionsTodayPayment !== selectedTicketsPrice">(acum veți plăti doar €{{optionsTodayPayment | number: '1.0-2'}})</span>
+            </p>
+
+            <p>
+                {{ selectedTicketsLength }} tickets
+            </p>
+        </div>
+
+        <button *ngIf="selectedTicketsLength > 0 && !isItineraryModal" type="button" class="btn-auto btn-color-fill" [routerLink]="['checkout']">
+            <i class="fas fa-check"></i>
+            Reserve now
+        </button>
+
+        <button *ngIf="selectedTicketsLength > 0 && isItineraryModal" type="button" class="btn-auto btn-color-fill" [matDialogClose]="ticketSelection">
+            <i class="fas fa-check"></i>
+            Confirm selection
+        </button>
+    </div>
+</ng-container>
+
+<ng-template #noTicketsAvailable>
+    <h3 class="text-center">
+        {{ "TOAST.BOOKING.NOT_ENOUGH" | translate }}
+    </h3>
+</ng-template>

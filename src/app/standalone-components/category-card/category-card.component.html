@@ -1,0 +1,11 @@
+<div class="category" [ngStyle]="{'height.px': height ? height : null}">
+    <img [src]="imgPath" alt="category-background-image">
+    <div *ngIf="selected" class="selected-icon">
+        <div class="icon-background">
+            <i class="fas fa-check"></i>
+        </div>
+    </div>
+    <div *ngIf="nameRo || nameEn" class="text-background">
+        <h2>{{ currentLanguage === 'ro' ? nameRo : nameEn}}</h2>
+    </div>
+</div>

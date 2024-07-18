@@ -1,0 +1,268 @@
+<div class="card step-card">
+    <div class="card-header">
+        <span class="step-name">Step V</span>
+        <span class="step-separator">-</span>
+        <span class="step-category">Evening Activities</span>
+    </div>
+    <div class="card-body">
+        <div class="row align-items-center step-card-title">
+            <div class="col">
+                <p class="step-title">Attractions & experiences</p>
+            </div>
+            <div class="col text-right step-details">
+                <p>15.06.2023 - 18.06-2023</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="item">
+                    <p class="item-title">Moulin Rouge</p>
+                    <p class="item-resource mb-0">Attraction</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="item">
+                    <p class="item-title">River Dinner</p>
+                    <p class="item-resource mb-0">Attraction</p>
+                </div>
+            </div>
+        </div>
+        <div class="row time-period">
+            <div class="col time-period-type">
+                <span>Day</span>
+            </div>
+            <div class="col d-flex align-items-center justify-content-end time-period-number">
+                <div class="day-box">
+                    <span>1</span>
+                </div>
+                <div class="day-box disabled">
+                    <span>1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer" (click)="openModal(editResources)">
+        <a>View more</a>
+    </div>
+</div>
+
+<ng-template #editResources let-c="close" let-d="dismiss">
+    <div mat-dialog-content>
+        <h2 class="step-title pb-4">Step V</h2>
+
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills mb-4">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Day 1</a>
+                <ng-template ngbNavContent>
+                    <h3 class="step-category">Recommended evening activities</h3>
+                    <p class="mb-3">Choose the best way to get to your destinations by adding your favourite routes and type of transportation.</p>
+                    <ul ngbNav #actTypeNav="ngbNav" [(activeId)]="activeTypeId" class="nav-pills">
+                        <li [ngbNavItem]="1">
+                            <a ngbNavLink>Attractions</a>
+                            <ng-template ngbNavContent>
+                                <div class="res-container">
+                                    <div class="res-item" *ngFor="let res of resDemo; index as i">
+                                        <div class="res-item-image">
+                                            <img [src]="res.image" alt=""/>
+                                        </div>
+                                        <div class="res-item-content">
+                                            <div class="res-main-info d-flex align-items-center justify-content-between">
+                                                <span class="res-title">{{res.title}}</span>
+                                                <span class="res-review">{{res.proReviewsPercentage}}%
+                                                            <i class="fa fa-smile"></i>
+                                                        </span>
+                                            </div>
+                                            <div class="res-address">
+                                                <span>{{res.address}}</span>
+                                                <span>{{res.city}}</span>
+                                                <span>{{res.country}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="res-check" (click)="checkRes(res.id)">
+                                            <i class="fa fa-check"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="2">
+                            <a ngbNavLink>Experiences</a>
+                            <ng-template ngbNavContent>
+                                <div class="res-container">
+                                    <div class="res-item" *ngFor="let res of resDemo; index as i">
+                                        <div class="res-item-image">
+                                            <img [src]="res.image" alt=""/>
+                                        </div>
+                                        <div class="res-item-content">
+                                            <div class="res-main-info d-flex align-items-center justify-content-between">
+                                                <span class="res-title">{{res.title}}</span>
+                                                <span class="res-review">{{res.proReviewsPercentage}}%
+                                                            <i class="fa fa-smile"></i>
+                                                        </span>
+                                            </div>
+                                            <div class="res-address">
+                                                <span>{{res.address}}</span>
+                                                <span>{{res.city}}</span>
+                                                <span>{{res.country}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="res-check" (click)="checkRes(res.id)">
+<!--                                            <i class="fa fa-check"></i>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="actTypeNav" class="mt-2"></div>
+
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <a ngbNavLink>Day 2</a>
+                <ng-template ngbNavContent>
+                    <h3 class="step-category">Recommended evening activities</h3>
+                    <p class="mb-3">Choose the best way to get to your destinations by adding your favourite routes and type of transportation.</p>
+                    <ul ngbNav #actTypeNav="ngbNav" [(activeId)]="activeTypeId" class="nav-pills">
+                        <li [ngbNavItem]="1">
+                            <a ngbNavLink>Attractions</a>
+                            <ng-template ngbNavContent>
+                                <div class="res-container">
+                                    <div class="res-item" *ngFor="let res of resDemo; index as i">
+                                        <div class="res-item-image">
+                                            <img [src]="res.image" alt=""/>
+                                        </div>
+                                        <div class="res-item-content">
+                                            <div class="res-main-info d-flex align-items-center justify-content-between">
+                                                <span class="res-title">{{res.title}}</span>
+                                                <span class="res-review">{{res.proReviewsPercentage}}%
+                                                            <i class="fa fa-smile"></i>
+                                                        </span>
+                                            </div>
+                                            <div class="res-address">
+                                                <span>{{res.address}}</span>
+                                                <span>{{res.city}}</span>
+                                                <span>{{res.country}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="res-check" (click)="checkRes(res.id)">
+                                            <i class="fa fa-check"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="2">
+                            <a ngbNavLink>Experiences</a>
+                            <ng-template ngbNavContent>
+                                <div class="res-container">
+                                    <div class="res-item" *ngFor="let res of resDemo; index as i">
+                                        <div class="res-item-image">
+                                            <img [src]="res.image" alt=""/>
+                                        </div>
+                                        <div class="res-item-content">
+                                            <div class="res-main-info d-flex align-items-center justify-content-between">
+                                                <span class="res-title">{{res.title}}</span>
+                                                <span class="res-review">{{res.proReviewsPercentage}}%
+                                                            <i class="fa fa-smile"></i>
+                                                        </span>
+                                            </div>
+                                            <div class="res-address">
+                                                <span>{{res.address}}</span>
+                                                <span>{{res.city}}</span>
+                                                <span>{{res.country}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="res-check" (click)="checkRes(res.id)">
+<!--                                            <i class="fa fa-check"></i>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="actTypeNav" class="mt-2"></div>
+
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+                <a ngbNavLink>Day 3</a>
+                <ng-template ngbNavContent>
+                    <h3 class="step-category">Recommended evening activities</h3>
+                    <p class="mb-3">Choose the best way to get to your destinations by adding your favourite routes and type of transportation.</p>
+                    <ul ngbNav #actTypeNav="ngbNav" [(activeId)]="activeTypeId" class="nav-pills">
+                        <li [ngbNavItem]="1">
+                            <a ngbNavLink>Attractions</a>
+                            <ng-template ngbNavContent>
+                                <div class="res-container">
+                                    <div class="res-item" *ngFor="let res of resDemo; index as i">
+                                        <div class="res-item-image">
+                                            <img [src]="res.image" alt=""/>
+                                        </div>
+                                        <div class="res-item-content">
+                                            <div class="res-main-info d-flex align-items-center justify-content-between">
+                                                <span class="res-title">{{res.title}}</span>
+                                                <span class="res-review">{{res.proReviewsPercentage}}%
+                                                            <i class="fa fa-smile"></i>
+                                                        </span>
+                                            </div>
+                                            <div class="res-address">
+                                                <span>{{res.address}}</span>
+                                                <span>{{res.city}}</span>
+                                                <span>{{res.country}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="res-check" (click)="checkRes(res.id)">
+                                            <i class="fa fa-check"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="2">
+                            <a ngbNavLink>Experiences</a>
+                            <ng-template ngbNavContent>
+                                <div class="res-container">
+                                    <div class="res-item" *ngFor="let res of resDemo; index as i">
+                                        <div class="res-item-image">
+                                            <img [src]="res.image" alt=""/>
+                                        </div>
+                                        <div class="res-item-content">
+                                            <div class="res-main-info d-flex align-items-center justify-content-between">
+                                                <span class="res-title">{{res.title}}</span>
+                                                <span class="res-review">{{res.proReviewsPercentage}}%
+                                                            <i class="fa fa-smile"></i>
+                                                        </span>
+                                            </div>
+                                            <div class="res-address">
+                                                <span>{{res.address}}</span>
+                                                <span>{{res.city}}</span>
+                                                <span>{{res.country}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="res-check" (click)="checkRes(res.id)">
+<!--                                            <i class="fa fa-check"></i>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="actTypeNav" class="mt-2"></div>
+
+                </ng-template>
+            </li>
+        </ul>
+
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+        <div class="row buttons-row">
+            <div class="col">
+                <button class="btn-auto btn-color-outline w-100" (click)="closeModal()">Anulare</button>
+            </div>
+            <div class="col">
+                <button class="btn-auto btn-color-fill w-100">Check options</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

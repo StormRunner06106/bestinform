@@ -1,0 +1,260 @@
+<div class="container">
+    <app-dashboard-header pageTitleOne=" {{ isEditMode
+                            ? ('STAFF.EDIT_STAFF_MEMBER' | translate)
+                            : ('STAFF.ADD_STAFF_MEMBER' | translate) }}"
+                          [buttonBackRoute]="isEditMode ? '../../../manage-staff' : '../../manage-staff'"
+                          (buttonCall)="submitForm()">
+    </app-dashboard-header>
+
+<div class="card">
+    <div class="card-header border-0">
+        <h3>
+            Personal Information
+        </h3>
+    </div>
+
+    <div class="card-body">
+        <form [formGroup]="staffForm" id="ngForm" (ngSubmit)="submitForm()">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{'USER.LASTNAME' | translate}}</mat-label>
+                                <input formControlName="lastName" matInput type="text" id="lastName">
+                                <mat-error *ngIf="staffForm.get('lastName').hasError('required')">{{'ERROR.REQUIRED' | translate}}</mat-error>
+                                <button type="button" *ngIf="staffForm.get('lastName').value" (click)="clearFormControl('lastName')" mat-icon-button matSuffix>
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-6">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{'USER.FIRSTNAME' | translate}}</mat-label>
+                                <input formControlName="firstName" matInput type="text" id="firstName">
+                                <button type="button" *ngIf="staffForm.get('firstName').value" (click)="clearFormControl('firstName')" mat-icon-button matSuffix>
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-error *ngIf="staffForm.get('firstName').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Email</mat-label>
+                                <input formControlName="email" matInput type="text" id="email">
+                                <button type="button" *ngIf="staffForm.get('email').value" (click)="clearFormControl('email')" mat-icon-button matSuffix>
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-error *ngIf="staffForm.get('email').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                <mat-error *ngIf="staffForm.get('email').hasError('email')">{{'ERROR.EMAIL'|translate}}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{'USER.BIRTHDAY' | translate}}</mat-label>
+                                <input formControlName="birthdate" matInput [matDatepicker]="picker" id="birthdate" [max]="today">
+                                <mat-hint>DD/MM/YYYY</mat-hint>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+<!--                        <div class="col-5">-->
+<!--                            <mat-form-field appearance="standard">-->
+<!--                                <mat-label>Type</mat-label>-->
+<!--                                <mat-select>-->
+<!--                                    <mat-option value="public">Public</mat-option>-->
+<!--                                    <mat-option value="private">Private</mat-option>-->
+<!--                                </mat-select>-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
+
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{'USER.PHONE' | translate}}</mat-label>
+                                <input formControlName="telephone" matInput type="text" id="telephone">
+
+                                <mat-error *ngIf="staffForm.controls.telephone.hasError('pattern')">
+                                    {{'ERROR.TELEPHONE'|translate}}
+                                  </mat-error>
+                                <mat-error *ngIf="staffForm.controls.telephone.hasError('minlength')">
+                                    {{'ERROR.TELEPHONE-LEN'|translate}}
+                                </mat-error>
+                                <mat-error *ngIf="staffForm.controls.telephone.hasError('maxlength')">
+                                    {{'ERROR.TELEPHONE-LEN'|translate}}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+<!--                        <div class="col-5">-->
+<!--                            <mat-form-field appearance="standard">-->
+<!--                                <mat-label>Type</mat-label>-->
+<!--                                <mat-select>-->
+<!--                                    <mat-option value="public">Public</mat-option>-->
+<!--                                    <mat-option value="private">Private</mat-option>-->
+<!--                                </mat-select>-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
+
+                        <div class="col-12">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{'USER.GENDER' | translate}}</mat-label>
+                                <mat-select formControlName="gender" id="gender">
+                                    <mat-option *ngFor="let gender of declaredGenders" [value]="gender" [id]="gender">
+                                        {{ gender | titlecase }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+<!--                        <div class="col-5">-->
+<!--                            <mat-form-field appearance="standard">-->
+<!--                                <mat-label>Type</mat-label>-->
+<!--                                <mat-select>-->
+<!--                                    <mat-option [value]="'public'">Public</mat-option>-->
+<!--                                    <mat-option [value]="'private'">Private</mat-option>-->
+<!--                                </mat-select>-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
+
+                        <div class="col-7">
+                            <mat-form-field appearance="standard">
+                                <mat-label>{{'FIELD.PASSWORD' | translate}}</mat-label>
+                                <input formControlName="password" matInput [type]="showPassword ? 'text' : 'password'" name="password" autocomplete="new-password" id="password">
+                                <button type="button" (click)="showPassword = !showPassword" mat-icon-button matSuffix id="showPwdBtn">
+                                    <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                </button>
+
+                                <mat-error *ngIf="staffForm.controls.password.hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error>
+                                <mat-error *ngIf="staffForm.controls.password.hasError('minlength')">{{'ERROR.PASS-MIN-LENGTH'|translate}}</mat-error>
+                                <mat-error *ngIf="staffForm.controls.password.hasError('maxlength')">{{'ERROR.PASS-MAX-LENGTH'|translate}}</mat-error>
+                                <mat-error *ngIf="staffForm.get('password').hasError('upper')">{{'ERROR.PASS-UPPERCASE'|translate}}</mat-error>
+                                <mat-error *ngIf="staffForm.get('password').hasError('lower')">{{'ERROR.PASS-LOWERCASE'|translate}}</mat-error>
+                                <mat-error *ngIf="staffForm.get('password').hasError('whiteSpace')">{{'ERROR.PASS-WHITESPACE'|translate}}</mat-error>
+                                <mat-error *ngIf="staffForm.get('password').hasError('specialCharacter')">{{'ERROR.PASS-SPECIAL-CHAR'|translate}}.</mat-error>
+                                <mat-error *ngIf="staffForm.get('password').hasError('numbers')">{{'ERROR.PASS-DIGIT'|translate}}</mat-error>
+
+                                <!-- <mat-error *ngIf="staffForm.controls.password.hasError('pattern')">{{'ERROR.PASS-DIGIT'|translate}}</mat-error>
+                                <mat-error *ngIf="staffForm.controls.password.hasError('pattern')">{{'ERROR.PASS-UPPERCASE'|translate}}</mat-error>-->
+
+                                <!-- this.form.controls['your form control name'].value -->
+                                <!-- <mat-error *ngIf="staffForm.get('password').hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error> -->
+                                <!-- <mat-error *ngIf="staffForm.get('password').hasError('passMin')">{{'ERROR.PASS-MIN-LENGTH'|translate}}</mat-error> -->
+                                <!-- <mat-error *ngIf="staffForm.get('password').hasError('min')">{{'ERROR.PASS-MAX-LENGTH'|translate}}</mat-error> -->
+                                <!-- <mat-error *ngIf="staffForm.get('password').hasError('passMax')">{{'ERROR.PASS-MAX-LENGTH'|translate}}</mat-error> -->
+
+                                <!-- <mat-error *ngIf="staffForm.get('password').hasError('number')">{{'ERROR.PASS-DIGIT'|translate}}</mat-error> -->
+
+                            </mat-form-field>
+                            <!-- <mat-error *ngIf="staffForm.controls.password.hasError('required')">{{'ERROR.REQUIRED'|translate}}</mat-error> -->
+
+                        </div>
+
+                        <div class="col-5">
+                            <button *ngIf="!isEditMode"
+                                    id="generatePwdBtn"
+                                    type="button"
+                                    class="btn-auto btn-color-outline w-100"
+                                    (click)="generatePassword()">
+                                <i class="fas fa-sync"></i>
+                                {{'GENERATE_PASSWORD' | translate}}
+                            </button>
+
+                            <button *ngIf="isEditMode"
+                                    type="button"
+                                    id="resetPwdBtn"
+                                    class="btn-auto btn-color-outline w-100"
+                                    (click)="resetPassword()">
+                                <i class="fas fa-sync"></i>
+                                {{'RESET_PASSWORD' | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="modules">
+                        <div class="row modules-header border-bottom">
+                            <div class="col-6">{{'GENERAL.MODULES' | translate}}</div>
+<!--                            <div class="col-3">View</div>-->
+                            <div class="col-6">Edit</div>
+                        </div>
+                        <div class="row modules-row">
+                            <div class="col-6">
+                                {{'GENERAL.EVENTS' | translate}}
+                            </div>
+<!--                            <div class="col-3">-->
+<!--                                <label class="switch">-->
+<!--                                    <input type="checkbox" formControlName="viewEvents"-->
+<!--                                           id="viewEvents">-->
+<!--                                    <span class="slider round"></span>-->
+<!--                                </label>-->
+<!--                            </div>-->
+                            <div class="col-6">
+                                <label class="switch">
+                                    <input type="checkbox" formControlName="editEvents"
+                                           id="editEvents">
+<!--                                    (change)="checkAll('events', $event)"-->
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row modules-row">
+                            <div class="col-6">
+                                {{'GENERAL.EDITORIALS' | translate}}
+                            </div>
+<!--                            <div class="col-3"><label class="switch">-->
+<!--                                <input type="checkbox" formControlName="viewEditorials"-->
+<!--                                       id="viewEditorials">-->
+<!--                                <span class="slider round"></span>-->
+<!--                            </label></div>-->
+                            <div class="col-6">
+                                <label class="switch">
+                                    <input type="checkbox" formControlName="editEditorials"
+                                           id="editEditorials">
+<!--                                    (change)="checkAll('editorials', $event)"-->
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row modules-row">
+                            <div class="col-6">
+                                Provideri & Resurse
+                            </div>
+<!--                            <div class="col-3"><label class="switch">-->
+<!--                                <input type="checkbox" formControlName="viewProviders"-->
+<!--                                       id="viewProviders">-->
+<!--                                <span class="slider round"></span>-->
+<!--                            </label></div>-->
+                            <div class="col-6">
+                                <label class="switch">
+                                    <input type="checkbox" formControlName="editProviders"
+                                           id="editProviders">
+<!--                                    (change)="checkAll('providers', $event)"-->
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="card-footer border-0 d-flex justify-content-end">
+        <button class="btn-long btn-color-fill" form="ngForm" id="submitStaffBtnDown">
+            <i class="fas fa-save"></i>
+            {{'BTN.SAVE' | translate}}
+        </button>
+    </div>
+</div>
+</div>

@@ -1,0 +1,53 @@
+<ng-container *ngIf="allTimeSlots && availableTimeSlotsMap?.size > 0; else noTimeSlotsAvailable">
+    <p class="booking-section-title">
+        See your options
+    </p>
+
+    <div class="time-slot-cards-container">
+        <div *ngFor="let timeSlot of availableTimeSlotsMap | keyvalue; let timeSlotIndex = index" class="time-slot-card">
+            <div class="top-half">
+                <p>
+                    {{ timeSlot.key.name }}
+                </p>
+                <span>{{timeSlot.key.description}}</span>
+
+                <div *ngIf="timeSlot.value">
+                    <div class="time-slots-container">
+                        <mat-radio-group [(ngModel)]="selectedTimeSlot[timeSlotIndex]"
+                                         (change)="resetOtherRadioGroups(timeSlotIndex)"
+                                         aria-label="Select a time slot" color="primary">
+                            <div *ngFor="let slot of timeSlot.value" class="time-slot">
+                                <mat-radio-button [value]="slot" [labelPosition]="'before'">
+                                    {{ slot.startHour }} - {{slot.endHour}}
+                                </mat-radio-button>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-half">
+                <button [disabled]="!selectedTimeSlot[timeSlotIndex]" class="btn-auto btn-color-fill" (click)="bookTimeSlot(timeSlot.key, timeSlotIndex)">
+                    Book now
+                </button>
+
+                <p>
+                    €{{ timeSlot.key.price }}
+                    <span class="payment-details" *ngIf="timeSlot.key.bookingPolicies?.advanceFullPayment">(plătiți integral)</span>
+                    <span class="payment-details" *ngIf="timeSlot.key.bookingPolicies?.advancePartialPaymentPercentage">(plătiți avans €{{timeSlot.key.price * timeSlot.key.bookingPolicies?.advancePartialPaymentPercentage / 100}})</span>
+                    <span class="payment-details" *ngIf="timeSlot.key.bookingPolicies?.depositRequiredAmount">(plătiți depozit €{{timeSlot.key.bookingPolicies?.depositRequiredAmount}})</span>
+                    <span class="payment-details" *ngIf="timeSlot.key.bookingPolicies?.depositRequiredPercentage">(plătiți depozit €{{timeSlot.key.price * timeSlot.key.bookingPolicies?.depositRequiredPercentage / 100}})</span>
+                    <i class="far fa-question-circle"
+                       matTooltip="This price is limited only for this option"
+                       matTooltipPosition="above"></i>
+                </p>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #noTimeSlotsAvailable>
+    <h3 class="text-center">
+        {{ "TOAST.BOOKING.NOT_ENOUGH" | translate }}
+    </h3>
+</ng-template>

@@ -1,0 +1,40 @@
+<ng-container *ngIf="(data$ | async) as data; else loadingData">
+    <div class="d-flex flex-column">
+
+        <div class="background-container">
+            <img [src]="data.systemSettings?.tripOptions?.itinerary?.image?.filePath" alt="itinerary-background-image">
+        </div>
+
+        <div class="content-container">
+            <div class="container">
+
+                <h1 class="text-center">
+                    {{"ITINERARIES.AI-GENERATED-LIST" | translate}} 
+                </h1>
+
+                <div *ngIf="data.itineraries?.length > 0; else noItinerariesFound" class="row">
+                    <div *ngFor="let itinerary of data.itineraries" class="col-12 col-lg-4">
+                        <app-category-card [imgPath]="itinerary?.featuredImage?.filePath"
+                                           [nameRo]="itinerary?.name"
+                                           [nameEn]="itinerary?.name"
+                                           [height]="200"
+                                           (click)="selectItinerary(itinerary)"
+                        ></app-category-card>
+                    </div>
+                </div>
+
+                <ng-template #noItinerariesFound>
+                    <h2 class="text-center text-danger">
+                        {{"ITINERARIES.NO-ITINERARIES-AVAILABLE" | translate}}
+                    </h2>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #loadingData>
+    <div class="w-100 h-100 d-flex justify-content-center align-items-center" [style.background-color]="'white'">
+        <mat-spinner [diameter]="50" matSuffix></mat-spinner>
+    </div>
+</ng-template>
