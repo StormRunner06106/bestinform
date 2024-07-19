@@ -444,6 +444,10 @@ export class HomepageComponent implements OnInit, OnDestroy {
     });
   }
 
+  goToHoliday() {
+    this.router.navigate(["client/dashboard/holidays"]);
+  }
+
   handleGoToPlan() {
     this.router.navigate(["/plans"]);
   }

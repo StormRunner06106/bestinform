@@ -1,0 +1,21 @@
+<div class="container m-0 p-0 ho-card mw-100">
+  <div class="holiday-overlay">
+    <div class="top-label">
+      <img [src]="renderHolidayIcon(holiday.type)" class="top-label-icon" />
+      <span class="top-label-icon-text"> {{ holiday.type }}</span>
+    </div>
+    <div class="holiday-info">
+      <div class="info-left">
+        <p class="ho-location m-0">{{ holiday.location }}</p>
+        <p class="ho-date m-0">{{ holiday.date }}</p>
+      </div>
+      <div class="info-right">
+        <div class="ho-price">
+          <span class="ho-price-min m-0">from </span>
+          <span class="ho-price-val m-0">{{ holiday.price }} EUR/pers</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img [src]="holiday.url" class="ho-img" />
+</div>

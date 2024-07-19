@@ -1,540 +1,712 @@
 <div class="input-container">
-    <p-autoComplete
-            *ngIf="selected === ''"
-            [(ngModel)]="selectedHotel"
-            [suggestions]="filteredHotels"
-            (completeMethod)="filterHotel($event)"
-            field="name"
-            placeholder="Exploreaza hoteluri, restaurante, atractii si multe altele..."
-    ></p-autoComplete>
+  <p-autoComplete
+    *ngIf="selected === ''"
+    [(ngModel)]="selectedHotel"
+    [suggestions]="filteredHotels"
+    (completeMethod)="filterHotel($event)"
+    field="name"
+    placeholder="Exploreaza hoteluri, restaurante, atractii si multe altele..."
+  ></p-autoComplete>
 
-    <!-- Hotels search -->
-    <div *ngIf="selected === 'hotels'" class="bundled-search">
-        <!-- Destination -->
-        <mat-form-field *ngIf="!listingCards" floatLabel="always" appearance="fill" class="custom-field">
-            <mat-label>Destinatia</mat-label>
-            <mat-icon svgIcon="location" matPrefix></mat-icon>
+  <!-- Hotels search -->
+  <div *ngIf="selected === 'hotels'" class="bundled-search">
+    <!-- Destination -->
+    <mat-form-field
+      *ngIf="!listingCards"
+      floatLabel="always"
+      appearance="fill"
+      class="custom-field"
+    >
+      <mat-label>Destinatia</mat-label>
+      <mat-icon svgIcon="location" matPrefix></mat-icon>
 
-            <input type="text"
-                   placeholder="Selecteaza"
-                   matInput
-                   [(ngModel)]="location"
-                   (change)="onValueChange($event.target)"
-                   #autocomplete>
-        </mat-form-field>
+      <input
+        type="text"
+        placeholder="Selecteaza"
+        matInput
+        [(ngModel)]="location"
+        (change)="onValueChange($event.target)"
+        #autocomplete
+      />
+    </mat-form-field>
 
+    <!-- Check in - out -->
+    <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
+      <mat-label>Check-in Check-out</mat-label>
+      <mat-icon svgIcon="calendar" matPrefix></mat-icon>
 
-        <!-- Check in - out -->
-        <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
-            <mat-label>Check-in Check-out</mat-label>
-            <mat-icon svgIcon="calendar" matPrefix></mat-icon>
+      <input type="text" matInput readonly />
+      <p-calendar
+        #myCalendar
+        [panelStyleClass]="'fly-calendar'"
+        [rangeSeparator]="' | '"
+        [(ngModel)]="rangeDates"
+        selectionMode="range"
+        placeholder="Selecteaza"
+        [showIcon]="false"
+        [minDate]="minimumDate"
+        dateFormat="D dd MM y"
+      >
+        <p-footer>
+          <div class="calendar-footer">
+            <p-button
+              class="close-button"
+              label="Anuleaza"
+              (click)="close()"
+            ></p-button>
 
-            <input type="text"
-                   matInput
-                   readonly>
-            <p-calendar #myCalendar
-                        [panelStyleClass]="'fly-calendar'"
-                        [rangeSeparator]="' | '"
-                        [(ngModel)]="rangeDates"
-                        selectionMode="range"
-                        placeholder="Selecteaza"
-                        [showIcon]="false"
-                        [minDate]="minimumDate"
-                        dateFormat="D dd MM y"
-            >
-                <p-footer>
-                    <div class="calendar-footer">
-                        <p-button class="close-button" label="Anuleaza"
-                                  (click)="close()"></p-button>
+            <button
+              pButton
+              class="confirm"
+              type="button"
+              label="Gata"
+              (click)="done(); op.toggle($event, guest)"
+            ></button>
+          </div>
+        </p-footer>
+      </p-calendar>
+    </mat-form-field>
 
-                        <button pButton class="confirm" type="button" label="Gata"
-                                (click)="done(); op.toggle($event, guest)"></button>
-                    </div>
-                </p-footer>
-            </p-calendar>
-        </mat-form-field>
+    <!-- Guests -->
+    <div #guest class="guests">
+      <mat-form-field
+        (click)="op.toggle($event)"
+        floatLabel="always"
+        appearance="fill"
+        class="custom-field custom-field--small custom-field--right"
+      >
+        <mat-label>Oaspeti - Camere</mat-label>
+        <mat-icon svgIcon="guests" matPrefix></mat-icon>
 
-        <!-- Guests -->
-        <div #guest class="guests">
-            <mat-form-field (click)="op.toggle($event)" floatLabel="always" appearance="fill"
-                            class="custom-field custom-field--small custom-field--right">
-                <mat-label>Oaspeti - Camere</mat-label>
-                <mat-icon svgIcon="guests" matPrefix></mat-icon>
+        <input
+          type="text"
+          placeholder="Selecteaza"
+          matInput
+          [ngModel]="guestsValue"
+          readonly
+        />
+      </mat-form-field>
+      <p-overlayPanel #op>
+        <ng-template pTemplate="content" let-option>
+          <ng-container *ngFor="let form of rooms.controls; let i = index">
+            <div class="flex-between">
+              <h2 class="guests-title" [class.guests-title__top-margin]="i > 0">
+                Camera {{ i + 1 }}
+              </h2>
+            </div>
 
-                <input type="text"
-                       placeholder="Selecteaza"
-                       matInput
-                       [ngModel]="guestsValue"
-                       readonly>
-            </mat-form-field>
-            <p-overlayPanel #op>
-                <ng-template pTemplate="content" let-option>
-                    <ng-container *ngFor="let form of rooms.controls; let i = index">
-                        <div class="flex-between">
-                            <h2 class="guests-title" [class.guests-title__top-margin]="i > 0">Camera {{ i + 1 }}</h2>
-                        </div>
+            <div [formGroup]="form" class="guests-panel">
+              <div class="guests-panel__column">
+                <span class="label">Adulti</span>
 
-                        <div [formGroup]="form" class="guests-panel">
-                            <div class="guests-panel__column">
-                                <span class="label">Adulti</span>
+                <p-inputNumber
+                  [min]="0"
+                  [showButtons]="true"
+                  [step]="1"
+                  [styleClass]="
+                    !!form?.controls?.adults?.value ? 'color-active' : ''
+                  "
+                  formControlName="adults"
+                  buttonLayout="horizontal"
+                  spinnerMode="horizontal"
+                  inputId="vertical"
+                  decrementButtonClass="p-button-secondary"
+                  incrementButtonClass="p-button-secondary"
+                  incrementButtonIcon="pi pi-plus"
+                  decrementButtonIcon="pi pi-minus"
+                ></p-inputNumber>
+              </div>
 
-                                <p-inputNumber [min]="0"
-                                               [showButtons]="true"
-                                               [step]="1"
-                                               [styleClass]="!!form?.controls?.adults?.value ? 'color-active' : ''"
-                                               formControlName="adults"
-                                               buttonLayout="horizontal"
-                                               spinnerMode="horizontal"
-                                               inputId="vertical"
-                                               decrementButtonClass="p-button-secondary"
-                                               incrementButtonClass="p-button-secondary"
-                                               incrementButtonIcon="pi pi-plus"
-                                               decrementButtonIcon="pi pi-minus"></p-inputNumber>
-                            </div>
+              <div class="guests-panel__column">
+                <span class="label text-align-end">Copii</span>
 
-                            <div class="guests-panel__column">
-                                <span class="label text-align-end">Copii</span>
+                <p-inputNumber
+                  [min]="0"
+                  (onInput)="changeAge($event, i)"
+                  [showButtons]="true"
+                  [step]="1"
+                  [styleClass]="
+                    !!form.controls['children']?.length ? 'color-active' : ''
+                  "
+                  [ngModelOptions]="{ standalone: true }"
+                  [ngModel]="form.controls['children']?.length"
+                  class="justify-content-end"
+                  buttonLayout="horizontal"
+                  spinnerMode="horizontal"
+                  inputId="vertical"
+                  decrementButtonClass="p-button-secondary"
+                  incrementButtonClass="p-button-secondary"
+                  incrementButtonIcon="pi pi-plus"
+                  decrementButtonIcon="pi pi-minus"
+                ></p-inputNumber>
+              </div>
 
-                                <p-inputNumber [min]="0"
-                                               (onInput)="changeAge($event, i)"
-                                               [showButtons]="true"
-                                               [step]="1"
-                                               [styleClass]="!!form.controls['children']?.length ? 'color-active' : ''"
-                                               [ngModelOptions]="{standalone: true}"
-                                               [ngModel]="form.controls['children']?.length"
-                                               class="justify-content-end"
-                                               buttonLayout="horizontal"
-                                               spinnerMode="horizontal"
-                                               inputId="vertical"
-                                               decrementButtonClass="p-button-secondary"
-                                               incrementButtonClass="p-button-secondary"
-                                               incrementButtonIcon="pi pi-plus"
-                                               decrementButtonIcon="pi pi-minus"></p-inputNumber>
-                            </div>
+              <!-- Dynamic dropdowns for child age selection -->
+              <div
+                class="guests-panel__column"
+                *ngFor="
+                  let child of form.controls['children']?.controls;
+                  let i = index
+                "
+              >
+                <span class="label">Varsta {{ i + 1 }} Copil</span>
 
-                            <!-- Dynamic dropdowns for child age selection -->
-                            <div class="guests-panel__column"
-                                 *ngFor="let child of form.controls['children']?.controls; let i = index"
-                            >
-                                <span class="label">Varsta {{ i + 1 }} Copil</span>
+                <p-dropdown
+                  [options]="ageOptions"
+                  [ngModel]="child?.value"
+                  (ngModelChange)="child.setValue($event)"
+                  [ngModelOptions]="{ standalone: true }"
+                  [style]="{ width: '100%' }"
+                  placeholder="varsta"
+                ></p-dropdown>
+              </div>
+            </div>
+          </ng-container>
 
-                                <p-dropdown
-                                        [options]="ageOptions"
-                                        [ngModel]="child?.value"
-                                        (ngModelChange)="child.setValue($event)"
-                                        [ngModelOptions]="{standalone: true}"
-                                        [style]="{ width: '100%' }"
-                                        placeholder="varsta"
-                                ></p-dropdown>
-                            </div>
-                        </div>
-                    </ng-container>
+          <div class="guests-panel__footer justify-content-end align-items-end">
+            <p-button
+              class="button-text"
+              icon="pi pi-plus"
+              (click)="addRooms()"
+              label="Adauga Camera"
+            ></p-button>
 
-                    <div class="guests-panel__footer justify-content-end align-items-end">
-                        <p-button class="button-text" icon="pi pi-plus" (click)="addRooms()"
-                                  label="Adauga Camera"></p-button>
+            <p-button
+              class="button-primary ms-3"
+              label="Confirma"
+              (click)="op.hide()"
+            ></p-button>
+            <p-button
+              class="button-text ms-3"
+              icon="pi pi-minus"
+              *ngIf="rooms.length > 1"
+              (click)="removeRooms()"
+              label="Sterge Camera"
+            ></p-button>
+          </div>
+        </ng-template>
+      </p-overlayPanel>
+    </div>
+  </div>
 
-                        <p-button class="button-primary ms-3" label="Confirma" (click)="op.hide()"></p-button>
-                        <p-button class="button-text ms-3" icon="pi pi-minus" *ngIf="rooms.length > 1"
-                                  (click)="removeRooms()"
-                                  label="Sterge Camera"></p-button>
-                    </div>
-                </ng-template>
-            </p-overlayPanel>
+  <div *ngIf="selected === 'planes'" class="bundled-search">
+    <!-- Departures -->
+    <mat-form-field
+      matAutocompleteOrigin
+      #departuresOrigin="matAutocompleteOrigin"
+      floatLabel="always"
+      appearance="fill"
+      class="custom-field custom-field--small custom-field--right"
+    >
+      <mat-label>Plecare din</mat-label>
+
+      <mat-icon svgIcon="plane-out" matPrefix></mat-icon>
+
+      <input
+        type="text"
+        placeholder="Selecteaza"
+        matInput
+        #departuresTrigger="matAutocompleteTrigger"
+        (click)="departureValue = undefined"
+        [ngModel]="departureValue"
+        (ngModelChange)="filterAirports($event, true)"
+        [matAutocompleteConnectedTo]="departuresOrigin"
+        [matAutocomplete]="departures"
+      />
+      <mat-autocomplete
+        [class]="'fly-panel-class'"
+        panelWidth="auto"
+        (optionSelected)="
+          change($event, true);
+          departuresTrigger.closePanel();
+          arrivalsTrigger.openPanel()
+        "
+        #departures="matAutocomplete"
+      >
+        <mat-optgroup
+          *ngFor="let option of filteredDepartureAirports"
+          #departureGroup
+        >
+          <mat-icon svgIcon="plane-out"></mat-icon>
+          <span
+            (mouseenter)="onEnter(departureGroup)"
+            (mouseleave)="onLeave(departureGroup)"
+            (click)="
+              selectAll(option, true);
+              departuresTrigger.closePanel();
+              arrivalsTrigger.openPanel()
+            "
+            >{{
+              "(" +
+                option?.cityCode +
+                "), " +
+                option?.country +
+                ", " +
+                option?.label
+            }}, Toate Aeroporturile</span
+          >
+
+          <mat-option [value]="item" *ngFor="let item of option?.items">
+            <mat-icon svgIcon="plane-out"></mat-icon>
+
+            ({{ item?.value }}) {{ item?.label }}, {{ item?.country }}
+          </mat-option>
+        </mat-optgroup>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Arrivals -->
+    <mat-form-field
+      floatLabel="always"
+      appearance="fill"
+      matAutocompleteOrigin
+      #arrivalsOrigin="matAutocompleteOrigin"
+      class="custom-field custom-field--small custom-field--right"
+    >
+      <mat-label>Sosire in</mat-label>
+      <mat-icon svgIcon="plane-in" matPrefix></mat-icon>
+
+      <input
+        type="text"
+        placeholder="Selecteaza"
+        matInput
+        #arrivalsTrigger="matAutocompleteTrigger"
+        [ngModel]="arrivalValue"
+        (click)="arrivalValue = undefined"
+        (ngModelChange)="filterAirports($event, false)"
+        [matAutocompleteConnectedTo]="arrivalsOrigin"
+        [matAutocomplete]="arrivals"
+      />
+      <mat-autocomplete
+        [class]="'fly-panel-class'"
+        panelWidth="auto"
+        (optionSelected)="
+          change($event, false);
+          departureCalendar.toggle();
+          arrivalsTrigger.closePanel()
+        "
+        #arrivals="matAutocomplete"
+      >
+        <mat-optgroup
+          *ngFor="let option of filteredArrivalAirports"
+          #arrivalGroup
+        >
+          <mat-icon svgIcon="plane-in"></mat-icon>
+          <span
+            (mouseenter)="onEnter(arrivalGroup)"
+            (mouseleave)="onLeave(arrivalGroup)"
+            (click)="
+              selectAll(option, false);
+              departureCalendar.toggle();
+              arrivalsTrigger.closePanel()
+            "
+          >
+            {{
+              "(" +
+                option?.cityCode +
+                ") " +
+                option?.country +
+                ", " +
+                option?.label
+            }}, Toate Aeroporturile</span
+          >
+
+          <mat-option [value]="item" *ngFor="let item of option?.items">
+            <mat-icon svgIcon="plane-in"></mat-icon>
+
+            ({{ item?.value }}) {{ item?.label }}, {{ item?.country }}
+          </mat-option>
+        </mat-optgroup>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Date arrival - departure -->
+    <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
+      <mat-label>Data plecare Data retur</mat-label>
+      <mat-icon svgIcon="calendar" matPrefix></mat-icon>
+
+      <input type="text" matInput readonly />
+      <p-calendar
+        #departureCalendar
+        [panelStyleClass]="'fly-calendar'"
+        [rangeSeparator]="' | '"
+        [(ngModel)]="selectedModel"
+        placeholder="Selecteaza"
+        selectionMode="{{ calendarOption }}"
+        [readonlyInput]="true"
+        [minDate]="minimumDate"
+        [showIcon]="false"
+        dateFormat="D dd MM y"
+      >
+        <p-header>
+          <p-selectButton
+            class="calendar-header"
+            [options]="stateOptions"
+            [(ngModel)]="travels"
+            optionLabel="label"
+            (onChange)="modifyCalendar()"
+          ></p-selectButton>
+        </p-header>
+
+        <p-footer>
+          <div class="calendar-footer">
+            <button
+              pButton
+              label="Anuleaza"
+              (click)="
+                singleDate = null; rangeDates = []; departureCalendar.toggle()
+              "
+            ></button>
+
+            <button
+              pButton
+              class="confirm"
+              type="button"
+              label="Confirma"
+              (click)="
+                departureCalendar.toggle(); passengersPanel.toggle($event)
+              "
+            ></button>
+          </div>
+        </p-footer>
+      </p-calendar>
+    </mat-form-field>
+
+    <!-- Passengers -->
+    <mat-form-field
+      (click)="passengersPanel.toggle($event)"
+      #passengers
+      floatLabel="always"
+      appearance="fill"
+      class="custom-field custom-field--small custom-field--right"
+    >
+      <mat-label>Pasageri - Clasa</mat-label>
+      <mat-icon svgIcon="guests" matPrefix></mat-icon>
+
+      <input
+        type="text"
+        placeholder="Selecteaza"
+        matInput
+        ngModel="{{ passengersValue }} Pasageri / {{ travelClass }}"
+        readonly
+      />
+    </mat-form-field>
+    <p-overlayPanel #passengersPanel>
+      <ng-template pTemplate="content" let-option>
+        <div class="guests-panel">
+          <div class="guests-panel__row">
+            <div class="flex-column">
+              <span class="label">Adulti</span>
+
+              <span class="sub-label">(18 ani +)</span>
+            </div>
+
+            <p-inputNumber
+              [min]="0"
+              [showButtons]="true"
+              [step]="1"
+              [styleClass]="inputValues[3] ? 'color-active' : ''"
+              (onInput)="guestsInputChangedPlane($event, 3)"
+              [ngModel]="inputValues[3]"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+              inputId="vertical"
+              decrementButtonClass="p-button-secondary"
+              incrementButtonClass="p-button-secondary"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            ></p-inputNumber>
+          </div>
+
+          <div class="guests-panel__row">
+            <div class="flex-column">
+              <span class="label">Tineri</span>
+
+              <span class="sub-label">(12 - 18 ani)</span>
+            </div>
+
+            <p-inputNumber
+              [min]="0"
+              [showButtons]="true"
+              [step]="1"
+              (onInput)="guestsInputChangedPlane($event, 4)"
+              [ngModel]="inputValues[4]"
+              [styleClass]="inputValues[4] ? 'color-active' : ''"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+              inputId="vertical"
+              decrementButtonClass="p-button-secondary"
+              incrementButtonClass="p-button-secondary"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            ></p-inputNumber>
+          </div>
+
+          <div class="guests-panel__row">
+            <div class="flex-column">
+              <span class="label">Copii</span>
+
+              <span class="sub-label">(2 - 11 ani)</span>
+            </div>
+
+            <p-inputNumber
+              [min]="0"
+              [showButtons]="true"
+              [step]="1"
+              (onInput)="guestsInputChangedPlane($event, 5)"
+              [ngModel]="inputValues[5]"
+              [styleClass]="inputValues[5] ? 'color-active' : ''"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+              inputId="vertical"
+              decrementButtonClass="p-button-secondary"
+              incrementButtonClass="p-button-secondary"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            ></p-inputNumber>
+          </div>
+
+          <div class="guests-panel__row">
+            <div class="flex-column">
+              <span class="label">Infranti</span>
+
+              <span class="sub-label">(0 - 2 ani)</span>
+            </div>
+
+            <p-inputNumber
+              [min]="0"
+              [showButtons]="true"
+              [step]="1"
+              (onInput)="guestsInputChangedPlane($event, 6)"
+              [ngModel]="inputValues[6]"
+              [styleClass]="inputValues[6] ? 'color-active' : ''"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+              inputId="vertical"
+              decrementButtonClass="p-button-secondary"
+              incrementButtonClass="p-button-secondary"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            ></p-inputNumber>
+          </div>
         </div>
-    </div>
 
-    <div *ngIf="selected === 'planes'" class="bundled-search">
-        <!-- Departures -->
-        <mat-form-field
-                matAutocompleteOrigin #departuresOrigin="matAutocompleteOrigin"
-                floatLabel="always" appearance="fill"
-                class="custom-field custom-field--small custom-field--right">
-            <mat-label>Plecare din</mat-label>
+        <div class="guests-panel__content">
+          <p-selectButton
+            [options]="travelClasses"
+            [(ngModel)]="travelClass"
+          ></p-selectButton>
+        </div>
 
-            <mat-icon svgIcon="plane-out" matPrefix></mat-icon>
+        <div class="guests-panel__footer">
+          <p-button
+            class="button-primary"
+            label="Confirma"
+            (click)="passengersPanel.hide()"
+          ></p-button>
+        </div>
+      </ng-template>
+    </p-overlayPanel>
+  </div>
 
-            <input type="text"
-                   placeholder="Selecteaza"
-                   matInput
-                   #departuresTrigger="matAutocompleteTrigger"
-                   (click)="departureValue = undefined"
-                   [ngModel]="departureValue"
-                   (ngModelChange)="filterAirports($event, true)"
-                   [matAutocompleteConnectedTo]="departuresOrigin"
-                   [matAutocomplete]="departures">
-            <mat-autocomplete [class]="'fly-panel-class'" panelWidth="auto"
-                              (optionSelected)="change($event, true); departuresTrigger.closePanel(); arrivalsTrigger.openPanel();"
-                              #departures="matAutocomplete">
-                <mat-optgroup *ngFor="let option of filteredDepartureAirports" #departureGroup>
-                    <mat-icon svgIcon="plane-out"></mat-icon>
-                    <span (mouseenter)="onEnter(departureGroup)" (mouseleave)="onLeave(departureGroup)" (click)="selectAll(option, true); departuresTrigger.closePanel(); arrivalsTrigger.openPanel();">{{  "(" + option?.cityCode + "), " + option?.country + ", " +option?.label }}, Toate Aeroporturile</span>
+  <div *ngIf="selected === 'restaurants'" class="bundled-search">
+    <!-- Destination -->
+    <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
+      <mat-label>Destinatia</mat-label>
+      <mat-icon svgIcon="location" matPrefix></mat-icon>
 
-                    <mat-option [value]="item" *ngFor="let item of option?.items">
-                        <mat-icon svgIcon="plane-out"></mat-icon>
+      <mat-select
+        panelClass="custom-dropdown"
+        placeholder="Selecteaza"
+        [(ngModel)]="selectedRestaurantLocation"
+      >
+        <mat-option
+          *ngFor="let option of locationListRestaurants"
+          [value]="option"
+          >{{ option.city }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-                        ({{ item?.value }}) {{ item?.label }}, {{item?.country}}
-                    </mat-option>
-                </mat-optgroup>
-            </mat-autocomplete>
-        </mat-form-field>
+    <!-- Date | Hour -->
+    <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
+      <mat-label>Data Ora</mat-label>
+      <mat-icon svgIcon="calendar" matPrefix></mat-icon>
 
-        <!-- Arrivals -->
-        <mat-form-field floatLabel="always" appearance="fill"
-                        matAutocompleteOrigin #arrivalsOrigin="matAutocompleteOrigin"
-                        class="custom-field custom-field--small custom-field--right">
-            <mat-label>Sosire in</mat-label>
-            <mat-icon svgIcon="plane-in" matPrefix></mat-icon>
+      <input type="text" matInput readonly />
 
-            <input type="text"
-                   placeholder="Selecteaza"
-                   matInput
-                   #arrivalsTrigger="matAutocompleteTrigger"
-                   [ngModel]="arrivalValue"
-                   (click)="arrivalValue = undefined"
-                   (ngModelChange)="filterAirports($event, false)"
-                   [matAutocompleteConnectedTo]="arrivalsOrigin"
-                   [matAutocomplete]="arrivals">
-            <mat-autocomplete [class]="'fly-panel-class'" panelWidth="auto"
-                              (optionSelected)="change($event, false); departureCalendar.toggle(); arrivalsTrigger.closePanel();"
-                              #arrivals="matAutocomplete">
-                <mat-optgroup *ngFor="let option of filteredArrivalAirports" #arrivalGroup>
-                    <mat-icon svgIcon="plane-in"></mat-icon>
-                    <span (mouseenter)="onEnter(arrivalGroup)" (mouseleave)="onLeave(arrivalGroup)" (click)="selectAll(option, false); departureCalendar.toggle(); arrivalsTrigger.closePanel();">
-                        {{ "(" + option?.cityCode + ") " + option?.country + ", "  + option?.label }}, Toate Aeroporturile</span>
+      <p-calendar
+        #hourCalendar
+        [panelStyleClass]="'fly-calendar'"
+        [disabled]="isSearchDisabled"
+        [(ngModel)]="restaurantDate"
+        placeholder="Selecteaza"
+        selectionMode="single"
+        [readonlyInput]="true"
+        [minDate]="minimumDate"
+        [hideOnDateTimeSelect]="false"
+        (onSelect)="dateChanged()"
+        [showIcon]="false"
+        [showTime]="true"
+        [hourFormat]="'24'"
+        [stepMinute]="15"
+        dateFormat="D dd MM y'"
+      >
+        <p-footer>
+          <div class="calendar-footer">
+            <button
+              pButton
+              label="Anuleaza"
+              (click)="restaurantDate = null; hourCalendar.toggle()"
+            ></button>
 
-                    <mat-option [value]="item" *ngFor="let item of option?.items">
-                        <mat-icon svgIcon="plane-in"></mat-icon>
+            <button
+              pButton
+              class="confirm"
+              type="button"
+              label="Confirma"
+              (click)="hourCalendar.toggle(); dateChanged()"
+            ></button>
+          </div>
+        </p-footer>
+      </p-calendar>
+    </mat-form-field>
 
-                        ({{ item?.value }}) {{ item?.label }}, {{item?.country}}
-                    </mat-option>
-                </mat-optgroup>
-            </mat-autocomplete>
-        </mat-form-field>
+    <!-- Guests -->
+    <mat-form-field
+      (click)="restaurantGuests.toggle($event)"
+      floatLabel="always"
+      appearance="fill"
+      class="custom-field custom-field--small custom-field--right"
+    >
+      <mat-label>Oaspeti</mat-label>
+      <mat-icon svgIcon="guests" matPrefix></mat-icon>
 
-        <!-- Date arrival - departure -->
-        <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
-            <mat-label>Data plecare Data retur</mat-label>
-            <mat-icon svgIcon="calendar" matPrefix></mat-icon>
+      <input
+        type="text"
+        placeholder="Selecteaza"
+        matInput
+        ngModel="{{ inputValues[7] }} Pers"
+        readonly
+      />
+    </mat-form-field>
 
-            <input type="text"
-                   matInput
-                   readonly>
-            <p-calendar #departureCalendar
-                        [panelStyleClass]="'fly-calendar'"
-                        [rangeSeparator]="' | '"
-                        [(ngModel)]="selectedModel"
-                        placeholder="Selecteaza"
-                        selectionMode="{{ calendarOption }}"
-                        [readonlyInput]="true"
-                        [minDate]="minimumDate"
-                        [showIcon]="false"
-                        dateFormat="D dd MM y"
-            >
-                <p-header>
-                    <p-selectButton
-                            class="calendar-header"
-                            [options]="stateOptions"
-                            [(ngModel)]="travels"
-                            optionLabel="label"
-                            (onChange)="modifyCalendar()"
-                    ></p-selectButton>
-                </p-header>
+    <p-overlayPanel #restaurantGuests>
+      <ng-template pTemplate="content" let-option>
+        <div class="guests-panel">
+          <div class="guests-panel__col-1">
+            <span class="label">Adulti</span>
 
-                <p-footer>
-                    <div class="calendar-footer">
-                        <button pButton label="Anuleaza"
-                                (click)="singleDate = null; rangeDates = []; departureCalendar.toggle()"></button>
+            <p-inputNumber
+              [min]="0"
+              [showButtons]="true"
+              [step]="1"
+              (onInput)="guestsInputChangedPlane($event, 7)"
+              [ngModel]="inputValues[7]"
+              [styleClass]="inputValues[7] ? 'color-active' : ''"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+              inputId="vertical"
+              decrementButtonClass="p-button-secondary"
+              incrementButtonClass="p-button-secondary"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            ></p-inputNumber>
+          </div>
+        </div>
 
-                        <button pButton class="confirm" type="button" label="Confirma"
-                                (click)="departureCalendar.toggle(); passengersPanel.toggle($event)"></button>
-                    </div>
-                </p-footer>
-            </p-calendar>
-        </mat-form-field>
+        <div class="guests-panel__footer">
+          <p-button
+            class="button-primary"
+            label="Confirma"
+            (click)="restaurantGuests.hide()"
+          ></p-button>
+        </div>
+      </ng-template>
+    </p-overlayPanel>
+  </div>
 
-        <!-- Passengers -->
-        <mat-form-field (click)="passengersPanel.toggle($event)" #passengers floatLabel="always" appearance="fill"
-                        class="custom-field custom-field--small custom-field--right">
-            <mat-label>Pasageri - Clasa</mat-label>
-            <mat-icon svgIcon="guests" matPrefix></mat-icon>
+  <div *ngIf="selected === 'events'" class="bundled-search">
+    <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
+      <mat-label>Locatie</mat-label>
+      <mat-icon svgIcon="location" matPrefix></mat-icon>
 
-            <input type="text"
-                   placeholder="Selecteaza"
-                   matInput
-                   ngModel="{{passengersValue}} Pasageri / {{travelClass}}"
-                   readonly>
-        </mat-form-field>
-        <p-overlayPanel #passengersPanel>
-            <ng-template pTemplate="content" let-option>
-                <div class="guests-panel">
-                    <div class="guests-panel__row">
-                        <div class="flex-column">
-                            <span class="label">Adulti</span>
+      <mat-select
+        panelClass="custom-dropdown"
+        placeholder="Selecteaza"
+        [(ngModel)]="selectedEventLocation"
+      >
+        <mat-option
+          *ngFor="let option of locationListRestaurants"
+          [value]="option"
+          >{{ option.display }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-                            <span class="sub-label">(18 ani +)</span>
-                        </div>
+  <div *ngIf="selected === 'common'" class="bundled-search">
+    <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
+      <mat-label>Destinatia</mat-label>
+      <mat-icon svgIcon="location" matPrefix></mat-icon>
 
-                        <p-inputNumber [min]="0"
-                                       [showButtons]="true"
-                                       [step]="1"
-                                       [styleClass]="inputValues[3] ? 'color-active' : ''"
-                                       (onInput)="guestsInputChangedPlane($event, 3)"
-                                       [ngModel]="inputValues[3]"
-                                       buttonLayout="horizontal"
-                                       spinnerMode="horizontal"
-                                       inputId="vertical"
-                                       decrementButtonClass="p-button-secondary"
-                                       incrementButtonClass="p-button-secondary"
-                                       incrementButtonIcon="pi pi-plus"
-                                       decrementButtonIcon="pi pi-minus"></p-inputNumber>
-                    </div>
+      <input
+        type="text"
+        placeholder="Selecteaza"
+        matInput
+        [(ngModel)]="location"
+        (change)="onValueChange($event.target)"
+        #autocomplete
+      />
+    </mat-form-field>
 
-                    <div class="guests-panel__row">
-                        <div class="flex-column">
-                            <span class="label">Tineri</span>
+    <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
+      <mat-label>Data Ora</mat-label>
+      <mat-icon svgIcon="calendar" matPrefix></mat-icon>
 
-                            <span class="sub-label">(12 - 18 ani)</span>
-                        </div>
+      <input type="text" matInput readonly />
 
-                        <p-inputNumber [min]="0"
-                                       [showButtons]="true"
-                                       [step]="1"
-                                       (onInput)="guestsInputChangedPlane($event, 4)"
-                                       [ngModel]="inputValues[4]"
-                                       [styleClass]="inputValues[4] ? 'color-active' : ''"
-                                       buttonLayout="horizontal"
-                                       spinnerMode="horizontal"
-                                       inputId="vertical"
-                                       decrementButtonClass="p-button-secondary"
-                                       incrementButtonClass="p-button-secondary"
-                                       incrementButtonIcon="pi pi-plus"
-                                       decrementButtonIcon="pi pi-minus"></p-inputNumber>
-                    </div>
+      <p-calendar
+        #hourCalendar
+        [panelStyleClass]="'fly-calendar'"
+        [disabled]="isSearchDisabled"
+        [(ngModel)]="restaurantDate"
+        placeholder="Data"
+        selectionMode="single"
+        [readonlyInput]="true"
+        [minDate]="minimumDate"
+        [hideOnDateTimeSelect]="false"
+        (onSelect)="dateChanged()"
+        [showIcon]="false"
+        [showTime]="true"
+        [hourFormat]="'24'"
+        [stepMinute]="15"
+        dateFormat="D dd MM y'"
+      >
+        <p-footer>
+          <div class="calendar-footer">
+            <button
+              pButton
+              label="Anuleaza"
+              (click)="restaurantDate = null; hourCalendar.toggle()"
+            ></button>
 
-                    <div class="guests-panel__row">
-                        <div class="flex-column">
-                            <span class="label">Copii</span>
-
-                            <span class="sub-label">(2 - 11 ani)</span>
-                        </div>
-
-                        <p-inputNumber [min]="0"
-                                       [showButtons]="true"
-                                       [step]="1"
-                                       (onInput)="guestsInputChangedPlane($event, 5)"
-                                       [ngModel]="inputValues[5]"
-                                       [styleClass]="inputValues[5] ? 'color-active' : ''"
-                                       buttonLayout="horizontal"
-                                       spinnerMode="horizontal"
-                                       inputId="vertical"
-                                       decrementButtonClass="p-button-secondary"
-                                       incrementButtonClass="p-button-secondary"
-                                       incrementButtonIcon="pi pi-plus"
-                                       decrementButtonIcon="pi pi-minus"></p-inputNumber>
-                    </div>
-
-                    <div class="guests-panel__row">
-                        <div class="flex-column">
-                            <span class="label">Infranti</span>
-
-                            <span class="sub-label">(0 - 2 ani)</span>
-                        </div>
-
-                        <p-inputNumber [min]="0"
-                                       [showButtons]="true"
-                                       [step]="1"
-                                       (onInput)="guestsInputChangedPlane($event, 6)"
-                                       [ngModel]="inputValues[6]"
-                                       [styleClass]="inputValues[6] ? 'color-active' : ''"
-                                       buttonLayout="horizontal"
-                                       spinnerMode="horizontal"
-                                       inputId="vertical"
-                                       decrementButtonClass="p-button-secondary"
-                                       incrementButtonClass="p-button-secondary"
-                                       incrementButtonIcon="pi pi-plus"
-                                       decrementButtonIcon="pi pi-minus"></p-inputNumber>
-                    </div>
-                </div>
-
-                <div class="guests-panel__content">
-                    <p-selectButton
-                            [options]="travelClasses"
-                            [(ngModel)]="travelClass"
-                    ></p-selectButton>
-                </div>
-
-                <div class="guests-panel__footer">
-                    <p-button class="button-primary" label="Confirma" (click)="passengersPanel.hide()"></p-button>
-                </div>
-            </ng-template>
-        </p-overlayPanel>
-    </div>
-
-    <div *ngIf="selected === 'restaurants'" class="bundled-search">
-        <!-- Destination -->
-        <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
-            <mat-label>Destinatia</mat-label>
-            <mat-icon svgIcon="location" matPrefix></mat-icon>
-
-            <mat-select panelClass="custom-dropdown" placeholder="Selecteaza" [(ngModel)]="selectedRestaurantLocation">
-                <mat-option
-                        *ngFor="let option of locationListRestaurants"
-                        [value]="option">{{ option.city }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <!-- Date | Hour -->
-        <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
-            <mat-label>Data Ora</mat-label>
-            <mat-icon svgIcon="calendar" matPrefix></mat-icon>
-
-            <input type="text"
-                   matInput
-                   readonly>
-
-            <p-calendar
-                #hourCalendar
-                [panelStyleClass]="'fly-calendar'"
-                [disabled]="isSearchDisabled"
-                [(ngModel)]="restaurantDate"
-                placeholder="Selecteaza"
-                selectionMode="single"
-                [readonlyInput]="true"
-                [minDate]="minimumDate"
-                [hideOnDateTimeSelect]="false"
-                (onSelect)="dateChanged()"
-                [showIcon]="false"
-                [showTime]="true"
-                [hourFormat]="'24'"
-                [stepMinute]="15"
-                dateFormat="D dd MM y'"
-            >
-                <p-footer>
-                    <div class="calendar-footer">
-                        <button pButton label="Anuleaza"
-                                (click)="restaurantDate = null; hourCalendar.toggle()"></button>
-
-                        <button pButton class="confirm" type="button" label="Confirma"
-                                (click)="hourCalendar.toggle(); dateChanged()"></button>
-                    </div>
-                </p-footer>
-            </p-calendar>
-        </mat-form-field>
-
-        <!-- Guests -->
-        <mat-form-field (click)="restaurantGuests.toggle($event)" floatLabel="always" appearance="fill"
-                        class="custom-field custom-field--small custom-field--right">
-            <mat-label>Oaspeti</mat-label>
-            <mat-icon svgIcon="guests" matPrefix></mat-icon>
-
-            <input type="text"
-                   placeholder="Selecteaza"
-                   matInput
-                   ngModel="{{inputValues[7]}} Pers"
-                   readonly>
-        </mat-form-field>
-
-        <p-overlayPanel #restaurantGuests>
-            <ng-template pTemplate="content" let-option>
-                <div class="guests-panel">
-                    <div class="guests-panel__col-1">
-                        <span class="label">Adulti</span>
-
-                        <p-inputNumber [min]="0"
-                                       [showButtons]="true"
-                                       [step]="1"
-                                       (onInput)="guestsInputChangedPlane($event, 7)"
-                                       [ngModel]="inputValues[7]"
-                                       [styleClass]="inputValues[7] ? 'color-active' : ''"
-                                       buttonLayout="horizontal"
-                                       spinnerMode="horizontal"
-                                       inputId="vertical"
-                                       decrementButtonClass="p-button-secondary"
-                                       incrementButtonClass="p-button-secondary"
-                                       incrementButtonIcon="pi pi-plus"
-                                       decrementButtonIcon="pi pi-minus"></p-inputNumber>
-                    </div>
-                </div>
-
-                <div class="guests-panel__footer">
-                    <p-button class="button-primary" label="Confirma" (click)="restaurantGuests.hide()"></p-button>
-                </div>
-            </ng-template>
-        </p-overlayPanel>
-    </div>
-
-    <div *ngIf="selected === 'events'" class="bundled-search">
-        <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
-            <mat-label>Locatie</mat-label>
-            <mat-icon svgIcon="location" matPrefix></mat-icon>
-
-            <mat-select panelClass="custom-dropdown" placeholder="Selecteaza" [(ngModel)]="selectedEventLocation">
-                <mat-option
-                        *ngFor="let option of locationListRestaurants"
-                        [value]="option">{{ option.display }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-    </div>
-
-    <div *ngIf="selected === 'common'" class="bundled-search">
-        <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
-            <mat-label>Destinatia</mat-label>
-            <mat-icon svgIcon="location" matPrefix></mat-icon>
-
-            <input type="text"
-                   placeholder="Selecteaza"
-                   matInput
-                   [(ngModel)]="location"
-                   (change)="onValueChange($event.target)"
-                   #autocomplete>
-        </mat-form-field>
-
-        <mat-form-field floatLabel="always" appearance="fill" class="custom-field">
-            <mat-label>Data Ora</mat-label>
-            <mat-icon svgIcon="calendar" matPrefix></mat-icon>
-
-            <input type="text"
-                   matInput
-                   readonly>
-
-            <p-calendar
-                #hourCalendar
-                [panelStyleClass]="'fly-calendar'"
-                [disabled]="isSearchDisabled"
-                [(ngModel)]="restaurantDate"
-                placeholder="Data"
-                selectionMode="single"
-                [readonlyInput]="true"
-                [minDate]="minimumDate"
-                [hideOnDateTimeSelect]="false"
-                (onSelect)="dateChanged()"
-                [showIcon]="false"
-                [showTime]="true"
-                [hourFormat]="'24'"
-                [stepMinute]="15"
-                dateFormat="D dd MM y'"
-            >
-                <p-footer>
-                    <div class="calendar-footer">
-                        <button pButton label="Anuleaza"
-                                (click)="restaurantDate = null; hourCalendar.toggle()"></button>
-
-                        <button pButton class="confirm" type="button" label="Confirma"
-                                (click)="hourCalendar.toggle()"></button>
-                    </div>
-                </p-footer>
-            </p-calendar>
-        </mat-form-field>
-
-    </div>
-    <button
-            pButton
-            class="search"
-            label="Vizualizeaza"
-            (click)="submitFilters()"
-    ></button>
+            <button
+              pButton
+              class="confirm"
+              type="button"
+              label="Confirma"
+              (click)="hourCalendar.toggle()"
+            ></button>
+          </div>
+        </p-footer>
+      </p-calendar>
+    </mat-form-field>
+  </div>
+  <button
+    pButton
+    class="search"
+    label="Vizualizeaza"
+    (click)="submitFilters()"
+  ></button>
 </div>

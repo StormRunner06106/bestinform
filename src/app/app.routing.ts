@@ -1,9 +1,8 @@
+import { HolidayComponent } from "./features/holidays/holiday.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
-import {
-  BookingConfirmationComponent
-} from 'src/app/standalone-components/booking-confirmation/booking-confirmation.component';
-import { LaunchLandingComponent } from 'src/app/standalone-components/launch-landing/launch-landing.component';
+import { BookingConfirmationComponent } from "src/app/standalone-components/booking-confirmation/booking-confirmation.component";
+import { LaunchLandingComponent } from "src/app/standalone-components/launch-landing/launch-landing.component";
 import { NotFoundComponent } from "./features/not-found/not-found.component";
 import { UserRolesGuard } from "./shared/_services/user-roles.guard";
 import { NewsletterComponent } from "./features/newsletter/newsletter.component";
@@ -12,7 +11,7 @@ import { LowercaseUrlSerializer } from "./lowercase-url-serializer";
 import { ThankYouComponent } from "./features/thank-you/thank-you.component";
 import { HomepageComponent } from "./components/homepage/homepage.component";
 import { ListingComponent } from "./components/listing/listing.component";
-import { WinnerCodeModule } from './features/winner-code/winner-code.module';
+import { WinnerCodeModule } from "./features/winner-code/winner-code.module";
 
 export const routes: Routes = [
   {
@@ -22,9 +21,9 @@ export const routes: Routes = [
   {
     path: "old-homepage",
     loadChildren: () =>
-        import("./features/public-homepage/public-homepage.module").then(
-            (m) => m.PublicHomepageModule
-        ),
+      import("./features/public-homepage/public-homepage.module").then(
+        (m) => m.PublicHomepageModule
+      ),
   },
   {
     path: "private",

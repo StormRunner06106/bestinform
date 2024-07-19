@@ -160,6 +160,7 @@ import { DividerModule } from "primeng/divider";
 import { EventCardMobileComponent } from "src/app/components/event-card-mobile/event-card-mobile.component";
 import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import { HolidayCardComponent } from "src/app/components/holiday-card/holiday-card.component";
+import { HolidayListingComponent } from "src/app/components/holiday-listing/holiday-listing.component";
 
 export const routes: Routes = [
   {
@@ -384,6 +385,7 @@ export const MY_FORMATS = {
     EventCardListComponent,
     AiCardComponent,
     HolidayCardComponent,
+    HolidayListingComponent,
     EventCardMobileComponent,
     // NavBarComponent,
   ],
@@ -471,6 +473,7 @@ export const MY_FORMATS = {
     AiCardComponent,
     EventCardMobileComponent,
     HolidayCardComponent,
+    HolidayListingComponent,
   ],
   providers: [
     { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_MOMENT_FORMATS },

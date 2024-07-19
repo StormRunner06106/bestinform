@@ -1,0 +1,129 @@
+<div class="full-image">
+  <div class="full-image-content"></div>
+  <div class="filter-box">
+    <button
+      class="filter-input"
+      [ngClass]="renderCssForFilter('all')"
+      (click)="onClickFilter('all')"
+    >
+      <span class="filter-icon">
+        <i class="fa fa-cloud"></i>
+      </span>
+      <p class="m-0 filter-input-text">All Bestinform Offers</p>
+    </button>
+    <button
+      class="filter-input"
+      [ngClass]="renderCssForFilter('exotic')"
+      (click)="onClickFilter('exotic')"
+    >
+      <span class="filter-icon">
+        <i class="fa fa-cloud"></i>
+      </span>
+      <p class="m-0 filter-input-text">Exotic Holidays</p>
+    </button>
+    <button
+      class="filter-input"
+      [ngClass]="renderCssForFilter('holiday')"
+      (click)="onClickFilter('holiday')"
+    >
+      <span class="filter-icon">
+        <i class="fa fa-cloud"></i>
+      </span>
+      <p class="m-0 filter-input-text">Holiday Tours</p>
+    </button>
+    <button
+      class="filter-input"
+      [ngClass]="renderCssForFilter('last')"
+      (click)="onClickFilter('last')"
+    >
+      <span class="filter-icon">
+        <i class="fa fa-cloud"></i>
+      </span>
+      <p class="m-0 filter-input-text">Last Minute Holidays</p>
+    </button>
+    <button
+      mat-icon-button
+      aria-label="Example icon button"
+      class="centered-icon-button"
+      [ngClass]="isSearch ? 'show-scale' : 'hide-scale'"
+      (click)="toggleSearchBox(false)"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+    <button
+      class="filter-input filter-search-box"
+      (click)="toggleSearchBox(true)"
+      [ngClass]="isSearch ? 'search-flex' : ''"
+    >
+      <span class="filter-icon" [ngClass]="isFocused ? 'active-icon' : ''">
+        <i class="fa fa-search"></i>
+      </span>
+      <div
+        class="m-0 filter-input-text filter-search"
+        [ngStyle]="{ display: isSearch ? 'flex' : 'none' }"
+      >
+        <input
+          class="filter-input-form"
+          placeholder="Search text..."
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+        />
+      </div>
+    </button>
+  </div>
+</div>
+<div class="container mw-100">
+  <div class="row w-100 m-auto">
+    <div class="col-12 col-md-12 title-bar">
+      <div class="title">All Bestinforms Offers</div>
+      <div class="sort-button-gap">
+        <button
+          mat-button
+          class="sort-button"
+          [mat-menu-trigger-for]="sortMenu"
+        >
+          <div class="sort-content">
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="sort"
+              class="sort-btn-icon"
+            ></mat-icon>
+            <p class="m-0 sort-text">Sort</p>
+          </div>
+        </button>
+        <mat-menu #sortMenu="matMenu">
+          <button mat-menu-item>Alphabetic A to Z</button>
+          <button mat-menu-item>Alphabetic Z to A</button>
+          <button mat-menu-item>Price ascending</button>
+          <button mat-menu-item>Price descending</button>
+        </mat-menu>
+      </div>
+    </div>
+    <div class="col-md-12 d-flex flex-wrap holiday-list-container">
+      <ng-container *ngFor="let item of holidayList; let i = index">
+        <div class="holiday-item-container">
+          <app-holiday-listing [holiday]="item"></app-holiday-listing>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-12 col-md-12 mt-5 paginator-container">
+      <div class="paginator-bar">
+        <div class="p-result">Showing 1 to 20 of 200 entries</div>
+        <div class="paginator">
+          <p-paginator
+            [pageLinkSize]="5"
+            (onPageChange)="onPageChange($event)"
+            styleClass="custom-paginator"
+            [rows]="rows"
+            [totalRecords]="holidayList"
+            currentPageReportTemplate="{first} - {last} of {totalRecords}"
+            [showFirstLastIcon]="true"
+            [showCurrentPageReport]="false"
+          >
+          </p-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

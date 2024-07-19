@@ -1,209 +1,334 @@
 <div class="container">
-    <app-dashboard-header pageTitleOne="Payment Methods"
-                          [buttonBackRoute]="'..'">
-    </app-dashboard-header>
+  <app-dashboard-header pageTitleOne="Payment Methods" [buttonBackRoute]="'..'">
+  </app-dashboard-header>
 </div>
 
-
 <div class="container payment-methods-container px-4 py-4 mb-4 w-100">
-    <form [formGroup]="paymentDataForm" id="paymentDataForm">
-        <div class="d-flex flex-wrap flex-sm-wrap flex-md-nowrap justify-content-center  justify-content-sm-center justify-content-md-between justify-content-lg-between">
-            <!-- <div class="payment-methods-container mb-2 mb-md-2 px-8 py-4 ml-lg-2 w-100 w-sm-30 w-md-40 w-lg-40 w-xl-40 d-flex flex-column justify-content-between"> -->
-            <div class="payment-methods-container px-8 py-4 py-lg-4 mr-lg-2 w-100 w-sm-30 w-md-40 w-lg-40 w-xl-40 d-flex flex-column justify-content-between">
-                <h2>Billing address</h2>
-                <div class="row">
-                    <div class="col-md-6">
-                        <!---Country--------------------------------------------------------------------------------->
-                        <mat-form-field appearance="standard" class="w-100">
-                            <mat-label>Country</mat-label>
-                            <mat-select formControlName="country" (selectionChange)="getCitiesByCountry($event.value)">
-                                <ng-container *ngIf="(countries$ | async) as countries">
-                                    <mat-option *ngFor="let country of countries" [value]="country">{{ country }}</mat-option>
-                                </ng-container>
-                            </mat-select>
-                            <mat-error>{{'ERROR.REQUIRED'|translate}}</mat-error>
-                        </mat-form-field>
-                    </div>
+  <form [formGroup]="paymentDataForm" id="paymentDataForm">
+    <div
+      class="d-flex flex-wrap flex-sm-wrap flex-md-nowrap justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between"
+    >
+      <!-- <div class="payment-methods-container mb-2 mb-md-2 px-8 py-4 ml-lg-2 w-100 w-sm-30 w-md-40 w-lg-40 w-xl-40 d-flex flex-column justify-content-between"> -->
+      <div
+        class="payment-methods-container px-8 py-4 py-lg-4 mr-lg-2 w-100 w-sm-30 w-md-40 w-lg-40 w-xl-40 d-flex flex-column justify-content-between"
+      >
+        <h2>Billing address</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <!---Country--------------------------------------------------------------------------------->
+            <mat-form-field appearance="standard" class="w-100">
+              <mat-label>Country</mat-label>
+              <mat-select
+                formControlName="country"
+                (selectionChange)="getCitiesByCountry($event.value)"
+              >
+                <ng-container *ngIf="countries$ | async as countries">
+                  <mat-option
+                    *ngFor="let country of countries"
+                    [value]="country"
+                    >{{ country }}</mat-option
+                  >
+                </ng-container>
+              </mat-select>
+              <mat-error>{{ "ERROR.REQUIRED" | translate }}</mat-error>
+            </mat-form-field>
+          </div>
 
-                    <div class="col-md-6">
-                        <!---City--------------------------------------------------------------------------------->
-                        <mat-form-field appearance="standard" class="w-100">
-                            <mat-label>Oraș</mat-label>
-                            <mat-select formControlName="city">
-                                <ng-container *ngIf="(cities$ | async) as cities">
-                                    <mat-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</mat-option>
-                                </ng-container>
-                            </mat-select>
-                            <mat-error>{{'ERROR.REQUIRED'|translate}}</mat-error>
-                        </mat-form-field>
-                    </div>
+          <div class="col-md-6">
+            <!---City--------------------------------------------------------------------------------->
+            <mat-form-field appearance="standard" class="w-100">
+              <mat-label>Oraș</mat-label>
+              <mat-select formControlName="city">
+                <ng-container *ngIf="cities$ | async as cities">
+                  <mat-option *ngFor="let city of cities" [value]="city.name">{{
+                    city.name
+                  }}</mat-option>
+                </ng-container>
+              </mat-select>
+              <mat-error>{{ "ERROR.REQUIRED" | translate }}</mat-error>
+            </mat-form-field>
+          </div>
 
-                    <div class="col-md-10">
-                        <!---Address--------------------------------------------------------------------------------->
-                        <mat-form-field appearance="standard" class="w-100">
-                            <mat-label>Adresa</mat-label>
-                            <input matInput placeholder="Adresa" formControlName="address">
-                            <mat-error>{{'ERROR.REQUIRED'|translate}}</mat-error>
-<!--                            <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-2">
-                        <!---Post Code--------------------------------------------------------------------------------->
-                        <mat-form-field appearance="standard" class="w-100">
-                            <mat-label>Cod postal</mat-label>
-                            <input matInput placeholder="Cod postal" formControlName="postcode">
-<!--                            <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
-                        </mat-form-field>
-
-                    </div>
-                </div>
-                <!---Street--------------------------------------------------------------------------->
-<!--                <mat-form-field appearance="standard" class="w-100">-->
-<!--                    <mat-label>Strada</mat-label>-->
-<!--                    <input matInput placeholder="Strada" formControlName="street">-->
-<!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
-<!--                </mat-form-field>-->
-
-                <!---County--------------------------------------------------------------------------------->
-<!--                <mat-form-field appearance="standard" class="w-100">-->
-<!--                    <mat-label>Oras</mat-label>-->
-<!--                    <input matInput placeholder="Adresa" formControlName="county">-->
-<!--                    <mat-error>{{'ERROR.REQUIRED'|translate}}</mat-error>-->
-<!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-chevron-down"></i></mat-icon>-->
-<!--                </mat-form-field>-->
-
-                <button class="btn-long btn-color-fill my-2 w-100" (click)="updateUser()"><i class="fas fa-save"></i>Update</button>
-            </div>
-            <!-----Payment-------------------------------------------------------------------->
-<!--            <div class="payment-methods-container mb-2 mb-md-2 px-8 py-4 ml-lg-2 w-100 w-sm-30 w-md-40 w-lg-40 w-xl-40 d-flex flex-column justify-content-between">-->
-
-<!--                <h2>Payment</h2>-->
-<!--                <p class="lock-encrypted mt-5 mb-0"><i class="fas fa-lock"></i> End-to-end encrypted</p>-->
-<!--                &lt;!&ndash;-Card holder name-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--                <mat-form-field appearance="standard" class="w-100">-->
-<!--                    <mat-label>Cardholder Name</mat-label>-->
-<!--                    <input matInput placeholder="Cardholder name" formControlName="cardHolderName">-->
-<!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
-<!--                </mat-form-field>-->
-
-<!--                &lt;!&ndash;-Card Number-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--                <mat-form-field appearance="standard" class="w-100">-->
-<!--                    <mat-label>Card number</mat-label>-->
-<!--                    <input matInput placeholder="Strada" formControlName="cardNumber">-->
-<!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
-<!--                </mat-form-field>-->
-
-<!--                &lt;!&ndash;-Exp. date (MM/YY)-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--                <mat-form-field appearance="standard" class="w-100">-->
-<!--                    <mat-label>Exp. date (MM/YY)</mat-label>-->
-<!--                    <input matInput placeholder="Exp. date (MM/YY)" formControlName="expirationDate">-->
-<!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
-<!--                </mat-form-field>-->
-
-<!--                &lt;!&ndash;-Security Code (CVC)-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--                <mat-form-field appearance="standard" class="w-100">-->
-<!--                    <mat-label>Security Code (CVC)</mat-label>-->
-<!--                    <input matInput placeholder="Security Code (CVC)" formControlName="securityCode">-->
-<!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
-<!--                </mat-form-field>-->
-
-<!--                <p class="subscribe-mention">Bestinform will automatically continue your membership and charge the membership fee (currently USD 14.99/month) to your payment method until you cancel. You may cancel at any time to avoid future charges.-->
-<!--                </p>-->
-
-<!--                <button class="btn-long btn-color-fill my-2 w-100"><i class="fas fa-save"></i>Save</button>-->
-<!--            </div>-->
+          <div class="col-md-10">
+            <!---Address--------------------------------------------------------------------------------->
+            <mat-form-field appearance="standard" class="w-100">
+              <mat-label>Adresa</mat-label>
+              <input matInput placeholder="Adresa" formControlName="address" />
+              <mat-error>{{ "ERROR.REQUIRED" | translate }}</mat-error>
+              <!--                            <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <!---Post Code--------------------------------------------------------------------------------->
+            <mat-form-field appearance="standard" class="w-100">
+              <mat-label>Cod postal</mat-label>
+              <input
+                matInput
+                placeholder="Cod postal"
+                formControlName="postcode"
+              />
+              <!--                            <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
+            </mat-form-field>
+          </div>
         </div>
-    </form>
+        <!---Street--------------------------------------------------------------------------->
+        <!--                <mat-form-field appearance="standard" class="w-100">-->
+        <!--                    <mat-label>Strada</mat-label>-->
+        <!--                    <input matInput placeholder="Strada" formControlName="street">-->
+        <!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
+        <!--                </mat-form-field>-->
 
-    <ng-container *ngIf="(currentSubscription$ | async) as currentSubscription">
-        <div class="payment-methods-container px-8 py-4 my-2 w-100 subcription-class">
-            <div class="d-flex justify-content-between align-items-center">
-                <h2 class="py-4">My Subscription</h2>
-                <button *ngIf="!currentSubscription?.autoRenew && currentSubscription?.status === 'canceled' || currentSubscription?.status === 'new'" class="btn-long btn-color-fill" (click)="toStripe()">Achizitionare pachet</button>
-                <button *ngIf="!currentSubscription?.autoRenew && currentSubscription?.status === 'paid'" class="btn-long btn-color-fill" (click)="makeAutoRenewTrue(currentSubscription?.id)" >Renew Subscription</button>
-                <button *ngIf="(currentSubscription?.autoRenew && currentSubscription?.status === 'paid') || currentSubscription?.status === 'trial'" class="btn-long btn-color-fill" (click)="cancelSubscription(currentSubscription?.id)" >Cancel subscription</button>
+        <!---County--------------------------------------------------------------------------------->
+        <!--                <mat-form-field appearance="standard" class="w-100">-->
+        <!--                    <mat-label>Oras</mat-label>-->
+        <!--                    <input matInput placeholder="Adresa" formControlName="county">-->
+        <!--                    <mat-error>{{'ERROR.REQUIRED'|translate}}</mat-error>-->
+        <!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-chevron-down"></i></mat-icon>-->
+        <!--                </mat-form-field>-->
 
+        <button
+          class="btn-long btn-color-fill my-2 w-100"
+          (click)="updateUser()"
+          mat-button
+        >
+          <i class="fas fa-save"></i>Update
+        </button>
+      </div>
+      <!-----Payment-------------------------------------------------------------------->
+      <!--            <div class="payment-methods-container mb-2 mb-md-2 px-8 py-4 ml-lg-2 w-100 w-sm-30 w-md-40 w-lg-40 w-xl-40 d-flex flex-column justify-content-between">-->
+
+      <!--                <h2>Payment</h2>-->
+      <!--                <p class="lock-encrypted mt-5 mb-0"><i class="fas fa-lock"></i> End-to-end encrypted</p>-->
+      <!--                &lt;!&ndash;-Card holder name-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+      <!--                <mat-form-field appearance="standard" class="w-100">-->
+      <!--                    <mat-label>Cardholder Name</mat-label>-->
+      <!--                    <input matInput placeholder="Cardholder name" formControlName="cardHolderName">-->
+      <!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
+      <!--                </mat-form-field>-->
+
+      <!--                &lt;!&ndash;-Card Number-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+      <!--                <mat-form-field appearance="standard" class="w-100">-->
+      <!--                    <mat-label>Card number</mat-label>-->
+      <!--                    <input matInput placeholder="Strada" formControlName="cardNumber">-->
+      <!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
+      <!--                </mat-form-field>-->
+
+      <!--                &lt;!&ndash;-Exp. date (MM/YY)-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+      <!--                <mat-form-field appearance="standard" class="w-100">-->
+      <!--                    <mat-label>Exp. date (MM/YY)</mat-label>-->
+      <!--                    <input matInput placeholder="Exp. date (MM/YY)" formControlName="expirationDate">-->
+      <!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
+      <!--                </mat-form-field>-->
+
+      <!--                &lt;!&ndash;-Security Code (CVC)-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+      <!--                <mat-form-field appearance="standard" class="w-100">-->
+      <!--                    <mat-label>Security Code (CVC)</mat-label>-->
+      <!--                    <input matInput placeholder="Security Code (CVC)" formControlName="securityCode">-->
+      <!--                        <mat-icon type="button" mat-icon-button matSuffix><i class="fas fa-times-circle"></i></mat-icon>-->
+      <!--                </mat-form-field>-->
+
+      <!--                <p class="subscribe-mention">Bestinform will automatically continue your membership and charge the membership fee (currently USD 14.99/month) to your payment method until you cancel. You may cancel at any time to avoid future charges.-->
+      <!--                </p>-->
+
+      <!--                <button class="btn-long btn-color-fill my-2 w-100"><i class="fas fa-save"></i>Save</button>-->
+      <!--            </div>-->
+    </div>
+  </form>
+
+  <ng-container *ngIf="currentSubscription$ | async as currentSubscription">
+    <div
+      class="payment-methods-container px-8 py-4 my-2 w-100 subcription-class"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="py-4">My Subscription</h2>
+        <button
+          *ngIf="
+            (!currentSubscription?.autoRenew &&
+              currentSubscription?.status === 'canceled') ||
+            currentSubscription?.status === 'new'
+          "
+          class="btn-long btn-color-fill"
+          (click)="toStripe()"
+        >
+          Achizitionare pachet
+        </button>
+        <button
+          *ngIf="
+            !currentSubscription?.autoRenew &&
+            currentSubscription?.status === 'paid'
+          "
+          class="btn-long btn-color-fill"
+          (click)="makeAutoRenewTrue(currentSubscription?.id)"
+        >
+          Renew Subscription
+        </button>
+        <button
+          *ngIf="
+            (currentSubscription?.autoRenew &&
+              currentSubscription?.status === 'paid') ||
+            currentSubscription?.status === 'trial'
+          "
+          class="btn-long btn-color-fill"
+          (click)="cancelSubscription(currentSubscription?.id)"
+        >
+          Cancel subscription
+        </button>
+      </div>
+
+      <ng-container *ngIf="currentSubscription?.status !== 'new'">
+        <div
+          class="colored-bck-subscription payment-methods-container px-8 py-4 my-2 w-100"
+        >
+          <div class="d-flex justify-content-between">
+            <h4 class="mb-0">My Subscription</h4>
+          </div>
+
+          <ng-container
+            *ngIf="
+              currentSubscription?.status === 'trial' ||
+              currentSubscription?.status === 'paid'
+            "
+          >
+            <p
+              *ngIf="currentSubscription?.autoRenew"
+              class="d-block d-md-block"
+            >
+              Urmatoarea plata va avea loc pe data de
+              <span
+                ><b>{{
+                  currentSubscription?.expirationDate | date : "dd MMM YYYY"
+                }}</b></span
+              >, pentru suma de
+              <span
+                ><b>{{ currentSubscription?.purchasedPrice }} EUR</b></span
+              >. Va rugam sa fiti siguri ca aveti suma respectiva pe card, pana
+              la data respectiva!
+            </p>
+
+            <p
+              *ngIf="!currentSubscription?.autoRenew"
+              class="d-block d-md-block"
+            >
+              Abonamentul curent va expira in data de
+              <span
+                ><b>{{
+                  currentSubscription?.expirationDate | date : "dd MMM YYYY"
+                }}</b></span
+              >, pretul acestuia fiind de
+              <span
+                ><b>{{ currentSubscription?.purchasedPrice }} EUR</b></span
+              >. Dupa data expirarii veti primi viitoare instructiuni in vederea
+              reactivarii!
+            </p>
+
+            <h5>Subscription details</h5>
+            <div class="d-flex justify-content-between subscription-details">
+              <p>Start date</p>
+              <p class="subscription-date">
+                {{ currentSubscription?.purchasedDate | date : "dd MMM YYYY" }}
+              </p>
             </div>
+            <div class="d-flex justify-content-between subscription-details">
+              <p>End date</p>
+              <p class="subscription-date">
+                {{ currentSubscription?.expirationDate | date : "dd MMM YYYY" }}
+              </p>
+            </div>
+          </ng-container>
 
-            <ng-container *ngIf="currentSubscription?.status !== 'new'">
-                <div class="colored-bck-subscription payment-methods-container px-8 py-4 my-2 w-100">
-                    <div class="d-flex justify-content-between">
-                        <h4 class="mb-0">My Subscription</h4>
-                      </div>
+          <ng-container *ngIf="currentSubscription?.status === 'canceled'">
+            <p class="d-block d-md-block">
+              Dorim să vă informam că abonamentul dumneavoastră a expirat în
+              data de
+              {{ currentSubscription?.expirationDate | date : "dd MMM YYYY" }}.
+              Pentru a crea un nou abonament, vă rugam să apăsați butonul de mai
+              sus. Mulțumim pentru înțelegere și pentru fidelitate fata de
+              serviciul nostru!
+            </p>
+          </ng-container>
 
-                    <ng-container *ngIf="currentSubscription?.status === 'trial' || currentSubscription?.status === 'paid'">
-                        <p *ngIf="currentSubscription?.autoRenew" class="d-block d-md-block">
-                            Urmatoarea plata va avea loc pe data de <span><b>{{ currentSubscription?.expirationDate | date : 'dd MMM YYYY' }}</b></span>, pentru suma de <span><b>{{ currentSubscription?.purchasedPrice }} EUR</b></span>. Va rugam sa fiti siguri ca aveti suma respectiva pe card, pana la data respectiva!
-                        </p>
-
-                        <p *ngIf="!currentSubscription?.autoRenew" class="d-block d-md-block">
-                            Abonamentul curent va expira in data de <span><b>{{ currentSubscription?.expirationDate | date : 'dd MMM YYYY' }}</b></span>, pretul acestuia fiind de <span><b>{{ currentSubscription?.purchasedPrice }} EUR</b></span>.
-                            Dupa data expirarii veti primi viitoare instructiuni in vederea reactivarii!
-                        </p>
-
-                        <h5>Subscription details</h5>
-                        <div class="d-flex justify-content-between subscription-details">
-                            <p>Start date</p>
-                            <p class="subscription-date">{{ currentSubscription?.purchasedDate | date : 'dd MMM YYYY' }}</p>
-                        </div>
-                        <div class="d-flex justify-content-between subscription-details">
-                            <p>End date</p>
-                            <p class="subscription-date">{{ currentSubscription?.expirationDate | date : 'dd MMM YYYY' }}</p>
-                        </div>
-                    </ng-container>
-
-                    <ng-container *ngIf="currentSubscription?.status === 'canceled'">
-                        <p class="d-block d-md-block">
-                            Dorim să vă informam că abonamentul dumneavoastră a expirat în data de {{ currentSubscription?.expirationDate | date : 'dd MMM YYYY' }}.
-                            Pentru a crea un nou abonament, vă rugam să apăsați butonul de mai sus.
-                            Mulțumim pentru înțelegere și pentru fidelitate fata de serviciul nostru!
-                        </p>
-                    </ng-container>
-
-<!--                    <div *ngIf="(currentSubscription?.status === 'trial' || currentSubscription?.status === 'paid') && currentSubscription?.autoRenew"-->
-<!--                         class="d-flex justify-content-end">-->
-<!--                        <p (click)="cancelSubscription(currentSubscription?.id)" class="subscription-cancel">-->
-<!--                            <i class="fas fa-ban"></i>-->
-<!--                            Cancel subscription-->
-<!--                        </p>-->
-<!--                    </div>-->
-                </div>
-            </ng-container>
+          <!--                    <div *ngIf="(currentSubscription?.status === 'trial' || currentSubscription?.status === 'paid') && currentSubscription?.autoRenew"-->
+          <!--                         class="d-flex justify-content-end">-->
+          <!--                        <p (click)="cancelSubscription(currentSubscription?.id)" class="subscription-cancel">-->
+          <!--                            <i class="fas fa-ban"></i>-->
+          <!--                            Cancel subscription-->
+          <!--                        </p>-->
+          <!--                    </div>-->
         </div>
-    </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
 
-    <ng-container *ngIf="(purchasedSubscriptions$ | async) as purchasedSubscriptions">
-        <div class="payment-methods-container px-8 py-4 my-2 w-100 subcription-class">
-            <div class="d-flex justify-content-between align-items-center">
-                <h2 class="py-4">All Subscriptions</h2>
-            </div>
+  <ng-container
+    *ngIf="purchasedSubscriptions$ | async as purchasedSubscriptions"
+  >
+    <div
+      class="payment-methods-container px-8 py-4 my-2 w-100 subcription-class"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="py-4">All Subscriptions</h2>
+      </div>
 
-            <!--if subscriptions list is empty-->
-            <div *ngIf="!purchasedSubscriptions || purchasedSubscriptions?.length === 0" class="py-4"><p>No previous subscriptions</p></div>
+      <!--if subscriptions list is empty-->
+      <div
+        *ngIf="!purchasedSubscriptions || purchasedSubscriptions?.length === 0"
+        class="py-4"
+      >
+        <p>No previous subscriptions</p>
+      </div>
 
-            <!--list of subscription-->
-            <div *ngFor="let subscription of purchasedSubscriptions" class="my-2 experiences-card-class d-flex">
-                <div class="col-6 col-sm-6 col-md-7 col-lg-9 p-2 align-items-center">
-                    <h4>Status: {{subscription?.expirationDate < (currentDate | date:'yyyy-MM-dd') ? 'Expired' : 'Active'}}</h4>
-                    <p>{{subscription?.purchasedDate | date: 'dd MMM y'}} - {{subscription?.expirationDate | date: 'dd MMM y'}}</p>
-                </div>
-                <div class="d-flex blue col-4 col-sm-3 col-md-3 col-lg-2 justify-content-center align-items-center p-3">
-                    <div  class="d-flex col-lg-9 justify-content-center">
-                        <h4>{{subscription?.currency | uppercase}} {{subscription?.purchasedPrice}}</h4>
-                    </div>
-                </div>
-                <div class="d-flex col-2 col-sm-3 col-md-2 col-lg-1 align-items-center justify-content-center px-0 py-3" [matMenuTriggerFor]="subscriptionsMenu">
-                    <div  class="col-lg-3 d-flex justify-content-center">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </div>
-                <mat-menu #subscriptionsMenu="matMenu">
-                    <button mat-menu-item (click)="downloadBill(subscription?.bill?.series, subscription?.bill?.number)">
-                        <i class="fas fa-file"></i>
-                        Descarcă factura
-                    </button>
-                </mat-menu>
-            </div>
+      <!--list of subscription-->
+      <div
+        *ngFor="let subscription of purchasedSubscriptions"
+        class="my-2 experiences-card-class d-flex"
+      >
+        <div class="col-6 col-sm-6 col-md-7 col-lg-9 p-2 align-items-center">
+          <h4>
+            Status:
+            {{
+              subscription?.expirationDate < (currentDate | date : "yyyy-MM-dd")
+                ? "Expired"
+                : "Active"
+            }}
+          </h4>
+          <p>
+            {{ subscription?.purchasedDate | date : "dd MMM y" }} -
+            {{ subscription?.expirationDate | date : "dd MMM y" }}
+          </p>
         </div>
-    </ng-container>
+        <div
+          class="d-flex blue col-4 col-sm-3 col-md-3 col-lg-2 justify-content-center align-items-center p-3"
+        >
+          <div class="d-flex col-lg-9 justify-content-center">
+            <h4>
+              {{ subscription?.currency | uppercase }}
+              {{ subscription?.purchasedPrice }}
+            </h4>
+          </div>
+        </div>
+        <div
+          class="d-flex col-2 col-sm-3 col-md-2 col-lg-1 align-items-center justify-content-center px-0 py-3"
+          [matMenuTriggerFor]="subscriptionsMenu"
+        >
+          <div class="col-lg-3 d-flex justify-content-center">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+        <mat-menu #subscriptionsMenu="matMenu">
+          <button
+            mat-menu-item
+            (click)="
+              downloadBill(
+                subscription?.bill?.series,
+                subscription?.bill?.number
+              )
+            "
+          >
+            <i class="fas fa-file"></i>
+            Descarcă factura
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </ng-container>
 </div>

@@ -1,25 +1,17 @@
+import { HolidayListingComponent } from "./../../components/holiday-listing/holiday-listing.component";
 import { NgModule } from "@angular/core";
-import {CommonModule, NgOptimizedImage} from "@angular/common";
-import { NavBarComponent } from 'src/app/components/nav-bar/nav-bar.component';
-import {
-  EventDetailsMainComponent
-} from 'src/app/standalone-components/event-details-main/event-details-main.component';
-import { EventDetailsComponent } from 'src/app/standalone-components/event-details/event-details.component';
-import { EventsTicketsComponent } from 'src/app/standalone-components/events-tickets/events-tickets.component';
-import {
-  PaymentProcessingComponent
-} from 'src/app/standalone-components/payment-processing/payment-processing.component';
+import { CommonModule, NgOptimizedImage } from "@angular/common";
+import { NavBarComponent } from "src/app/components/nav-bar/nav-bar.component";
+import { EventDetailsMainComponent } from "src/app/standalone-components/event-details-main/event-details-main.component";
+import { EventDetailsComponent } from "src/app/standalone-components/event-details/event-details.component";
+import { EventsTicketsComponent } from "src/app/standalone-components/events-tickets/events-tickets.component";
+import { PaymentProcessingComponent } from "src/app/standalone-components/payment-processing/payment-processing.component";
 import { DeleteClientComponent } from "./delete-client/delete-client.component";
 import { RouterModule, Routes } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatLegacyFormFieldModule as MatFormFieldModule } from "@angular/material/legacy-form-field";
-import { MatLegacySelectModule as MatSelectModule } from "@angular/material/legacy-select";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
-import { MatLegacyCheckboxModule as MatCheckboxModule } from "@angular/material/legacy-checkbox";
 import { ClientPaymentMethodsComponent } from "./client-payment-methods/client-payment-methods.component";
 import { ClientComponent } from "./client-view/client.component";
 import { ClientBookingsComponent } from "./client-bookings/client-bookings.component";
@@ -60,11 +52,15 @@ import { CancelReservationModalComponent } from "../reservations/cancel-reservat
 import { FlightBookingsComponent } from "./client-bookings/flight-bookings/flight-bookings.component";
 import { FlightReservationsListComponent } from "../reservations/flight-reservations-list/flight-reservations-list.component";
 import { FooterNewComponent } from "src/app/components/footer/footer.component";
-import {FeatureEditorialsComponent} from "../../components/feature-editorials/feature-editorials.component";
+import { FeatureEditorialsComponent } from "../../components/feature-editorials/feature-editorials.component";
 import * as path from "path";
-import {
-  FeatureEditorialsContentComponent
-} from "../../components/feature-editorials/feature-editorials-content/feature-editorials-content.component";
+import { FeatureEditorialsContentComponent } from "../../components/feature-editorials/feature-editorials-content/feature-editorials-content.component";
+import { HolidayComponent } from "../holidays/holiday.component";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatButtonModule } from "@angular/material/button";
+import { MatMenuModule } from "@angular/material/menu";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/compiler";
 
 export const routes: Routes = [
   {
@@ -79,12 +75,14 @@ export const routes: Routes = [
       {
         path: "event",
         loadComponent: () =>
-            import("src/app/standalone-components/event-details/event-details.component").then((m) => m.EventDetailsComponent),
+          import(
+            "src/app/standalone-components/event-details/event-details.component"
+          ).then((m) => m.EventDetailsComponent),
         children: [
           { path: "description", component: EventDetailsMainComponent },
           { path: "tickets", component: EventsTicketsComponent },
-          { path: "", redirectTo: "description", pathMatch: "full" }
-        ]
+          { path: "", redirectTo: "description", pathMatch: "full" },
+        ],
       },
       {
         path: "editorials",
@@ -96,7 +94,9 @@ export const routes: Routes = [
       {
         path: "payment-processing",
         loadComponent: () =>
-            import("src/app/standalone-components/payment-processing/payment-processing.component").then((m) => m.PaymentProcessingComponent),
+          import(
+            "src/app/standalone-components/payment-processing/payment-processing.component"
+          ).then((m) => m.PaymentProcessingComponent),
       },
       {
         path: "domain",
@@ -140,6 +140,10 @@ export const routes: Routes = [
       { path: "inbox/:idConversation", component: ViewClientMessagesComponent },
       { path: "all-notifications", component: AllNotificationsComponent },
       {
+        path: "holidays",
+        component: HolidayComponent,
+      },
+      {
         path: "my-forum",
         loadChildren: () =>
           import("../forums/forums.module").then((m) => m.ForumsModule),
@@ -182,7 +186,7 @@ export const routes: Routes = [
     ClientTripBookingsComponent,
     ItineraryBookingsComponent,
     TrialActiveComponent,
-    FlightBookingsComponent
+    FlightBookingsComponent,
   ],
   exports: [UserDataComponent],
   imports: [
@@ -192,13 +196,8 @@ export const routes: Routes = [
     TranslateModule,
     ReactiveFormsModule,
     FormsModule,
-    MatFormFieldModule,
-    MatSelectModule,
     MatIconModule,
     MatDatepickerModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule,
     SharedModule,
     FooterComponent,
     HeaderComponent,
@@ -212,9 +211,12 @@ export const routes: Routes = [
     UserSettingsComponent,
     FooterNewComponent,
     NavBarComponent,
+    MatMenuModule,
+    MatButtonModule,
     // ReservationsModule,
-
     // ReservationsModule
   ],
+  providers: [],
+  bootstrap: [],
 })
 export class RoleClientModule {}
