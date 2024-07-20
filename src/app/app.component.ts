@@ -160,7 +160,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     //Redirect to the old hompage...
-    this.router.navigate(["/old-homepage"]);
+    // this.router.navigate(["/old-homepage"]);
   }
 
   ngAfterViewInit() {

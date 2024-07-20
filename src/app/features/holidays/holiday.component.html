@@ -102,7 +102,7 @@
     </div>
     <div class="col-md-12 d-flex flex-wrap holiday-list-container">
       <ng-container *ngFor="let item of holidayList; let i = index">
-        <div class="holiday-item-container">
+        <div class="holiday-item-container" (click)="goToBookingPage(i)">
           <app-holiday-listing [holiday]="item"></app-holiday-listing>
         </div>
       </ng-container>

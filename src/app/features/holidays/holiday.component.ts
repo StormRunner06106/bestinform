@@ -41,7 +41,11 @@ export class HolidayComponent implements OnInit {
   isSearch: boolean = false;
   isFocused: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     for (let i = 0; i < 30; i++) {
@@ -62,6 +66,12 @@ export class HolidayComponent implements OnInit {
     if (window.innerWidth < 1248) {
       this.isSearch = true;
     }
+  }
+
+  goToBookingPage(index: number) {
+    this.router.navigate([
+      `client/dashboard/holidays/${this.holidayList[index].location}`,
+    ]);
   }
 
   renderCssForFilter(param: string): { [key: string]: boolean } {

@@ -12,7 +12,7 @@ import { ToastService } from "./toast.service";
 import { Route, Router } from "@angular/router";
 import { filter, switchMap, take } from "rxjs/operators";
 import { ReportsService } from "../../features/reports/_services/reports.service";
-import {environment} from "../../../environments/environment";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class UniversalAppInterceptor implements HttpInterceptor {
@@ -79,7 +79,8 @@ export class UniversalAppInterceptor implements HttpInterceptor {
         ) {
           console.log("NOT LOGGED IN");
           // this.toastService.showToast('Eroare', 'Sesiunea ta a expirat! Te rugam sa te loghezi din nou.', 'error');
-          this.router.navigate(["/old-homepage"]); // Redirect to homepage
+
+          //   this.router.navigate(["/old-homepage"]); // Redirect to homepage
         } else {
           return throwError(error);
         }

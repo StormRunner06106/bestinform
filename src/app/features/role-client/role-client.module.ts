@@ -1,3 +1,4 @@
+import { HolidayBookComponent } from "./../holiday-book/holiday-book.component";
 import { HolidayListingComponent } from "./../../components/holiday-listing/holiday-listing.component";
 import { NgModule } from "@angular/core";
 import { CommonModule, NgOptimizedImage } from "@angular/common";
@@ -142,6 +143,10 @@ export const routes: Routes = [
       {
         path: "holidays",
         component: HolidayComponent,
+      },
+      {
+        path: "holidays/:id",
+        component: HolidayBookComponent,
       },
       {
         path: "my-forum",
