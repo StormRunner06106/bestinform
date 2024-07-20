@@ -6,6 +6,9 @@ import { MatMenuModule } from "@angular/material/menu";
 import { Router } from "@angular/router";
 import { PaginatorModule } from "primeng/paginator";
 import { DomainListingModule } from "../domain-listing/domain-listing.module";
+import { MatCheckbox, MatCheckboxModule } from "@angular/material/checkbox";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatSliderModule } from "@angular/material/slider";
 
 @Component({
   selector: "app-holiday-book",
@@ -16,15 +19,21 @@ import { DomainListingModule } from "../domain-listing/domain-listing.module";
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    MatCheckboxModule,
+    MatRadioModule,
     DomainListingModule,
     NgFor,
     PaginatorModule,
     NgClass,
     NgStyle,
+    MatSliderModule,
   ],
 })
 export class HolidayBookComponent implements OnInit {
   locationName: string = "";
+  checked1 = true;
+  checked2 = false;
+  selectedOption = "option1";
   constructor(private router: Router) {}
   ngOnInit() {
     console.log(this.router);

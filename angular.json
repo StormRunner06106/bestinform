@@ -62,24 +62,20 @@
               "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
               "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
               "src/styles.scss",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/ngx-sharebuttons/themes/circles.scss",
               "node_modules/ngx-sharebuttons/themes/modern.scss",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/cookieconsent/build/cookieconsent.min.css",
               "./node_modules/intl-tel-input/build/css/intlTelInput.css"
-
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/apexcharts/dist/apexcharts.min.js",
               "node_modules/cookieconsent/build/cookieconsent.min.js"
-
-
             ],
-            "allowedCommonJsDependencies": [
-              "ngx-embed-video"
-            ],
+            "allowedCommonJsDependencies": ["ngx-embed-video"],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
@@ -153,9 +149,7 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },
@@ -212,9 +206,7 @@
           "options": {
             "browserTarget": "bestinform:build:production",
             "serverTarget": "bestinform:server:production",
-            "routes": [
-              "/"
-            ]
+            "routes": ["/"]
           },
           "configurations": {
             "production": {}
@@ -223,10 +215,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -234,8 +223,6 @@
   },
   "cli": {
     "analytics": false,
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

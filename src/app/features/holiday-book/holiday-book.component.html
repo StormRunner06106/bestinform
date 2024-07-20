@@ -1,4 +1,4 @@
-<div class="container w-100 m-0">
+<div class="container w-100 m-0 mw-100 p-0">
   <div class="row">
     <div class="col-12 col-md-12">
       <div class="overlay-image-box">
@@ -12,209 +12,384 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-3 col-md-12">
-      <div class="sidebar-container">
-        <div class="container p-0 m-0">
-          <div class="row col-12 col-md-12 bottom-dotted">
-            <h1>Cautare</h1>
-          </div>
-          <div class="row col-12 col-md-12">
-            <p class="transport"></p>
-            <div class="radio-container">
-              <!-- Check Box -->
-              <mat-icon class="transport-type">plane</mat-icon>
-              <span class="transport-text">Avion</span>
-            </div>
-            <div class="radio-container">
-              <!-- Check Box -->
-              <mat-icon class="transport-type">car</mat-icon>
-              <span class="transport-text">Individual</span>
-            </div>
-          </div>
-          <div class="row col-12 col-md-12">
-            <div class="form-container">
-              <label class="form-title">Destinatie</label>
-              <input type="text" class="form-filter-text" />
-            </div>
-            <div class="form-container">
-              <label class="form-title">Oras plecare</label>
-              <select class="form-filter-select">
-                <option value="">Bucuresti</option>
-              </select>
-            </div>
-            <div class="form-container">
-              <label class="form-title">Data plecare</label>
-              <input type="text" class="form-filter-select" />
-            </div>
-            <div class="form-container">
-              <label class="form-title">Nopti</label>
-              <select class="form-filter-select">
-                <option value="">1 noapte</option>
-              </select>
-            </div>
-          </div>
-          <div class="row col-12 col-md-12">
-            <h1>Turisti</h1>
-          </div>
-          <div class="row">
-            <div class="col-6 col-md-6">
-              <select class="form-filter-select">
-                <option value="">2 adulti</option>
-              </select>
-            </div>
-            <div class="col-6 col-md-6">
-              <select class="form-filter-select">
-                <option value="">nu</option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <button mat-button class="search-button">CAUTA</button>
-          </div>
-        </div>
-      </div>
-      <div class="sidebar-container">
-        <div class="map-container"></div>
-      </div>
-      <div class="sidebar-container">
-        <div class="row">
-          <div class="col-12 col-md-12 bottom-dotted">
-            <h1>Filtre</h1>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-md-12">
-            <div class="form-container">
-              <label class="form-title">Hotel</label>
-              <input type="text" class="form-filter-select" />
-            </div>
-            <div class="form-container">
-              <label class="form-title">Locatie</label>
-              <div class="radio-container">
-                <!-- Radio box here -->
-                <span class="radio-name">Atena</span>
-              </div>
-              <div class="radio-container">
-                <!-- Radio box here -->
-                <span class="radio-name">Pireu</span>
+  <div class="container full-container">
+    <div class="row">
+      <div class="col-3 col-md-3 p-4">
+        <div class="sidebar-container">
+          <div class="container p-4 m-0">
+            <div class="row">
+              <div class="col-12 col-md-12 bottom-dotted">
+                <h1>Cautare</h1>
               </div>
             </div>
-            <div class="form-container">
-              <label class="form-title">Nr. nopti</label>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">2 nopti</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">3 nopti</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">5 nopti</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">7 nopti</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">9 nopti</span>
-              </div>
-            </div>
-            <p class="transport"></p>
-            <div class="radio-container">
-              <!-- Check Box -->
-              <mat-icon class="transport-type">plane</mat-icon>
-              <span class="transport-text">Avion</span>
-            </div>
-            <div class="form-container">
-              <label class="form-title">Tip masa</label>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Mic Dejun</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Fara Masa</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Buffet Breakfast Included</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Breakfast for Two</span>
+            <div class="row mt-2">
+              <div class="col-12 col-md-12">
+                <p class="transport">Transport</p>
+                <mat-radio-group [(ngModel)]="selectedOption">
+                  <div class="radio-container">
+                    <mat-radio-button
+                      class="t-radio"
+                      value="option1"
+                    ></mat-radio-button>
+                    <mat-icon class="transport-type">flight</mat-icon>
+                    <span class="transport-text">Avion</span>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-button
+                      class="t-radio"
+                      value="option2"
+                    ></mat-radio-button>
+                    <mat-icon class="transport-type"> directions_car </mat-icon>
+                    <span class="transport-text">Individual</span>
+                  </div>
+                </mat-radio-group>
               </div>
             </div>
-            <div class="form-container">
-              <label class="form-title">Pret</label>
-              <div class="w-100">
-                <!-- Progress bar here -->
+            <div class="row">
+              <div class="col-12 col-md-12">
+                <div class="form-container">
+                  <label class="form-title">Destinatie</label>
+                  <input type="text" class="form-filter-text" />
+                </div>
+                <div class="form-container">
+                  <label class="form-title">Oras plecare</label>
+                  <select class="form-filter-select">
+                    <option value="">Bucuresti</option>
+                  </select>
+                </div>
+                <div class="form-container">
+                  <label class="form-title">Data plecare</label>
+                  <input type="text" class="form-filter-select" />
+                </div>
+                <div class="form-container">
+                  <label class="form-title">Nopti</label>
+                  <select class="form-filter-select">
+                    <option value="">1 noapte</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <div class="form-container">
-              <label class="form-title"> Nr. stele </label>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">
-                  <!-- 5 star icons here -->
-                </span>
+            <div class="row">
+              <div class="col-12 col-md-12">
+                <h1 class="big-sub-title">Turisti</h1>
               </div>
             </div>
-            <div class="form-container">
-              <label class="form-title">Recenzii</label>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Exceptional: 9.6+</span>
+            <div class="row">
+              <div class="col-6 col-md-6">
+                <div class="form-container m-0">
+                  <label class="form-title">Adulti</label>
+                  <select class="form-filter-select">
+                    <option value="">2 adulti</option>
+                  </select>
+                </div>
               </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Superb: 9+</span>
+              <div class="col-6 col-md-6">
+                <div class="form-container m-0">
+                  <label class="form-title">Copii</label>
+                  <select class="form-filter-select">
+                    <option value="">nu</option>
+                  </select>
+                </div>
               </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Fabulos: 8.6+</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Foarte bine: 8+</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Bine: 7+</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Placut 6+</span>
-              </div>
-              <div class="check-container">
-                <!-- Check box here -->
-                <span class="check-name">Toate</span>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button mat-button class="search-button mt-4 w-100">
+                  CAUTA
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="sidebar-container">
-        <div class="row">
-          <div class="col-12 col-md-12 bottom-dotted">
-            <h1>Alte destinatii</h1>
+        <div class="sidebar-container">
+          <div class="map-container"></div>
+        </div>
+        <div class="sidebar-container">
+          <div class="container p-4 m-0">
+            <div class="row">
+              <div class="col-12 col-md-12 bottom-dotted">
+                <h1>Filtre</h1>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-12">
+                <div class="form-container">
+                  <label class="form-title">Hotel</label>
+                  <input type="text" class="form-filter-select" />
+                </div>
+                <div class="form-container">
+                  <label class="form-title">Locatie</label>
+                  <mat-radio-group [(ngModel)]="selectedOption">
+                    <div class="radio-container">
+                      <mat-radio-button
+                        class="t-radio"
+                        value="option1"
+                      ></mat-radio-button>
+                      <span class="radio-name">Atena</span>
+                    </div>
+                    <div class="radio-container">
+                      <mat-radio-button
+                        class="t-radio"
+                        value="option2"
+                      ></mat-radio-button>
+                      <span class="radio-name">Pireu</span>
+                    </div>
+                  </mat-radio-group>
+                </div>
+                <div class="form-container">
+                  <label class="form-title">Nr. nopti</label>
+                  <div class="check-container">
+                    <mat-checkbox>2 nopti</mat-checkbox>
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox>3 nopti</mat-checkbox>
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox>5 nopti</mat-checkbox>
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox>7 nopti</mat-checkbox>
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox>9 nopti</mat-checkbox>
+                  </div>
+                </div>
+                <p class="transport">Transport</p>
+                <div class="radio-container">
+                  <mat-radio-button
+                    class="t-radio"
+                    value="option1"
+                  ></mat-radio-button>
+                  <mat-icon class="transport-type">flight</mat-icon>
+                  <span class="transport-text">Avion</span>
+                </div>
+                <div class="form-container">
+                  <label class="form-title">Tip masa</label>
+                  <div class="check-container">
+                    <mat-checkbox>Mic Dejun</mat-checkbox>
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox>Fara Masa</mat-checkbox>
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox>Buffet Breakfast Included</mat-checkbox>
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox>Breakfast for Two</mat-checkbox>
+                  </div>
+                </div>
+                <div class="form-container">
+                  <label class="form-title">Pret</label>
+                  <div class="w-100">
+                    <mat-slider min="200" max="500" class="price-slider">
+                      <input value="300" matSliderStartThumb />
+                      <input value="400" matSliderEndThumb />
+                    </mat-slider>
+                    <p class="price-caption">1250$ ~ 2500$</p>
+                  </div>
+                </div>
+                <div class="form-container">
+                  <label class="form-title"> Nr. stele </label>
+                  <div class="check-container">
+                    <mat-checkbox class="review-check"
+                      ><span class="review-text">
+                        <mat-icon class="yellow-star">star</mat-icon>
+                      </span></mat-checkbox
+                    >
+                    <mat-checkbox class="review-check"
+                      ><span class="review-text">
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                      </span></mat-checkbox
+                    >
+                    <mat-checkbox class="review-check"
+                      ><span class="review-text">
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                      </span></mat-checkbox
+                    >
+                    <mat-checkbox class="review-check"
+                      ><span class="review-text">
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                      </span></mat-checkbox
+                    >
+                    <mat-checkbox class="review-check"
+                      ><span class="review-text">
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                      </span></mat-checkbox
+                    >
+                  </div>
+                </div>
+                <div class="form-container">
+                  <label class="form-title">Recenzii</label>
+                  <div class="check-container">
+                    <mat-checkbox
+                      ><span class="review-text"
+                        >Exceptional: 9.6+</span
+                      ></mat-checkbox
+                    >
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox
+                      ><span class="review-text">Superb: 9+</span></mat-checkbox
+                    >
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox
+                      ><span class="review-text"
+                        >Fabulos: 8.6+</span
+                      ></mat-checkbox
+                    >
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox
+                      ><span class="review-text"
+                        >Foarte bine: 8+</span
+                      ></mat-checkbox
+                    >
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox
+                      ><span class="review-text">Bine: 7+</span></mat-checkbox
+                    >
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox
+                      ><span class="review-text">Placut 6+</span></mat-checkbox
+                    >
+                  </div>
+                  <div class="check-container">
+                    <mat-checkbox
+                      ><span class="review-text">Toate</span></mat-checkbox
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="destination-block">
-            <ul class="destination-list">
-              <li class="destination-item">Paros</li>
-              <li class="destination-item">Kefalonia</li>
-              <li class="destination-item">Thassos</li>
-            </ul>
-          </div>
-          <div class="see-more">
-            <button class="see-more-btn"></button>
+        </div>
+        <div class="sidebar-container">
+          <div class="container p-4 m-0">
+            <div class="row">
+              <div class="col-12 col-md-12 bottom-dotted">
+                <h1>Alte destinatii</h1>
+              </div>
+              <div class="destination-block">
+                <ul class="destination-list">
+                  <li class="destination-item">Paros</li>
+                  <li class="destination-item">Kefalonia</li>
+                  <li class="destination-item">Thassos</li>
+                </ul>
+              </div>
+              <div class="see-more">
+                <button class="see-more-btn">Afiseaza mai multe</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-9 col-md-12"></div>
+      <div class="col-9 col-md-9 p-2">
+        <div class="listing-container container w-100 p-4 m-0">
+          <div class="listing-breadcumb">
+            <a>Tourism agency</a> / <a>Greece</a>
+          </div>
+          <div class="listing-header">
+            <div class="listing-header-block">
+              <div class="listing-header-line">
+                <h2 class="h-title">
+                  Holidays in the Athens Region from 599 euros
+                </h2>
+                <p class="order-by">Order by:</p>
+              </div>
+              <div class="listing-header-line">
+                <div class="area-map">
+                  <i class="fa fa-map"></i>
+                  <span class="listing-header-text">See on the map</span>
+                </div>
+                <div class="recommendation">
+                  <span class="listing-header-text"
+                    >Karpaten recommendation</span
+                  >
+                  <i class="fa fa-caret-down"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="listing-content">
+            <div class="item-thumbnail">
+              <div class="container w-100 row">
+                <div class="col-3 col-md-3">
+                  <img src="" class="thumb-img" />
+                </div>
+                <div class="col-9 col-md-9">
+                  <div class="t-main-container">
+                    <div class="t-header">
+                      <div class="t-main-start">
+                        <div class="t-location">
+                          Stay Athens Region, Piraeus Offer 2024 - 2025
+                        </div>
+                        <div class="t-main-title">
+                          Gallery Suites & Residences
+                        </div>
+                      </div>
+                      <div class="t-main-end">
+                        <p class="price">$599</p>
+                        <span class="pers-stay">/pers/stay</span>
+                      </div>
+                    </div>
+                    <div class="t-review">
+                      <div class="t-stars">
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                        <mat-icon class="yellow-star">star</mat-icon>
+                      </div>
+                      <div class="exception">Exceptional 9.6</div>
+                    </div>
+                    <div class="container w-100 p-0 m-0 categories">
+                      <div class="c-item">
+                        <mat-icon class="category-icon">flight</mat-icon>
+                        <span class="category-text">Flights: </span>
+                        <span class="category-val">Bucharest</span>
+                      </div>
+                      <div class="c-item">
+                        <mat-icon class="category-icon">hotel</mat-icon>
+                        <span class="category-text">Double room</span>
+                      </div>
+                      <div class="c-item">
+                        <mat-icon class="category-icon">restaurant</mat-icon>
+                        <span class="category-text">No Table</span>
+                      </div>
+                    </div>
+                    <div class="t-footer">
+                      <div class="extendable">
+                        <div class="extendable-item">
+                          <span class="ex-text">Included services</span>
+                          <span class="ex-icon">
+                            <i class="fa fa-caret-down"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="book-now">
+                        <button mat-button class="boot-now-btn">
+                          BOOK NOW
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

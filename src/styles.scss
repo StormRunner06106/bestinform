@@ -1,3 +1,5 @@
+@import "custom-theme";
+
 /* You can add global styles to this file, and also import other style files */
 @font-face {
   font-family: "Avenir";
@@ -59,8 +61,7 @@
 @import "ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
 
 @import "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0";
-@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
-
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
 ::ng-deep {
   .cdk-global-overlay-wrapper,
@@ -108,7 +109,7 @@ a.message-link:hover {
 }
 
 .h3-black {
-  color: #4257EE;
+  color: #4257ee;
   font-size: 30px;
   margin: unset;
   font-weight: 900;
@@ -229,7 +230,7 @@ a.message-link:hover {
   color: white;
 }
 .color-primary {
-  color: #4257EE;
+  color: #4257ee;
 }
 .ellipsis {
   /* Display text in a single line */
@@ -250,22 +251,22 @@ a.message-link:hover {
   background-color: white;
 }
 .bst-grey {
-  color: #8E96D4;
+  color: #8e96d4;
 }
 .bst-grey-85 {
   color: #515478;
 }
 .bst-gold {
-  color: #CDA840;
+  color: #cda840;
 }
 .bst-blue {
-  color: #4257EE;
+  color: #4257ee;
 }
 .bst-green {
-  color: #1AFF00;
+  color: #1aff00;
 }
 .bst-pink {
-  color: #FDA29B;
+  color: #fda29b;
 }
 .bst-white {
   color: white;
