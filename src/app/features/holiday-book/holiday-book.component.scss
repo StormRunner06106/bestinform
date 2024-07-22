@@ -19,7 +19,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 11;
+  z-index: 12;
 }
 
 .centered-top-title {
@@ -231,6 +231,7 @@
   margin-right: 10px;
   color: #4257ee;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .listing-header-text {
@@ -242,6 +243,7 @@
 .recommendation {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .recommendation i {
@@ -254,143 +256,4 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-}
-
-.item-thumbnail {
-  width: 100%;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.05) !important;
-  margin: 5px 0px;
-}
-
-.thumb-img {
-  width: 100%;
-  height: 100%;
-}
-
-.t-main-container {
-  width: 100%;
-  padding: 15px;
-}
-
-.t-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.t-main-start {
-  display: inline-block;
-}
-
-.t-location {
-  color: #858886;
-  font-size: 20px;
-  margin-bottom: 15px;
-}
-
-.t-main-title {
-  color: black;
-  font-size: 36px;
-  font-weight: bold;
-}
-
-.t-main-end {
-  display: inline-block;
-}
-
-.price {
-  font-size: 45px;
-  color: #273d92;
-  margin: 0px;
-}
-
-.pers-stay {
-  font-size: 16px;
-  color: #858886;
-}
-
-.t-review {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.t-stars {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.exception {
-  font-size: 20px;
-  color: #273d92;
-  font-weight: bold;
-}
-
-.categories {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.c-item {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.category-icon {
-  font-size: 16px;
-  color: #858886;
-  margin-right: 5px;
-}
-
-.category-text {
-  font-size: 16px;
-  color: #858886;
-}
-
-.category-val {
-  font-size: 16px;
-  color: #858886;
-  text-decoration: underline;
-}
-
-.t-footer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.extendable {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.extendable-item {
-  display: inline-block;
-}
-
-.ex-text {
-  font-size: 16px;
-  color: #858886;
-  text-decoration: underline;
-  margin-right: 5px;
-}
-
-.ex-icon {
-  display: inline-block;
-}
-
-.ex-icon i {
-  font-size: 16px;
-  color: #858886;
-}
-
-.book-now {
-  padding: 32px;
-  font-size: 18px;
-  color: white;
-  background-color: #4257ee;
-  border-radius: 10px;
 }

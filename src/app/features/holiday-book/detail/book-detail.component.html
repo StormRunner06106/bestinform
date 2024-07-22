@@ -1,0 +1,120 @@
+<div class="container p-0 m-0 w-100 mw-100">
+  <div class="container full-container mt-4 mb-4">
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="carousel-gap">
+          <p-carousel
+            [value]="travels"
+            [numVisible]="1"
+            [numScroll]="1"
+            [showIndicators]="true"
+            [showNavigators]="true"
+            [orientation]="'horizontal'"
+            verticalViewPortHeight="60vh"
+            [classList]="['booking-carousel']"
+          >
+            <ng-template let-card pTemplate="card">
+              <img [src]="card.imageUrl" class="book-img" />
+            </ng-template>
+          </p-carousel>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="listing-breadcumb">
+          <a>Tourism Agency</a> / <a>Greece</a>
+        </div>
+        <div class="block">
+          <div class="big-info">
+            <div class="b-starting">
+              <div class="location-info">
+                <span class="mapping-text">Athens Region - </span
+                ><span class="mapping-icon">
+                  <i class="fa fa-map"></i>
+                  <span>See the map</span>
+                </span>
+              </div>
+              <p class="big-heading pb-2 m-0">COCO-MAT Hotel Nafsika Atena</p>
+              <div class="t-stars">
+                <mat-icon class="yellow-star">star</mat-icon>
+                <mat-icon class="yellow-star">star</mat-icon>
+                <mat-icon class="yellow-star">star</mat-icon>
+              </div>
+            </div>
+            <div class="b-ending">
+              <p class="price"><span>of the</span> 599$</p>
+              <span class="pers-stay">/pers/stay</span>
+            </div>
+          </div>
+          <div class="container main-container">
+            <div class="row mb-4">
+              <div class="col-12 col-md-12">
+                <div class="d-flex justify-content-center flex-wrap">
+                  <p class="middle-text text-align-center w-100">
+                    Choose transport type
+                  </p>
+                  <div class="switch-button m-auto">
+                    <div class="sw-cell active">
+                      <mat-icon>flight</mat-icon>
+                      <span>PLANE</span>
+                    </div>
+                    <div class="sw-cell">
+                      <mat-icon>directions_car</mat-icon>
+                      <span>INDIVIDUAL</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-12">
+                <p class="middle-text text-align-center">
+                  Choose the departure date
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-12">
+                <p class="middle-text color-grey w-100 text-align-center">
+                  Rates/person/package 7 nights Athens Region Charter - COCO-MAT
+                  Hotel Nafsika, departing from Bucharest, Athens Region
+                </p>
+                <div class="form-container-flex-2">
+                  <div class="form-container pe-4">
+                    <label class="form-title">Departure date</label>
+                    <input type="text" class="form-filter-text" />
+                  </div>
+                  <div class="form-container pl-4">
+                    <label class="form-title">No. nights</label>
+                    <select type="text" class="form-filter-text">
+                      <option>7</option>
+                    </select>
+                  </div>
+                  <p class="middle-text w-100 m-0 mt-4">
+                    Choose the employment structure
+                  </p>
+                  <div class="form-container pe-4">
+                    <label class="form-title">Adults</label>
+                    <select type="text" class="form-filter-text">
+                      <option>2</option>
+                    </select>
+                  </div>
+                  <div class="form-container pl-4">
+                    <label class="form-title">BOYS</label>
+                    <select type="text" class="form-filter-text">
+                      <option>0</option>
+                    </select>
+                  </div>
+                  <button mat-button class="default-button m-auto btn-mt">
+                    CHECK AVAILAVILITY
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

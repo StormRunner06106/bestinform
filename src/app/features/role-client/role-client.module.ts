@@ -62,6 +62,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/compiler";
+import { BookDetailComponent } from "../holiday-book/detail/book-detail.component";
 
 export const routes: Routes = [
   {
@@ -147,6 +148,10 @@ export const routes: Routes = [
       {
         path: "holidays/:id",
         component: HolidayBookComponent,
+      },
+      {
+        path: "holidays/:id/:categoryId",
+        component: BookDetailComponent,
       },
       {
         path: "my-forum",

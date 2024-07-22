@@ -5,16 +5,17 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { Router } from "@angular/router";
 import { PaginatorModule } from "primeng/paginator";
-import { DomainListingModule } from "../domain-listing/domain-listing.module";
+import { DomainListingModule } from "../../domain-listing/domain-listing.module";
 import { MatCheckbox, MatCheckboxModule } from "@angular/material/checkbox";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSliderModule } from "@angular/material/slider";
-import { BookingListingComponent } from "src/app/components/booking-list/booking-list.component";
+import { BookingListingComponent } from "../../../components/booking-list/booking-list.component";
+import { CarouselModule as PCarouselModule } from "primeng/carousel";
 
 @Component({
-  selector: "app-holiday-book",
-  templateUrl: "./holiday-book.component.html",
-  styleUrls: ["./holiday-book.component.scss"],
+  selector: "app-book-detail",
+  templateUrl: "./book-detail.component.html",
+  styleUrls: ["./book-detail.component.scss", "../holiday-book.component.scss"],
   standalone: true,
   imports: [
     MatButtonModule,
@@ -29,23 +30,23 @@ import { BookingListingComponent } from "src/app/components/booking-list/booking
     NgStyle,
     MatSliderModule,
     BookingListingComponent,
+    PCarouselModule,
   ],
 })
-export class HolidayBookComponent implements OnInit {
-  locationName: string = "";
-  checked1 = true;
-  checked2 = false;
-  selectedOption = "option1";
+export class BookDetailComponent implements OnInit {
+  travels: Array<any> = [];
   constructor(private router: Router) {}
   ngOnInit() {
-    console.log(this.router);
-    const urlItems: Array<string> = this.router.url.split("/");
-    this.locationName = urlItems[urlItems.length];
-
-    //Post API
-  }
-
-  toDetail() {
-    this.router.navigateByUrl(this.router.url + "/ffwfewfdfweff");
+    this.travels = [
+      {
+        imageUrl: "../../../../assets/images/travels/devino-provider-min.jpg",
+      },
+      {
+        imageUrl: "../../../../assets/images/travels/editorial-banner-min.jpg",
+      },
+      {
+        imageUrl: "../../../../assets/images/travels/homepage.jpg",
+      },
+    ];
   }
 }

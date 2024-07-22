@@ -161,6 +161,8 @@ import { EventCardMobileComponent } from "src/app/components/event-card-mobile/e
 import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import { HolidayCardComponent } from "src/app/components/holiday-card/holiday-card.component";
 import { HolidayListingComponent } from "src/app/components/holiday-listing/holiday-listing.component";
+import { BookingListingComponent } from "src/app/components/booking-list/booking-list.component";
+import { MatButtonModule } from "@angular/material/button";
 
 export const routes: Routes = [
   {

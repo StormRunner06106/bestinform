@@ -2,12 +2,17 @@
   <div class="row">
     <div class="col-12 col-md-12">
       <div class="overlay-image-box">
-        <img src="" class="overlay-image" />
-        <div class="centered-title-box">
-          <p class="p-0 m-0 centered-top-title">
-            OFERTE VACANTE SI SEJURURI IN
-          </p>
-          <p class="p-0 m-0 centered-bottom-title">Regiunea Atena</p>
+        <img
+          src="../../../assets/images/others/free-trial-section-1.png"
+          class="overlay-image"
+        />
+        <div class="overlay-pan">
+          <div class="centered-title-box">
+            <p class="p-0 m-0 centered-top-title">
+              OFERTE VACANTE SI SEJURURI IN
+            </p>
+            <p class="p-0 m-0 centered-bottom-title">Regiunea Atena</p>
+          </div>
         </div>
       </div>
     </div>
@@ -324,69 +329,18 @@
             </div>
           </div>
           <div class="listing-content">
-            <div class="item-thumbnail">
-              <div class="container w-100 row">
-                <div class="col-3 col-md-3">
-                  <img src="" class="thumb-img" />
-                </div>
-                <div class="col-9 col-md-9">
-                  <div class="t-main-container">
-                    <div class="t-header">
-                      <div class="t-main-start">
-                        <div class="t-location">
-                          Stay Athens Region, Piraeus Offer 2024 - 2025
-                        </div>
-                        <div class="t-main-title">
-                          Gallery Suites & Residences
-                        </div>
-                      </div>
-                      <div class="t-main-end">
-                        <p class="price">$599</p>
-                        <span class="pers-stay">/pers/stay</span>
-                      </div>
-                    </div>
-                    <div class="t-review">
-                      <div class="t-stars">
-                        <mat-icon class="yellow-star">star</mat-icon>
-                        <mat-icon class="yellow-star">star</mat-icon>
-                        <mat-icon class="yellow-star">star</mat-icon>
-                      </div>
-                      <div class="exception">Exceptional 9.6</div>
-                    </div>
-                    <div class="container w-100 p-0 m-0 categories">
-                      <div class="c-item">
-                        <mat-icon class="category-icon">flight</mat-icon>
-                        <span class="category-text">Flights: </span>
-                        <span class="category-val">Bucharest</span>
-                      </div>
-                      <div class="c-item">
-                        <mat-icon class="category-icon">hotel</mat-icon>
-                        <span class="category-text">Double room</span>
-                      </div>
-                      <div class="c-item">
-                        <mat-icon class="category-icon">restaurant</mat-icon>
-                        <span class="category-text">No Table</span>
-                      </div>
-                    </div>
-                    <div class="t-footer">
-                      <div class="extendable">
-                        <div class="extendable-item">
-                          <span class="ex-text">Included services</span>
-                          <span class="ex-icon">
-                            <i class="fa fa-caret-down"></i>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="book-now">
-                        <button mat-button class="boot-now-btn">
-                          BOOK NOW
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <app-booking-list
+              style="width: 100%"
+              (click)="toDetail()"
+            ></app-booking-list>
+            <app-booking-list
+              style="width: 100%"
+              (click)="toDetail()"
+            ></app-booking-list>
+            <app-booking-list
+              style="width: 100%"
+              (click)="toDetail()"
+            ></app-booking-list>
           </div>
         </div>
       </div>
