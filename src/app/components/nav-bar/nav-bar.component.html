@@ -1,11 +1,24 @@
-<header [ngClass]="isClientDomain ? 'absolute' : 'relative'" style="z-index: 100">
+<header
+  [ngClass]="isClientDomain ? 'absolute' : 'relative'"
+  style="z-index: 100"
+>
   <nav class="max-width-wrapper">
     <a [routerLink]="navLink">
-      <img src="assets/images/logos/main-logo.svg" width="143" height="32" alt="logo">
+      <img
+        src="assets/images/logos/main-logo.svg"
+        width="143"
+        height="32"
+        alt="logo"
+      />
     </a>
     <!-- <p-menubar [model]="items"></p-menubar> -->
     <div class="alert-group">
-      <button class="notification" [matMenuTriggerFor]="notifMenu" #notifMenuTrigger="matMenuTrigger" matTooltip="Vezi notificări">
+      <button
+        class="notification"
+        [matMenuTriggerFor]="notifMenu"
+        #notifMenuTrigger="matMenuTrigger"
+        matTooltip="Vezi notificări"
+      >
         <mat-icon
           class="notification__icon"
           matBadgeColor="warn"
@@ -18,64 +31,85 @@
       </button>
 
       <div class="user-icon-button" (click)="openUserSettings()">
-        <img  [src]="userAvatar" />
+        <img [src]="userAvatar" />
       </div>
     </div>
   </nav>
-  <mat-menu #notifMenu="matMenu" [overlapTrigger]="false" xPosition="before"
-            class="notif-menu asd py-0 my-0 ph-dropdown-inner">
-
-                <span (mouseleave)="notifMenuTrigger.closeMenu()">
-
-                    <!-- <div class="containerNotificationHeader d-flex align-items-baseline justify-content-between">
+  <mat-menu
+    #notifMenu="matMenu"
+    [overlapTrigger]="false"
+    xPosition="before"
+    class="notif-menu asd py-0 my-0 ph-dropdown-inner"
+  >
+    <span (mouseleave)="notifMenuTrigger.closeMenu()">
+      <!-- <div class="containerNotificationHeader d-flex align-items-baseline justify-content-between">
                         <h6 class="top-bottom">{{unreadMessages}} notifications unread</h6>
                         <a class="top-bottom d-flex justify-content-end align-items-center" (click)="markAllNotificationAsRead()">
                             <i class="fas fa-check-double me-2"></i>Mark as read
                         </a>
                     </div> -->
-                  <!-- <a class="top-bottom d-flex justify-content-end align-items-center" (click)="markAllNotificationAsRead()">
+      <!-- <a class="top-bottom d-flex justify-content-end align-items-center" (click)="markAllNotificationAsRead()">
                           <i class="fas fa-check-double me-2"></i>Mark as read
                   </a> -->
 
-                  <!-- <div class="divider my-2"></div> -->
+      <!-- <div class="divider my-2"></div> -->
 
-                  <!--nou-->
+      <!--nou-->
 
-                    <div class="header-notifications d-flex justify-content-between align-item-center">
-                        <h5>{{unreadMessages}} notifications unread</h5>
-                        <h6 (click)="markAllNotificationAsRead()"><i class="fas fa-check-double"></i> Mark as read</h6>
-                    </div>
+      <div
+        class="header-notifications d-flex justify-content-between align-item-center"
+      >
+        <h5>{{ unreadMessages }} notifications unread</h5>
+        <h6 (click)="markAllNotificationAsRead()">
+          <i class="fas fa-check-double"></i> Mark as read
+        </h6>
+      </div>
 
-                    <div class="all-notifications" *ngIf="notificationsList.length > 0">
-                        <div *ngFor="let notification of notificationsList"
-                             (click)="goToNotificationObject(notification)"
-                             class="notification-single-card"
-                             [ngClass]="{'read-bkg' : notification.read === true,
-                                         'unread-bkg' : notification.read === false}" >
-                            <div class="d-flex justify-content-between">
-                                <!--notification data-->
-                                <div class="d-flex justify-content-start align-item-center">
-                                    <img class="icon-notif" src="{{notification?.icon?.filePath}}">
-                                  <!-- <i class="fas fa-check icon-notif"></i> -->
+      <div class="all-notifications" *ngIf="notificationsList.length > 0">
+        <div
+          *ngFor="let notification of notificationsList"
+          (click)="goToNotificationObject(notification)"
+          class="notification-single-card"
+          [ngClass]="{
+            'read-bkg': notification.read === true,
+            'unread-bkg': notification.read === false
+          }"
+        >
+          <div class="d-flex justify-content-between">
+            <!--notification data-->
+            <div class="d-flex justify-content-start align-item-center">
+              <img
+                class="icon-notif"
+                src="{{ notification?.icon?.filePath }}"
+              />
+              <!-- <i class="fas fa-check icon-notif"></i> -->
 
-                                    <div>
-                                        <p class="message-notif"> {{notification?.message}}</p>
-                                        <p class="time-notif">{{notification?.date | date: 'EEEE, d MMMM, HH:mm'}}</p>
-                                    </div>
-                                </div>
-                              <!--check notif as read-->
-                                <div *ngIf="notification?.read === false" class="check-notif"
-                                     matTooltip="Mark as read" (click)="markNotificationAsRead(notification.id); $event.stopPropagation()">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                            </div>
-                        </div>
+              <div>
+                <p class="message-notif">{{ notification?.message }}</p>
+                <p class="time-notif">
+                  {{ notification?.date | date : "EEEE, d MMMM, HH:mm" }}
+                </p>
+              </div>
+            </div>
+            <!--check notif as read-->
+            <div
+              *ngIf="notification?.read === false"
+              class="check-notif"
+              matTooltip="Mark as read"
+              (click)="
+                markNotificationAsRead(notification.id);
+                $event.stopPropagation()
+              "
+            >
+              <i class="fas fa-check"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--nou-->
 
-                    </div>
-                  <!--nou-->
-
-                  <!-- the last 3 notifications -->
-                  <!-- <div *ngFor="let notification of notificationsList">
+      <!-- the last 3 notifications -->
+      <!-- <div *ngFor="let notification of notificationsList">
                       <div (click)="markNotificationAsRead(notification.id)" [ngClass]="{'read-notification notif d-flex-inline justify-content-between m-0 px-1': (notification.read === true), 'unread-notification notif d-flex-inline justify-content-between m-0 px-1': (notification.read === false)}" mat-menu-item   >
 
                            <span class="col-8">{{(notification?.subject).length > 55 ? ((notification?.subject | slice:0:55) + "..." ): notification?.subject}}
@@ -88,8 +122,7 @@
                           </div>
                   </div> -->
 
-
-                  <!-- <a mat-menu-item class="notif d-flex-inline justify-content-between m-0 px-1"
+      <!-- <a mat-menu-item class="notif d-flex-inline justify-content-between m-0 px-1"
                      routerLink="">
                       <i class="notif-dot fas fa-circle  col-1"></i>
                       <span class="col-8">{{("Esti gata de o noua aventura alaturi de noi? Incrie-te!").length > 55 ? ("Esti gata de o noua aventura alaturi de noi? Incrie-te!" | slice:0:55) + "..." : "Esti gata de o noua aventura alaturi de noi? Incrie-te!"}}
@@ -100,23 +133,29 @@
                       </span>
                       <img class="col-3" src="../../../assets/images/others/user.jpg">
               </a> -->
-                    <div *ngIf="notificationsList.length === 0">
-                        <p class="py-2 px-4">There are no notifications at the moment</p>
-                    </div>
-                    <div class="divider my-2"></div>
+      <div *ngIf="notificationsList.length === 0">
+        <p class="py-2 px-4">There are no notifications at the moment</p>
+      </div>
+      <div class="divider my-2"></div>
 
-
-                    <a class="top-bottom d-flex justify-content-start"
-                       [routerLink]="isAdmin ? '/private/admin/all-notifications'
-                    : isStaff ? '/private/staff/all-notifications'
-                    : isProvider ? '/private/provider/all-notifications'
-                    : isClient? '/client/dashboard/all-notifications' : '/' ">
-                        <span>
-                            Vezi toate notificarile <i class="fas fa-chevron-right ms-2"></i>
-                        </span>
-                    </a>
-
-
-                </span>
+      <a
+        class="top-bottom d-flex justify-content-start"
+        [routerLink]="
+          isAdmin
+            ? '/private/admin/all-notifications'
+            : isStaff
+            ? '/private/staff/all-notifications'
+            : isProvider
+            ? '/private/provider/all-notifications'
+            : isClient
+            ? '/client/dashboard/all-notifications'
+            : '/'
+        "
+      >
+        <span>
+          Vezi toate notificarile <i class="fas fa-chevron-right ms-2"></i>
+        </span>
+      </a>
+    </span>
   </mat-menu>
 </header>

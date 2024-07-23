@@ -173,3 +173,35 @@
     width: 50%;
   }
 }
+
+.rooms-container {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.c-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.icon-match-centering {
+    position: relative;
+    top: 3px;
+}
+
+.category-icon {
+    font-size: 16px;
+    color: #858886;
+    margin-right: 5px;
+}
+
+.category-text {
+    font-size: 16px;
+    color: #858886;
+}

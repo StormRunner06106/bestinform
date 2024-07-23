@@ -92,7 +92,7 @@ nav {
       width: 32px;
       background-image: url(../../../assets/images/logos/defaultProfileImage.png);
     }
-    img {     
+    img {
       margin-right: 12px;
       margin-left: 12px;
       border-radius: 100px;
@@ -118,8 +118,7 @@ nav {
 
 @import "../../theme/styles/components/colors";
 
-
-.notif-menu{
+.notif-menu {
   width: 700px;
   border-radius: 8px;
   font-size: 16px;
@@ -130,11 +129,11 @@ nav {
   overflow: hidden;
 }
 
-.header-notifications{
+.header-notifications {
   background-color: $primary-color;
   padding: 13px 24px;
 
-  h5{
+  h5 {
     font-style: normal;
     color: white;
     margin-bottom: 0px;
@@ -142,8 +141,8 @@ nav {
     font-size: 16px;
     line-height: 140%;
   }
-  h6{
-    font-family: 'Roboto';
+  h6 {
+    font-family: "Roboto";
     font-style: normal;
     color: white;
     margin-bottom: 0px;
@@ -155,16 +154,14 @@ nav {
   }
 }
 
-.all-notifications{
-
-  .read-bkg{
+.all-notifications {
+  .read-bkg {
     background-color: white;
-
   }
 
-  .unread-bkg{
-    background-color: rgba($primary-color,0.08);
-    border-left: 2px solid #FFCC04;
+  .unread-bkg {
+    background-color: rgba($primary-color, 0.08);
+    border-left: 2px solid #ffcc04;
   }
 
   .notification-single-card {
@@ -176,11 +173,11 @@ nav {
     height: 66px;
     padding: 11px 24px;
 
-    p{
+    p {
       margin-bottom: 0px;
     }
 
-    .icon-notif{
+    .icon-notif {
       flex-shrink: 0;
       width: 30px;
       height: 30px;
@@ -188,13 +185,12 @@ nav {
       border-radius: 50%;
     }
 
-    p.message-notif{
+    p.message-notif {
       font-style: normal;
       color: $paragraph;
       font-weight: 400;
       font-size: 16px;
       line-height: 18px;
-
 
       /*overflow: hidden;
       text-overflow: ellipsis;
@@ -204,7 +200,7 @@ nav {
       -webkit-box-orient: vertical;*/
     }
 
-    p.time-notif{
+    p.time-notif {
       font-style: normal;
       font-weight: 400;
       font-size: 12px;
@@ -213,7 +209,7 @@ nav {
       opacity: 0.48;
     }
 
-    .check-notif i{
+    .check-notif i {
       cursor: pointer;
       font-style: normal;
       font-weight: 900;
@@ -223,7 +219,6 @@ nav {
       opacity: 0.48;
     }
   }
-
 }
 
 .header {
@@ -232,7 +227,7 @@ nav {
   background-color: var(--header-footer-background);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
   //position:fixed;
-  top:0;
+  top: 0;
   z-index: 999;
   position: absolute;
   width: 100%;
@@ -254,86 +249,82 @@ nav {
     padding-bottom: 1rem;
   }
 
-  .container{
-
-    .user{
+  .container {
+    .user {
       //a:hover{
       //  background-color: transparent!important;
       //}
-      button{
-        .mat-focus-indicator{
-          &:hover{
-            background-color: white!important;
+      button {
+        .mat-focus-indicator {
+          &:hover {
+            background-color: white !important;
           }
         }
 
-
-        &:active{
-          background-color: transparent!important;
+        &:active {
+          background-color: transparent !important;
         }
-
       }
     }
 
     button {
       position: relative;
       background-color: var(--header-footer-background);
-      border:none;
+      border: none;
 
-      .fa-bell{
-        font-size:24px;
-        color:$primary-color;
+      .fa-bell {
+        font-size: 24px;
+        color: $primary-color;
       }
 
-      .fa-circle{
+      .fa-circle {
         position: absolute;
-        right:15px;
-        bottom:30px;
-        color:$archived-color;
+        right: 15px;
+        bottom: 30px;
+        color: $archived-color;
         z-index: 2;
-        font-size:6px;
+        font-size: 6px;
 
-        @media(max-width:1200px ){
-          right:10px;
+        @media (max-width: 1200px) {
+          right: 10px;
         }
 
-        @media(max-width:992px ){
-          right:5px;
+        @media (max-width: 992px) {
+          right: 5px;
         }
 
-        @media(max-width:768px ){
-          right:0;
+        @media (max-width: 768px) {
+          right: 0;
         }
       }
     }
 
-    .user-info{
-      padding-right: 16px!important;
+    .user-info {
+      padding-right: 16px !important;
 
-      .name-container{
+      .name-container {
         max-height: 44px;
         text-align: right;
         line-height: 22px;
         align-items: center;
 
-        .welcome{
-          font-size:14px;
+        .welcome {
+          font-size: 14px;
           font-weight: 400;
-          color:$title;
+          color: $title;
         }
 
-        .username{
-          font-size:16px;
+        .username {
+          font-size: 16px;
           font-weight: 500;
-          color:$primary-color;
+          color: $primary-color;
         }
 
-        @media(max-width: 576px){
+        @media (max-width: 576px) {
           display: none;
         }
-
       }
-      img{
+      img {
         margin-right: 12px;
         margin-left: 12px;
         border-radius: 100px;
@@ -357,8 +348,6 @@ nav {
     //  margin-bottom: 18px;
     //  color: $primary-color;
     //}
-
-
   }
 
   // .notif-menu{
@@ -371,89 +360,88 @@ nav {
   //   width: 400px;
   // }
 
-  @media(max-width: 1400px){
-    .theme-container{
+  @media (max-width: 1400px) {
+    .theme-container {
       //margin-left:12px;
       //margin-right:12px;
     }
   }
 }
 
-.label{
+.label {
   height: 24px;
   border-radius: 4px;
-  background-color:$secondary-color!important;
-  color:var(--primary-background);
+  background-color: $secondary-color !important;
+  color: var(--primary-background);
   font-size: 12px;
   font-weight: 400;
 }
 
-.divider{
-  color:rgba($title,0.8);
+.divider {
+  color: rgba($title, 0.8);
 }
 
 a.menu-item {
   height: 30px;
   color: $title;
   font-weight: 500;
-  font-size:16px;
+  font-size: 16px;
   transition: transform 600ms ease;
 
-  &:hover{
+  &:hover {
     border-radius: 8px;
     color: $primary-color;
-    background-color: rgba($primary-color,0.30);
+    background-color: rgba($primary-color, 0.3);
     transform: translateY(1px);
   }
 }
 
-.read-notification{
-  background-color: #FFF!important;
+.read-notification {
+  background-color: #fff !important;
 }
 
-.unread-notification{
-  background-color: rgba($primary-color,0.08)!important;
+.unread-notification {
+  background-color: rgba($primary-color, 0.08) !important;
 }
 
-div.notif{
+div.notif {
   height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
 
-
-  i.notif-dot{
-    font-size:6px;
-    color:$archived-color;
-    position:relative;
-    top:-18px;
+  i.notif-dot {
+    font-size: 6px;
+    color: $archived-color;
+    position: relative;
+    top: -18px;
     display: flex;
     //align-items: center;
     justify-content: center;
-
   }
-  span{
-    font-size:16px;
-    color:$title;
+  span {
+    font-size: 16px;
+    color: $title;
     line-height: 20px;
     white-space: pre-wrap;
 
-    .date, .name{
-      font-size:12px;
+    .date,
+    .name {
+      font-size: 12px;
       font-weight: 300;
       display: inline-flex;
       align-content: center;
       align-items: center;
 
-      i.divider-dot{
-        font-size:4px;
-        color:rgba($title, 0.8);
+      i.divider-dot {
+        font-size: 4px;
+        color: rgba($title, 0.8);
       }
     }
   }
 
-  img{
+  img {
     width: 48px;
     height: 48px;
     border-radius: 100%;
@@ -463,79 +451,73 @@ div.notif{
 // .containerNotificationHeader{
 // background-color: $primary-color;
 
-.top-bottom, a.top-bottom{
+.top-bottom,
+a.top-bottom {
   text-decoration: none;
-  color:$primary-color;
+  color: $primary-color;
   // color: white;
   font-weight: 500;
   padding-left: 24px;
-  i{
-    font-size:14px;
+  i {
+    font-size: 14px;
   }
 }
-
 
 // }
 
-
-
-
-
-mat-sidenav-container{
+mat-sidenav-container {
   //position:absolute;
-  position:fixed;
-  left:0;
+  position: fixed;
+  left: 0;
   bottom: 80px;
-  top:0;
-  background-color: $primary-color!important;
-  color:$background-primary!important;
+  top: 0;
+  background-color: $primary-color !important;
+  color: $background-primary !important;
 
-  button .fa-times{
-    color:$background-primary!important;
-    font-size:16px;
+  button .fa-times {
+    color: $background-primary !important;
+    font-size: 16px;
   }
-
 }
 
-mat-sidenav{
-  background-color: $primary-color!important;
+mat-sidenav {
+  background-color: $primary-color !important;
   width: 200px;
 }
 
-.item{
-  color:$background-primary!important;
+.item {
+  color: $background-primary !important;
 
-  &:active{
-    background-color: $background-primary!important;
-    color:$title!important;
+  &:active {
+    background-color: $background-primary !important;
+    color: $title !important;
   }
 }
 
-.mat-list-item{
-  width:170px;
-  color:$background-primary!important;
+.mat-list-item {
+  width: 170px;
+  color: $background-primary !important;
 }
 
-mat-sidenav-content{
+mat-sidenav-content {
   display: none;
 }
 
-
-.second-bar{
-  background-color:$primary-color;
-  .first{
+.second-bar {
+  background-color: $primary-color;
+  .first {
     //position: relative;
     //top:76px;
     //left:0;
     width: 100%;
-    background-color:$primary-color!important;
+    background-color: $primary-color !important;
     height: 80px;
-    color: $background-primary!important;
+    color: $background-primary !important;
 
-    .item{
-      color: $background-primary!important;
-      font-size: 16px!important;
-      font-weight: 400!important;
+    .item {
+      color: $background-primary !important;
+      font-size: 16px !important;
+      font-weight: 400 !important;
       text-decoration: none;
       width: 12%;
       max-height: 100%;
@@ -544,35 +526,33 @@ mat-sidenav-content{
       align-items: center;
       justify-content: center;
 
-      i{
-        font-size:24px!important;
+      i {
+        font-size: 24px !important;
       }
 
-
-      @media(max-width: 992px) {
-        width:15%;
+      @media (max-width: 992px) {
+        width: 15%;
       }
 
-      &:hover{
+      &:hover {
         background-color: var(--primary-background);
-        color:$title!important;
+        color: $title !important;
       }
 
-      &:active, &:focus{
-        background-color: $background-primary!important;
-        color:$title!important;
+      &:active,
+      &:focus {
+        background-color: $background-primary !important;
+        color: $title !important;
       }
     }
 
-    @media(max-width: 768px){
+    @media (max-width: 768px) {
       display: none;
     }
   }
 
-
-
-  .second{
-    @media(min-width: 769px){
+  .second {
+    @media (min-width: 769px) {
       display: none;
     }
 
@@ -580,32 +560,29 @@ mat-sidenav-content{
     //top:76px;
     //left:0;
     width: 100%;
-    background-color:$primary-color!important;
+    background-color: $primary-color !important;
     height: 80px;
-    color: $background-primary!important;
+    color: $background-primary !important;
 
-    mat-list-item .item-sm{
-      padding-right:0;
+    mat-list-item .item-sm {
+      padding-right: 0;
     }
-
-
   }
-
 }
 
-mat-menu .mat-menu-panel{
-  max-width: 700px!important;
-  width: 700px!important;
+mat-menu .mat-menu-panel {
+  max-width: 700px !important;
+  width: 700px !important;
 }
 
-::ng-deep{
+::ng-deep {
   .mat-menu-panel.notif-menu {
     width: 344px;
     max-width: 344px !important;
   }
 }
 
-.version-alert{
+.version-alert {
   background-color: red;
   color: #fff;
   text-align: center;
@@ -615,4 +592,3 @@ mat-menu .mat-menu-panel{
   width: 100%;
   z-index: 999999;
 }
-

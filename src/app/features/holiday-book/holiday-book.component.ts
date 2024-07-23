@@ -1,5 +1,5 @@
 import { NgFor, NgClass, NgStyle } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
@@ -32,6 +32,7 @@ import { BookingListingComponent } from "src/app/components/booking-list/booking
   ],
 })
 export class HolidayBookComponent implements OnInit {
+@Input() route = '/';
   locationName: string = "";
   checked1 = true;
   checked2 = false;
@@ -46,6 +47,6 @@ export class HolidayBookComponent implements OnInit {
   }
 
   toDetail() {
-    this.router.navigateByUrl(this.router.url + "/ffwfewfdfweff");
+    this.router.navigate([this.route + '/dsfgwefwegwg']);
   }
 }
