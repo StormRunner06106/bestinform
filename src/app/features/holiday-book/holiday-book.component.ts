@@ -10,6 +10,7 @@ import { MatCheckbox, MatCheckboxModule } from "@angular/material/checkbox";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSliderModule } from "@angular/material/slider";
 import { BookingListingComponent } from "src/app/components/booking-list/booking-list.component";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 @Component({
   selector: "app-holiday-book",
@@ -29,10 +30,11 @@ import { BookingListingComponent } from "src/app/components/booking-list/booking
     NgStyle,
     MatSliderModule,
     BookingListingComponent,
+    MatFormFieldModule,
   ],
 })
 export class HolidayBookComponent implements OnInit {
-@Input() route = '/';
+  @Input() route = "/";
   locationName: string = "";
   checked1 = true;
   checked2 = false;
@@ -47,6 +49,6 @@ export class HolidayBookComponent implements OnInit {
   }
 
   toDetail() {
-    this.router.navigate([this.route + '/dsfgwefwegwg']);
+    // this.router.navigate([this.route + "/dsfgwefwegwg"]);
   }
 }

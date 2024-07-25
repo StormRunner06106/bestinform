@@ -1,17 +1,65 @@
-<div class="container w-100 m-0 mw-100 p-0">
+<div class="container w-100 m-0 mw-100 p-0 bg-light-grey">
   <div class="row">
     <div class="col-12 col-md-12">
       <div class="overlay-image-box">
         <img
-          src="../../../assets/images/others/free-trial-section-1.png"
+          src="../../../assets/images/bg-book-header.png"
           class="overlay-image"
         />
-        <div class="overlay-pan">
-          <div class="centered-title-box">
-            <p class="p-0 m-0 centered-top-title">
-              OFERTE VACANTE SI SEJURURI IN
-            </p>
-            <p class="p-0 m-0 centered-bottom-title">Regiunea Atena</p>
+        <div class="toolbar">
+          <div class="toolbar-block">
+            <div class="toolbar-forms">
+              <div class="smart-form-container">
+                <div class="s-form-icon">
+                  <img src="../../../assets/icons/Group.png" />
+                </div>
+                <div class="s-form-main-body">
+                  <label class="s-form-label">Choose transport</label>
+                  <input type="text" class="s-form" />
+                </div>
+              </div>
+              <div class="smart-form-container">
+                <div class="s-form-icon">
+                  <img src="../../../assets/icons/Group 10.png" />
+                </div>
+                <div class="s-form-main-body">
+                  <label class="s-form-label">Departing from</label>
+                  <p class="s-form-text">Bucharest</p>
+                </div>
+                <div class="s-form-carret">
+                  <mat-icon>keyboard_arrow_down</mat-icon>
+                </div>
+              </div>
+              <div class="smart-form-container">
+                <div class="s-form-icon">
+                  <img src="../../../assets/icons/Group (1).png" />
+                </div>
+                <div class="s-form-main-body">
+                  <label class="s-form-label">Destination</label>
+                  <input type="text" class="s-form" />
+                </div>
+              </div>
+              <div class="smart-form-container big">
+                <div class="s-form-icon">
+                  <img src="../../../assets/icons/calendar.png" />
+                </div>
+                <div class="s-form-main-body">
+                  <label class="s-form-label">Package Dates/Nights</label>
+                  <p class="s-form-text">24 Aug’ 24 / 7 Nights</p>
+                </div>
+              </div>
+              <div class="smart-form-container">
+                <div class="s-form-main-body">
+                  <label class="s-form-label text-align-right"
+                    >Choose transport</label
+                  >
+                  <p class="s-form-text text-align-right">4 Guests</p>
+                </div>
+              </div>
+            </div>
+            <div class="toolbar-check">
+              <button mat-button class="check-btn">Check</button>
+            </div>
           </div>
         </div>
       </div>
@@ -19,7 +67,36 @@
   </div>
   <div class="container full-container">
     <div class="row">
-      <div class="col-3 col-md-3 p-4">
+      <div class="col-12 col-md-12">
+        <div class="title-header">
+          <div>
+            <h2 class="h-title">Holiday Offers in Mykonos, Greece</h2>
+            <div class="price-filter">
+              <span class="normal-text">starting from</span>
+              <span class="smart-text">$259/person</span>
+            </div>
+          </div>
+          <div class="filter-sort">
+            <button class="filter-btn" mat-button>
+              <div class="ibtn-content">
+                <mat-icon>filter_alt</mat-icon>
+                <p>Filter</p>
+              </div>
+            </button>
+            <button class="sort-btn" mat-button>
+              <div class="ibtn-content ibtn-grey">
+                <mat-icon>sort</mat-icon>
+                <p>Sort</p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container full-container mt-0">
+    <div class="row">
+      <!-- <div class="col-3 col-md-3 p-4">
         <div class="sidebar-container">
           <div class="container p-4 m-0">
             <div class="row">
@@ -300,48 +377,21 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-9 col-md-9 p-2">
-        <div class="listing-container container w-100 p-4 m-0">
-          <div class="listing-breadcumb">
-            <a>Tourism agency</a> / <a>Greece</a>
-          </div>
-          <div class="listing-header">
-            <div class="listing-header-block">
-              <div class="listing-header-line">
-                <h2 class="h-title">
-                  Holidays in the Athens Region from 599 euros
-                </h2>
-                <p class="order-by">Order by:</p>
-              </div>
-              <div class="listing-header-line">
-                <div class="area-map">
-                  <i class="fa fa-map"></i>
-                  <span class="listing-header-text">See on the map</span>
-                </div>
-                <div class="recommendation">
-                  <span class="listing-header-text"
-                    >Karpaten recommendation</span
-                  >
-                  <i class="fa fa-caret-down"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="listing-content">
-            <app-booking-list
-              style="width: 100%"
-              (click)="toDetail()"
-            ></app-booking-list>
-            <app-booking-list
-              style="width: 100%"
-              (click)="toDetail()"
-            ></app-booking-list>
-            <app-booking-list
-              style="width: 100%"
-              (click)="toDetail()"
-            ></app-booking-list>
-          </div>
+      </div> -->
+      <div class="col-9 col-md-12 p-2">
+        <div class="listing-content">
+          <app-booking-list
+            style="width: 100%"
+            (click)="toDetail()"
+          ></app-booking-list>
+          <app-booking-list
+            style="width: 100%"
+            (click)="toDetail()"
+          ></app-booking-list>
+          <app-booking-list
+            style="width: 100%"
+            (click)="toDetail()"
+          ></app-booking-list>
         </div>
       </div>
     </div>

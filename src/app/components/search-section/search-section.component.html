@@ -4,8 +4,7 @@
     [ngStyle]="{
       'background-image': !showDefaultImg && backgroundImage
     }"
-  >
-  </div>
+  ></div>
   <div class="offset max-width-wrapper">
     <ng-container *ngIf="increaseImage">
       <!-- add height to bar for increase image -->
@@ -62,12 +61,12 @@
       [listingCards]="listingCards"
       [ngClass]="{ noDisplay: listingCards }"
     ></app-card-slider>
-    <app-main-search
-            #mainSearchComponent
+    <Fapp-main-search
+      #mainSearchComponent
       [selected]="selected"
       [listingCards]="listingCards"
       (updatePlaneOffers)="updatePlaneOffers($event)"
-    ></app-main-search>
+    ></Fapp-main-search>
     <app-card-slider
       [disableCarouselAnimation]="disableCarouselAnimation$ | async"
       (selected)="setSelectedCard($event)"

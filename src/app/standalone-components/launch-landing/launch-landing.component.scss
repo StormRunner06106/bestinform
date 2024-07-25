@@ -151,7 +151,36 @@ header {
   text-decoration: underline;
 }
 
+.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hide {
+  opacity: 0;
+  transform: scale(0);
+}
+
 @media (max-width: 600px) {
+  header {
+    flex-wrap: wrap;
+  }
+  .logo {
+    margin: auto;
+  }
+
+  .social {
+    width: 100%;
+    margin: auto;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  .social-marks {
+    justify-content: center;
+  }
+
   .footer-top,
   .footer-bottom {
     flex-direction: column;

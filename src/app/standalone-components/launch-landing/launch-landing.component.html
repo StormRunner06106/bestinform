@@ -15,6 +15,7 @@
         <a href="https://www.oipsi.gov.ro">www.oipsi.gov.ro</a>
       </div>
     </div>
+
     <!--        <button class="header-button">Conecteazǎ-te</button>-->
   </header>
   <div class="img-overlay">
@@ -37,7 +38,7 @@
           seconds +
           " Secunde "
       }}</span>
-      <span class="text-center d-block" *ngIf="finished">15 August</span>
+      <span class="text-center d-block" *ngIf="finished">EXPIRATE</span>
     </div>
   </div>
   <!--    <div class="fixed-button-container">-->
@@ -114,8 +115,9 @@
 </div>
 
 <script>
-  var countdownDate = new Date("June 1, 2024 00:00:00").getTime();
+  var countdownDate = new Date("August 15, 2024 00:00:00").getTime();
   var countdownInterval = setInterval(function () {
+    console.log("Hello");
     var now = new Date().getTime();
     var distance = countdownDate - now;
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
